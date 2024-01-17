@@ -1,11 +1,16 @@
-// _colors.scss
 :root {
-    --primary-color-orange: #FF9900;
-    --primary-color-blue: #146EB4;
-    --grey-scale-1: #000000;
-    --grey-scale-2: #232f3e;
-    --grey-scale-3: #F2F2F2;
-    // Add more color variables as needed
-  }
+  /* Colors */
+  --primary-color-orange: #FF9900;
+  --primary-color-mustard:#FF9900;
+  --primary-color-blue: #146EB4;
+  --black: #000000;     
+  --dark-grey: #232f3e;   
+  --light-grey: #F2F2F2; 
   
-
+    /* Font Weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+}
