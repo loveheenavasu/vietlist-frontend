@@ -19,23 +19,23 @@
 
   <div class="container">
     <div class="row">
-        @for(key of buisnessFacility ; track $index){
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card">
-                  <div class="d-flex">
-                    <div>
-                      <div class="icon-div">
-                        <img [src]="key.icon" />
-                      </div>
-                    </div>
-                    <div class="mx-2">
-                      <h3>{{key.title}}</h3>
-                      <p>{{key.description}}</p>
-                    </div>
-                  </div>
+      @for (key of buisnessFacility; track $index) {
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card">
+            <div class="d-flex">
+              <div>
+                <div class="icon-div">
+                  <img [src]="key.icon" />
                 </div>
               </div>
-        }
+              <div class="mx-2">
+                <h3>{{ key.title }}</h3>
+                <p>{{ key.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>
