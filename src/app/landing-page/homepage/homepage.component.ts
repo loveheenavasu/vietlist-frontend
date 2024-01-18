@@ -1,11 +1,12 @@
 
 import { Component } from '@angular/core'
 import { BuisnessCategoryComponent } from '../buisness-category/buisness-category.component'
+import { BlogNewsComponent } from '../blog-news/blog-news.component'
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [BuisnessCategoryComponent],
+  imports: [BuisnessCategoryComponent, BlogNewsComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
 })
@@ -18,9 +19,9 @@ export class HomepageComponent {
   ]
   currentLogoIndex = 0
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   nextLogo() {
     this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length

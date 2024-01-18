@@ -1,0 +1,21 @@
+@import "../../../assets/scss/common";
+
+section {
+    .blog-new-container {
+
+        .blog-article {
+            .heading {
+                padding: 0px 155px;
+
+                .btn {
+                    background-color: var(--primary-color-orange);
+                }
+            }
+        }
+
+        .blog-banner {
+            background-color: #D4D1E6;
+            width: 40%;
+        }
+    }
+}
