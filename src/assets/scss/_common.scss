@@ -1,3 +1,5 @@
+//Common Styles//
+
 %homepage-banner-button-styles {
     @at-root {
       %hbb-button-styles {
@@ -11,26 +13,12 @@
       }
     }
   }
-  
-  %call-to-action {
-    @at-root {
-      %cta-styles {
-        width: 12em;
-        height: 46px;
-        border-radius: 4px;
-        background-color: var(--light-grey);
-        color: var(--primary-color-mustard);
-        font-size: 16px;
-        line-height: 27px;
-        transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease; // Added transition for transform
-      }
-    }
-  }
+
   %section-heading-main-cnt{
     @at-root{
         %shm-styles {
             width:75%;
-            margin:auto   
+            margin:0 auto 45px auto;   
         }
     }
   }
@@ -41,6 +29,7 @@
         font-weight: var(--font-weight-semibold);
         color: var(--dark-grey);
         text-align: center;
+
       }
     }
   }
@@ -51,8 +40,29 @@
         font-size: 16px;
         font-weight: var(--font-weight-normal);
         color: var(--dark-grey);
+        margin-top:15px;
         text-align: center;
       }
     }
   }
   
+
+  //Common Classes//
+
+  .orange-backgroun-btn{
+    background: var(--primary-color-orange);
+    width:fit-content;
+    padding:10px 42px;
+    color:var(--light-grey-2)
+  }
+
+  .grey-bg-btn{
+    width: 12em;
+    height: 46px;
+    border-radius: 4px;
+    background-color: var(--light-grey);
+    color: var(--primary-color-mustard);
+    font-size: 16px;
+    line-height: 27px;
+    transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease; 
+  }

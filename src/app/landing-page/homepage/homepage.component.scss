@@ -1,7 +1,7 @@
 @import "../../../assets/scss/common";
 .container-fluid {
     height: auto;
-  
+    background-color: var(--light-grey-2);
     .banner-1 {
       height: 635px;
       background-image: url('/assets/home-banner.jpg');
@@ -80,8 +80,6 @@
            
         }
         .explore-more-btn{
-          @extend %cta-styles;
-
           &:hover {
             background-color: transparent;
             border: solid 1.5px var(--primary-color-mustard);
@@ -94,3 +92,6 @@
   
 
 
+section{
+  padding:20px 0;
+}

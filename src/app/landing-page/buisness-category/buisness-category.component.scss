@@ -1,5 +1,5 @@
 @import "../../../assets/scss/common";
-.buisness-cat{
+.container-fluid{
     h1{
         @extend %sh-styles;
     }
@@ -12,3 +12,15 @@
       @extend %shm-styles
     }
   }
+  .brand-slider {
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .brand-item {
+    margin-right: 20px;
+    transition: margin-right 0.5s;
+  }
+  
+  
+  

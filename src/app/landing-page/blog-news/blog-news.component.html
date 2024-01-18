@@ -7,11 +7,44 @@
                     ultrices nulla blandit volutpat.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
                     posuere
                     cubilia curae; Proin sodales ultrices nulla blandit volutpat.</p>
-                <button class="btn">View All Articles</button>
+                <button class="btn orange-backgroun-btn">View All Articles</button>
+            </div>
+            <div class="blog-card">
+                @for (item of blogItem; track $index) {
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div class="img">
+                            <img [src]="item.img" />
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <span class="date">{{item.date}}</span>
+                        <div class="title">
+                            <h2>{{item.title}}</h2>
+                        </div>
+                        <div class="description">
+                            <p>{{item.description}}</p>
+                        </div>
+                        <mat-divider></mat-divider>
+                    </mat-card-content>
+
+                    <mat-card-footer>
+                        <div class="footer d-flex">
+                            <div class="profile-image">
+                                <img [src]="item.profileImage" alt="profile-image" />
+                            </div>
+                            <div class="user-detail">
+                                <h5>{{item.userName}}</h5>
+                                <p>{{item.designation}}</p>
+                            </div>
+                        </div>
+                    </mat-card-footer>
+                </mat-card>
+                }
             </div>
         </div>
         <div class="blog-banner">
-            data
+            <div class="banner-img"></div>
         </div>
     </div>
 </section>

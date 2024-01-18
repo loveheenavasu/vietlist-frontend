@@ -1,12 +1,20 @@
-
 import { Component } from '@angular/core'
 import { BuisnessCategoryComponent } from '../buisness-category/buisness-category.component'
 import { BlogNewsComponent } from '../blog-news/blog-news.component'
+import {
+  ClaimYourBuisnessComponent,
+  SubscriptionPlansComponent,
+} from '../../landing-page'
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [BuisnessCategoryComponent, BlogNewsComponent],
+  imports: [
+    BuisnessCategoryComponent,
+    SubscriptionPlansComponent,
+    ClaimYourBuisnessComponent,
+    BlogNewsComponent
+  ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
 })

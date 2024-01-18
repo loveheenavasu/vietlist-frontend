@@ -1,0 +1,136 @@
+@import "../../../assets/scss/common";
+
+h1 {
+    @extend %sh-styles;
+}
+
+p {
+    @extend %ssh-styles
+}
+
+;
+
+.heading {
+    @extend %shm-styles
+}
+
+.subscription-plan-cnt {
+    width: 100%;
+    box-shadow: 0px 0px 20px #00000026;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+        border: solid 3px var(--primary-color-orange);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+    }
+
+    .plan-content {
+        padding: 0px;
+    }
+
+    .ribbon {
+        position: absolute;
+        top: -3px;
+        right: -11%;
+        transform: translateX(-50%);
+        background-color: var(--primary-color-mustard);
+        padding: 5px 15px;
+        border-radius: 0 0 10px 10px;
+        z-index: 1;
+    }
+
+    .ribbon span {
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+
+    .plan-header {
+        padding: 8px 10px;
+        width: 92%;
+        margin: 10px auto;
+        border-radius: 4px;
+
+
+        h2 {
+            font-weight: var(--font-weight-semibold);
+            font-size: 20px;
+            width: 100%;
+            color: var(--primary-color-blue) !important;
+            transition: color 0.1s ease-in-out;
+        }
+
+        h1 {
+            font-weight: var(--font-weight-semibold);
+            font-size: 52px;
+            text-align: left;
+            color: var(--primary-color-blue);
+            margin-top: 16px;
+            transition: color 0.1s ease-in-out;
+        }
+
+        span {
+            font-size: 20px;
+            color: #999999;
+            margin-left: 4px;
+            transition: color 0.1s ease-in-out;
+        }
+    }
+
+    &:hover .plan-header {
+        background-color: var(--primary-color-blue);
+
+        h1 {
+            color: var(--light-grey)
+        }
+
+        span {
+            color: var(--light-grey)
+        }
+
+        h2 {
+            color: var(--light-grey) !important
+        }
+
+    }
+
+    .plan-list {
+        height: 55vh;
+
+        ul {
+            list-style-type: none;
+            padding: 10px;
+        }
+
+        li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 22px;
+            font-size: 16px;
+            font-weight: var(--font-weight-normal);
+            color: var(--dark-grey);
+        }
+
+        .tick-icon {
+            display: inline-block;
+            width: 16px;
+            height: 13px;
+            background: url('../../../assets/icons/tick.svg') center center no-repeat;
+            background-size: cover;
+            margin-right: 15px;
+        }
+    }
+}
+
+
+.plan-action {
+    margin: 0 auto 25px auto;
+    width: fit-content;
+}
