@@ -1,0 +1,14 @@
+@import "../../../assets/scss/common";
+.buisness-cat{
+    h1{
+        @extend %sh-styles;
+    }
+
+    p{
+        @extend  %ssh-styles
+    };
+
+    .heading{
+      @extend %shm-styles
+    }
+  }

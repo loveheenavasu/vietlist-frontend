@@ -1,5 +1,4 @@
-@import "../../../app/utils/common";
-
+@import "../../../assets/scss/common";
 .container-fluid {
     height: auto;
   
@@ -29,7 +28,7 @@
            
         }
         .find-buisness-btn{
-            @extend %homepage-banner-button-styles;
+            @extend %hbb-button-styles;
             font-weight:var(--font-weight-medium);
             background-color: var(--light-grey);
 
@@ -41,7 +40,7 @@
               }
         }
         .list-buisness-btn{
-            @extend %homepage-banner-button-styles;
+            @extend %hbb-button-styles;
             background-color: transparent;
             border:solid 1.5px var(--light-grey);
             color:var(--light-grey);
@@ -81,7 +80,7 @@
            
         }
         .explore-more-btn{
-          @extend %call-to-action;
+          @extend %cta-styles;
 
           &:hover {
             background-color: transparent;
@@ -93,3 +92,5 @@
     }
   }
   
+
+
