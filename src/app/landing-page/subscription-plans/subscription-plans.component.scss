@@ -1,6 +1,5 @@
 @import "../../../assets/scss/common";
 
-
 h1 {
     @extend %sh-styles;
 }
@@ -123,7 +122,7 @@ p {
             display: inline-block;
             width: 16px;
             height: 13px;
-            background: url('../../../assets/tick.svg') center center no-repeat;
+            background: url('../../../assets/icons/tick.svg') center center no-repeat;
             background-size: cover;
             margin-right: 15px;
         }

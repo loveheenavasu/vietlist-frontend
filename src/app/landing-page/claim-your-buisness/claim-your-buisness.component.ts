@@ -12,50 +12,50 @@ export class ClaimYourBuisnessComponent {
   public buisnessFacility = [
     {
       title: 'Boost Your Visibility',
-      icon: '/assets/boost.svg',
+      icon: '/assets/icons/boost.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Own Your Listing',
-      icon: '/assets/own-listing.svg',
+      icon: '/assets/icons/own-listing.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Increased Credibility',
-      icon: '/assets/Increased-Credibility 1.svg',
+      icon: '/assets/icons/Increased-Credibility 1.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Get Valuable Insights',
-      icon: '/assets/dependable 1.svg',
+      icon: '/assets/icons/dependable 1.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Promote Special Offers',
-      icon: '/assets/promote.svg',
+      icon: '/assets/icons/promote.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Customer Engagement',
-      icon: '/assets/customer.svg',
+      icon: '/assets/icons/customer.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'SEO Boost',
-      icon: '/assets/seo.svg',
+      icon: '/assets/icons/seo.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
 
     {
       title: 'Boost Your Community Support',
-      icon: '/assets/community-support.svg',
+      icon: '/assets/icons/community-support.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
