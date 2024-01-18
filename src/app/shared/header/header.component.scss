@@ -1,0 +1,139 @@
+@import "../../../assets/scss/variables/color";
+
+.container-fluid {
+    .navbar-brand {
+        .logo-container {
+
+            .brand-logo {
+                width: 216px;
+                height: 78px;
+            }
+        }
+    }
+
+    .navbar-collapse {
+        justify-content: end;
+        margin-right: 6.313rem;
+
+        .navbar-nav {
+            align-items: center;
+
+            .nav-item {
+                font-size: 16px;
+                cursor: pointer;
+
+                .nav-link {
+                    color: var(--light-black);
+                }
+
+                .active {
+                    color: var(--primary-color-orange);
+
+                    .dot {
+                        position: relative;
+
+                        p {
+                            position: absolute;
+                            top: 4px;
+                            display: block !important;
+
+                        }
+                    }
+                }
+
+                .nav-bar-items {
+                    .dot {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        p {
+                            display: none;
+                            width: 6px;
+                            height: 6px;
+                            border-radius: 50%;
+                            background-color: var(--primary-color-orange);
+                        }
+                    }
+                }
+
+                .nav-bar-items:hover {
+                    color: var(--primary-color-orange);
+
+                    .dot {
+                        position: relative;
+
+                        p {
+                            position: absolute;
+                            top: 4px;
+                            display: block;
+
+                        }
+                    }
+                }
+
+                .active {
+                    color: var(--primary-color-orange);
+                }
+
+                .nav-link:hover {
+                    color: var(--primary-color-orange);
+                }
+            }
+        }
+    }
+
+    .country-dropdown {
+        width: 97px;
+        height: 48px;
+        border-radius: 50px;
+        background: #FFF;
+        box-shadow: 0px 4px 30px 0px rgba(20, 110, 180, 0.10);
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+        margin-right: 42px;
+        margin-left: 30px;
+
+        img {
+            margin-right: 10px;
+        }
+    }
+
+    .search-box {
+        .search-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #EFEFEF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .btn-container {
+        margin-left: 26px;
+        display: flex;
+        gap: 12px;
+
+        .login-btn {
+            .btn {
+                font-size: 16px;
+                border-radius: 4px;
+                color: #232F3E;
+                border: 1px solid #146EB4
+            }
+        }
+
+        .sign-up-btn {
+
+            .btn {
+                background-color: var(--primary-color-orange);
+                color: var(--white);
+                font-size: 16px;
+                border-radius: 4px;
+            }
+        }
+    }
+}

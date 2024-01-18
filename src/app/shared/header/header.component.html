@@ -1,3 +1,67 @@
-<nav>
-    
+<nav class="navbar navbar-expand-lg fixed-top  bg-body-tertiary">
+    <div class="container-fluid">
+        <div class="logo-container">
+            <a class="navbar-brand" href="#">
+                <img class="brand-logo" src="/assets/Icon/brand-logo.svg" alt="brand-logo" />
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mb-2 mb-lg-0">
+                @for (item of navItems; track $index) {
+                <li class="nav-item">
+                    <span [ngClass]="{'active': item.active}" (click)="navigateToOtherComponent(item.href)"
+                        class="nav-link nav-bar-items" aria-current="page">
+                        <div>
+                            {{item.label}}
+                        </div>
+                        <div class="dot">
+                            <p></p>
+                        </div>
+                    </span>
+                </li>
+                }
+                <div class="country-dropdown">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/assets/Icon/united-states.svg" alt="us-flag" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <!-- <span mat-button [matMenuTriggerFor]="menu">
+                        Menu
+                        <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
+                    </span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>Item 1</button>
+                        <button mat-menu-item>Item 2</button>
+                    </mat-menu> -->
+                </div>
+                <div class="search-box">
+                    <div class="search-icon">
+                        <img src="/assets/Icon/search-icon.svg" alt="search-icon" />
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <div class="login-btn">
+                        <button type="button" class="btn btn-outline-primary">Login</button>
+                    </div>
+                    <div class="sign-up-btn">
+                        <button type="button" class="btn ">Sign Up</button>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
 </nav>
