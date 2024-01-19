@@ -11,12 +11,11 @@ import { MatMenuModule } from '@angular/material/menu'
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event: Event) {
-  //   console.log(event, 'event')
-  //   // Adjust content layout based on the window size
-  // }
+
+  isSearchInputVisible: boolean = false
+
+  constructor(private router: Router) { }
+
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -51,5 +50,13 @@ export class HeaderComponent {
 
   public toggleDropdown(event: Event) {
     event.preventDefault()
+  }
+
+  public handleSearchFiled() {
+    if (this.isSearchInputVisible) {
+      this.isSearchInputVisible = false
+    } else {
+      this.isSearchInputVisible = true
+    }
   }
 }

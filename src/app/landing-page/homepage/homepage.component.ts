@@ -5,6 +5,7 @@ import {
   BlogNewsComponent,
   ClaimYourBuisnessComponent,
   SubscriptionPlansComponent,
+  ExplainingPlatformComponent
 } from '../../landing-page'
 
 @Component({
@@ -15,6 +16,7 @@ import {
     SubscriptionPlansComponent,
     ClaimYourBuisnessComponent,
     BlogNewsComponent,
+    ExplainingPlatformComponent
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
