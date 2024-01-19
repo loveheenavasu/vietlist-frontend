@@ -4,6 +4,10 @@ import { HomepageComponent } from './landing-page'
 export const routes: Routes = [
   {
     path: '',
-    component: HomepageComponent,
+    loadComponent: () =>
+      import('./landing-page/homepage/homepage.component').then(
+        (x) => x.HomepageComponent,
+      ),
+    pathMatch: 'full',
   },
 ]

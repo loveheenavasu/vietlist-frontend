@@ -1,50 +1,78 @@
 <section class="p-5">
-    <div class="blog-new-container d-flex">
-        <div class="blog-article">
-            <div class="heading text-center">
-                <h1>Blog/ News</h1>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Proin sodales
-                    ultrices nulla blandit volutpat.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                    posuere
-                    cubilia curae; Proin sodales ultrices nulla blandit volutpat.</p>
-                <button class="btn orange-backgroun-btn">View All Articles</button>
-            </div>
-            <div class="blog-card">
-                @for (item of blogItem; track $index) {
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <div class="img">
-                            <img [src]="item.img" />
-                        </div>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <span class="date">{{item.date}}</span>
-                        <div class="title">
-                            <h2>{{item.title}}</h2>
-                        </div>
-                        <div class="description">
-                            <p>{{item.description}}</p>
-                        </div>
-                        <mat-divider></mat-divider>
-                    </mat-card-content>
-
-                    <mat-card-footer>
-                        <div class="footer d-flex">
-                            <div class="profile-image">
-                                <img [src]="item.profileImage" alt="profile-image" />
-                            </div>
-                            <div class="user-detail">
-                                <h5>{{item.userName}}</h5>
-                                <p>{{item.designation}}</p>
-                            </div>
-                        </div>
-                    </mat-card-footer>
-                </mat-card>
-                }
-            </div>
-        </div>
-        <div class="blog-banner">
-            <div class="banner-img"></div>
-        </div>
+  <div class="blog-news-container row">
+    <div class="text-center heading-small-screen">
+      <h1>Blog/ News</h1>
+      <p>
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+        cubilia curae; Proin sodales ultrices nulla blandit volutpat.Vestibulum
+        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+        curae; Proin sodales ultrices nulla blandit volutpat.
+      </p>
+      <button class="btn orange-backgroun-btn">View All Articles</button>
     </div>
+    <div class="blog-article col-12 col-md-9" [ngClass]="{ 'order-1': orderValue === 1, 'order-2': orderValue === 2 }">
+      <div class="heading text-center">
+        <h1>Blog/ News</h1>
+        <p>
+          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+          posuere cubilia curae; Proin sodales ultrices nulla blandit
+          volutpat.Vestibulum ante ipsum primis in faucibus orci luctus et
+          ultrices posuere cubilia curae; Proin sodales ultrices nulla blandit
+          volutpat.
+        </p>
+        <button class="btn orange-backgroun-btn">View All Articles</button>
+      </div>
+      <div class="blog-card">
+        @for (item of blogItem; track $index) {
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div class="img">
+              <img [src]="item.img" />
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <span class="date">{{ item.date }}</span>
+            <div class="title">
+              <h2>{{ item.title }}</h2>
+            </div>
+            <div class="description">
+              <p>{{ item.description }}</p>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-content>
+
+          <mat-card-footer>
+            <div class="footer d-flex">
+              <div class="profile-image">
+                <img [src]="item.profileImage" alt="profile-image" />
+              </div>
+              <div class="user-detail">
+                <h5>{{ item.userName }}</h5>
+                <p>{{ item.designation }}</p>
+              </div>
+            </div>
+          </mat-card-footer>
+        </mat-card>
+        }
+      </div>
+    </div>
+    <div class="blog-banner col-12 col-md-3">
+      <div class="cross">
+        <img src="/assets/icons/cross-icon.svg" alt="cross-icon" />
+      </div>
+      <div class="banner-img">
+        <div class="nyx-img ps-5">
+          <img src="/assets/image/nyx-image.svg" alt="nyx-image" />
+        </div>
+        <div class="banner-text">
+          <h3>We take care of every beautiful girl Beauty Products</h3>
+          <p>
+            On our site you can find cosmetics that will meet all your
+            requirements!
+          </p>
+          <button class="btn">Explore</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

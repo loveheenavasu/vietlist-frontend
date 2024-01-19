@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { BuisnessCategoryComponent } from '../buisness-category/buisness-category.component'
-import { BlogNewsComponent } from '../blog-news/blog-news.component'
+
 import {
+  BlogNewsComponent,
   ClaimYourBuisnessComponent,
   SubscriptionPlansComponent,
 } from '../../landing-page'
@@ -13,7 +14,7 @@ import {
     BuisnessCategoryComponent,
     SubscriptionPlansComponent,
     ClaimYourBuisnessComponent,
-    BlogNewsComponent
+    BlogNewsComponent,
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss',
@@ -29,7 +30,7 @@ export class HomepageComponent {
 
   constructor() { }
 
-  ngOnInit(): void { }
+
 
   nextLogo() {
     this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length

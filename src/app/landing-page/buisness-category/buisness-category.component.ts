@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core'
 
 @Component({
@@ -8,6 +7,4 @@ import { Component } from '@angular/core'
   templateUrl: './buisness-category.component.html',
   styleUrl: './buisness-category.component.scss',
 })
-export class BuisnessCategoryComponent {
-  
-}
+export class BuisnessCategoryComponent {}

@@ -1,2 +1,2 @@
-export * from "./header.interface"
-export * from "./blog.interface"
+export * from './header.interface'
+export * from './blog.interface'
