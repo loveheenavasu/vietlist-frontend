@@ -83,6 +83,29 @@
         }
     }
 
+    @media(max-width:1500px) {
+        .country-dropdown{
+            height: 35px !important;
+            width: 70px !important;
+
+            .nav-item{
+                width: 100%;
+                height: 100%;
+
+                .nav-link{
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px 10px;
+
+                    img{
+                        
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
     .country-dropdown {
         width: 97px;
         height: 48px;

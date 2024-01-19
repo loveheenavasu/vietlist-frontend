@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 
 @Component({
   selector: 'app-claim-your-buisness',
@@ -60,4 +60,12 @@ export class ClaimYourBuisnessComponent {
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
   ]
+  constructor() {
+    console.log('Hello')
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    console.log(event, 'event')
+    // Adjust content layout based on the window size
+  }
 }

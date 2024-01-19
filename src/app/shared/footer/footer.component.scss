@@ -1,3 +1,5 @@
+@import "../../../assets/scss/common";
+
 .sale-cnt{
     height:373px;
 }
@@ -20,4 +22,62 @@
     font-weight: var(--font-weight-light);
     margin-left:2.5em;
    }
+}
+
+
+ul{
+    list-style-type: none;
+    li{
+        margin-bottom:20px;
+        font-size:16px;
+        color:var(--dark-grey);
+        font-weight:var(--font-weight-light);
+   
+      
+    }
+
+    .links{
+        cursor: pointer;
+
+        &:hover{
+            color:var(--primary-color-orange)
+        }
+    }
+}
+
+.links-cnt{
+    margin-top:4.5%;
+    border-top: solid 1px #cacaca;
+    padding: 20px 20px;
+    h3{
+        font-size: 22px;
+        font-weight: var(--font-weight-semibold);
+        color:var(--dark-grey);
+        padding-left: 2rem;
+    }
+}
+
+.newsletter{
+    border:solid 1px #E7E8F2;
+    height:55px;
+    background: #FCFCFC;
+    padding:0 10px;
+    border-radius:6px
+}
+.enter-btn{
+    height:55px;
+}
+
+
+@media screen and (max-width:320px){
+    .sale >img{
+        margin-left: 0px;
+        width: 100%;
+        margin-top: 8%;
+        padding: 16px;
+    }
+
+    .container{
+        margin-top:3rem
+    }
 }

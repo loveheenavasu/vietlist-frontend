@@ -21,6 +21,7 @@ p {
     border-radius: 12px;
     transition: all 0.3s ease-in-out;
     height: auto;
+    min-height: 85vh;
     position: relative;
     cursor: pointer;
 
@@ -102,7 +103,7 @@ p {
     }
 
     .plan-list {
-        height: 55vh;
+        height: auto;
 
         ul {
             list-style-type: none;
@@ -133,4 +134,145 @@ p {
 .plan-action {
     margin: 0 auto 25px auto;
     width: fit-content;
+}
+@media screen and (max-width: 1440px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
+}
+@media screen and (max-width: 1024px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .col-12.col-md-6.col-lg-4.popular-card {
+        margin-top: 10% !important;
+    }
+
+    .subscription-plan-cnt .plan-header {
+        h1 {
+
+            font-size: 36px;
+
+        }
+        span{
+            font-size:16px
+        }
+        h2{
+            font-size:18px
+        }
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .col-12.col-md-6.col-lg-4.popular-card {
+        margin-top: 10% !important;
+    }
+
+    .subscription-plan-cnt .plan-header {
+        h1 {
+
+            font-size: 36px;
+
+        }
+
+
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .col-12.col-md-6.col-lg-4.popular-card {
+        margin-top: 10% !important;
+    }
+
+    .subscription-plan-cnt .plan-header {
+        h1 {
+
+            font-size: 36px;
+
+        }
+
+
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .col-12.col-md-6.col-lg-4.popular-card {
+        margin-top: 10% !important;
+    }
+
+    .subscription-plan-cnt .plan-header {
+        h1 {
+
+            font-size: 36px;
+
+        }
+
+
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .subscription-plan-cnt {
+        min-height: auto;
+        margin-bottom: 30px;
+    }
+
+    .col-12.col-md-6.col-lg-4.popular-card {
+        margin-top: 10% !important;
+    }
+
+    .subscription-plan-cnt .plan-header {
+        h1 {
+
+            font-size: 36px;
+
+        }
+
+
+    }
+
+    .subscription-plan-cnt .plan-content {
+        margin-top: 42px
+    }
 }

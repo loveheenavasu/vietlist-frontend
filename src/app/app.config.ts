@@ -1,3 +1,4 @@
+import { HomepageComponent } from './landing-page/homepage/homepage.component'
 import { ApplicationConfig } from '@angular/core'
 import { provideRouter } from '@angular/router'
 

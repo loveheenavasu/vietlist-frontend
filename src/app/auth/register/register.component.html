@@ -1,1 +1,82 @@
-<p>register works!</p>
+<div class="container-fluid g-0">
+  <section class="banner">
+    <div class="content">
+      <h1>Register</h1>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="form-cnt">
+      <div class="row">
+        <div class="col-12">
+          <h1 class="text-center form-heading">Sign up</h1>
+        </div>
+        <div class="col-12 m-auto text-center">
+          <mat-radio-group
+            aria-label="Select an option"
+            [ngModel]="selectedSignupType"
+            name="radio"
+          >
+            @for (key of signupType; track $index) {
+              <mat-radio-button
+                value="{{ key.value }}"
+                [checked]="key.checked"
+                (click)="selectType(key.value)"
+                >{{ key.name }}</mat-radio-button
+              >
+            }
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="form-group">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Buisness Name"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <input class="input-control" type="text" placeholder="Email" />
+          </div>
+        </div>
+        @if (selectedVal == 'buisness') {
+          <div class="col-12">
+            <div class="form-group">
+              <mat-select class="vietlist-select" placeholder="Role">
+                <mat-option value="role">User</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        }
+        <div class="col-12">
+          <div class="form-group">
+            <mat-select class="vietlist-select" placeholder="Buisness type">
+              <mat-option value="role">User</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <input class="input-control" type="text" placeholder="Password" />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Confirm Password"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn orange-background-btn-w-100">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
