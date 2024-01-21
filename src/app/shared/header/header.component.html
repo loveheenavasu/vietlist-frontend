@@ -2,24 +2,11 @@
   <div class="container-fluid">
     <div class="logo-container">
       <a class="navbar-brand" href="#">
-        <img
-          class="brand-logo"
-          src="/assets/icons/brand-logo.svg"
-          alt="brand-logo"
-        />
+        <img class="brand-logo" src="/assets/icons/brand-logo.svg" alt="brand-logo" />
       </a>
     </div>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      data-bs-target="#navbarTogglerDemo01"
-      aria-controls="navbarTogglerDemo01"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -37,19 +24,12 @@
               <p></p>
             </div>
           </span>
-          </li>
+        </li>
         }
         <div class="country-dropdown">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              (click)="toggleDropdown($event)"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              [matMenuTriggerFor]="menu" 
-            >
+            <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" href="#" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/assets/icons/united-states.svg" alt="us-flag" />
             </a>
             <mat-menu #menu="matMenu">
@@ -69,8 +49,27 @@
                     </mat-menu> -->
         </div>
         <div class="search-box">
-          <div class="search-icon">
+          <div class="search-icon" (click)="handleSearchFiled()">
             <img src="/assets/icons/search-icon.svg" alt="search-icon" />
+          </div>
+          <div class="search row "
+            [ngClass]="{'hide-search-field': !isSearchInputVisible, 'show-search-Input': isSearchInputVisible}">
+            <div class="search-input col">
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here">
+            </div>
+            <div class="add-zipcode col">
+              <div class="input-group ">
+                <span class="input-group-text" id="basic-addon1">
+                  <img src="/assets/icons/location-icon.svg" alt="location-icon" />
+                </span>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+                  placeholder="Add zipcode">
+              </div>
+
+            </div>
+            <div class="search-btn col-1 g-0">
+              <img src="/assets/icons/search-btn.svg" alt="search-btn" />
+            </div>
           </div>
         </div>
         <div class="btn-container">

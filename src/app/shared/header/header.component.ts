@@ -26,6 +26,10 @@ export class HeaderComponent {
     // Adjust content layout based on the window size
   }
 
+  isSearchInputVisible: boolean = false
+
+
+
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -77,8 +81,16 @@ export class HeaderComponent {
   }
   public isTranslationVisible: boolean = false;
 
-  public showLanguage() {
+
     // Toggle the visibility when the language is clicked
-    this.isTranslationVisible = !this.isTranslationVisible;
+
+  public handleSearchFiled() {
+    if (this.isSearchInputVisible) {
+      this.isSearchInputVisible = false
+    } else {
+      this.isSearchInputVisible = true
+    }
   }
+
+
 }
