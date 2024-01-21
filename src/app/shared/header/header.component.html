@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
+<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" style="z-index:1000">
   <div class="container-fluid">
     <div class="logo-container">
       <a class="navbar-brand" href="#">
@@ -15,6 +15,8 @@
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
+      data-bs-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
@@ -25,18 +27,16 @@
         @for (item of navItems; track $index) {
           <li class="nav-item">
             <span
-              [ngClass]="{ active: item.active }"
-              (click)="navigateToOtherComponent(item.href)"
-              class="nav-link nav-bar-items"
-              aria-current="page"
-            >
-              <div>
-                {{ item.label }}
-              </div>
-              <div class="dot">
-                <p></p>
-              </div>
-            </span>
+            [routerLink]="item.href"
+            [ngClass]="{ 'nav-link': true, 'nav-bar-items': true, 'active': isRouteActive(item.href) }"
+          >
+            <div>
+              {{ item.label }}
+            </div>
+            <div class="dot">
+              <p></p>
+            </div>
+          </span>
           </li>
         }
         <div class="country-dropdown">
@@ -48,18 +48,17 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              [matMenuTriggerFor]="menu" 
             >
               <img src="/assets/icons/united-states.svg" alt="us-flag" />
             </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <span>Vietnamese</span>
+                </button>
+              </mat-menu>
+              
+           
           <!-- <span mat-button [matMenuTriggerFor]="menu">
                         Menu
                         <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
@@ -88,7 +87,9 @@
             <button type="button" class="btn" (click)="register()">
               Sign Up
             </button>
+            
           </div>
+        
         </div>
       </ul>
     </div>

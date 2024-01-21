@@ -10,6 +10,7 @@ export const routes: Routes = [
       import('./landing-page/homepage/homepage.component').then(
         (x) => x.HomepageComponent,
       ),
+    pathMatch: 'full',
   },
 
   {

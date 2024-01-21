@@ -12,4 +12,5 @@ import { FooterComponent, HeaderComponent } from './shared'
 })
 export class AppComponent {
   title = 'vietlist-frontend'
+ 
 }

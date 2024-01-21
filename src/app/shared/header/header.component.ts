@@ -1,6 +1,7 @@
+import { MatIconModule } from '@angular/material/icon';
 import { NavItem } from '../../core/interfaces'
 import { Component, HostListener } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { NgClass, NgFor } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -8,7 +9,7 @@ import { LoginComponent } from '../../auth'
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgFor, NgClass, MatMenuModule, MatDialogModule],
+  imports: [NgFor, NgClass, MatMenuModule, MatDialogModule , RouterLink , MatIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -24,6 +25,7 @@ export class HeaderComponent {
     console.log(event, 'event')
     // Adjust content layout based on the window size
   }
+
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -68,5 +70,15 @@ export class HeaderComponent {
 
   public register() {
     this.router.navigateByUrl('/register')
+  }
+
+  isRouteActive(route: string): boolean {
+    return this.router.isActive(route, true);
+  }
+  public isTranslationVisible: boolean = false;
+
+  public showLanguage() {
+    // Toggle the visibility when the language is clicked
+    this.isTranslationVisible = !this.isTranslationVisible;
   }
 }
