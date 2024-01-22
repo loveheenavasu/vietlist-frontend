@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatButtonModule } from '@angular/material/button'
@@ -24,17 +24,17 @@ import { MatSelectModule } from '@angular/material/select'
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
-  constructor(public dialog:MatDialog , public router:Router){}
-  public forgotPassword(){
-    this.dialog.open(ForgotPasswordComponent , {
-      width:"35%"
+  constructor(
+    public dialog: MatDialog,
+    public router: Router,
+  ) {}
+  public forgotPassword() {
+    this.dialog.open(ForgotPasswordComponent, {
+      width: '35%',
     })
   }
 
-
-
-  public navigateToRegister(){
+  public navigateToRegister() {
     this.router.navigateByUrl('/register')
   }
 }
