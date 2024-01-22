@@ -6,6 +6,7 @@ import {
   ClaimYourBuisnessComponent,
   BlogNewsComponent,
   ExplainingPlatformComponent,
+  TestimonialsComponent
 } from './views'
 
 @Component({
@@ -16,8 +17,9 @@ import {
     SubscriptionPlansComponent,
     ClaimYourBuisnessComponent,
     BlogNewsComponent,
+    TestimonialsComponent,
     ExplainingPlatformComponent,
-    CardSwiperComponent
+    CardSwiperComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
