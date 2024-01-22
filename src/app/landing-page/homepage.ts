@@ -1,4 +1,4 @@
-import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper';
+import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
 import { Component } from '@angular/core'
 import {
   BuisnessCategoryComponent,
@@ -6,7 +6,8 @@ import {
   ClaimYourBuisnessComponent,
   BlogNewsComponent,
   ExplainingPlatformComponent,
-  TestimonialsComponent
+  TestimonialsComponent,
+  EventsComponent,
 } from './views'
 
 @Component({
@@ -20,6 +21,7 @@ import {
     TestimonialsComponent,
     ExplainingPlatformComponent,
     CardSwiperComponent,
+    EventsComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

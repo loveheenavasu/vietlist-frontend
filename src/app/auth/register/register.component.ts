@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -26,7 +27,7 @@ export class RegisterComponent {
 
   public selectedVal: any
 
-  constructor() {}
+  constructor(public router:Router) {}
 
   ngOnInit() {
     this.selectedVal = this.selectedSignupType
@@ -34,5 +35,9 @@ export class RegisterComponent {
 
   public selectType(value: any) {
     this.selectedVal = value
+  }
+
+  public navigateToLogin(){
+  this.router.navigateByUrl('/login')
   }
 }

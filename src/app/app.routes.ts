@@ -14,4 +14,11 @@ export default [
         (x) => x.RegisterComponent,
       ),
   },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./auth/login/login.component').then(
+        (x) => x.LoginComponent,
+      ),
+  },
 ] as Routes

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" style="z-index:1000">
+<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" style="z-index: 1000">
   <div class="container-fluid">
     <div class="logo-container">
       <a class="navbar-brand" href="#">
@@ -12,11 +12,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0">
         @for (item of navItems; track $index) {
-          <li class="nav-item">
-            <span
-            [routerLink]="item.href"
-            [ngClass]="{ 'nav-link': true, 'nav-bar-items': true, 'active': isRouteActive(item.href) }"
-          >
+        <li class="nav-item">
+          <span [routerLink]="item.href" [ngClass]="{
+                'nav-link': true,
+                'nav-bar-items': true,
+                active: isRouteActive(item.href)
+              }">
             <div>
               {{ item.label }}
             </div>
@@ -33,13 +34,12 @@
               <img src="/assets/icons/united-states.svg" alt="us-flag" />
             </a>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <span>Vietnamese</span>
-                </button>
-              </mat-menu>
-              
-           
-          <!-- <span mat-button [matMenuTriggerFor]="menu">
+              <button mat-menu-item>
+                <span>Vietnamese</span>
+              </button>
+            </mat-menu>
+
+            <!-- <span mat-button [matMenuTriggerFor]="menu">
                         Menu
                         <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
                     </span>
@@ -47,25 +47,27 @@
                         <button mat-menu-item>Item 1</button>
                         <button mat-menu-item>Item 2</button>
                     </mat-menu> -->
+          </li>
         </div>
         <div class="search-box">
           <div class="search-icon" (click)="handleSearchFiled()">
             <img src="/assets/icons/search-icon.svg" alt="search-icon" />
           </div>
-          <div class="search row "
-            [ngClass]="{'hide-search-field': !isSearchInputVisible, 'show-search-Input': isSearchInputVisible}">
+          <div class="search row" [ngClass]="{
+              'hide-search-field': !isSearchInputVisible,
+              'show-search-Input': isSearchInputVisible
+            }">
             <div class="search-input col">
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here">
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
             </div>
             <div class="add-zipcode col">
-              <div class="input-group ">
+              <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
                   <img src="/assets/icons/location-icon.svg" alt="location-icon" />
                 </span>
                 <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
-                  placeholder="Add zipcode">
+                  placeholder="Add zipcode" />
               </div>
-
             </div>
             <div class="search-btn col-1 g-0">
               <img src="/assets/icons/search-btn.svg" alt="search-btn" />
@@ -74,11 +76,7 @@
         </div>
         <div class="btn-container">
           <div class="login-btn">
-            <button
-              type="button"
-              class="btn btn-outline-primary"
-              (click)="login()"
-            >
+            <button type="button" class="btn btn-outline-primary" (click)="login()">
               Login
             </button>
           </div>
@@ -86,9 +84,7 @@
             <button type="button" class="btn" (click)="register()">
               Sign Up
             </button>
-            
           </div>
-        
         </div>
       </ul>
     </div>

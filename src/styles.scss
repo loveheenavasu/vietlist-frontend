@@ -15,3 +15,13 @@ body {
     padding: 0px;
     font-family: 'Roboto', sans-serif;
 }
+.swiper-wrapper {
+    position: relative;
+    width: fit-content !important;
+    border: solid 1px red;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
+    box-sizing: content-box;
+}

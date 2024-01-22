@@ -27,7 +27,7 @@ export class TestimonialsComponent {
       768: {
         slidesPerView: 2,
       },
-      999: {
+      1388: {
         slidesPerView: 3,
       }
     },
