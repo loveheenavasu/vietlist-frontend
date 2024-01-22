@@ -1,16 +1,10 @@
-import { RegisterComponent } from './auth/register/register.component'
+import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
 
-import { HomepageComponent } from './landing-page'
-
-export const routes: Routes = [
+export default [
   {
     path: '',
-    loadComponent: () =>
-      import('./landing-page/homepage/homepage.component').then(
-        (x) => x.HomepageComponent,
-      ),
-    pathMatch: 'full',
+    component: HomepageComponent,
   },
 
   {
@@ -20,4 +14,4 @@ export const routes: Routes = [
         (x) => x.RegisterComponent,
       ),
   },
-]
+] as Routes

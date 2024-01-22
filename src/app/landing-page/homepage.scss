@@ -1,0 +1,98 @@
+@import "../../assets/scss/common";
+
+.container-fluid {
+    height: auto;
+    background-color: var(--light-grey-2);
+    .banner-1 {
+      height: 635px;
+      background-image: url('/assets/home-banner.jpg');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .content {
+        width: 700px;
+        text-align: center; 
+        margin-top:22px;
+  
+        h1 {
+          font-weight: var(--font-weight-semibold);
+          color: var(--light-grey);
+          font-size: 48px;
+          font-family: Roboto Slab;
+        }
+        p{
+            font-weight: var(--font-weight-light);
+            color: var(--light-grey);
+            font-size: 19px;
+            margin-top: 10px;
+           
+        }
+        .find-buisness-btn{
+            @extend %hbb-button-styles;
+            font-weight:var(--font-weight-medium);
+            background-color: var(--light-grey);
+
+            &:hover {
+                background-color: transparent;
+                color:var(--light-grey);
+                border:solid 1.5px var(--light-grey);
+                transform: translateY(-5px);
+              }
+        }
+        .list-buisness-btn{
+            @extend %hbb-button-styles;
+            background-color: transparent;
+            border:solid 1.5px var(--light-grey);
+            color:var(--light-grey);
+
+            &:hover {
+                background-color: var(--light-grey);
+                color:var(--dark-grey);
+                transform: translateY(-5px);
+              }
+        }
+      }
+    }
+  
+    .banner-2 {
+      height: 360px;
+      background-image: url('/assets/home-banner1.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center; 
+  
+      .content{
+        width:550px;
+        margin: auto 5%;
+        h1{
+            font-size: 28px;
+            color:var(--light-grey);
+            text-transform: capitalize;
+            font-weight: var(--font-weight-semibold);
+
+        }
+        p{
+            font-weight: var(--font-weight-light);
+            color: var(--light-grey);
+            font-size: 19px;
+            margin-top: 10px;
+           
+        }
+        .explore-more-btn{
+          &:hover {
+            background-color: transparent;
+            border: solid 1.5px var(--primary-color-mustard);
+            transform: translateY(-5px);
+          }
+        }
+      }
+    }
+  }
+  
+
+
+section{
+  padding:20px 0;
+}
