@@ -72,9 +72,7 @@ export class HeaderComponent {
   }
 
   public login() {
-    this.dialog.open(LoginComponent, {
-      width: '38%',
-    })
+    this.router.navigateByUrl('/login')
   }
 
   public register() {
