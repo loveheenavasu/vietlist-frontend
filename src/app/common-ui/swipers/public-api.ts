@@ -1,1 +1,1 @@
-export * from "./components/card-swiper";
+export * from './components/card-swiper'

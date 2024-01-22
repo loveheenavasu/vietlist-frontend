@@ -44,7 +44,9 @@ ul{
         }
     }
 }
-
+.desktop-footer{
+    display:block
+}
 .links-cnt{
     margin-top:4.5%;
     border-top: solid 1px #cacaca;
@@ -68,8 +70,76 @@ ul{
     height:55px;
 }
 
+.mobile-view-footer{
+    display:none
+}
+@media screen and (max-width:991px){
+    .mobile-view-footer{
+        display:block
+    }
+    .desktop-footer{
+        display:none
+    }
+   .links-cnt{
+    h3{
+        padding-left:0px;
+        margin-top:20px;
+    }
+   }
 
-@media screen and (max-width:320px){
+    .sale >img{
+        margin-left: 0px;
+        width: 100%;
+        margin-top: 8%;
+        padding: 16px;
+    }
+
+    .container{
+        margin-top:3rem
+    }
+}
+
+
+@media screen and (max-width:768px){
+    .mobile-view-footer{
+        display:block
+    }
+    .desktop-footer{
+        display:none
+    }
+   .links-cnt{
+    h3{
+        padding-left:0px;
+        margin-top:20px;
+    }
+   }
+
+    .sale >img{
+        margin-left: 0px;
+        width: 100%;
+        margin-top: 8%;
+        padding: 16px;
+    }
+
+    .container{
+        margin-top:3rem
+    }
+}
+
+@media screen and (max-width:480px){
+    .mobile-view-footer{
+        display:block
+    }
+    .desktop-footer{
+        display:none
+    }
+   .links-cnt{
+    h3{
+        padding-left:0px;
+        margin-top:20px;
+    }
+   }
+
     .sale >img{
         margin-left: 0px;
         width: 100%;

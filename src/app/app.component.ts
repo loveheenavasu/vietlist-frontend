@@ -12,5 +12,4 @@ import { FooterComponent, HeaderComponent } from './common-ui'
 })
 export class AppComponent {
   title = 'vietlist-frontend'
- 
 }

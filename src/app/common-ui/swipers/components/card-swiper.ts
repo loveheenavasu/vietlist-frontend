@@ -7,7 +7,7 @@ register()
 @Component({
   selector: 'vietlist-card-swiper',
   templateUrl: './card-swiper.html',
-  styleUrl:'./card-swiper.scss',
+  styleUrl: './card-swiper.scss',
   standalone: true,
   imports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

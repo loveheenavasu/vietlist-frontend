@@ -1,15 +1,22 @@
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
 import { NgClass, NgFor } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { NavItem } from '@vietlist/shared';
+import { NavItem } from '@vietlist/shared'
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgFor, NgClass, MatMenuModule, MatDialogModule , RouterLink , MatIconModule],
+  imports: [
+    NgFor,
+    NgClass,
+    MatMenuModule,
+    MatDialogModule,
+    RouterLink,
+    MatIconModule,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -27,8 +34,6 @@ export class HeaderComponent {
   }
 
   isSearchInputVisible: boolean = false
-
-
 
   public navItems: NavItem[] = [
     {
@@ -77,12 +82,11 @@ export class HeaderComponent {
   }
 
   isRouteActive(route: string): boolean {
-    return this.router.isActive(route, true);
+    return this.router.isActive(route, true)
   }
-  public isTranslationVisible: boolean = false;
+  public isTranslationVisible: boolean = false
 
-
-    // Toggle the visibility when the language is clicked
+  // Toggle the visibility when the language is clicked
 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {
@@ -91,6 +95,4 @@ export class HeaderComponent {
       this.isSearchInputVisible = true
     }
   }
-
-
 }
