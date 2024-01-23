@@ -1,9 +1,11 @@
+import { FormControlValidationDirective } from '../../shared/utils/directives/control-validation.directive';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -14,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select'
     ReactiveFormsModule,
     NgFor,
     NgIf,
+    FormControlValidationDirective
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -27,10 +30,10 @@ export class RegisterComponent {
 
   public selectedVal: any
 
-  public signupForm!:FormGroup
-  constructor(public router:Router) {
-    this.signupForm = new FormGroup({
-      
+  public signupForm:FormGroup
+  constructor(public router:Router , private fb:FormBuilder) {
+    this.signupForm = this.fb.group({
+      userName:['' , Validators.required]
     })
   }
 
@@ -44,5 +47,9 @@ export class RegisterComponent {
 
   public navigateToLogin(){
   this.router.navigateByUrl('/login')
+  }
+
+  public submitRegistration(){
+
   }
 }
