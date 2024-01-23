@@ -1,7 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
 import { register } from 'swiper/element/bundle'
 import { testimonialData } from '@vietlist/shared';
-import { SwiperOptions, SwiperModule } from 'swiper/types';
 
 register()
 

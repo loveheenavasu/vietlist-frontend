@@ -1,45 +1,87 @@
 @import "../../../../assets/scss/common";
 
-.container-fluid{
+.buisness-cat {
+  padding-top: 6rem;
+}
 
- 
-    h1{
-        @extend %sh-styles;
+.container-fluid {
+
+
+  h1 {
+    @extend %sh-styles;
+  }
+
+  p {
+    @extend %ssh-styles
+  }
+
+  ;
+
+  .heading {
+    @extend %shm-styles;
+  }
+
+  .explore-more-btn {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      padding: 0.75rem 2.625rem;
+      font-size: 16px;
     }
 
-    p{
-        @extend  %ssh-styles
-    };
-
-    .heading{
-      @extend %shm-styles;
+    .btn:hover {
+      color: var(--primary-color-orange);
+      border: 1px solid #F89705;
+      background-color: var(--white);
     }
   }
+}
 
- 
 
-  .main-cnt{
-    width:fit-content;
-    border-radius: 20px;
-    box-shadow: 0px 4px 20px 0px #00000012;
-    height:auto;
-    display:flex;
-    align-items: center;
-    padding: 25px;
-  }
 
-  .img-cnt{
-    height:152px;
-    width:152px;
-    margin:auto;
+.main-cnt {
+  width: fit-content;
+  border-radius: 20px;
+  box-shadow: 0px 4px 20px 0px #00000012;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 25px;
+}
 
-   
-  }
-  
-  .card-heading{
-    font-weight:var(--font-weight-medium);
-    font-size: 22px;
-    line-height: 32px;
-    margin-top:15px;
-    color:var(--dark-grey)
-  }
+.img-cnt {
+  height: 152px;
+  width: 152px;
+  margin: auto;
+
+
+}
+
+
+.card-heading {
+  font-weight: var(--font-weight-medium);
+  font-size: 22px;
+  line-height: 32px;
+  margin-top: 15px;
+  color: var(--dark-grey)
+}
+
+.Categories-swiper-container {
+  padding-top: 2.625rem;
+}
+
+swiper-container {
+  width: 100%;
+  height: 25rem;
+  margin: 20px auto;
+}
+
+swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
