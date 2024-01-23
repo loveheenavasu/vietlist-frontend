@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 @Component({
@@ -27,7 +27,12 @@ export class RegisterComponent {
 
   public selectedVal: any
 
-  constructor(public router:Router) {}
+  public signupForm!:FormGroup
+  constructor(public router:Router) {
+    this.signupForm = new FormGroup({
+      
+    })
+  }
 
   ngOnInit() {
     this.selectedVal = this.selectedSignupType
