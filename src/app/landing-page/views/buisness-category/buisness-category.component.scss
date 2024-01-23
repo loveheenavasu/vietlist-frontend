@@ -48,16 +48,27 @@
   display: flex;
   align-items: center;
   padding: 25px;
+  cursor: pointer;
+}
+
+.main-cnt:hover {
+  background-color: #F89705;
+
+  .img-cnt {
+    border: 2px solid #fff;
+    border-radius: 50%;
+  }
+
+  .card-heading {
+    color: #fff;
+  }
 }
 
 .img-cnt {
   height: 152px;
   width: 152px;
   margin: auto;
-
-
 }
-
 
 .card-heading {
   font-weight: var(--font-weight-medium);

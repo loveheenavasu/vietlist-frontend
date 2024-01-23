@@ -1,23 +1,23 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core';
 import { register } from 'swiper/element/bundle'
 
 register()
 
 @Component({
-  selector: 'app-buisness-category',
+  selector: 'app-most-search-services',
   standalone: true,
   imports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './buisness-category.component.html',
-  styleUrl: './buisness-category.component.scss',
+  templateUrl: './most-search-services.component.html',
+  styleUrl: './most-search-services.component.scss'
 })
-export class BuisnessCategoryComponent {
-  @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef;
+export class MostSearchServicesComponent {
+  @ViewChild('mostSearchServicesSwiper') swiper!: ElementRef;
 
   swiperParams = {
     slidesPerView: 1,
     autoplay: true,
-    spaceBetween: 30,
+    spaceBetween: 10,
     disableOnInteraction: false,
     loop: true,
     speed: 3000,
@@ -27,7 +27,7 @@ export class BuisnessCategoryComponent {
         spaceBetween: 20,
       },
       1388: {
-        slidesPerView: 6,
+        slidesPerView: 5,
       }
     },
     on: {
@@ -42,5 +42,4 @@ export class BuisnessCategoryComponent {
       swiperEl.initialize();
     })
   }
-
 }

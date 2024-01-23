@@ -8,6 +8,7 @@ import {
   ExplainingPlatformComponent,
   TestimonialsComponent,
   EventsComponent,
+  MostSearchServicesComponent,
 } from './views'
 
 @Component({
@@ -15,13 +16,14 @@ import {
   standalone: true,
   imports: [
     BuisnessCategoryComponent,
+    MostSearchServicesComponent,
     SubscriptionPlansComponent,
     ClaimYourBuisnessComponent,
     BlogNewsComponent,
     TestimonialsComponent,
     ExplainingPlatformComponent,
     CardSwiperComponent,
-    EventsComponent,
+    EventsComponent
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
