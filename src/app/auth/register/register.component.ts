@@ -1,5 +1,5 @@
 
-import { FormControlValidationDirective } from '@vietlist/shared'
+import { FormControlValidationDirective, Roles } from '@vietlist/shared'
 import { Router } from '@angular/router'
 import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
@@ -15,7 +15,6 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { AuthService } from '../service/auth.service';
 import Swal from 'sweetalert2'
-import { Roles } from '@vietlist/shared'
 import { LoaderComponent } from 'src/app/common-ui'
 
 
@@ -67,7 +66,7 @@ public terms = new FormControl(false, Validators.required)
       role: ['', Validators.required],
     })
     this.rolesObjects = this.rolesArray.map(role => ({ key: role[0], value: role[1] }));
-    console.log(this.terms )
+
   }
 
   ngOnInit() {
