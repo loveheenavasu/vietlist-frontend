@@ -4,8 +4,10 @@
     height: auto;
     background-color: var(--light-grey-2);
     .banner-1 {
-      height: 635px;
+      height: 50rem;
       background-image: url('/assets/home-banner.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;

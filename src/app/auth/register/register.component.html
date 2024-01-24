@@ -24,7 +24,7 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
-              <input class="input-control" type="text" placeholder="Buisness Name" formControlName="username"
+              <input class="input-control" type="text" [placeholder]="selectedVal == 'business' ? 'Buisness Name' : 'Username'" formControlName="username"
                 appFormControlValidation [validationMsgId]="'business-required-msg'" />
             </div>
           </div>
