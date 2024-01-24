@@ -4,6 +4,6 @@ export class GenericHelper {
     protected static readonly baseUrl = environment.baseUrl
 
     public static appendBaseUrl(endpoint:string ){
-        return `${this.baseUrl}/${endpoint}`
+        return `${this.baseUrl}${endpoint}`
     }
 }

@@ -119,6 +119,9 @@ export class RegisterComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        if(res){
+          this.router.navigateByUrl('/login')
+        }
         console.log(res)
       },error:(err)=>{
         console.log(err.error.message , "Error")

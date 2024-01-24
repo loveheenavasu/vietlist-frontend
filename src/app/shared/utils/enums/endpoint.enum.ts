@@ -1,5 +1,8 @@
 export enum Endpoints {
     Login = 'login',
     Signup = 'register',
-    Forgotpassword = 'sendotp'
+    SendOtp = 'sendotp',
+    Forgotpassword ="validateotp",
+    ResetPassword = "passwordreset",
+
 }

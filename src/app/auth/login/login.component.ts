@@ -24,8 +24,8 @@ import { AuthService } from '../service/auth.service'
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  loginForm!: FormGroup;
-  isHidePassword: boolean = false;
+  public loginForm!: FormGroup;
+ public isHidePassword: boolean = false;
   constructor(
     public dialog: MatDialog,
     public router: Router,
