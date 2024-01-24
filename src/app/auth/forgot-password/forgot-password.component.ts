@@ -164,7 +164,7 @@ export class ForgotPasswordComponent {
     const body = {
       email: this.forgotPasswordForm.value.email,
       token:this.otpToken,
-      password:this.password
+      password:this.password.value
     }
     this.loader = true
     this.authService.resetPassword(body).subscribe({

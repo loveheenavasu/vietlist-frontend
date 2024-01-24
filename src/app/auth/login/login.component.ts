@@ -6,7 +6,7 @@ import { NgFor, NgIf } from '@angular/common'
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
-import { FormControlValidationDirective } from '@vietlist/shared'
+import { FormControlValidationDirective, LocalStorageService } from '@vietlist/shared'
 import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
@@ -30,11 +30,20 @@ export class LoginComponent {
   loginForm!: FormGroup;
   isHidePassword: boolean = false;
   public loader: boolean = false;
+
+  /**
+   * 
+   * @param dialog 
+   * @param router 
+   * @param authService 
+   * @param fb 
+   */
   constructor(
     public dialog: MatDialog,
     public router: Router,
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private localStorage:LocalStorageService
   ) {
     this.loginForm = this.fb.group({
       username: ["", Validators.required],
@@ -57,7 +66,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.loader = false;
-          console.log("form-data:-", res)
+            this.localStorage.saveData('vietlist::session' , res.token)
           Swal.fire({
             toast: true,
             text: 'Login Successfully',
