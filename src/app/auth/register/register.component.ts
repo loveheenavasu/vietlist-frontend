@@ -1,7 +1,7 @@
 
 import { FormControlValidationDirective, Roles } from '@vietlist/shared'
 import { Router } from '@angular/router'
-import { NgFor, NgIf } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormBuilder,
@@ -17,7 +17,6 @@ import { AuthService } from '../service/auth.service';
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
 
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -29,7 +28,8 @@ import { LoaderComponent } from 'src/app/common-ui'
     NgFor,
     NgIf,
     FormControlValidationDirective,
-    LoaderComponent
+    LoaderComponent,
+    NgClass
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -37,7 +37,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 export class RegisterComponent {
   public selectedSignupType: any = 'buisness'
   public signupType = [
-    { name: 'Buisness', value: 'buisness', checked: true },
+    { name: 'Business', value: 'business', checked: true },
     { name: 'User', value: 'user', checked: false },
   ]
 public terms = new FormControl(false, Validators.required)
@@ -65,7 +65,7 @@ public rolesArray = (Object.keys(Roles) as Array<keyof typeof Roles>).map(key =>
       username: ['', Validators.required],
       password: ['', Validators.required],
       business_type: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       confirmPassword: ['', Validators.required],
       role: ['', Validators.required],
     })

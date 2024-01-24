@@ -49,6 +49,7 @@ export class ForgotPasswordComponent {
   public password = new FormControl('' , Validators.required)
   public hideOTP:boolean = true
   public loader:boolean = false
+  public isResentOTP:boolean = false
   constructor(
     public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
     public dialog: MatDialog,
@@ -81,10 +82,14 @@ export class ForgotPasswordComponent {
 
 
 
-  public getOtp() {
-    this.loader = true
+  public getOtp(isResendOTP:boolean) {
+    console.log(isResendOTP , "isResendOTP")
+    
     if (this.forgotPasswordForm.valid) {
-      this.loader = true
+    
+      if(isResendOTP == false){
+        this.loader = true
+      }
       this.authService.sendOtp(this.forgotPasswordForm.value).subscribe({
         next: (res: any) => {
           this.loader = false

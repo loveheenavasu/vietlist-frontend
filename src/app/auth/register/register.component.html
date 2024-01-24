@@ -9,7 +9,7 @@
       <div class="form-cnt">
         <div class="row">
           <div class="col-12">
-            <h1 class="text-center form-heading">Sign up</h1>
+            <h1 class="text-center form-heading">Sign Up</h1>
           </div>
           <div class="col-12 m-auto text-center">
             <mat-radio-group aria-label="Select an option" [ngModel]="selectedSignupType"
@@ -41,14 +41,15 @@
             </div>
           </div>
 
-          <div class="col-12">
+          <!-- <div class="col-12">
             <div class="form-group">
               <mat-select
                 class="vietlist-select"
-                placeholder="Buisness type"
-                formControlName="business_type"
+                placeholder="Roles"
+                formControlName="role"
                 appFormControlValidation
-                [validationMsgId]="'business-type-msg'"
+                [validationMsgId]="'role-type-msg'"
+             
               >
                 @for (role of rolesArray; track $index) {
                   <mat-option [value]="role.value">{{ role.label}}</mat-option>
@@ -56,20 +57,53 @@
                 }
               </mat-select>
             </div>
+          </div> -->
+          <div class="col-12">
+            <div class="form-group">
+              <mat-select
+                class="vietlist-select"
+                placeholder="Business type"
+                formControlName="business_type"
+                appFormControlValidation
+                [validationMsgId]="'business-type-msg'"
+              >
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Services</mat-option>
+              </mat-select>
+            </div>
           </div>
 
           @if (selectedVal == 'buisness') {
-            <div class="col-12">
+            <!-- <div class="col-12">
               <div class="form-group">
                 <mat-select
                   class="vietlist-select"
                   placeholder="Role"
-                  formControlName="role"
+                  formControlName="business_type"
                   appFormControlValidation
-                  [validationMsgId]="'role-type-msg'"
+                  [validationMsgId]="'business-type-msg'"
                 >
                   <mat-option value="retail">Retail</mat-option>
                   <mat-option value="restaurant">Restaurant</mat-option>
+                  <mat-option value="restaurant">Services</mat-option>
+                </mat-select>
+              </div>
+            </div> -->
+            <div class="col-12">
+              <div class="form-group">
+                <mat-select
+                  class="vietlist-select"
+                  placeholder="Roles"
+                  formControlName="role"
+                  appFormControlValidation
+                  [validationMsgId]="'role-type-msg'"
+               
+                >
+                  @for (role of rolesArray; track $index) {
+                    <mat-option [value]="role.value">{{ role.label}}</mat-option>
+  
+                  }
                 </mat-select>
               </div>
             </div>

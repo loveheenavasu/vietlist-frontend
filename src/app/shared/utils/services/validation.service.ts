@@ -19,6 +19,7 @@ export class ValidationService {
     'buisness-type-msg':'Buisness type is required',
     'role-type-msg':'Role type is required',
     'buisnessname-required-msg': 'Buisness name is required',
-    'username-required-msg': 'Username or Email is required'
+    'username-required-msg': 'Username or Email is required',
+    'invalid-email-msg':'Email is invalid'
   }
 }
