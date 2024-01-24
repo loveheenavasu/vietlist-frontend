@@ -7,11 +7,12 @@ export class ValidationService {
 
   constructor() { }
 
-  public getValidationMessage(validationId:any):any{
+  public getValidationMessage(validationId: any): any {
     return this.errorMessage[validationId]
   }
 
-  private errorMessage:any = {
-    'buisnessname-required-msg' : 'Buisness name is required'
+  private errorMessage: any = {
+    'buisnessname-required-msg': 'Buisness name is required',
+    'username-required-msg': 'Username or Email is required'
   }
 }
