@@ -35,7 +35,7 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  public selectedSignupType: any = 'buisness'
+  public selectedSignupType: any = 'business'
   public signupType = [
     { name: 'Business', value: 'business', checked: true },
     { name: 'User', value: 'user', checked: false },
