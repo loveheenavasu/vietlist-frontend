@@ -19,4 +19,15 @@ export class AuthService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Signup)
     return this.http.post<any>(endpoint , body)
   }
+
+  public login(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.Login)
+    return this.http.post<any>(`${baseUrl}${endpoint}`, body)
+  }
+
+  public forgotPassword(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.Forgotpassword)
+    return this.http.post<any>(`${baseUrl}${endpoint}`, body)
+  }
+
 }

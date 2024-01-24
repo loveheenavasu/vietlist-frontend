@@ -1,23 +1,33 @@
-import { Router } from '@angular/router'
-import { Component } from '@angular/core'
-import { MatButtonModule } from '@angular/material/button'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { MatIconModule } from '@angular/material/icon'
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+
+import { FormControlValidationDirective } from 'src/app/shared/utils/directives/control-validation.directive';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [MatCheckboxModule, MatButtonModule, MatIconModule],
+  imports: [MatCheckboxModule, MatButtonModule, MatIconModule,
+    FormControlValidationDirective,
+    ReactiveFormsModule,
+    FormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
-  constructor(
-    public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
-    public dialog: MatDialog,
-    private router: Router,
-  ) {}
+
+  forgotPasswordForm!: FormGroup
+
+  constructor(public matDialogRef: MatDialogRef<ForgotPasswordComponent>, public dialog: MatDialog, private router: Router, private authService: AuthService, private fb: FormBuilder) {
+    this.forgotPasswordForm = this.fb.group({
+      email: ["", Validators.required]
+    })
+  }
 
   public close() {
     this.matDialogRef.close()
@@ -32,4 +42,18 @@ export class ForgotPasswordComponent {
     this.close()
     this.router.navigateByUrl('/register')
   }
+
+  public forgotPassword() {
+    if (this.forgotPasswordForm.valid) {
+      this.authService.forgotPassword(this.forgotPasswordForm.value).subscribe({
+        next: (res:any) => {
+          console.log("email-sent", res)
+        },
+        error: (err:any) => {
+          console.log("forgot-api-error", err)
+        }
+      })
+    }
+  }
+
 }
