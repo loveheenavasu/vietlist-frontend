@@ -12,20 +12,11 @@
             <h1 class="text-center form-heading">Sign up</h1>
           </div>
           <div class="col-12 m-auto text-center">
-            <mat-radio-group
-              aria-label="Select an option"
-              [ngModel]="selectedSignupType"
-              [ngModelOptions]="{ standalone: true }"
-              (ngModelChange)="changeSignupType()"
-              name="radio"
-            >
+            <mat-radio-group aria-label="Select an option" [ngModel]="selectedSignupType"
+              [ngModelOptions]="{ standalone: true }" (ngModelChange)="changeSignupType()" name="radio">
               @for (key of signupType; track $index) {
-                <mat-radio-button
-                  value="{{ key.value }}"
-                  [checked]="key.checked"
-                  (click)="selectType(key.value)"
-                  >{{ key.name }}</mat-radio-button
-                >
+              <mat-radio-button value="{{ key.value }}" [checked]="key.checked" (click)="selectType(key.value)">{{
+                key.name }}</mat-radio-button>
               }
             </mat-radio-group>
           </div>
@@ -33,14 +24,8 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="text"
-                placeholder="Buisness Name"
-                formControlName="username"
-                appFormControlValidation
-                [validationMsgId]="'business-required-msg'"
-              />
+              <input class="input-control" type="text" placeholder="Buisness Name" formControlName="username"
+                appFormControlValidation [validationMsgId]="'business-required-msg'" />
             </div>
           </div>
           <div class="col-12">
@@ -90,14 +75,14 @@
           }
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="password"
-                formControlName="password"
-                placeholder="Password"
-                appFormControlValidation
-                [validationMsgId]="'password-required-msg'"
-              />
+              <div class="input-group">
+                <input class="input-control" [type]="!isHidePassword ? 'password' : 'text' "  formControlName="password" placeholder="Password"
+                  />
+                <span class="input-group-text" id="basic-addon1" (click)="hidePassword()">
+                  <i *ngIf="!isHidePassword" class="fa fa-eye-slash" aria-hidden="true" style="color:#6c757d"></i>
+                  <i *ngIf="isHidePassword" class="fa fa-eye" aria-hidden="true" style="color:#6c757d"></i>
+                </span>
+              </div>
             </div>
           </div>
           <div class="col-12">
