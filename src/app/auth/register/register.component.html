@@ -81,7 +81,7 @@
             <div class="form-group">
               <input 
               class="input-control" 
-              type="text" 
+              type="password" 
               formControlName="password"
               placeholder="Password"
               appFormControlValidation
@@ -111,8 +111,10 @@
               class="btn orange-background-btn-w-100"
               type="submit"
               (click)="submitRegistration()"
+              [disabled]="!signupForm.valid"
             >
-              Submit
+              <span *ngIf="!loader">Submit</span>
+              <app-loader *ngIf="loader"></app-loader>
             </button>
           </div>
        

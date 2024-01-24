@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { AuthService } from '../service/auth.service';
 import Swal from 'sweetalert2'
 import { Roles } from '@vietlist/shared'
+import { LoaderComponent } from 'src/app/common-ui'
 
 
 @Component({
@@ -27,7 +28,8 @@ import { Roles } from '@vietlist/shared'
     ReactiveFormsModule,
     NgFor,
     NgIf,
-    FormControlValidationDirective
+    FormControlValidationDirective,
+    LoaderComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -42,6 +44,8 @@ export class RegisterComponent {
   public selectedVal: any
   public roles = Roles;
   public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
+  public loader:boolean=false;
+  
   rolesObjects: { key: string, value: string }[] = [];
 
   public selectedRole: string = ''; // Set a default value if needed
@@ -105,10 +109,12 @@ export class RegisterComponent {
       confirmPassword: this.signupForm.value.confirmPassword,
       ...(this.selectedVal === 'business' ? { role: this.signupForm.value.role } : {})
     };
-    
+    this.loader = true;
     console.log(body , "body")
     this.authService.register(body).subscribe({
       next:(res)=>{
+        this.loader=false
+        console.log(res)
         Swal.fire({
           toast: true,
           text: 'Successfully registered',
@@ -119,9 +125,9 @@ export class RegisterComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        console.log(res)
       },error:(err)=>{
         console.log(err.error.message , "Error")
+        this.loader = false
         Swal.fire({
           toast: true,
           text: err.error.message,
