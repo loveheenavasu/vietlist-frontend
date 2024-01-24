@@ -42,12 +42,15 @@ export class RegisterComponent {
   ]
 public terms = new FormControl(false, Validators.required)
   public selectedVal: any
-  public roles = Roles;
-  public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
   public loader:boolean=false;
   isHidePassword: boolean = false;
+
   
-  rolesObjects: { key: string, value: string }[] = [];
+
+public rolesArray = (Object.keys(Roles) as Array<keyof typeof Roles>).map(key => ({
+  value: Roles[key],
+  label: this.formatLabel(key),
+}));
 
   public selectedRole: string = ''; // Set a default value if needed
 
@@ -66,8 +69,8 @@ public terms = new FormControl(false, Validators.required)
       confirmPassword: ['', Validators.required],
       role: ['', Validators.required],
     })
-    this.rolesObjects = this.rolesArray.map(role => ({ key: role[0], value: role[1] }));
 
+    console.log(this.rolesArray);
   }
 
   ngOnInit() {
@@ -75,7 +78,6 @@ public terms = new FormControl(false, Validators.required)
     if(this.selectedVal == 'user'){
       this.router.navigateByUrl('/user-registration')
     }
-   console.log(this.rolesObjects )
   }
 
   public selectType(value: any) {
@@ -159,5 +161,12 @@ public terms = new FormControl(false, Validators.required)
       this.isHidePassword = true
     }
   }
+
+
+  formatLabel(key: keyof typeof Roles): string {
+    // Example: Convert "businessOwner" to "Business Owner"
+    return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  }
+ 
   
 }

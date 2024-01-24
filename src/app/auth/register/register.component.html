@@ -50,8 +50,9 @@
                 appFormControlValidation
                 [validationMsgId]="'business-type-msg'"
               >
-                @for (role of rolesObjects; track $index) {
-                  <mat-option [value]="role.key">{{ role.value }}</mat-option>
+                @for (role of rolesArray; track $index) {
+                  <mat-option [value]="role.value">{{ role.label}}</mat-option>
+
                 }
               </mat-select>
             </div>
