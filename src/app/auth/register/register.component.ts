@@ -45,6 +45,7 @@ export class RegisterComponent {
   public roles = Roles;
   public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
   public loader:boolean=false;
+  isHidePassword: boolean = false;
   
   rolesObjects: { key: string, value: string }[] = [];
 
@@ -149,4 +150,13 @@ export class RegisterComponent {
   public changeSignupType() {
     this.signupForm.reset();
   }
+
+  public hidePassword() {
+    if (this.isHidePassword) {
+      this.isHidePassword = false
+    } else {
+      this.isHidePassword = true
+    }
+  }
+  
 }
