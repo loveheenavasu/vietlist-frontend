@@ -7,7 +7,11 @@ import { FooterComponent, HeaderComponent } from './common-ui'
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent],
-  templateUrl: './app.component.html',
+  template: `
+  <app-header></app-header>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+  `,
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
