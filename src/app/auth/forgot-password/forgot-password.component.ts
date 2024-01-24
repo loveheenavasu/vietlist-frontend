@@ -1,3 +1,5 @@
+import { NgIf, CommonModule } from '@angular/common';
+import { LoaderComponent } from './../../common-ui/loader/loader.component';
 import { Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
@@ -27,6 +29,9 @@ import Swal from 'sweetalert2'
     FormControlValidationDirective,
     ReactiveFormsModule,
     FormsModule,
+    LoaderComponent,
+    NgIf,
+    CommonModule
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
@@ -43,6 +48,7 @@ export class ForgotPasswordComponent {
   public otpToken : any
   public password = new FormControl('' , Validators.required)
   public hideOTP:boolean = true
+  public loader:boolean = false
   constructor(
     public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
     public dialog: MatDialog,
@@ -76,9 +82,12 @@ export class ForgotPasswordComponent {
 
 
   public getOtp() {
+    this.loader = true
     if (this.forgotPasswordForm.valid) {
+      this.loader = true
       this.authService.sendOtp(this.forgotPasswordForm.value).subscribe({
         next: (res: any) => {
+          this.loader = false
           Swal.fire({
             toast: true,
             text: res.message,
@@ -95,7 +104,17 @@ export class ForgotPasswordComponent {
           }
         },
         error: (err: any) => {
-          console.log('forgot-api-error', err)
+          this.loader = false
+          Swal.fire({
+            toast: true,
+            text: err.error.message,
+            animation: false,
+            icon:'error',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
         },
       })
     }else{
@@ -117,16 +136,19 @@ export class ForgotPasswordComponent {
       email: this.forgotPasswordForm.value.email,
       otp: this.otp.value,
     }
+    this.loader = true
     this.authService.forgotPassword(body).subscribe({
       next: (res: any) => {
        this.otpToken = res.token
        this.hideOTP = false
         if (res) {
+          this.loader = false
           this.hideOTP = true; // Hide OTP input
           this.isOtpValidate = true;
         }
       },
       error: (err: any) => {
+        this.loader = false
         console.log('forgot-api-error', err)
       },
     })
@@ -139,8 +161,10 @@ export class ForgotPasswordComponent {
       token:this.otpToken,
       password:this.password
     }
+    this.loader = true
     this.authService.resetPassword(body).subscribe({
       next: (res: any) => {
+        this.loader = false
         Swal.fire({
           toast: true,
           text: res.message,
@@ -155,6 +179,7 @@ export class ForgotPasswordComponent {
         this.router.navigateByUrl('/login')
       },
       error: (err: any) => {
+        this.loader = false
         Swal.fire({
           toast: true,
           text: err.error.message,
