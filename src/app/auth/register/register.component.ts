@@ -5,6 +5,7 @@ import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -40,7 +41,7 @@ export class RegisterComponent {
     { name: 'Buisness', value: 'buisness', checked: true },
     { name: 'User', value: 'user', checked: false },
   ]
-
+public terms = new FormControl('' , Validators.required)
   public selectedVal: any
   public roles = Roles;
   public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
@@ -66,6 +67,7 @@ export class RegisterComponent {
       role: ['', Validators.required],
     })
     this.rolesObjects = this.rolesArray.map(role => ({ key: role[0], value: role[1] }));
+    console.log(this.terms )
   }
 
   ngOnInit() {

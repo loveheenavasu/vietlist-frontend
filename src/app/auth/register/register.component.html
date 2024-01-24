@@ -45,48 +45,58 @@
           </div>
           <div class="col-12">
             <div class="form-group">
-              <input 
-              class="input-control" 
-              type="text" 
-              formControlName="email"
-              placeholder="Email" 
-              appFormControlValidation
-              [validationMsgId]="'email-required-msg'"
- />
+              <input
+                class="input-control"
+                type="text"
+                formControlName="email"
+                placeholder="Email"
+                appFormControlValidation
+                [validationMsgId]="'email-required-msg'"
+              />
             </div>
           </div>
-         
-            <div class="col-12">
-              <div class="form-group">
-                <mat-select class="vietlist-select" placeholder="Buisness type" formControlName="business_type" appFormControlValidation
-                [validationMsgId]="'business-type-msg'">
-                @for(role of rolesObjects;track $index){
-                  <mat-option [value]="role.key" >{{role.value}}</mat-option>
-                }
-                </mat-select>
-              </div>
-            </div>
-       
-          @if (selectedVal == 'buisness') {
+
           <div class="col-12">
             <div class="form-group">
-              <mat-select class="vietlist-select" placeholder="Role" formControlName="role" appFormControlValidation
-              [validationMsgId]="'role-type-msg'">
-                <mat-option value="role">Retail</mat-option>
+              <mat-select
+                class="vietlist-select"
+                placeholder="Buisness type"
+                formControlName="business_type"
+                appFormControlValidation
+                [validationMsgId]="'business-type-msg'"
+              >
+                @for (role of rolesObjects; track $index) {
+                  <mat-option [value]="role.key">{{ role.value }}</mat-option>
+                }
               </mat-select>
             </div>
           </div>
-        }
+
+          @if (selectedVal == 'buisness') {
+            <div class="col-12">
+              <div class="form-group">
+                <mat-select
+                  class="vietlist-select"
+                  placeholder="Role"
+                  formControlName="role"
+                  appFormControlValidation
+                  [validationMsgId]="'role-type-msg'"
+                >
+                  <mat-option value="retail">Retail</mat-option>
+                  <mat-option value="restaurant">Restaurant</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          }
           <div class="col-12">
             <div class="form-group">
-              <input 
-              class="input-control" 
-              type="password" 
-              formControlName="password"
-              placeholder="Password"
-              appFormControlValidation
-              [validationMsgId]="'password-required-msg'"
-              
+              <input
+                class="input-control"
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+                appFormControlValidation
+                [validationMsgId]="'password-required-msg'"
               />
             </div>
           </div>
@@ -94,30 +104,45 @@
             <div class="form-group">
               <input
                 class="input-control"
-                type="password" 
-                formControlName="confirmPassword"          
+                type="password"
+                formControlName="confirmPassword"
                 placeholder="Confirm Password"
                 appFormControlValidation
                 [validationMsgId]="'confirm-password-required-msg'"
               />
               <span class="error-message" *ngIf="passwordsMismatch()">
                 Confirm Password does not match
-                  </span>
+              </span>
             </div>
-          
+          </div>
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                  [formControl]="terms"
+                />
+                <label class="form-check-label" for="terms">
+                  Accept Terms & Conditions
+                </label>
+              </div>
+            </div>
           </div>
           <div class="col-12">
             <button
               class="btn orange-background-btn-w-100"
               type="submit"
               (click)="submitRegistration()"
-              [disabled]="!signupForm.valid"
+              [disabled]="!signupForm.valid && !terms.value"
             >
               <span *ngIf="!loader">Submit</span>
               <app-loader *ngIf="loader"></app-loader>
             </button>
           </div>
-       
+
           <div class="mt-3">
             <p class="forgot_password" (click)="navigateToLogin()">Login</p>
           </div>
@@ -126,4 +151,3 @@
     </div>
   </form>
 </div>
-

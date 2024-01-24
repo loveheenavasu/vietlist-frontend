@@ -60,7 +60,7 @@ export class LoginComponent {
           console.log("form-data:-", res)
           Swal.fire({
             toast: true,
-            text: 'Successfully registered',
+            text: 'Login Successfully',
             animation: false,
             icon:'success',
             position: 'top-right',
