@@ -15,13 +15,21 @@ body {
     padding: 0px;
     font-family: 'Roboto', sans-serif;
 }
-.swiper-wrapper {
-    position: relative;
-    width: fit-content !important;
-    border: solid 1px red;
-    z-index: 1;
-    display: flex;
-    transition-property: transform;
-    transition-timing-function: var(--swiper-wrapper-transition-timing-function,initial);
-    box-sizing: content-box;
+.error-message {
+    color: rgb(255, 32, 32);
+    font-size:14px;
+    padding:0px;
+    margin:0px;
+    /* Add any other styling properties as needed */
+  }
+  
+  .swal2-popup.swal2-toast {
+    padding: 10px !important;
+
+}
+
+
+.swal2-icon .sa-icon{
+    width: 20px !important; 
+    height: 20px !important;
 }

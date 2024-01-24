@@ -8,10 +8,5 @@ import { Component } from '@angular/core'
   styleUrl: './events.component.scss',
 })
 export class EventsComponent {
-
-
-
-  constructor() {
-
-  }
+  constructor() {}
 }

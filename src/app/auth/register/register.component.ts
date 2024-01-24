@@ -1,10 +1,21 @@
-import { FormControlValidationDirective } from '../../shared/utils/directives/control-validation.directive';
-import { Router } from '@angular/router';
+
+import { FormControlValidationDirective } from '@vietlist/shared'
+import { Router } from '@angular/router'
 import { NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
+import { AuthService } from '../service/auth.service';
+import Swal from 'sweetalert2'
+import { Roles } from '@vietlist/shared'
+
 
 @Component({
   selector: 'app-register',
@@ -29,27 +40,103 @@ export class RegisterComponent {
   ]
 
   public selectedVal: any
+  public roles = Roles;
+  public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
+  rolesObjects: { key: string, value: string }[] = [];
 
-  public signupForm:FormGroup
-  constructor(public router:Router , private fb:FormBuilder) {
-    this.signupForm = this.fb.group({
-      userName:['' , Validators.required]
+  public selectedRole: string = ''; // Set a default value if needed
+
+  public signupForm: FormGroup
+
+  constructor(
+    public router: Router,
+    private fb: FormBuilder,
+    private authService:AuthService
+  ) {
+    this.signupForm = this.fb.nonNullable.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      business_type: ['', Validators.required],
+      email: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      role: ['', Validators.required],
     })
+    this.rolesObjects = this.rolesArray.map(role => ({ key: role[0], value: role[1] }));
   }
 
   ngOnInit() {
     this.selectedVal = this.selectedSignupType
+    if(this.selectedVal == 'user'){
+      this.router.navigateByUrl('/user-registration')
+    }
+   console.log(this.rolesObjects )
   }
 
   public selectType(value: any) {
     this.selectedVal = value
+
+    
   }
 
-  public navigateToLogin(){
-  this.router.navigateByUrl('/login')
+  public navigateToLogin() {
+    this.router.navigateByUrl('/login')
   }
 
-  public submitRegistration(){
+  passwordsMismatch() {
+    const passwordControl = this.signupForm.get('password');
+    const confirmPasswordControl = this.signupForm.get('confirmPassword');
 
+    return (
+      passwordControl &&
+      confirmPasswordControl &&
+      confirmPasswordControl.touched &&
+      confirmPasswordControl.dirty &&
+      passwordControl.value !== confirmPasswordControl.value
+    );
+  }
+
+
+  public submitRegistration() {
+    const body = {
+      username: this.signupForm.value.username,
+      password: this.signupForm.value.password,
+      business_type: this.signupForm.value.business_type,
+      email: this.signupForm.value.email,
+      confirmPassword: this.signupForm.value.confirmPassword,
+      ...(this.selectedVal === 'business' ? { role: this.signupForm.value.role } : {})
+    };
+    
+    console.log(body , "body")
+    this.authService.register(body).subscribe({
+      next:(res)=>{
+        Swal.fire({
+          toast: true,
+          text: 'Successfully registered',
+          animation: false,
+          icon:'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        console.log(res)
+      },error:(err)=>{
+        console.log(err.error.message , "Error")
+        Swal.fire({
+          toast: true,
+          text: err.error.message,
+          animation: false,
+          icon:'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+      }
+    })
+  }
+
+  public changeSignupType() {
+    this.signupForm.reset();
   }
 }

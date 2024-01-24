@@ -1,6 +1,11 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  ViewChild,
+} from '@angular/core'
 import { register } from 'swiper/element/bundle'
-import { testimonialData } from '@vietlist/shared';
+import { testimonialData } from '@vietlist/shared'
 
 register()
 
@@ -10,16 +15,15 @@ register()
   imports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './testimonials.component.html',
-  styleUrl: './testimonials.component.scss'
+  styleUrl: './testimonials.component.scss',
 })
-
 export class TestimonialsComponent {
-  @ViewChild('swiperDemo') swiper!: ElementRef;
+  @ViewChild('swiperDemo') swiper!: ElementRef
 
   swiperParams = {
     slidesPerView: 1,
     pagination: {
-      clickable: true
+      clickable: true,
     },
     spaceBetween: 30,
     breakpoints: {
@@ -28,22 +32,19 @@ export class TestimonialsComponent {
       },
       1388: {
         slidesPerView: 3,
-      }
-    },
-    on: {
-      init() {
       },
     },
-  };
+    on: {
+      init() {},
+    },
+  }
   constructor() {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
-      Object.assign(swiperEl, this.swiperParams);
-      swiperEl.initialize();
+      Object.assign(swiperEl, this.swiperParams)
+      swiperEl.initialize()
     })
   }
-
-
 
   public testimonialData: testimonialData[] = [
     {
@@ -54,7 +55,7 @@ export class TestimonialsComponent {
       mr up as described.`,
       userProfile: '/assets/image/testimonial-profile1.svg',
       userName: 'Jane Cooper',
-      userCountry: 'Los Angeles, CA'
+      userCountry: 'Los Angeles, CA',
     },
     {
       rating: '4',
@@ -64,7 +65,7 @@ export class TestimonialsComponent {
       mr up as described.`,
       userProfile: '/assets/image/testimonial-profile1.svg',
       userName: 'Robert Fox',
-      userCountry: 'New York City, NY'
+      userCountry: 'New York City, NY',
     },
     {
       rating: '3',
@@ -74,7 +75,7 @@ export class TestimonialsComponent {
       mr up as described.`,
       userProfile: '/assets/image/testimonial-profile1.svg',
       userName: 'Jane Cooper',
-      userCountry: 'Los Angeles, CA'
+      userCountry: 'Los Angeles, CA',
     },
     {
       rating: '5',
@@ -84,8 +85,8 @@ export class TestimonialsComponent {
       mr up as described.`,
       userProfile: '/assets/image/testimonial-profile1.svg',
       userName: 'Robert Fox',
-      userCountry: 'New York City, NY'
-    }
+      userCountry: 'New York City, NY',
+    },
   ]
 
   returnCount(rating: string) {

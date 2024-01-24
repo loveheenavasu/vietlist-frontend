@@ -9,6 +9,7 @@ import { NgFor, NgIf } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
+import { AuthService } from '../service/auth.service'
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -27,6 +28,7 @@ export class LoginComponent {
   constructor(
     public dialog: MatDialog,
     public router: Router,
+    private authService:AuthService
   ) {}
   public forgotPassword() {
     this.dialog.open(ForgotPasswordComponent, {
@@ -37,4 +39,12 @@ export class LoginComponent {
   public navigateToRegister() {
     this.router.navigateByUrl('/register')
   }
+
+  // login(){
+  // this.authService.login().subscribe({
+  //   next:(res)=>{
+
+  //   }
+  // })
+  // }
 }

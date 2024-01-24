@@ -17,8 +17,6 @@ export default [
   {
     path: 'login',
     loadComponent: () =>
-      import('./auth/login/login.component').then(
-        (x) => x.LoginComponent,
-      ),
+      import('./auth/login/login.component').then((x) => x.LoginComponent),
   },
 ] as Routes

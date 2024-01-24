@@ -1,4 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core'
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -12,7 +17,7 @@ register()
   styleUrl: './buisness-category.component.scss',
 })
 export class BuisnessCategoryComponent {
-  @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef;
+  @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
 
   swiperParams = {
     slidesPerView: 1,
@@ -26,19 +31,17 @@ export class BuisnessCategoryComponent {
       },
       1388: {
         slidesPerView: 6,
-      }
-    },
-    on: {
-      init() {
       },
     },
-  };
+    on: {
+      init() {},
+    },
+  }
   constructor() {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
-      Object.assign(swiperEl, this.swiperParams);
-      swiperEl.initialize();
+      Object.assign(swiperEl, this.swiperParams)
+      swiperEl.initialize()
     })
   }
-
 }

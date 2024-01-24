@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ValidationService {
+  constructor() {}
 
-  constructor() { }
-
-  public getValidationMessage(validationId:any):any{
+  public getValidationMessage(validationId: any): any {
     return this.errorMessage[validationId]
   }
 
-  private errorMessage:any = {
-    'buisnessname-required-msg' : 'Buisness name is required'
+  private errorMessage: any = {
+    'business-required-msg': 'Business name is required',
+    'email-required-msg' : 'Email is required',
+    'password-required-msg' : 'Password is required',
+    'confirm-password-required-msg' : 'Confirm password is required',
+    'buisness-type-msg':'Buisness type is required',
+    'role-type-msg':'Role type is required'
   }
 }
