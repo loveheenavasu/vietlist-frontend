@@ -115,7 +115,7 @@
               </span>
             </div>
           </div>
-          <div class="col-12 mt-3">
+          <div class="col-12">
             <div class="form-group">
               <div class="form-check">
                 <input
@@ -136,7 +136,7 @@
               class="btn orange-background-btn-w-100"
               type="submit"
               (click)="submitRegistration()"
-              [disabled]="!signupForm.valid && !terms.value"
+              [disabled]="!signupForm.valid || terms.value == false"
             >
               <span *ngIf="!loader">Submit</span>
               <app-loader *ngIf="loader"></app-loader>

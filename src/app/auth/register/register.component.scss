@@ -69,3 +69,8 @@
     margin:auto;
     font-size:16px;
 }
+
+.form-check-input:checked {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+  }

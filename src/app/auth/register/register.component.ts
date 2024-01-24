@@ -41,7 +41,7 @@ export class RegisterComponent {
     { name: 'Buisness', value: 'buisness', checked: true },
     { name: 'User', value: 'user', checked: false },
   ]
-public terms = new FormControl('' , Validators.required)
+public terms = new FormControl(false, Validators.required)
   public selectedVal: any
   public roles = Roles;
   public rolesArray = Object.entries(this.roles); // Convert roles object to an array of key-value pairs
