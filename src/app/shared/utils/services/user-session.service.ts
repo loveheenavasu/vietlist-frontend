@@ -7,8 +7,9 @@ import { BehaviorSubject } from 'rxjs';
 export class UserSessionService {
 
   public loginToken = new BehaviorSubject<any>('');
+  public isSuccessLogin = new BehaviorSubject<any>('')
 
-  constructor() { 
+  constructor() {
   }
 
 

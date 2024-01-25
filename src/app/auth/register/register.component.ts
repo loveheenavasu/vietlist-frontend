@@ -38,8 +38,8 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  public selectedSignupType: any = Roles.businessOwner
-  role = Roles
+  public selectedSignupType = Roles.businessOwner
+  public role = Roles
   public signupForm:FormGroup
   public signupType = [
     { name: 'Business', value: Roles.businessOwner, checked: true },
