@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-OXCW2X5T.js";
+} from "./chunk-J5XZNU7V.js";
 
 // node_modules/sweetalert2/dist/sweetalert2.all.js
 var require_sweetalert2_all = __commonJS({

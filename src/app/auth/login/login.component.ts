@@ -59,6 +59,7 @@ export class LoginComponent {
       username: ['', Validators.required],
       password: ['', Validators.required],
     })
+    console.log("hello")
   }
   public forgotPassword() {
     this.dialog.open(ForgotPasswordComponent, {

@@ -1,5 +1,5 @@
 export enum Roles {
-  businessOwner = 'buisness-owner',
+  businessOwner = 'business-owner',
   subscriber = 'subscriber',
   commissionSalesAgent = ' commission-sales-agent',
   contentContributor = 'content-contributor',

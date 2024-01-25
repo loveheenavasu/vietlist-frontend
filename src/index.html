@@ -30,6 +30,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.14/build/css/intlTelInput.css">
     <!-- jQuery -->
     <!-- <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -50,9 +51,18 @@
       integrity="sha384-JjSmVgyd8Y7SMpdFtwGcDDE8eXVtM8pVHusskNfRSJoqt6OA3hD64P1Qhkgx5Kl"
       crossorigin="anonymous"
     ></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.14/build/js/intlTelInput.min.js"></script>
+<script>
+  const input = document.querySelector("#phone");
+  window.intlTelInput(input, {
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.2.14/build/js/utils.js",
+  });
+</script>
+
   </head>
 
   <body>
+    <input>
     <app-root></app-root>
   </body>
 </html>

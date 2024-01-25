@@ -32,7 +32,7 @@ import { LoaderComponent } from 'src/app/common-ui'
     NgIf,
     FormControlValidationDirective,
     LoaderComponent,
-    NgClass,
+    NgClass
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
@@ -40,14 +40,16 @@ import { LoaderComponent } from 'src/app/common-ui'
 export class RegisterComponent {
   public selectedSignupType: any = Roles.businessOwner
   role = Roles
+  public signupForm:FormGroup
   public signupType = [
     { name: 'Business', value:Roles.businessOwner, checked: true },
     { name: 'User', value:Roles.subscriber, checked: false },
   ]
-  public terms = new FormControl(false, Validators.required)
+  public term_and_condition = new FormControl(false, Validators.required)
   public selectedVal: any
   public loader: boolean = false
   public isHidePassword: boolean = false
+  public isHideConfirmPassword: boolean = false
   public rolesArray = (Object.keys(Roles) as Array<keyof typeof Roles>).map(
     (key) => ({
       value: Roles[key],
@@ -57,8 +59,7 @@ export class RegisterComponent {
 
   public selectedRole: string = '' // Set a default value if needed
 
-  public signupForm: FormGroup
-
+ 
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -73,16 +74,18 @@ export class RegisterComponent {
         [
           Validators.required,
           Validators.email,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
       first_name:['' , Validators.required],
       last_name:['' , Validators.required],
-      confirmPassword: ['', Validators.required],
+      confirm_password: ['', Validators.required],
       role: ['', Validators.required],
+      contact_details:['' , Validators.required]
     })
    
     console.log(this.rolesArray)
+    
   }
 
   ngOnInit() {
@@ -121,8 +124,10 @@ export class RegisterComponent {
       email: this.signupForm.value.email,
       first_name:this.signupForm.value.first_name,
       last_name:this.signupForm.value.last_name,
-      confirmPassword: this.signupForm.value.confirmPassword,
-      role:this.selectedVal
+      confirm_password: this.signupForm.value.confirm_password,
+      contact_details:this.signupForm.value.contact_details,
+      role:this.selectedVal,
+      term_and_condition:this.term_and_condition.value
       // ...(this.selectedVal === this.role.subscriber
       //   ? { role: this.signupForm.value.role }
       //   : {}),
@@ -177,10 +182,25 @@ export class RegisterComponent {
     }
   }
 
+    public hideConfirmPassword() {
+    if (this.isHideConfirmPassword) {
+      this.isHideConfirmPassword = false
+    } else {
+      this.isHideConfirmPassword = true
+    }
+  }
+
   formatLabel(key: keyof typeof Roles): string {
     // Example: Convert "businessOwner" to "Business Owner"
     return key
       .replace(/([A-Z])/g, ' $1')
       .replace(/^./, (str) => str.toUpperCase())
+  }
+
+
+  public onlyNumberKey(event: any) {
+    return event.charCode == 8 || event.charCode == 0
+      ? null
+      : event.charCode >= 48 && event.charCode <= 57
   }
 }
