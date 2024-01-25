@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent {
 
-  showUserProfile?: any
+  showUserProfile: any
   email:string= ''
   userName:string = ''
   public userDetails: any
