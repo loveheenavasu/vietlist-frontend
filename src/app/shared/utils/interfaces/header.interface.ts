@@ -4,3 +4,9 @@ export interface NavItem {
   active?: boolean
   subItems?: NavItem[]
 }
+
+export interface ProfileMenu {
+  label: string
+  icon: any
+  url: any
+}

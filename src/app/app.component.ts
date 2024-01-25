@@ -8,9 +8,9 @@ import { FooterComponent, HeaderComponent } from './common-ui'
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent],
   template: `
-  <app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
   `,
   styleUrl: './app.component.scss',
 })

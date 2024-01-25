@@ -1,1 +1,1 @@
-export * from "./generic.helper";
+export * from './generic.helper'

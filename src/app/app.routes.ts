@@ -19,4 +19,8 @@ export default [
     loadComponent: () =>
       import('./auth/login/login.component').then((x) => x.LoginComponent),
   },
+  {
+    path:'manage-profile',
+    loadComponent:()=> import("./manage-profile/main/main").then((x)=>x.MainComponent)
+  }
 ] as Routes

@@ -34,7 +34,10 @@ export class FormControlValidationDirective {
     this.control.statusChanges
       ?.pipe(takeUntilDestroyed(this._destroyRef))
       ?.subscribe((status) => {
-        if (status === CONTROL_STATUS.INVALID && (this.control.touched || this.control.dirty)) {
+        if (
+          status === CONTROL_STATUS.INVALID &&
+          (this.control.touched || this.control.dirty)
+        ) {
           this.showError()
         } else {
           this.removeError()

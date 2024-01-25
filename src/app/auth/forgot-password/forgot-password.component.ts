@@ -1,5 +1,5 @@
-import { NgIf, CommonModule } from '@angular/common';
-import { LoaderComponent } from './../../common-ui/loader/loader.component';
+import { NgIf, CommonModule } from '@angular/common'
+import { LoaderComponent } from './../../common-ui/loader/loader.component'
 import { Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
@@ -31,25 +31,25 @@ import Swal from 'sweetalert2'
     FormsModule,
     LoaderComponent,
     NgIf,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
   public forgotPasswordForm!: FormGroup
-  public isHidePassword: boolean = false;
+  public isHidePassword: boolean = false
   public isOtpReceived: boolean = false
-  public isOtpValidate:boolean = false
+  public isOtpValidate: boolean = false
   public otp = new FormControl('', [
     Validators.required,
     Validators.pattern('^[0-9]{4}$'), // Pattern to allow only 4 digits
-  ]);
-  public otpToken : any
-  public password = new FormControl('' , Validators.required)
-  public hideOTP:boolean = true
-  public loader:boolean = false
-  public isResentOTP:boolean = false
+  ])
+  public otpToken: any
+  public password = new FormControl('', Validators.required)
+  public hideOTP: boolean = true
+  public loader: boolean = false
+  public isResentOTP: boolean = false
   constructor(
     public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
     public dialog: MatDialog,
@@ -58,13 +58,17 @@ export class ForgotPasswordComponent {
     private fb: FormBuilder,
   ) {
     this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email , Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
+      ],
     })
   }
 
-
-  
   public close() {
     this.matDialogRef.close()
   }
@@ -79,15 +83,11 @@ export class ForgotPasswordComponent {
     this.router.navigateByUrl('/register')
   }
 
+  public getOtp(isResendOTP: boolean) {
+    console.log(isResendOTP, 'isResendOTP')
 
-
-
-  public getOtp(isResendOTP:boolean) {
-    console.log(isResendOTP , "isResendOTP")
-    
     if (this.forgotPasswordForm.valid) {
-    
-      if(isResendOTP == false){
+      if (isResendOTP == false) {
         this.loader = true
       }
       this.authService.sendOtp(this.forgotPasswordForm.value).subscribe({
@@ -97,15 +97,15 @@ export class ForgotPasswordComponent {
             toast: true,
             text: res.message,
             animation: false,
-            icon:'success',
+            icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
           })
           if (res) {
-            this.isOtpReceived = true;
-            this.hideOTP = false;
+            this.isOtpReceived = true
+            this.hideOTP = false
           }
         },
         error: (err: any) => {
@@ -114,7 +114,7 @@ export class ForgotPasswordComponent {
             toast: true,
             text: err.error.message,
             animation: false,
-            icon:'error',
+            icon: 'error',
             position: 'top-right',
             showConfirmButton: false,
             timer: 3000,
@@ -122,12 +122,12 @@ export class ForgotPasswordComponent {
           })
         },
       })
-    }else{
+    } else {
       Swal.fire({
         toast: true,
         text: 'Email is required',
         animation: false,
-        icon:'error',
+        icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
         timer: 3000,
@@ -144,12 +144,12 @@ export class ForgotPasswordComponent {
     this.loader = true
     this.authService.forgotPassword(body).subscribe({
       next: (res: any) => {
-       this.otpToken = res.token
-       this.hideOTP = false
+        this.otpToken = res.token
+        this.hideOTP = false
         if (res) {
           this.loader = false
-          this.hideOTP = true; // Hide OTP input
-          this.isOtpValidate = true;
+          this.hideOTP = true // Hide OTP input
+          this.isOtpValidate = true
         }
       },
       error: (err: any) => {
@@ -159,12 +159,11 @@ export class ForgotPasswordComponent {
     })
   }
 
-
-  public resetPassword(){
+  public resetPassword() {
     const body = {
       email: this.forgotPasswordForm.value.email,
-      token:this.otpToken,
-      password:this.password.value
+      token: this.otpToken,
+      password: this.password.value,
     }
     this.loader = true
     this.authService.resetPassword(body).subscribe({
@@ -174,7 +173,7 @@ export class ForgotPasswordComponent {
           toast: true,
           text: res.message,
           animation: false,
-          icon:'success',
+          icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
           timer: 3000,
@@ -189,7 +188,7 @@ export class ForgotPasswordComponent {
           toast: true,
           text: err.error.message,
           animation: false,
-          icon:'error',
+          icon: 'error',
           position: 'top-right',
           showConfirmButton: false,
           timer: 3000,
@@ -197,19 +196,20 @@ export class ForgotPasswordComponent {
         })
       },
     })
-    
   }
 
-  public  onlyNumberKey(event: any) {
-    return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  public onlyNumberKey(event: any) {
+    return event.charCode == 8 || event.charCode == 0
+      ? null
+      : event.charCode >= 48 && event.charCode <= 57
   }
 
   public onOtpInput() {
-    const inputValue:any = this.otp.value;
-    const numericValue = inputValue.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-  
+    const inputValue: any = this.otp.value
+    const numericValue = inputValue.replace(/[^0-9]/g, '') // Remove non-numeric characters
+
     if (numericValue.length > 4) {
-      this.otp.setValue(numericValue.substring(0, 4)); // Limit to 4 digits
+      this.otp.setValue(numericValue.substring(0, 4)) // Limit to 4 digits
     }
   }
 
@@ -222,20 +222,18 @@ export class ForgotPasswordComponent {
   }
 
   validateEmailFormat() {
-    const emailControl:any = this.forgotPasswordForm.get('email');
-  
+    const emailControl: any = this.forgotPasswordForm.get('email')
+
     // Check if the email is touched and is not empty before validating the format
     if (emailControl.touched && emailControl.value) {
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      const isValid = emailPattern.test(emailControl.value);
-  
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      const isValid = emailPattern.test(emailControl.value)
+
       if (!isValid) {
-        emailControl.setErrors({ 'email': true });
+        emailControl.setErrors({ email: true })
       } else {
-        emailControl.setErrors(null);
+        emailControl.setErrors(null)
       }
     }
   }
-  
-  
 }

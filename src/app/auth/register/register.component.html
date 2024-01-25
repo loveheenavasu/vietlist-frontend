@@ -12,11 +12,20 @@
             <h1 class="text-center form-heading">Sign Up</h1>
           </div>
           <div class="col-12 m-auto text-center">
-            <mat-radio-group aria-label="Select an option" [ngModel]="selectedSignupType"
-              [ngModelOptions]="{ standalone: true }" (ngModelChange)="changeSignupType()" name="radio">
+            <mat-radio-group
+              aria-label="Select an option"
+              [ngModel]="selectedSignupType"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="changeSignupType()"
+              name="radio"
+            >
               @for (key of signupType; track $index) {
-              <mat-radio-button value="{{ key.value }}" [checked]="key.checked" (click)="selectType(key.value)">{{
-                key.name }}</mat-radio-button>
+                <mat-radio-button
+                  value="{{ key.value }}"
+                  [checked]="key.checked"
+                  (click)="selectType(key.value)"
+                  >{{ key.name }}</mat-radio-button
+                >
               }
             </mat-radio-group>
           </div>
@@ -24,73 +33,55 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
-              <input class="input-control" type="text" [placeholder]="selectedVal == 'business' ? 'Buisness Name' : 'Username'" formControlName="username"
-                appFormControlValidation [validationMsgId]="'business-required-msg'" />
+              <input
+                class="input-control"
+                type="text"
+                [placeholder]="selectedVal ? 'Business Name' : 'Username'"
+                formControlName="username"
+                appFormControlValidation
+                [validationMsgId]="'business-required-msg'"
+              />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
               <input
                 class="input-control"
-                type="text"
+                type="email"
                 formControlName="email"
                 placeholder="Email"
-                appFormControlValidation
-                [validationMsgId]="'email-required-msg'"
               />
+              @if (
+                signupForm.get('email')?.touched &&
+                signupForm.get('email')?.hasError('required')
+              ) {
+                <span class="error-message">Email is required</span>
+              }
+              @if (signupForm.get('email')?.hasError('pattern')) {
+                <span class="error-message">Enter valid email</span>
+              }
             </div>
           </div>
 
-          <!-- <div class="col-12">
-            <div class="form-group">
-              <mat-select
-                class="vietlist-select"
-                placeholder="Roles"
-                formControlName="role"
-                appFormControlValidation
-                [validationMsgId]="'role-type-msg'"
-             
-              >
-                @for (role of rolesArray; track $index) {
-                  <mat-option [value]="role.value">{{ role.label}}</mat-option>
-
-                }
-              </mat-select>
-            </div>
-          </div> -->
-          <div class="col-12">
-            <div class="form-group">
-              <mat-select
-                class="vietlist-select"
-                placeholder="Business type"
-                formControlName="business_type"
-                appFormControlValidation
-                [validationMsgId]="'business-type-msg'"
-              >
-                <mat-option value="retail">Retail</mat-option>
-                <mat-option value="restaurant">Restaurant</mat-option>
-                <mat-option value="restaurant">Service</mat-option>
-              </mat-select>
-            </div>
-          </div>
-
-          @if (selectedVal == 'business') {
-            <!-- <div class="col-12">
+          @if (selectedVal === role.businessOwner) {
+            <div class="col-12">
               <div class="form-group">
                 <mat-select
                   class="vietlist-select"
-                  placeholder="Role"
+                  placeholder="Business type"
                   formControlName="business_type"
                   appFormControlValidation
                   [validationMsgId]="'business-type-msg'"
                 >
                   <mat-option value="retail">Retail</mat-option>
                   <mat-option value="restaurant">Restaurant</mat-option>
-                  <mat-option value="restaurant">Services</mat-option>
+                  <mat-option value="restaurant">Service</mat-option>
                 </mat-select>
               </div>
-            </div> -->
-            <div class="col-12">
+            </div>
+          }
+
+          <!-- <div class="col-12">
               <div class="form-group">
                 <mat-select
                   class="vietlist-select"
@@ -98,24 +89,42 @@
                   formControlName="role"
                   appFormControlValidation
                   [validationMsgId]="'role-type-msg'"
-               
                 >
                   @for (role of rolesArray; track $index) {
-                    <mat-option [value]="role.value">{{ role.label}}</mat-option>
-  
+                    <mat-option [value]="role.value">{{
+                      role.label
+                    }}</mat-option>
                   }
                 </mat-select>
               </div>
-            </div>
-          }
+            </div> -->
+
           <div class="col-12">
             <div class="form-group">
               <div class="input-group">
-                <input class="input-control" [type]="!isHidePassword ? 'password' : 'text' "  formControlName="password" placeholder="Password"
-                  />
-                <span class="input-group-text" id="basic-addon1" (click)="hidePassword()">
-                  <i *ngIf="!isHidePassword" class="fa fa-eye-slash" aria-hidden="true" style="color:#6c757d"></i>
-                  <i *ngIf="isHidePassword" class="fa fa-eye" aria-hidden="true" style="color:#6c757d"></i>
+                <input
+                  class="input-control"
+                  [type]="!isHidePassword ? 'password' : 'text'"
+                  formControlName="password"
+                  placeholder="Password"
+                />
+                <span
+                  class="input-group-text"
+                  id="basic-addon1"
+                  (click)="hidePassword()"
+                >
+                  <i
+                    *ngIf="!isHidePassword"
+                    class="fa fa-eye-slash"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
+                  <i
+                    *ngIf="isHidePassword"
+                    class="fa fa-eye"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
                 </span>
               </div>
             </div>
