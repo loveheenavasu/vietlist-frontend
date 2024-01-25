@@ -79,7 +79,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.loader = false
-        
+          this.userSessionService.isSuccessLogin.next(res)
           this.userSessionService.loginToken.next(res.data.token)
           this.localStorage.saveData('vietlist::session', res.data.token)
           this.localStorage.saveData("vietlist::userdata", JSON.stringify(res.data.user))

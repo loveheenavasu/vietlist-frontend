@@ -24,9 +24,11 @@ export class EditProfileComponent {
     })
   }
   ngOnInit() {
-    if (this.isLoginSucess) {
-      this.fetchProfileDetail()
+    console.log("check log is sucess", this.isLoginSucess)
+    if(this.isLoginSucess){
+    this.fetchProfileDetail()
     }
+
   }
 
   fetchProfileDetail() {
