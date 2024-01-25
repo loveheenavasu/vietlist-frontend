@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProfileService } from '../../service/profile.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserSessionService } from 'src/app/shared/utils/services/user-session.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,16 +14,23 @@ import { Router } from '@angular/router';
 export class EditProfileComponent {
 
   showUserProfile!: any
-  email:string= ''
-  userName:string = ''
+  email: string = ''
+  userName: string = ''
   public userDetails: any
-  constructor(private profileDetail: ProfileService, private router: Router) {
+  isLoginSucess?: any
+  constructor(private profileDetail: ProfileService, private router: Router, private userSessionService: UserSessionService) {
+    this.userSessionService.isSuccessLogin.subscribe(val => {
+      this.isLoginSucess = val
+    })
   }
   ngOnInit() {
-    this.fetchProfileDetail()
+    if (this.isLoginSucess) {
+      this.fetchProfileDetail()
+    }
   }
 
   fetchProfileDetail() {
+
     this.profileDetail.profileData().subscribe({
       next: (res) => {
         if (res && res.data && res.data.user) {
