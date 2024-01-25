@@ -12,29 +12,32 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent {
 
-  showUserProfile?:any
-  email?:''
-  userName?:''
-  public userDetails:any
-  constructor(private profileDetail : ProfileService,private router:Router){
+  showUserProfile?: any
+  email?: ''
+  userName?: ''
+  public userDetails: any
+  constructor(private profileDetail: ProfileService, private router: Router) {
   }
-  ngOnInit(){
-   this.fetchProfileDetail()
-    }
+  ngOnInit() {
+    this.fetchProfileDetail()
+  }
 
-    fetchProfileDetail(){
-      this.profileDetail.profileData().subscribe({
-        next:(res)=>{
+  fetchProfileDetail() {
+    this.profileDetail.profileData().subscribe({
+      next: (res) => {
+        if (res) {
           this.showUserProfile = res
           this.userDetails = res.data.user
           this.email = res.data.user.user_email
-          this.userName= res.data.user.user_nicename
-          console.log("check the email,username",this.userName,this.email)
-        },
-        error:(err)=>{
-          this.router.navigateByUrl('/login')
-          console.log("showUserProfile-error",err)
+          this.userName = res.data.user.user_nicename
+          console.log("check the email,username", this.userName, this.email)
         }
-      })
-    }
+
+      },
+      error: (err) => {
+        this.router.navigateByUrl('/login')
+        console.log("showUserProfile-error", err)
+      }
+    })
+  }
 }
