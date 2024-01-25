@@ -117,7 +117,7 @@ export class RegisterComponent {
   }
 
   public submitRegistration() {
- 
+
     const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
@@ -135,6 +135,7 @@ export class RegisterComponent {
     }
     this.loader = true
     console.log(body, 'body')
+    
     this.authService.register(body).subscribe({
       next: (res) => {
         this.loader = false
@@ -169,6 +170,7 @@ export class RegisterComponent {
         })
       },
     })
+ 
   }
 
   public changeSignupType() {
