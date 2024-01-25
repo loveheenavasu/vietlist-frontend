@@ -119,10 +119,13 @@ export class RegisterComponent {
       password: this.signupForm.value.password,
       business_type: this.signupForm.value.business_type,
       email: this.signupForm.value.email,
+      first_name:this.signupForm.value.first_name,
+      last_name:this.signupForm.value.last_name,
       confirmPassword: this.signupForm.value.confirmPassword,
-      ...(this.selectedVal === 'business'
-        ? { role: this.signupForm.value.role }
-        : {}),
+      role:this.selectedVal
+      // ...(this.selectedVal === this.role.subscriber
+      //   ? { role: this.signupForm.value.role }
+      //   : {}),
     }
     this.loader = true
     console.log(body, 'body')
