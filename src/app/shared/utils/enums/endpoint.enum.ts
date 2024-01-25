@@ -4,4 +4,5 @@ export enum Endpoints {
   SendOtp = 'sendotp',
   Forgotpassword = 'validateotp',
   ResetPassword = 'passwordreset',
+  ProfileDetail = 'showuserprofile'
 }

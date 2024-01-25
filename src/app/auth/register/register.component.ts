@@ -41,8 +41,8 @@ export class RegisterComponent {
   public selectedSignupType: any = Roles.businessOwner
   role = Roles
   public signupType = [
-    { name: 'Business', value:Roles.businessOwner, checked: true },
-    { name: 'User', value:Roles.subscriber, checked: false },
+    { name: 'Business', value: Roles.businessOwner, checked: true },
+    { name: 'User', value: Roles.subscriber, checked: false },
   ]
   public terms = new FormControl(false, Validators.required)
   public selectedVal: any
@@ -76,12 +76,12 @@ export class RegisterComponent {
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
-      first_name:['' , Validators.required],
-      last_name:['' , Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       role: ['', Validators.required],
     })
-   
+
     console.log(this.rolesArray)
   }
 

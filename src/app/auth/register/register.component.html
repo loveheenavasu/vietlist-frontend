@@ -12,20 +12,11 @@
             <h1 class="text-center form-heading">Sign Up</h1>
           </div>
           <div class="col-12 m-auto text-center">
-            <mat-radio-group
-              aria-label="Select an option"
-              [ngModel]="selectedSignupType"
-              [ngModelOptions]="{ standalone: true }"
-              (ngModelChange)="changeSignupType()"
-              name="radio"
-            >
+            <mat-radio-group aria-label="Select an option" [ngModel]="selectedSignupType"
+              [ngModelOptions]="{ standalone: true }" (ngModelChange)="changeSignupType()" name="radio">
               @for (key of signupType; track $index) {
-                <mat-radio-button
-                  value="{{ key.value }}"
-                  [checked]="key.checked"
-                  (click)="selectType(key.value)"
-                  >{{ key.name }}</mat-radio-button
-                >
+              <mat-radio-button value="{{ key.value }}" [checked]="key.checked" (click)="selectType(key.value)">{{
+                key.name }}</mat-radio-button>
               }
             </mat-radio-group>
           </div>
@@ -33,76 +24,49 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="text"
+              <input class="input-control" type="text"
                 [placeholder]="selectedVal === role.businessOwner ? 'Business Name' : 'Username'"
-                formControlName="username"
-                appFormControlValidation
-                [validationMsgId]="'business-required-msg'"
-              />
+                formControlName="username" appFormControlValidation [validationMsgId]="'business-required-msg'" />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="text"
-                placeholder="First name"
-                formControlName="first_name"
-                appFormControlValidation
-                [validationMsgId]="'business-required-msg'"
-              />
+              <input class="input-control" type="text" placeholder="First name" formControlName="first_name"
+                appFormControlValidation [validationMsgId]="'business-required-msg'" />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="text"
-                placeholder="Last name"
-                formControlName="last_name"
-                appFormControlValidation
-                [validationMsgId]="'business-required-msg'"
-              />
+              <input class="input-control" type="text" placeholder="Last name" formControlName="last_name"
+                appFormControlValidation [validationMsgId]="'business-required-msg'" />
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="email"
-                formControlName="email"
-                placeholder="Email"
-              />
+              <input class="input-control" type="email" formControlName="email" placeholder="Email" />
               @if (
-                signupForm.get('email')?.touched &&
-                signupForm.get('email')?.hasError('required')
+              signupForm.get('email')?.touched &&
+              signupForm.get('email')?.hasError('required')
               ) {
-                <span class="error-message">Email is required</span>
+              <span class="error-message">Email is required</span>
               }
               @if (signupForm.get('email')?.hasError('pattern')) {
-                <span class="error-message">Enter valid email</span>
+              <span class="error-message">Enter valid email</span>
               }
             </div>
           </div>
 
           @if (selectedVal === role.businessOwner) {
-            <div class="col-12">
-              <div class="form-group">
-                <mat-select
-                  class="vietlist-select"
-                  placeholder="Business type"
-                  formControlName="business_type"
-                  appFormControlValidation
-                  [validationMsgId]="'business-type-msg'"
-                >
-                  <mat-option value="retail">Retail</mat-option>
-                  <mat-option value="restaurant">Restaurant</mat-option>
-                  <mat-option value="restaurant">Service</mat-option>
-                </mat-select>
-              </div>
+          <div class="col-12">
+            <div class="form-group">
+              <mat-select class="vietlist-select" placeholder="Business type" formControlName="business_type"
+                appFormControlValidation [validationMsgId]="'business-type-msg'">
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Service</mat-option>
+              </mat-select>
             </div>
+          </div>
           }
 
           <!-- <div class="col-12">
@@ -126,43 +90,20 @@
           <div class="col-12">
             <div class="form-group">
               <div class="input-group">
-                <input
-                  class="input-control"
-                  [type]="!isHidePassword ? 'password' : 'text'"
-                  formControlName="password"
-                  placeholder="Password"
-                />
-                <span
-                  class="input-group-text"
-                  id="basic-addon1"
-                  (click)="hidePassword()"
-                >
-                  <i
-                    *ngIf="!isHidePassword"
-                    class="fa fa-eye-slash"
-                    aria-hidden="true"
-                    style="color: #6c757d"
-                  ></i>
-                  <i
-                    *ngIf="isHidePassword"
-                    class="fa fa-eye"
-                    aria-hidden="true"
-                    style="color: #6c757d"
-                  ></i>
+                <input class="input-control" [type]="!isHidePassword ? 'password' : 'text'" formControlName="password"
+                  placeholder="Password" />
+                <span class="input-group-text" id="basic-addon1" (click)="hidePassword()">
+                  <i *ngIf="!isHidePassword" class="fa fa-eye-slash" aria-hidden="true" style="color: #6c757d"></i>
+                  <i *ngIf="isHidePassword" class="fa fa-eye" aria-hidden="true" style="color: #6c757d"></i>
                 </span>
               </div>
             </div>
           </div>
           <div class="col-12">
             <div class="form-group">
-              <input
-                class="input-control"
-                type="password"
-                formControlName="confirmPassword"
-                placeholder="Confirm Password"
-                appFormControlValidation
-                [validationMsgId]="'confirm-password-required-msg'"
-              />
+              <input class="input-control" type="password" formControlName="confirmPassword"
+                placeholder="Confirm Password" appFormControlValidation
+                [validationMsgId]="'confirm-password-required-msg'" />
               <span class="error-message" *ngIf="passwordsMismatch()">
                 Confirm Password does not match
               </span>
@@ -171,13 +112,7 @@
           <div class="col-12">
             <div class="form-group">
               <div class="form-check">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  value=""
-                  id="terms"
-                  [formControl]="terms"
-                />
+                <input class="form-check-input" type="checkbox" value="" id="terms" [formControl]="terms" />
                 <label class="form-check-label" for="terms">
                   Accept Terms & Conditions
                 </label>
@@ -185,12 +120,7 @@
             </div>
           </div>
           <div class="col-12">
-            <button
-              class="btn orange-background-btn-w-100"
-              type="submit"
-              (click)="submitRegistration()"
-              [disabled]="!signupForm.valid || terms.value == false"
-            >
+            <button class="btn orange-background-btn-w-100" type="submit" (click)="submitRegistration()">
               <span *ngIf="!loader">Submit</span>
               <app-loader *ngIf="loader"></app-loader>
             </button>

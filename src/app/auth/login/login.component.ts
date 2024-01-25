@@ -20,6 +20,7 @@ import {
 import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
+import { UserSessionService } from 'src/app/shared/utils/services/user-session.service'
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -54,6 +55,7 @@ export class LoginComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private localStorage: LocalStorageService,
+    private userSessionService: UserSessionService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -76,7 +78,10 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.loader = false
-          this.localStorage.saveData('vietlist::session', res.token)
+          this.userSessionService.loginToken.next(res.data.token)
+          this.localStorage.saveData('vietlist::session', res.data.token)
+          this.localStorage.saveData("vietlist::userdata", JSON.stringify(res.data.user))
+          this.router.navigateByUrl("/manage-profile")
           Swal.fire({
             toast: true,
             text: 'Login Successfully',
