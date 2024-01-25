@@ -42,8 +42,8 @@ export class RegisterComponent {
   role = Roles
   public signupForm:FormGroup
   public signupType = [
-    { name: 'Business', value:Roles.businessOwner, checked: true },
-    { name: 'User', value:Roles.subscriber, checked: false },
+    { name: 'Business', value: Roles.businessOwner, checked: true },
+    { name: 'User', value: Roles.subscriber, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedVal: any
@@ -83,7 +83,7 @@ export class RegisterComponent {
       role: ['', Validators.required],
       contact_details:['' , Validators.required]
     })
-   
+
     console.log(this.rolesArray)
     
   }

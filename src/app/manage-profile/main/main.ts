@@ -1,6 +1,7 @@
 import { EditProfileComponent } from '../components';
 import { Component } from '@angular/core';
-import { ProfileMenu, SidebarService } from '@vietlist/shared';
+import { ProfileMenu, SidebarService, LocalStorageService } from '@vietlist/shared';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
   selector: 'app-main',
@@ -11,9 +12,14 @@ import { ProfileMenu, SidebarService } from '@vietlist/shared';
 })
 export class MainComponent {
 public sidebarMenu : ProfileMenu[] = []
-constructor(private sidebarService:SidebarService){
+userEmail:any
+constructor(private sidebarService:SidebarService, private profileDetail : ProfileService ){
   this.getSidebarLinks()
+  this.userEmail = JSON.parse(localStorage.getItem('vietlist::userdata') as string)
+
 }
+
+
 
 getSidebarLinks(){
   this.sidebarService.getSidebarLinks().subscribe((res)=>{
@@ -21,6 +27,7 @@ getSidebarLinks(){
     console.log(res)
   })
 }
+
 
 
 }

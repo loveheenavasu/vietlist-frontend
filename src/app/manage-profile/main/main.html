@@ -1,8 +1,8 @@
 <div class="container-fluid g-0">
     <section class="banner">
-      <div class="content">
-        <h1>Account</h1>
-      </div>
+        <div class="content">
+            <h1>Account</h1>
+        </div>
     </section>
 
     <div class="container">
@@ -13,10 +13,10 @@
                         <div class="upload-profile">
                             <div class="profile-pic-div"></div>
                         </div>
-                        <p class="user-email">usermail.com</p>
+                        <p class="user-email">{{userEmail.user_email}}</p>
                         <ul>
                             @for(key of sidebarMenu ; track $index){
-                                <li><span><i [class]="key.icon"></i></span>{{key.label}}</li>
+                            <li><span><i [class]="key.icon"></i></span>{{key.label}}</li>
                             }
                         </ul>
                     </div>
