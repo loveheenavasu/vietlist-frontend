@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Endpoints, GenericHelper } from '@vietlist/shared';
+import { Endpoints, GenericHelper, LocalStorageService } from '@vietlist/shared';
 import { Observable } from 'rxjs';
 import { UserSessionService } from 'src/app/shared/utils/services/user-session.service';
 
@@ -9,8 +9,10 @@ import { UserSessionService } from 'src/app/shared/utils/services/user-session.s
 })
 export class ProfileService {
 bearerToken?:any;
-  constructor(private http: HttpClient) { 
-    this.bearerToken = localStorage.getItem('vietlist::session')
+  constructor(private http: HttpClient  ,private localStorage:LocalStorageService ) { 
+    if (typeof document !== 'undefined') {
+    this.bearerToken = localStorage.getData('vietlist::session')
+    }
   
   }
 
