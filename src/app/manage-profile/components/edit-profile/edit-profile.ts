@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent {
 
-  showUserProfile?:any
+  // showUserProfile:any
   email?:''
   userName?:''
   public userDetails:any
@@ -25,7 +25,7 @@ export class EditProfileComponent {
     fetchProfileDetail(){
       this.profileDetail.profileData().subscribe({
         next:(res)=>{
-          this.showUserProfile = res
+          // this.showUserProfile = res
           this.userDetails = res.data.user
           this.email = res.data.user.user_email
           this.userName= res.data.user.user_nicename

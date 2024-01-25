@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/",
+    "/login",
+    "/manage-profile",
+    "/register"
+  ]
+}

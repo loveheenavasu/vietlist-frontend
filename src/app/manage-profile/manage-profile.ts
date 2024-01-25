@@ -1,16 +1,16 @@
-import { EditProfileComponent } from '../components';
 import { Component } from '@angular/core';
 import { LocalStorageService, ProfileMenu, SidebarService } from '@vietlist/shared';
-import { ProfileService } from '../service/profile.service';
+import { EditProfileComponent } from './components';
+import { ProfileService } from './service/profile.service';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-manage-profile',
   standalone: true,
   imports: [EditProfileComponent],
-  templateUrl: './main.html',
-  styleUrl: './main.scss'
+  templateUrl: './manage-profile.html',
+  styleUrl: './manage-profile.scss'
 })
-export class MainComponent {
+export class ManageProfileComponent {
 public sidebarMenu : ProfileMenu[] = []
 userEmail:any
 constructor(private sidebarService:SidebarService, private profileDetail : ProfileService , private localStorage:LocalStorageService){

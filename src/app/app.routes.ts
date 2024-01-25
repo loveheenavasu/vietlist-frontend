@@ -1,3 +1,4 @@
+import { ManageProfileComponent } from './manage-profile/manage-profile';
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
 
@@ -21,6 +22,6 @@ export default [
   },
   {
     path:'manage-profile',
-    loadComponent:()=> import("./manage-profile/main/main").then((x)=>x.MainComponent)
+    loadComponent:()=> ManageProfileComponent
   }
 ] as Routes
