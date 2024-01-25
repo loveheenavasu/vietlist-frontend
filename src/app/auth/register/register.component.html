@@ -36,8 +36,32 @@
               <input
                 class="input-control"
                 type="text"
-                [placeholder]="selectedVal ? 'Business Name' : 'Username'"
+                [placeholder]="selectedVal === role.businessOwner ? 'Business Name' : 'Username'"
                 formControlName="username"
+                appFormControlValidation
+                [validationMsgId]="'business-required-msg'"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                class="input-control"
+                type="text"
+                placeholder="First name"
+                formControlName="first_name"
+                appFormControlValidation
+                [validationMsgId]="'business-required-msg'"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                class="input-control"
+                type="text"
+                placeholder="Last name"
+                formControlName="last_name"
                 appFormControlValidation
                 [validationMsgId]="'business-required-msg'"
               />
