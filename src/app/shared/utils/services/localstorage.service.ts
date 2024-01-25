@@ -13,7 +13,7 @@ export class LocalStorageService {
     if(typeof localStorage ==='undefined'){
       this.storage = {
         setItem :()=>{},
-        getItem :()=>{}
+        getItem :()=>('{}')
       }
     
     }
