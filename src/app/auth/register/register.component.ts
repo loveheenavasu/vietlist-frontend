@@ -117,6 +117,7 @@ export class RegisterComponent {
   }
 
   public submitRegistration() {
+ 
     const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,

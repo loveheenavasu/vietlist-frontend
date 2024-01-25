@@ -1,6 +1,6 @@
 import { EditProfileComponent } from '../components';
 import { Component } from '@angular/core';
-import { ProfileMenu, SidebarService, LocalStorageService } from '@vietlist/shared';
+import { ProfileMenu, SidebarService } from '@vietlist/shared';
 import { ProfileService } from '../service/profile.service';
 
 @Component({

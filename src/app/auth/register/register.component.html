@@ -94,15 +94,13 @@
           @if (selectedVal === role.businessOwner) {
             <div class="col-12">
               <div class="form-group">
-
                 <input
                   class="input-control"
                   type="tel"
                   (keypress)="onlyNumberKey($event)"
                   placeholder="Contact details"
                   formControlName="contact_details"
-                  
-                /> 
+                />
               </div>
             </div>
             <div class="col-12">
@@ -218,8 +216,8 @@
             <button
               class="btn orange-background-btn-w-100"
               type="submit"
-              (click)="submitRegistration()"
               
+              (click)="submitRegistration()"
             >
               <span *ngIf="!loader">Submit</span>
               <app-loader *ngIf="loader"></app-loader>
