@@ -59,7 +59,7 @@ export class RegisterComponent {
   )
 
   public selectedRole: string = '' // Set a default value if needed
-
+public usersignupForm:FormGroup
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -82,8 +82,25 @@ export class RegisterComponent {
       confirm_password: ['', Validators.required],
       role: [''],
       contact_details: ['', Validators.required],
-    })
+    });
+    this.usersignupForm = this.fb.nonNullable.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
 
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      confirm_password: ['', Validators.required],
+      role: [''],
+
+    });
     console.log(this.rolesArray)
   }
 
@@ -114,10 +131,10 @@ export class RegisterComponent {
       passwordControl.value !== confirmPasswordControl.value
     )
   }
-
+businessbody:any
   public submitRegistration() {
   
-    const body = {
+   const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
       business_type: this.signupForm.value.business_type,
@@ -185,6 +202,76 @@ export class RegisterComponent {
     }
   }
 
+  public usersubmitRegistration() {
+  
+    const body
+     = {
+       username: this.usersignupForm.value.username,
+       password: this.usersignupForm.value.password,
+       
+       email: this.usersignupForm.value.email,
+       first_name: this.usersignupForm.value.first_name,
+       last_name: this.usersignupForm.value.last_name,
+       confirm_password: this.usersignupForm.value.confirm_password,
+      
+       role: this.selectedVal,
+       term_and_condition: this.term_and_condition.value,
+       // ...(this.selectedVal === this.role.subscriber
+       //   ? { role: this.signupForm.value.role }
+       //   : {}),
+     }
+ 
+     
+     console.log(body, 'body')
+  if(this.usersignupForm.valid && this.term_and_condition){
+   this.loader = true
+     this.authService.register(body).subscribe({
+       next: (res) => {
+         this.loader = false
+         console.log(res)
+         Swal.fire({
+           toast: true,
+           text: 'Successfully registered',
+           animation: false,
+           icon: 'success',
+           position: 'top-right',
+           showConfirmButton: false,
+           timer: 3000,
+           timerProgressBar: true,
+         })
+         if (res) {
+           this.router.navigateByUrl('/login')
+         }
+         console.log(res)
+       },
+       error: (err) => {
+         console.log(err.error.message, 'Error')
+         this.loader = false
+         Swal.fire({
+           toast: true,
+           text: err.error.message,
+           animation: false,
+           icon: 'error',
+           position: 'top-right',
+           showConfirmButton: false,
+           timer: 3000,
+           timerProgressBar: true,
+         })
+       },
+     })
+     }else{
+       Swal.fire({
+         toast: true,
+         text: 'Please fill the form',
+         animation: false,
+         icon: 'error',
+         position: 'top-right',
+         showConfirmButton: false,
+         timer: 3000,
+         timerProgressBar: true,
+       })
+     }
+   }
   public changeSignupType() {
     this.signupForm.reset()
   }
