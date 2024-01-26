@@ -61,11 +61,9 @@ export class ClaimYourBuisnessComponent {
     },
   ]
   constructor() {
-    console.log('Hello')
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    console.log(event, 'event')
     // Adjust content layout based on the window size
   }
 }

@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserSessionService } from 'src/app/shared/utils/services/user-session.service';
 import { ProfileMenu, SidebarService } from '@vietlist/shared';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss'
 })
@@ -39,7 +40,7 @@ export class EditProfileComponent {
     this.profileDetail.profileData().subscribe({
       next: (res) => {
         if (res) {
-          this.email = res.data.user.user_email ? res.data.user.user_email : ''
+          this.email = res.data.user.user_email ? res.data.user.user_email : ' '
           this.userName = res.data?.user?.user_nicename
           console.log("check the email,username", this.userName, this.email)
         }
