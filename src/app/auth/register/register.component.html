@@ -90,8 +90,8 @@
 
             <div class="col-12">
               <div class="form-group">
-                <input class="input-control" type="tel" (keypress)="onlyNumberKey($event)" placeholder="Contact details"
-                  formControlName="contact_details" />
+                <input class="input-control" maxlength="10" type="tel" (keypress)="onlyNumberKey($event)"
+                  placeholder="Contact details" formControlName="contact_details" />
               </div>
             </div>
             <div class="col-12">
