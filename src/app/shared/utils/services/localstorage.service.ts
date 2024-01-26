@@ -4,26 +4,40 @@ import { Injectable } from '@angular/core'
   providedIn: 'root',
 })
 
+
 export class LocalStorageService {
+
+
+
+  storage:any=null;
+  constructor() {
+    if(typeof localStorage ==='undefined'){
+      this.storage = {
+        setItem :()=>{},
+        getItem :()=>{}
+      }
+
+    }
+    else{
+      this.storage=localStorage
+    }
+
+
+  }
+
+
   public saveData(key: string, value: string) {
-    if(!key) return;
-    
-    localStorage.setItem(key, value)
+    this.storage.setItem(key, value)
   }
 
   public getData(key: string) {
-    if(!key) return;
-
-    return localStorage.getItem(key) ?? undefined;
+    return this.storage.getItem(key)
   }
-  
   public removeData(key: string) {
-    if(!key) return;
-    
-    if(localStorage.getItem(key)) localStorage.removeItem(key);
+    this.storage.removeItem(key)
   }
 
   public clearData() {
-    localStorage.clear()
+    this.storage.clear()
   }
 }
