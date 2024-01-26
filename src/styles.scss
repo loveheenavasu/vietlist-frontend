@@ -15,21 +15,23 @@ body {
     padding: 0px;
     font-family: 'Roboto', sans-serif;
 }
+
 .error-message {
     color: rgb(255, 32, 32);
-    font-size:14px;
-    padding:0px;
-    margin:0px;
+    font-size: 14px;
+    padding: 0px;
+    margin: 0px;
     /* Add any other styling properties as needed */
-  }
-  
-  .swal2-popup.swal2-toast {
+}
+
+.swal2-popup.swal2-toast {
     padding: 10px !important;
 
 }
 
 
-.swal2-icon .sa-icon{
-    width: 20px !important; 
+.swal2-icon .sa-icon {
+    width: 20px !important;
     height: 20px !important;
 }
+

@@ -1,150 +1,173 @@
 //Common Styles//
 
 %homepage-banner-button-styles {
-    @at-root {
-      %hbb-button-styles {
-        height: 46px;
-        border-radius: 4px;
-        width:11em;
-        font-weight: var(--font-weight-medium);
-        font-size: 16px;
-        line-height: 24px;
-        transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease; // Added transition for transform
-      }
+  @at-root {
+    %hbb-button-styles {
+      height: 46px;
+      border-radius: 4px;
+      width: 11em;
+      font-weight: var(--font-weight-medium);
+      font-size: 16px;
+      line-height: 24px;
+      transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease; // Added transition for transform
     }
   }
+}
 
-  %section-heading-main-cnt{
-    @at-root{
-        %shm-styles {
-            width:75%;
-            margin:0 auto 45px auto;   
-        }
+%section-heading-main-cnt {
+  @at-root {
+    %shm-styles {
+      width: 75%;
+      margin: 0 auto 45px auto;
     }
   }
+}
+
+%section-heading {
+  @at-root {
+    %sh-styles {
+      font-size: 32px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--dark-grey);
+      text-align: center;
+
+    }
+  }
+}
+
+%section-subheading {
+  @at-root {
+    %ssh-styles {
+      font-size: 16px;
+      font-weight: var(--font-weight-normal);
+      color: var(--dark-grey);
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+}
+
+
+//Common Classes//
+
+
+
+.orange-background-btn {
+  background: var(--primary-color-orange);
+  width: fit-content;
+  padding: 10px 42px;
+  color: var(--light-grey-2)
+}
+
+.orange-background-btn-w-100 {
+  background: var(--primary-color-orange);
+  width: 100%;
+  padding: 10px 42px;
+  color: var(--light-grey-2);
+  font-size: 16px;
+
+  &:hover {
+    background: var(--primary-color-orange);
+    color: var(--light-grey-2);
+  }
+}
+
+.grey-bg-btn {
+  width: 12em;
+  height: 46px;
+  border-radius: 4px;
+  background-color: var(--light-grey);
+  color: var(--primary-color-mustard);
+  font-size: 16px;
+  line-height: 27px;
+  transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease;
+}
+
+
+.input-control {
+  width: 100%;
+  background: #f5f5f5;
+  border: solid 1px #80808030;
+  height: 40px;
+  padding: 10px;
+  border-radius: 4px
+}
+
+.input-control:focus {
+  // background: #e8f1fe!important;
+  outline: solid 2px var(--primary-color-orange);
+  border: none
+}
+
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+
+.profile-heading {
+  font-size: 1.75rem;
+  color: var(--dark-grey)
+}
+
+::ng-deep.mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+  border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+  border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mat-mdc-radio-button.mat-accent {
+  --mdc-radio-selected-focus-icon-color: none !important;
+  --mdc-radio-disabled-unselected-icon-color: #000;
+  --mdc-radio-unselected-hover-icon-color: #212121;
+  --mdc-radio-unselected-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-unselected-pressed-icon-color: rgba(0, 0, 0, 0.54);
+  --mdc-radio-selected-focus-icon-color: none !important;
+  --mdc-radio-selected-hover-icon-color: none !important;
+  --mdc-radio-selected-icon-color: none !important;
+  --mdc-radio-selected-pressed-icon-color: ;
+  --mat-radio-ripple-color: #000;
+  --mat-radio-checked-ripple-color: none !important;
+  --mat-radio-disabled-label-color: rgba(0, 0, 0, 0.38);
+}
+
+
+@media screen and (max-width:320px) {
   %section-heading {
     @at-root {
       %sh-styles {
-        font-size: 32px;
+        font-size: 26px;
         font-weight: var(--font-weight-semibold);
         color: var(--dark-grey);
         text-align: center;
-
+        padding: 2px
       }
     }
   }
-  
+
   %section-subheading {
     @at-root {
       %ssh-styles {
         font-size: 16px;
         font-weight: var(--font-weight-normal);
         color: var(--dark-grey);
-        margin-top:15px;
+        margin-top: 15px;
         text-align: center;
+        padding: 2px
       }
     }
   }
-  
 
-  //Common Classes//
 
-  
-  
-  .orange-background-btn{
-    background: var(--primary-color-orange);
-    width:fit-content;
-    padding:10px 42px;
-    color:var(--light-grey-2)
-  }
 
-  .orange-background-btn-w-100{
-    background: var(--primary-color-orange);
-    width:100%;
-    padding:10px 42px;
-    color:var(--light-grey-2);
-    font-size:16px;
-
-    &:hover{
-      background: var(--primary-color-orange);
-      color:var(--light-grey-2);
+  %section-heading-main-cnt {
+    @at-root {
+      %shm-styles {
+        width: 100%;
+        margin: 0 auto 45px auto;
+      }
     }
   }
-
-  .grey-bg-btn{
-    width: 12em;
-    height: 46px;
-    border-radius: 4px;
-    background-color: var(--light-grey);
-    color: var(--primary-color-mustard);
-    font-size: 16px;
-    line-height: 27px;
-    transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease; 
-  }
-
-
-  .input-control{
-    width: 100%;
-    background: #f5f5f5;
-    border: solid 1px #80808030;
-    height:40px;
-    padding:10px;
-    border-radius:4px
-  }
-
-  .input-control:focus{
-    // background: #e8f1fe!important;
-    outline:solid 2px var(--primary-color-orange);
-    border:none
-  }
-
-
-  .form-group{
-    margin-bottom: 16px;
-  }
-
-
-.profile-heading{
-  font-size: 1.75rem;
-  color:var(--dark-grey)
 }
-
-
-
-  @media screen and (max-width:320px){
-    %section-heading {
-      @at-root {
-        %sh-styles {
-          font-size: 26px;
-          font-weight: var(--font-weight-semibold);
-          color: var(--dark-grey);
-          text-align: center;
-          padding:2px
-        }
-      }
-    }
-    
-    %section-subheading {
-      @at-root {
-        %ssh-styles {
-          font-size: 16px;
-          font-weight: var(--font-weight-normal);
-          color: var(--dark-grey);
-          margin-top:15px;
-          text-align: center;
-          padding:2px
-        }
-      }
-    }
-
-
-
-    %section-heading-main-cnt{
-      @at-root{
-          %shm-styles {
-              width:100%;
-              margin:0 auto 45px auto;   
-          }
-      }
-    }
-  }
