@@ -14,8 +14,12 @@ export class ManageProfileComponent {
 public sidebarMenu : ProfileMenu[] = []
 userEmail:any
 constructor(private sidebarService:SidebarService, private profileDetail : ProfileService , private localStorage:LocalStorageService){
-  this.getSidebarLinks()
-  this.userEmail = JSON.parse(localStorage.getData('vietlist::userdata') as string)
+  this.getSidebarLinks();
+  const storedUserData = localStorage.getData('vietlist::userdata');
+  
+  if (storedUserData) {
+    this.userEmail = JSON.parse(storedUserData);
+  }
 
 }
 
