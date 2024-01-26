@@ -30,8 +30,8 @@ export class EditProfileComponent {
       this.profileDetail.profileData().subscribe({
         next:(res)=>{
           this.userDetails = res.data.user
-          this.email = res.data.user.user_email
-          this.userName = res.data.user.user_nicename
+          this.email = res.data.user?.user_email
+          this.userName = res.data.user?.user_nicename
           console.log("check the email,username", this.userName, this.email)
         },
         error:(err)=>{
