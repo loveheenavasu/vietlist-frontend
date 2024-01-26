@@ -40,7 +40,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 export class RegisterComponent {
   public selectedSignupType = Roles.businessOwner
   public role = Roles
-  public signupForm:FormGroup
+  public signupForm: FormGroup
   public signupType = [
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
@@ -59,7 +59,7 @@ export class RegisterComponent {
 
   public selectedRole: string = '' // Set a default value if needed
 
- 
+
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -77,15 +77,15 @@ export class RegisterComponent {
           Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
-      first_name:['' , Validators.required],
-      last_name:['' , Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       confirm_password: ['', Validators.required],
       role: ['', Validators.required],
-      contact_details:['' , Validators.required]
+      contact_details: ['', Validators.required]
     })
 
     console.log(this.rolesArray)
-    
+
   }
 
   ngOnInit() {
@@ -123,20 +123,20 @@ export class RegisterComponent {
       password: this.signupForm.value.password,
       business_type: this.signupForm.value.business_type,
       email: this.signupForm.value.email,
-      first_name:this.signupForm.value.first_name,
-      last_name:this.signupForm.value.last_name,
+      first_name: this.signupForm.value.first_name,
+      last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details:this.signupForm.value.contact_details,
-      role:this.selectedVal,
-      term_and_condition:this.term_and_condition.value
+      contact_details: this.signupForm.value.contact_details,
+      role: this.selectedVal,
+      term_and_condition: this.term_and_condition.value
       // ...(this.selectedVal === this.role.subscriber
       //   ? { role: this.signupForm.value.role }
       //   : {}),
     }
-    
+
     this.loader = true
     console.log(body, 'body')
-    
+
     this.authService.register(body).subscribe({
       next: (res) => {
         this.loader = false
@@ -171,7 +171,7 @@ export class RegisterComponent {
         })
       },
     })
- 
+
   }
 
   public changeSignupType() {
@@ -186,7 +186,7 @@ export class RegisterComponent {
     }
   }
 
-    public hideConfirmPassword() {
+  public hideConfirmPassword() {
     if (this.isHideConfirmPassword) {
       this.isHideConfirmPassword = false
     } else {
