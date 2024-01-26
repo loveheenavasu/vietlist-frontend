@@ -1,3 +1,4 @@
+import { PlansComponent } from './susbscription-plans';
 import { ManageProfileComponent } from './manage-profile/manage-profile';
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
@@ -23,5 +24,9 @@ export default [
   {
     path:'manage-profile',
     loadComponent:()=> ManageProfileComponent
+  },
+  {
+    path:'susbcription-plans',
+    loadComponent:()=> PlansComponent
   }
 ] as Routes
