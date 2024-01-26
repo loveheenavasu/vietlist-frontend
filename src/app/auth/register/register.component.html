@@ -85,9 +85,6 @@
                 <input class="input-control" type="password" formControlName="confirm_password"
                   placeholder="Confirm Password" appFormControlValidation
                   [validationMsgId]="'confirm-password-required-msg'" />
-                <span class="error-message" *ngIf="passwordsMismatch()  ">
-                  Confirm Password does not match
-                </span>
               </div>
             </div>
 
@@ -201,9 +198,6 @@
                 <input class="input-control" type="password" formControlName="confirm_password"
                   placeholder="Confirm Password" appFormControlValidation
                   [validationMsgId]="'confirm-password-required-msg'" />
-                <span class="error-message" *ngIf="userConfirmPassword()">
-                  Confirm Password does not match
-                </span>
               </div>
             </div>
 

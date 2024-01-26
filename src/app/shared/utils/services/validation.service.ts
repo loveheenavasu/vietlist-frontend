@@ -14,7 +14,7 @@ export class ValidationService {
     'business-required-msg': 'Business name is required',
     'email-required-msg': 'Email is required',
     'password-required-msg': 'Password is required',
-    'confirm-password-required-msg': 'Confirm password is required',
+    'confirm-password-required-msg': 'Confirm Password does not match',
     'buisness-type-msg': 'Buisness type is required',
     'role-type-msg': 'Role type is required',
     'buisnessname-required-msg': 'Buisness name is required',

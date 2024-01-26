@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { AuthService } from '../service/auth.service'
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
+import { matchValidator } from 'src/app/auth/register/validator';
 
 @Component({
   selector: 'app-register',
@@ -65,9 +66,10 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
   ) {
-    this.signupForm = this.fb.nonNullable.group({
+    this.signupForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      confirm_password: ['', Validators.required],
       business_type: ['', Validators.required],
       email: [
         '',
@@ -79,14 +81,16 @@ export class RegisterComponent {
       ],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      confirm_password: ['', Validators.required],
+
       role: [''],
       contact_details: ['', Validators.required],
+    }, {
+      validators: matchValidator('password', 'confirm_password')
     });
     this.usersignupForm = this.fb.nonNullable.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-
+      confirm_password: ['', Validators.required],
       email: [
         '',
         [
@@ -97,9 +101,11 @@ export class RegisterComponent {
       ],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      confirm_password: ['', Validators.required],
+
       role: [''],
 
+    }, {
+      validators: matchValidator('password', 'confirm_password')
     });
     console.log(this.rolesArray)
   }
