@@ -114,11 +114,6 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-Package: @angular/forms
-License: "MIT"
-
-
---------------------------------------------------------------------------------
 Package: @angular/core
 License: "MIT"
 
@@ -353,6 +348,11 @@ License: "MIT"
 
 --------------------------------------------------------------------------------
 Package: @angular/router
+License: "MIT"
+
+
+--------------------------------------------------------------------------------
+Package: @angular/forms
 License: "MIT"
 
 

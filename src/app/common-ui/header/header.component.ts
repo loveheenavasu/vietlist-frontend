@@ -1,17 +1,19 @@
 import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
 import { Router, RouterLink } from '@angular/router'
-import { NgClass, NgFor } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { NavItem } from '@vietlist/shared'
+import { LocalStorageService, NavItem } from '@vietlist/shared'
+import { UserSessionService } from 'src/app/shared/utils/services/user-session.service'
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     NgFor,
     NgClass,
+    NgIf,
     MatMenuModule,
     MatDialogModule,
     RouterLink,
@@ -22,19 +24,7 @@ import { NavItem } from '@vietlist/shared'
 })
 export class HeaderComponent {
   public isCollapsed = true
-
-  constructor(
-    private router: Router,
-    public dialog: MatDialog,
-  ) {}
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    console.log(event, 'event')
-    // Adjust content layout based on the window size
-  }
-
-  isSearchInputVisible: boolean = false
-
+  public isLoginSuccess: boolean = false
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -62,6 +52,26 @@ export class HeaderComponent {
       href: '/contact-us',
     },
   ]
+
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private userSessionService: UserSessionService,
+    private localStorage: LocalStorageService
+  ) {
+    this.userSessionService.isSuccessLogin.subscribe(val => {
+      this.isLoginSuccess = val
+    })
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    console.log(event, 'event')
+    // Adjust content layout based on the window size
+  }
+
+  isSearchInputVisible: boolean = false
+
+
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -92,5 +102,12 @@ export class HeaderComponent {
     } else {
       this.isSearchInputVisible = true
     }
+  }
+
+  public logout() {
+
+    this.localStorage.clearData()
+    this.router.navigateByUrl("/")
+    this.userSessionService.isSuccessLogin.next(false)
   }
 }

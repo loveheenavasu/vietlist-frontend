@@ -133,6 +133,7 @@ export class RegisterComponent {
       //   ? { role: this.signupForm.value.role }
       //   : {}),
     }
+    
     this.loader = true
     console.log(body, 'body')
     

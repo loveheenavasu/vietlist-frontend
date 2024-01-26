@@ -20,7 +20,7 @@ export default [
       import('./auth/login/login.component').then((x) => x.LoginComponent),
   },
   {
-    path:'manage-profile',
-    loadComponent:()=> import("./manage-profile/main/main").then((x)=>x.MainComponent)
+    path: 'manage-profile',
+    loadComponent: () => import("./manage-profile/manage-profile").then((x) => x.MainComponent)
   }
 ] as Routes
