@@ -210,13 +210,14 @@
                   Accept Terms & Conditions
                 </label>
               </div>
+              <span class="error-message" *ngIf="showTermsError">Please accept terms and conditions</span>
             </div>
           </div>
           <div class="col-12">
             <button
               class="btn orange-background-btn-w-100"
               type="submit"
-              [disabled]="!signupForm.valid && !term_and_condition.value"
+              [disabled]="!signupForm.valid || !term_and_condition.value "
               (click)="submitRegistration()"
             >
               <span *ngIf="!loader">Submit</span>
