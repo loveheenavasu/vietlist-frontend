@@ -83,7 +83,10 @@ export class LoginComponent {
           this.userSessionService.loginToken.next(res.data.token)
           this.localStorage.saveData('vietlist::session', res.data.token)
           this.localStorage.saveData("vietlist::userdata", JSON.stringify(res.data.user))
-          this.router.navigateByUrl("/manage-profile")
+          if(res){
+            this.router.navigateByUrl("/manage-profile")
+          }
+         
           Swal.fire({
             toast: true,
             text: 'Login Successfully',

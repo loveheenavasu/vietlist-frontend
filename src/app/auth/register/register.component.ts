@@ -38,8 +38,8 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  public selectedSignupType: any = Roles.businessOwner
-  role = Roles
+  public selectedSignupType = Roles.businessOwner
+  public role = Roles
   public signupForm:FormGroup
   public signupType = [
     { name: 'Business', value: Roles.businessOwner, checked: true },
@@ -105,7 +105,7 @@ export class RegisterComponent {
 
   passwordsMismatch() {
     const passwordControl = this.signupForm.get('password')
-    const confirmPasswordControl = this.signupForm.get('confirmPassword')
+    const confirmPasswordControl = this.signupForm.get('confirm_password')
 
     return (
       passwordControl &&

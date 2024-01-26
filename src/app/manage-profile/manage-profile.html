@@ -16,7 +16,8 @@
                         <p class="user-email">{{userEmail.user_email}}</p>
                         <ul>
                             @for(key of sidebarMenu ; track $index){
-                            <li><span><i [class]="key.icon"></i></span>{{key.label}}</li>
+                            <li><span><i [class]="key.icon"
+                                ></i></span>{{key.label}}</li>
                             }
                         </ul>
                     </div>
