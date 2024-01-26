@@ -105,7 +105,7 @@ export class RegisterComponent {
 
   passwordsMismatch() {
     const passwordControl = this.signupForm.get('password')
-    const confirmPasswordControl = this.signupForm.get('confirmPassword')
+    const confirmPasswordControl = this.signupForm.get('confirm_password')
 
     return (
       passwordControl &&
