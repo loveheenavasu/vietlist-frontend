@@ -60,8 +60,12 @@ export class HeaderComponent {
     private localStorage: LocalStorageService
   ) {
     this.userSessionService.isSuccessLogin.subscribe(val => {
-      this.isLoginSuccess = val
+      const isToken = this.localStorage.getData("vietlist::session")
+      if(isToken){
+      this.isLoginSuccess = true || val
+      }
     })
+
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {

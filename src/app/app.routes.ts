@@ -1,6 +1,7 @@
 import { ManageProfileComponent } from './manage-profile/manage-profile';
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
+import { EditProfileComponent } from './manage-profile/components';
 
 export default [
   {
@@ -21,7 +22,7 @@ export default [
       import('./auth/login/login.component').then((x) => x.LoginComponent),
   },
   {
-    path:'manage-profile',
-    loadComponent:()=> ManageProfileComponent
+    path: 'manage-profile',
+    loadComponent: () => EditProfileComponent
   }
 ] as Routes
