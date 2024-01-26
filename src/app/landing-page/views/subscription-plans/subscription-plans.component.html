@@ -11,11 +11,12 @@
 
   <div class="container">
     <div class="row">
+
       <div class="col-12 col-md-6 col-lg-4">
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="plan-header">
-              <h2>Basic Plan</h2>
+              <h2>{{subscriptionPlainDeatil[1].name}}</h2>
               <div class="d-flex align-items-center flex-wrap">
                 <div>
                   <h1>$ 2.99</h1>
@@ -25,8 +26,8 @@
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[key].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register 1 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -43,7 +44,7 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
               <button class="btn orange-background-btn">Get Started</button>
@@ -52,7 +53,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-md-6 col-lg-4">
+      <!-- <div class="col-12 col-md-6 col-lg-4">
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="ribbon">
@@ -133,7 +134,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
