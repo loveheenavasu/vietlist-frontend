@@ -59,12 +59,16 @@ export class HeaderComponent {
     private userSessionService: UserSessionService,
     private localStorage: LocalStorageService
   ) {
+
     this.userSessionService.isSuccessLogin.subscribe(val => {
+      this.isLoginSuccess = val
       const isToken = this.localStorage.getData("vietlist::session")
-      if(isToken){
-      this.isLoginSuccess = true || val
+      if (isToken) {
+        this.isLoginSuccess = true || val
       }
     })
+
+
 
   }
   @HostListener('window:resize', ['$event'])
