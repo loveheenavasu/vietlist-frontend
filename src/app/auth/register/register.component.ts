@@ -16,7 +16,8 @@ import { AuthService } from '../service/auth.service'
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
 import { FullPageLoader } from 'src/app/common-ui/full-page-loader/fullpage-loader'
-
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
+import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -30,12 +31,18 @@ import { FullPageLoader } from 'src/app/common-ui/full-page-loader/fullpage-load
     FormControlValidationDirective,
     LoaderComponent,
     NgClass,
-
+    NgxIntlTelInputModule
   ],
+
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
   public signupType = [
@@ -87,9 +94,13 @@ export class RegisterComponent {
     });
   
   }
-
+  withoutMaterialForm!:FormGroup
   ngOnInit() {
-    this.selectedSignupType = this.defaultSelectedRole
+    this.withoutMaterialForm = this.fb.group({
+      creditCardeWithoutMaterial: [],
+      creditCardDateWithoutMaterial: [],
+      creditCardCvvWithoutMaterial: []
+    });
   }
 
   public handleSignupTypeSelection(value: any) {
