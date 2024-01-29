@@ -39,4 +39,8 @@ export class AuthService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResetPassword)
     return this.http.post<any>(endpoint, body)
   }
+
+  public createPayment(body:any){
+    return this.http.post('https://vietlist.biz/wp-json/vietlist/v1/subscription' , body )
+  }
 }

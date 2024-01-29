@@ -60,8 +60,7 @@ export class ClaimYourBuisnessComponent {
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
   ]
-  constructor() {
-  }
+  constructor() {}
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     // Adjust content layout based on the window size

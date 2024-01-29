@@ -5,8 +5,8 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { LocalStorageService, NavItem } from '@vietlist/shared'
-import { UserSessionService } from 'src/app/shared/utils/services/user-session.service'
+import { AuthenticationService, NavItem } from '@vietlist/shared'
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -18,13 +18,18 @@ import { UserSessionService } from 'src/app/shared/utils/services/user-session.s
     MatDialogModule,
     RouterLink,
     MatIconModule,
+    LoginComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public isCollapsed = true
+  public isCollapsed : boolean= true
   public isLoginSuccess: boolean = false
+  public isAuthenticated:boolean = false
+  public isSearchInputVisible: boolean = false
+  public isTranslationVisible: boolean = false
+
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -53,34 +58,27 @@ export class HeaderComponent {
     },
   ]
 
+  /**
+   * 
+   * @param router 
+   * @param dialog 
+   * @param sessionservice 
+   */
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private userSessionService: UserSessionService,
-    private localStorage: LocalStorageService
+    private sessionservice:AuthenticationService
   ) {
-
-    this.userSessionService.isSuccessLogin.subscribe(val => {
-      this.isLoginSuccess = val
-      const isToken = this.localStorage.getData("vietlist::session")
-      if (isToken) {
-        this.isLoginSuccess = true || val
-      }
+    this.sessionservice.isAuthenticated$.subscribe((res)=>{
+      this.isAuthenticated = res
     })
-
-
-
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    console.log(event, 'event')
-    // Adjust content layout based on the window size
+
   }
 
-  isSearchInputVisible: boolean = false
-
-
-
+ 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
   }
@@ -93,17 +91,20 @@ export class HeaderComponent {
     this.router.navigateByUrl('/login')
   }
 
-  public register() {
+  
+  public signup() {
     this.router.navigateByUrl('/register')
   }
 
-  isRouteActive(route: string): boolean {
+  public profile(){
+
+  }
+  
+  public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
   }
-  public isTranslationVisible: boolean = false
 
-  // Toggle the visibility when the language is clicked
-
+ 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {
       this.isSearchInputVisible = false
@@ -112,10 +113,8 @@ export class HeaderComponent {
     }
   }
 
-  public logout() {
-
-    this.localStorage.clearData()
-    this.router.navigateByUrl("/")
-    this.userSessionService.isSuccessLogin.next(false)
+  public onLogout() {
+    this.sessionservice.clearAuthentication()
+    this.router.navigateByUrl('/')
   }
 }

@@ -137,3 +137,34 @@
     </div>
   </div>
 </div>
+
+ <div [formGroup]="paymentElementForm">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input matInput placeholder="name" formControlName="name" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input matInput placeholder="Email" type="email" formControlName="email" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input matInput placeholder="Address" formControlName="address" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input matInput placeholder="ZIP Code" formControlName="zipcode" />
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="fill">
+    <input matInput placeholder="city" formControlName="city" />
+  </mat-form-field> 
+   @if (isPayment) {
+    <ngx-stripe-elements
+      [stripe]="stripe"
+      [elementsOptions]="elementsOptions"
+    >
+      <ngx-stripe-payment [options]="paymentElementOptions" [appearance]="appearance" />
+    </ngx-stripe-elements>
+  } 
+  <button (click)="pay()">PAYY</button>
+  <button (click)="pay2()">PAY</button>
+</div>
+
+
+<button (click)="checkout()">Checkout</button> 

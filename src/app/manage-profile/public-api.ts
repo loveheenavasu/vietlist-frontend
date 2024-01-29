@@ -1,1 +1,1 @@
-export * from "./manage-profile"
+export * from './manage-profile'

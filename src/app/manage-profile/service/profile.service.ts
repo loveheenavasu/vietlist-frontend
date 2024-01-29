@@ -1,24 +1,23 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Endpoints, GenericHelper, LocalStorageService } from '@vietlist/shared';
-import { Observable } from 'rxjs';
-import { UserSessionService } from 'src/app/shared/utils/services/user-session.service';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { AuthenticationService, Endpoints, GenericHelper } from '@vietlist/shared'
+import { Observable } from 'rxjs'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-bearerToken?:any;
-  constructor(private http: HttpClient  ,private localStorage:LocalStorageService ) { 
-    if (typeof document !== 'undefined') {
-    this.bearerToken = localStorage.getData('vietlist::session')
-    }
-  
+  bearerToken?: any
+  constructor(
+    private http: HttpClient,
+    private sessionService:AuthenticationService
+  ) {
+    
   }
 
-  public profileData(): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ProfileDetail)
-    const headers = new HttpHeaders().set('Authorization', this.bearerToken);
-    return this.http.get<any>(endpoint, {headers})
+  public userDetails(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ProfileDetail);
+    const authToken:any = this.sessionService.getAuthHeaders();
+    return this.http.get<any>(endpoint, {headers:authToken} );
   }
 }

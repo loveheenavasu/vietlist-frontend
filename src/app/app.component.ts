@@ -6,7 +6,7 @@ import { FooterComponent, HeaderComponent } from './common-ui'
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, RouterModule ,HeaderComponent, FooterComponent],
   template: `
     <app-header></app-header>
     <router-outlet></router-outlet>
