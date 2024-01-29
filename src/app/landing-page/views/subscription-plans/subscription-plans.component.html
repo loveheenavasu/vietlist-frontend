@@ -16,17 +16,17 @@
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="plan-header">
-              <h2>{{subscriptionPlainDeatil[1].name}}</h2>
+              <h2>{{subscriptionPlainDeatil[2].name}}</h2>
               <div class="d-flex align-items-center flex-wrap">
                 <div>
-                  <h1>$ 2.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[2].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[key].description)">
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[2].description)">
               <!-- <ul>
                 <li><span class="tick-icon"></span> Register 1 Member</li>
                 <li>
@@ -47,31 +47,31 @@
               </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- <div class="col-12 col-md-6 col-lg-4">
+      <div class="col-12 col-md-6 col-lg-4">
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="ribbon">
               <span>Popular</span>
             </div>
             <div class="plan-header">
-              <h2>Family Premium Sharing Plan</h2>
+              <h2>{{subscriptionPlainDeatil[1].name}}</h2>
               <div class="d-flex align-items-center">
                 <div>
-                  <h1>$ 4.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[1].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[1].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register 1 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -88,10 +88,10 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
@@ -101,18 +101,18 @@
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="plan-header">
-              <h2>Family Enterprise Plan</h2>
+              <h2>{{subscriptionPlainDeatil[3].name}}</h2>
               <div class="d-flex align-items-center">
                 <div>
-                  <h1>$ 7.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[3].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[3].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register upto 5 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -127,14 +127,14 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
