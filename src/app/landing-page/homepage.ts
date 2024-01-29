@@ -15,13 +15,13 @@ import {
   standalone: true,
   imports: [
     BuisnessCategoryComponent,
-    SubscriptionPlansComponent,
     ClaimYourBuisnessComponent,
     BlogNewsComponent,
     TestimonialsComponent,
     ExplainingPlatformComponent,
     CardSwiperComponent,
     EventsComponent,
+    SubscriptionPlansComponent
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

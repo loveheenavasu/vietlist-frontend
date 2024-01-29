@@ -1,7 +1,12 @@
 @import "../../../../assets/scss/common";
 
+.container-fluid {
+    max-width: 1140px;
+}
+
 h1 {
     @extend %sh-styles;
+    font-size: 32px !important;
 }
 
 p {
@@ -101,10 +106,13 @@ p {
     }
 
     .plan-list {
-        height: auto;
+        // height: auto;
+        height: 28.438rem;
+        overflow: auto;
+        margin-bottom: 1.25rem;
 
         ul {
-            list-style-type: none;
+            list-style-type: none !important;
             padding: 10px;
         }
 
@@ -126,6 +134,10 @@ p {
             margin-right: 15px;
         }
     }
+
+    .plan-list ul {
+        list-style-type: none;
+    }
 }
 
 
@@ -133,6 +145,7 @@ p {
     margin: 0 auto 25px auto;
     width: fit-content;
 }
+
 @media screen and (max-width: 1440px) {
     .subscription-plan-cnt {
         min-height: auto;
@@ -143,6 +156,7 @@ p {
         margin-top: 42px
     }
 }
+
 @media screen and (max-width: 1024px) {
     .subscription-plan-cnt {
         min-height: auto;
@@ -159,11 +173,13 @@ p {
             font-size: 36px;
 
         }
-        span{
-            font-size:16px
+
+        span {
+            font-size: 16px
         }
-        h2{
-            font-size:18px
+
+        h2 {
+            font-size: 18px
         }
     }
 

@@ -5,4 +5,5 @@ export enum Endpoints {
   Forgotpassword = 'validateotp',
   ResetPassword = 'passwordreset',
   ProfileDetail = 'showuserprofile',
+  SubscriptionPlan = 'pmprolevels'
 }

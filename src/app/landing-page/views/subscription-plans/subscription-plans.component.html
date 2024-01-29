@@ -11,22 +11,23 @@
 
   <div class="container">
     <div class="row">
+
       <div class="col-12 col-md-6 col-lg-4">
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="plan-header">
-              <h2>Basic Plan</h2>
+              <h2>{{subscriptionPlainDeatil[2].name}}</h2>
               <div class="d-flex align-items-center flex-wrap">
                 <div>
-                  <h1>$ 2.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[2].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[2].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register 1 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -43,10 +44,10 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
@@ -59,18 +60,18 @@
               <span>Popular</span>
             </div>
             <div class="plan-header">
-              <h2>Family Premium Sharing Plan</h2>
+              <h2>{{subscriptionPlainDeatil[1].name}}</h2>
               <div class="d-flex align-items-center">
                 <div>
-                  <h1>$ 4.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[1].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[1].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register 1 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -87,10 +88,10 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
@@ -100,18 +101,18 @@
         <div class="subscription-plan-cnt">
           <div class="plan-content">
             <div class="plan-header">
-              <h2>Family Enterprise Plan</h2>
+              <h2>{{subscriptionPlainDeatil[3].name}}</h2>
               <div class="d-flex align-items-center">
                 <div>
-                  <h1>$ 7.99</h1>
+                  <h1>$ {{subscriptionPlainDeatil[3].billing_amount}}</h1>
                 </div>
                 <div class="ml-2">
                   <span>/yearly subscription</span>
                 </div>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
+            <div class="plan-list" [innerHTML]="getTrustedHTML(subscriptionPlainDeatil[3].description)">
+              <!-- <ul>
                 <li><span class="tick-icon"></span> Register upto 5 Member</li>
                 <li>
                   <span class="tick-icon"></span> Ipsum primis in facbus at ut
@@ -126,10 +127,10 @@
                   <span class="tick-icon"></span> Free User Limited Access
                 </li>
                 <li><span class="tick-icon"></span> Upgrade to Premium Plan</li>
-              </ul>
+              </ul> -->
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn">Get Started</button>
+              <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
             </div>
           </div>
         </div>
@@ -137,34 +138,3 @@
     </div>
   </div>
 </div>
-
- <div [formGroup]="paymentElementForm">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <input matInput placeholder="name" formControlName="name" />
-  </mat-form-field>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <input matInput placeholder="Email" type="email" formControlName="email" />
-  </mat-form-field>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <input matInput placeholder="Address" formControlName="address" />
-  </mat-form-field>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <input matInput placeholder="ZIP Code" formControlName="zipcode" />
-  </mat-form-field>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <input matInput placeholder="city" formControlName="city" />
-  </mat-form-field> 
-   @if (isPayment) {
-    <ngx-stripe-elements
-      [stripe]="stripe"
-      [elementsOptions]="elementsOptions"
-    >
-      <ngx-stripe-payment [options]="paymentElementOptions" [appearance]="appearance" />
-    </ngx-stripe-elements>
-  } 
-  <button (click)="pay()">PAYY</button>
-  <button (click)="pay2()">PAY</button>
-</div>
-
-
-<button (click)="checkout()">Checkout</button> 
