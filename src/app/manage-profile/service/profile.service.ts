@@ -7,7 +7,6 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class ProfileService {
-  bearerToken?: any
   constructor(
     private http: HttpClient,
     private sessionService:AuthenticationService

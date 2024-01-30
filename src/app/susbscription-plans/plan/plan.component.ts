@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../shared/utils/services/authentication.service';
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -14,15 +15,15 @@ export class PlanComponent {
 
   public subscriptionPlainDetail?: any
   public userAlreadyLogin: boolean = false;
-
-  constructor(private subscriptionService: PlansService, private sanitizer: DomSanitizer, private router: Router) {
+  public planId:any;
+  public authToken : any
+  constructor(private subscriptionService: PlansService, private sanitizer: DomSanitizer, private router: Router , private sessionService:AuthenticationService) {
 
   }
 
  
   ngOnInit() {
     this.fetchSubscriptionPlanData()
-    console.log("check the subscription data", this.fetchSubscriptionPlanData)
 
   }
 
@@ -30,6 +31,8 @@ export class PlanComponent {
     this.subscriptionService.subscriptionPlan().subscribe({
       next: (res:any) => {
         this.subscriptionPlainDetail = res.data
+        this.planId = res.data.id
+        console.log(this.subscriptionPlainDetail , "plans" , res )
       },
       error: (err:any) => {
       
@@ -45,4 +48,18 @@ export class PlanComponent {
     this.router.navigateByUrl("/login")
   }
 
+
+  navigateToConfirmPayment(id:any){
+    this.router.navigate(['/confirm-payment' , id ])
+    // this.subscriptionService.createIntent().subscribe({
+    //   next:(res)=>{
+    //     console.log(res , "res")
+        
+    //   },
+    //   error:(err)=>{
+
+    //   }
+    // })
+    
+  }
 }

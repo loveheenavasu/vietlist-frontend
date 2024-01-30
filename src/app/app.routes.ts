@@ -24,7 +24,7 @@ export default [
     loadComponent: () => ManageProfileComponent,
   },
   {
-    path:'confirm-payment',
+    path:'confirm-payment/:id',
     loadComponent:()=> ConfirmPaymentComponent
   },
   {

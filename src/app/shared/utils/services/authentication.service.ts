@@ -12,6 +12,7 @@ export class AuthenticationService {
   
     private accessToken: string = '';
     private loginInfo:any;
+    private registerUserInfo:any;
     constructor(private localstorageservice:LocalStorageService) {
       this.isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkAuthentication());
       this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
@@ -31,6 +32,15 @@ export class AuthenticationService {
         return this.loginInfo;
       }
       return null; 
+    }
+
+    getRegisterUserData():any {
+      const registeredUserData = this.localstorageservice.getData('vietlist::user')
+      if(registeredUserData){
+        this.registerUserInfo = JSON.parse(registeredUserData);
+        return this.registerUserInfo;
+      }
+      return null;
     }
     
     // Clear authentication status and token on logout

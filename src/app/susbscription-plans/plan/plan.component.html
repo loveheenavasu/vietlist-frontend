@@ -16,10 +16,10 @@
           <div class="subscription-plan-cnt">
             <div class="plan-content">
               <div class="plan-header">
-                <h2>{{subscriptionPlainDetail[2].name}}</h2>
+                <h2>{{subscriptionPlainDetail[2]?.name}}</h2>
                 <div class="d-flex align-items-center flex-wrap">
                   <div>
-                    <h1>$ {{subscriptionPlainDetail[2].billing_amount}}</h1>
+                    <h1>$ {{subscriptionPlainDetail[2]?.billing_amount}}</h1>
                   </div>
                   <div class="ml-2">
                     <span>/yearly subscription</span>
@@ -130,7 +130,7 @@
                 </ul> -->
               </div>
               <div class="plan-action">
-                <button class="btn orange-background-btn" (click)="handleSignMe()">Sign Me Up!</button>
+                <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(subscriptionPlainDetail[3].id)">Sign Me Up!</button>
               </div>
             </div>
           </div>

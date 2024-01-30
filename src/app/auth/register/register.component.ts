@@ -1,5 +1,5 @@
 import { PlanComponent } from './../../susbscription-plans/plan/plan.component';
-import { FormControlValidationDirective, matchValidator, Roles } from '@vietlist/shared'
+import { AuthenticationService, FormControlValidationDirective, LocalStorageService, matchValidator, Roles } from '@vietlist/shared'
 import { Router } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
@@ -69,12 +69,14 @@ export class RegisterComponent {
    */
   public signupForm: FormGroup
   public business_type = new FormControl('')
-  public contact_details = new FormControl('')
+  public contact_details = new FormControl()
 
   constructor(
     public router: Router,
     private fb: FormBuilder,
+    private authenticationService:AuthenticationService,
     private authService: AuthService,
+    private localStorageServce:LocalStorageService
   ) {
     this.signupForm = this.fb.nonNullable.group({
       username: ['', Validators.required],
@@ -136,7 +138,7 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: this.signupForm.value.contact_details,
+      contact_details: parseInt(this.contact_details.value.e164Number),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
     }
@@ -144,13 +146,16 @@ export class RegisterComponent {
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
-        body['contact_details'] = this.contact_details.value
+        body['contact_details'] = parseInt(this.contact_details.value.e164Number)
       }
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
           console.log(res)
+          if(res){
+            this.localStorageServce.saveData('vietlist::user', JSON.stringify(res.data.user));
+          }
           Swal.fire({
             toast: true,
             text: 'Successfully registered',
@@ -169,16 +174,7 @@ export class RegisterComponent {
         error: (err) => {
           console.log(err.error.message, 'Error')
           this.loader = false
-          Swal.fire({
-            toast: true,
-            text: err.error.message,
-            animation: false,
-            icon: 'error',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          
         },
       })
     } else {

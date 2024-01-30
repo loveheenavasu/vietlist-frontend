@@ -1,176 +1,135 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal, ViewChild } from '@angular/core'
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  Validators,
-} from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatInputModule } from '@angular/material/input'
-import {
-  injectStripe,
-  StripeElementsDirective,
-  StripePaymentElementComponent,
-  StripeService,
-} from 'ngx-stripe'
-import {
-  Appearance,
-  StripeElementsOptions,
-  StripePaymentElementOptions,
-} from '@stripe/stripe-js'
-import { switchMap } from 'rxjs';
-import { AuthService } from 'src/app/auth/service/auth.service';
+import { PlansService } from './../../../susbscription-plans/service/plan.service'
 
-declare var stripe: any; 
-declare var elements: any;
+import { CommonModule } from '@angular/common'
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core'
+import { NgForm, FormsModule } from '@angular/forms'
+import { ActivatedRoute } from '@angular/router'
+import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
+import { AuthenticationService } from '@vietlist/shared'
+import Swal from 'sweetalert2'
+import { environment } from 'src/environments/environment.development'
+const stripePublishKey = environment.stripe_publish_key
+declare var stripe: any
+declare var elements: any
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
-  imports: [FormsModule,CommonModule ,    StripePaymentElementComponent,
-    StripeElementsDirective,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-],
+  imports: [FormsModule, CommonModule],
   templateUrl: './confirm-payment.component.html',
-  styleUrl: './confirm-payment.component.scss'
+  styleUrl: './confirm-payment.component.scss',
 })
-
-
 export class ConfirmPaymentComponent {
-  @ViewChild(StripePaymentElementComponent)
-  paymentElement!: StripePaymentElementComponent
+  @ViewChild('cardInfo', { static: false }) cardInfo!: ElementRef
 
-  private readonly _fb = inject(UntypedFormBuilder)
+  stripe: any
+  loading = false
+  confirmation: any
 
-  paymentElementForm = this._fb.group({
-    name: ['John doe', [Validators.required]],
-    email: ['support@ngx-stripe.dev', [Validators.required]],
-    address: [''],
-    zipcode: [''],
-    city: [''],
-    amount: [2500, [Validators.required, Validators.pattern(/d+/)]],
-  })
+  card: any
+  cardHandler = this.onChange.bind(this)
+  error: any
+  public authToken: any
+  public planId: any
+  public paymentIntent: any
+  public paymentMethod: any
+  constructor(
+    private stripeService: AngularStripeService,
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private sessionService: AuthenticationService,
+    private subscriptionService: PlansService,
+  ) {}
 
-  appearance: Appearance = {
-    theme: 'stripe',
-    labels: 'floating',
-    variables: {
-      colorPrimary: '#673ab7',
-    },
-  };
-
-  elementsOptions: StripeElementsOptions = {
-    locale: 'en',
-    appearance: {
-      theme: 'flat',
-    },
-  }
-
-  paymentElementOptions: StripePaymentElementOptions = {
-    layout: {
-      type: 'tabs',
-      defaultCollapsed: false,
-      radios: false,
-      spacedAccordionItems: false,
-    },
-  }
-
-  stripe = injectStripe(
-    'pk_test_51OcjKcSDTxn5PnSnUkGsFY6f3eDEpOoHEoxCrUO5srUQucFKEDoHmEP0tOzbH1kDHaVjkIuB8suYLHXmv8kiqWGR00Tw3CJyHB',
-  )
-  paying = signal(false)
-
-  public http = inject(HttpClient);
-  
-  public stripeService = inject(StripeService);
-
-  constructor(private authService:AuthService){
-  }
   ngOnInit() {
-    // this.https://vietlist.biz/wp-json/vietlist/v1/subscription
-    //   .createPaymentIntent({
-    //     amount: this.paymentElementForm.get('amount').value,
-    //     currency: 'usd'
-    //   })
-    //   .subscribe(pi => {
-    //     this.elementsOptions.clientSecret = pi.client_secret as string;
-    //   });
+    this.route.params.subscribe((params) => {
+      this.planId = params['id']
+    })
+    this.authToken = this.sessionService.getAuthToken()
+    if (this.authToken) {
+      this.getPaymentIntent()
+    }
   }
-paymentIntent:any
-isPayment:boolean = false
-  pay2(){
-    this.authService.createPayment({
-      user_id:118
-    }).subscribe((res:any)=>{
-      this.paymentIntent = res.client_secret
-      if(this.paymentIntent){
-        this.isPayment = true
-      }
-      console.log(res , "Payment Response")
+
+  ngAfterViewInit() {
+    this.stripeService
+      .setPublishableKey(
+        stripePublishKey,
+      )
+      .then((stripe) => {
+        this.stripe = stripe
+        const elements = stripe.elements()
+        this.card = elements.create('card')
+        console.log(this.card, 'card')
+        this.card.mount(this.cardInfo.nativeElement)
+        this.card.addEventListener('change', this.cardHandler)
+      })
+  }
+
+  public getPaymentIntent() {
+    this.subscriptionService.createIntent().subscribe({
+      next: (res: any) => {
+        this.paymentIntent = res.client_secret
+        console.log(this.paymentIntent , "===")
+      },
+      error: (err: any) => {},
     })
   }
 
-
-
-  pay() {
-    if (this.paying() || this.paymentElementForm.invalid) return
-    this.paying.set(true)
-
-    const { name, email, address, zipcode, city } =
-      this.paymentElementForm.getRawValue()
-
-    this.stripe
-      .confirmPayment({
-        elements: this.paymentElement.elements,
-        confirmParams: {
-          payment_method_data: {
-            billing_details: {
-              name: name as string,
-              email: email as string,
-              address: {
-                line1: address as string,
-                postal_code: zipcode as string,
-                city: city as string,
-              },
-            },
-          },
-        },
-        redirect: 'if_required',
-      })
-      .subscribe((result) => {
-        this.paying.set(false)
-        console.log('Result', result)
-        if (result.error) {
-          // Show error to your customer (e.g., insufficient funds)
-          alert({ success: false, error: result.error.message })
-        } else {
-          // The payment has been processed!
-          if (result.paymentIntent.status === 'succeeded') {
-            // Show a success message to your customer
-            alert({ success: true })
-          }
-        }
-      })
+  public onChange(error: any) {
+    if (error) {
+      this.error = error.message
+    } else {
+      this.error = null
+    }
+    this.cd.detectChanges()
   }
 
-  checkout() {
-    // Check the server.js tab to see an example implementation
-    this.http.post('http://localhost:4242/create-checkout-session', {})
-      .pipe(
-        switchMap((session: any) => {
-          return this.stripeService.redirectToCheckout({ sessionId: session.id })
+  async onSubmit(form: NgForm) {
+    const secret = "seti_1OeF3sDyROdF1YtekQSX1Ael_secret_PTBQeVPLgtu5DFk9CeCx49Khh4EXasx"
+    // Assuming  you have a card element, if not, adapt accordingly
+    const { setupIntent, error } = await this.stripe.confirmCardSetup(
+      secret,
+      {
+        payment_method: {
+          card: this.card, // Replace with your card element or card details
+        },
+      },
+    )
+    if (error) {
+      console.error(error.message)
+    } else {
+      console.log(setupIntent , "payment")
+      this.paymentMethod = setupIntent.payment_method
+      if(this.paymentMethod){
+        this.confirmSubscription()
+      }
+    }
+  }
+
+
+  public confirmSubscription(){
+    const body = {
+      level_id:this.planId,
+      pm_data:this.paymentMethod
+    }
+    this.subscriptionService.confirmSubscription(body).subscribe({
+      next:(res)=>{
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
         })
-      )
-      .subscribe(result => {
-        // If `redirectToCheckout` fails due to a browser or network
-        // error, you should display the localized error message to your
-        // customer using `error.message`.
-        if (result.error) {
-          alert(result.error.message);
-        }
-      });
+      }
+    })
   }
 }

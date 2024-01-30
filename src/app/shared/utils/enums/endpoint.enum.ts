@@ -5,5 +5,7 @@ export enum Endpoints {
   Forgotpassword = 'validateotp',
   ResetPassword = 'passwordreset',
   ProfileDetail = 'showuserprofile',
-  SubscriptionPlan = 'pmprolevels'
+  SubscriptionPlan = 'pmprolevels',
+  CreatePaymentIntent = "create_initial_intent",
+  Subscription = "subscription"
 }
