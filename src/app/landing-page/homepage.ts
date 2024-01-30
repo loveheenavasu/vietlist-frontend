@@ -1,8 +1,8 @@
+import { PlanComponent } from './../susbscription-plans/index';
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
 import { Component } from '@angular/core'
 import {
   BuisnessCategoryComponent,
-  SubscriptionPlansComponent,
   ClaimYourBuisnessComponent,
   BlogNewsComponent,
   ExplainingPlatformComponent,
@@ -21,7 +21,7 @@ import {
     ExplainingPlatformComponent,
     CardSwiperComponent,
     EventsComponent,
-    SubscriptionPlansComponent
+    PlanComponent
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

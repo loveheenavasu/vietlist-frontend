@@ -98,16 +98,7 @@ export class LoginComponent {
         error: (err: any) => {
           this.loader = false
           console.log(err, 'error')
-          Swal.fire({
-            toast: true,
-            text: err.error.message,
-            animation: false,
-            icon: 'error',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+        
         },
       })
     }

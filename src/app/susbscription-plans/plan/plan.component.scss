@@ -1,7 +1,9 @@
-@import "../../../../assets/scss/common";
+@import "../../../assets/scss/common.scss";
 
 .container-fluid {
     max-width: 1140px;
+    margin-top:9rem;
+    margin-bottom:6rem
 }
 
 h1 {
@@ -129,7 +131,7 @@ p {
             display: inline-block;
             width: 16px;
             height: 13px;
-            background: url('../../../../assets/icons/tick.svg') center center no-repeat;
+            background: url('/assets/icons/tick.svg') center center no-repeat;
             background-size: cover;
             margin-right: 15px;
         }

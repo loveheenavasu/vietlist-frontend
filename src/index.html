@@ -55,9 +55,46 @@
       crossorigin="anonymous"
     ></script> -->
   </head>
-
   <body>
-    <input />
-    <app-root></app-root>
+   
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var stripe = Stripe('pk_test_51OcVTwDyROdF1Yteh56ToXFZweoSNGpnLwB7cz6UXbJAGT59sEqUURKwoHLvB6F8gPWbTGKFAaXDzFhzfDqWHPhh00rYlhnQs8');
+        var elements = stripe.elements();
+  
+        var setupIntentButton = document.getElementById('setupIntentButton');
+        var cardElement = elements.create('card');
+  
+        cardElement.mount('#card-element');
+  
+        setupIntentButton.addEventListener('click', function () {
+          var clientSecret = 'seti_1Ody4RDyROdF1YteOCzwSkt4_secret_PStsE8nbFlJhmiiVv7yzYtAA6JAiY7Z'; // Replace with your actual client secret
+  
+          stripe.confirmCardSetup(
+            clientSecret,
+            {
+              payment_method: {
+                card: cardElement,
+                billing_details: {
+                  name: 'John Doe'
+                }
+              },
+              
+            }
+          ).then(function (result) {
+            if (result.error) {
+              console.error(result.error.message);
+            } else {
+              console.log('SetupIntent succeeded:', result.setupIntent);
+              // Handle success, e.g., redirect to a success page
+            }
+          });
+        });
+      });
+      
+  </script>
+      <app-root></app-root>
   </body>
+ 
 </html>

@@ -3,6 +3,7 @@ import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
 import { LoginComponent, RegisterComponent } from './auth'
 import { ConfirmPaymentComponent } from './landing-page/views'
+import { PlanComponent } from './susbscription-plans'
 
 export default [
   {
@@ -25,5 +26,9 @@ export default [
   {
     path:'confirm-payment',
     loadComponent:()=> ConfirmPaymentComponent
+  },
+  {
+    path:'choose-plan',
+    loadComponent:()=>PlanComponent
   }
 ] as Routes

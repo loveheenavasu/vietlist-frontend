@@ -34,12 +34,23 @@ body {
 }
 
 
+//Ngx-intel-tel-input styling//
 
+ngx-intl-tel-input.form-control {
+  padding:0 30px;
+}
+
+.iti {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
 ngx-intl-tel-input input {
     height: 44px;
-    margin-bottom: 20px;
-    padding: 10px;
+    width:100%;
+    margin-bottom: 0px;
+    padding: 10px 25px;
     border-style: solid;
     border-width: 1px;
     border-color: #c7cace;
@@ -52,13 +63,13 @@ ngx-intl-tel-input input {
   }
   
   ngx-intl-tel-input input:hover {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.24);
+    box-shadow:none !important;
   }
   
   ngx-intl-tel-input input:focus {
     outline: none !important;
     border-color: #3498db;
-    box-shadow: 0 0 0 0 #000;
+    box-shadow: none !important;
   }
   
   ngx-intl-tel-input input::-webkit-input-placeholder {
@@ -80,3 +91,10 @@ ngx-intl-tel-input input {
   ngx-intl-tel-input input[disabled] {
     background-color: #e5eaf1;
   }
+
+  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-ng-c2982863745] input[_ngcontent-ng-c2982863745] {
+    padding-left: 98px;
+    font-weight: 400;
+    font-size: 16px;
+    color:#757575!important;
+}

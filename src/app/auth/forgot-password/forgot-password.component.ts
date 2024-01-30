@@ -110,16 +110,6 @@ export class ForgotPasswordComponent {
         },
         error: (err: any) => {
           this.loader = false
-          Swal.fire({
-            toast: true,
-            text: err.error.message,
-            animation: false,
-            icon: 'error',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
         },
       })
     } else {
@@ -154,7 +144,7 @@ export class ForgotPasswordComponent {
       },
       error: (err: any) => {
         this.loader = false
-        console.log('forgot-api-error', err)
+      
       },
     })
   }
@@ -184,16 +174,7 @@ export class ForgotPasswordComponent {
       },
       error: (err: any) => {
         this.loader = false
-        Swal.fire({
-          toast: true,
-          text: err.error.message,
-          animation: false,
-          icon: 'error',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
+    
       },
     })
   }

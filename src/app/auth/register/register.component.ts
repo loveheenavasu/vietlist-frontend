@@ -1,3 +1,4 @@
+import { PlanComponent } from './../../susbscription-plans/plan/plan.component';
 import { FormControlValidationDirective, matchValidator, Roles } from '@vietlist/shared'
 import { Router } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
@@ -18,8 +19,9 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { FullPageLoader } from 'src/app/common-ui/full-page-loader/fullpage-loader'
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
 import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
+
 @Component({
-  selector: 'app-register',
+  selector: 'app-register:not(p)',
   standalone: true,
   imports: [
     MatRadioModule,
@@ -38,11 +40,13 @@ import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  separateDialCode = false;
-	SearchCountryField = SearchCountryField;
-	CountryISO = CountryISO;
+
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
   PhoneNumberFormat = PhoneNumberFormat;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom]; 
+
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
   public signupType = [
@@ -94,13 +98,9 @@ export class RegisterComponent {
     });
   
   }
-  withoutMaterialForm!:FormGroup
+
   ngOnInit() {
-    this.withoutMaterialForm = this.fb.group({
-      creditCardeWithoutMaterial: [],
-      creditCardDateWithoutMaterial: [],
-      creditCardCvvWithoutMaterial: []
-    });
+    this.selectedSignupType = Roles.businessOwner
   }
 
   public handleSignupTypeSelection(value: any) {
@@ -215,7 +215,7 @@ export class RegisterComponent {
     }
   }
 
-  formatLabel(key: keyof typeof Roles): string {
+  public formatLabel(key: keyof typeof Roles): string {
     // Example: Convert "businessOwner" to "Business Owner"
     return key
       .replace(/([A-Z])/g, ' $1')
@@ -229,19 +229,4 @@ export class RegisterComponent {
   }
 
 
-
-  ConfirmedValidator(controlName: string, matchingControlName: string){
-    return (formGroup: FormGroup) => {
-        const control:any = this.signupForm.get('password');
-        const matchingControl:any = this.signupForm.get('confirm_password');
-        if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
-            return;
-        }
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ confirmedValidator: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    }
-}
 }
