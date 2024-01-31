@@ -5,13 +5,14 @@ import {
   ProfileMenu,
   SidebarService,
 } from '@vietlist/shared'
+import { FullPageLoader } from '../common-ui'
+import { FullPageLoaderService } from '../shared/utils/services/loader.service'
 import { EditProfileComponent } from './components'
-import { ProfileService } from './service/profile.service'
 
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent],
+  imports: [EditProfileComponent ],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -21,6 +22,7 @@ export class ManageProfileComponent {
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
+    private loaderService: FullPageLoaderService,
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()

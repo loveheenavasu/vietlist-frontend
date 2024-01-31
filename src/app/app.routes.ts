@@ -2,8 +2,7 @@ import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
 import { LoginComponent, RegisterComponent } from './auth'
-import { ConfirmPaymentComponent } from './landing-page/views'
-import { PlanComponent } from './susbscription-plans'
+import { ConfirmPaymentComponent, PlanComponent } from './susbscription-plans'
 
 export default [
   {
@@ -28,7 +27,7 @@ export default [
     loadComponent:()=> ConfirmPaymentComponent
   },
   {
-    path:'choose-plan',
+    path:'subscription-plans',
     loadComponent:()=>PlanComponent
   }
 ] as Routes

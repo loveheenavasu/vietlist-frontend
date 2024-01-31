@@ -22,6 +22,7 @@ export class PlansService {
 
   public confirmSubscription(body:any):Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Subscription);
-    return this.http.post<any>(endpoint, body);
+    const authToken:any = this.sessionService.getAuthHeaders();
+    return this.http.post<any>(endpoint, body , {headers:authToken});
   }
 }
