@@ -1,2 +1,2 @@
 export * from './control-validation.directive'
-export * from "./confirm-password"
+export * from './confirm-password'

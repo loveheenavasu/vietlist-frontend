@@ -6,6 +6,6 @@ export enum Endpoints {
   ResetPassword = 'passwordreset',
   ProfileDetail = 'showuserprofile',
   SubscriptionPlan = 'pmprolevels',
-  CreatePaymentIntent = "create_initial_intent",
-  Subscription = "subscription"
+  CreatePaymentIntent = 'create_initial_intent',
+  Subscription = 'subscription',
 }

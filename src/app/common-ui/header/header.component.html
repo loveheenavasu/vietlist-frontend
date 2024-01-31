@@ -4,7 +4,7 @@
 >
   <div class="container-fluid">
     <div class="logo-container">
-      <a class="navbar-brand" style="cursor:pointer" routerLink="/">
+      <a class="navbar-brand" style="cursor: pointer" routerLink="/">
         <img
           class="brand-logo"
           src="/assets/icons/brand-logo.svg"
@@ -113,16 +113,25 @@
           </div>
         </div>
         <div class="btn-container">
+          <div class="login-btn">
+            <button
+              type=" button"
+              class="btn"
+              (click)="isAuthenticated ? onLogout() : login()"
+            >
+              {{ isAuthenticated ? 'Logout' : 'Login' }}
+            </button>
+          </div>
+          <div class="sign-up-btn">
+            <button
+              type="button"
+              class="btn"
+              (click)="isAuthenticated ? profile() : signup()"
+            >
+              {{ isAuthenticated ? 'Profile' : 'Sign Up' }}
+            </button>
+          </div>
 
-            <div class="login-btn">
-              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">{{isAuthenticated ? 'Logout' : 'Login'}}</button>
-            </div>
-            <div class="sign-up-btn">
-              <button type="button" class="btn" (click)="isAuthenticated ? profile() : signup()">
-                {{isAuthenticated ? 'Profile' : 'Sign Up'}}
-              </button>
-            </div>
-    
           <!-- @if(isAuthenticated){
             <div class="logout-btn login-btn">
               <button type=" button" class="btn" (click)="onLogout()">
@@ -134,8 +143,6 @@
               <button type="button" class="btn">Profile</button>
             </div>
           } -->
-       
-        
         </div>
       </ul>
     </div>

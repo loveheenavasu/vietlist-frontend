@@ -1,16 +1,17 @@
+import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service';
 @Component({
-    selector: 'app-fullpage-loader',
-    standalone: true,
-    imports:[CommonModule],
-    template: ` <div id="pause" class="d-flex align-items-center justify-content-center">
+  selector: 'app-fullpage-loader',
+  standalone: true,
+  imports: [CommonModule],
+  template: ` <div
+    id="pause"
+    class="d-flex align-items-center justify-content-center"
+  >
     <div id="spinner"></div>
-</div>`,
-    styles: `
+  </div>`,
+  styles: `
     #spinner {
   width: 48px;
   height: 48px;
@@ -66,15 +67,6 @@ import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.serv
     z-index: 1000;
 }
 
-    `
+    `,
 })
-
-export class FullPageLoader {
-    loaderVisible!: Observable<boolean>;
-
-    constructor(private loaderService: FullPageLoaderService) {}
-  
-    ngOnInit() {
-      this.loaderVisible = this.loaderService.getLoaderVisibility();
-    }
-}
+export class FullPageLoader {}

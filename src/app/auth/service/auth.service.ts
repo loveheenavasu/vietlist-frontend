@@ -1,4 +1,4 @@
-import { register } from 'swiper/element/bundle'
+import { AuthResponse } from './auth.interface';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Injectable } from '@angular/core'
@@ -15,9 +15,9 @@ export class AuthService {
   //   return this.http.post<any>(`${baseUrl}${API_URL.signin_url}` , body)
   // }
 
-  public register(body: any): Observable<any> {
+  public register(body: any): Observable<AuthResponse> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Signup)
-    return this.http.post<any>(endpoint, body)
+    return this.http.post<AuthResponse>(endpoint, body)
   }
 
   public login(body: any): Observable<any> {
@@ -40,7 +40,5 @@ export class AuthService {
     return this.http.post<any>(endpoint, body)
   }
 
-  public createPayment(body:any){
-    return this.http.post('https://vietlist.biz/wp-json/vietlist/v1/subscription' , body )
-  }
+
 }

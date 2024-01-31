@@ -22,6 +22,6 @@ export class ValidationService {
     'invalid-email-msg': 'Email is invalid',
     'first-name-msg': 'First name is required',
     'last-name-msg': 'Last name is required',
-    'contact-required-msg':'Contact number is required'
+    'contact-required-msg': 'Contact number is required',
   }
 }

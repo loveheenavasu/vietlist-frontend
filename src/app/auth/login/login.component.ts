@@ -13,7 +13,6 @@ import {
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import {
-  EmailValidationService,
   FormControlValidationDirective,
   LocalStorageService,
 } from '@vietlist/shared'
@@ -32,7 +31,7 @@ import { AuthenticationService } from '@vietlist/shared'
     NgFor,
     NgIf,
     FormControlValidationDirective,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -55,7 +54,7 @@ export class LoginComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private localStorage: LocalStorageService,
-    private authenticationService:AuthenticationService
+    private authenticationService: AuthenticationService,
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -79,7 +78,7 @@ export class LoginComponent {
         next: (res: any) => {
           this.loader = false
           this.authenticationService.setAuthenticationStatusTrue(res.data.token)
-          this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user));
+          this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
           if (res) {
             this.router.navigateByUrl('/manage-profile')
           }
@@ -98,7 +97,6 @@ export class LoginComponent {
         error: (err: any) => {
           this.loader = false
           console.log(err, 'error')
-        
         },
       })
     }

@@ -144,7 +144,6 @@ export class ForgotPasswordComponent {
       },
       error: (err: any) => {
         this.loader = false
-      
       },
     })
   }
@@ -174,7 +173,6 @@ export class ForgotPasswordComponent {
       },
       error: (err: any) => {
         this.loader = false
-    
       },
     })
   }

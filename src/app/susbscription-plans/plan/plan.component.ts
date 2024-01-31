@@ -1,62 +1,64 @@
-import { CommonModule } from '@angular/common';
-import { AuthenticationService } from './../../shared/utils/services/authentication.service';
-import { Component } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { PlansService } from '../service/plan.service';
+import { CommonModule } from '@angular/common'
+import { AuthenticationService } from './../../shared/utils/services/authentication.service'
+import { Component } from '@angular/core'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { Router } from '@angular/router'
+import { PlansService } from '../service/plan.service'
+import { FullPageLoaderService } from '@vietlist/shared'
 
 @Component({
   selector: 'app-plan',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './plan.component.html',
-  styleUrl: './plan.component.scss'
+  styleUrl: './plan.component.scss',
 })
 export class PlanComponent {
-
   public subscriptionPlainDetail?: any
-  public userAlreadyLogin: boolean = false;
-  public planId:any;
-  public authToken : any;
-  public isAuthenticated:boolean = false
-  constructor(private subscriptionService: PlansService, private sanitizer: DomSanitizer, private router: Router , private sessionService:AuthenticationService) {
+  public userAlreadyLogin: boolean = false
+  public subscriptionPlans: any[] = []
+  public planId: any
+  public authToken: any
+  public isAuthenticated: boolean = false
+  constructor(
+    private subscriptionService: PlansService,
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private sessionService: AuthenticationService,
+    private loaderService: FullPageLoaderService,
+  ) {}
 
-  }
-
- 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
-    this.sessionService.isAuthenticated$.subscribe((res)=>{
+    this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
-      console.log(res , 'RESPONSE')
     })
   }
-  subscriptionPlans:any[]=[]
+
   public fetchSubscriptionPlanData() {
+    this.loaderService.showLoader()
     this.subscriptionService.subscriptionPlan().subscribe({
-      next: (res:any) => {
-        const plansArray = Object.values(res.data).filter(item => typeof item === 'object');
+      next: (res: any) => {
+        this.loaderService.hideLoader()
+        const plansArray = Object.values(res.data).filter(
+          (item) => typeof item === 'object',
+        )
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
-        console.log(this.subscriptionPlans , "plans" ,)
       },
-      error: (err:any) => {
-      
-      }
+      error: (err: any) => {},
     })
   }
 
   public getTrustedHTML(htmlString: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(htmlString);
+    return this.sanitizer.bypassSecurityTrustHtml(htmlString)
   }
 
   public handleSignMe() {
-    this.router.navigateByUrl("/login")
+    this.router.navigateByUrl('/login')
   }
 
-
-  navigateToConfirmPayment(id:any){
-    this.router.navigate(['/confirm-payment' , id ])
-   
+  navigateToConfirmPayment(id: any) {
+    this.router.navigate(['/confirm-payment', id])
   }
 }

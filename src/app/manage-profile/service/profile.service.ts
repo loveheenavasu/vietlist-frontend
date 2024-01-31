@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { AuthenticationService, Endpoints, GenericHelper } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  Endpoints,
+  GenericHelper,
+} from '@vietlist/shared'
 import { Observable } from 'rxjs'
 
 @Injectable({
@@ -9,14 +13,12 @@ import { Observable } from 'rxjs'
 export class ProfileService {
   constructor(
     private http: HttpClient,
-    private sessionService:AuthenticationService
-  ) {
-    
-  }
+    private sessionService: AuthenticationService,
+  ) {}
 
   public userDetails(): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ProfileDetail);
-    const authToken:any = this.sessionService.getAuthHeaders();
-    return this.http.get<any>(endpoint, {headers:authToken} );
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ProfileDetail)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
   }
 }

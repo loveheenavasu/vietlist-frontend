@@ -12,13 +12,13 @@ import { EditProfileComponent } from './components'
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent ],
+  imports: [EditProfileComponent],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
 export class ManageProfileComponent {
   public sidebarMenu: ProfileMenu[] = []
-  public userEmail:any;
+  public userEmail: any
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
@@ -26,7 +26,7 @@ export class ManageProfileComponent {
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
-    this.userEmail = data?.user_email;
+    this.userEmail = data?.user_email
   }
 
   public getSidebarLinks() {

@@ -12,22 +12,22 @@ export default [
 
   {
     path: 'register',
-    loadComponent: () => RegisterComponent
+    loadComponent: () => RegisterComponent,
   },
   {
     path: 'login',
-    loadComponent: () => LoginComponent
+    loadComponent: () => LoginComponent,
   },
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
   },
   {
-    path:'confirm-payment/:id',
-    loadComponent:()=> ConfirmPaymentComponent
+    path: 'confirm-payment/:id',
+    loadComponent: () => ConfirmPaymentComponent,
   },
   {
-    path:'subscription-plans',
-    loadComponent:()=>PlanComponent
-  }
+    path: 'subscription-plans',
+    loadComponent: () => PlanComponent,
+  },
 ] as Routes

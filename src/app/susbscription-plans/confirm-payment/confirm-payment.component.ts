@@ -1,6 +1,4 @@
 import { PlansService } from '../service/plan.service'
-
-import { CommonModule } from '@angular/common'
 import {
   Component,
   ElementRef,
@@ -10,29 +8,32 @@ import {
 import { NgForm, FormsModule } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
-import { AuthenticationService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
+import { NgFor, NgIf } from '@angular/common'
 const stripePublishKey = environment.stripe_publish_key
 declare var stripe: any
 declare var elements: any
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, NgFor , NgIf],
   templateUrl: './confirm-payment.component.html',
   styleUrl: './confirm-payment.component.scss',
 })
 export class ConfirmPaymentComponent {
   @ViewChild('cardInfo', { static: false }) cardInfo!: ElementRef
+  @ViewChild('billingAddressElement', { static: true }) billingAddressElement!: ElementRef;
 
-  stripe: any
-  loading = false
-  confirmation: any
-
-  card: any
+  public stripe: any
+  public loading = false
+  public confirmation: any
+  public billingAddressElements:any
+  public billingAddress:any
+  public card: any
   cardHandler = this.onChange.bind(this)
-  error: any
+  public error: any
   public authToken: any
   public planId: any
   public paymentIntent: any
@@ -43,6 +44,7 @@ export class ConfirmPaymentComponent {
     private route: ActivatedRoute,
     private sessionService: AuthenticationService,
     private subscriptionService: PlansService,
+    private loaderService:FullPageLoaderService
   ) {}
 
   ngOnInit() {
@@ -54,27 +56,40 @@ export class ConfirmPaymentComponent {
       this.getPaymentIntent()
     }
   }
-
   ngAfterViewInit() {
-    this.stripeService
-      .setPublishableKey(
-        stripePublishKey,
-      )
-      .then((stripe) => {
-        this.stripe = stripe
-        const elements = stripe.elements()
-        this.card = elements.create('card')
-        console.log(this.card, 'card')
-        this.card.mount(this.cardInfo.nativeElement)
-        this.card.addEventListener('change', this.cardHandler)
-      })
-  }
+    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(
+      stripe => {
+        this.stripe = stripe;
+        const appearance = {
+          theme: 'flat',
+          variables: { colorPrimaryText: 'red' }
+        };
+        const elements = stripe.elements({ appearance });
+        this.card = elements.create('card');
+        this.card.mount(this.cardInfo.nativeElement);
+        const billingAddressOptions = {
+          classes: {
+            base: 'stripe-address-element'
+          },
+          placeholder: 'Enter your billing address',
+          // Set mode to 'billing' to collect billing address
+          mode: 'billing'
+        };
+        this.billingAddressElements = elements.create('address', billingAddressOptions);
 
+        this.billingAddressElements.mount(this.billingAddressElement.nativeElement);
+        this.billingAddressElements.on('change', (event:any) => {
+          this.billingAddress = event.value;
+        });
+        this.stripe = stripe;
+      });
+  }
   public getPaymentIntent() {
+  this.loaderService.showLoader()
     this.subscriptionService.createIntent().subscribe({
       next: (res: any) => {
+        this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
-        console.log(this.paymentIntent , "===")
       },
       error: (err: any) => {},
     })
@@ -90,48 +105,40 @@ export class ConfirmPaymentComponent {
   }
 
   async onSubmit(form: NgForm) {
-    // const secret = "seti_1OeFV1DyROdF1Yteg7u9Fyad_secret_PTBsxWq7Weioz5VcGgtfNwBzYNM8ip3"
-    // Assuming  you have a card element, if not, adapt accordingly
+    const { paymentMethod, error } = await this.stripe.createPaymentMethod({
+      type: 'card',
+      card: this.card,
+      billing_details: this.billingAddress
+    });
 
-    console.log(this.card.card, "card")
-    const { setupIntent, error } = await this.stripe.createPaymentMethod(
-      this.paymentIntent,
-      {
-        payment_method: {
-          card: this.card, // Replace with your card element or card details
-          billing_details: {
-            name:"Tanya",
-            email:"test@yopmail.com",
-            address: {
-              line1:'XYZ',
-              postal_code: '123',
-              city: 'Test'
-            },
-          },
-        },
-      },
-    )
     if (error) {
-      console.error(error.message)
+      Swal.fire({
+        toast: true,
+        text: error.error.message,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      console.log('Error:', error);
     } else {
-
-      const paymentMethodJSON = JSON.stringify(setupIntent)
-      this.paymentMethod = paymentMethodJSON
-      console.log(this.paymentMethod , "pppp")
-      if(this.paymentMethod){
-        this.confirmSubscription()
-      }
+      console.log('Success!', paymentMethod);
+      // Access billing details
+      const billingDetails = paymentMethod.billing_details;
+      console.log('Billing Details:', billingDetails);
+      this.confirmSubscription()
     }
   }
 
-
-  public confirmSubscription(){
+  public confirmSubscription() {
     const body = {
-      level_id:this.planId,
-      pm_data:this.paymentMethod
+      level_id: this.planId,
+      pm_data: this.paymentMethod,
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
-      next:(res)=>{
+      next: (res) => {
         Swal.fire({
           toast: true,
           text: res.message,
@@ -142,7 +149,7 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-      }
+      },
     })
   }
 }

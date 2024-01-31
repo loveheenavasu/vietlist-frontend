@@ -5,9 +5,6 @@
     </div>
   </section>
 
-
-
-  
   <form [formGroup]="signupForm">
     <div class="container">
       <div class="form-cnt">
@@ -152,25 +149,25 @@
             </div>
           </div>
           <ngx-intl-tel-input
-          [cssClass]="'input-control'"
-          [preferredCountries]="preferredCountries"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="[
-            SearchCountryField.Iso2,
-            SearchCountryField.Name
-          ]"
-          [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.India"
-          [maxLength]="15"
-          [phoneValidation]="true"
-          [separateDialCode]="true"
-          [numberFormat]="PhoneNumberFormat.National"
-          name="phone"
-          [formControl]="contact_details"
-        >
-        </ngx-intl-tel-input>
+            [cssClass]="'input-control'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.India"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            [separateDialCode]="true"
+            [numberFormat]="PhoneNumberFormat.National"
+            name="phone"
+            [formControl]="contact_details"
+          >
+          </ngx-intl-tel-input>
         }
 
         <div class="col-12 mt-2">

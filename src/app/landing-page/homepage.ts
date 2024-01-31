@@ -1,4 +1,4 @@
-import { PlanComponent } from './../susbscription-plans/index';
+import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
 import { Component } from '@angular/core'
 import {
@@ -21,7 +21,7 @@ import {
     ExplainingPlatformComponent,
     CardSwiperComponent,
     EventsComponent,
-    PlanComponent
+    PlanComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

@@ -1,5 +1,11 @@
-import { PlanComponent } from './../../susbscription-plans/plan/plan.component';
-import { AuthenticationService, FormControlValidationDirective, LocalStorageService, matchValidator, Roles } from '@vietlist/shared'
+
+import {
+  AuthenticationService,
+  FormControlValidationDirective,
+  LocalStorageService,
+  matchValidator,
+  Roles,
+} from '@vietlist/shared'
 import { Router } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
@@ -16,9 +22,12 @@ import { MatSelectModule } from '@angular/material/select'
 import { AuthService } from '../service/auth.service'
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
-import { FullPageLoader } from 'src/app/common-ui/full-page-loader/fullpage-loader'
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
-import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg'
+import {
+  CountryISO,
+  PhoneNumberFormat,
+  SearchCountryField,
+} from 'ngx-intl-tel-input'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -33,19 +42,21 @@ import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-
     FormControlValidationDirective,
     LoaderComponent,
     NgClass,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
   ],
 
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-
-  separateDialCode = true;
-  SearchCountryField = SearchCountryField;
-  CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
-  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom]; 
+  public separateDialCode = true
+  public SearchCountryField = SearchCountryField
+  public CountryISO = CountryISO
+  public PhoneNumberFormat = PhoneNumberFormat
+  public preferredCountries: CountryISO[] = [
+    CountryISO.UnitedStates,
+    CountryISO.UnitedKingdom,
+  ]
 
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
@@ -74,31 +85,31 @@ export class RegisterComponent {
   constructor(
     public router: Router,
     private fb: FormBuilder,
-    private authenticationService:AuthenticationService,
     private authService: AuthService,
-    private localStorageServce:LocalStorageService
+    private localStorageServce: LocalStorageService,
+    private sessionServce:AuthenticationService
   ) {
-    this.signupForm = this.fb.nonNullable.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    this.signupForm = this.fb.nonNullable.group(
+      {
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          ],
         ],
-      ],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      confirm_password: ['', [Validators.required]],
-      role: [''],
-    },
-    {
-      validators: matchValidator('password', 'confirm_password')
-
-    });
-  
+        first_name: ['', Validators.required],
+        last_name: ['', Validators.required],
+        confirm_password: ['', [Validators.required]],
+        role: [''],
+      },
+      {
+        validators: matchValidator('password', 'confirm_password'),
+      },
+    )
   }
 
   ngOnInit() {
@@ -113,7 +124,7 @@ export class RegisterComponent {
     this.router.navigateByUrl('/login')
   }
 
- public passwordsMismatch() {
+  public passwordsMismatch() {
     const passwordControl = this.signupForm.get('password')
     const confirmPasswordControl = this.signupForm.get('confirm_password')
     if (
@@ -122,11 +133,10 @@ export class RegisterComponent {
       confirmPasswordControl.touched &&
       confirmPasswordControl.dirty
     ) {
-      return passwordControl.value !== confirmPasswordControl.value;
+      return passwordControl.value !== confirmPasswordControl.value
     }
-  
-    return false;
-  
+
+    return false
   }
 
   public handleRegistrationSubmission() {
@@ -146,15 +156,20 @@ export class RegisterComponent {
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
-        body['contact_details'] = parseInt(this.contact_details.value.e164Number)
+        body['contact_details'] = parseInt(
+          this.contact_details.value.e164Number,
+        )
       }
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
           console.log(res)
-          if(res){
-            this.localStorageServce.saveData('vietlist::user', JSON.stringify(res.data.user));
+          if (res) {
+            this.localStorageServce.saveData(
+              'vietlist::user',
+              JSON.stringify(res?.data?.user),
+            )
           }
           Swal.fire({
             toast: true,
@@ -167,14 +182,19 @@ export class RegisterComponent {
             timerProgressBar: true,
           })
           if (res) {
-            this.router.navigateByUrl('/login')
+            const data = this.sessionServce.getRegisterUserData()
+            if(data.user_role == Roles.businessOwner){
+              this.router.navigateByUrl('/subscription-plans')
+            }else{
+              this.router.navigateByUrl('/login')
+            }
+            
           }
           console.log(res)
         },
         error: (err) => {
           console.log(err.error.message, 'Error')
           this.loader = false
-          
         },
       })
     } else {
@@ -223,6 +243,4 @@ export class RegisterComponent {
       ? null
       : event.charCode >= 48 && event.charCode <= 57
   }
-
-
 }

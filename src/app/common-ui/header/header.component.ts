@@ -18,15 +18,15 @@ import { AuthenticationService, NavItem } from '@vietlist/shared'
     MatDialogModule,
     RouterLink,
     MatIconModule,
-    LoginComponent
+    LoginComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public isCollapsed : boolean= true
+  public isCollapsed: boolean = true
   public isLoginSuccess: boolean = false
-  public isAuthenticated:boolean = false
+  public isAuthenticated: boolean = false
   public isSearchInputVisible: boolean = false
   public isTranslationVisible: boolean = false
 
@@ -59,26 +59,23 @@ export class HeaderComponent {
   ]
 
   /**
-   * 
-   * @param router 
-   * @param dialog 
-   * @param sessionservice 
+   *
+   * @param router
+   * @param dialog
+   * @param sessionservice
    */
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private sessionservice:AuthenticationService
+    private sessionservice: AuthenticationService,
   ) {
-    this.sessionservice.isAuthenticated$.subscribe((res)=>{
+    this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize(event: Event) {}
 
-  }
-
- 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
   }
@@ -91,20 +88,16 @@ export class HeaderComponent {
     this.router.navigateByUrl('/login')
   }
 
-  
   public signup() {
     this.router.navigateByUrl('/register')
   }
 
-  public profile(){
+  public profile() {}
 
-  }
-  
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
   }
 
- 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {
       this.isSearchInputVisible = false
