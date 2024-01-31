@@ -7,5 +7,6 @@ export enum Endpoints {
   ProfileDetail = 'showuserprofile',
   SubscriptionPlan = 'pmprolevels',
   CreatePaymentIntent = "create_initial_intent",
-  Subscription = "subscription"
+  Subscription = "subscription",
+  updateUserProfile = "updateuserprofile"
 }
