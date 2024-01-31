@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { AuthenticationService } from './../../shared/utils/services/authentication.service';
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -7,7 +8,7 @@ import { PlansService } from '../service/plan.service';
 @Component({
   selector: 'app-plan',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss'
 })
@@ -16,7 +17,8 @@ export class PlanComponent {
   public subscriptionPlainDetail?: any
   public userAlreadyLogin: boolean = false;
   public planId:any;
-  public authToken : any
+  public authToken : any;
+  public isAuthenticated:boolean = false
   constructor(private subscriptionService: PlansService, private sanitizer: DomSanitizer, private router: Router , private sessionService:AuthenticationService) {
 
   }
@@ -24,15 +26,19 @@ export class PlanComponent {
  
   ngOnInit() {
     this.fetchSubscriptionPlanData()
-
+    this.sessionService.isAuthenticated$.subscribe((res)=>{
+      this.isAuthenticated = res
+      console.log(res , 'RESPONSE')
+    })
   }
-
+  subscriptionPlans:any[]=[]
   public fetchSubscriptionPlanData() {
     this.subscriptionService.subscriptionPlan().subscribe({
       next: (res:any) => {
-        this.subscriptionPlainDetail = res.data
+        const plansArray = Object.values(res.data).filter(item => typeof item === 'object');
+        this.subscriptionPlans = plansArray
         this.planId = res.data.id
-        console.log(this.subscriptionPlainDetail , "plans" , res )
+        console.log(this.subscriptionPlans , "plans" ,)
       },
       error: (err:any) => {
       
@@ -51,15 +57,6 @@ export class PlanComponent {
 
   navigateToConfirmPayment(id:any){
     this.router.navigate(['/confirm-payment' , id ])
-    // this.subscriptionService.createIntent().subscribe({
-    //   next:(res)=>{
-    //     console.log(res , "res")
-        
-    //   },
-    //   error:(err)=>{
-
-    //   }
-    // })
-    
+   
   }
 }

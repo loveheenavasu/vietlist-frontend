@@ -2,8 +2,9 @@ import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
 import { LoginComponent, RegisterComponent } from './auth'
-import { ConfirmPaymentComponent } from './landing-page/views'
-import { PlanComponent } from './susbscription-plans'
+import { ConfirmPaymentComponent, PlanComponent } from './susbscription-plans'
+import { AuthGuard } from './shared/utils/guard/auth.guard'
+import { PageNotFoundComponent } from './common-ui'
 
 export default [
   {
@@ -22,13 +23,18 @@ export default [
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'confirm-payment/:id',
-    loadComponent:()=> ConfirmPaymentComponent
+    path: 'confirm-payment/:id',
+    loadComponent: () => ConfirmPaymentComponent
   },
   {
-    path:'choose-plan',
-    loadComponent:()=>PlanComponent
-  }
+    path: 'subscription-plans',
+    loadComponent: () => PlanComponent
+  },
+  {
+    path: 'not-found',
+    loadComponent: () => PageNotFoundComponent
+  },
 ] as Routes

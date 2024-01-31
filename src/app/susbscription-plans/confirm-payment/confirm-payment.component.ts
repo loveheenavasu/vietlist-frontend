@@ -1,4 +1,4 @@
-import { PlansService } from './../../../susbscription-plans/service/plan.service'
+import { PlansService } from '../service/plan.service'
 
 import { CommonModule } from '@angular/common'
 import {
@@ -90,21 +90,34 @@ export class ConfirmPaymentComponent {
   }
 
   async onSubmit(form: NgForm) {
-    const secret = "seti_1OeF3sDyROdF1YtekQSX1Ael_secret_PTBQeVPLgtu5DFk9CeCx49Khh4EXasx"
+    // const secret = "seti_1OeFV1DyROdF1Yteg7u9Fyad_secret_PTBsxWq7Weioz5VcGgtfNwBzYNM8ip3"
     // Assuming  you have a card element, if not, adapt accordingly
-    const { setupIntent, error } = await this.stripe.confirmCardSetup(
-      secret,
+
+    console.log(this.card.card, "card")
+    const { setupIntent, error } = await this.stripe.createPaymentMethod(
+      this.paymentIntent,
       {
         payment_method: {
           card: this.card, // Replace with your card element or card details
+          billing_details: {
+            name:"Tanya",
+            email:"test@yopmail.com",
+            address: {
+              line1:'XYZ',
+              postal_code: '123',
+              city: 'Test'
+            },
+          },
         },
       },
     )
     if (error) {
       console.error(error.message)
     } else {
-      console.log(setupIntent , "payment")
-      this.paymentMethod = setupIntent.payment_method
+
+      const paymentMethodJSON = JSON.stringify(setupIntent)
+      this.paymentMethod = paymentMethodJSON
+      console.log(this.paymentMethod , "pppp")
       if(this.paymentMethod){
         this.confirmSubscription()
       }

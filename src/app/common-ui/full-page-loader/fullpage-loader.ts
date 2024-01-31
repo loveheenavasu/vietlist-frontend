@@ -1,45 +1,80 @@
+
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service';
 @Component({
-    selector:'app-fullpage-loader',
-    standalone:true,
-    template:`<div id="cover-spin"></div>`,
-    styles:`
-    #cover-spin {
-        position:fixed;
-        width:100%;
-        left:0;right:0;top:0;bottom:0;
-        background-color: rgba(255,255,255,0.7);
-        z-index:9999;
-        display:none;
-    }
-    
-    @-webkit-keyframes spin {
-        from {-webkit-transform:rotate(0deg);}
-        to {-webkit-transform:rotate(360deg);}
-    }
-    
-    @keyframes spin {
-        from {transform:rotate(0deg);}
-        to {transform:rotate(360deg);}
-    }
-    
-    #cover-spin::after {
-        content:'';
-        display:block;
-        position:absolute;
-        left:48%;top:40%;
-        width:40px;height:40px;
-        border-style:solid;
-        border-color:black;
-        border-top-color:transparent;
-        border-width: 4px;
-        border-radius:50%;
-        -webkit-animation: spin .8s linear infinite;
-        animation: spin .8s linear infinite;
-    }
+    selector: 'app-fullpage-loader',
+    standalone: true,
+    imports:[CommonModule],
+    template: ` <div id="pause" class="d-flex align-items-center justify-content-center">
+    <div id="spinner"></div>
+</div>`,
+    styles: `
+    #spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #FFF;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+#spinner::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border-bottom: 4px solid #F89705;
+  border-left: 4px solid transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+@keyframes frames {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+#pause {
+    display: block;
+    background:
+        rgba(0, 0, 0, 0.66)
+        no-repeat
+        0 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
     `
 })
 
 export class FullPageLoader {
+    loaderVisible!: Observable<boolean>;
 
+    constructor(private loaderService: FullPageLoaderService) {}
+  
+    ngOnInit() {
+      this.loaderVisible = this.loaderService.getLoaderVisibility();
+    }
 }
