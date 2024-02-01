@@ -17,7 +17,6 @@
                 </a>
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item>
-                    <span>Vietnamese</span>
                   </button>
                 </mat-menu>
 
@@ -91,7 +90,10 @@
             }
           </ul>
         </div>
-        <div class="country-wrapper">
+        <div class="country-wrapper" [ngClass]="{
+          'hide-search-field': !isSearchInputVisible,
+          'show-search-Input': isSearchInputVisible
+        }">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item dropdown">
@@ -118,14 +120,14 @@
           </div>
         </div>
         <div class="right-nav">
-          <div class="search-box">
+          <div class="search-box" [ngClass]="{
+            'hide-search-field': !isSearchInputVisible,
+            'show-search-Input': isSearchInputVisible
+          }">
             <div class="search-icon" (click)="handleSearchFiled()">
               <img src="/assets/icons/search-icon.svg" alt="search-icon" />
             </div>
-            <div class="search row" [ngClass]="{
-              'hide-search-field': !isSearchInputVisible,
-              'show-search-Input': isSearchInputVisible
-            }">
+            <div class="search row">
               <div class="search-input col">
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
               </div>

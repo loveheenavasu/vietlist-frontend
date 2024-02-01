@@ -17,6 +17,16 @@
     }
 
     .offcanvas {
+        --bs-offcanvas-width: 300px !important;
+
+        .offcanvas-header {
+            justify-content: end;
+
+            .btn-close {
+                color: var(--primary-color-orange) !important;
+            }
+        }
+
         .offcanvas-body {
             align-items: center;
 
@@ -242,8 +252,86 @@
     }
 }
 
+@media(max-width:500px) {
+    .container-fluid {
+        .logo-container {
+            .navbar-brand {
+                img {
+                    width: 124px;
+                }
+            }
+        }
+
+        .sm-navbar {
+            .search-container-sm {
+                width: 50% !important;
+            }
+        }
+    }
+}
+
 @media(max-width:1200px) {
     .container-fluid {
+        .offcanvas {
+            .offcanvas-body {
+                .list-item {
+                    margin: 0;
+                    text-align: start;
+                }
+
+                .navbar-nav {
+                    align-items: start;
+
+                    .nav-item {
+                        padding: 0;
+
+                        .nav-link {
+                            padding: 14px 9px;
+                        }
+
+                        .dot {
+                            display: none;
+                        }
+                    }
+                }
+
+                .hide-search-field {
+                    display: none;
+                }
+            }
+        }
+
+        .search-container-sm {
+            width: 30% !important;
+            justify-content: space-around !important;
+        }
+
+        .country-wrapper {
+            padding: 10px !important;
+
+            .country-dropdown {
+                height: 30px !important;
+                width: 59px !important;
+
+                .navbar-nav {
+                    margin-bottom: 0px !important;
+
+                    img {
+                        margin-right: 7px !important;
+                    }
+                }
+            }
+        }
+
+        .search-box {
+            position: relative;
+
+            .search-icon {
+                width: 39px;
+                height: 39px;
+            }
+        }
+
         .logo-container {
             width: 24%
         }
