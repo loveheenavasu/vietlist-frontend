@@ -5,7 +5,6 @@ import {
   ProfileMenu,
   SidebarService,
 } from '@vietlist/shared'
-import { FullPageLoader } from '../common-ui'
 import { FullPageLoaderService } from '../shared/utils/services/loader.service'
 import { EditProfileComponent } from './components'
 
@@ -21,8 +20,7 @@ export class ManageProfileComponent {
   public userEmail: any
   constructor(
     private sidebarService: SidebarService,
-    private sessionservice: AuthenticationService,
-    private loaderService: FullPageLoaderService,
+    private sessionservice: AuthenticationService
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()

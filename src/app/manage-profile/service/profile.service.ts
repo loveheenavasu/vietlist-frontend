@@ -21,4 +21,9 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get<any>(endpoint, { headers: authToken })
   }
+
+  public userProfileUpdate(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.updateUserProfile);
+    return this.http.post<any>(endpoint, body );
+  }
 }

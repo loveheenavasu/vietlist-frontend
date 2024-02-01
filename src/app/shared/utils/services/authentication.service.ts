@@ -8,44 +8,42 @@ import { BehaviorSubject, Observable } from 'rxjs'
 export class AuthenticationService {
   private isAuthenticatedSubject: BehaviorSubject<boolean>
   public isAuthenticated$: Observable<boolean>
-
-  private accessToken: string = ''
-  private loginInfo: any
-  private registerUserInfo: any
+  private accessToken: string = '';
+  private loginInfo: any;
+  private registerUserInfo: any;
   constructor(private localstorageservice: LocalStorageService) {
-    this.isAuthenticatedSubject = new BehaviorSubject<boolean>(
-      this.checkAuthentication(),
-    )
-    this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable()
+    this.isAuthenticatedSubject = new BehaviorSubject<boolean>(this.checkAuthentication());
+    this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+
   }
 
   // Set authentication status to true when a token is received
-  setAuthenticationStatusTrue(token: string): void {
-    this.accessToken = token
-    this.isAuthenticatedSubject.next(true)
-    this.localstorageservice.saveData('accessToken', this.accessToken)
-  }
-  getUserdata(): any {
-    const storedLoginInfo = this.localstorageservice.getData('loginInfo')
-    if (storedLoginInfo) {
-      this.loginInfo = JSON.parse(storedLoginInfo)
-      return this.loginInfo
-    }
-    return null
+  public setAuthenticationStatusTrue(token: string): void {
+    this.accessToken = token;
+    this.isAuthenticatedSubject.next(true);
+    this.localstorageservice.saveData('accessToken', this.accessToken);
   }
 
-  getRegisterUserData(): any {
-    const registeredUserData =
-      this.localstorageservice.getData('vietlist::user')
-    if (registeredUserData) {
-      this.registerUserInfo = JSON.parse(registeredUserData)
-      return this.registerUserInfo
+  public getUserdata(): any {
+    const storedLoginInfo = this.localstorageservice.getData('loginInfo');
+    if (storedLoginInfo) {
+      this.loginInfo = JSON.parse(storedLoginInfo);
+      return this.loginInfo;
     }
-    return null
+    return null;
+  }
+
+  public getRegisterUserData(): any {
+    const registeredUserData = this.localstorageservice.getData('vietlist::user')
+    if (registeredUserData) {
+      this.registerUserInfo = JSON.parse(registeredUserData);
+      return this.registerUserInfo;
+    }
+    return null;
   }
 
   // Clear authentication status and token on logout
-  clearAuthentication(): void {
+  public clearAuthentication(): void {
     this.accessToken = ''
     this.isAuthenticatedSubject.next(false)
     this.localstorageservice.removeData('accessToken')
@@ -53,12 +51,12 @@ export class AuthenticationService {
   }
 
   // Get the authentication token
-  getAuthToken(): string {
+  public getAuthToken(): string {
     return this.accessToken
   }
 
   // Check if the user is authenticated based on the token
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return this.isAuthenticatedSubject.value
   }
 
@@ -73,7 +71,7 @@ export class AuthenticationService {
   }
 
   // Get headers for authenticated requests
-  getAuthHeaders(): any {
+ public getAuthHeaders(): any {
     return {
       Authorization: `Bearer ${this.accessToken}`,
       // Add other headers as needed

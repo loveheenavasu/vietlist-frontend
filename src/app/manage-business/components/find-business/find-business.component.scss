@@ -1,0 +1,52 @@
+
+@import "../../../../assets/scss/common.scss";
+@import "../../../../assets/scss/banner";
+.container-fluid{
+    // margin-top:10rem;
+}
+
+.form-container{
+    // border:solid 1px red;
+}
+
+.btn-orange{
+    background-color: var(--primary-color-orange);
+    width:fit-content;
+    color:#fff
+}
+
+.grid-save-btn{
+    background-color: var(--primary-color-orange);
+    width:fit-content;
+    padding:8px 12px;
+    text-align: center;
+    color:#fff;
+    cursor:pointer;
+    border-radius: 5px;
+}
+
+.search-button{
+    background-color: var(--primary-color-orange);
+    color:#fff;
+    width:100%;
+    margin-top:15px;
+}
+
+
+.grid-view-card{
+    border:solid 1px green;
+    height:60vh;
+}
+
+.business-img{
+    height:40vh;
+    border:solid 1px blue;
+    object-fit:contain;
+    width:100%;
+
+    img{
+        
+        width:100%;
+        height:100%;
+    }
+}
