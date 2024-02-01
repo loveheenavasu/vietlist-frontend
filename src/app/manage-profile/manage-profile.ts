@@ -40,6 +40,7 @@ export class ManageProfileComponent {
   }
 
   public handleFileInput(event: any) {
+    console.log(event , "event")
     event.stopPropagation();
     console.log("Checking image path", event);
     if (event.target.files && event.target.files[0]) {

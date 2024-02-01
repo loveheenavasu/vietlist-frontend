@@ -1,13 +1,87 @@
-
 <section class="banner">
-    <div class="content">
-      <h1>Showcase Your Business</h1>
-    </div>
-  </section>
+  <div class="content">
+    <h1>Showcase Your Business</h1>
+  </div>
+</section>
 
-  <button mat-raised-button (click)="isEditable = !isEditable">
-    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
-  </button>
-  
+<button mat-raised-button (click)="isEditable = !isEditable">
+  {{ !isEditable ? 'Enable edit mode' : 'Disable edit mode' }}
+</button>
 
-  
+<div class="container">
+  <div class="main-card">
+ <section>
+    <div class="row">
+        <div class="col-12">
+          <h1 class="listing-form-heading">Your Details</h1>
+        </div>
+      </div>
+      <div class="row my-3 px-2">
+        <div class="col-12 col-md-12 col-lg-4">
+          <label for="name">Name</label>
+        </div>
+        <div class="col-12 col-md-12 col-lg-8">
+          <input class="input-control" />
+        </div>
+      </div>
+      <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name">Email</label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input class="input-control" />
+          </div>
+        </div>
+ </section>
+ <section>
+    <div class="row">
+        <div class="col-12">
+          <h1 class="listing-form-heading">Business Information</h1>
+        </div>
+      </div>
+      <div class="row my-3 px-2">
+        <div class="col-12 col-md-12 col-lg-4">
+          <label for="name">Package</label>
+        </div>
+        <div class="col-12 col-md-12 col-lg-8">
+            <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1">Free Business: number of publish days are unlimited (Free)</mat-radio-button>
+                <mat-radio-button value="2"> Paid</mat-radio-button>
+              </mat-radio-group>
+        </div>
+      </div>
+      <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name">Business Title</label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input class="input-control" />
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label for="name">Business Description </label>
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <textarea name="" id="" cols="30" rows="30" class="input-control"></textarea>
+            </div>
+          </div>
+          <div class="row my-3 px-2">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label for="name">Category</label>
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+                <mat-select
+                class="vietlist-select"
+                placeholder="Business type"
+                
+              >
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Service</mat-option>
+              </mat-select>
+            </div>
+          </div>
+ </section>
+  </div>
+</div>
