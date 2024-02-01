@@ -1,105 +1,375 @@
-
 <section class="banner">
-    <div class="content">
-      <h1>Find Business</h1>
-    </div>
-  </section>
+  <div class="content">
+    <h1>Find Business</h1>
+  </div>
+</section>
 
-  <div class="container-fluid g-0">
-    <div class="row">
-        <div class="col-12 col-md-12 col-lg-5">
-
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-7 mt-2">
-            <div class="row">
-              <div class="d-flex bd-highlight">
-                <div class="p-2 flex-grow-1 bd-highlight">
-                  <h2>Find Business</h2>
-                </div>
-                <div class="p-2 bd-highlight">
-                  <div class="grid-save-btn" [matMenuTriggerFor]="menu">
-                    <i class="fa fa-th" aria-hidden="true"></i>
-                  </div>
-    
-                  <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
-                      <mat-icon>grid_on</mat-icon>
-                      <span>Grid</span>
-                    </button>
-                    <button mat-menu-item>
-                      <mat-icon>view_list</mat-icon>
-                      <span>List</span>
-                    </button>
-                  </mat-menu>
-                </div>
-                <div class="p-2 bd-highlight">
-                  <div class="grid-save-btn">
-                    <i class="fa fa-bookmark" aria-hidden="true"></i> Save this
-                    search
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-container">
-              <div class="row mt-3">
-                <div class="d-flex">
-                  <div class="mx-2 w-100">
-                    <input
-                      type="text"
-                      class="input-control"
-                      placeholder="Address"
-                    />
-                  </div>
-    
-                  <div class="mx-2 w-100">
-                    <mat-select class="vietlist-select" placeholder="Business type">
-                      <mat-option value="retail">Retail</mat-option>
-                      <mat-option value="restaurant">Restaurant</mat-option>
-                      <mat-option value="restaurant">Service</mat-option>
-                    </mat-select>
-                  </div>
-                  <div class="mx-2 w-100">
-                    <mat-select class="vietlist-select" placeholder="Business type">
-                      <mat-option value="retail">Retail</mat-option>
-                      <mat-option value="restaurant">Restaurant</mat-option>
-                      <mat-option value="restaurant">Service</mat-option>
-                    </mat-select>
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="d-flex">
-                  <div class="mx-2 w-100">
-                    <input
-                      type="text"
-                      class="input-control"
-                      placeholder="Address"
-                    />
-                  </div>
-    
-                  <div class="mx-2 w-100">
-                    <mat-select class="vietlist-select" placeholder="Business type">
-                      <mat-option value="retail">Retail</mat-option>
-                      <mat-option value="restaurant">Restaurant</mat-option>
-                      <mat-option value="restaurant">Service</mat-option>
-                    </mat-select>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="row"> -->
-              <button class="btn search-button">Find</button>
-              <!-- </div> -->
-            </div>
-                  <!---GRID VIEW----->
-       <div class="row mt-5">
-        <div class="col-12">
-            <div class="grid-view-card">
-                <div class="business-img">
-                    <img src="../../../../assets/claim-your-buisness.png"/>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid g-0">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-6">
     </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 mt-2">
+      <div class="row">
+        <div class="d-flex bd-highlight">
+          <div class="p-2 flex-grow-1 bd-highlight">
+            <h2>Find Business</h2>
           </div>
+          <div class="p-2 bd-highlight">
+            <div class="grid-save-btn" [matMenuTriggerFor]="menu">
+              <i class="fa fa-th" aria-hidden="true"></i>
+            </div>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="handleLayout('grid')">
+                <mat-icon>grid_on</mat-icon>
+                <span>Grid</span>
+              </button>
+              <button mat-menu-item (click)="handleLayout('list')">
+                <mat-icon>view_list</mat-icon>
+                <span>List</span>
+              </button>
+            </mat-menu>
+          </div>
+          <div class="p-2 bd-highlight">
+            <div class="grid-save-btn">
+              <i class="fa fa-bookmark" aria-hidden="true"></i> Save this
+              search
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="row mt-3">
+          <div class="d-flex">
+            <div class="mx-2 w-100">
+              <input type="text" class="input-control" placeholder="Address" />
+            </div>
+
+            <div class="mx-2 w-100">
+              <mat-select class="vietlist-select" placeholder="Business type">
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Service</mat-option>
+              </mat-select>
+            </div>
+            <div class="mx-2 w-100">
+              <mat-select class="vietlist-select" placeholder="Business type">
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Service</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="d-flex">
+            <div class="mx-2 w-100">
+              <input type="text" class="input-control" placeholder="Address" />
+            </div>
+
+            <div class="mx-2 w-100">
+              <mat-select class="vietlist-select" placeholder="Business type">
+                <mat-option value="retail">Retail</mat-option>
+                <mat-option value="restaurant">Restaurant</mat-option>
+                <mat-option value="restaurant">Service</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row"> -->
+        <button class="btn search-button">Find</button>
+        <!-- </div> -->
+      </div>
+      <!---GRID VIEW----->
+      <div class="row mt-5">
+        @if (selectedLayout == 'grid') {
+        <div class="col-12">
+          <div class="grid-view-card">
+            <div class="business-img">
+              <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+            </div>
+            <div class="business-info">
+              <div class="d-flex justify-content-center profile-wrapper">
+                <div class=" business-profile-img">
+                  <img src="/assets/image/gridcircleImage.png" alt="business-profile-img" />
+                </div>
+              </div>
+              <div class="business-title">
+                <h2>Testing</h2>
+                <span>It is testing</span>
+              </div>
+              <div class="business-package">
+                <p>$ Package : Free Business</p>
+              </div>
+              <div class="business-rating">
+                <div class="d-flex">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid-view-card">
+            <div class="business-img">
+              <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+            </div>
+            <div class="business-info">
+              <div class="d-flex justify-content-center profile-wrapper">
+                <div class=" business-profile-img">
+                  <img src="/assets/image/gridcircleImage.png" alt="business-profile-img" />
+                </div>
+              </div>
+              <div class="business-title">
+                <h2>Testing</h2>
+                <span>It is testing</span>
+              </div>
+              <div class="business-package">
+                <p>$ Package : Free Business</p>
+              </div>
+              <div class="business-rating">
+                <div class="d-flex">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+        @else {
+        <div class="col-12 mb-5">
+          <div class="list-view-card">
+            <div class="business-list-wrapper d-flex">
+              <div class="business-list-img">
+                <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+              </div>
+              <div class="business-list-info">
+                <div class="business-list-title">
+                  <h2>
+                    <a routerLink="#" routerLinkActive="router-link-active">Testing</a>
+                  </h2>
+                  <span>It is testing</span>
+                </div>
+                <div class="business-list-package">
+                  <p>$ Package : Free Business</p>
+                </div>
+                <div class="business-list-rating">
+                  <div class="d-flex">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-5">
+          <div class="list-view-card">
+            <div class="business-list-wrapper d-flex">
+              <div class="business-list-img">
+                <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+              </div>
+              <div class="business-list-info">
+                <div class="business-list-title">
+                  <h2>
+                    <a routerLink="#" routerLinkActive="router-link-active">S S Medical</a>
+                  </h2>
+                  <span>It is testing</span>
+                </div>
+                <div class="business-list-package">
+                  <p>$ Package : Free Business</p>
+                </div>
+                <div class="business-list-rating">
+                  <div class="d-flex">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="col-12 ads-section">
+      <div class="ads-wrapper">
+        <div class="ads-text d-flex justify-content-center p-2">
+          <p>Ads section</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 carrer-professional ">
+      <div class="business-inner-wrapper d-flex">
+        <div class="carrer-professional-img">
+          <div class="img-wrapper">
+            <img src="/assets/image/carrer-proffesional.jpeg" alt="carrer-professional" />
+
+            <div class="img-over-text">
+              <div class="d-flex align-items-end text-container">
+                <div>
+                  <div class="title mb-2">
+                    <span>Carrer & Proffesional Life</span>
+                  </div>
+                  <div class="img-over-heading">
+                    <h3>Keywords: Social Media Marketing, Property Listings, Online Engagement, Visual Content,
+                      Targeting
+                      Strategies.</h3>
+                  </div>
+                  <div class="d-flex">
+                    <div class="delivered-by">
+                      <div class="d-flex align-items-center">
+                        <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                        <span class="pe-2">By BlogBlitz</span>
+                      </div>
+                    </div>
+                    <div class="deliver-date">
+                      <div class="d-flex align-items-center">
+                        <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                        <span class="pe-2">October 4, 2023</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="read-more">
+                    <button class="btn">Read More</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carrer-professional-list">
+          <div class="list-container">
+            <div class="d-flex">
+              <div class="list-img">
+                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+              </div>
+              <div class="list-info">
+                <div class="title">
+                  <span>Carrer & Professional Life</span>
+                </div>
+                <div class="list-heading">
+                  <h3>Exploring Investment Opportunities In Vietnam For North American Residents</h3>
+                </div>
+                <div class="d-flex">
+                  <div class="delivered-by">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">By BlogBlitz</span>
+                    </div>
+                  </div>
+                  <div class="deliver-date">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">October 4, 2023</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-container">
+            <div class="d-flex">
+              <div class="list-img">
+                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+              </div>
+              <div class="list-info">
+                <div class="title">
+                  <span>Carrer & Professional Life</span>
+                </div>
+                <div class="list-heading">
+                  <h3>Exploring Investment Opportunities In Vietnam For North American Residents</h3>
+                </div>
+                <div class="d-flex">
+                  <div class="delivered-by">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">By BlogBlitz</span>
+                    </div>
+                  </div>
+                  <div class="deliver-date">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">October 4, 2023</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-container">
+            <div class="d-flex">
+              <div class="list-img">
+                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+              </div>
+              <div class="list-info">
+                <div class="title">
+                  <span>Carrer & Professional Life</span>
+                </div>
+                <div class="list-heading">
+                  <h3>Exploring Investment Opportunities In Vietnam For North American Residents</h3>
+                </div>
+                <div class="d-flex">
+                  <div class="delivered-by">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">By BlogBlitz</span>
+                    </div>
+                  </div>
+                  <div class="deliver-date">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">October 4, 2023</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-container">
+            <div class="d-flex">
+              <div class="list-img">
+                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+              </div>
+              <div class="list-info">
+                <div class="title">
+                  <span>Carrer & Professional Life</span>
+                </div>
+                <div class="list-heading">
+                  <h3>Exploring Investment Opportunities In Vietnam For North American Residents</h3>
+                </div>
+                <div class="d-flex">
+                  <div class="delivered-by">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">By BlogBlitz</span>
+                    </div>
+                  </div>
+                  <div class="deliver-date">
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                      <span class="pe-2">October 4, 2023</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
+</div>

@@ -7,10 +7,18 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-find-business',
   standalone: true,
-  imports: [MatSelectModule , MatIconModule , MatButtonModule , MatMenuModule],
+  imports: [MatSelectModule, MatIconModule, MatButtonModule, MatMenuModule,],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss'
 })
 export class FindBusinessComponent {
+
+  public selectedLayout: string = 'list'
+
+  constructor() { }
+
+  public handleLayout(layout: string) {
+    this.selectedLayout = layout
+  }
 
 }
