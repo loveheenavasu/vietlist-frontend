@@ -16,9 +16,12 @@
                   <img *ngIf="imgUrl" [src]="imgUrl" alt="profile" />
                 </div>
                 <label class="custom-file-upload">
-                  <input #fileInput type="file"  />
-                  <div class="d-flex justify-content-center icon ">
-                    <i class="fa fa-camera" (change)="handleFileInput($event)"></i>
+                  <input #fileInput type="file" />
+                  <div class="d-flex justify-content-center icon">
+                    <i
+                      class="fa fa-camera"
+                      (change)="handleFileInput($event)"
+                    ></i>
                   </div>
                 </label>
               </div>

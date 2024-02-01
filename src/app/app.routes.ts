@@ -5,7 +5,11 @@ import { LoginComponent, RegisterComponent } from './auth'
 import { ConfirmPaymentComponent, PlanComponent } from './susbscription-plans'
 import { AuthGuard } from './shared/utils/guard/auth.guard'
 import { PageNotFoundComponent } from './common-ui'
-import { FindBusinessComponent, ListBusinessComponent } from './manage-business'
+import {
+  BenefitsOfJoiningComponent,
+  FindBusinessComponent,
+  ListBusinessComponent,
+} from './manage-business'
 
 export default [
   {
@@ -24,17 +28,16 @@ export default [
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'confirm-payment/:id',
     loadComponent: () => ConfirmPaymentComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'subscription-plans',
     loadComponent: () => PlanComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'find-business',
@@ -45,7 +48,11 @@ export default [
     loadComponent: () => ListBusinessComponent,
   },
   {
+    path: 'benefits-of-joining',
+    loadComponent: () => BenefitsOfJoiningComponent,
+  },
+  {
     path: '**',
-    loadComponent: () => PageNotFoundComponent
+    loadComponent: () => PageNotFoundComponent,
   },
 ] as Routes

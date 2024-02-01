@@ -1,0 +1,20 @@
+@import "../../../../assets/scss/common.scss";
+@import "../../../../assets/scss/banner";
+
+
+.container{
+    max-width:1140px;
+    width:100%;
+}
+.main-heading{
+    font-size: 32px;
+    font-weight: var(--font-weight-semibold);
+    color:var(--dark-grey);
+    text-align: center  ;
+}
+
+.heading-left{
+    font-size: 32px;
+    font-weight: var(--font-weight-semibold);
+    color:var(--dark-grey)
+}

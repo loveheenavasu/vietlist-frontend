@@ -1,4 +1,4 @@
-import { AuthResponse } from './auth.interface';
+import { AuthResponse } from './auth.interface'
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Injectable } from '@angular/core'
@@ -39,6 +39,4 @@ export class AuthService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResetPassword)
     return this.http.post<any>(endpoint, body)
   }
-
-
 }

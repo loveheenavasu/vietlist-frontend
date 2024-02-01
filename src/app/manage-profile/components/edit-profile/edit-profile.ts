@@ -2,9 +2,7 @@ import { Component } from '@angular/core'
 import { ProfileService } from '../../service/profile.service'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import {
-  ProfileMenu,
-} from '@vietlist/shared'
+import { ProfileMenu } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 
@@ -51,19 +49,17 @@ export class EditProfileComponent {
     const body = {
       user_email: this.email,
       display_user_name: this.userName,
-      user_image: ""
+      user_image: '',
     }
-    console.log("check update", body)
+    console.log('check update', body)
     this.profileDetail.userProfileUpdate(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
-        console.log("update-profile", res)
+        console.log('update-profile', res)
       },
       error: (err) => {
-        console.log("update profile error", err)
-      }
+        console.log('update profile error', err)
+      },
     })
   }
-
-
 }
