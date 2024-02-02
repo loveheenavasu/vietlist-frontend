@@ -9,6 +9,7 @@ import {
   BenefitsOfJoiningComponent,
   FindBusinessComponent,
   ListBusinessComponent,
+  ListingBusinessComponent,
 } from './manage-business'
 
 export default [
@@ -32,7 +33,7 @@ export default [
   },
   {
     path: 'confirm-payment/:id',
-  loadComponent: () => ConfirmPaymentComponent,
+    loadComponent: () => ConfirmPaymentComponent,
   },
   {
     path: 'subscription-plans',
@@ -49,6 +50,10 @@ export default [
   {
     path: 'benefits-of-joining',
     loadComponent: () => BenefitsOfJoiningComponent,
+  },
+  {
+    path: 'listing-business',
+    loadComponent: () => ListingBusinessComponent,
   },
   {
     path: '**',

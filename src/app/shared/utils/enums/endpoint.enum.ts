@@ -10,5 +10,5 @@ export enum Endpoints {
   Subscription = 'subscription',
   updateUserProfile = 'updateuserprofile',
   BusinessCategory = 'category_data_get',
-  AddBusiness = 'business_data_set'
+  AddBusiness = 'business_data_set',
 }

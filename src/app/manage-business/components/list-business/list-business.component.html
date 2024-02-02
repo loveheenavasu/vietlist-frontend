@@ -117,7 +117,11 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select class="vietlist-select" placeholder="Category" formControlName="post_category">
+            <mat-select
+              class="vietlist-select"
+              placeholder="Category"
+              formControlName="post_category"
+            >
               @for (key of businessCat; track $index) {
                 <mat-option [value]="key.name">{{ key.name }}</mat-option>
               }
