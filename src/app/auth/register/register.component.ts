@@ -163,12 +163,14 @@ export class RegisterComponent {
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
+          this.sessionServce.userRole.next(res?.data?.user?.user_role)
           console.log(res)
           if (res) {
             this.localStorageServce.saveData(
               'vietlist::user',
               JSON.stringify(res?.data?.user),
             )
+            this.localStorageServce.saveData('loginInfo', JSON.stringify(res.data.user))
           }
           Swal.fire({
             toast: true,

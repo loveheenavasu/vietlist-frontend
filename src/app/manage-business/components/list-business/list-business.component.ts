@@ -19,7 +19,7 @@ import { MatStepperModule } from '@angular/material/stepper'
 import { SubscriptionFormComponent } from '../subscription-form/subscription-form.component'
 import { BusinessBioComponent } from '../business-bio/business-bio.component'
 import { ConsultationFormComponent } from '../consultation-form/consultation-form.component'
-import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+// import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { NgSelectModule } from '@ng-select/ng-select'
 import {
   CountryISO,
@@ -43,7 +43,7 @@ import { LocalStorageService } from '@vietlist/shared';
     ConsultationFormComponent,
     FormsModule,
     ReactiveFormsModule,
-    AutocompleteComponent,
+    // AutocompleteComponent,
     NgSelectModule,
     NgxIntlTelInputModule,
     NgClass
@@ -152,10 +152,10 @@ export class ListBusinessComponent {
   }
 
   display: any
-  center: google.maps.LatLngLiteral = {
-    lat: 22.2736308,
-    lng: 70.7512555,
-  }
+  // center: google.maps.LatLngLiteral = {
+  //   lat: 22.2736308,
+  //   lng: 70.7512555,
+  // }
   zoom = 6
 
   /*------------------------------------------
@@ -163,18 +163,18 @@ export class ListBusinessComponent {
     moveMap()
     --------------------------------------------
     --------------------------------------------*/
-  moveMap(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.center = event.latLng.toJSON()
-  }
+  // moveMap(event: google.maps.MapMouseEvent) {
+  //   if (event.latLng != null) this.center = event.latLng.toJSON()
+  // }
 
   /*------------------------------------------
     --------------------------------------------
     move()
     --------------------------------------------
     --------------------------------------------*/
-  move(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.display = event.latLng.toJSON()
-  }
+  // move(event: google.maps.MapMouseEvent) {
+  //   if (event.latLng != null) this.display = event.latLng.toJSON()
+  // }
 
   selectedTagsString = ''; // String to store selected tags with commas
 

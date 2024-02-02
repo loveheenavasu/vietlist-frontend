@@ -8,24 +8,26 @@
     <div>
       <ul id="buddy-gsf-progressbar">
         <li class="active">
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
-          ><strong>Business Information</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Information</strong>
         </li>
+<<<<<<< HEAD
         <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Subscriptions &amp; Verification</strong>
+=======
+        <li>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
+            Verification</strong>
+>>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
         </li>
         <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
-          ><strong>Business Bio</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
         </li>
         <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
-          ><strong>Booking and Consultation</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Booking and Consultation</strong>
         </li>
         <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
-          ><strong>Events and promotions</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Events and promotions</strong>
         </li>
       </ul>
     </div>
@@ -38,9 +40,7 @@
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Name <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Name <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input class="input-control" placeholder="Enter your name" />
@@ -48,9 +48,7 @@
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Email <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input class="input-control" placeholder="Enter your email" />
@@ -82,25 +80,19 @@
       </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Business Title <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Business Title <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              formControlName="post_title"
-              placeholder="Enter the title of your business"
-            />
+            <input class="input-control" formControlName="post_title" placeholder="Enter the title of your business" />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Business Description <span class="asterik">*</span>
+            <label class="listing-form-label">Business Description <span class="asterik">*</span>
             </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <textarea
               name=""
               id=""
@@ -109,33 +101,29 @@
               placeholder="Enter the business description"
               formControlName="post_content"
             ></textarea>
+=======
+            <textarea name="" id="" cols="30" rows="6" placeholder="Enter the business description"></textarea>
+>>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Category <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select
-              class="vietlist-select"
-              placeholder="Category"
-              formControlName="post_category"
-            >
+            <mat-select class="vietlist-select" placeholder="Category" formControlName="post_category">
               @for (key of businessCat; track $index) {
-                <mat-option [value]="key.name">{{ key.name }}</mat-option>
+              <mat-option [value]="key.name">{{ key.name }}</mat-option>
               }
             </mat-select>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Default Category <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <input
               class="input-control"
               type="text"
@@ -146,15 +134,19 @@
               >The default category can affect the listing URL and map
               marker.</small
             >
+=======
+            <input class="input-control" type="text" />
+            <small class="form-text text-muted d-block">The default category can affect the listing URL and map
+              marker.</small>
+>>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Tags<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <ng-select
               class="select2-selection"
               [items]="tags"
@@ -166,99 +158,69 @@
               [ngModelOptions]="{ standalone: true }"
               (change)="onTagSelectionChange()"
             >
+=======
+            <ng-select class="select2-selection" [items]="cities2" bindLabel="name" bindValue="id" [multiple]="true"
+              placeholder="Select cities" [(ngModel)]="selectedCityIds" [ngModelOptions]="{ standalone: true }">
+>>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
             </ng-select>
-            <small class="form-text text-muted d-block"
-              >Tags are short keywords, with no space within.(eg: tag1, tag2,
-              tag3).</small
-            >
+            <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
+              tag3).</small>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <AutocompleteComponent
+            <!-- <AutocompleteComponent
               (setAddress)="getAddress($event)"
               adressType="geocode"
-            ></AutocompleteComponent>
+            ></AutocompleteComponent> -->
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Country<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Country<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Choose a country..."
-              [(ngModel)]="country"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Choose a country..." [(ngModel)]="country"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Region<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Region<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Select region or type a new one"
-              [(ngModel)]="state"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Select region or type a new one" [(ngModel)]="state"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >City<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">City<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Select city or type a new one"
-              [(ngModel)]="city"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Select city or type a new one" [(ngModel)]="city"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Zip/Post Code<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Zip/Post Code<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Enter zip code"
-              [(ngModel)]="zipcode"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Enter zip code" [(ngModel)]="zipcode"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address Latitude <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input
@@ -271,9 +233,7 @@
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address Longitude <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address Longitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input
@@ -286,45 +246,35 @@
         </div>
         <div class="row my-4 px-2 align-items-center align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Contact Details <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Contact Details <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <ngx-intl-tel-input
-              [cssClass]="'input-control'"
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
+            <ngx-intl-tel-input [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
               [searchCountryField]="[
                 SearchCountryField.Iso2,
                 SearchCountryField.Name
-              ]"
-              [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.India"
-              [maxLength]="15"
-              [phoneValidation]="true"
-              [separateDialCode]="true"
-              [numberFormat]="PhoneNumberFormat.National"
-              name="phone"
-              formControlName="contact_phone"
-            >
+              ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15"
+              [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
+              name="phone" formControlName="contact_phone">
             </ngx-intl-tel-input>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Business email <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Business email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <input
               class="input-control"
               formControlName="business_email"
               placeholder="Enter the business email"
             />
+=======
+            <input class="input-control" formControlName="business_email"
+              placeholder="Enter the title of your business" />
+>>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">

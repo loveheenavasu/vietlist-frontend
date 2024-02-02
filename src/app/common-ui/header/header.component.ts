@@ -5,7 +5,8 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { AuthenticationService, NavItem } from '@vietlist/shared'
+import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-header',
@@ -29,6 +30,8 @@ export class HeaderComponent {
   public isAuthenticated: boolean = false
   public isSearchInputVisible: boolean = false
   public isTranslationVisible: boolean = false
+  public userRole: string = ''
+  public subscriptionStatus: boolean = false
 
   public navItems: NavItem[] = [
     {
@@ -72,9 +75,18 @@ export class HeaderComponent {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
+    const data = this.sessionservice.getUserdata()
+
+    if (data) {
+      this.userRole = data?.user_role
+    }
+    this.sessionservice.isSubscription$.subscribe((res) => {
+      this.subscriptionStatus = res
+    })
+
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {}
+  onResize(event: Event) { }
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -92,7 +104,28 @@ export class HeaderComponent {
     this.router.navigateByUrl('/register')
   }
 
-  public profile() {}
+  public profile() {
+    console.log("chekc ", this.userRole)
+    if (this.userRole == Roles.subscriber) {
+      this.router.navigateByUrl('/manage-profile')
+    } else if (this.userRole == Roles.businessOwner && !this.subscriptionStatus) {
+      console.log("check2")
+      Swal.fire({
+        toast: true,
+        text: 'Please choose plan',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      this.router.navigateByUrl('/subscription-plans')
+    } else if (this.userRole == Roles.businessOwner && this.subscriptionStatus) {
+      console.log("check3")
+      this.router.navigateByUrl('/manage-profile')
+    }
+  }
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -107,6 +140,7 @@ export class HeaderComponent {
   }
 
   public onLogout() {
+    this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
   }

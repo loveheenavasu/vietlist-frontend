@@ -78,11 +78,14 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.loader = false
+          this.authenticationService.userRole.next(res?.data?.user?.user_role)
+          console.log("check role", res?.data?.user?.user_role)
           this.authenticationService.setAuthenticationStatusTrue(res.data.token)
           this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
+          this.authenticationService.setSubscriptonStatus(res.data.user.status)
           if (
             res.data.user.user_role == Roles.businessOwner &&
-            res.data.user.status == null
+            res.data.user.status == 'inactive'
           ) {
             this.router.navigateByUrl('/subscription-plans')
           } else if (

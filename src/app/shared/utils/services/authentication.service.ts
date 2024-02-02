@@ -8,14 +8,51 @@ import { BehaviorSubject, Observable } from 'rxjs'
 export class AuthenticationService {
   private isAuthenticatedSubject: BehaviorSubject<boolean>
   public isAuthenticated$: Observable<boolean>
+  private isSubscriptionSubject: BehaviorSubject<boolean>
+  public isSubscription$: Observable<boolean>
+  public userRole = new BehaviorSubject<string>('')
+
   private accessToken: string = ''
+  private subscriptionStatus: string = ''
   private loginInfo: any
   private registerUserInfo: any
+
   constructor(private localstorageservice: LocalStorageService) {
     this.isAuthenticatedSubject = new BehaviorSubject<boolean>(
       this.checkAuthentication(),
     )
     this.isAuthenticated$ = this.isAuthenticatedSubject.asObservable()
+
+    this.isSubscriptionSubject = new BehaviorSubject<any>(
+      this.checkSubscriptionStatus(),
+
+    )
+    this.isSubscription$ = this.isSubscriptionSubject.asObservable()
+  }
+
+
+  public setSubscriptonStatus(status: string) {
+    this.subscriptionStatus = status
+    if (status) {
+      this.isSubscriptionSubject.next(true)
+    } else {
+      this.isSubscriptionSubject.next(false)
+    }
+    this.localstorageservice.saveData('subscriptionStatus', JSON.stringify(this.subscriptionStatus))
+  }
+
+  public checkSubscriptionStatus() {
+
+    const checkSubscriptionStatus = this.localstorageservice.getData('subscriptionStatus')
+    if (checkSubscriptionStatus == 'active') {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public isSubscriptionStatus(): boolean {
+    return this.isSubscriptionSubject.value
   }
 
   // Set authentication status to true when a token is received
@@ -50,6 +87,8 @@ export class AuthenticationService {
     this.isAuthenticatedSubject.next(false)
     this.localstorageservice.removeData('accessToken')
     this.localstorageservice.removeData('loginInfo')
+    this.localstorageservice.removeData('vietlist::user')
+    this.localstorageservice.removeData('subscriptionStatus')
   }
 
   // Get the authentication token
