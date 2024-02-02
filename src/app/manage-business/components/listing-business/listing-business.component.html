@@ -1,0 +1,298 @@
+<section class="banner">
+    <div class="content">
+        <h1>Listing</h1>
+    </div>
+</section>
+<div class="container-fluid g-0 ">
+    <div class="search row">
+        <div class="search-input col">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search for" />
+            </div>
+        </div>
+        <div class="add-zipcode col">
+            <div class="input-group">
+                <span class="input-group-text" id="basic-addon1">
+                    <img src="/assets/icons/location-icon.svg" alt="location-icon" />
+                </span>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+                    placeholder="Near" />
+            </div>
+        </div>
+        <div class="search-btn col-1 g-0">
+            <button class="btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="lisiting-container">
+        <div class="layout-icon d-flex align-items-center ">
+            <div class="grid-layout-icon d-flex align-items-center "
+                [ngClass]="{'active-layout': selectedLayout == 'grid' }" (click)="handleLayout('grid')">
+                <mat-icon>grid_on</mat-icon>
+            </div>
+            <div class="list-layout-icon d-flex align-items-center "
+                [ngClass]="{'active-layout': selectedLayout == 'list'}" (click)="handleLayout('list')">
+                <mat-icon>view_list</mat-icon>
+            </div>
+        </div>
+        <div class="view-container">
+            @if (selectedLayout == 'grid') {
+            <div class=" grid-view-container row">
+                <div class="grid-card col-lg-4 ">
+                    <div class="listing-img">
+                        <img src="/assets/image/listing-grid-img1.jpeg" />
+                    </div>
+                    <div class="listing-description">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-card col-lg-4 ">
+                    <div class="listing-img">
+                        <img src="/assets/image/listing-grid-img1.jpeg" />
+                    </div>
+                    <div class="listing-description">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-card col-lg-4 ">
+                    <div class="listing-img">
+                        <img src="/assets/image/listing-grid-img1.jpeg" />
+                    </div>
+                    <div class="listing-description">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-card col-lg-4 ">
+                    <div class="listing-img">
+                        <img src="/assets/image/listing-grid-img1.jpeg" />
+                    </div>
+                    <div class="listing-description">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-card col-lg-4 ">
+                    <div class="listing-img">
+                        <img src="/assets/image/listing-grid-img1.jpeg" />
+                    </div>
+                    <div class="listing-description">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            } @else {
+            <div class="list-view-container">
+                <div class="d-flex small-screen-view ">
+                    <div class="listing-img-container">
+                        <div class="listing-img">
+                            <img src="/assets/image/listing-grid-img1.jpeg" />
+                        </div>
+                    </div>
+                    <div class="listing-img-info">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex small-screen-view ">
+                    <div class="listing-img-container">
+                        <div class="listing-img">
+                            <img src="/assets/image/listing-grid-img1.jpeg" />
+                        </div>
+                    </div>
+                    <div class="listing-img-info">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its
+                                social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex small-screen-view ">
+                    <div class="listing-img-container">
+                        <div class="listing-img">
+                            <img src="/assets/image/listing-grid-img1.jpeg" />
+                        </div>
+                    </div>
+                    <div class="listing-img-info">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its
+                                social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex small-screen-view ">
+
+                    <div class="listing-img-container">
+                        <div class="listing-img">
+                            <img src="/assets/image/listing-grid-img1.jpeg" />
+                        </div>
+                    </div>
+                    <div class="listing-img-info">
+                        <div class="listing-heading">
+                            <h3>A Salt & Battery Restaurant</h3>
+                        </div>
+                        <div class="listing-info">
+                            <p>Our recent survey discovered that 77% of diners tried a restaurant based on its
+                                social
+                                media content. While that sounds</p>
+                        </div>
+                        <div class="lisiting-package">
+                            <span>$ Package : Free Business</span>
+                        </div>
+                        <div class="listing-rating">
+                            <div class="d-flex">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

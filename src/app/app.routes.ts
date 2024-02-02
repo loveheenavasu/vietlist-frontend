@@ -5,7 +5,7 @@ import { LoginComponent, RegisterComponent } from './auth'
 import { ConfirmPaymentComponent, PlanComponent } from './susbscription-plans'
 import { AuthGuard } from './shared/utils/guard/auth.guard'
 import { PageNotFoundComponent } from './common-ui'
-import { FindBusinessComponent, ListBusinessComponent } from './manage-business'
+import { FindBusinessComponent, ListBusinessComponent, ListingBusinessComponent } from './manage-business'
 
 export default [
   {
@@ -43,6 +43,10 @@ export default [
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
+  },
+  {
+    path: 'listing-business',
+    loadComponent: () => ListingBusinessComponent
   },
   {
     path: '**',
