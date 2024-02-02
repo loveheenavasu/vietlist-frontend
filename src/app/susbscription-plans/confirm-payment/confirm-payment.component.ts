@@ -59,7 +59,7 @@ export class ConfirmPaymentComponent {
   }
   ngAfterViewInit() {
     this.stripeService
-      .setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o')
+      .setPublishableKey(environment.stripe_publish_key)
       .then((stripe) => {
         this.stripe = stripe
         const appearance = {
@@ -97,6 +97,7 @@ export class ConfirmPaymentComponent {
       next: (res: any) => {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
+        console.log(this.paymentIntent , "this.payemnetintent")
       },
       error: (err: any) => {},
     })
@@ -111,34 +112,59 @@ export class ConfirmPaymentComponent {
     this.cd.detectChanges()
   }
 
+ 
+  // async onSubmit(form: NgForm) {
+  //   const { paymentMethod, error } = await this.stripe.confirmCardSetup(this.paymentIntent , {
+  //     payment_method: {
+  //       card:this.card
+  //     },
+      
+  //   })
+
+  //   if (error) {
+  //     Swal.fire({
+  //       toast: true,
+  //       text: error.error.message,
+  //       animation: false,
+  //       icon: 'error',
+  //       position: 'top-right',
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //       timerProgressBar: true,
+  //     })
+  //     console.log('Error:', error)
+  //   } else {
+  //     console.log('Success!', paymentMethod)
+  //     // Access billing details
+  //     this.paymentMethod = paymentMethod.payment_method
+  //     // const billingDetails = paymentMethod.billing_details
+  //     // console.log('Billing Details:', billingDetails)
+  //     this.confirmSubscription()
+  //   }
+  // }
+
   async onSubmit(form: NgForm) {
-    const { paymentMethod, error } = await this.stripe.createPaymentMethod({
-      type: 'card',
-      card: this.card,
-      billing_details: this.billingAddress,
-    })
+    // Assuming you have a card element, if not, adapt accordingly
+    const { setupIntent, error } = await this.stripe.confirmCardSetup(this.paymentIntent, {
+      payment_method: {
+        card: this.card,
+        billing_details: this.billingAddress
+      },
+    });
 
     if (error) {
-      Swal.fire({
-        toast: true,
-        text: error.error.message,
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      })
-      console.log('Error:', error)
+      console.error(error.message);
     } else {
-      console.log('Success!', paymentMethod)
-      // Access billing details
-      this.paymentMethod = paymentMethod
-      const billingDetails = paymentMethod.billing_details
-      console.log('Billing Details:', billingDetails)
-      this.confirmSubscription()
+      this.paymentMethod = setupIntent
+      if(this.paymentMethod){
+        this.confirmSubscription()
+      }
+      console.log('SetupIntent confirmed:', setupIntent);
+      // Handle success, e.g., redirect to a success page
     }
   }
+
+
 
   public confirmSubscription() {
     const body = {

@@ -11,4 +11,5 @@ export enum Endpoints {
   updateUserProfile = 'updateuserprofile',
   BusinessCategory = 'category_data_get',
   AddBusiness = 'business_data_set',
+  Tags = "tags_data_get"
 }

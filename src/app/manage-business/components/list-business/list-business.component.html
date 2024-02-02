@@ -11,7 +11,7 @@
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Business Information</strong>
         </li>
-        <li>
+        <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Subscriptions &amp; Verification</strong>
         </li>
@@ -107,6 +107,7 @@
               cols="30"
               rows="6"
               placeholder="Enter the business description"
+              formControlName="post_content"
             ></textarea>
           </div>
         </div>
@@ -135,7 +136,12 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" />
+            <input
+              class="input-control"
+              type="text"
+              formControlName="default_category"
+              readonly
+            />
             <small class="form-text text-muted d-block"
               >The default category can affect the listing URL and map
               marker.</small
@@ -151,13 +157,14 @@
           <div class="col-12 col-md-12 col-lg-8">
             <ng-select
               class="select2-selection"
-              [items]="cities2"
+              [items]="tags"
               bindLabel="name"
-              bindValue="id"
+              bindValue="name"
               [multiple]="true"
-              placeholder="Select cities"
-              [(ngModel)]="selectedCityIds"
+              placeholder="Select Tags"
+              [(ngModel)]="post_tags"
               [ngModelOptions]="{ standalone: true }"
+              (change)="onTagSelectionChange()"
             >
             </ng-select>
             <small class="form-text text-muted d-block"
@@ -254,7 +261,12 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" />
+            <input
+              class="input-control"
+              [(ngModel)]="latitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -264,7 +276,12 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" />
+            <input
+              class="input-control"
+              [(ngModel)]="longitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center align-items-center">
@@ -306,7 +323,7 @@
             <input
               class="input-control"
               formControlName="business_email"
-              placeholder="Enter the title of your business"
+              placeholder="Enter the business email"
             />
           </div>
         </div>
@@ -315,19 +332,21 @@
             <label class="listing-form-label">Website Url</label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" />
+            <input class="input-control" placeholder="Enter the website url" formControlName="website"/>
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn ms-auto">
+          <button type="button" class="btn orange-background-btn ms-auto" (click)="addBusiness(false)">
             Next
           </button>
         </div>
       </section>
     </form>
-    <section>
+    @if(isFirstStepCompleted == "true"){
+    <section >
       <app-subscription-form></app-subscription-form>
-    </section>
+    </section>      
+  }
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>
