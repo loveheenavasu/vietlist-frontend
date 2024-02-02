@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core'
+import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { provideRouter } from '@angular/router'
 
 import routes from './app.routes'
@@ -12,7 +12,6 @@ import {
 import { provideNgxStripe } from 'ngx-stripe'
 import { ErrorHandlerInterceptor } from '@vietlist/shared'
 import { environment } from 'src/environments/environment.development'
-
 const stripePublishKey = environment.stripe_publish_key
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,7 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([ErrorHandlerInterceptor])),
     provideNgxStripe(stripePublishKey),
-    
    
-  ],
+  ]
 }

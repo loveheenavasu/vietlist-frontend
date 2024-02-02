@@ -42,7 +42,7 @@ export class HeaderComponent {
     },
     {
       label: 'Add a Business',
-      href: '/add-a-business',
+      href: '/benefits-of-joining',
     },
     {
       label: 'Blog/News',

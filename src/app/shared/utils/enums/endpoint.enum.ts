@@ -9,4 +9,6 @@ export enum Endpoints {
   CreatePaymentIntent = 'create_initial_intent',
   Subscription = 'subscription',
   updateUserProfile = 'updateuserprofile',
+  BusinessCategory = 'category_data_get',
+  AddBusiness = 'business_data_set'
 }

@@ -133,6 +133,7 @@ export class ConfirmPaymentComponent {
     } else {
       console.log('Success!', paymentMethod)
       // Access billing details
+      this.paymentMethod = paymentMethod
       const billingDetails = paymentMethod.billing_details
       console.log('Billing Details:', billingDetails)
       this.confirmSubscription()

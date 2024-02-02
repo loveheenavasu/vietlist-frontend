@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
 import { Component } from '@angular/core'
@@ -35,7 +36,7 @@ export class HomepageComponent {
   ]
   currentLogoIndex = 0
 
-  constructor() {
+  constructor(private router:Router) {
     console.log('Init component homepge')
   }
 
@@ -47,5 +48,9 @@ export class HomepageComponent {
   prevLogo() {
     this.currentLogoIndex =
       (this.currentLogoIndex - 1 + this.logos.length) % this.logos.length
+  }
+
+  public findBusiness(){
+    this.router.navigateByUrl('/find-business')
   }
 }

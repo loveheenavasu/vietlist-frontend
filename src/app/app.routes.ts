@@ -32,8 +32,7 @@ export default [
   },
   {
     path: 'confirm-payment/:id',
-    loadComponent: () => ConfirmPaymentComponent,
-    canActivate: [AuthGuard],
+  loadComponent: () => ConfirmPaymentComponent,
   },
   {
     path: 'subscription-plans',

@@ -183,6 +183,7 @@ export class RegisterComponent {
           if (res) {
             if (res.data.user.user_role == Roles.businessOwner) {
               this.router.navigateByUrl('/subscription-plans')
+              this.sessionServce.setAuthenticationStatusTrue(res.data.token)
             } else {
               this.router.navigateByUrl('/login')
             }
