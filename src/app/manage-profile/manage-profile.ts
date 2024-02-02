@@ -17,11 +17,12 @@ import { NgIf } from '@angular/common'
   styleUrl: './manage-profile.scss',
 })
 export class ManageProfileComponent {
-  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('fileInput', { static: false })
+  fileInput!: ElementRef<HTMLInputElement>
 
   public sidebarMenu: ProfileMenu[] = []
-  public userEmail: any;
-  public imgUrl: any;
+  public userEmail: any
+  public imgUrl: any
 
   constructor(
     private sidebarService: SidebarService,
@@ -32,7 +33,6 @@ export class ManageProfileComponent {
     this.userEmail = data?.user_email
   }
 
-
   public getSidebarLinks() {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
@@ -40,25 +40,24 @@ export class ManageProfileComponent {
   }
 
   public handleFileInput(event: any) {
-    event.stopPropagation();
-    console.log("Checking image path", event);
+    console.log(event, 'event')
+    event.stopPropagation()
+    console.log('Checking image path', event)
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+      const reader = new FileReader()
 
-      reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(event.target.files[0])
 
       reader.onload = (event) => {
         if (event.target) {
-          this.imgUrl = event.target.result;
-          console.log("Image URL:", this.imgUrl);
+          this.imgUrl = event.target.result
+          console.log('Image URL:', this.imgUrl)
         }
-      };
+      }
     }
   }
 
   public openFileInput(event: any) {
     this.handleFileInput(event)
   }
-
-
 }

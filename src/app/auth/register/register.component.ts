@@ -1,4 +1,3 @@
-
 import {
   AuthenticationService,
   FormControlValidationDirective,
@@ -87,7 +86,7 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private localStorageServce: LocalStorageService,
-    private sessionServce:AuthenticationService
+    private sessionServce: AuthenticationService,
   ) {
     this.signupForm = this.fb.nonNullable.group(
       {
@@ -148,7 +147,7 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: parseInt(this.contact_details.value.e164Number),
+      contact_details: parseInt(this.contact_details.value?.e164Number),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
     }
@@ -157,19 +156,21 @@ export class RegisterComponent {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
         body['contact_details'] = parseInt(
-          this.contact_details.value.e164Number,
+          this.contact_details.value?.e164Number,
         )
       }
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
+          this.sessionServce.userRole.next(res?.data?.user?.user_role)
           console.log(res)
           if (res) {
             this.localStorageServce.saveData(
               'vietlist::user',
               JSON.stringify(res?.data?.user),
             )
+            this.localStorageServce.saveData('loginInfo', JSON.stringify(res.data.user))
           }
           Swal.fire({
             toast: true,
@@ -182,13 +183,16 @@ export class RegisterComponent {
             timerProgressBar: true,
           })
           if (res) {
-            const data = this.sessionServce.getRegisterUserData()
-            if(data.user_role == Roles.businessOwner){
+            if (res.data.user.user_role == Roles.businessOwner) {
               this.router.navigateByUrl('/subscription-plans')
-            }else{
+              this.sessionServce.setAuthenticationStatusTrue(res.data.token)
+            } else {
               this.router.navigateByUrl('/login')
             }
-            
+            if (res.data.user.user_role == Roles.subscriber) {
+              this.sessionServce.setAuthenticationStatusTrue(res.data.token)
+              this.router.navigateByUrl('/manage-profile')
+            }
           }
           console.log(res)
         },

@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="listing-form-heading">Subscription & Verification</h1>
+  </div>
+</div>
+<div class="row px-2 my-3">
+  <div class="col-12">
+    <!--a dropzone-->
+    <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+    <label for="" class="listing-form-label mb-2">Verification upload</label>
+    <ngx-dropzone (change)="onSelect($event)">
+      <ngx-dropzone-label
+        ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
+        Browse a file</ngx-dropzone-label
+      >
+      <!-- <ngx-dropzone-preview  (removed)="onRemove('f')"> -->
+      <!-- <ngx-dropzone-label>Drap and Drop here or Browse a file</ngx-dropzone-label> -->
+      <!-- </ngx-dropzone-preview> -->
+    </ngx-dropzone>
+  </div>
+</div>
+<div class="row my-3 px-2">
+  <div class="col-12 col-md-12 col-lg-4">
+    <label for="name" class="listing-form-label"
+      >Facebook <span class="asterik">*</span></label
+    >
+  </div>
+  <div class="col-12 col-md-12 col-lg-8">
+    <input class="input-control" placeholder="Enter Facebook url" />
+  </div>
+</div>
+<div class="row my-3 px-2">
+  <div class="col-12 col-md-12 col-lg-4">
+    <label for="name" class="listing-form-label"
+      >Instagram <span class="asterik">*</span></label
+    >
+  </div>
+  <div class="col-12 col-md-12 col-lg-8">
+    <input class="input-control" placeholder="Enter Instagram url" />
+  </div>
+</div>
+<div class="row my-3 px-2">
+  <div class="col-12 col-md-12 col-lg-4">
+    <label class="listing-form-label"
+      >Twitter <span class="asterik">*</span></label
+    >
+  </div>
+  <div class="col-12 col-md-12 col-lg-8">
+    <input class="input-control" placeholder="Enter Twitter url" />
+  </div>
+</div>

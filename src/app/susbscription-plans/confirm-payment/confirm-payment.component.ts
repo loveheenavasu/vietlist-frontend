@@ -18,19 +18,20 @@ declare var elements: any
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
-  imports: [FormsModule, NgFor , NgIf],
+  imports: [FormsModule, NgFor, NgIf],
   templateUrl: './confirm-payment.component.html',
   styleUrl: './confirm-payment.component.scss',
 })
 export class ConfirmPaymentComponent {
   @ViewChild('cardInfo', { static: false }) cardInfo!: ElementRef
-  @ViewChild('billingAddressElement', { static: true }) billingAddressElement!: ElementRef;
+  @ViewChild('billingAddressElement', { static: true })
+  billingAddressElement!: ElementRef
 
   public stripe: any
   public loading = false
   public confirmation: any
-  public billingAddressElements:any
-  public billingAddress:any
+  public billingAddressElements: any
+  public billingAddress: any
   public card: any
   cardHandler = this.onChange.bind(this)
   public error: any
@@ -44,7 +45,7 @@ export class ConfirmPaymentComponent {
     private route: ActivatedRoute,
     private sessionService: AuthenticationService,
     private subscriptionService: PlansService,
-    private loaderService:FullPageLoaderService
+    private loaderService: FullPageLoaderService,
   ) {}
 
   ngOnInit() {
@@ -57,35 +58,41 @@ export class ConfirmPaymentComponent {
     }
   }
   ngAfterViewInit() {
-    this.stripeService.setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o').then(
-      stripe => {
-        this.stripe = stripe;
+    this.stripeService
+      .setPublishableKey('pk_test_2syov9fTMRwOxYG97AAXbOgt008X6NL46o')
+      .then((stripe) => {
+        this.stripe = stripe
         const appearance = {
           theme: 'flat',
-          variables: { colorPrimaryText: 'red' }
-        };
-        const elements = stripe.elements({ appearance });
-        this.card = elements.create('card');
-        this.card.mount(this.cardInfo.nativeElement);
+          variables: { colorPrimaryText: 'red' },
+        }
+        const elements = stripe.elements({ appearance })
+        this.card = elements.create('card')
+        this.card.mount(this.cardInfo.nativeElement)
         const billingAddressOptions = {
           classes: {
-            base: 'stripe-address-element'
+            base: 'stripe-address-element',
           },
           placeholder: 'Enter your billing address',
           // Set mode to 'billing' to collect billing address
-          mode: 'billing'
-        };
-        this.billingAddressElements = elements.create('address', billingAddressOptions);
+          mode: 'billing',
+        }
+        this.billingAddressElements = elements.create(
+          'address',
+          billingAddressOptions,
+        )
 
-        this.billingAddressElements.mount(this.billingAddressElement.nativeElement);
-        this.billingAddressElements.on('change', (event:any) => {
-          this.billingAddress = event.value;
-        });
-        this.stripe = stripe;
-      });
+        this.billingAddressElements.mount(
+          this.billingAddressElement.nativeElement,
+        )
+        this.billingAddressElements.on('change', (event: any) => {
+          this.billingAddress = event.value
+        })
+        this.stripe = stripe
+      })
   }
   public getPaymentIntent() {
-  this.loaderService.showLoader()
+    this.loaderService.showLoader()
     this.subscriptionService.createIntent().subscribe({
       next: (res: any) => {
         this.loaderService.hideLoader()
@@ -108,8 +115,8 @@ export class ConfirmPaymentComponent {
     const { paymentMethod, error } = await this.stripe.createPaymentMethod({
       type: 'card',
       card: this.card,
-      billing_details: this.billingAddress
-    });
+      billing_details: this.billingAddress,
+    })
 
     if (error) {
       Swal.fire({
@@ -122,12 +129,13 @@ export class ConfirmPaymentComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-      console.log('Error:', error);
+      console.log('Error:', error)
     } else {
-      console.log('Success!', paymentMethod);
+      console.log('Success!', paymentMethod)
       // Access billing details
-      const billingDetails = paymentMethod.billing_details;
-      console.log('Billing Details:', billingDetails);
+      this.paymentMethod = paymentMethod
+      const billingDetails = paymentMethod.billing_details
+      console.log('Billing Details:', billingDetails)
       this.confirmSubscription()
     }
   }

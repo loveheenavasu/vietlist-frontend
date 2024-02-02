@@ -98,6 +98,20 @@
     border:none
   }
 
+  textarea{
+    width: 100%;
+    background: #f5f5f5;
+    border: solid 1px #80808030;
+    padding:10px;
+    border-radius:4px
+  }
+
+  textarea:focus{
+    // background: #e8f1fe!important;
+    outline:solid 2px var(--primary-color-orange);
+    border:none
+  }
+
 
   .form-group{
     margin-bottom: 16px;
@@ -147,4 +161,23 @@
           }
       }
     }
+  }
+
+  .listing-form-heading{
+    color: var(--dark-grey);
+    margin: 0;
+    font-size: 24px;
+    font-weight: var(--font-weight-semibold);
+    margin: 14px 0;
+  }
+
+
+  .listing-form-label{
+    font-size:15px;
+    color:var(--dark-grey);
+    font-weight:var(--font-weight-medium)
+  }
+
+  .asterik{
+    color:rgb(255, 25, 25)
   }

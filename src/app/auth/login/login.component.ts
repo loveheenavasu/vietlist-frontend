@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select'
 import {
   FormControlValidationDirective,
   LocalStorageService,
+  Roles,
 } from '@vietlist/shared'
 import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
@@ -77,9 +78,22 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (res: any) => {
           this.loader = false
+          this.authenticationService.userRole.next(res?.data?.user?.user_role)
+          console.log("check role", res?.data?.user?.user_role)
           this.authenticationService.setAuthenticationStatusTrue(res.data.token)
           this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
-          if (res) {
+          this.authenticationService.setSubscriptonStatus(res.data.user.status)
+          if (
+            res.data.user.user_role == Roles.businessOwner &&
+            res.data.user.status == 'inactive'
+          ) {
+            this.router.navigateByUrl('/subscription-plans')
+          } else if (
+            res.data.user.user_role == Roles.businessOwner &&
+            res.data.user.status == 'active'
+          ) {
+            this.router.navigateByUrl('/manage-profile')
+          } else if (res.data.user.user_role == Roles.subscriber) {
             this.router.navigateByUrl('/manage-profile')
           }
 
