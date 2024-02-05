@@ -107,6 +107,7 @@ export class ListBusinessComponent {
   ngOnInit() {
     this.getBusinessCat()
     this.getTags()
+    this.getBusinessFormDetails()
     console.log(this.post_tags , "postTags")
   }
   state: any
@@ -207,9 +208,15 @@ export class ListBusinessComponent {
     })
   }
 
-  addBusiness(val:any){
-    this.isFirstStepCompleted = val
-    this.localStorageService.saveData("isBusinessInfoCompleted", "true")
+  getBusinessFormDetails(){
+    this.businessService.getBusiness().subscribe({
+      next:(res)=>{
+        console.log(res , "GET")
+      }
+    })
+  }
+
+  addBusiness(val?:any){
     console.log("Hello" , "Hello1233333")
     const body = {
       post_title: this.businessInfoForm.value.post_title,
@@ -230,7 +237,7 @@ export class ListBusinessComponent {
     }
     this.businessService.addBusiness(body).subscribe({
       next:(res)=>{
-       this.isFirstStepCompleted = this.localStorageService.getData('isBusinessInfoCompleted')
+      
         console.log(this.isFirstStepCompleted , "response")
       }
     })

@@ -10,15 +10,9 @@
         <li class="active">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Information</strong>
         </li>
-<<<<<<< HEAD
         <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Subscriptions &amp; Verification</strong>
-=======
-        <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
-            Verification</strong>
->>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
         </li>
         <li>
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
@@ -92,7 +86,6 @@
             </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <textarea
               name=""
               id=""
@@ -101,9 +94,6 @@
               placeholder="Enter the business description"
               formControlName="post_content"
             ></textarea>
-=======
-            <textarea name="" id="" cols="30" rows="6" placeholder="Enter the business description"></textarea>
->>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -123,7 +113,6 @@
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <input
               class="input-control"
               type="text"
@@ -134,11 +123,6 @@
               >The default category can affect the listing URL and map
               marker.</small
             >
-=======
-            <input class="input-control" type="text" />
-            <small class="form-text text-muted d-block">The default category can affect the listing URL and map
-              marker.</small>
->>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -146,7 +130,6 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <ng-select
               class="select2-selection"
               [items]="tags"
@@ -158,10 +141,6 @@
               [ngModelOptions]="{ standalone: true }"
               (change)="onTagSelectionChange()"
             >
-=======
-            <ng-select class="select2-selection" [items]="cities2" bindLabel="name" bindValue="id" [multiple]="true"
-              placeholder="Select cities" [(ngModel)]="selectedCityIds" [ngModelOptions]="{ standalone: true }">
->>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small>
@@ -265,16 +244,11 @@
             <label class="listing-form-label">Business email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <input
               class="input-control"
               formControlName="business_email"
               placeholder="Enter the business email"
             />
-=======
-            <input class="input-control" formControlName="business_email"
-              placeholder="Enter the title of your business" />
->>>>>>> 265ead2c2c5eefd5faf68060db8cdfd8858b7327
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -292,11 +266,11 @@
         </div>
       </section>
     </form>
-    @if(isFirstStepCompleted == "true"){
+
     <section >
       <app-subscription-form></app-subscription-form>
     </section>      
-  }
+
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>

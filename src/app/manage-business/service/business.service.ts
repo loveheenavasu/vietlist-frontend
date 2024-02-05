@@ -25,4 +25,10 @@ export class BusinessService {
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint , body , {headers:authToken})
   }
+
+  public getBusiness():Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinesssGet)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.get<any>(endpoint  , {headers:authToken})
+}
 }
