@@ -56,8 +56,8 @@ import Swal from 'sweetalert2'
   styleUrl: './list-business.component.scss',
 })
 export class ListBusinessComponent {
-  public latitude: any
-  public longitude: any
+  public latitude!: any
+  public longitude!: any
   public post_tags: any[] = []
   public separateDialCode = true
   public isFirstStepCompleted: boolean = false
@@ -68,7 +68,7 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-  public categoriesValue: any;
+  public categoriesValue: any
   public businessCat: BusinessCategoryResponse[] = []
   public tags: TagsResponse[] = []
   public isEditable = false
@@ -79,7 +79,7 @@ export class ListBusinessComponent {
   public businessFormDetails: any
   public selectedDefaultCategories: any[] = []
   public selected0defaultCat: any
-  public addBusinessFormData:any
+  public addBusinessFormData: any
   /**
    *
    * @param _formBuilder
@@ -94,17 +94,19 @@ export class ListBusinessComponent {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
       contact_phone: ['', Validators.required],
-      business_email: ['',
-      [
-        Validators.required,
-        Validators.email,
-        Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-      ]],
+      business_email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
       post_content: ['', Validators.required],
       website: [''],
-      mapview:['']
+      mapview: [''],
     })
 
     this.firstFormGroup = this._formBuilder.group({
@@ -119,7 +121,6 @@ export class ListBusinessComponent {
     this.getBusinessCat()
     this.getTags()
     this.initMap()
-    console.log(this.country , "coutry")
   }
   state: any
   country: any
@@ -127,35 +128,33 @@ export class ListBusinessComponent {
   zipcode: any
 
   getAddress(place: any) {
-    // Get latitude and longitude
-    this.latitude = place.geometry.location.lat()
-    this.longitude = place.geometry.location.lng()
+  
+    
     this.state = ''
     this.country = ''
     this.city = ''
     this.zipcode = ''
     const array = place
     array.address_components.filter((element: any) => {
-
       element.types.filter((type: any) => {
         if (type == 'country') {
           this.country = element.long_name
-       
         }
         if (type == 'administrative_area_level_3') {
           this.city = element.long_name
-          
         }
         if (type == 'postal_code') {
           this.zipcode = element.long_name
-         
         }
         if (type == 'administrative_area_level_1') {
           this.state = element.long_name
-     
         }
       })
     })
+      // Get latitude and longitude
+      this.latitude = place.geometry.location.lat()
+      this.longitude = place.geometry.location.lng()
+      this.initMap()
     // this.address = place['formatted_address'];
     // this.phone = this.getPhone(place);
     // this.formattedAddress = place['formatted_address'];
@@ -190,40 +189,38 @@ export class ListBusinessComponent {
   selectedTagsString = '' // String to store selected tags with commas
 
   initMap() {
+    console.log(this.latitude, this.longitude, "LATLNG");
     let map;
-
-    // Define the center of the map
-    const center = { lat: 30.361, lng: 76.8485 };
-
+  
     // Get the map container element by its ID
-    const mapElement = document.getElementById("map");
-
+    const mapElement = document.getElementById('map');
+  
     // Ensure that the map element is not null
     if (mapElement !== null) {
       // Create a new Google Map instance
       map = new google.maps.Map(mapElement, {
-        center: center,
-        zoom: 13
+        center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
+        zoom: 13,
       });
-
-      // Add a marker to the map
-      const marker = new google.maps.Marker({
-        position: center,
-        map: map,
-        title: 'Marker Title'
-      });
+  
+      if (this.latitude && this.longitude) {
+        // Add a marker to the map
+        const marker = new google.maps.Marker({
+          position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
+          map: map,
+          title: 'Marker Title',
+        });
+      }
     } else {
-      console.error("Map element not found");
+      console.error('Map element not found');
     }
   }
-
+  
 
   onTagSelectionChange() {
     const tagNames = this.post_tags
-    this.selectedTagsString = JSON.stringify(tagNames);
-
+    this.selectedTagsString = JSON.stringify(tagNames)
   }
-
 
   getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
@@ -237,7 +234,6 @@ export class ListBusinessComponent {
     this.categoriesValue = this.businessInfoForm.value.post_category
     this.getDefaultCat()
   }
-
 
   getTags() {
     this.businessService.getTags().subscribe({
@@ -270,8 +266,8 @@ export class ListBusinessComponent {
         this.businessInfoForm.value.contact_phone?.e164Number,
       ),
       business_email: this.businessInfoForm.value.business_email,
-      post_category:  this.categoriesValue.join(','),
-      default_category:this.businessInfoForm.value.default_category,
+      post_category: this.categoriesValue.join(','),
+      default_category: this.businessInfoForm.value.default_category,
       latitude: this.latitude,
       longitude: this.longitude,
       city: this.city,
@@ -285,7 +281,7 @@ export class ListBusinessComponent {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.addBusinessFormData = res
-        this.localStorageService.saveData("postId" , this.postId)
+        this.localStorageService.saveData('postId', this.postId)
         this.getBusinessFormDetails()
         Swal.fire({
           toast: true,

@@ -67,7 +67,7 @@ export class ConfirmPaymentComponent {
           variables: { colorPrimaryText: 'red' },
         }
         const elements = stripe.elements({ appearance })
-        this.card = elements.create('card')
+        this.card = elements.create('card' , {hidePostalCode: true,})
         this.card.mount(this.cardInfo.nativeElement)
         const billingAddressOptions = {
           classes: {
