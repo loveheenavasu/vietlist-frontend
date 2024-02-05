@@ -1,4 +1,8 @@
-import { BusinessCategoryResponse } from './../../service/business.interface'
+import { NgClass } from '@angular/common';
+import {
+  BusinessCategoryResponse,
+  TagsResponse,
+} from './../../service/business.interface'
 import { MatSelectModule } from '@angular/material/select'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatCardModule } from '@angular/material/card'
@@ -24,6 +28,8 @@ import {
   SearchCountryField,
 } from 'ngx-intl-tel-input-gg'
 import { BusinessService } from '../../service/business.service'
+import { LocalStorageService } from '@vietlist/shared';
+import { PromotionsFormComponent } from '../promotions-form/promotions-form.component';
 @Component({
   selector: 'app-list-business',
   standalone: true,
@@ -36,18 +42,23 @@ import { BusinessService } from '../../service/business.service'
     SubscriptionFormComponent,
     BusinessBioComponent,
     ConsultationFormComponent,
+    PromotionsFormComponent,
     FormsModule,
     ReactiveFormsModule,
     // AutocompleteComponent,
     NgSelectModule,
     NgxIntlTelInputModule,
+    NgClass
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
 })
 export class ListBusinessComponent {
-  selectedCityIds!: string[]
+  public latitude: any;
+  public longitude: any
+  public post_tags: any[] = []
   public separateDialCode = true
+  public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
@@ -57,6 +68,7 @@ export class ListBusinessComponent {
   ]
   public defaultCatValue: any
   public businessCat: BusinessCategoryResponse[] = []
+  public tags: TagsResponse[] = []
   public isEditable = false
   public businessInfoForm!: FormGroup
   public firstFormGroup!: FormGroup
@@ -64,12 +76,16 @@ export class ListBusinessComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
+    private localStorageService: LocalStorageService
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: [''],
       contact_phone: [''],
       business_email: [''],
       post_category: [''],
+      default_category: [''],
+      post_content: [''],
+      website: ['']
     })
 
     this.firstFormGroup = this._formBuilder.group({
@@ -82,12 +98,19 @@ export class ListBusinessComponent {
       .get('post_category')
       ?.valueChanges.subscribe((res) => {
         this.defaultCatValue = res
-        console.log(this.defaultCatValue, 'Hello123123')
+        if (this.defaultCatValue) {
+          this.businessInfoForm
+            .get('default_category')
+            ?.setValue(this.defaultCatValue)
+        }
       })
   }
 
   ngOnInit() {
     this.getBusinessCat()
+    this.getTags()
+    this.getBusinessFormDetails()
+    console.log(this.post_tags, "postTags")
   }
   state: any
   country: any
@@ -96,17 +119,15 @@ export class ListBusinessComponent {
 
   getAddress(place: any) {
     // Get latitude and longitude
-    const latitude = place.geometry.location.lat()
-    const longitude = place.geometry.location.lng()
-
-    console.log('Latitude:', latitude)
-    console.log('Longitude:', longitude)
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
     this.state = ''
     this.country = ''
     this.city = ''
     this.zipcode = ''
     const array = place
     array.address_components.filter((element: any) => {
+      console.log(element, "element")
       element.types.filter((type: any) => {
         if (type == 'country') {
           this.country = element.long_name
@@ -124,6 +145,7 @@ export class ListBusinessComponent {
           this.state = element.long_name
           console.log(this.state, ' this.country')
         }
+
       })
     })
     // this.address = place['formatted_address'];
@@ -157,13 +179,19 @@ export class ListBusinessComponent {
   //   if (event.latLng != null) this.display = event.latLng.toJSON()
   // }
 
-  cities2 = [
-    { id: 1, name: 'Vilnius' },
-    { id: 2, name: 'Kaunas' },
-    { id: 3, name: 'Pavilnys' },
-    { id: 4, name: 'Pabradė' },
-    { id: 5, name: 'Klaipėda' },
-  ]
+  selectedTagsString = ''; // String to store selected tags with commas
+
+  // Rest of your component code
+
+  // Method triggered when selection changes
+  onTagSelectionChange() {
+    const data = this.post_tags.map(tag => tag.name).join(', ');
+    this.selectedTagsString = data.toString()
+    console.log(this.selectedTagsString, "tagString")
+  }
+
+
+
 
   getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
@@ -171,6 +199,49 @@ export class ListBusinessComponent {
         this.businessCat = res.data
         console.log(this.businessCat)
       },
+    })
+  }
+
+  getTags() {
+    this.businessService.getTags().subscribe({
+      next: (res: any) => {
+        this.tags = res.data
+      },
+    })
+  }
+
+  getBusinessFormDetails() {
+    this.businessService.getBusiness().subscribe({
+      next: (res) => {
+        console.log(res, "GET")
+      }
+    })
+  }
+
+  addBusiness(val?: any) {
+    console.log("Hello", "Hello1233333")
+    const body = {
+      post_title: this.businessInfoForm.value.post_title,
+      contact_phone: parseInt(this.businessInfoForm.value.contact_phone?.e164Number),
+      business_email: this.businessInfoForm.value.business_email,
+      post_category: this.businessInfoForm.value.post_category,
+      default_category: this.businessInfoForm.value.default_category,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      city: this.city,
+      region: this.state,
+      country: this.country,
+      zip: this.zipcode,
+      post_content: this.businessInfoForm.value.post_content,
+      website: this.businessInfoForm.value.website,
+      tags: this.selectedTagsString,
+
+    }
+    this.businessService.addBusiness(body).subscribe({
+      next: (res) => {
+
+        console.log(this.isFirstStepCompleted, "response")
+      }
     })
   }
 }

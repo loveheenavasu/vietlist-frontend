@@ -97,3 +97,72 @@
     font-size: 16px;
     margin-top: 1rem;
 }
+
+@media only screen and (min-width: 400px) and (max-width: 768px) {
+    li.active {
+        background: orange;
+        padding: 1px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        width: 200px !important;
+        justify-content: center;
+        color: #fff !important;
+    }
+
+    .sidebar-items ul {
+        list-style-type: none;
+        margin-top: 2.5rem;
+        padding: 0;
+        display: flex !important;
+        width: fit-content;
+        margin: auto;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar-items ul li {
+        margin-bottom: 0px;
+        //  line-height: 20px; 
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 16px;
+        width: 157px !important;
+        margin-right: 14px;
+        text-align: center;
+    }
+
+    .sidebar-cnt {
+        width: 100%;
+    }
+
+    .tabs_responsive {
+        overflow: hidden;
+        border-top: solid 11px white;
+        padding-top: 24px;
+        /* padding-bottom: 19px; */
+        padding-left: 27px;
+    }
+
+    .tabs_responsive:hover {
+        overflow: scroll;
+    }
+
+    // .sidebar-items ul li:nth-child(1){
+    //      width: 106px!important;
+    //  }
+    .sidebar-items {
+        margin: 0 auto;
+        width: 100%;
+        padding: 19px 0px;
+    }
+
+    .profile-pic-div {
+        width: 37%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: var(--light-grey);
+        border: solid 2px #fff;
+        margin: auto;
+        overflow: hidden;
+    }
+}

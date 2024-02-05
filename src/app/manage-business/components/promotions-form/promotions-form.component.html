@@ -1,0 +1,153 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="listing-form-heading">Events & promotions</h1>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <mat-checkbox class="event-checkbox">Click on link if you want to create event. <a>Add Event</a></mat-checkbox>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Links Posts: Event</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <mat-select class="vietlist-select" placeholder="Choose Event ...">
+            <mat-option value="example">Example</mat-option>
+            <mat-option value="example1">Example 1</mat-option>
+        </mat-select>
+        <div class="d-flex mt-1 justify-content-between">
+            <div class="form-text">
+                <span>Select your Event to link with this Business</span>
+            </div>
+            <div class="refresh-btn-event">
+                <button class="btn">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Promotions Fields</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h1 class="listing-form-heading">FAQ</h1>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">FAQ</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <textarea name="" id="" cols="30" rows="6" placeholder="Write here ..."></textarea>
+        <div class="form-text">
+            <span>Add question answer</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h1 class="listing-form-heading">Certifications</h1>
+    </div>
+</div>
+<div class="row px-2 my-3">
+    <div class="col-12">
+        <!--a dropzone-->
+        <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+        <label for="" class="listing-form-label mb-2">Upload certificates</label>
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
+                Browse a file</ngx-dropzone-label>
+            <!-- <ngx-dropzone-preview  (removed)="onRemove('f')"> -->
+            <!-- <ngx-dropzone-label>Drap and Drop here or Browse a file</ngx-dropzone-label> -->
+            <!-- </ngx-dropzone-preview> -->
+        </ngx-dropzone>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <h1 class="listing-form-heading">Accessibility Options</h1>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Physical Accessibility</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" />
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Digital Accessibility</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" />
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <mat-checkbox class="event-checkbox">Business Owner/Associate?</mat-checkbox>
+        <div class="form-text">
+            <span>Mark listing as clamied</span>
+        </div>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Choose Layout</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <mat-select class="vietlist-select" placeholder="Select Choose Layout ...">
+            <mat-option value="Simple Layout">Simple Layout</mat-option>
+            <mat-option value="Standard Layout">Standard Layout </mat-option>
+        </mat-select>
+        <div class="form-text">
+            <span>Available different layout</span>
+        </div>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <mat-checkbox class="event-checkbox">Terms & Conditions</mat-checkbox>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <re-captcha (resolved)="resolved($event)" siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
+            formControlName="recaptcha"></re-captcha>
+    </div>
+</div>
+<div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <div class="d-flex">
+            <div class="submit-btn">
+                <button class="btn">Submit Listing</button>
+            </div>
+            <div class="preview-btn">
+                <button class="btn">Preview Listing
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

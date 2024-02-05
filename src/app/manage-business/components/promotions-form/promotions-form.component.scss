@@ -1,0 +1,52 @@
+@import "../../../../assets/scss/common.scss";
+@import "../../../../assets/scss/banner";
+
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: var(--primary-color-orange) !important;
+
+}
+
+.form-text {
+    span {
+        color: #6c757d;
+        font-size: 12px;
+    }
+}
+
+.refresh-btn-event {
+    .btn {
+        background-color: #38ccff;
+        border: 1px solid #000;
+        padding: .25rem 1rem;
+
+        i {
+            color: #fff;
+        }
+    }
+}
+
+.submit-btn {
+    margin-right: 10px;
+
+    .btn {
+        background-color: var(--primary-color-orange);
+        color: var(--white);
+        padding: 0.45rem 1.2rem;
+    }
+}
+
+.preview-btn {
+    .btn {
+        background-color: #3498db;
+        color: var(--white);
+        padding: 0.45rem 1.2rem;
+    }
+}

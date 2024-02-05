@@ -197,8 +197,8 @@ export class RegisterComponent {
           console.log(res)
         },
         error: (err) => {
-          console.log(err.error.message, 'Error')
           this.loader = false
+          console.log(err.error.message, 'Error')
         },
       })
     } else {

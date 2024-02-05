@@ -6,3 +6,8 @@ export interface BusinessCategoryResponse {
   trending: number
   bookmark: boolean
 }
+
+export interface TagsResponse {
+  id: number
+  name: string
+}
