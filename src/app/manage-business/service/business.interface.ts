@@ -10,4 +10,6 @@ export interface BusinessCategoryResponse {
 export interface TagsResponse {
   id: number
   name: string
+  slug:string
+  count:any
 }

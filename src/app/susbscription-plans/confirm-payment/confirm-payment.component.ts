@@ -148,7 +148,6 @@ export class ConfirmPaymentComponent {
     const { setupIntent, error } = await this.stripe.confirmCardSetup(this.paymentIntent, {
       payment_method: {
         card: this.card,
-        billing_details: this.billingAddress
       },
     });
 
@@ -169,7 +168,10 @@ export class ConfirmPaymentComponent {
   public confirmSubscription() {
     const body = {
       level_id: this.planId,
-      pm_data: this.paymentMethod,
+      "pm_data": {
+        id: this.paymentMethod.payment_method,
+        billing_details: this.billingAddress
+      }
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {

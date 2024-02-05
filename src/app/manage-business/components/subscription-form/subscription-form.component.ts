@@ -1,42 +1,121 @@
+import { NgFor, NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
+import { LocalStorageService } from '@vietlist/shared'
 import { DndDropEvent, DndModule } from 'ngx-drag-drop'
 import { NgxDropzoneModule } from 'ngx-dropzone'
+import Swal from 'sweetalert2'
+import { BusinessService } from '../../service/business.service'
 
 @Component({
   selector: 'app-subscription-form',
   standalone: true,
-  imports: [DndModule, NgxDropzoneModule],
+  imports: [
+    DndModule,
+    NgxDropzoneModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgFor,
+    NgIf
+  ],
   templateUrl: './subscription-form.component.html',
   styleUrl: './subscription-form.component.scss',
 })
 export class SubscriptionFormComponent {
   title = 'dropzone'
-
   files: File[] = []
+  @Input() postId: any
+  public verifiedBadge = new FormControl(false)
+  public subscriptionForm: FormGroup
+  public filesString:any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private businessService: BusinessService,
+    public localStorageService:LocalStorageService
+  ) {
+    this.subscriptionForm = this.fb.group({
+      facebook: ['', Validators.required],
+      twitter: ['', Validators.required],
+      instagram: ['', Validators.required],
+    })
+    const id = this.localStorageService.getData("postId")
+    this.postId = Number(id)
+  }
+
+  // onSelect(event: any) {
+  //   console.log(event.addedFiles)
+  //   this.files.push(...event.addedFiles)
+
+  //   const formData = new FormData()
+
+  //   for (var i = 0; i < this.files.length; i++) {
+  //     formData.append('file[]', this.files[i])
+  //   }
+
+  // }
+
+  // onRemove(event: any) {
+  //   console.log(event)
+  //   this.files.splice(this.files.indexOf(event), 1)
+  // }
 
   onSelect(event: any) {
-    console.log(event)
+    console.log(event.addedFiles)
     this.files.push(...event.addedFiles)
+    const filesString = this.files.map((file) => file.name).join(', ')
+    console.log(filesString)
 
-    const formData = new FormData()
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append('file[]', this.files[i])
-    }
-
-    this.http
-      .post('http://localhost:8001/upload.php', formData)
-      .subscribe((res: any) => {
-        console.log(res)
-        alert('Uploaded Successfully.')
-      })
+    console.log(this.files)
   }
 
   onRemove(event: any) {
     console.log(event)
     this.files.splice(this.files.indexOf(event), 1)
+  }
+
+  getSafeURL(file: File): any {
+    return URL.createObjectURL(file)
+  }
+
+  updateBusinessSubscription() {
+    const body = {
+      post_id: this.postId,
+      facebook: this.subscriptionForm.value.facebook,
+      twitter: this.subscriptionForm.value.twitter,
+      instagram: this.subscriptionForm.value.instagram,
+      verification_upload:this.filesString,
+    }
+    this.businessService.updateBusiness(body).subscribe({
+      next: (res) => {},
+    })
+  }
+
+  addBusiness(val?: any) {
+    const body = {
+      post_id: this.postId,
+      facebook: this.subscriptionForm.value.facebook,
+      twitter: this.subscriptionForm.value.twitter,
+      instagram: this.subscriptionForm.value.instagram,
+      verification_upload:this.filesString,
+    }
+    this.businessService.addBusiness(body).subscribe({
+      next: (res) => {
+        this.postId = res.post_id
+        Swal.fire({
+          
+        })
+        // console.log(this.isFirstStepCompleted, 'response')
+      },
+    })
   }
 }

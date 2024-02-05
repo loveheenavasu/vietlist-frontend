@@ -38,6 +38,7 @@ export default [
   {
     path: 'subscription-plans',
     loadComponent: () => PlanComponent,
+
   },
   {
     path: 'find-business',

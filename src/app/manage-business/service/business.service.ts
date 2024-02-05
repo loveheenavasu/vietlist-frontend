@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { GenericHelper, Endpoints, AuthenticationService } from '@vietlist/shared'
 import { Observable } from 'rxjs'
@@ -20,8 +20,28 @@ export class BusinessService {
     return this.http.get<TagsResponse>(endpoint)
   }
 
+  public getDefaultCat(categories: number[]): Observable<TagsResponse> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DefaultCatApi);
+  
+    // Construct the query parameters using HttpParams
+    const params = new HttpParams().set('category_ids', categories.join(','));
+  
+    // Append the constructed parameters to the URL
+    const urlWithParams = `${endpoint}?${params.toString()}`;
+  
+    return this.http.get<TagsResponse>(urlWithParams);
+  }
+
+
+
   public addBusiness(body:any):Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddBusiness)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint , body , {headers:authToken})
+  }
+
+  public updateBusiness(body:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateBusiness)
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint , body , {headers:authToken})
   }

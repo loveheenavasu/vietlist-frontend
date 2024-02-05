@@ -26,7 +26,7 @@
       </ul>
     </div>
     <form [formGroup]="businessInfoForm">
-      <section class="my-4">
+      <!-- <section class="my-4">
         <div class="row">
           <div class="col-12">
             <h1 class="listing-form-heading">Your Details</h1>
@@ -48,7 +48,7 @@
             <input class="input-control" placeholder="Enter your email" />
           </div>
         </div>
-      </section>
+      </section> -->
 
       <section class="my-4">
         <div class="row">
@@ -100,25 +100,24 @@
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Category <span class="asterik">*</span></label>
           </div>
-          <div class="col-12 col-md-12 col-lg-8">
-            <mat-select class="vietlist-select" placeholder="Category" formControlName="post_category">
-              @for (key of businessCat; track $index) {
-              <mat-option [value]="key.name">{{ key.name }}</mat-option>
-              }
-            </mat-select>
-          </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category" formControlName="post_category" multiple >
+                @for (key of businessCat; track $index) {
+                <mat-option [value]="key.id">{{ key.name }}</mat-option>
+                }
+              </mat-select>
+            </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              formControlName="default_category"
-              readonly
-            />
+            <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
+              @for (key of selectedDefaultCategories; track $index) {
+              <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              }
+            </mat-select>
             <small class="form-text text-muted d-block"
               >The default category can affect the listing URL and map
               marker.</small
@@ -139,7 +138,7 @@
               placeholder="Select Tags"
               [(ngModel)]="post_tags"
               [ngModelOptions]="{ standalone: true }"
-              (change)="onTagSelectionChange()"
+              (ngModelChange)="onTagSelectionChange()"
             >
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
@@ -151,10 +150,10 @@
             <label class="listing-form-label">Address<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <!-- <AutocompleteComponent
+            <AutocompleteComponent
               (setAddress)="getAddress($event)"
               adressType="geocode"
-            ></AutocompleteComponent> -->
+            ></AutocompleteComponent>
           </div>
         </div>
 
@@ -197,6 +196,9 @@
               [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
+        <div class="row my-4 px-2">
+          <div id="map" style="height: 450px; width: 100%;"></div>
+        </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
@@ -221,6 +223,19 @@
               [ngModelOptions]="{ standalone: true }"
               readonly
             />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label">Map View</label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-select class="vietlist-select" placeholder="Select Map View" formControlName="mapview">
+             <mat-option value="default view">Default View</mat-option>
+             <mat-option value="satellite view">Satellite Map</mat-option>
+             <mat-option value="hybrid view">Hybrid Map</mat-option>
+             <mat-option value="terrain view">Terrain Map</mat-option>
+            </mat-select>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center align-items-center">
@@ -249,6 +264,15 @@
               formControlName="business_email"
               placeholder="Enter the business email"
             />
+            @if (
+              businessInfoForm.get('business_email')?.touched &&
+              businessInfoForm.get('business_email')?.hasError('required')
+            ) {
+              <span class="error-message">Email is required</span>
+            }
+            @if (businessInfoForm.get('business_email')?.hasError('pattern')) {
+              <span class="error-message">Enter valid email</span>
+            }
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -260,17 +284,19 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn ms-auto" (click)="addBusiness(false)">
+          <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!businessInfoForm.valid || !country || !zipcode  || !state  || !city || !tags" (click)="addBusiness()">
             Next
           </button>
         </div>
       </section>
     </form>
 
-    <section >
+    <!-- @if(businessFormDetails?.business_email !== null){
+      @if(addBusinessFormData?.status == true){
+    <section>
       <app-subscription-form></app-subscription-form>
     </section>      
-
+  }
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>
@@ -278,4 +304,4 @@
       <app-consultation-form></app-consultation-form>
     </section>
   </div>
-</div>
+</div> -->

@@ -3,22 +3,61 @@
     <h1 class="listing-form-heading">Subscription & Verification</h1>
   </div>
 </div>
-<div class="row px-2 my-3">
+<div class="row my-3 px-2">
+  <div class="col-12 col-md-12">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        value=""
+        id="terms"
+        [formControl]="verifiedBadge"
+      />
+      <label class="form-check-label" for="terms">
+        Verified Badge
+      </label>
+    </div>
+  </div>
+</div>
+@if(verifiedBadge.value == true){
+
+<div class="row px-2 my-3" >
   <div class="col-12">
     <!--a dropzone-->
     <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
     <label for="" class="listing-form-label mb-2">Verification upload</label>
-    <ngx-dropzone (change)="onSelect($event)">
+    <!-- <ngx-dropzone (change)="onSelect($event)">
       <ngx-dropzone-label
         ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
         Browse a file</ngx-dropzone-label
       >
-      <!-- <ngx-dropzone-preview  (removed)="onRemove('f')"> -->
-      <!-- <ngx-dropzone-label>Drap and Drop here or Browse a file</ngx-dropzone-label> -->
-      <!-- </ngx-dropzone-preview> -->
+      <ngx-dropzone-preview  (removed)="onRemove('f')">
+      <ngx-dropzone-label>Drap and Drop here or Browse a file</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone> -->
+
+    <ngx-dropzone (change)="onSelect($event)">
+      <ngx-dropzone-label>
+        <i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or Browse a file (Allowed .pdf , .docx, .doc)
+      </ngx-dropzone-label>
+
     </ngx-dropzone>
+    <div class="row selected-images"  *ngIf="files.length > 0">
+      <h3>Selected Images:</h3>
+      <div class="d-flex">
+        <div *ngFor="let file of files" class="mx-2">
+          <div class="image-box">
+            <img [src]="getSafeURL(file)" alt="Selected Image" />
+            <button (click)="onRemove(file)">Remove</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+  
+}
+<br/>
 <div class="row my-3 px-2">
   <div class="col-12 col-md-12 col-lg-4">
     <label for="name" class="listing-form-label"
@@ -48,4 +87,10 @@
   <div class="col-12 col-md-12 col-lg-8">
     <input class="input-control" placeholder="Enter Twitter url" />
   </div>
+</div>
+
+<div style="width: 100%; text-align: end">
+  <button type="button" class="btn orange-background-btn ms-auto" (click)="updateBusinessSubscription()">
+    Next
+  </button>
 </div>

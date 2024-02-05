@@ -12,6 +12,7 @@ export enum Endpoints {
   BusinessCategory = 'category_data_get',
   AddBusiness = 'business_data_set',
   Tags = "tags_data_get",
-  UpdateBusiness = "",
-  BusinesssGet = "business_data_get"
+  UpdateBusiness = "business_data_update",
+  BusinesssGet = "business_data_get",
+  DefaultCatApi = "default_category_data_get"
 }
