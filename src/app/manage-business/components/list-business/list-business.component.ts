@@ -80,6 +80,9 @@ export class ListBusinessComponent {
   public selectedDefaultCategories: any[] = []
   public selected0defaultCat: any
   public addBusinessFormData: any
+  public pageNumber = 1;
+  public pageSize = 10;
+  public getBusinessType:any = 0; 
   /**
    *
    * @param _formBuilder
@@ -252,8 +255,8 @@ export class ListBusinessComponent {
   }
 
   getBusinessFormDetails() {
-    this.businessService.getBusiness().subscribe({
-      next: (res) => {
+    this.businessService.getBusiness(this.getBusinessType , this.pageSize, this.pageNumber).subscribe({
+      next: (res:any) => {
         this.businessFormDetails = res.data
       },
     })
