@@ -98,6 +98,33 @@
     margin-top: 1rem;
 }
 
+@media screen and (max-width:1399px) {
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 20px 5px;
+
+        ul {
+            list-style-type: none;
+            margin-top: 2.5rem;
+            padding: 0;
+
+            /* Remove default padding */
+            li {
+                margin-bottom: 26px;
+                line-height: 20px;
+                color: rgba(0, 0, 0, 0.5);
+                font-size: 16px;
+
+                span {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+    }
+}
+
 @media (max-width: 768px) {
     li.active {
         background: orange;
