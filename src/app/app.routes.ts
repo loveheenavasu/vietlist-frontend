@@ -23,6 +23,7 @@ export default [
   },
   {
     path: 'manage-profile',
-    loadComponent: () => EditProfileComponent
+    loadComponent: () => ManageProfileComponent
   }
 ] as Routes
+

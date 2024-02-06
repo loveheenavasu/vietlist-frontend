@@ -1,44 +1,68 @@
-import { Component, Input } from '@angular/core';
-import { LocalStorageService, ProfileMenu, SidebarService } from '@vietlist/shared';
-import { EditProfileComponent } from './components';
-import { ProfileService } from './service/profile.service';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core'
+import {
+  // AuthenticationService,
+  LocalStorageService,
+  ProfileMenu,
+  SidebarService,
+} from '@vietlist/shared'
+// import { FullPageLoaderService } from '../shared/utils/services/loader.service'
+import { EditProfileComponent } from './components'
+import { NgClass, NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent],
+  imports: [EditProfileComponent, NgIf, NgClass],
   templateUrl: './manage-profile.html',
-  styleUrl: './manage-profile.scss'
+  styleUrl: './manage-profile.scss',
 })
 export class ManageProfileComponent {
-  // @Input() emailres: any ;
-  emailres: any
+  @ViewChild('fileInput', { static: false })
+  fileInput!: ElementRef<HTMLInputElement>
+
   public sidebarMenu: ProfileMenu[] = []
-  userEmail: any
-  constructor(private sidebarService: SidebarService, private profileDetail: ProfileService) {
-    console.log(this.emailres, "emailres")
-    this.getSidebarLinks();
-    //     const storedUserData = localStorage.getData('vietlist::userdata');
-    // console.log()
-    //     if (storedUserData) {
-    //       this.userEmail = JSON.parse(storedUserData);
-    //     }
+  public userEmail: any
+  public imgUrl: any
+  activeIndex: number = 0;
 
-    //     console.log(this.userEmail, "test")
-    // if (typeof localStorage !== 'undefined' && localStorage.getItem('vietlist::userdata')) {
-    //   this.userEmail = JSON.parse(localStorage.getItem('vietlist::userdata') as string);
-    // }
-
-    // console.log(this.userEmail, "email")
+  constructor(
+    private sidebarService: SidebarService,
+    // private sessionservice: AuthenticationService,
+  ) {
+    this.getSidebarLinks()
+    // const data = this.sessionservice.getUserdata()
+    // this.userEmail = data?.user_email
   }
 
-  getSidebarLinks() {
+  public getSidebarLinks() {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
-      console.log(res)
     })
   }
 
+  public handleFileInput(event: any) {
+    console.log(event, 'event')
+    event.stopPropagation()
+    console.log('Checking image path', event)
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader()
 
+      reader.readAsDataURL(event.target.files[0])
 
+      reader.onload = (event) => {
+        if (event.target) {
+          this.imgUrl = event.target.result
+          console.log('Image URL:', this.imgUrl)
+        }
+      }
+    }
+  }
+
+  public openFileInput(event: any) {
+    this.handleFileInput(event)
+  }
+  addClass(index: number) {
+    this.activeIndex = index
+
+  }
 }

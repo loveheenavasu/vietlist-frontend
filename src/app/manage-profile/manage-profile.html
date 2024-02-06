@@ -1,29 +1,44 @@
 <div class="container-fluid g-0">
-    <section class="banner">
-        <div class="content">
-            <h1>Account</h1>
-        </div>
-    </section>
-
-    <div class="container">
-        <div class="row my-5">
-            <div class="col-4">
-                <div class="sidebar-cnt">
-                    <div class="sidebar-items">
-                        <div class="upload-profile">
-                            <div class="profile-pic-div"></div>
-                        </div>
-                        <p class="user-email">{{emailres}}</p>
-                        <ul>
-                            @for(key of sidebarMenu ; track $index){
-                            <li><span><i [class]="key.icon"></i></span>{{key.label}}</li>
-                            }
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-8 mt-4">
-                <app-edit-profile [emailres]="emailres"></app-edit-profile>
-            </div>
-        </div>
+  <section class="banner">
+    <div class="content">
+      <h1>Account</h1>
     </div>
+  </section>
+
+  <div class="container">
+    <div class="row my-5">
+      <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+        <div class="sidebar-cnt">
+          <div class="sidebar-items">
+            <div class="upload-profile">
+              <div class="profile-pic-div">
+                <div class="image">
+                  <img *ngIf="imgUrl" [src]="imgUrl" alt="profile" />
+                </div>
+                <label class="custom-file-upload">
+                  <input #fileInput type="file" />
+                  <div class="d-flex justify-content-center icon">
+                    <i class="fa fa-camera" (change)="handleFileInput($event)"></i>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <p class="user-email">{{userEmail}}</p>
+            <div class="tabs_responsive">
+              <ul>
+                @for(key of sidebarMenu ; track $index){
+                <li (click)="addClass($index)" [ngClass]="{'active': activeIndex == $index}">
+                  <span><i [class]="key.icon"></i></span>{{key.label}}
+                </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8 mt-4">
+        <app-edit-profile></app-edit-profile>
+      </div>
+    </div>
+  </div>
+</div>
