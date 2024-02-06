@@ -46,9 +46,9 @@ export class ConfirmPaymentComponent {
     private sessionService: AuthenticationService,
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
-    public router:Router,
-    private localStorageService:LocalStorageService
-  ) {}
+    public router: Router,
+    private localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -69,7 +69,7 @@ export class ConfirmPaymentComponent {
           variables: { colorPrimaryText: 'red' },
         }
         const elements = stripe.elements({ appearance })
-        this.card = elements.create('card' , {hidePostalCode: true,})
+        this.card = elements.create('card', { hidePostalCode: true, })
         this.card.mount(this.cardInfo.nativeElement)
         const billingAddressOptions = {
           classes: {
@@ -99,9 +99,9 @@ export class ConfirmPaymentComponent {
       next: (res: any) => {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
-        console.log(this.paymentIntent , "this.payemnetintent")
+        console.log(this.paymentIntent, "this.payemnetintent")
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 
@@ -114,13 +114,13 @@ export class ConfirmPaymentComponent {
     this.cd.detectChanges()
   }
 
- 
+
   // async onSubmit(form: NgForm) {
   //   const { paymentMethod, error } = await this.stripe.confirmCardSetup(this.paymentIntent , {
   //     payment_method: {
   //       card:this.card
   //     },
-      
+
   //   })
 
   //   if (error) {
@@ -157,7 +157,7 @@ export class ConfirmPaymentComponent {
       console.error(error.message);
     } else {
       this.paymentMethod = setupIntent
-      if(this.paymentMethod){
+      if (this.paymentMethod) {
         this.confirmSubscription()
       }
       console.log('SetupIntent confirmed:', setupIntent);
@@ -171,7 +171,7 @@ export class ConfirmPaymentComponent {
     const body = {
       level_id: this.planId,
       "pm_data": {
-        id: this.paymentMethod.payment_method,
+        id: this.paymentMethod?.payment_method,
         billing_details: this.billingAddress
       }
     }
@@ -187,10 +187,11 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        if(res.status == "active"){
-          this.localStorageService.saveData("userStatus" , "true")
+        if (res.data?.status == "active") {
+          const status = res.data?.status;
+          this.sessionService.setSubscriptonStatus(status)
+          this.router.navigateByUrl('/manage-profile')
         }
-        this.router.navigateByUrl('/manage-profile')
       },
     })
   }

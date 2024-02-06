@@ -94,34 +94,23 @@
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Category <span class="asterik">*</span></label>
           </div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category" formControlName="post_category" multiple >
-                @for (key of businessCat; track $index) {
-                <mat-option [value]="key.id">{{ key.name }}</mat-option>
-                }
-              </mat-select>
-            </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category"
+              formControlName="post_category" multiple>
+              @for (key of businessCat; track $index) {
+              <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              }
+            </mat-select>
+          </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
-            <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
-              @for (key of selectedDefaultCategories; track $index) {
-              <mat-option [value]="key.id">{{ key.name }}</mat-option>
-              }
-            </mat-select>
-            <small class="form-text text-muted d-block"
-              >The default category can affect the listing URL and map
-              marker.</small
-            >
-=======
             <input class="input-control" type="text" formControlName="default_category" readonly />
             <small class="form-text text-muted d-block">The default category can affect the listing URL and map
               marker.</small>
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -129,23 +118,9 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
-            <ng-select
-              class="select2-selection"
-              [items]="tags"
-              bindLabel="name"
-              bindValue="name"
-              [multiple]="true"
-              placeholder="Select Tags"
-              [(ngModel)]="post_tags"
-              [ngModelOptions]="{ standalone: true }"
-              (ngModelChange)="onTagSelectionChange()"
-            >
-=======
             <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="name" [multiple]="true"
               placeholder="Select Tags" [(ngModel)]="post_tags" [ngModelOptions]="{ standalone: true }"
               (change)="onTagSelectionChange()">
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small>
@@ -156,10 +131,7 @@
             <label class="listing-form-label">Address<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <AutocompleteComponent
-              (setAddress)="getAddress($event)"
-              adressType="geocode"
-            ></AutocompleteComponent>
+            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode"></AutocompleteComponent>
           </div>
         </div>
 
@@ -205,7 +177,7 @@
         <div class="row my-4 px-2">
           <div id="map" style="height: 450px; width: 100%;"></div>
         </div>
-     
+
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
@@ -214,7 +186,7 @@
             <input class="input-control" [(ngModel)]="latitude" [ngModelOptions]="{ standalone: true }" readonly />
           </div>
         </div>
-     
+
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Address Longitude <span class="asterik">*</span></label>
@@ -229,10 +201,10 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <mat-select class="vietlist-select" placeholder="Select Map View" formControlName="mapview">
-             <mat-option value="default view">Default View</mat-option>
-             <mat-option value="satellite view">Satellite Map</mat-option>
-             <mat-option value="hybrid view">Hybrid Map</mat-option>
-             <mat-option value="terrain view">Terrain Map</mat-option>
+              <mat-option value="default view">Default View</mat-option>
+              <mat-option value="satellite view">Satellite Map</mat-option>
+              <mat-option value="hybrid view">Hybrid Map</mat-option>
+              <mat-option value="terrain view">Terrain Map</mat-option>
             </mat-select>
           </div>
         </div>
@@ -257,24 +229,7 @@
             <label class="listing-form-label">Business email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
-            <input
-              class="input-control"
-              formControlName="business_email"
-              placeholder="Enter the business email"
-            />
-            @if (
-              businessInfoForm.get('business_email')?.touched &&
-              businessInfoForm.get('business_email')?.hasError('required')
-            ) {
-              <span class="error-message">Email is required</span>
-            }
-            @if (businessInfoForm.get('business_email')?.hasError('pattern')) {
-              <span class="error-message">Enter valid email</span>
-            }
-=======
             <input class="input-control" formControlName="business_email" placeholder="Enter the business email" />
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -286,26 +241,19 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!businessInfoForm.valid || !country || !zipcode  || !state  || !city || !tags" (click)="addBusiness()">
+          <button type="button" class="btn orange-background-btn ms-auto"
+            [disabled]="!businessInfoForm.valid || !country || !zipcode  || !state  || !city || !tags"
+            (click)="addBusiness()">
             Next
           </button>
         </div>
       </section>
     </form>
 
-<<<<<<< HEAD
-    <!-- @if(businessFormDetails?.business_email !== null){
-      @if(addBusinessFormData?.status == true){
-    <section>
-      <app-subscription-form></app-subscription-form>
-    </section>      
-  }
-=======
     <section>
       <app-subscription-form></app-subscription-form>
     </section>
 
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>
@@ -316,4 +264,4 @@
       <app-promotions-form></app-promotions-form>
     </section>
   </div>
-</div> -->
+</div>

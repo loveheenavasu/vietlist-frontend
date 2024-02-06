@@ -30,6 +30,7 @@ import {
 import { BusinessService } from '../../service/business.service'
 import { LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
+import { PromotionsFormComponent } from '../promotions-form/promotions-form.component'
 
 @Component({
   selector: 'app-list-business',
@@ -129,8 +130,8 @@ export class ListBusinessComponent {
   zipcode: any
 
   getAddress(place: any) {
-  
-    
+
+
     this.state = ''
     this.country = ''
     this.city = ''
@@ -152,10 +153,10 @@ export class ListBusinessComponent {
         }
       })
     })
-      // Get latitude and longitude
-      this.latitude = place.geometry.location.lat()
-      this.longitude = place.geometry.location.lng()
-      this.initMap()
+    // Get latitude and longitude
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
+    this.initMap()
     // this.address = place['formatted_address'];
     // this.phone = this.getPhone(place);
     // this.formattedAddress = place['formatted_address'];
@@ -192,10 +193,10 @@ export class ListBusinessComponent {
   initMap() {
     console.log(this.latitude, this.longitude, "LATLNG");
     let map;
-  
+
     // Get the map container element by its ID
     const mapElement = document.getElementById('map');
-  
+
     // Ensure that the map element is not null
     if (mapElement !== null) {
       // Create a new Google Map instance
@@ -203,7 +204,7 @@ export class ListBusinessComponent {
         center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
         zoom: 13,
       });
-  
+
       if (this.latitude && this.longitude) {
         // Add a marker to the map
         const marker = new google.maps.Marker({
@@ -216,7 +217,7 @@ export class ListBusinessComponent {
       console.error('Map element not found');
     }
   }
-  
+
 
   onTagSelectionChange() {
     const tagNames = this.post_tags

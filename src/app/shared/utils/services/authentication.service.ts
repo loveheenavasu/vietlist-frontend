@@ -38,13 +38,14 @@ export class AuthenticationService {
     } else {
       this.isSubscriptionSubject.next(false)
     }
-    this.localstorageservice.saveData('subscriptionStatus', JSON.stringify(this.subscriptionStatus))
+    this.localstorageservice.saveData('subscriptionStatus', this.subscriptionStatus)
   }
 
   public checkSubscriptionStatus() {
-
     const checkSubscriptionStatus = this.localstorageservice.getData('subscriptionStatus')
-    if (checkSubscriptionStatus == 'active') {
+    console.log("behaviour", checkSubscriptionStatus)
+
+    if (checkSubscriptionStatus == "active") {
       return true
     } else {
       return false
@@ -52,7 +53,7 @@ export class AuthenticationService {
   }
 
   public isSubscriptionStatus(): boolean {
-    console.log("check the value of subscription", this.isSubscriptionSubject.value)
+    // console.log("check the value of subscription", this.isSubscriptionSubject.value)
     return this.isSubscriptionSubject.value
   }
 

@@ -11,6 +11,7 @@ export interface RegisteredUserResponse {
   user_role: string
   user_status: string
   user_url: string
+  status: string
 }
 
 export interface AuthResponse {
