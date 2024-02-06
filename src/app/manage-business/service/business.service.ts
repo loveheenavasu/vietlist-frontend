@@ -1,13 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { GenericHelper, Endpoints, AuthenticationService } from '@vietlist/shared'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { BusinessCategoryResponse, TagsResponse } from './business.interface'
 
 @Injectable({
   providedIn: 'root',
 })
 export class BusinessService {
+  public storePostId = new BehaviorSubject<any>('')
   constructor(private http: HttpClient , private authService:AuthenticationService) {}
 
   public getBusinessCat(): Observable<BusinessCategoryResponse> {

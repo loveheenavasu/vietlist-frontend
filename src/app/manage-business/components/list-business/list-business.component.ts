@@ -1,3 +1,4 @@
+import { Router, RouterOutlet } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import {
   BusinessCategoryResponse,
@@ -30,6 +31,7 @@ import {
 import { BusinessService } from '../../service/business.service'
 import { LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
+import { PromotionsFormComponent } from '../promotions-form/promotions-form.component'
 
 @Component({
   selector: 'app-list-business',
@@ -52,6 +54,7 @@ import Swal from 'sweetalert2'
     NgClass,
     NgFor,
     NgIf,
+    RouterOutlet
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
@@ -91,6 +94,7 @@ export class ListBusinessComponent {
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
+    private router:Router
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -252,10 +256,12 @@ export class ListBusinessComponent {
     })
   }
 
+  localstoragePostId:any
   getBusinessFormDetails() {
     this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
         this.businessFormDetails = res.data
+        this.localstoragePostId = this.localStorageService.getData("postId")
         console.log(this.businessFormDetails)
       },
     })
@@ -284,8 +290,10 @@ export class ListBusinessComponent {
       next: (res) => {
         this.addBusinessFormData = res
         this.postId = res.post_id
+        this.businessService.storePostId.next(this.postId)
         this.localStorageService.saveData('postId', this.postId)
         this.getBusinessFormDetails()
+        this.router.navigate(['/list-business/add-subsciption-details', this.postId])
         Swal.fire({
           toast: true,
           text: 'Business Information added successfully!',

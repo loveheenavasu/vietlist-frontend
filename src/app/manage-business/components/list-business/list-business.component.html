@@ -107,7 +107,6 @@
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
               @for (key of selectedDefaultCategories; track $index) {
               <mat-option [value]="key.id">{{ key.name }}</mat-option>
@@ -117,11 +116,6 @@
               >The default category can affect the listing URL and map
               marker.</small
             >
-=======
-            <input class="input-control" type="text" formControlName="default_category" readonly />
-            <small class="form-text text-muted d-block">The default category can affect the listing URL and map
-              marker.</small>
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -129,7 +123,6 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <ng-select
               class="select2-selection"
               [items]="tags"
@@ -141,11 +134,6 @@
               [ngModelOptions]="{ standalone: true }"
               (ngModelChange)="onTagSelectionChange()"
             >
-=======
-            <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="name" [multiple]="true"
-              placeholder="Select Tags" [(ngModel)]="post_tags" [ngModelOptions]="{ standalone: true }"
-              (change)="onTagSelectionChange()">
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small>
@@ -257,7 +245,6 @@
             <label class="listing-form-label">Business email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-<<<<<<< HEAD
             <input
               class="input-control"
               formControlName="business_email"
@@ -272,9 +259,6 @@
             @if (businessInfoForm.get('business_email')?.hasError('pattern')) {
               <span class="error-message">Enter valid email</span>
             }
-=======
-            <input class="input-control" formControlName="business_email" placeholder="Enter the business email" />
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -293,19 +277,12 @@
       </section>
     </form>
 
-<<<<<<< HEAD
-    <!-- @if(businessFormDetails?.business_email !== null){
-      @if(addBusinessFormData?.status == true){
+    <router-outlet></router-outlet>
+ <!-- @if(businessFormDetails?.business_email !== null && localstoragePostId){
     <section>
       <app-subscription-form></app-subscription-form>
     </section>      
-  }
-=======
-    <section>
-      <app-subscription-form></app-subscription-form>
-    </section>
-
->>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
+  } -->
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>
@@ -316,4 +293,4 @@
       <app-promotions-form></app-promotions-form>
     </section>
   </div>
-</div> -->
+</div> 
