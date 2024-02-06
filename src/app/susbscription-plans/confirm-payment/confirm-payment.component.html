@@ -1,20 +1,25 @@
-<!-- <div class="container-fluid g-0">
+<section class="banner">
+  <div class="content">
+    <h1>Membership Checkout</h1>
+  </div>
+</section>
+
+<div class="container-fluid g-0">
   <div class="container">
     <div class="form-cnt">
-      <div class="row">
-        <div class="col-12 col-md-6">
-          
-        </div>
-        <div class="col-12">
-          <h1 class="text-center form-heading">Payment</h1>
-        </div>
-      </div>
       <form
         #checkout="ngForm"
         (ngSubmit)="onSubmit(checkout)"
         class="checkout mt-4"
       >
-        <div class="form-row">
+      <div class="form-row mt-4">
+        <label for="billing-address-element" class="card-details"
+          >Billing Address</label
+        >
+        <div id="billing-address-element" #billingAddressElement></div>
+      </div>
+
+        <div class="form-row mt-4">
           <label for="card-info" class="card-details">Card Details</label>
           <div id="card-info" #cardInfo class="custom-card-element"></div>
 
@@ -28,85 +33,11 @@
           </div>
         </div>
 
-        <div class="form-row mt-4">
-          <label for="billing-address-element" class="card-details"
-            >Address</label
-          >
-          <div id="billing-address-element" #billingAddressElement></div>
-        </div>
+     
         <button type="submit btn btn-orange-b" class="custom-pay-button">
           Pay
         </button>
       </form>
     </div>
   </div>
-</div> -->
-
-
-<div class="container">
-  <form
-  #checkout="ngForm"
-  (ngSubmit)="onSubmit(checkout)"
-  class="checkout mt-4"
->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-cnt">
-      
-        <div class="row">
-          <div class="col-12">
-            <h1 class="text-center form-heading">Billing Details</h1>
-          </div>
-        </div>
-      
-  
-          <div class="form-row mt-4">
-            <label for="billing-address-element" class="card-details"
-              >Address</label
-            >
-            <div id="billing-address-element" #billingAddressElement></div>
-          </div>
-   
-
-      </div>
-    </div>
-
-
-    <div class="col-md-6">
-      <div class="form-cnt">
-        <div class="row">
-          <div class="col-12 col-md-6">
-            
-          </div>
-          <div class="col-12">
-            <h1 class="text-center form-heading">Payment</h1>
-          </div>
-        </div>
-        <form
-          #checkout="ngForm"
-          (ngSubmit)="onSubmit(checkout)"
-          class="checkout mt-4"
-        >
-          <div class="form-row">
-            <label for="card-info" class="card-details">Card Details</label>
-            <div id="card-info" #cardInfo class="custom-card-element"></div>
-  
-            <div
-              id="card-errors"
-              role="alert"
-              *ngIf="error"
-              class="error-message"
-            >
-              {{ error.message }}
-            </div>
-          </div>
-          <button type="submit btn btn-orange-b" class="custom-pay-button">
-            Pay
-          </button>
-        </form>
-      </div>
-    </div>
-
-  </div>
-</form>
 </div>

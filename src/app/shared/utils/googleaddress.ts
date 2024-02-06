@@ -70,10 +70,10 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   private reverseGeocode(latitude: number, longitude: number) {
     const geocoder = new google.maps.Geocoder()
     const latlng = { lat: latitude, lng: longitude }
-    geocoder.geocode({ location: latlng }, (results, status) => {
+    geocoder.geocode({ location: latlng }, (results:any, status:any) => {
       if (status === 'OK') {
         if (results && results[0]) {
-          const country = results[0].address_components.find((component) =>
+          const country = results[0].address_components.find((component:any) =>
             component.types.includes('country'),
           )
           if (country) {
@@ -93,9 +93,9 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   private reverseGeocodeFromAddress() {
     const address = this.autocompleteInput
     const geocoder = new google.maps.Geocoder()
-    geocoder.geocode({ address: address }, (results, status) => {
+    geocoder.geocode({ address: address }, (results:any, status:any) => {
       if (status === 'OK' && results && results.length > 0) {
-        const country = results[0].address_components.find((component) =>
+        const country = results[0].address_components.find((component:any) =>
           component.types.includes('country'),
         )
         if (country) {

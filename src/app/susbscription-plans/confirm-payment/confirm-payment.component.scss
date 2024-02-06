@@ -1,8 +1,8 @@
 @import "../../../assets/scss/common";
-
+@import "../../../assets/scss/banner";
 
 .container{
-    margin-top:10em;
+    margin-top:5rem;
     margin-bottom:10em;
     // display:flex;
     // align-items: center;
@@ -27,11 +27,9 @@
 
 label{
   color:var(--dark-grey);
-  font-size:16px;
-  font-weight:400;
+  font-size:25px;
+  font-weight:500;
   margin-bottom:10px;
-  background-color: rgb(235 235 235);
-  font-family: Roboto Slab;
   width:100%;
   padding:5px 8px;
   border-radius:2px
