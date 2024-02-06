@@ -13,6 +13,7 @@ import {
   SubscriptionFormComponent
 } from './manage-business'
 import { BusinessCategories } from './categories'
+import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component';
 
 export default [
   {
@@ -57,6 +58,10 @@ export default [
       {
         path:'business-bio/:id',
         loadComponent:()=>BusinessBioComponent
+      },
+      {
+        path:'booking-consulation/:id',
+        loadComponent:()=>ConsultationFormComponent
       }
     ]
 
