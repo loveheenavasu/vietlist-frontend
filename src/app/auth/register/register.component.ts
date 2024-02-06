@@ -164,6 +164,7 @@ export class RegisterComponent {
         next: (res) => {
           this.loader = false
           this.sessionServce.userRole.next(res?.data?.user?.user_role)
+
           console.log(res)
           if (res) {
             this.localStorageServce.saveData(
@@ -171,6 +172,7 @@ export class RegisterComponent {
               JSON.stringify(res?.data?.user),
             )
             this.localStorageServce.saveData('loginInfo', JSON.stringify(res.data.user))
+            this.sessionServce.setSubscriptonStatus(res.data.user.status)
           }
           Swal.fire({
             toast: true,
