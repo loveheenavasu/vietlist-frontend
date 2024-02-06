@@ -11,8 +11,8 @@
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Information</strong>
         </li>
         <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
-          ><strong>Subscriptions &amp; Verification</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
+            Verification</strong>
         </li>
         <li>
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
@@ -86,14 +86,8 @@
             </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="6"
-              placeholder="Enter the business description"
-              formControlName="post_content"
-            ></textarea>
+            <textarea name="" id="" cols="30" rows="6" placeholder="Enter the business description"
+              formControlName="post_content"></textarea>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -113,6 +107,7 @@
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
               @for (key of selectedDefaultCategories; track $index) {
               <mat-option [value]="key.id">{{ key.name }}</mat-option>
@@ -122,6 +117,11 @@
               >The default category can affect the listing URL and map
               marker.</small
             >
+=======
+            <input class="input-control" type="text" formControlName="default_category" readonly />
+            <small class="form-text text-muted d-block">The default category can affect the listing URL and map
+              marker.</small>
+>>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -129,6 +129,7 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <ng-select
               class="select2-selection"
               [items]="tags"
@@ -140,6 +141,11 @@
               [ngModelOptions]="{ standalone: true }"
               (ngModelChange)="onTagSelectionChange()"
             >
+=======
+            <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="name" [multiple]="true"
+              placeholder="Select Tags" [(ngModel)]="post_tags" [ngModelOptions]="{ standalone: true }"
+              (change)="onTagSelectionChange()">
+>>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small>
@@ -205,12 +211,7 @@
             <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              [(ngModel)]="latitude"
-              [ngModelOptions]="{ standalone: true }"
-              readonly
-            />
+            <input class="input-control" [(ngModel)]="latitude" [ngModelOptions]="{ standalone: true }" readonly />
           </div>
         </div>
      
@@ -219,12 +220,7 @@
             <label class="listing-form-label">Address Longitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              [(ngModel)]="longitude"
-              [ngModelOptions]="{ standalone: true }"
-              readonly
-            />
+            <input class="input-control" [(ngModel)]="longitude" [ngModelOptions]="{ standalone: true }" readonly />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -261,6 +257,7 @@
             <label class="listing-form-label">Business email <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
+<<<<<<< HEAD
             <input
               class="input-control"
               formControlName="business_email"
@@ -275,6 +272,9 @@
             @if (businessInfoForm.get('business_email')?.hasError('pattern')) {
               <span class="error-message">Enter valid email</span>
             }
+=======
+            <input class="input-control" formControlName="business_email" placeholder="Enter the business email" />
+>>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -282,7 +282,7 @@
             <label class="listing-form-label">Website Url</label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" placeholder="Enter the website url" formControlName="website"/>
+            <input class="input-control" placeholder="Enter the website url" formControlName="website" />
           </div>
         </div>
         <div style="width: 100%; text-align: end">
@@ -293,17 +293,27 @@
       </section>
     </form>
 
+<<<<<<< HEAD
     <!-- @if(businessFormDetails?.business_email !== null){
       @if(addBusinessFormData?.status == true){
     <section>
       <app-subscription-form></app-subscription-form>
     </section>      
   }
+=======
+    <section>
+      <app-subscription-form></app-subscription-form>
+    </section>
+
+>>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
     <section class="my-4">
       <app-business-bio></app-business-bio>
     </section>
     <section class="my-4">
       <app-consultation-form></app-consultation-form>
+    </section>
+    <section class="my-4">
+      <app-promotions-form></app-promotions-form>
     </section>
   </div>
 </div> -->

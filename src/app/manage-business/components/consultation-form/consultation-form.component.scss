@@ -1,2 +1,37 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
+
+
+.upload-instruction {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.opening-hours {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+
+.table-heading {
+    --bs-table-bg: #e9ecef;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    --bs-table-bg: #ffffff;
+    --bs-table-striped-bg: #ffff;
+}
+
+.table-striped tbody tr:nth-child(even) {
+    --bs-table-bg: #f2f2f2;
+}
+
+.fa-minus-circle {
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.fa-plus-circle {
+    color: #1e73be;
+    cursor: pointer;
+}

@@ -43,6 +43,7 @@ import Swal from 'sweetalert2'
     SubscriptionFormComponent,
     BusinessBioComponent,
     ConsultationFormComponent,
+    PromotionsFormComponent,
     FormsModule,
     ReactiveFormsModule,
     AutocompleteComponent,

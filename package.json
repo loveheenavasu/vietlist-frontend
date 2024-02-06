@@ -26,11 +26,16 @@
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.3",
     "@fireflysemantics/angular-stripe-service": "^1.0.7",
+<<<<<<< HEAD
     "@ng-select/ng-select": "^12.0.7",
+=======
+    "@ng-select/ng-select": "^12.0.6",
+>>>>>>> 5a752a0cfb366f40b7348539cb6f2d916f9f3975
     "@stripe/stripe-js": "^2.4.0",
     "bootstrap": "^5.3.2",
     "express": "^4.18.2",
     "google-libphonenumber": "^3.2.34",
+    "i": "^0.3.7",
     "intl-tel-input": "^17.0.3",
     "jquery": "^3.6.0",
     "ngx-bootstrap": "^12.0.0",
@@ -39,6 +44,7 @@
     "ngx-intl-tel-input": "^3.2.0",
     "ngx-intl-tel-input-gg": "^1.0.10",
     "ngx-stripe": "^17.0.1",
+    "npm": "^10.4.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.4",
     "swiper": "^11.0.5",

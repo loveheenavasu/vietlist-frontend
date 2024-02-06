@@ -53,4 +53,8 @@ export class HomepageComponent {
   public findBusiness() {
     this.router.navigateByUrl('/find-business')
   }
+
+  public listBusiness() {
+    this.router.navigateByUrl('/benefits-of-joining')
+  }
 }

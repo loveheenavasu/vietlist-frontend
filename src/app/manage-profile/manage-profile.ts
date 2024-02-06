@@ -7,12 +7,12 @@ import {
 } from '@vietlist/shared'
 import { FullPageLoaderService } from '../shared/utils/services/loader.service'
 import { EditProfileComponent } from './components'
-import { NgIf } from '@angular/common'
+import { NgClass, NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent, NgIf],
+  imports: [EditProfileComponent, NgIf, NgClass],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -23,6 +23,7 @@ export class ManageProfileComponent {
   public sidebarMenu: ProfileMenu[] = []
   public userEmail: any
   public imgUrl: any
+  activeIndex: number = 0;
 
   constructor(
     private sidebarService: SidebarService,
@@ -59,5 +60,9 @@ export class ManageProfileComponent {
 
   public openFileInput(event: any) {
     this.handleFileInput(event)
+  }
+  addClass(index: number) {
+    this.activeIndex = index
+
   }
 }

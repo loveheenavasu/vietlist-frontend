@@ -1,14 +1,16 @@
 @import "../../../assets/scss/common.scss";
 
-.main-container   {
-    // max-width: 1140px;   
-    margin-top:9rem;
-    margin-bottom:6rem
+.main-container {
+    max-width: 1140px;
+    margin-top: 9rem;
+    margin-bottom: 6rem
 }
 
 h1 {
     @extend %sh-styles;
     font-size: 32px !important;
+
+
 }
 
 p {
@@ -80,11 +82,17 @@ p {
             color: var(--primary-color-blue);
             margin-top: 16px;
             transition: color 0.1s ease-in-out;
+
+            span {
+                font-size: 32px;
+                color: #146EB4;
+            }
+
         }
 
         span {
             font-size: 20px;
-            color: #999999;
+            color: #146EB4;
             margin-left: 4px;
             transition: color 0.1s ease-in-out;
         }
@@ -94,7 +102,11 @@ p {
         background-color: var(--primary-color-blue);
 
         h1 {
-            color: var(--light-grey)
+            color: var(--light-grey);
+
+            span {
+                color: var(--light-grey);
+            }
         }
 
         span {
@@ -120,17 +132,22 @@ p {
 
         li {
             position: relative;
-            padding-left: 25px;
             margin-bottom: 22px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: var(--font-weight-normal);
-            color: var(--dark-grey);
+            color: #555;
+            display: flex;
+
+            i {
+                color: var(--primary-color-orange);
+            }
         }
 
         .tick-icon {
             display: inline-block;
-            width: 16px;
-            height: 13px;
+            margin-top: 5px;
+            width: 13px;
+            height: 15px;
             background: url('/assets/icons/tick.svg') center center no-repeat;
             background-size: cover;
             margin-right: 15px;

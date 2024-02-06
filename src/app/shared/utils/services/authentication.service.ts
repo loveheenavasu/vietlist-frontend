@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   public setSubscriptonStatus(status: string) {
     this.subscriptionStatus = status
-    if (status) {
+    if (status == 'active') {
       this.isSubscriptionSubject.next(true)
     } else {
       this.isSubscriptionSubject.next(false)
@@ -52,6 +52,7 @@ export class AuthenticationService {
   }
 
   public isSubscriptionStatus(): boolean {
+    console.log("check the value of subscription", this.isSubscriptionSubject.value)
     return this.isSubscriptionSubject.value
   }
 

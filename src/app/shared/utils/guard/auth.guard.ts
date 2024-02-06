@@ -38,6 +38,7 @@ export class AuthGuard implements CanActivate {
     // }
     this.sessionService.isSubscription$.subscribe((res) => {
       this.subscriptionStatus = res
+      console.log("check the subscription status", res)
     })
 
   }
