@@ -1,5 +1,5 @@
 import { Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ForgotPasswordComponent } from '../public-api'
 import { NgFor, NgIf } from '@angular/common'
@@ -40,6 +40,8 @@ import { UserSessionService } from 'src/app/shared/utils/services/user-session.s
 export class LoginComponent {
   loginForm!: FormGroup
   isHidePassword: boolean = false
+  widths?:any
+  innerWidth?:any
   public loader: boolean = false
 
   /**
@@ -49,6 +51,12 @@ export class LoginComponent {
    * @param authService
    * @param fb
    */
+
+  // @HostListener('window:resize', ['$event'])
+  //   console.log("resize",event)
+  //   this.screenSize = event
+
+
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -62,11 +70,28 @@ export class LoginComponent {
       password: ['', Validators.required],
     })
   }
-  public forgotPassword() {
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
+     console.log( this.innerWidth ,' this.innerWidth ')
+      if (this.innerWidth < 1000) {
+      this.widths = '100%'
+    } else {
+      this.widths = '35% '
+    }
+  }
+public forgotPassword() {
+   
     this.dialog.open(ForgotPasswordComponent, {
-      width: '35%',
+
+
+      width: this.widths,
+
     })
   }
+
+
+
 
   public navigateToRegister() {
     this.router.navigateByUrl('/register')
