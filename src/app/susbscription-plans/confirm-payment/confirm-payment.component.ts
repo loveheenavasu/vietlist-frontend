@@ -6,9 +6,9 @@ import {
   ChangeDetectorRef,
 } from '@angular/core'
 import { NgForm, FormsModule } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
-import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
 import { NgFor, NgIf } from '@angular/common'
@@ -46,6 +46,8 @@ export class ConfirmPaymentComponent {
     private sessionService: AuthenticationService,
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
+    public router:Router,
+    private localStorageService:LocalStorageService
   ) {}
 
   ngOnInit() {
@@ -185,6 +187,10 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        if(res.status == "active"){
+          this.localStorageService.saveData("userStatus" , "true")
+        }
+        this.router.navigateByUrl('/manage-profile')
       },
     })
   }

@@ -252,9 +252,10 @@ export class ListBusinessComponent {
   }
 
   getBusinessFormDetails() {
-    this.businessService.getBusiness().subscribe({
+    this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
         this.businessFormDetails = res.data
+        console.log(this.businessFormDetails)
       },
     })
   }
@@ -281,6 +282,7 @@ export class ListBusinessComponent {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.addBusinessFormData = res
+        this.postId = res.post_id
         this.localStorageService.saveData('postId', this.postId)
         this.getBusinessFormDetails()
         Swal.fire({

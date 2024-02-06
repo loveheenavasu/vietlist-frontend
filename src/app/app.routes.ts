@@ -8,9 +8,9 @@ import { PageNotFoundComponent } from './common-ui'
 import {
   BenefitsOfJoiningComponent,
   FindBusinessComponent,
-  ListBusinessComponent,
-  ListingBusinessComponent,
+  ListBusinessComponent
 } from './manage-business'
+import { BusinessCategories } from './categories'
 
 export default [
   {
@@ -53,8 +53,8 @@ export default [
     loadComponent: () => BenefitsOfJoiningComponent,
   },
   {
-    path: 'listing-business',
-    loadComponent: () => ListingBusinessComponent,
+    path: 'business-categories',
+    loadComponent: () => BusinessCategories,
   },
   {
     path: '**',

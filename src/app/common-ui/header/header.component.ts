@@ -20,6 +20,7 @@ import Swal from 'sweetalert2'
     RouterLink,
     MatIconModule,
     LoginComponent,
+
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -71,6 +72,7 @@ export class HeaderComponent {
     private router: Router,
     public dialog: MatDialog,
     private sessionservice: AuthenticationService,
+
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
