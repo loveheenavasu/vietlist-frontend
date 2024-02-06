@@ -139,7 +139,7 @@
       <p>&nbsp;</p>
       <p>
         Let the world discover the brilliance you bring :
-        <a (click)="handleAddBusiness()" data-wplink-edit="true">Add new
+        <a [routerLink]="['/list-business']" data-wplink-edit="true">Add new
           business&nbsp;</a>
       </p>
     </div>
@@ -159,9 +159,9 @@
         let’s continue this journey of growth together.
       </p>
       <p>&nbsp;</p>
-      <p>
+      <p class="login">
         Access and optimize your business listing:
-        <a (click)="backToLogin()"> Log in </a>
+        <a [routerLink]="['/login']"> Log in </a>
       </p>
     </div>
 

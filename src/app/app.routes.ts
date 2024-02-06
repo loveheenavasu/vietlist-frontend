@@ -46,6 +46,7 @@ export default [
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
+
   },
   {
     path: 'benefits-of-joining',

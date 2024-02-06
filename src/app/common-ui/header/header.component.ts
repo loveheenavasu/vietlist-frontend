@@ -79,6 +79,7 @@ export class HeaderComponent {
 
     if (data) {
       this.userRole = data?.user_role
+      // console.log("check role", data)
     }
     this.sessionservice.isSubscription$.subscribe((res) => {
       this.subscriptionStatus = res
