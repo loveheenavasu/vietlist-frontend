@@ -1,6 +1,6 @@
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { FormsModule } from '@angular/forms'
@@ -14,6 +14,10 @@ import { FormsModule } from '@angular/forms'
 })
 export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef;
+  @Output() formSubmit = new EventEmitter<void>()
+  @Input() set consultationData(value: any) {
+    
+  }
   title = 'dropzone'
   files: File[] = []
   showTimeTable: boolean = false;

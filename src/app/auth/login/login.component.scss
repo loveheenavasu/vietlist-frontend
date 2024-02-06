@@ -82,3 +82,9 @@
   color: #1E73bE;
   cursor: pointer
 }
+
+@media screen and (max-width:720px){
+  .my-custom-panel{
+    width:90% !important;
+  }
+}

@@ -17,6 +17,11 @@ export class AuthenticationService {
   private loginInfo: any
   private registerUserInfo: any
 
+  /**
+   * 
+   * @param localstorageservice 
+   */
+
   constructor(private localstorageservice: LocalStorageService) {
     this.isAuthenticatedSubject = new BehaviorSubject<boolean>(
       this.checkAuthentication(),
@@ -90,6 +95,7 @@ export class AuthenticationService {
     this.localstorageservice.removeData('loginInfo')
     this.localstorageservice.removeData('vietlist::user')
     this.localstorageservice.removeData('subscriptionStatus')
+    this.localstorageservice.removeData('postId')
   }
 
   // Get the authentication token

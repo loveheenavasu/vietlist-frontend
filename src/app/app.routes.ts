@@ -50,20 +50,6 @@ export default [
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
-    children:[
-      {
-      path:'add-subsciption-details/:id',
-      loadComponent:()=>SubscriptionFormComponent
-      },
-      {
-        path:'business-bio/:id',
-        loadComponent:()=>BusinessBioComponent
-      },
-      {
-        path:'booking-consulation/:id',
-        loadComponent:()=>ConsultationFormComponent
-      }
-    ]
 
   },
   {

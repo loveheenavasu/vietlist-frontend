@@ -8,20 +8,24 @@
     <div>
       <ul id="buddy-gsf-progressbar">
         <li class="active">
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Information</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Business Information</strong>
         </li>
         <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
-            Verification</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Subscriptions &amp; Verification</strong>
+        </li>
+        <li [ngClass]="isSubscriptionStepper ? 'active' : ''">
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Business Bio</strong>
         </li>
         <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Booking and Consultation</strong>
         </li>
         <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Booking and Consultation</strong>
-        </li>
-        <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Events and promotions</strong>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Events and promotions</strong>
         </li>
       </ul>
     </div>
@@ -74,42 +78,69 @@
       </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Business Title <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Business Title <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" formControlName="post_title" placeholder="Enter the title of your business" />
+            <input
+              class="input-control"
+              formControlName="post_title"
+              placeholder="Enter the title of your business"
+            />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Business Description <span class="asterik">*</span>
+            <label class="listing-form-label"
+              >Business Description <span class="asterik">*</span>
             </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <textarea name="" id="" cols="30" rows="6" placeholder="Enter the business description"
-              formControlName="post_content"></textarea>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="6"
+              placeholder="Enter the business description"
+              formControlName="post_content"
+            ></textarea>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Category <span class="asterik">*</span></label>
-          </div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category" formControlName="post_category" multiple >
-                @for (key of businessCat; track $index) {
-                <mat-option [value]="key.id">{{ key.name }}</mat-option>
-                }
-              </mat-select>
-            </div>
-        </div>
-        <div class="row my-4 px-2 align-items-center">
-          <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Category <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
+            <mat-select
+              (selectionChange)="onCategoryChange()"
+              class="vietlist-select"
+              placeholder="Category"
+              formControlName="post_category"
+              multiple
+            >
+              @for (key of businessCat; track $index) {
+                <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Default Category <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-select
+              class="vietlist-select"
+              placeholder="Default Category"
+              formControlName="default_category"
+            >
               @for (key of selectedDefaultCategories; track $index) {
-              <mat-option [value]="key.id">{{ key.name }}</mat-option>
+                <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
             <small class="form-text text-muted d-block"
@@ -120,14 +151,16 @@
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Tags<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Tags<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <ng-select
               class="select2-selection"
               [items]="tags"
               bindLabel="name"
-              bindValue="name"
+              bindValue="id"
               [multiple]="true"
               placeholder="Select Tags"
               [(ngModel)]="post_tags"
@@ -135,13 +168,17 @@
               (ngModelChange)="onTagSelectionChange()"
             >
             </ng-select>
-            <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
-              tag3).</small>
+            <small class="form-text text-muted d-block"
+              >Tags are short keywords, with no space within.(eg: tag1, tag2,
+              tag3).</small
+            >
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Address<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Address<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <AutocompleteComponent
@@ -153,62 +190,104 @@
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Country<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Country<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" placeholder="Choose a country..." [(ngModel)]="country"
-              [ngModelOptions]="{ standalone: true }" />
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Choose a country..."
+              [(ngModel)]="country"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Region<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Region<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" placeholder="Select region or type a new one" [(ngModel)]="state"
-              [ngModelOptions]="{ standalone: true }" />
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Select region or type a new one"
+              [(ngModel)]="state"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">City<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >City<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" placeholder="Select city or type a new one" [(ngModel)]="city"
-              [ngModelOptions]="{ standalone: true }" />
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Select city or type a new one"
+              [(ngModel)]="city"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Zip/Post Code<span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Zip/Post Code<span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" placeholder="Enter zip code" [(ngModel)]="zipcode"
-              [ngModelOptions]="{ standalone: true }" />
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Enter zip code"
+              [(ngModel)]="zipcode"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
         <div class="row my-4 px-2">
-          <div id="map" style="height: 450px; width: 100%;"></div>
+          <div id="map" style="height: 450px; width: 100%"></div>
         </div>
-     
+
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Address Latitude <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" [(ngModel)]="latitude" [ngModelOptions]="{ standalone: true }" readonly />
+            <input
+              class="input-control"
+              [(ngModel)]="latitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
           </div>
         </div>
-     
+
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Address Longitude <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Address Longitude <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" [(ngModel)]="longitude" [ngModelOptions]="{ standalone: true }" readonly />
+            <input
+              class="input-control"
+              [(ngModel)]="longitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -216,33 +295,52 @@
             <label class="listing-form-label">Map View</label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select class="vietlist-select" placeholder="Select Map View" formControlName="mapview">
-             <mat-option value="default view">Default View</mat-option>
-             <mat-option value="satellite view">Satellite Map</mat-option>
-             <mat-option value="hybrid view">Hybrid Map</mat-option>
-             <mat-option value="terrain view">Terrain Map</mat-option>
+            <mat-select
+              class="vietlist-select"
+              placeholder="Select Map View"
+              formControlName="mapview"
+            >
+              <mat-option value="default view">Default View</mat-option>
+              <mat-option value="satellite view">Satellite Map</mat-option>
+              <mat-option value="hybrid view">Hybrid Map</mat-option>
+              <mat-option value="terrain view">Terrain Map</mat-option>
             </mat-select>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Contact Details <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Contact Details <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <ngx-intl-tel-input [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+            <ngx-intl-tel-input
+              [cssClass]="'input-control'"
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
               [searchCountryField]="[
                 SearchCountryField.Iso2,
                 SearchCountryField.Name
-              ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15"
-              [phoneValidation]="true" [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National"
-              name="phone" formControlName="contact_phone">
+              ]"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.India"
+              [maxLength]="15"
+              [phoneValidation]="true"
+              [separateDialCode]="true"
+              [numberFormat]="PhoneNumberFormat.National"
+              name="phone"
+              formControlName="contact_phone"
+            >
             </ngx-intl-tel-input>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Business email <span class="asterik">*</span></label>
+            <label class="listing-form-label"
+              >Business email <span class="asterik">*</span></label
+            >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input
@@ -266,31 +364,63 @@
             <label class="listing-form-label">Website Url</label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" placeholder="Enter the website url" formControlName="website" />
+            <input
+              class="input-control"
+              placeholder="Enter the website url"
+              formControlName="website"
+            />
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!businessInfoForm.valid || !country || !zipcode  || !state  || !city || !tags" (click)="addBusiness()">
-            Next
+          <button
+            type="button"
+            class="btn orange-background-btn ms-auto"
+            [disabled]="
+              !businessInfoForm.valid ||
+              !country ||
+              !zipcode ||
+              !state ||
+              !city ||
+              !tags
+            "
+            (click)="addBusiness()"
+          >
+            <app-loader *ngIf="isloader"></app-loader
+            ><span *ngIf="!isloader">Next</span>
           </button>
         </div>
       </section>
     </form>
 
-    <router-outlet></router-outlet>
- <!-- @if(businessFormDetails?.business_email !== null && localstoragePostId){
-    <section>
-      <app-subscription-form></app-subscription-form>
-    </section>      
-  } -->
-    <section class="my-4">
-      <app-business-bio></app-business-bio>
-    </section>
-    <section class="my-4">
+    @if (businessFormDetails?.business_email) {
+      <section>
+        <app-subscription-form
+          (fornSubmit)="getBusinessFormDetails(postId)"
+          [subscriptionData]="businessFormDetails"
+        ></app-subscription-form>
+      </section>
+    }
+    @if (businessFormDetails && businessFormDetails?.twitter) {
+      <section class="my-4">
+        <app-business-bio
+          (fornSubmit)="getBusinessFormDetails(postId)"
+          [businessbioData]="businessFormDetails"
+        ></app-business-bio>
+      </section>
+    }
+    @if (businessFormDetails && businessFormDetails?.owner_name) {
+      <section class="my-4">
+        <app-consultation-form
+          (fornSubmit)="getBusinessFormDetails(postId)"
+          [consultationData]="businessFormDetails"
+        ></app-consultation-form>
+      </section>
+    }
+    <!-- <section class="my-4">
       <app-consultation-form></app-consultation-form>
     </section>
     <section class="my-4">
       <app-promotions-form></app-promotions-form>
-    </section>
+    </section> -->
   </div>
-</div> 
+</div>
