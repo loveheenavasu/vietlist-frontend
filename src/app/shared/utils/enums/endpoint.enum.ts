@@ -14,5 +14,6 @@ export enum Endpoints {
   Tags = "tags_data_get",
   UpdateBusiness = "business_data_update",
   BusinesssGet = "get_business_by_post_id",
-  DefaultCatApi = "default_category_data_get"
+  DefaultCatApi = "default_category_data_get",
+  FindBusiness = "business_data_search",
 }

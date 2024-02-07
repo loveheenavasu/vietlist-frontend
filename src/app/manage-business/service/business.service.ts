@@ -9,7 +9,7 @@ import { BusinessCategoryResponse, TagsResponse } from './business.interface'
 })
 export class BusinessService {
   public storePostId = new BehaviorSubject<any>('')
-  constructor(private http: HttpClient , private authService:AuthenticationService) {}
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   public getBusinessCat(): Observable<BusinessCategoryResponse> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessCategory)
@@ -23,33 +23,41 @@ export class BusinessService {
 
   public getDefaultCat(categories: number[]): Observable<TagsResponse> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.DefaultCatApi);
-  
+
     // Construct the query parameters using HttpParams
     const params = new HttpParams().set('category_ids', categories.join(','));
-  
+
     // Append the constructed parameters to the URL
     const urlWithParams = `${endpoint}?${params.toString()}`;
-  
+
     return this.http.get<TagsResponse>(urlWithParams);
   }
 
 
 
-  public addBusiness(body:any):Observable<any>{
+  public addBusiness(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddBusiness)
     const authToken = this.authService.getAuthHeaders()
-    return this.http.post<any>(endpoint , body , {headers:authToken})
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-  public updateBusiness(body:any):Observable<any>{
+  public updateBusiness(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateBusiness)
     const authToken = this.authService.getAuthHeaders()
-    return this.http.post<any>(endpoint , body , {headers:authToken})
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
   public getBusiness(post_id: string): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinesssGet);
     const authToken = this.authService.getAuthHeaders();
     const params = new HttpParams().set('post_id', post_id);
     return this.http.get<any>(endpoint, { headers: authToken, params: params });
-  } 
+  }
+
+  public findBusiness(price: number, post_category: number, posts_per_page: number): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness);
+    const authToken = this.authService.getAuthHeaders();
+    const params = new HttpParams().set('price', price).set('post_category', post_category).set('posts_per_page', posts_per_page);
+    return this.http.get<any>(endpoint, { headers: authToken, params: params });
+  }
+
 }
