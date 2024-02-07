@@ -1,5 +1,5 @@
 import { Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ForgotPasswordComponent } from '../public-api'
 import { NgFor, NgIf } from '@angular/common'
@@ -21,6 +21,7 @@ import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { AuthenticationService } from '@vietlist/shared'
+import { AnyPtrRecord } from 'dns'
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -62,10 +63,27 @@ export class LoginComponent {
       password: ['', Validators.required],
     })
   }
+screensize:any
+dialogWidth:any
+@HostListener('window:resize', ['$event'])
+onResize(event:any){
+  this.screensize = event.target.innerWidth
+  
+}
+
   public forgotPassword() {
-    this.dialog.open(ForgotPasswordComponent, {
-      width: '35%',
-    })
+    if(this.screensize > 720){
+      this.dialogWidth = '45%'
+    } else if(this.screensize < 720){
+      this.dialogWidth = '90%'; 
+    }
+
+  
+      this.dialog.open(ForgotPasswordComponent, {
+       width:this.dialogWidth
+      })
+
+   
   }
 
   public navigateToRegister() {

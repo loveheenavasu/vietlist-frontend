@@ -1,3 +1,4 @@
+import { BusinessBioComponent } from './manage-business/components/business-bio/business-bio.component';
 import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
@@ -8,9 +9,11 @@ import { PageNotFoundComponent } from './common-ui'
 import {
   BenefitsOfJoiningComponent,
   FindBusinessComponent,
-  ListBusinessComponent
+  ListBusinessComponent,
+  SubscriptionFormComponent
 } from './manage-business'
 import { BusinessCategories } from './categories'
+import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component';
 
 export default [
   {

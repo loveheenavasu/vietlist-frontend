@@ -1,3 +1,4 @@
+import { Router, RouterOutlet } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import {
   BusinessCategoryResponse,
@@ -31,6 +32,7 @@ import { BusinessService } from '../../service/business.service'
 import { LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { PromotionsFormComponent } from '../promotions-form/promotions-form.component'
+import { LoaderComponent } from 'src/app/common-ui';
 
 @Component({
   selector: 'app-list-business',
@@ -53,11 +55,14 @@ import { PromotionsFormComponent } from '../promotions-form/promotions-form.comp
     NgClass,
     NgFor,
     NgIf,
+    RouterOutlet,
+    LoaderComponent
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
 })
 export class ListBusinessComponent {
+  public isloader:boolean = false
   public latitude!: any
   public longitude!: any
   public post_tags: any[] = []
@@ -82,6 +87,11 @@ export class ListBusinessComponent {
   public selectedDefaultCategories: any[] = []
   public selected0defaultCat: any
   public addBusinessFormData: any
+  public isSubscriptionStepper:boolean = false
+  public state: any
+  public country: any
+  public city: any
+  public zipcode: any
   /**
    *
    * @param _formBuilder
@@ -92,6 +102,7 @@ export class ListBusinessComponent {
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
+    private router:Router
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -111,27 +122,24 @@ export class ListBusinessComponent {
       mapview: [''],
     })
 
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    })
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    })
+   
   }
 
   ngOnInit() {
     this.getBusinessCat()
     this.getTags()
     this.initMap()
+     const Id = this.localStorageService.getData("postId")
+    if(this.localStorageService.getData("postId")){
+      this.getBusinessFormDetails(Id)
+    }else{
+      console.log("NOT FOUND")
+    }
+   
   }
-  state: any
-  country: any
-  city: any
-  zipcode: any
+ 
 
-  getAddress(place: any) {
-
-
+  public getAddress(place: any) {
     this.state = ''
     this.country = ''
     this.city = ''
@@ -190,10 +198,9 @@ export class ListBusinessComponent {
 
   selectedTagsString = '' // String to store selected tags with commas
 
-  initMap() {
+  public initMap() {
     console.log(this.latitude, this.longitude, "LATLNG");
     let map;
-
     // Get the map container element by its ID
     const mapElement = document.getElementById('map');
 
@@ -219,12 +226,14 @@ export class ListBusinessComponent {
   }
 
 
-  onTagSelectionChange() {
-    const tagNames = this.post_tags
-    this.selectedTagsString = JSON.stringify(tagNames)
+  public onTagSelectionChange() {
+    const tagNames = this.post_tags.map(tag => tag.toString()); // Convert tag numbers to strings
+    this.selectedTagsString = tagNames.join(', '); // Convert array to string with comma separator
+    console.log(this.selectedTagsString , 'Tags');
   }
+  
 
-  getBusinessCat() {
+  public getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
@@ -232,12 +241,12 @@ export class ListBusinessComponent {
     })
   }
 
-  onCategoryChange() {
+  public onCategoryChange() {
     this.categoriesValue = this.businessInfoForm.value.post_category
     this.getDefaultCat()
   }
 
-  getTags() {
+  public getTags() {
     this.businessService.getTags().subscribe({
       next: (res: any) => {
         this.tags = res.data
@@ -245,7 +254,7 @@ export class ListBusinessComponent {
     })
   }
 
-  getDefaultCat() {
+  public getDefaultCat() {
     this.businessService.getDefaultCat(this.categoriesValue).subscribe({
       next: (res: any) => {
         this.selectedDefaultCategories = res.data
@@ -253,23 +262,52 @@ export class ListBusinessComponent {
     })
   }
 
-  getBusinessFormDetails() {
-    this.businessService.getBusiness(this.postId).subscribe({
+  
+  public getBusinessFormDetails(postId:any) {
+    this.businessService.getBusiness(this.postId?this.postId:postId).subscribe({
       next: (res) => {
-        this.businessFormDetails = res.data
-        console.log(this.businessFormDetails)
+        this.businessFormDetails = res?.data?.[0] || null;
+        console.log(this.businessFormDetails);
+        this._mapFormValue(this.businessFormDetails);
       },
     })
   }
 
-  addBusiness(val?: any) {
+  private _mapFormValue(value: any) {
+    const controls = [
+      'post_title',
+      'contact_phone',
+      'business_email',
+      'post_category',
+      'default_category',
+      'post_content',
+      'website',
+      'mapview',
+    ];
+
+    controls?.forEach((control) => {
+      this.businessInfoForm?.get(control)?.patchValue(value?.[control] || '');
+    });
+
+    this.state = value?.region;
+    this.country = value?.country;
+    this.city = value?.city;
+    this.zipcode = value?.zip;
+    this.latitude = value?.latitude;
+    this.longitude = value?.longitude;
+
+  }
+
+  public addBusiness(val?: any) {
+    this.isloader = true
     const body = {
+
       post_title: this.businessInfoForm.value.post_title,
       contact_phone: parseInt(
         this.businessInfoForm.value.contact_phone?.e164Number,
       ),
       business_email: this.businessInfoForm.value.business_email,
-      post_category: this.categoriesValue.join(','),
+      post_category: this.businessInfoForm.value.post_category.join(', '),
       default_category: this.businessInfoForm.value.default_category,
       latitude: this.latitude,
       longitude: this.longitude,
@@ -279,14 +317,43 @@ export class ListBusinessComponent {
       zip: this.zipcode,
       post_content: this.businessInfoForm.value.post_content,
       website: this.businessInfoForm.value.website,
-      tags: this.selectedTagsString,
+      post_tags: this.selectedTagsString
     }
+    if(this.businessFormDetails){
+      this.businessService.updateBusiness(body).subscribe({
+        next: (res) => {
+          this.isloader = false
+          this.addBusinessFormData = res
+          this.postId = res.post_id
+          this.businessService.storePostId.next(this.postId)
+          this.localStorageService.saveData('postId', this.postId)
+          this.isSubscriptionStepper = true
+          this.getBusinessFormDetails(this.postId)
+          Swal.fire({
+            toast: true,
+            text: 'Business Information updated successfully!',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+        },
+        error:(err)=>{
+          this.isloader = false
+        }
+      })
+    } else {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
+        this.isloader = false
         this.addBusinessFormData = res
         this.postId = res.post_id
+        this.businessService.storePostId.next(this.postId)
         this.localStorageService.saveData('postId', this.postId)
-        this.getBusinessFormDetails()
+        this.isSubscriptionStepper = true
+        this.getBusinessFormDetails(this.postId)
         Swal.fire({
           toast: true,
           text: 'Business Information added successfully!',
@@ -298,6 +365,13 @@ export class ListBusinessComponent {
           timerProgressBar: true,
         })
       },
+      error:(err)=>{
+        this.isloader = false
+      }
     })
   }
+  }
+
 }
+
+

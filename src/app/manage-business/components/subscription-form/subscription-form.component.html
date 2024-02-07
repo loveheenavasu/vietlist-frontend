@@ -3,6 +3,7 @@
     <h1 class="listing-form-heading">Subscription & Verification</h1>
   </div>
 </div>
+<form [formGroup]="subscriptionForm">
 <div class="row my-3 px-2">
   <div class="col-12 col-md-12">
     <div class="form-check">
@@ -65,7 +66,7 @@
     >
   </div>
   <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Facebook url" />
+    <input class="input-control" placeholder="Enter Facebook url" formControlName="facebook"/>
   </div>
 </div>
 <div class="row my-3 px-2">
@@ -75,7 +76,7 @@
     >
   </div>
   <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Instagram url" />
+    <input class="input-control" placeholder="Enter Instagram url" formControlName="instagram"/>
   </div>
 </div>
 <div class="row my-3 px-2">
@@ -85,12 +86,13 @@
     >
   </div>
   <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Twitter url" />
+    <input class="input-control" placeholder="Enter Twitter url" formControlName="twitter"/>
   </div>
 </div>
 
 <div style="width: 100%; text-align: end">
-  <button type="button" class="btn orange-background-btn ms-auto" (click)="updateBusinessSubscription()">
-    Next
+  <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!subscriptionForm.valid" (click)="addBusiness()">
+   <app-loader *ngIf="isLoader"></app-loader> <span *ngIf="!isLoader">Next</span>
   </button>
 </div>
+</form>

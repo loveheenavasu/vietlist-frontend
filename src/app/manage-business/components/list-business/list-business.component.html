@@ -14,7 +14,7 @@
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
             Verification</strong>
         </li>
-        <li>
+        <li [ngClass]="isSubscriptionStepper ? 'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
         </li>
         <li>
@@ -108,7 +108,11 @@
             <label class="listing-form-label">Default Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="input-control" type="text" formControlName="default_category" readonly />
+            <mat-select class="vietlist-select" placeholder="Default Category" formControlName="default_category">
+              @for (key of selectedDefaultCategories; track $index) {
+              <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              }
+            </mat-select>
             <small class="form-text text-muted d-block">The default category can affect the listing URL and map
               marker.</small>
           </div>
@@ -118,9 +122,9 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="name" [multiple]="true"
+            <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="id" [multiple]="true"
               placeholder="Select Tags" [(ngModel)]="post_tags" [ngModelOptions]="{ standalone: true }"
-              (change)="onTagSelectionChange()">
+              (ngModelChange)="onTagSelectionChange()">
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small>
@@ -175,7 +179,7 @@
           </div>
         </div>
         <div class="row my-4 px-2">
-          <div id="map" style="height: 450px; width: 100%;"></div>
+          <div id="map" style="height: 450px; width: 100%"></div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
@@ -230,6 +234,15 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input class="input-control" formControlName="business_email" placeholder="Enter the business email" />
+            @if (
+            businessInfoForm.get('business_email')?.touched &&
+            businessInfoForm.get('business_email')?.hasError('required')
+            ) {
+            <span class="error-message">Email is required</span>
+            }
+            @if (businessInfoForm.get('business_email')?.hasError('pattern')) {
+            <span class="error-message">Enter valid email</span>
+            }
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -241,27 +254,43 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn ms-auto"
-            [disabled]="!businessInfoForm.valid || !country || !zipcode  || !state  || !city || !tags"
-            (click)="addBusiness()">
-            Next
+          <button type="button" class="btn orange-background-btn ms-auto" [disabled]="
+              !businessInfoForm.valid ||
+              !country ||
+              !zipcode ||
+              !state ||
+              !city ||
+              !tags
+            " (click)="addBusiness()">
+            <app-loader *ngIf="isloader"></app-loader><span *ngIf="!isloader">Next</span>
           </button>
         </div>
       </section>
     </form>
 
+    @if (businessFormDetails?.business_email) {
     <section>
-      <app-subscription-form></app-subscription-form>
+      <app-subscription-form (fornSubmit)="getBusinessFormDetails(postId)"
+        [subscriptionData]="businessFormDetails"></app-subscription-form>
     </section>
-
+    }
+    @if (businessFormDetails && businessFormDetails?.twitter) {
     <section class="my-4">
-      <app-business-bio></app-business-bio>
+      <app-business-bio (fornSubmit)="getBusinessFormDetails(postId)"
+        [businessbioData]="businessFormDetails"></app-business-bio>
     </section>
+    }
+    <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <section class="my-4">
+      <app-consultation-form (fornSubmit)="getBusinessFormDetails(postId)"
+        [consultationData]="businessFormDetails"></app-consultation-form>
+    </section>
+    <!-- } -->
+    <!-- <section class="my-4">
       <app-consultation-form></app-consultation-form>
     </section>
     <section class="my-4">
       <app-promotions-form></app-promotions-form>
-    </section>
+    </section> -->
   </div>
 </div>

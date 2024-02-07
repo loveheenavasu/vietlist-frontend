@@ -141,7 +141,7 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div #uiContainer>
+              <div #monContainer>
                 <div class="row ">
                   <div class="col-10 d-flex">
                     <div>
@@ -160,7 +160,7 @@
             <td>
               <div class=" row">
                 <div class="col">
-                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI()"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Mon')"></i>
                 </div>
               </div>
             </td>
@@ -171,24 +171,26 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #tueContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Tue')"></i>
                 </div>
               </div>
             </td>
@@ -199,24 +201,26 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #wedContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Wed')"></i>
                 </div>
               </div>
             </td>
@@ -227,24 +231,26 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #thuContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Thu')"></i>
                 </div>
               </div>
             </td>
@@ -255,24 +261,27 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #friContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
+
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Fri')"></i>
                 </div>
               </div>
             </td>
@@ -283,24 +292,26 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #satContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Sat')"></i>
                 </div>
               </div>
             </td>
@@ -311,24 +322,26 @@
               <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
             </td>
             <td>
-              <div class="row">
-                <div class="col-10 d-flex">
-                  <div>
-                    <input class="input-control" placeholder="" />
+              <div #sunContainer>
+                <div class="row">
+                  <div class="col-10 d-flex">
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
+                    <div>
+                      <input class="input-control" placeholder="" />
+                    </div>
                   </div>
-                  <div>
-                    <input class="input-control" placeholder="" />
+                  <div class="col-2">
+                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
                   </div>
-                </div>
-                <div class="col-2">
-                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
                 </div>
               </div>
             </td>
             <td>
               <div class="row">
                 <div class="col-6">
-                  <i class=" fa fa-plus-circle" aria-hidden="true"></i>
+                  <i class=" fa fa-plus-circle" aria-hidden="true" (click)="addUI('Sun')"></i>
                 </div>
               </div>
             </td>
