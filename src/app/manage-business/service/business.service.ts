@@ -9,6 +9,8 @@ import { BusinessCategoryResponse, TagsResponse } from './business.interface'
 })
 export class BusinessService {
   public storePostId = new BehaviorSubject<any>('')
+  public isSubscriptionFormFilled = new BehaviorSubject<boolean>(false)
+  public isBusinessBioFormFilled = new BehaviorSubject<boolean>(false)
   constructor(private http: HttpClient , private authService:AuthenticationService) {}
 
   public getBusinessCat(): Observable<BusinessCategoryResponse> {
@@ -33,8 +35,6 @@ export class BusinessService {
     return this.http.get<TagsResponse>(urlWithParams);
   }
 
-
-
   public addBusiness(body:any):Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddBusiness)
     const authToken = this.authService.getAuthHeaders()
@@ -46,10 +46,16 @@ export class BusinessService {
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint , body , {headers:authToken})
   }
+
   public getBusiness(post_id: string): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinesssGet);
     const authToken = this.authService.getAuthHeaders();
-    const params = new HttpParams().set('post_id', post_id);
+    const params = new HttpParams().set('post_id', post_id)
     return this.http.get<any>(endpoint, { headers: authToken, params: params });
   } 
+
+  public uploadMedia(body:any){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UploadMedia);
+    return this.http.post<any>(endpoint, body);
+  }
 }

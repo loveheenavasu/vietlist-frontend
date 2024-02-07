@@ -1,4 +1,4 @@
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import {
   BusinessCategoryResponse,
@@ -7,7 +7,7 @@ import {
 import { MatSelectModule } from '@angular/material/select'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatCardModule } from '@angular/material/card'
-import { Component, Input } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import {
   FormBuilder,
   FormGroup,
@@ -32,7 +32,8 @@ import { BusinessService } from '../../service/business.service'
 import { LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { PromotionsFormComponent } from '../promotions-form/promotions-form.component'
-import { LoaderComponent } from 'src/app/common-ui';
+import { LoaderComponent } from 'src/app/common-ui'
+import { NgxDropzoneModule } from 'ngx-dropzone'
 
 @Component({
   selector: 'app-list-business',
@@ -56,13 +57,14 @@ import { LoaderComponent } from 'src/app/common-ui';
     NgFor,
     NgIf,
     RouterOutlet,
-    LoaderComponent
+    LoaderComponent,
+    NgxDropzoneModule,
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
 })
 export class ListBusinessComponent {
-  public isloader:boolean = false
+  public isloader: boolean = false
   public latitude!: any
   public longitude!: any
   public post_tags: any[] = []
@@ -76,7 +78,7 @@ export class ListBusinessComponent {
     CountryISO.UnitedKingdom,
   ]
   public categoriesValue: any
-  public businessCat: BusinessCategoryResponse[] = []
+  public post_category: BusinessCategoryResponse[] = []
   public tags: TagsResponse[] = []
   public isEditable = false
   public businessInfoForm!: FormGroup
@@ -87,22 +89,34 @@ export class ListBusinessComponent {
   public selectedDefaultCategories: any[] = []
   public selected0defaultCat: any
   public addBusinessFormData: any
-  public isSubscriptionStepper:boolean = false
+  public isSubscriptionStepper: boolean = false
   public state: any
   public country: any
   public city: any
   public zipcode: any
+  public localStoragePostId: any
+  public isFormFilled :boolean = false
+  public filesString: any
+  public files: File[] = []
+  public fullAddress : any
+  public imageName:any
+  public uploadMediaUrl:any
+  public isFilesPresent: boolean = false;
+  public display: any
+  public zoom = 6
+  public selectedTagsString = ''
+
   /**
    *
    * @param _formBuilder
    * @param businessService
    * @param localStorageService
    */
+
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
-    private router:Router
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -121,25 +135,63 @@ export class ListBusinessComponent {
       website: [''],
       mapview: [''],
     })
-
-   
+     this.businessService.storePostId.subscribe((res)=>{
+      this.postId = res
+    })
+    const id = localStorageService.getData('postId')
+    this.postId = Number(id)
   }
 
   ngOnInit() {
     this.getBusinessCat()
     this.getTags()
     this.initMap()
-     const Id = this.localStorageService.getData("postId")
-    if(this.localStorageService.getData("postId")){
-      this.getBusinessFormDetails(Id)
-    }else{
-      console.log("NOT FOUND")
+    const Id = this.localStorageService.getData('postId')
+    if(this.postId){
+      this.getBusinessFormDetails(this.postId)
     }
+  }
+
+
+  public onSelect(event: any) {
+    console.log(event.s);
+    if (event.addedFiles.length > 1) {
+      Swal.fire({
+        toast: true,
+        text: 'You can only upload one file.',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      
+    } else {
+      this.files.push(...event.addedFiles);
+      this.filesString = this.files.map((file) => file.name).join(', ');
+      this.isFilesPresent = true;
+    }
+  }
+
+
+ public  onRemove(event: any) {
+    console.log(event)
+    this.files.splice(this.files.indexOf(event), 1)
+    if (this.files.length === 0) {
+      this.isFilesPresent = false;
+    }
+  }
+
+  public getSafeURL(file: File): any {
+    console.log(file , "FILE")
+    console.log(URL.createObjectURL(file) , "===")
+    return URL.createObjectURL(file)
    
   }
- 
 
   public getAddress(place: any) {
+    this.fullAddress = place.formatted_address
     this.state = ''
     this.country = ''
     this.city = ''
@@ -161,82 +213,51 @@ export class ListBusinessComponent {
         }
       })
     })
-      // Get latitude and longitude
-      this.latitude = place.geometry.location.lat()
-      this.longitude = place.geometry.location.lng()
-      this.initMap()
-    // this.address = place['formatted_address'];
-    // this.phone = this.getPhone(place);
-    // this.formattedAddress = place['formatted_address'];
-    // this.zone.run(() => this.formattedAddress = place['formatted_address']);
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
+    this.initMap()
   }
 
-  display: any
-  // center: google.maps.LatLngLiteral = {
-  //   lat: 22.2736308,
-  //   lng: 70.7512555,
-  // }
-  zoom = 6
 
-  /*------------------------------------------
-    --------------------------------------------
-    moveMap()
-    --------------------------------------------
-    --------------------------------------------*/
-  // moveMap(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng != null) this.center = event.latLng.toJSON()
-  // }
-
-  /*------------------------------------------
-    --------------------------------------------
-    move()
-    --------------------------------------------
-    --------------------------------------------*/
-  // move(event: google.maps.MapMouseEvent) {
-  //   if (event.latLng != null) this.display = event.latLng.toJSON()
-  // }
-
-  selectedTagsString = '' // String to store selected tags with commas
 
   public initMap() {
-    console.log(this.latitude, this.longitude, "LATLNG");
-    let map;
+    console.log(this.latitude, this.longitude, 'LATLNG')
+    let map
     // Get the map container element by its ID
-    const mapElement = document.getElementById('map');
-  
+    const mapElement = document.getElementById('map')
+
     // Ensure that the map element is not null
     if (mapElement !== null) {
       // Create a new Google Map instance
       map = new google.maps.Map(mapElement, {
         center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
         zoom: 13,
-      });
-  
+      })
+
       if (this.latitude && this.longitude) {
         // Add a marker to the map
         const marker = new google.maps.Marker({
           position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
           map: map,
           title: 'Marker Title',
-        });
+        })
       }
     } else {
-      console.error('Map element not found');
+      console.error('Map element not found')
     }
   }
-  
 
   public onTagSelectionChange() {
-    const tagNames = this.post_tags.map(tag => tag.toString()); // Convert tag numbers to strings
-    this.selectedTagsString = tagNames.join(', '); // Convert array to string with comma separator
-    console.log(this.selectedTagsString , 'Tags');
+    const tagNames = this.post_tags.map((tag) => tag.toString()) // Convert tag numbers to strings
+    this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
+    console.log(this.selectedTagsString, 'Tags')
   }
-  
 
   public getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
-        this.businessCat = res.data
+        this.post_category = res.data
+        console.log(this.post_category , "BusinssCat")
       },
     })
   }
@@ -262,76 +283,80 @@ export class ListBusinessComponent {
     })
   }
 
-  
-  public getBusinessFormDetails(postId:any) {
-    this.businessService.getBusiness(this.postId?this.postId:postId).subscribe({
-      next: (res) => {
-        this.businessFormDetails = res?.data?.[0] || null;
-        console.log(this.businessFormDetails);
-        this._mapFormValue(this.businessFormDetails);
-      },
+  public getBusinessFormDetails(postId: any) {
+    this.businessService
+      .getBusiness(this.postId ? this.postId : postId)
+      .subscribe({
+        next: (res) => {
+          this.businessFormDetails = res?.data?.[0] || null
+          console.log(this.businessFormDetails)
+          // this._mapFormValue(this.businessFormDetails)
+          this.businessInfoForm.patchValue({
+            post_title:this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
+            post_content:this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',
+            latitude:this.latitude ? this.latitude : this.businessFormDetails.latitude ,
+            longitude:this.longitude ? this.longitude : this.businessFormDetails.longitude ,
+            street:this.businessFormDetails.street ? this.businessFormDetails.street : 'NA',
+            zip:this.businessFormDetails.zipcode ? this.businessFormDetails.zipcode : 'NA',
+            region:this.businessFormDetails.state ? this.businessFormDetails.state : 'NA',
+            city:this.businessFormDetails.city ? this.businessFormDetails.city : 'NA',
+            business_email:this.businessFormDetails.business_email ? this.businessFormDetails.business_email : 'NA',
+            contact_phone:this.businessFormDetails.contact_phone ? this.businessFormDetails.contact_phone : 'NA',
+            website:this.businessFormDetails.website ? this.businessFormDetails.website : 'Na',
+            mapview:this.businessFormDetails.mapview ? this.businessFormDetails.mapview : 'NA',
+            post_category:this.businessFormDetails.post_category
+          })
+        
+        },
+      })
+  }
+
+  public uploadMedia(){
+    this.businessService.uploadMedia(this.filesString).subscribe({
+      next:(res)=>{
+        this.uploadMediaUrl = res.image_url
+      }
     })
-  }
-
-  private _mapFormValue(value: any) {
-    const controls = [
-      'post_title',
-      'contact_phone',
-      'business_email',
-      'post_category',
-      'default_category',
-      'post_content',
-      'website',
-      'mapview',
-    ];
-
-    controls?.forEach((control) => {
-      this.businessInfoForm?.get(control)?.patchValue(value?.[control] || '');
-    });
-
-    this.state = value?.region;
-    this.country = value?.country;
-    this.city = value?.city;
-    this.zipcode = value?.zip;
-    this.latitude = value?.latitude;
-    this.longitude = value?.longitude;
-
-  }
-
+   }
+  
+  
   public addBusiness(val?: any) {
     this.isloader = true
-    const body = {
-
-      post_title: this.businessInfoForm.value.post_title,
-      contact_phone: parseInt(
-        this.businessInfoForm.value.contact_phone?.e164Number,
-      ),
-      business_email: this.businessInfoForm.value.business_email,
-      post_category: this.businessInfoForm.value.post_category.join(', '),
-      default_category: this.businessInfoForm.value.default_category,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      city: this.city,
-      region: this.state,
-      country: this.country,
-      zip: this.zipcode,
-      post_content: this.businessInfoForm.value.post_content,
-      website: this.businessInfoForm.value.website,
-      post_tags: this.selectedTagsString
-    }
-    if(this.businessFormDetails){
-      this.businessService.updateBusiness(body).subscribe({
+      const body: any = {
+        post_title: this.businessInfoForm.value.post_title,
+        contact_phone: parseInt(
+          this.businessInfoForm.value.contact_phone?.e164Number,
+        ),
+        business_email: this.businessInfoForm.value.business_email,
+        post_category: this.businessInfoForm.value.post_category.join(', '),
+        default_category: this.businessInfoForm.value.default_category,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        city: this.city,
+        region: this.state,
+        country: this.country,
+        zip: this.zipcode,
+        post_content: this.businessInfoForm.value.post_content,
+        website: this.businessInfoForm.value.website,
+        post_tags: this.selectedTagsString,
+        street:this.fullAddress,
+        logo:this.uploadMediaUrl
+      }
+      this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
           this.addBusinessFormData = res
+          this.isFormFilled = true
           this.postId = res.post_id
-          this.businessService.storePostId.next(this.postId)
           this.localStorageService.saveData('postId', this.postId)
           this.isSubscriptionStepper = true
           this.getBusinessFormDetails(this.postId)
+          const post_id = res.post_id
+          console.log(post_id , "POSTID")
+          this.businessService.storePostId.next(post_id)
           Swal.fire({
             toast: true,
-            text: 'Business Information updated successfully!',
+            text: 'Business Information added successfully!',
             animation: false,
             icon: 'success',
             position: 'top-right',
@@ -340,38 +365,11 @@ export class ListBusinessComponent {
             timerProgressBar: true,
           })
         },
-        error:(err)=>{
+        error: (err) => {
           this.isloader = false
-        }
+        },
       })
-    } else {
-    this.businessService.addBusiness(body).subscribe({
-      next: (res) => {
-        this.isloader = false
-        this.addBusinessFormData = res
-        this.postId = res.post_id
-        this.businessService.storePostId.next(this.postId)
-        this.localStorageService.saveData('postId', this.postId)
-        this.isSubscriptionStepper = true
-        this.getBusinessFormDetails(this.postId)
-        Swal.fire({
-          toast: true,
-          text: 'Business Information added successfully!',
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-      },
-      error:(err)=>{
-        this.isloader = false
-      }
-    })
-  }
-  }
+    }
+  
 
 }
-
-

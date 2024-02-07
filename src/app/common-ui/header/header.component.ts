@@ -77,14 +77,18 @@ export class HeaderComponent {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
+    this.sessionservice.userRole.subscribe((res) => {
+      this.userRole = res
+    })
     const data = this.sessionservice.getUserdata()
-
+    // console.log("check role1", data)
     if (data) {
       this.userRole = data?.user_role
       // console.log("check role", data)
     }
     this.sessionservice.isSubscription$.subscribe((res) => {
       this.subscriptionStatus = res
+      // console.log("check the subscription status", this.subscriptionStatus)
     })
 
   }
@@ -108,11 +112,11 @@ export class HeaderComponent {
   }
 
   public profile() {
-    console.log("chekc ", this.userRole)
+    // console.log("chekc ", this.userRole)
     if (this.userRole == Roles.subscriber) {
       this.router.navigateByUrl('/manage-profile')
     } else if (this.userRole == Roles.businessOwner && !this.subscriptionStatus) {
-      console.log("check2")
+      // console.log("check2")
       Swal.fire({
         toast: true,
         text: 'Please choose plan',
@@ -125,7 +129,7 @@ export class HeaderComponent {
       })
       this.router.navigateByUrl('/subscription-plans')
     } else if (this.userRole == Roles.businessOwner && this.subscriptionStatus) {
-      console.log("check3")
+      // console.log("check3")
       this.router.navigateByUrl('/manage-profile')
     }
   }

@@ -6,7 +6,28 @@
     color: #6c757d;
     font-size: 12px;
 }
-
+.main_images .images__ {
+    margin-right: 15px;
+    margin-top: 13px;
+    object-fit: cover;
+}
+.main_images {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: scroll;
+}
+div#video-preview-container{
+    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    overflow: scroll;
+}
+video{
+    margin: 13px!important;
+    text-align: center;
+}
 .opening-hours {
     color: #6c757d;
     font-size: 12px;
@@ -35,3 +56,12 @@
     color: #1e73be;
     cursor: pointer;
 }
+.form-check-input:checked {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+  }
+  
+  .form-check-label {
+    color: var(--dark-grey);
+    font-size: 15px;
+  }

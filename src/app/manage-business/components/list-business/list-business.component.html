@@ -23,10 +23,10 @@
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Booking and Consultation</strong>
         </li>
-        <li>
+        <!-- <li>
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Events and promotions</strong>
-        </li>
+        </li> -->
       </ul>
     </div>
     <form [formGroup]="businessInfoForm">
@@ -121,7 +121,7 @@
               formControlName="post_category"
               multiple
             >
-              @for (key of businessCat; track $index) {
+              @for (key of post_category; track $index) {
                 <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
@@ -371,6 +371,27 @@
             />
           </div>
         </div>
+        <div class="row px-2 my-3" >
+          <div class="col-12">
+            <label for="" class="listing-form-label mb-2">Business Logo</label>
+            <ngx-dropzone *ngIf="!files.length" (change)="onSelect($event)" [accept]="'.png,.png,.png , .webp'">
+              <ngx-dropzone-label>
+                <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here or Browse a file (Allowed .png, .png, .png, .webp)
+              </ngx-dropzone-label>
+            </ngx-dropzone>
+            
+            <div class="row selected-images" *ngIf="files.length > 0">
+                <div *ngFor="let file of files" class="mx-2">
+                  <div class="image-box">
+                    <img [src]="getSafeURL(file)" />
+                    <button (click)="onRemove(file)" class="btn orange-background-btn mt-2">Remove</button>
+                  </div>
+                </div>
+        
+            </div>
+            
+          </div>
+        </div>
         <div style="width: 100%; text-align: end">
           <button
             type="button"
@@ -395,7 +416,7 @@
     @if (businessFormDetails?.business_email) {
       <section>
         <app-subscription-form
-          (fornSubmit)="getBusinessFormDetails(postId)"
+          (formSubmit)="getBusinessFormDetails(postId)"
           [subscriptionData]="businessFormDetails"
         ></app-subscription-form>
       </section>
@@ -403,7 +424,7 @@
     @if (businessFormDetails && businessFormDetails?.twitter) {
       <section class="my-4">
         <app-business-bio
-          (fornSubmit)="getBusinessFormDetails(postId)"
+          (buinessFormSubmit)="getBusinessFormDetails(postId)"
           [businessbioData]="businessFormDetails"
         ></app-business-bio>
       </section>
@@ -411,7 +432,7 @@
     @if (businessFormDetails && businessFormDetails?.owner_name) {
       <section class="my-4">
         <app-consultation-form
-          (fornSubmit)="getBusinessFormDetails(postId)"
+          (consultationFormSubmit)="getBusinessFormDetails(postId)"
           [consultationData]="businessFormDetails"
         ></app-consultation-form>
       </section>
