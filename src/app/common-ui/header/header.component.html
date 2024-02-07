@@ -1,62 +1,45 @@
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary" style="z-index: 1000">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-xl fixed-top bg-body-tertiary" style="z-index: 1000">
+  <div class="container-fluid g-0">
     <div class="logo-container">
       <a class="navbar-brand" href="#">
         <img class="brand-logo" src="/assets/icons/brand-logo.svg" alt="brand-logo" />
       </a>
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        @for (item of navItems; track $index) {
-        <li class="nav-item">
-          <span [routerLink]="item.href" [ngClass]="{
-                'nav-link': true,
-                'nav-bar-items': true,
-                active: isRouteActive(item.href)
-              }">
-            <div>
-              {{ item.label }}
-            </div>
-            <div class="dot">
-              <p></p>
-            </div>
-          </span>
-        </li>
-        }
-        <div class="country-dropdown">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <img src="/assets/icons/united-states.svg" alt="us-flag" />
-            </a>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <span>Vietnamese</span>
-              </button>
-            </mat-menu>
+    <div class="sm-navbar d-flex">
+      <div class="search-container-sm d-flex ">
+        <div class="country-wrapper">
+          <div class="country-dropdown">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="/assets/icons/united-states.svg" alt="us-flag" />
+                </a>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                  </button>
+                </mat-menu>
 
-            <!-- <span mat-button [matMenuTriggerFor]="menu">
-                        Menu
-                        <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
-                    </span>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>Item 1</button>
-                        <button mat-menu-item>Item 2</button>
-                    </mat-menu> -->
-          </li>
+                <!-- <span mat-button [matMenuTriggerFor]="menu">
+                      Menu
+                      <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
+                  </span>
+                  <mat-menu #menu="matMenu">
+                      <button mat-menu-item>Item 1</button>
+                      <button mat-menu-item>Item 2</button>
+                  </mat-menu> -->
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="search-box">
           <div class="search-icon" (click)="handleSearchFiled()">
             <img src="/assets/icons/search-icon.svg" alt="search-icon" />
           </div>
           <div class="search row" [ngClass]="{
-              'hide-search-field': !isSearchInputVisible,
-              'show-search-Input': isSearchInputVisible
-            }">
+          'hide-search-field': !isSearchInputVisible,
+          'show-search-Input': isSearchInputVisible
+        }">
             <div class="search-input col">
               <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
             </div>
@@ -71,26 +54,110 @@
             </div>
             <div class="search-btn col-1 g-0">
               <img src="/assets/icons/search-btn.svg" alt="search-btn" />
+              <button class=" btn search-btn-mobile">Search</button>
             </div>
           </div>
         </div>
-        <div class="btn-container">
-          <div class="login-btn" *ngIf="!isLoginSuccess" >
-            <button type=" button" class="btn" (click)="login()">Login</button>
-          </div>
-          <div class="logout-btn login-btn" *ngIf="isLoginSuccess">
-            <button type=" button" class="btn" (click)="logout()">Logout</button>
-          </div>
-          <div class="sign-up-btn" *ngIf="!isLoginSuccess">
-            <button type="button" class="btn" (click)="register()">
-              Sign Up
-            </button>
-          </div>
-          <div class="profile-btn sign-up-btn" *ngIf="isLoginSuccess">
-            <button type="button" class="btn">Profile</button>
+      </div>
+      <div class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="custom-toggle">
+          <img src="/assets/icons/menu-toggle.svg" alt="toggle" />
+        </span>
+      </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+        </button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="list-item">
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            @for (item of navItems; track $index) {
+            <li class="nav-item">
+              <span [routerLink]="item.href" [ngClass]="{
+                'nav-link': true,
+                'nav-bar-items': true,
+                active: isRouteActive(item.href)
+              }">
+                <div>
+                  {{ item.label }}
+                </div>
+                <div class="dot">
+                  <p></p>
+                </div>
+              </span>
+            </li>
+            }
+          </ul>
+        </div>
+        <div class="country-wrapper small-screen-wrapper">
+          <div class="country-dropdown">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="/assets/icons/united-states.svg" alt="us-flag" />
+                </a>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <span>Vietnamese</span>
+                  </button>
+                </mat-menu>
+
+                <!-- <span mat-button [matMenuTriggerFor]="menu">
+                        Menu
+                        <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
+                    </span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>Item 1</button>
+                        <button mat-menu-item>Item 2</button>
+                    </mat-menu> -->
+              </li>
+            </ul>
           </div>
         </div>
-      </ul>
+        <div class="right-nav">
+          <div class="search-box small-screen-search-box">
+            <div class="search-icon" (click)="handleSearchFiled()">
+              <img src="/assets/icons/search-icon.svg" alt="search-icon" />
+            </div>
+            <div class="search row" [ngClass]="{
+              'hide-search-field': !isSearchInputVisible,
+              'show-search-Input': isSearchInputVisible
+            }">
+              <div class="search-input col">
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
+              </div>
+              <div class="add-zipcode col">
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">
+                    <img src="/assets/icons/location-icon.svg" alt="location-icon" />
+                  </span>
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+                    placeholder="Add zipcode" />
+                </div>
+              </div>
+              <div class="search-btn col-1 g-0">
+                <img src="/assets/icons/search-btn.svg" alt="search-btn" />
+              </div>
+            </div>
+          </div>
+          <div class="btn-container">
+            <div class="login-btn">
+              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">
+                {{ isAuthenticated ? 'Logout' : 'Login' }}
+              </button>
+            </div>
+            <div class="sign-up-btn">
+              <button type="button" class="btn" (click)="isAuthenticated ? profile() : signup()">
+                {{ isAuthenticated ? 'Profile' : 'Sign Up' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

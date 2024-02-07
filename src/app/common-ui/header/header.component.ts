@@ -5,8 +5,10 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { LocalStorageService, NavItem } from '@vietlist/shared'
-import { UserSessionService } from 'src/app/shared/utils/services/user-session.service'
+import { NavItem, Roles } from '@vietlist/shared'
+import Swal from 'sweetalert2'
+import { AuthenticationService } from 'src/app/shared/utils/services/authentication.service'
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -18,13 +20,21 @@ import { UserSessionService } from 'src/app/shared/utils/services/user-session.s
     MatDialogModule,
     RouterLink,
     MatIconModule,
+    LoginComponent,
+
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  public isCollapsed = true
+  public isCollapsed: boolean = true
   public isLoginSuccess: boolean = false
+  public isAuthenticated: boolean = false
+  public isSearchInputVisible: boolean = false
+  public isTranslationVisible: boolean = false
+  public userRole: string = ''
+  public subscriptionStatus: boolean = false
+
   public navItems: NavItem[] = [
     {
       label: 'Home',
@@ -37,7 +47,7 @@ export class HeaderComponent {
     },
     {
       label: 'Add a Business',
-      href: '/add-a-business',
+      href: '/benefits-of-joining',
     },
     {
       label: 'Blog/News',
@@ -53,33 +63,38 @@ export class HeaderComponent {
     },
   ]
 
+  /**
+   *
+   * @param router
+   * @param dialog
+   * @param sessionservice
+   */
   constructor(
     private router: Router,
     public dialog: MatDialog,
-    private userSessionService: UserSessionService,
-    private localStorage: LocalStorageService
+    private sessionservice: AuthenticationService,
+
   ) {
-
-    this.userSessionService.isSuccessLogin.subscribe(val => {
-      this.isLoginSuccess = val
-      const isToken = this.localStorage.getData("vietlist::session")
-      if (isToken) {
-        this.isLoginSuccess = true || val
-      }
+    this.sessionservice.isAuthenticated$.subscribe((res) => {
+      this.isAuthenticated = res
     })
-
-
+    this.sessionservice.userRole.subscribe((res) => {
+      this.userRole = res
+    })
+    const data = this.sessionservice.getUserdata()
+    // console.log("check role1", data)
+    if (data) {
+      this.userRole = data?.user_role
+      // console.log("check role", data)
+    }
+    this.sessionservice.isSubscription$.subscribe((res) => {
+      this.subscriptionStatus = res
+      // console.log("check the subscription status", this.subscriptionStatus)
+    })
 
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    console.log(event, 'event')
-    // Adjust content layout based on the window size
-  }
-
-  isSearchInputVisible: boolean = false
-
-
+  onResize(event: Event) { }
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -93,16 +108,36 @@ export class HeaderComponent {
     this.router.navigateByUrl('/login')
   }
 
-  public register() {
+  public signup() {
     this.router.navigateByUrl('/register')
   }
 
-  isRouteActive(route: string): boolean {
+  public profile() {
+    // console.log("chekc ", this.userRole)
+    if (this.userRole == Roles.subscriber) {
+      this.router.navigateByUrl('/manage-profile')
+    } else if (this.userRole == Roles.businessOwner && !this.subscriptionStatus) {
+      // console.log("check2")
+      Swal.fire({
+        toast: true,
+        text: 'Please choose plan',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      this.router.navigateByUrl('/subscription-plans')
+    } else if (this.userRole == Roles.businessOwner && this.subscriptionStatus) {
+      // console.log("check3")
+      this.router.navigateByUrl('/manage-profile')
+    }
+  }
+
+  public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
   }
-  public isTranslationVisible: boolean = false
-
-  // Toggle the visibility when the language is clicked
 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {
@@ -112,10 +147,9 @@ export class HeaderComponent {
     }
   }
 
-  public logout() {
-
-    this.localStorage.clearData()
-    this.router.navigateByUrl("/")
-    this.userSessionService.isSuccessLogin.next(false)
+  public onLogout() {
+    this.isAuthenticated = false
+    this.sessionservice.clearAuthentication()
+    this.router.navigateByUrl('/')
   }
 }
