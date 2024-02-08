@@ -1,3 +1,4 @@
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
@@ -12,7 +13,7 @@ import { NgClass, NgIf } from '@angular/common'
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent, NgIf, NgClass],
+  imports: [EditProfileComponent, NgIf, NgClass , RouterOutlet , RouterLink],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -28,6 +29,7 @@ export class ManageProfileComponent {
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
+    private router:Router
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
@@ -38,6 +40,10 @@ export class ManageProfileComponent {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
     })
+  }
+
+  public isRouteActive(route: string): boolean {
+    return this.router.isActive(route, true)
   }
 
   public handleFileInput(event: any) {

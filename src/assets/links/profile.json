@@ -2,7 +2,7 @@
     {
       "label": "Edit Profile",
       "icon": "fa fa-user",
-      "url": "/home"
+      "url": "/manage-profile"
     },
     {
       "label": "Change Password",
@@ -48,6 +48,11 @@
       "label": "My Bookings",
       "icon": "fa fa-calendar-o",
       "url": "/contact"
+    },
+    {
+      "label": "My Business",
+      "icon": "fa fa-calendar-o",
+      "url": "/manage-profile/my-business"
     },
     {
       "label": "Delete Account",

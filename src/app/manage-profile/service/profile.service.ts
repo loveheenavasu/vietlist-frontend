@@ -26,4 +26,10 @@ export class ProfileService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.updateUserProfile)
     return this.http.post<any>(endpoint, body)
   }
+
+  public getBusinessByUserId():Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, {headers:authToken})
+  }
 }

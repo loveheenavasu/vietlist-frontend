@@ -10,10 +10,12 @@ import {
   BenefitsOfJoiningComponent,
   FindBusinessComponent,
   ListBusinessComponent,
+  PreviewBusinessComponent,
   SubscriptionFormComponent
 } from './manage-business'
 import { BusinessCategories } from './categories'
 import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component';
+import { EditProfileComponent, MyBusinessComponent } from './manage-profile/components';
 
 export default [
   {
@@ -32,6 +34,16 @@ export default [
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
+    children:[
+      {
+        path:'',
+        component:EditProfileComponent
+      },
+      {
+        path:'my-business',
+        component:MyBusinessComponent
+      }
+    ],
     canActivate: [AuthGuard],
   },
   {
@@ -59,6 +71,10 @@ export default [
   {
     path: 'business-categories',
     loadComponent: () => BusinessCategories,
+  },
+  {
+    path: 'preview-business',
+    loadComponent: () => PreviewBusinessComponent,
   },
   {
     path: '**',

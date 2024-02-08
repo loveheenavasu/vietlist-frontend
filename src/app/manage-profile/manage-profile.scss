@@ -40,7 +40,7 @@
 
 
 .upload-profile {
-    height: 22vh;
+    height: 20vh;
     width: 100%;
     position: relative;
 }
@@ -96,6 +96,10 @@
     font-weight: var(--font-weight-semibold);
     font-size: 16px;
     margin-top: 1rem;
+}
+
+li.active {
+    color: rgb(255, 128, 0) !important;
 }
 
 @media only screen and (min-width: 400px) and (max-width: 768px) {

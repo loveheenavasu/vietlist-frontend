@@ -17,4 +17,5 @@ export enum Endpoints {
   DefaultCatApi = "default_category_data_get",
   UploadMedia = "uplaod_media",
   FindBusiness = "business_data_search",
+  GetBusinessByUserId = "get_all_business_data_by_userid"
 }
