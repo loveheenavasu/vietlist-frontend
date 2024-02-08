@@ -53,11 +53,17 @@ export class BusinessService {
     return this.http.get<any>(endpoint, { headers: authToken, params: params });
   }
 
-  public findBusiness(price: number, post_category: number, posts_per_page: number): Observable<any> {
+  public findBusiness(price: number, post_category: number, posts_per_page: number, page_no: number): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness);
     const authToken = this.authService.getAuthHeaders();
-    const params = new HttpParams().set('price', price).set('post_category', post_category).set('posts_per_page', posts_per_page);
+    const params = new HttpParams().set('price', price).set('post_category', post_category).set('posts_per_page', posts_per_page).set('page_no', page_no);
     return this.http.get<any>(endpoint, { headers: authToken, params: params });
+  }
+
+  public ListingBusiness(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness);
+    const authToken = this.authService.getAuthHeaders();
+    return this.http.get<any>(endpoint, { headers: authToken });
   }
 
 }

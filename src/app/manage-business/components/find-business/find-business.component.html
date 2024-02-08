@@ -6,7 +6,9 @@
 
 <div class="container-fluid g-0">
   <div class="row">
-    <div class="col-12 col-md-12 col-lg-6"></div>
+    <div class="col-12 col-md-12 col-lg-6 mt-4 ">
+      <div id="map" style="height: 450px; width: 100%"></div>
+    </div>
     <div class="col-sm-12 col-md-12 col-lg-6 mt-2">
       <div class="row">
         <div class="d-flex bd-highlight">
@@ -29,11 +31,11 @@
               </button>
             </mat-menu>
           </div>
-          <div class="p-2 bd-highlight">
+          <!-- <div class="p-2 bd-highlight">
             <div class="grid-save-btn">
               <i class="fa fa-bookmark" aria-hidden="true"></i> Save this search
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <form [formGroup]="findBusinessForm">
@@ -51,20 +53,21 @@
               </div>
 
               <div class="mx-2 w-100">
-                <input type="text" class="input-control" formControlName="address" placeholder="Address" />
-              </div>
-              <div class="mx-2 w-100">
-                <mat-select class="vietlist-select" placeholder="Price" formControlName="price">
-                  <mat-option value="1">$1</mat-option>
-                  <mat-option value="10">$10</mat-option>
-                  <mat-option value="20">$20</mat-option>
+                <mat-select class="vietlist-select" placeholder="Choose Model" formControlName="model">
+                  <mat-option value="retail">Retail</mat-option>
+                  <mat-option value="restaurant">Restaurant</mat-option>
+                  <mat-option value="restaurant">Service</mat-option>
                 </mat-select>
               </div>
+
             </div>
           </div>
           <div class="row mt-3">
             <div class="d-flex">
               <div class="mx-2 w-100">
+                <input type="text" class="input-control" formControlName="address" placeholder="Address" />
+              </div>
+              <!-- <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Hours" formControlName="hours">
                   <mat-option value="monday">Monday</mat-option>
                   <mat-option value="tuesday">Tuesday</mat-option>
@@ -74,28 +77,46 @@
                   <mat-option value="saturday">Saturday</mat-option>
                   <mat-option value="sunady">Sunday</mat-option>
                 </mat-select>
-              </div>
-
+              </div> -->
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="d-flex">
               <div class="mx-2 w-100">
-                <mat-select class="vietlist-select" placeholder="Choose Model" formControlName="model">
-                  <mat-option value="retail">Retail</mat-option>
-                  <mat-option value="restaurant">Restaurant</mat-option>
-                  <mat-option value="restaurant">Service</mat-option>
-                </mat-select>
+                <div class="d-flex justify-content-between  ">
+                  <div>
+                    <label>Choose price</label>
+                  </div>
+                  <div class="pe-2">
+                    <label>Price : $ {{slidervalue}}</label>
+                  </div>
+                </div>
+                <mat-slider (change)="updatePrice($event)" [max]="maxPrice" [min]="0">
+                  <input matSliderThumb formControlName="slidervalue" #slider>
+                </mat-slider>
+
               </div>
             </div>
           </div>
           <div class="find-btn">
             <button class="btn search-button" (click)="searchBusiness()">
-              @if (!loader) {
+              @if (isPaginationClick) {
               <span>Find</span>
-              } @else {
+              }@else if(!loader) {
+              <span>Find</span>
+              }
+              @else {
               <app-loader></app-loader>
               }
             </button>
           </div>
         </div>
       </form>
+      <div class="col-md-12 mt-5">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+          (pageChange)="handlePageChange($event)"></pagination-controls>
+      </div>
+
       <!---GRID VIEW----->
       <div class="row mt-5">
         @if (selectedLayout == 'grid') {
@@ -132,8 +153,11 @@
           }
         </div>
         } @else {
-        <div class="col-12">
-          @for (item of findBusinessData; track $index) {
+        <div class="col-12 ">
+          @for (item of findBusinessData | paginate: { itemsPerPage: postPerPage, currentPage: currentPage,
+          totalItems: totalCount
+          }; track $index)
+          {
           <div class="list-view-card mb-5">
             <div class="business-list-wrapper d-flex">
               <div class="business-list-img">
