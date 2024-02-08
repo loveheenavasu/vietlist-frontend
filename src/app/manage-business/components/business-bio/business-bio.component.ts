@@ -60,7 +60,7 @@ export class BusinessBioComponent {
   }
 
   ngOnInit() {
-    console.log(this.postId)
+
   }
 
   public addBusiness() {

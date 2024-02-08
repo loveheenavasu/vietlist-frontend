@@ -21,7 +21,7 @@ import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { AuthenticationService } from '@vietlist/shared'
-import { AnyPtrRecord } from 'dns'
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -50,6 +50,12 @@ export class LoginComponent {
    * @param authService
    * @param fb
    */
+
+  // @HostListener('window:resize', ['$event'])
+  //   console.log("resize",event)
+  //   this.screenSize = event
+
+
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -85,6 +91,9 @@ onResize(event:any){
 
    
   }
+
+
+
 
   public navigateToRegister() {
     this.router.navigateByUrl('/register')
