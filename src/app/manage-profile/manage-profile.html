@@ -1,7 +1,7 @@
 <div class="container-fluid g-0">
   <section class="banner">
     <div class="content">
-      <h1>Account</h1>
+      <h1>My Account</h1>
     </div>
   </section>
 
@@ -27,7 +27,7 @@
             <div class="tabs_responsive">
               <ul>
                 @for(key of sidebarMenu ; track $index){
-                <li (click)="addClass($index)" [ngClass]="{'active': activeIndex == $index}">
+                <li (click)="addClass($index)" [ngClass]="{'active': activeIndex == $index}"   [routerLink]="key.url" style="cursor:pointer">
                   <span><i [class]="key.icon"></i></span>{{key.label}}
                 </li>
                 }
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="col-12 col-sm-12 col-md-8 col-lg-8 mt-4">
-        <app-edit-profile></app-edit-profile>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

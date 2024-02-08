@@ -22,7 +22,7 @@ import { BusinessService } from '../../service/business.service'
   styleUrl: './business-bio.component.scss',
 })
 export class BusinessBioComponent {
-  @Output() formSubmit = new EventEmitter<void>()
+  @Output() buinessFormSubmit = new EventEmitter<void>()
   @Input() set businessbioData(value: any) {
     const controls = ['owner_name', 'business_historybackground', 'mission__vision']
 
@@ -33,6 +33,7 @@ export class BusinessBioComponent {
   public businessBioForm!: FormGroup
   public isLoader: boolean = false
   public postId: any
+  public isFormFilled:boolean = false
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -48,6 +49,14 @@ export class BusinessBioComponent {
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
+
+    this.businessService.isBusinessBioFormFilled.subscribe((res)=>{
+      this.isFormFilled = res
+    })
+
+    const isFormFIlled = this.localstorage.getData("isBusinessBioFormFilled")
+     this.isFormFilled = Boolean(isFormFIlled)
+
   }
 
   ngOnInit() {
@@ -63,11 +72,38 @@ export class BusinessBioComponent {
         this.businessBioForm.value.business_historybackground,
       mission__vision: this.businessBioForm.value.mission__vision,
     }
+    if(this.isFormFilled){
+      this.businessService.updateBusiness(body).subscribe({
+        next: (res) => {
+          if (res) {
+            this.isLoader = false
+            this.buinessFormSubmit.emit()
+            Swal.fire({
+              toast: true,
+              text: 'Successfully updated Business bio details.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
+        },
+        error:(err)=>{
+
+        }
+      })
+    }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         if (res) {
           this.isLoader = false
-          this.formSubmit.emit()
+          
+          this.buinessFormSubmit.emit()
+          this.businessService.isBusinessBioFormFilled.next(true)
+          this.localstorage.saveData("isBusinessBioFormFilled" , "true")
+          this.isFormFilled = true
           Swal.fire({
             toast: true,
             text: 'Successfully added Business bio details.',
@@ -80,6 +116,9 @@ export class BusinessBioComponent {
           })
         }
       },
+      error:(err)=>{
+        
+      }
     })
   }
 }

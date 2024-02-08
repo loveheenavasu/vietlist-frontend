@@ -15,6 +15,9 @@ export enum Endpoints {
   UpdateBusiness = "business_data_update",
   BusinesssGet = "get_business_by_post_id",
   DefaultCatApi = "default_category_data_get",
+  UploadMedia = "uplaod_media",
   FindBusiness = "business_data_search",
-  ListingBusiness = "get_publish_business_data"
+  ListingBusiness = "get_publish_business_data",
+  GetBusinessByUserId = "get_all_business_data_by_userid"
+
 }

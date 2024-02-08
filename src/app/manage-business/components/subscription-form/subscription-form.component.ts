@@ -42,6 +42,7 @@ export class SubscriptionFormComponent {
       this.subscriptionForm.get(control)?.patchValue(value?.[control] || '')
     })
   }
+  public isFormFilled:boolean = false
   public isLoader:boolean = false
   title = 'dropzone'
   files: File[] = []
@@ -61,9 +62,17 @@ export class SubscriptionFormComponent {
       facebook: ['', Validators.required],
       twitter: ['', Validators.required],
       instagram: ['', Validators.required],
+      
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
+
+    this.businessService.isSubscriptionFormFilled.subscribe((res)=>{
+      this.isFormFilled = res
+    })
+
+    const isFormFIlled = this.localstorage.getData("isSubscriptionFormFilled")
+     this.isFormFilled = Boolean(isFormFIlled)
   }
 
   // onSelect(event: any) {
@@ -90,8 +99,8 @@ export class SubscriptionFormComponent {
   public onSelect(event: any) {
     console.log(event.addedFiles)
     this.files.push(...event.addedFiles)
-    const filesString = this.files.map((file) => file.name).join(', ')
-    console.log(filesString)
+    this.filesString = this.files.map((file) => file.name).join(', ')
+    console.log(this.filesString)
 
     console.log(this.files)
   }
@@ -103,6 +112,7 @@ export class SubscriptionFormComponent {
 
   public getSafeURL(file: File): any {
     return URL.createObjectURL(file)
+
   }
 
   public addBusiness() {
@@ -112,13 +122,38 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
-      verification_upload: this.filesString,
-    }
+      verification_upload:this.filesString,
+      verified_badge:this.verifiedBadge.value
+    } 
+    if(this.isFormFilled){
+      this.businessService.updateBusiness(body).subscribe({
+        next:(res)=>{
+          this.isLoader = false
+          this.formSubmit.emit()
+          Swal.fire({
+            toast: true,
+            text: 'Successfully updated subscription details.',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+        },
+        error:(err)=>{
+
+        }
+      })
+    }else {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         if (res) {
           this.isLoader= false
           this.formSubmit.emit()
+          this.businessService.isSubscriptionFormFilled.next(true)
+          this.localstorage.saveData("isSubscriptionFormFilled" , "true")
+          this.isFormFilled = true
           Swal.fire({
             toast: true,
             text: 'Successfully added subscription details.',
@@ -131,6 +166,10 @@ export class SubscriptionFormComponent {
           })
         }
       },
+      error:(err)=>{
+
+      }
     })
+  }
   }
 }

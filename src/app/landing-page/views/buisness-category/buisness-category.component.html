@@ -16,126 +16,27 @@
   <div class="row">
     <div class="col-md-12">
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+        @for(key of businessCat ; track $index){
         <swiper-slide>
           <div class="main-cnt d-flex flex-column mb-3 mt-4">
             <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
+              <div class="img-cnt" *ngIf="key.icon !== null">
+                <i [class]="key.icon" style="width:100%"></i>
+              </div>
+              <div class="img-cnt" *ngIf="key.icon == null">
+                <img [src]="key.image" style="width:100%">
+              </div>
+              <div class="img-cnt" *ngIf="key.icon == null || key.image == null">
+                 <p>Image not found</p>
               </div>
             </div>
             <div>
-              <h3 class="card-heading">Restaurant</h3>
+              <h3 class="card-heading">{{key.name}}</h3>
             </div>
           </div>
         </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt">
-                <img src="/assets/icons/restaurant.svg" width="100%" />
-              </div>
-            </div>
-            <div>
-              <h3 class="card-heading">Restaurant</h3>
-            </div>
-          </div>
-        </swiper-slide>
+      }
+      
       </swiper-container>
     </div>
   </div>

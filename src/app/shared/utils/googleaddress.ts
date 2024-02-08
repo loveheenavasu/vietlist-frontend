@@ -26,7 +26,10 @@ import {} from '@types/googlemaps'
   `,
 })
 export class AutocompleteComponent implements OnInit, AfterViewInit {
-  @Input() adressType!: string
+  @Input() adressType!: string;
+  @Input() set value(val: string) {
+    this.autocompleteInput = val || '';
+  }
   @Output() setAddress: EventEmitter<any> = new EventEmitter()
   @ViewChild('addresstext') addresstext: any
   country: any

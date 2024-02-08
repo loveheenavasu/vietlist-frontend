@@ -10,19 +10,20 @@
         <li class="active">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Information</strong>
         </li>
-        <li [ngClass]="isFirstStepCompleted ? 'active' : ''">
+        <li [ngClass]="businessFormDetails?.business_email ? 'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Subscriptions &amp;
             Verification</strong>
         </li>
-        <li [ngClass]="isSubscriptionStepper ? 'active' : ''">
+        <li [ngClass]="businessFormDetails?.twitter ?'active' : ''">
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Business Bio</strong>
         </li>
         <li>
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Booking and Consultation</strong>
         </li>
-        <li>
-          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span><strong>Events and promotions</strong>
-        </li>
+        <!-- <li>
+          <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
+          ><strong>Events and promotions</strong>
+        </li> -->
       </ul>
     </div>
     <form [formGroup]="businessInfoForm">
@@ -95,10 +96,15 @@
             <label class="listing-form-label">Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category"
-              formControlName="post_category" multiple>
-              @for (key of businessCat; track $index) {
-              <mat-option [value]="key.id">{{ key.name }}</mat-option>
+            <mat-select
+              (selectionChange)="onCategoryChange()"
+              class="vietlist-select"
+              placeholder="Category"
+              formControlName="post_category"
+              multiple
+            >
+              @for (key of post_category; track $index) {
+                <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
           </div>
@@ -122,8 +128,8 @@
             <label class="listing-form-label">Tags<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <ng-select class="select2-selection" [items]="tags" bindLabel="name" bindValue="id" [multiple]="true"
-              placeholder="Select Tags" [(ngModel)]="post_tags" [ngModelOptions]="{ standalone: true }"
+            <ng-select class="select2-selection" [items]="post_tags" bindLabel="name" bindValue="id" [multiple]="true"
+              placeholder="Select Tags" [(ngModel)]="tags" [ngModelOptions]="{ standalone: true }"
               (ngModelChange)="onTagSelectionChange()">
             </ng-select>
             <small class="form-text text-muted d-block">Tags are short keywords, with no space within.(eg: tag1, tag2,
@@ -135,7 +141,7 @@
             <label class="listing-form-label">Address<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode"></AutocompleteComponent>
+            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street"></AutocompleteComponent>
           </div>
         </div>
 
@@ -253,6 +259,29 @@
             <input class="input-control" placeholder="Enter the website url" formControlName="website" />
           </div>
         </div>
+        <div class="row px-2 my-3" >
+          <div class="col-12">
+            <label for="" class="listing-form-label mb-2">Business Logo</label>
+           <ngx-dropzone *ngIf="!files.length" (change)="onSelect($event)" [accept]="'.png,.png,.png , .webp'">
+              <ngx-dropzone-label>
+                <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here or Browse a file (Allowed .png, .png, .png, .webp)
+              </ngx-dropzone-label>
+            </ngx-dropzone>
+            
+        
+
+            <div class="row selected-images" *ngIf="files.length > 0">
+                <div *ngFor="let file of files" class="mx-2">
+                  <div class="image-box">
+                    <img [src]="uploadMediaUrl" />
+                    <button (click)="onRemove(file)" class="btn orange-background-btn mt-2">Remove</button>
+                  </div>
+                </div>
+                <app-loader *ngIf="!uploadMediaUrl"></app-loader>
+            </div>
+            
+          </div>
+        </div>
         <div style="width: 100%; text-align: end">
           <button type="button" class="btn orange-background-btn ms-auto" [disabled]="
               !businessInfoForm.valid ||
@@ -269,16 +298,28 @@
     </form>
 
     @if (businessFormDetails?.business_email) {
-    <section>
-      <app-subscription-form (fornSubmit)="getBusinessFormDetails(postId)"
-        [subscriptionData]="businessFormDetails"></app-subscription-form>
-    </section>
+      <section>
+        <app-subscription-form
+          (formSubmit)="getBusinessFormDetails(postId)"
+          [subscriptionData]="businessFormDetails"
+        ></app-subscription-form>
+      </section>
     }
     @if (businessFormDetails && businessFormDetails?.twitter) {
-    <section class="my-4">
-      <app-business-bio (fornSubmit)="getBusinessFormDetails(postId)"
-        [businessbioData]="businessFormDetails"></app-business-bio>
-    </section>
+      <section class="my-4">
+        <app-business-bio
+          (buinessFormSubmit)="getBusinessFormDetails(postId)"
+          [businessbioData]="businessFormDetails"
+        ></app-business-bio>
+      </section>
+    }
+    @if (businessFormDetails && businessFormDetails?.owner_name) {
+      <section class="my-4">
+        <app-consultation-form
+          (consultationFormSubmit)="getBusinessFormDetails(postId)"
+          [consultationData]="businessFormDetails"
+        ></app-consultation-form>
+      </section>
     }
     <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <section class="my-4">
