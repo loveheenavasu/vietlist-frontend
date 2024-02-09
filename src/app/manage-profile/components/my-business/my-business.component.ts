@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FullPageLoaderService } from '@vietlist/shared';
 import { BusinessService } from 'src/app/manage-business/service/business.service';
 import { NgClass, NgIf } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-my-business',
@@ -35,6 +36,16 @@ export class MyBusinessComponent {
     })
   }
 
+
+  deleteBusiness(postId:any){
+    this.profileService.deleteBuisness(postId).subscribe({
+      next:(res)=>{
+        Swal.fire({
+          
+        })
+      }
+    })
+  }
   ngOnDestroy() {
     
   }
