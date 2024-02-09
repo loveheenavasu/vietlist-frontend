@@ -139,7 +139,8 @@
       <p>&nbsp;</p>
       <p>
         Let the world discover the brilliance you bring :
-        <a [routerLink]="['/list-business']" data-wplink-edit="true">Add new
+        <a (click)="addBusiness()" style="color:blue; text-decoration:underline;cursor: pointer;"
+          data-wplink-edit="true">Add new
           business&nbsp;</a>
       </p>
     </div>
