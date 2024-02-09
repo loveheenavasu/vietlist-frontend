@@ -1,4 +1,4 @@
-import { Output, EventEmitter } from '@angular/core'
+import { Output, EventEmitter, ChangeDetectorRef } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgFor, NgIf } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
@@ -34,14 +34,33 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrl: './subscription-form.component.scss',
 })
 export class SubscriptionFormComponent {
+  verified_badge:any
+  verification_upload:any
+  lastPart!:string
+  check!:boolean
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
+     this.verified_badge = value.verified_badge
+      if(this.verified_badge == '1'){
+         console.log('trueeee')
+    this.check = true
+      }else{
+        console.log('trueeee2')
+        this.check = false
+      }
+      this.verification_upload = value.verification_upload
+      const parts: string[] = this.verification_upload.split('/');
+      this.lastPart = parts[parts.length - 1];
+    
+      this.cdr.detectChanges();
     const controls = ['facebook', 'twitter', 'instagram']
 
     controls.forEach((control) => {
       this.subscriptionForm.get(control)?.patchValue(value?.[control] || '')
     })
   }
+  checkdvalue:any
+  document:any
   public isFormFilled:boolean = false
   public isLoader:boolean = false
   title = 'dropzone'
@@ -57,6 +76,7 @@ export class SubscriptionFormComponent {
     private route: ActivatedRoute,
     private router: Router,
     private localstorage: LocalStorageService,
+    private cdr: ChangeDetectorRef
   ) {
     this.subscriptionForm = this.fb.group({
       facebook: ['', Validators.required],
@@ -64,6 +84,7 @@ export class SubscriptionFormComponent {
       instagram: ['', Validators.required],
       
     })
+   
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 
@@ -103,6 +124,39 @@ export class SubscriptionFormComponent {
     console.log(this.filesString)
 
     console.log(this.files)
+
+    if (event.addedFiles.length > 1) {
+      Swal.fire({
+        toast: true,
+        text: 'You can only upload one file.',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      
+    } else {
+      this.files.push(...event.addedFiles);
+      this.filesString = this.files.map((file) => file.name).join(', ');
+      // this.isFilesPresent = true;
+      const file = event.addedFiles[0]; 
+      this.businessService.uploadMedia(this.files[0]).subscribe({
+        next: (res: any) => {
+  
+          this.document = res.image_url;
+          this.verification_upload = res.image_url
+          const parts: string[] = this.verification_upload.split('/');
+          this.lastPart = parts[parts.length - 1];
+        },
+        error: (err: any) => {
+          // Handle errors
+        }
+      });
+      
+   
+    }
   }
 
  public  onRemove(event: any) {
@@ -122,8 +176,8 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
-      verification_upload:this.filesString,
-      verified_badge:this.verifiedBadge.value
+      verification_upload:this.document,
+      verified_badge:this.verifiedBadge.value ? 1 : 0
     } 
     if(this.isFormFilled){
       this.businessService.updateBusiness(body).subscribe({

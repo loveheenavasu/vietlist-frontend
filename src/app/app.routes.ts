@@ -47,6 +47,10 @@ export default [
     canActivate: [AuthGuard],
   },
   {
+    path: 'preview-business/:id',
+    loadComponent: () => PreviewBusinessComponent,
+  },
+  {
     path: 'confirm-payment/:id',
     loadComponent: () => ConfirmPaymentComponent,
   },

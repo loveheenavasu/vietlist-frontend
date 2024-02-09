@@ -33,7 +33,11 @@
         </button>
       </div>
     </div> -->
-    <h2>Business Listing</h2>
+    <div class="heading_____">    
+      <h2>Business Listing</h2>
+    <button class="btn  orange-background-btn mx-1"  routerLink="/list-business" (click)="removeLocalstoagekey()">Add new </button>
+  </div>
+
     <div class="lisiting-container mt-3">
       <div class="layout-icon d-flex align-items-center">
         <div
@@ -75,6 +79,7 @@
                    {{key.post_content}}
                   </p>
                   <button class="btn  orange-background-btn" (click)="deleteBusiness(key.post_id)">Delete</button>
+                  <button class="btn  orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">View</button>
                 </div>
                 <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>
@@ -115,6 +120,7 @@
                     {{key.post_content}}
                   </p>
                   <button class="btn  orange-background-btn" (click)="deleteBusiness(key.post_id)">Delete</button>
+                  <button class="btn  orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">View</button>
                 </div>
                 <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>

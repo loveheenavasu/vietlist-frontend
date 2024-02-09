@@ -12,6 +12,7 @@
         type="checkbox"
         value=""
         id="terms"
+        [(ngModel)]="check"
         [formControl]="verifiedBadge"
       />
       <label class="form-check-label" for="terms">
@@ -31,7 +32,8 @@
       </ngx-dropzone-label>
 
     </ngx-dropzone>
-    <p>{{filesString}}</p>
+   
+    <p *ngIf="lastPart">{{lastPart}} <a href="{{verification_upload}}" target="_blank"><i   class="fa fa-external-link" aria-hidden="true"></i></a></p>
   
   </div>
 </div>

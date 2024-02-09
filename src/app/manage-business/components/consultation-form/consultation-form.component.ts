@@ -25,6 +25,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
 import * as moment from 'moment-timezone'
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select'
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
@@ -44,10 +45,23 @@ import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select'
 export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
-  @Input() set consultationData(value: any) {}
+  @Input() set consultationData(value: any) {
+    this.imagePreviews = value.image
+    const video: HTMLVideoElement = document.createElement('video')
+    // video.src = videoUrl
+    video.src = value.video_upload
+    this.video_upload = value.video_upload
+    const controls = ['consultation_booking_link', 'consultation_mode', 'consultation_description', 'special_offers', 'services_list', 'price', 'video_url', 'business_hours']
+
+    controls.forEach((control) => {
+      this.ConsultationForm.get(control)?.patchValue(value?.[control] || '')
+    })
+  }
   @ViewChild('select') select!: NgSelectComponent
   searchTerm: string = ''
+  video_upload: any
   daysName: any
+  vediosUrl: any
   startTime: any
   endTime: any
   jsonString: any
@@ -55,6 +69,7 @@ export class ConsultationFormComponent {
   clearTable = false
   files: File[] = []
   imagePreviews: any
+  imageUrl: any
   showTimeTable: boolean = false
   public ConsultationForm!: FormGroup
   public isLoader: boolean = false
@@ -62,7 +77,7 @@ export class ConsultationFormComponent {
   formattedData!: any[]
   selectedData: any
   selectedTimeZone: any
-  public isFormFilled:boolean = false
+  public isFormFilled: boolean = false
   // Timezone :string[] =[]
   Timezone: {
     region: string
@@ -78,7 +93,7 @@ export class ConsultationFormComponent {
     private renderer: Renderer2,
     private fb: FormBuilder,
     private businessService: BusinessService,
-
+    private router: Router,
     private localstorage: LocalStorageService,
   ) {
     const timeZoneNames = moment.tz.names()
@@ -121,7 +136,7 @@ export class ConsultationFormComponent {
     this.postId = Number(id)
     this.formatData()
 
-    this.businessService.isConsultationFormFilled.subscribe((res)=>{
+    this.businessService.isConsultationFormFilled.subscribe((res) => {
       this.isFormFilled = res
     })
 
@@ -150,13 +165,15 @@ export class ConsultationFormComponent {
       this.select.filter(target.value)
     }
   }
+  filess: any
   onSelect(event: any) {
     const files: File[] = event.addedFiles
-
+    this.filess = files
     // Filter out only video files
     const videoFiles: File[] = files.filter((file) =>
       file.type.startsWith('video/'),
     )
+
 
     // If there are any image files, you can remove them
     const imageFiles: File[] = files.filter((file) =>
@@ -182,12 +199,24 @@ export class ConsultationFormComponent {
     // Handle the uploaded video files
     videoFiles.forEach((file) => {
       const reader = new FileReader()
+
       reader.onload = () => {
         const videoUrl = reader.result as string
 
         // Declare the video variable
         const video: HTMLVideoElement = document.createElement('video')
-        video.src = videoUrl
+        // video.src = videoUrl
+        this.video_upload = video.src
+        this.businessService.uploadMedia(this.filess[0]).subscribe({
+          next: (res: any) => {
+            this.video_upload = res.image_url;
+            // this.verification_upload = res.image_url
+            this.vediosUrl = res.image_url
+          },
+          error: (err: any) => {
+            // Handle errors
+          }
+        });
         video.controls = true // Add controls to the video element
         video.width = 320 // Set the width of the video element
         video.height = 240 // Set the height of the video element
@@ -234,6 +263,7 @@ export class ConsultationFormComponent {
       }
       reader.readAsDataURL(file)
     })
+
   }
 
   onRemove(videoElement: HTMLElement) {
@@ -274,9 +304,19 @@ export class ConsultationFormComponent {
         const result = reader.result as string
 
         // Push the data URL (image preview) to the array
-        this.imagePreviews.push(result)
+        // this.imagePreviews.push(result)
       }
     }
+    this.businessService.uploadMedia(this.files[0]).subscribe({
+      next: (res: any) => {
+        this.imageUrl = res.image_url
+        this.imagePreviews.push(res.image_url)
+      },
+      error: (err: any) => {
+        // Handle errors
+      }
+    });
+
   }
 
 
@@ -290,7 +330,7 @@ export class ConsultationFormComponent {
     { name: 'Sun', times: [{ start: '', end: '' }] },
   ]
 
- public addTime(dayIndex: number) {
+  public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
   }
   selectedWeek: string[] = []
@@ -304,7 +344,7 @@ export class ConsultationFormComponent {
     }
   }
 
-  onSubmit() {}
+  onSubmit() { }
 
   removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
@@ -352,71 +392,74 @@ export class ConsultationFormComponent {
       video_url: this.ConsultationForm.value.video_url,
       business_hours: businessHours, // Modified to stringify the businessHours array
       special_offers: this.ConsultationForm.value.special_offers,
-      // video_upload: this.ConsultationForm.value.price,
-      final_submission : 1
+      video_upload: this.vediosUrl,
+      image: this.imageUrl,
+      final_submission: 1
     }
-    if(!this.isFormFilled){
-    this.businessService.addBusiness(body).subscribe({
-      next: (res: any) => {
-        if (res) {
-          this.isLoader = false
-          this.consultationData.emit()         
-           this.businessService.isBusinessBioFormFilled.next(true)
-          this.localstorage.saveData("isConsultationFormFilled" , "true")
-          this.businessService.isConsultationFormFilled.next(true)
-          this.isFormFilled = true
-
-          Swal.fire({
-            toast: true,
-            text: 'Successfully added Business bio details.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-        }
-      },
-    })
-  } else if(this.isFormFilled){
-    const updatebody = {
-      post_id: this.postId,
-      consultation_booking_link:
-        this.ConsultationForm.value.consultation_booking_link,
-      consultation_mode: this.ConsultationForm.value.consultation_mode,
-      consultation_description:
-        this.ConsultationForm.value.consultation_description,
-      services_list: this.ConsultationForm.value.services_list,
-      price: this.ConsultationForm.value.price,
-      video_url: this.ConsultationForm.value.video_url,
-      business_hours: businessHours, // Modified to stringify the businessHours array
-      special_offers: this.ConsultationForm.value.special_offers,
-      // video_upload: this.ConsultationForm.value.price,
+    if (!this.isFormFilled) {
+      this.businessService.addBusiness(body).subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.router.navigateByUrl('/manage-profile')
+            this.isLoader = false
+            this.consultationFormSubmit.emit()
+            this.businessService.isBusinessBioFormFilled.next(true)
+            this.localstorage.saveData("isConsultationFormFilled", "true")
+            this.businessService.isConsultationFormFilled.next(true)
+            this.isFormFilled = true
+           this.localstorage.removeData('postId')
+            Swal.fire({
+              toast: true,
+              text: 'Successfully added Business bio details.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
+        },
+      })
+    } else if (this.isFormFilled) {
+      const updatebody = {
+        post_id: this.postId,
+        consultation_booking_link:
+          this.ConsultationForm.value.consultation_booking_link,
+        consultation_mode: this.ConsultationForm.value.consultation_mode,
+        consultation_description:
+          this.ConsultationForm.value.consultation_description,
+        services_list: this.ConsultationForm.value.services_list,
+        price: this.ConsultationForm.value.price,
+        video_url: this.ConsultationForm.value.video_url,
+        business_hours: businessHours, // Modified to stringify the businessHours array
+        special_offers: this.ConsultationForm.value.special_offers,
+        // video_upload: this.ConsultationForm.value.price,
+      }
+      this.businessService.updateBusiness(updatebody).subscribe({
+        next: (res: any) => {
+          if (res) {
+            this.router.navigateByUrl('/manage-profile')
+            this.isLoader = false
+            this.consultationFormSubmit.emit()
+            this.businessService.isBusinessBioFormFilled.next(true)
+            this.localstorage.saveData("isConsultationFormFilled", "true")
+            this.businessService.isConsultationFormFilled.next(true)
+            this.isFormFilled = true
+             this.localstorage.removeData('postId')
+            Swal.fire({
+              toast: true,
+              text: 'Successfully updated Business bio details.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
+        },
+      })
     }
-    this.businessService.updateBusiness(updatebody).subscribe({
-      next: (res: any) => {
-        if (res) {
-          this.isLoader = false
-          this.consultationData.emit()         
-           this.businessService.isBusinessBioFormFilled.next(true)
-          this.localstorage.saveData("isConsultationFormFilled" , "true")
-          this.businessService.isConsultationFormFilled.next(true)
-          this.isFormFilled = true
-
-          Swal.fire({
-            toast: true,
-            text: 'Successfully updated Business bio details.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-        }
-      },
-    })
-  }
   }
 }

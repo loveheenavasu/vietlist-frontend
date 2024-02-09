@@ -11,6 +11,10 @@ body {
 html {
   scroll-behavior: smooth;
 }
+.listing-heading h3 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 body {
     margin: 0;
     padding: 0px;

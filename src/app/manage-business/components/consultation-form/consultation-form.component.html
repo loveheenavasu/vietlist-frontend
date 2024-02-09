@@ -89,7 +89,7 @@
       </ngx-dropzone>
       <div class="main_images">
         @for (preview of imagePreviews; track $index) {
-        <div class="images__">
+        <div class="images__" *ngIf="preview">
           <img [src]="preview" alt="Image Preview" width="150" height="150">
         </div>
 
@@ -110,8 +110,16 @@
           Browse a file</ngx-dropzone-label>
       </ngx-dropzone>
     </div>
-    <div id="video-preview-container"></div>
-
+    <div id="video-preview-container">
+      <video style=" margin:10px; 
+      object-fit:cover;" *ngIf="video_upload" width="320" height="240" controls>
+        <source [src]="video_upload" type="video/mp4">
+        <source [src]="video_upload" type="video/ogg">
+        Your browser does not support the video tag.
+      </video>
+   
+    </div>
+   
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4">
@@ -207,7 +215,7 @@
     </div>
   </div>
   <div style="width: 100%; text-align: end">
-    <button type="button" class="btn orange-background-btn ms-auto" (click)="addBusiness()">
+    <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!ConsultationForm.valid" (click)="addBusiness()">
       Next
     </button>
 

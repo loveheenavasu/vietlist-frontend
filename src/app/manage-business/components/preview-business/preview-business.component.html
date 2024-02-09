@@ -1,5 +1,202 @@
 <section class="banner">
-    <div class="content">
-      <h1>Preview Your Business</h1>
+  <div class="content">
+    <h1>Preview Your Business</h1>
+  </div>
+</section>
+<form action="" [formGroup]="previewForm">
+  <div class="container-fluid my-5">
+    <div class="main-card">
+      <h4>Business Information</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Business Title</label>
+          <input formControlName="post_title" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Business Description</label>
+          <input formControlName="post_content" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Owner Name</label>
+          <input formControlName="owner_name" class="input-control" readonly />
+        </div>
+
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Business Email</label>
+          <input formControlName="business_email" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Contact Details</label>
+          <input formControlName="contact_phone" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Website Url</label>
+          <input formControlName="website" class="input-control" readonly />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Business Histor</label>
+          <textarea formControlName="business_historybackground" cols="30" rows="10" readonly></textarea>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Mission & Vission</label>
+          <textarea formControlName="mission__vision" cols="30" rows="10" readonly></textarea>
+        </div>
+
+      </div>
+      <br>
+      <h4>Social Links</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Facebook</label>
+          <input formControlName="facebook" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Instagram</label>
+          <input formControlName="instagram" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Twitter</label>
+          <input formControlName="twitter" class="input-control" readonly />
+        </div>
+      </div>
+      <br>
+      <h4>Categories and Tags</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Post Categories</label>
+          <div class="input-control">
+            <ng-container *ngFor="let key of businessFormDetails?.post_category; let i = index">
+              <span [innerHTML]="key.name"></span>
+              <ng-container *ngIf="i !== businessFormDetails.post_category.length - 1">, </ng-container>
+            </ng-container>
+          </div>
+          <!-- <input formControlName="post_category" class="input-control" readonly /> -->
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Tags</label>
+
+          <div class="input-control">
+            <ng-container *ngFor="let key of businessFormDetails?.post_tags, let i = index">
+              <ng-container>
+                {{key.name}}
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Default Category</label>
+          <div class="input-control">
+            <ng-container *ngFor="let item of businessFormDetails?.default_category | keyvalue; let last = last">
+              <span [innerHTML]="item.value"></span>
+              <ng-container *ngIf="!last">, </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <br>
+      <h4>Business Address</h4>
+      <div class="row my-3">
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Country</label>
+          <input formControlName="country" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Region</label>
+          <input class="input-control" formControlName="region" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>City</label>
+          <input class="input-control" formControlName="city" readonly />
+        </div>
+
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Zipcode</label>
+          <input formControlName="zip" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Street</label>
+          <input formControlName="street" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Latitude</label>
+          <input formControlName="latitude" class="input-control" readonly />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Longitude</label>
+          <input formControlName="longitude" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Map View</label>
+          <input formControlName="mapview" class="input-control" readonly />
+        </div>
+      </div>
+      <div class="row my-3">
+        <map name=""></map>
+      </div>
+      <br>
+      <h4>Booking & Consultation</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Consultation Booking Link </label>
+          <input formControlName="consultation_booking_link" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Consultation Mode</label>
+          <input formControlName="consultation_mode" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Consultation Description</label>
+          <input formControlName="consultation_description" class="input-control" readonly />
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Service</label>
+          <input formControlName="services_list" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Price</label>
+          <input formControlName="price" class="input-control" readonly />
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Special Offer</label>
+          <input formControlName="special_offers" class="input-control" readonly />
+        </div>
+      </div>
+      <br>
+      <!-- <h4>Booking Open Hours</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Consultation Booking Link </label>
+          <input class="input-control" />
+        </div>
+      </div> -->
+      <br>
+      <h4>Multimedia</h4>
+      <div class="row my-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <label>Business Logo</label>
+          <div>
+            <img *ngIf="logo" [src]="logo" width="100px" height="100px" />
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+          <label> Images</label>
+          <div *ngFor="let data of businessFormDetails?.image">
+            <img  [src]="data" width="100px" height="100px" />
+          </div>
+
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</form>
