@@ -107,7 +107,8 @@ export class ListBusinessComponent {
   public selectedTagsString = ''
   public street = ''
   public tags:any[]=[]
-
+  public selectedMapView = 'default';
+  public map:any
   /**
    *
    * @param _formBuilder
@@ -219,7 +220,6 @@ export class ListBusinessComponent {
     return URL.createObjectURL(file)
    
   }
-
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -243,37 +243,11 @@ export class ListBusinessComponent {
         }
       })
     })
-    this.latitude = place.geometry.location.lat()
-    this.longitude = place.geometry.location.lng()
+    this.latitude = place.geometry.location.lat() 
+    this.longitude = place.geometry.location.lng() 
     this.initMap()
   }
 
-
-
-  public initMap() {
-    let map
-    // Get the map container element by its ID
-    const mapElement = document.getElementById('map')
-
-    // Ensure that the map element is not null
-    if (mapElement !== null) {
-      // Create a new Google Map instance
-      map = new google.maps.Map(mapElement, {
-        center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-        zoom: 13,
-      })
-
-      if (this.latitude && this.longitude) {
-        // Add a marker to the map
-        const marker = new google.maps.Marker({
-          position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-          map: map,
-          title: 'Marker Title',
-        })
-      }
-    } else {
-    }
-  }
 
 
   public onTagSelectionChange() {
@@ -344,6 +318,14 @@ export class ListBusinessComponent {
           this.country = this.businessFormDetails.country;
           this.city = this.businessFormDetails.city;
           this.post_tags = this.businessFormDetails.post_tags?.map((tag:any)=>tag.id )
+          this.initMap()
+
+              // this.tags = this.businessFormDetails.post_tags
+              console.log(this.tags,'post_tagspost_tagspost_tags')
+              this.selectedDefaultCategories.push({
+                id:this.businessFormDetails.default_category.id,
+                name:this.businessFormDetails.default_category.name
+              })
         },
         error:(err)=>{
         
@@ -351,6 +333,56 @@ export class ListBusinessComponent {
       })
   }
 
+  public initMap() {
+    // Get the map container element by its ID
+    const mapElement = document.getElementById('map');
+    // Ensure that the map element is not null
+    if (mapElement !== null) {
+      console.log('Initializing map...');
+      // Create a new Google Map instance
+      this.map = new google.maps.Map(mapElement, {
+        center: { lat: this.latitude , lng: this.longitude},
+        zoom: 13,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+  
+      if (this.latitude && this.longitude) {
+        // Add a marker to the map
+        const marker = new google.maps.Marker({
+          position: { lat: this.latitude, lng: this.longitude },
+          map: this.map,
+          title: 'Marker Title',
+        });
+      }
+    } else {
+      console.error('Map element not found.');
+    }
+  }
+
+
+  public changeMapView() {
+    console.log('Selected map view:', this.selectedMapView);
+  
+    if (this.map !== null) {
+      console.log('Changing map view...');
+      switch (this.selectedMapView) {
+        case 'satellite':
+          this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+          break;
+        case 'hybrid':
+          this.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+          break;
+        case 'terrain':
+          this.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+          break;
+        default:
+          this.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+          break;
+      }
+    } else {
+      console.error('Map not initialized.');
+    }
+  }
 
   
   public addBusiness(val?: any) {
