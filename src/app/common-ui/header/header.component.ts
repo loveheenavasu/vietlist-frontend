@@ -1,13 +1,16 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
-import { Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
 import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
+import { profile } from 'console';
+import { link } from 'fs';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -36,8 +39,9 @@ export class HeaderComponent {
   public isTranslationVisible: boolean = false
   public userRole: string = ''
   public subscriptionStatus: boolean = false
+  public currentRoute:any
 
- 
+
 
   /**
    *
@@ -49,6 +53,7 @@ export class HeaderComponent {
     private router: Router,
     public dialog: MatDialog,
     private sessionservice: AuthenticationService,
+    private activatedRoute:ActivatedRoute
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -66,7 +71,14 @@ export class HeaderComponent {
       this.subscriptionStatus = res
       // console.log("check the subscription status", this.subscriptionStatus)
     })
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isSearchInputVisible = false;
+      }
+    });
   }
+  
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {}
 
@@ -115,9 +127,6 @@ export class HeaderComponent {
     }
   }
 
-  public isRouteActive(route: string): boolean {
-    return this.router.isActive(route, true)
-  }
 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {
@@ -127,6 +136,7 @@ export class HeaderComponent {
     }
   }
 
+  
   public onLogout() {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
