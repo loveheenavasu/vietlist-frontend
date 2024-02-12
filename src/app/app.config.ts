@@ -17,9 +17,12 @@ const stripePublishKey = environment.stripe_publish_key
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withInMemoryScrolling({
-      scrollPositionRestoration: 'enabled',
-    })),
+    provideRouter(
+      routes,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      }),
+    ),
     provideClientHydration(),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([ErrorHandlerInterceptor])),

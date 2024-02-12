@@ -1,14 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Endpoints, GenericHelper } from '@vietlist/shared';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { Endpoints, GenericHelper } from '@vietlist/shared'
+import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomepageService {
-
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) {}
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -24,5 +23,4 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.SubscribeNewsletter)
     return this.http.post<any>(endpoint, body)
   }
-
 }

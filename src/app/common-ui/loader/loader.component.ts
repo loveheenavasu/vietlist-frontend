@@ -10,10 +10,10 @@ import { Component } from '@angular/core'
     </div>
   </section> `,
   styles: `
-  .spinner-border{
+    .spinner-border {
       width: 25px;
       height: 25px;
-     
-  }`,
+    }
+  `,
 })
 export class LoaderComponent {}

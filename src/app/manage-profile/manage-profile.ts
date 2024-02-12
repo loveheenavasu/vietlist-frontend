@@ -1,4 +1,4 @@
-import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
@@ -13,7 +13,7 @@ import { NgClass, NgIf } from '@angular/common'
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent, NgIf, NgClass , RouterOutlet , RouterLink],
+  imports: [EditProfileComponent, NgIf, NgClass, RouterOutlet, RouterLink],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -24,12 +24,12 @@ export class ManageProfileComponent {
   public sidebarMenu: ProfileMenu[] = []
   public userEmail: any
   public imgUrl: any
-  activeIndex: number = 0;
+  activeIndex: number = 0
 
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
-    private router:Router
+    private router: Router,
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
@@ -69,6 +69,5 @@ export class ManageProfileComponent {
   }
   addClass(index: number) {
     this.activeIndex = index
-
   }
 }

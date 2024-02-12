@@ -6,11 +6,18 @@ import { MatIconModule } from '@angular/material/icon'
 import { CommonModule } from '@angular/common'
 import { BusinessService } from '../../service/business.service'
 import { FullPageLoaderService } from '@vietlist/shared'
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
-import { BusinessCategoryResponse } from '../../service/business.interface'
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
+import { BusinessCategoryResponse, FindBusinessParams } from '../../service/business.interface'
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { MatSliderModule } from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 
 @Component({
   selector: 'app-find-business',
@@ -25,7 +32,8 @@ import { MatSliderModule } from '@angular/material/slider';
     LoaderComponent,
     NgxPaginationModule,
     MatSliderModule,
-    FormsModule
+    FormsModule,
+    AutocompleteComponent
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -44,20 +52,28 @@ export class FindBusinessComponent {
   public isPaginationVisible: boolean = false
   public totalCount: number = 0
   public price: number = 0
-  public slidervalue: number = 0;
-  public maxPrice: number = 0;
+  public slidervalue: number = 0
+  public maxPrice: number = 0
   public latitude: any = []
   public longitude: any = []
-
-  constructor(private businessCategoriesService: BusinessService, private fullPageLoaderService: FullPageLoaderService, private fb: FormBuilder) {
-
+  public street: any
+  public state: any
+  public country: any
+  public city: any
+  public zipcode: any
+  public fullAddress: any
+  constructor(
+    private businessCategoriesService: BusinessService,
+    private fullPageLoaderService: FullPageLoaderService,
+    private fb: FormBuilder,
+  ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
       hours: [''],
       address: [''],
       model: [''],
       price: [''],
-      slidervalue: ['']
+      slidervalue: [''],
     })
   }
 
@@ -70,7 +86,6 @@ export class FindBusinessComponent {
     this.selectedLayout = layout
   }
 
-
   getPublishBusinessData() {
     this.fullPageLoaderService.showLoader()
     this.businessCategoriesService.ListingBusiness().subscribe({
@@ -79,18 +94,17 @@ export class FindBusinessComponent {
         this.findBusinessData = res.data
         this.maxPrice = res.max_price
         this.totalCount = res.total_count
-        this.findBusinessData.forEach(obj => {
+        this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
-            this.latitude.push(obj.latitude);
-            this.longitude.push(obj.longitude);
+            this.latitude.push(obj.latitude)
+            this.longitude.push(obj.longitude)
           }
-        });
+        })
         this.initMap()
-        console.log(this.findBusinessData, "RESPONSE")
-      }
+        console.log(this.findBusinessData, 'RESPONSE')
+      },
     })
   }
-
 
   public getBusinessCat() {
     this.businessCategoriesService.getBusinessCat().subscribe({
@@ -105,71 +119,99 @@ export class FindBusinessComponent {
     this.getDefaultCat()
   }
   public getDefaultCat() {
-    this.businessCategoriesService.getDefaultCat(this.categoriesValue).subscribe({
-      next: (res: any) => {
-        this.selectedDefaultCategories = res.data
-      },
-    })
+    this.businessCategoriesService
+      .getDefaultCat(this.categoriesValue)
+      .subscribe({
+        next: (res: any) => {
+          this.selectedDefaultCategories = res.data
+        },
+      })
   }
 
   public searchBusiness() {
     this.loader = true
-    const post_category = this.findBusinessForm.value.post_category;
+    const post_category = this.findBusinessForm.value.post_category
     const price = this.findBusinessForm.value.slidervalue
     const postPerPage = 2
-
-    this.businessCategoriesService.findBusiness(price, post_category, postPerPage, this.currentPage).subscribe({
-      next: (res: any) => {
-        this.loader = false
-        this.isPaginationClick = false
-        this.isPaginationVisible = true
-        this.fullPageLoaderService.hideLoader()
-        this.findBusinessData = res.data
-        this.totalCount = res.total_count
-        this.maxPrice = res.max_price
-        console.log("check total count", this.totalCount)
-        console.log("RESPONSE", this.findBusinessData)
-      },
-      error: (err: any) => {
-        this.loader = false
-        console.log("error", err)
-      }
-    })
+    const params: FindBusinessParams = {};
+    if (post_category) {
+      params['post_category'] = post_category
+    }
+    if (price) {
+      params['price'] = price
+    }
+    if (postPerPage) {
+      params['posts_per_page'] = postPerPage
+    }
+    if(this.currentPage){
+      params['page_no'] = this.currentPage
+    }
+    if (this.city) {
+      params['city'] = this.city;
+    }
+    if (this.state) {
+      params['region'] = this.state;
+    }
+    if (this.fullAddress) {
+      params['street'] = this.fullAddress;
+    }
+    if (this.zipcode) {
+      params['zip'] = this.zipcode;
+    }
+    if (this.country) {
+      params['country'] = this.country;
+    }
+  
+    this.businessCategoriesService
+      .findBusiness(params)
+      .subscribe({
+        next: (res: any) => {
+          this.loader = false
+          this.isPaginationClick = false
+          this.isPaginationVisible = true
+          this.fullPageLoaderService.hideLoader()
+          this.findBusinessData = res.data
+          this.totalCount = res.total_count
+          this.maxPrice = res.max_price;
+        },
+        error: (err: any) => {
+          this.loader = false
+        },
+      })
   }
-
-
 
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
-    this.currentPage = event;
-    console.log("check pagination ", this.currentPage)
+    this.currentPage = event
+    console.log('check pagination ', this.currentPage)
     if (this.findBusinessForm.value.post_category) {
-      this.searchBusiness();
+      this.searchBusiness()
     } else {
       this.getPublishBusinessData()
     }
-
-
   }
 
   public updatePrice(event: any) {
-    console.log("range", this.findBusinessForm.value.slidervalue)
-    this.price = event.value;
+    console.log('range', this.findBusinessForm.value.slidervalue)
+    this.price = event.value
     this.slidervalue = this.findBusinessForm.value.slidervalue
   }
 
   public initMap() {
-    console.log(this.latitude, this.longitude, "LATLNG");
-    let map: any;
-    const mapElement = document.getElementById('map');
+    console.log(this.latitude, this.longitude, 'LATLNG')
+    let map: any
+    const mapElement = document.getElementById('map')
 
     // Ensure that the map element is not null
     if (mapElement !== null) {
       // Create a new Google Map instance
       map = new google.maps.Map(mapElement, {
-        center: { lat: parseFloat(this.latitude[0]), lng: parseFloat(this.longitude[0]) }, // Use dynamic values
+        center: {
+          lat: parseFloat(this.latitude[0]),
+          lng: parseFloat(this.longitude[0]),
+        }, // Use dynamic values
         zoom: 13,
-      });
+      })
 
       if (this.latitude && this.longitude) {
         // Array of marker positions
@@ -181,20 +223,49 @@ export class FindBusinessComponent {
         //   { lat: 51.681, lng: 7.806 },
         // ];
 
-        this.findBusinessData.forEach(data => {
-          console.log("check data", data)
+        this.findBusinessData.forEach((data) => {
+          console.log('check data', data)
           const marker = new google.maps.Marker({
-            position: { lat: parseFloat(data.latitude), lng: parseFloat(data.longitude) },
+            position: {
+              lat: parseFloat(data.latitude),
+              lng: parseFloat(data.longitude),
+            },
             map: map,
             title: 'Marker Title',
-          });
-          console.log("check marker", marker)
-        });
-
+          })
+          console.log('check marker', marker)
+        })
       }
     } else {
-      console.error('Map element not found');
+      console.error('Map element not found')
     }
   }
 
+  public getAddress(place: any) {
+    this.fullAddress = place.formatted_address
+    this.state = ''
+    this.country = ''
+    this.city = ''
+    this.zipcode = ''
+    const array = place
+    array.address_components.filter((element: any) => {
+      element.types.filter((type: any) => {
+        if (type == 'country') {
+          this.country = element.long_name
+        }
+        if (type == 'administrative_area_level_3') {
+          this.city = element.long_name
+        }
+        if (type == 'postal_code') {
+          this.zipcode = element.long_name
+        }
+        if (type == 'administrative_area_level_1') {
+          this.state = element.long_name
+        }
+        
+      })
+    })
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
+  }
 }

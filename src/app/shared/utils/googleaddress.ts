@@ -7,7 +7,7 @@ import {
   AfterViewInit,
   Input,
 } from '@angular/core'
-import {FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 //@ts-ignore
 import {} from '@types/googlemaps'
 
@@ -26,9 +26,9 @@ import {} from '@types/googlemaps'
   `,
 })
 export class AutocompleteComponent implements OnInit, AfterViewInit {
-  @Input() adressType!: string;
+  @Input() adressType!: string
   @Input() set value(val: string) {
-    this.autocompleteInput = val || '';
+    this.autocompleteInput = val || ''
   }
   @Output() setAddress: EventEmitter<any> = new EventEmitter()
   @ViewChild('addresstext') addresstext: any
@@ -73,10 +73,10 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   private reverseGeocode(latitude: number, longitude: number) {
     const geocoder = new google.maps.Geocoder()
     const latlng = { lat: latitude, lng: longitude }
-    geocoder.geocode({ location: latlng }, (results:any, status:any) => {
+    geocoder.geocode({ location: latlng }, (results: any, status: any) => {
       if (status === 'OK') {
         if (results && results[0]) {
-          const country = results[0].address_components.find((component:any) =>
+          const country = results[0].address_components.find((component: any) =>
             component.types.includes('country'),
           )
           if (country) {
@@ -96,9 +96,9 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   private reverseGeocodeFromAddress() {
     const address = this.autocompleteInput
     const geocoder = new google.maps.Geocoder()
-    geocoder.geocode({ address: address }, (results:any, status:any) => {
+    geocoder.geocode({ address: address }, (results: any, status: any) => {
       if (status === 'OK' && results && results.length > 0) {
-        const country = results[0].address_components.find((component:any) =>
+        const country = results[0].address_components.find((component: any) =>
           component.types.includes('country'),
         )
         if (country) {

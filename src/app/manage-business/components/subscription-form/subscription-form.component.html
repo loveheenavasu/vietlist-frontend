@@ -4,77 +4,97 @@
   </div>
 </div>
 <form [formGroup]="subscriptionForm">
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12">
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        value=""
-        id="terms"
-        [(ngModel)]="check"
-        [formControl]="verifiedBadge"
-      />
-      <label class="form-check-label" for="terms">
-        Verified Badge
-      </label>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="terms"
+          [(ngModel)]="check"
+          [formControl]="verifiedBadge"
+        />
+        <label class="form-check-label" for="terms"> Verified Badge </label>
+      </div>
     </div>
   </div>
-</div>
-@if(verifiedBadge.value == true){
+  @if (verifiedBadge.value == true) {
+    <div class="row px-2 my-3">
+      <div class="col-12">
+        <label for="" class="listing-form-label mb-2"
+          >Verification upload</label
+        >
+        <ngx-dropzone (change)="onSelect($event)" [accept]="'.pdf,.doc,.docx'">
+          <ngx-dropzone-label>
+            <i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+            or Browse a file (Allowed .pdf , .docx, .doc)
+          </ngx-dropzone-label>
+        </ngx-dropzone>
 
-<div class="row px-2 my-3" >
-  <div class="col-12">
-    <label for="" class="listing-form-label mb-2">Verification upload</label>
-    <ngx-dropzone (change)="onSelect($event)" [accept]="'.pdf,.doc,.docx'" >
-      <ngx-dropzone-label>
-        <i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or Browse a file (Allowed .pdf , .docx, .doc)
-      </ngx-dropzone-label>
+        <p *ngIf="lastPart">
+          {{ lastPart }}
+          <a href="{{ verification_upload }}" target="_blank"
+            ><i class="fa fa-external-link" aria-hidden="true"></i
+          ></a>
+        </p>
+      </div>
+    </div>
+  }
 
-    </ngx-dropzone>
-   
-    <p *ngIf="lastPart">{{lastPart}} <a href="{{verification_upload}}" target="_blank"><i   class="fa fa-external-link" aria-hidden="true"></i></a></p>
-  
+  <br />
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label for="name" class="listing-form-label"
+        >Facebook <span class="asterik">*</span></label
+      >
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input
+        class="input-control"
+        placeholder="Enter Facebook url"
+        formControlName="facebook"
+      />
+    </div>
   </div>
-</div>
-}
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label for="name" class="listing-form-label"
+        >Instagram <span class="asterik">*</span></label
+      >
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input
+        class="input-control"
+        placeholder="Enter Instagram url"
+        formControlName="instagram"
+      />
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label"
+        >Twitter <span class="asterik">*</span></label
+      >
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input
+        class="input-control"
+        placeholder="Enter Twitter url"
+        formControlName="twitter"
+      />
+    </div>
+  </div>
 
-<br/>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label for="name" class="listing-form-label"
-      >Facebook <span class="asterik">*</span></label
+  <div style="width: 100%; text-align: end">
+    <button
+      type="button"
+      class="btn orange-background-btn ms-auto"
+      [disabled]="!subscriptionForm.valid"
+      (click)="addBusiness()"
     >
+      <app-loader *ngIf="isLoader"></app-loader>
+      <span *ngIf="!isLoader">Next</span>
+    </button>
   </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Facebook url" formControlName="facebook"/>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label for="name" class="listing-form-label"
-      >Instagram <span class="asterik">*</span></label
-    >
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Instagram url" formControlName="instagram"/>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label"
-      >Twitter <span class="asterik">*</span></label
-    >
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter Twitter url" formControlName="twitter"/>
-  </div>
-</div>
-
-<div style="width: 100%; text-align: end">
-  <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!subscriptionForm.valid" (click)="addBusiness()">
-   <app-loader *ngIf="isLoader"></app-loader> <span *ngIf="!isLoader">Next</span>
-  </button>
-</div>
 </form>
-

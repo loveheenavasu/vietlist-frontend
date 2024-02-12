@@ -1,9 +1,9 @@
-import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service';
-import { BusinessService } from '../../manage-business/service/business.service';
+import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
+import { BusinessService } from '../../manage-business/service/business.service'
 import { NgClass } from '@angular/common'
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-business-categories',
@@ -14,11 +14,14 @@ import { Subscription } from 'rxjs';
 })
 export class BusinessCategories {
   public selectedLayout: string = 'grid'
-  public businessCategoriesArray : any[]=[]
-  public subscription!:Subscription
-  constructor(private businessCategoriesService:BusinessService , private fullPageLoaderService:FullPageLoaderService) {}
-  
-  ngOnInit(){
+  public businessCategoriesArray: any[] = []
+  public subscription!: Subscription
+  constructor(
+    private businessCategoriesService: BusinessService,
+    private fullPageLoaderService: FullPageLoaderService,
+  ) {}
+
+  ngOnInit() {
     this.getBusinessCategories()
   }
 
@@ -26,14 +29,14 @@ export class BusinessCategories {
     this.selectedLayout = layout
   }
 
-  getBusinessCategories(){
+  getBusinessCategories() {
     this.fullPageLoaderService.showLoader()
     this.businessCategoriesService.getBusinessCat().subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
-        console.log(this.businessCategoriesArray , "RESPONSE")
-      }
+        console.log(this.businessCategoriesArray, 'RESPONSE')
+      },
     })
   }
 

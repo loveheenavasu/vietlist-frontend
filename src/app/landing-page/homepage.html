@@ -1,17 +1,20 @@
 <div class="container-fluid g-0">
-  <div class="banner-1" style="background-image: url({{homePageData?.navigate_business_sections?.banner_image}});">
+  <div
+    class="banner-1"
+    style="background-image: url({{homePageData?.navigate_business_sections?.banner_image}});"
+  >
     <div class="content-wrapper">
       <div class="content">
         <h1>{{homePageData?.navigate_business_sections?.title}}</h1>
-        <p>
-          {{homePageData?.navigate_business_sections?.description}}
-        </p>
+        <p>{{homePageData?.navigate_business_sections?.description}}</p>
         <div class="d-flex justify-content-center">
           <div (click)="findBusiness()">
             <button class="btn find-buisness-btn">Find a Business</button>
           </div>
           <div class="mx-3">
-            <button class="btn list-buisness-btn" (click)="listBusiness()">List your Business</button>
+            <button class="btn list-buisness-btn" (click)="listBusiness()">
+              List your Business
+            </button>
           </div>
         </div>
       </div>
@@ -69,10 +72,14 @@
   <app-plan [homePageData]="homePageData"></app-plan>
 </section>
 <section>
-  <app-cta-verified-business [homePageData]="homePageData"></app-cta-verified-business>
+  <app-cta-verified-business
+    [homePageData]="homePageData"
+  ></app-cta-verified-business>
 </section>
 <section>
-  <app-claim-your-buisness [homePageData]="homePageData"></app-claim-your-buisness>
+  <app-claim-your-buisness
+    [homePageData]="homePageData"
+  ></app-claim-your-buisness>
 </section>
 <section class="advertising">
   <div class="ads-container">

@@ -36,39 +36,70 @@
       <ul>
         <li>
           <img src="/assets/icons/mdi_location-radius.svg" />
-          {{footerPageContent?.contact?.address}}
+          {{ footerPageContent?.contact?.address }}
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1 {{footerPageContent?.contact?.phone_number}}
+          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
+          {{ footerPageContent?.contact?.phone_number }}
         </li>
-        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +1 {{footerPageContent?.contact?.phone_number}}</li>
-        <li><img src="/assets/icons/email.svg" /> {{footerPageContent?.contact?.email}}</li>
+        <li>
+          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
+          {{ footerPageContent?.contact?.phone_number }}
+        </li>
+        <li>
+          <img src="/assets/icons/email.svg" />
+          {{ footerPageContent?.contact?.email }}
+        </li>
       </ul>
       <div class="social-link">
         <ul>
           <li>
-            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
-              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.facebook"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/FacebookIcon.svg"
+                alt="facbook-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
-              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.linkedin"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                alt="linkedin-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+              <img
+                src="/assets/icons/Social-Link/TwitterIcon.svg"
+                alt="twitter-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+              <img
+                src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                alt="youtube-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
-              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.pinterest"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                alt="pinterest-logo"
+              />
             </a>
           </li>
         </ul>
@@ -95,10 +126,18 @@
           <form [formGroup]="newsLetterSubscribeForm">
             <div class="d-flex">
               <div>
-                <input type="text" class="newsletter" formControlName="email" placeholder="Email Address" />
+                <input
+                  type="text"
+                  class="newsletter"
+                  formControlName="email"
+                  placeholder="Email Address"
+                />
               </div>
               <div>
-                <button class="btn orange-background-btn enter-btn" (click)="subscribeEmailNewsletter()">
+                <button
+                  class="btn orange-background-btn enter-btn"
+                  (click)="subscribeEmailNewsletter()"
+                >
                   &#8594;
                 </button>
               </div>
@@ -122,13 +161,20 @@
         <li><img src="/assets/icons/brand-logo.svg" alt="Logo" /></li>
         <li>
           <img src="/assets/icons/mdi_location-radius.svg" />
-          {{footerPageContent?.contact?.address}}
+          {{ footerPageContent?.contact?.address }}
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1 {{footerPageContent?.contact?.phone_number}}
+          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
+          {{ footerPageContent?.contact?.phone_number }}
         </li>
-        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +1 {{footerPageContent?.contact?.phone_number}}</li>
-        <li><img src="/assets/icons/email.svg" /> {{footerPageContent?.contact?.email}}</li>
+        <li>
+          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
+          {{ footerPageContent?.contact?.phone_number }}
+        </li>
+        <li>
+          <img src="/assets/icons/email.svg" />
+          {{ footerPageContent?.contact?.email }}
+        </li>
       </ul>
     </div>
 
@@ -158,7 +204,11 @@
         <li>
           <div class="d-flex">
             <div>
-              <input type="text" class="newsletter" placeholder="Email Address" />
+              <input
+                type="text"
+                class="newsletter"
+                placeholder="Email Address"
+              />
             </div>
             <div>
               <button class="btn orange-background-btn enter-btn">
@@ -177,28 +227,52 @@
       <div class="social-link">
         <ul>
           <li>
-            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
-              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.facebook"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/FacebookIcon.svg"
+                alt="facbook-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
-              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.linkedin"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                alt="linkedin-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+              <img
+                src="/assets/icons/Social-Link/TwitterIcon.svg"
+                alt="twitter-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+              <img
+                src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                alt="youtube-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
-              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.pinterest"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                alt="pinterest-logo"
+              />
             </a>
           </li>
         </ul>

@@ -143,15 +143,13 @@
 //     })
 //     const id = localStorageService.getData('postId')
 //     this.postId = Number(id)
-    
+
 //     const postId = localStorageService.getData('postId')
 //     this.localStoragePostId = Number(postId)
 
-    
 //     this.businessService.storePostId.subscribe((res)=>{
 //       this.localStoragePostId = res
 //     })
-    
 
 //     this.businessService.isBusinessFormFilled.subscribe((res)=>{
 //       this.isFormFilled = res
@@ -169,12 +167,11 @@
 //     if(this.postId){
 //       this.getBusinessFormDetails(this.postId)
 //     }
-   
+
 //   }
 
-
 //   public onSelect(event: any) {
-  
+
 //     if (event.addedFiles.length > 1) {
 //       Swal.fire({
 //         toast: true,
@@ -186,28 +183,25 @@
 //         timer: 3000,
 //         timerProgressBar: true,
 //       });
-      
+
 //     } else {
 //       this.files.push(...event.addedFiles);
 //       this.filesString = this.files.map((file) => file.name).join(', ');
 //       this.isFilesPresent = true;
-//       const file = event.addedFiles[0]; 
+//       const file = event.addedFiles[0];
 //       this.businessService.uploadMedia(this.files[0]).subscribe({
 //         next: (res: any) => {
-  
+
 //           this.uploadMediaUrl = res.image_url;
-     
+
 //         },
 //         error: (err: any) => {
 //           // Handle errors
 //         }
 //       });
-      
-   
+
 //     }
 //   }
-
-
 
 //  public  onRemove(event: any) {
 //     this.files.splice(this.files.indexOf(event), 1)
@@ -218,7 +212,7 @@
 
 //   public getSafeURL(file: File): any {
 //     return URL.createObjectURL(file)
-   
+
 //   }
 //   public getAddress(place: any) {
 //     this.fullAddress = place.formatted_address
@@ -243,12 +237,10 @@
 //         }
 //       })
 //     })
-//     this.latitude = place.geometry.location.lat() 
-//     this.longitude = place.geometry.location.lng() 
+//     this.latitude = place.geometry.location.lat()
+//     this.longitude = place.geometry.location.lng()
 //     this.initMap()
 //   }
-
-
 
 //   public onTagSelectionChange() {
 //     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
@@ -277,7 +269,7 @@
 //         this.post_tags = res.data
 //       },
 //       error:(err)=>{
-        
+
 //       }
 //     })
 //   }
@@ -288,7 +280,7 @@
 //         this.selectedDefaultCategories = res.data
 //       },
 //       error:(err)=>{
-        
+
 //       }
 //     })
 //   }
@@ -301,7 +293,7 @@
 //           this.businessFormDetails = res?.data?.[0] || null
 //           this.businessInfoForm.patchValue({
 //             post_title:this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
-//             post_content:this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',    
+//             post_content:this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',
 //             business_email:this.businessFormDetails.business_email ? this.businessFormDetails.business_email : 'NA',
 //             contact_phone:this.businessFormDetails.contact_phone ? this.businessFormDetails.contact_phone : 'NA',
 //             website:this.businessFormDetails.website ? this.businessFormDetails.website : 'Na',
@@ -309,7 +301,7 @@
 //             post_category:this.businessFormDetails.post_category?.map((category: any) => category?.id),
 //             default_category: this.businessFormDetails.default_category ? this.businessFormDetails.default_category.id : 'NA'
 //           })
-        
+
 //           this.street = this.businessFormDetails.street;
 //           this.latitude = this.businessFormDetails.latitude;
 //           this.longitude = this.businessFormDetails.longitude;
@@ -328,7 +320,7 @@
 //               })
 //         },
 //         error:(err)=>{
-        
+
 //         }
 //       })
 //   }
@@ -345,7 +337,7 @@
 //         zoom: 13,
 //         mapTypeId: google.maps.MapTypeId.ROADMAP
 //       });
-  
+
 //       if (this.latitude && this.longitude) {
 //         // Add a marker to the map
 //         const marker = new google.maps.Marker({
@@ -359,10 +351,9 @@
 //     }
 //   }
 
-
 //   public changeMapView() {
 //     console.log('Selected map view:', this.selectedMapView);
-  
+
 //     if (this.map !== null) {
 //       console.log('Changing map view...');
 //       switch (this.selectedMapView) {
@@ -384,7 +375,6 @@
 //     }
 //   }
 
-  
 //   public addBusiness(val?: any) {
 //     this.isloader = true
 //       const body: any = {
@@ -485,22 +475,16 @@
 //       })
 //       }
 //     }
-  
 
 // }
 
-
-
 import { RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
-import {
-  BusinessCategoryResponse,
-  TagsResponse,
-} from './../../service/business.interface'
+import { BusinessCategoryResponse } from './../../service/business.interface'
 import { MatSelectModule } from '@angular/material/select'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatCardModule } from '@angular/material/card'
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { Component } from '@angular/core'
 import {
   FormBuilder,
   FormGroup,
@@ -552,7 +536,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
     RouterOutlet,
     LoaderComponent,
     NgxDropzoneModule,
-    JsonPipe
+    JsonPipe,
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
@@ -561,8 +545,8 @@ export class ListBusinessComponent {
   public isloader: boolean = false
   // public latitude!: any
   // public longitude!: any
-  latitude: number = 0;
-  longitude: number = 0;
+  latitude: number = 0
+  longitude: number = 0
   public separateDialCode = true
   public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
@@ -572,15 +556,15 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-  verification_upload:any
-  map: google.maps.Map | null = null; // Declare and initialize the map property
-  latt! : number
-  longi !:number
-  public selectedMapView = 'default';
-  
+  verification_upload: any
+  map: google.maps.Map | null = null // Declare and initialize the map property
+  latt!: number
+  longi!: number
+  public selectedMapView = 'default'
+
   public categoriesValue: any
   public post_category: BusinessCategoryResponse[] = []
-  public post_tags :any[] = []
+  public post_tags: any[] = []
   public isEditable = false
   public businessInfoForm!: FormGroup
   public firstFormGroup!: FormGroup
@@ -596,19 +580,19 @@ export class ListBusinessComponent {
   public city: any
   public zipcode: any
   public localStoragePostId: any
-  public isFormFilled :boolean = false
+  public isFormFilled: boolean = false
   public filesString: any
-  public files: File[]=[]
-  public fullAddress : any
-  public imageName:any
-  public uploadMediaUrl:any
-  public isFilesPresent: boolean = false;
+  public files: File[] = []
+  public fullAddress: any
+  public imageName: any
+  public uploadMediaUrl: any
+  public isFilesPresent: boolean = false
   public display: any
   public zoom = 6
   public selectedTagsString = ''
   public street = ''
-  public tags:any[]=[]
-  verifiedBadge:any
+  public tags: any[] = []
+  verifiedBadge: any
   /**
    *
    * @param _formBuilder
@@ -636,45 +620,40 @@ export class ListBusinessComponent {
       default_category: ['', Validators.required],
       post_content: ['', Validators.required],
       website: [''],
-      mapview: ['']
+      mapview: [''],
     })
-     this.businessService.storePostId.subscribe((res)=>{
+    this.businessService.storePostId.subscribe((res) => {
       this.postId = res
     })
     const id = localStorageService.getData('postId')
     this.postId = Number(id)
-    
+
     const postId = localStorageService.getData('postId')
     this.localStoragePostId = Number(postId)
 
-    
-    this.businessService.storePostId.subscribe((res)=>{
+    this.businessService.storePostId.subscribe((res) => {
       this.localStoragePostId = res
     })
-    
 
-    this.businessService.isBusinessFormFilled.subscribe((res)=>{
+    this.businessService.isBusinessFormFilled.subscribe((res) => {
       this.isFormFilled = res
     })
 
-    const localFlag = this.localStorageService.getData("isBusinessFormFilled")
+    const localFlag = this.localStorageService.getData('isBusinessFormFilled')
     this.isFormFilled = Boolean(localFlag)
-
   }
 
   ngOnInit() {
     this.getBusinessCat()
-   
-    if(this.postId){
+
+    if (this.postId) {
       this.getBusinessFormDetails(this.postId)
     }
     this.getTags()
     this.initMap()
   }
 
-
   public onSelect(event: any) {
-  
     if (event.addedFiles.length > 1) {
       Swal.fire({
         toast: true,
@@ -685,101 +664,90 @@ export class ListBusinessComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      });
-      
+      })
     } else {
-      this.files.push(...event.addedFiles);
-      this.filesString = this.files.map((file) => file.name).join(', ');
-      this.isFilesPresent = true;
-      const file = event.addedFiles[0]; 
+      this.files.push(...event.addedFiles)
+      this.filesString = this.files.map((file) => file.name).join(', ')
+      this.isFilesPresent = true
+      const file = event.addedFiles[0]
       this.businessService.uploadMedia(this.files[0]).subscribe({
         next: (res: any) => {
-  
-          this.uploadMediaUrl = res.image_url;
-     
+          this.uploadMediaUrl = res.image_url
         },
         error: (err: any) => {
           // Handle errors
-        }
-      });
-      
-   
+        },
+      })
     }
   }
 
-
-
- public  onRemove() {
-  this.uploadMediaUrl = '';
+  public onRemove() {
+    this.uploadMediaUrl = ''
     // this.files.splice(this.files.indexOf(event), 1)
     if (this.files.length === 0) {
-      this.isFilesPresent = false;
+      this.isFilesPresent = false
     }
   }
 
   public getSafeURL(file: File): any {
     return URL.createObjectURL(file)
-   
   }
 
+  //   public initMap() {
+  //     let map
+  //     // Get the map container element by its ID
+  //     const mapElement = document.getElementById('map')
 
+  //     // Ensure that the map element is not null
+  //     if (mapElement !== null) {
+  //       // Create a new Google Map instance
+  //        map = new google.maps.Map(mapElement?.id ? mapElement : document.createElement('div'), {
+  //         center: { lat: this.latitude, lng: this.longitude },
+  //         zoom: 13,
+  //         mapTypeId: google.maps.MapTypeId.ROADMAP
+  //       });
 
-//   public initMap() {
-//     let map
-//     // Get the map container element by its ID
-//     const mapElement = document.getElementById('map')
+  //       // map = new google.maps.Map(mapElement, {
+  //       //   center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
+  //       //   zoom: 13,
+  //       //   mapTypeId: google.maps.MapTypeId.ROADMAP
+  //       // })
 
-//     // Ensure that the map element is not null
-//     if (mapElement !== null) {
-//       // Create a new Google Map instance
-//        map = new google.maps.Map(mapElement?.id ? mapElement : document.createElement('div'), {
-//         center: { lat: this.latitude, lng: this.longitude },
-//         zoom: 13,
-//         mapTypeId: google.maps.MapTypeId.ROADMAP
-//       });
-    
-//       // map = new google.maps.Map(mapElement, {
-//       //   center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-//       //   zoom: 13,
-//       //   mapTypeId: google.maps.MapTypeId.ROADMAP
-//       // })
+  //       if (this.latitude && this.longitude) {
+  //         // Add a marker to the map
+  //         const marker = new google.maps.Marker({
+  //           position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
+  //           map: map,
+  //           title: 'Marker Title',
+  //         })
+  //       }
+  //     } else {
+  //     }
+  //   }
+  //   selectedMapView = 'default';
+  //   changeMapView() {
+  //     console.log(this.selectedMapView,'selectedMapView')
+  //     const mapElement = document.getElementById('map');
 
-//       if (this.latitude && this.longitude) {
-//         // Add a marker to the map
-//         const marker = new google.maps.Marker({
-//           position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-//           map: map,
-//           title: 'Marker Title',
-//         })
-//       }
-//     } else {
-//     }
-//   }
-//   selectedMapView = 'default';
-//   changeMapView() {
-//     console.log(this.selectedMapView,'selectedMapView')
-//     const mapElement = document.getElementById('map');
+  //     if (mapElement !== null) {
+  //         const map = new google.maps.Map(mapElement);
 
-//     if (mapElement !== null) {
-//         const map = new google.maps.Map(mapElement);
-
-//         switch (this.selectedMapView) {
-//             case 'satellite':
-//                 map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-//                 break;
-//             case 'hybrid':
-//                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-//                 break;
-//             case 'terrain':
-//                 map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-//                 break;
-//             default:
-//                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-//                 break;
-//         }
-//     }
-// }
-
+  //         switch (this.selectedMapView) {
+  //             case 'satellite':
+  //                 map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+  //                 break;
+  //             case 'hybrid':
+  //                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+  //                 break;
+  //             case 'terrain':
+  //                 map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+  //                 break;
+  //             default:
+  //                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+  //                 break;
+  //         }
+  //     }
+  // }
 
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
@@ -791,9 +759,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error:(err)=>{
-
-      }
+      error: (err) => {},
     })
   }
 
@@ -807,9 +773,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_tags = res.data
       },
-      error:(err)=>{
-        
-      }
+      error: (err) => {},
     })
   }
 
@@ -818,9 +782,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.selectedDefaultCategories = res.data
       },
-      error:(err)=>{
-        
-      }
+      error: (err) => {},
     })
   }
   public getAddress(place: any) {
@@ -846,8 +808,8 @@ export class ListBusinessComponent {
         }
       })
     })
-    this.latitude = place.geometry.location.lat() 
-    this.longitude = place.geometry.location.lng() 
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
     this.initMap()
   }
   public getBusinessFormDetails(postId: any) {
@@ -855,113 +817,147 @@ export class ListBusinessComponent {
       .getBusiness(this.postId ? this.postId : postId)
       .subscribe({
         next: (res) => {
-          
           this.businessFormDetails = res?.data?.[0] || null
-          this.tags = this.businessFormDetails.post_tags.map((tag:any) => (tag.id));
-          this.uploadMediaUrl =this.businessFormDetails.logo
-          if(this.uploadMediaUrl){
+          this.tags = this.businessFormDetails.post_tags.map(
+            (tag: any) => tag.id,
+          )
+          this.uploadMediaUrl = this.businessFormDetails.logo
+          if (this.uploadMediaUrl) {
             this.isFilesPresent = true
-          }else{
+          } else {
             this.isFilesPresent = false
           }
-          this.verification_upload =  this.businessFormDetails.verification_upload 
-          this.verifiedBadge = this.businessFormDetails.verified_badge 
+          this.verification_upload =
+            this.businessFormDetails.verification_upload
+          this.verifiedBadge = this.businessFormDetails.verified_badge
           this.businessInfoForm.patchValue({
-            post_title:this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
-            post_content:this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',    
-            business_email:this.businessFormDetails.business_email ? this.businessFormDetails.business_email : 'NA',
-            contact_phone:this.businessFormDetails.contact_phone ? this.businessFormDetails.contact_phone : 'NA',
-            website:this.businessFormDetails.website ? this.businessFormDetails.website : 'Na',
-            mapview:this.businessFormDetails.mapview ? this.businessFormDetails.mapview : 'NA',
-            post_category:this.businessFormDetails.post_category?.map((category: any) => category?.id),
-            default_category: this.businessFormDetails.default_category ? this.businessFormDetails.default_category.id : 'NA',
-            instagram:this.businessFormDetails.instagram,
-            facebook:this.businessFormDetails.facebook,
-            
+            post_title: this.businessFormDetails.post_title
+              ? this.businessFormDetails.post_title
+              : 'NA',
+            post_content: this.businessFormDetails.post_content
+              ? this.businessFormDetails.post_content
+              : 'NA',
+            business_email: this.businessFormDetails.business_email
+              ? this.businessFormDetails.business_email
+              : 'NA',
+            contact_phone: this.businessFormDetails.contact_phone
+              ? this.businessFormDetails.contact_phone
+              : 'NA',
+            website: this.businessFormDetails.website
+              ? this.businessFormDetails.website
+              : 'Na',
+            mapview: this.businessFormDetails.mapview
+              ? this.businessFormDetails.mapview
+              : 'NA',
+            post_category: this.businessFormDetails.post_category?.map(
+              (category: any) => category?.id,
+            ),
+            default_category: this.businessFormDetails.default_category
+              ? this.businessFormDetails.default_category.id
+              : 'NA',
+            instagram: this.businessFormDetails.instagram,
+            facebook: this.businessFormDetails.facebook,
           })
 
           // this.tags = this.businessFormDetails.post_tags
-          console.log(this.tags,'post_tagspost_tagspost_tags')
+          console.log(this.tags, 'post_tagspost_tagspost_tags')
           this.selectedDefaultCategories.push({
-            id:this.businessFormDetails.default_category.id,
-            name:this.businessFormDetails.default_category.name
+            id: this.businessFormDetails.default_category.id,
+            name: this.businessFormDetails.default_category.name,
           })
-          
-          this.street = this.businessFormDetails.street;
-          this.latitude = Number(this.businessFormDetails.latitude);
-          this.longitude = Number(this.businessFormDetails.longitude);
-          this.latt = this.businessFormDetails.latitude;
-           this.longi = this.businessFormDetails.longitude;
-          this.zipcode = this.businessFormDetails.zip;
-          this.state = this.businessFormDetails.region ;
-          this.country = this.businessFormDetails.country;
-          this.city = this.businessFormDetails.city;
-          
+
+          this.street = this.businessFormDetails.street
+          this.latitude = Number(this.businessFormDetails.latitude)
+          this.longitude = Number(this.businessFormDetails.longitude)
+          this.latt = this.businessFormDetails.latitude
+          this.longi = this.businessFormDetails.longitude
+          this.zipcode = this.businessFormDetails.zip
+          this.state = this.businessFormDetails.region
+          this.country = this.businessFormDetails.country
+          this.city = this.businessFormDetails.city
+
           this.initMap()
         },
-        error:(err)=>{
-        
-        }
+        error: (err) => {},
       })
   }
- 
-  
+
   public initMap() {
     // Get the map container element by its ID
-    const mapElement = document.getElementById('map');
+    const mapElement = document.getElementById('map')
     // Ensure that the map element is not null
     if (mapElement !== null) {
-      console.log('Initializing map...');
+      console.log('Initializing map...')
       // Create a new Google Map instance
       this.map = new google.maps.Map(mapElement, {
-        center: { lat: this.latitude , lng: this.longitude},
+        center: { lat: this.latitude, lng: this.longitude },
         zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      });
-  
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      })
+
       if (this.latitude && this.longitude) {
         // Add a marker to the map
         const marker = new google.maps.Marker({
           position: { lat: this.latitude, lng: this.longitude },
           map: this.map,
           title: 'Marker Title',
-        });
+        })
       }
     } else {
-      console.error('Map element not found.');
+      console.error('Map element not found.')
     }
   }
-  
-  
+
   public changeMapView() {
-    console.log('Selected map view:', this.selectedMapView);
-  
+    console.log('Selected map view:', this.selectedMapView)
+
     if (this.map !== null) {
-      console.log('Changing map view...');
+      console.log('Changing map view...')
       switch (this.selectedMapView) {
         case 'satellite':
-          this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-          break;
+          this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE)
+          break
         case 'hybrid':
-          this.map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-          break;
+          this.map.setMapTypeId(google.maps.MapTypeId.HYBRID)
+          break
         case 'terrain':
-          this.map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-          break;
+          this.map.setMapTypeId(google.maps.MapTypeId.TERRAIN)
+          break
         default:
-          this.map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-          break;
+          this.map.setMapTypeId(google.maps.MapTypeId.ROADMAP)
+          break
       }
     } else {
-      console.error('Map not initialized.');
+      console.error('Map not initialized.')
     }
   }
-  
 
-  
   public addBusiness(val?: any) {
     this.isloader = true
-      const body: any = {
+    const body: any = {
+      post_title: this.businessInfoForm.value.post_title,
+      contact_phone: parseInt(
+        this.businessInfoForm.value.contact_phone?.e164Number,
+      ),
+      business_email: this.businessInfoForm.value.business_email,
+      post_category: this.businessInfoForm.value.post_category.join(', '),
+      default_category: this.businessInfoForm.value.default_category,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      city: this.city,
+      region: this.state,
+      country: this.country,
+      zip: this.zipcode,
+      post_content: this.businessInfoForm.value.post_content,
+      website: this.businessInfoForm.value.website,
+      post_tags: this.selectedTagsString,
+      street: this.fullAddress,
+      logo: this.uploadMediaUrl,
+      mapview: this.businessInfoForm.value.mapview,
+    }
+    if (this.isFormFilled) {
+      this.isloader = true
+      const updatebody: any = {
         post_title: this.businessInfoForm.value.post_title,
         contact_phone: parseInt(
           this.businessInfoForm.value.contact_phone?.e164Number,
@@ -978,57 +974,38 @@ export class ListBusinessComponent {
         post_content: this.businessInfoForm.value.post_content,
         website: this.businessInfoForm.value.website,
         post_tags: this.selectedTagsString,
-        street:this.fullAddress,
-        logo:this.uploadMediaUrl,
-        mapview:this.businessInfoForm.value.mapview
+        street: this.fullAddress,
+        logo: this.uploadMediaUrl,
+        mapview: this.businessInfoForm.value.mapview,
+        post_id: this.localStoragePostId
+          ? this.localStoragePostId
+          : this.postId,
       }
-      if(this.isFormFilled){
-        this.isloader = true
-        const updatebody: any = {
-          post_title: this.businessInfoForm.value.post_title,
-          contact_phone: parseInt(
-            this.businessInfoForm.value.contact_phone?.e164Number,
-          ),
-          business_email: this.businessInfoForm.value.business_email,
-          post_category: this.businessInfoForm.value.post_category.join(', '),
-          default_category: this.businessInfoForm.value.default_category,
-          latitude: this.latitude,
-          longitude: this.longitude,
-          city: this.city,
-          region: this.state,
-          country: this.country,
-          zip: this.zipcode,
-          post_content: this.businessInfoForm.value.post_content,
-          website: this.businessInfoForm.value.website,
-          post_tags: this.selectedTagsString,
-          street:this.fullAddress,
-          logo:this.uploadMediaUrl,
-          mapview:this.businessInfoForm.value.mapview,
-          post_id:this.localStoragePostId ? this.localStoragePostId : this.postId
-        }
-        this.businessService.updateBusiness(updatebody).subscribe({
-          next: (res) => {
-            this.isloader = false
-            this.addBusinessFormData = res
-            this.isFormFilled = true
-            this.isSubscriptionStepper = true
-            this.getBusinessFormDetails(this.localStoragePostId ? this.localStoragePostId : this.postId)
-            Swal.fire({
-              toast: true,
-              text: 'Business Information updated successfully!',
-              animation: false,
-              icon: 'success',
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-            })
-          },
-          error: (err) => {
-            this.isloader = false
-          },
-        })
-      }else{
+      this.businessService.updateBusiness(updatebody).subscribe({
+        next: (res) => {
+          this.isloader = false
+          this.addBusinessFormData = res
+          this.isFormFilled = true
+          this.isSubscriptionStepper = true
+          this.getBusinessFormDetails(
+            this.localStoragePostId ? this.localStoragePostId : this.postId,
+          )
+          Swal.fire({
+            toast: true,
+            text: 'Business Information updated successfully!',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+        },
+        error: (err) => {
+          this.isloader = false
+        },
+      })
+    } else {
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -1039,7 +1016,7 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(this.postId)
           this.localStorageService.saveData('postId', this.postId)
           this.businessService.isBusinessFormFilled.next(true)
-          this.localStorageService.saveData("isBusinessFormFilled" , "true")
+          this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
           Swal.fire({
@@ -1057,8 +1034,6 @@ export class ListBusinessComponent {
           this.isloader = false
         },
       })
-      }
     }
-  
-
+  }
 }

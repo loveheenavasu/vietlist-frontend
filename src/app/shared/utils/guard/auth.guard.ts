@@ -14,11 +14,11 @@ import { AuthenticationService, LocalStorageService } from '../services'
 export class AuthGuard implements CanActivate {
   public isAuthenticated: boolean = false
   public userRole: string = ''
-  public subscriptionStatus: boolean = false;
+  public subscriptionStatus: boolean = false
   constructor(
     private router: Router,
     private sessionService: AuthenticationService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
   ) {
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -38,23 +38,24 @@ export class AuthGuard implements CanActivate {
     // }
     this.sessionService.isSubscription$.subscribe((res) => {
       this.subscriptionStatus = res
-      console.log("check the subscription status", res)
+      console.log('check the subscription status', res)
     })
-
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
-
     if (this.isAuthenticated && this.userRole == 'subscriber') {
-      return true;
-    } else if (this.isAuthenticated && this.userRole == 'business-owner' && this.subscriptionStatus) {
-      return true;
+      return true
+    } else if (
+      this.isAuthenticated &&
+      this.userRole == 'business-owner' &&
+      this.subscriptionStatus
+    ) {
+      return true
     }
 
     this.router.navigateByUrl('/not-found')
     return false
-
   }
 }

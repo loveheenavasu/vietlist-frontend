@@ -58,60 +58,26 @@
     <div class="view-container">
       @if (selectedLayout == 'grid') {
         <div class="grid-view-container row">
-          @for(key of businessCategoriesArray ; track $index){
-          <div class="grid-card col-lg-4">
-            <div class="listing-img">
-              <img [src]="key.image" />
-            </div>
-            <div class="listing-description">
-              <div class="listing-heading">
-                <h3>
-                  {{key.name}}
-                </h3>
-              </div>
-              <div class="listing-info">
-                <p>
-                 {{key.description}}
-                </p>
-              </div>
-              <!-- <div class="lisiting-package">
-                <span>$ Package : Free Business</span>
-              </div> -->
-              <!-- <div class="listing-rating">
-                <div class="d-flex">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-              </div> -->
-            </div>
-          </div>
-        }
-        </div>
-      } @else {
-        <div class="list-view-container">
-          @for(key of businessCategoriesArray ; track $index){
-          <div class="d-flex small-screen-view">
-            <div class="listing-img-container">
+          @for (key of businessCategoriesArray; track $index) {
+            <div class="grid-card col-lg-4">
               <div class="listing-img">
                 <img [src]="key.image" />
               </div>
-            </div>
-            <div class="listing-img-info">
-              <div class="listing-heading">
-                <h3> {{key.name}}</h3>
-              </div>
-              <div class="listing-info">
-                <p>
-                  {{key.description}}
-                </p>
-              </div>
-              <!-- <div class="lisiting-package">
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3>
+                    {{ key.name }}
+                  </h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{ key.description }}
+                  </p>
+                </div>
+                <!-- <div class="lisiting-package">
                 <span>$ Package : Free Business</span>
               </div> -->
-              <!-- <div class="listing-rating">
+                <!-- <div class="listing-rating">
                 <div class="d-flex">
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
@@ -120,8 +86,42 @@
                   <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
               </div> -->
+              </div>
             </div>
-          </div>
+          }
+        </div>
+      } @else {
+        <div class="list-view-container">
+          @for (key of businessCategoriesArray; track $index) {
+            <div class="d-flex small-screen-view">
+              <div class="listing-img-container">
+                <div class="listing-img">
+                  <img [src]="key.image" />
+                </div>
+              </div>
+              <div class="listing-img-info">
+                <div class="listing-heading">
+                  <h3>{{ key.name }}</h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{ key.description }}
+                  </p>
+                </div>
+                <!-- <div class="lisiting-package">
+                <span>$ Package : Free Business</span>
+              </div> -->
+                <!-- <div class="listing-rating">
+                <div class="d-flex">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+              </div> -->
+              </div>
+            </div>
           }
         </div>
       }

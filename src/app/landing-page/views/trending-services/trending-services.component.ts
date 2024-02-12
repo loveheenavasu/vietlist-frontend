@@ -1,20 +1,50 @@
-import { NgIf } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
-import { BusinessService } from 'src/app/manage-business/service/business.service';
-import { register } from 'swiper/element';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button'
+import { MatSelectModule } from '@angular/material/select'
+import { NgIf } from '@angular/common'
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  ViewChild,
+} from '@angular/core'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
+import { register } from 'swiper/element'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { FindBusinessParams } from 'src/app/manage-business/service/business.interface';
 register()
+
+
 @Component({
   selector: 'app-trending-services',
   standalone: true,
-  imports: [NgIf],
+  imports: [
+    NgIf,
+    MatSelectModule,
+    AutocompleteComponent,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './trending-services.component.html',
-  styleUrl: './trending-services.component.scss'
+  styleUrl: './trending-services.component.scss',
 })
 export class TrendingServicesComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
-
- public businessCat:any[]=[]
+  public street: any
+  public state: any
+  public country: any
+  public city: any
+  public zipcode: any
+  public fullAddress: any
+  public longitude: any
+  public latitude: any
+  public businessCat: any[] = []
+  public post_category: any[] = []
+  public category = new FormControl('')
   swiperParams = {
     slidesPerView: 1,
     autoplay: true,
@@ -33,7 +63,7 @@ export class TrendingServicesComponent {
       init() {},
     },
   }
-  constructor(private businessService:BusinessService) {
+  constructor(private businessService: BusinessService) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -41,14 +71,85 @@ export class TrendingServicesComponent {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCategroies()
+    this.getBusinessCat()
   }
-  getCategroies(){
+
+  getCategroies() {
     this.businessService.trendingBusiness().subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.businessCat = res.data
-      }
+      },
     })
   }
+
+  public getBusinessCat() {
+    this.businessService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        this.post_category = res.data
+      },
+      error: (err) => {},
+    })
+  }
+
+  public getAddress(place: any) {
+    this.fullAddress = place.formatted_address
+    this.state = ''
+    this.country = ''
+    this.city = ''
+    this.zipcode = ''
+    const array = place
+    array.address_components.filter((element: any) => {
+      element.types.filter((type: any) => {
+        if (type == 'country') {
+          this.country = element.long_name
+        }
+        if (type == 'administrative_area_level_3') {
+          this.city = element.long_name
+        }
+        if (type == 'postal_code') {
+          this.zipcode = element.long_name
+        }
+        if (type == 'administrative_area_level_1') {
+          this.state = element.long_name
+        }
+      })
+    })
+    this.latitude = place.geometry.location.lat()
+    this.longitude = place.geometry.location.lng()
+  }
+
+  public search() {
+    const params: FindBusinessParams = {};
+    if (this.city) {
+      params['city'] = this.city;
+    }
+    if (this.state) {
+      params['region'] = this.state;
+    }
+    if (this.fullAddress) {
+      params['street'] = this.fullAddress;
+    }
+    if (this.zipcode) {
+      params['zip'] = this.zipcode;
+    }
+    if (this.country) {
+      params['country'] = this.country;
+    }
+    if (this.category.value) {
+      params['post_category'] = this.category.value;
+    }
+  
+    this.businessService.findBusiness(params).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.post_category = res.data
+      },
+      error: (error) => {
+       
+      }
+    });
+  }
+  
 }

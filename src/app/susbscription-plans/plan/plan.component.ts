@@ -28,7 +28,7 @@ export class PlanComponent {
     private router: Router,
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
@@ -42,7 +42,7 @@ export class PlanComponent {
     this.loaderService.showLoader()
     this.subscriptionService.subscriptionPlan().subscribe({
       next: (res: any) => {
-        console.log("check subscription data", res)
+        console.log('check subscription data', res)
         this.loaderService.hideLoader()
         const plansArray = Object.values(res.data).filter(
           (item) => typeof item === 'object',
@@ -50,13 +50,13 @@ export class PlanComponent {
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
   getDescriptionItems(data: any) {
     if (data) {
-      return data.split(',');
+      return data.split(',')
     }
   }
 

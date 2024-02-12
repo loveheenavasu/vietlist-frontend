@@ -1,41 +1,44 @@
 <div class="container-fluid buisness-cat">
   <div class="heading">
-    <h1>{{businessCategoryContent?.business_category_section?.title}}</h1>
+    <h1>{{ businessCategoryContent?.business_category_section?.title }}</h1>
     <p>
-      {{businessCategoryContent?.business_category_section?.description}}
+      {{ businessCategoryContent?.business_category_section?.description }}
     </p>
   </div>
   <div class="explore-more-btn">
-    <button
-      class="btn orange-background-btn">{{businessCategoryContent?.business_category_section?.explore_more || Explore more}}</button>
+    <button class="btn orange-background-btn">
+      {{ businessCategoryContent?.business_category_section?.explore_more }}
+    </button>
   </div>
 </div>
 <div class="Categories-swiper-container container-fluid">
   <div class="row">
     <div class="col-md-12">
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-        @for(key of businessCat ; track $index){
-        <swiper-slide>
-          <div class="main-cnt d-flex flex-column mb-3 mt-4">
-            <div>
-              <div class="img-cnt" *ngIf="key.icon !== null">
-                <!-- <i [class]="key.icon" style="width:100%"></i> -->
-                <img [src]="key.image">
+        @for (key of businessCat; track $index) {
+          <swiper-slide>
+            <div class="main-cnt d-flex flex-column mb-3 mt-4">
+              <div>
+                <div class="img-cnt" *ngIf="key.icon !== null">
+                  <!-- <i [class]="key.icon" style="width:100%"></i> -->
+                  <img [src]="key.image" />
+                </div>
+                <div class="img-cnt" *ngIf="key.icon == null">
+                  <img [src]="key.image" style="width: 100%" />
+                </div>
+                <div
+                  class="img-cnt"
+                  *ngIf="key.icon == null || key.image == null"
+                >
+                  <p>Image not found</p>
+                </div>
               </div>
-              <div class="img-cnt" *ngIf="key.icon == null">
-                <img [src]="key.image" style="width:100%">
-              </div>
-              <div class="img-cnt" *ngIf="key.icon == null || key.image == null">
-                <p>Image not found</p>
+              <div class="card-heading-container">
+                <h4 class="card-heading" [innerHtml]="key.name"></h4>
               </div>
             </div>
-            <div class="card-heading-container">
-              <h4 class="card-heading" [innerHtml]="key.name"></h4>
-            </div>
-          </div>
-        </swiper-slide>
+          </swiper-slide>
         }
-
       </swiper-container>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class BlogNewsComponent {
   public orderValue?: number
   public blogDetail?: any
 
-  constructor() { }
+  constructor() {}
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
