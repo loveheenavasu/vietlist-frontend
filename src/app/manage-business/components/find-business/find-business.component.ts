@@ -83,6 +83,7 @@ export class FindBusinessComponent {
     this.initMap()
     // this.getPublishBusinessData()
     this.searchBusiness()
+    this.findBusinessForm.value.slidervalue.setValue(0)
   }
   public handleLayout(layout: string) {
     this.selectedLayout = layout
