@@ -7,7 +7,7 @@ interface Files {
   uri: string;
   type: string;
   size: number;
-} 
+}
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class BusinessService {
   public isBusinessBioFormFilled = new BehaviorSubject<boolean>(false)
   public isBusinessFormFilled = new BehaviorSubject<boolean>(false)
   public isConsultationFormFilled = new BehaviorSubject<boolean>(false)
-  constructor(private http: HttpClient , private authService:AuthenticationService) {}
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
 
   public getBusinessCat(): Observable<BusinessCategoryResponse> {
@@ -38,7 +38,7 @@ export class BusinessService {
     return this.http.get<TagsResponse>(urlWithParams);
   }
 
-  public addBusiness(body:any):Observable<any>{
+  public addBusiness(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddBusiness)
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, body, { headers: authToken })
@@ -55,26 +55,26 @@ export class BusinessService {
     const authToken = this.authService.getAuthHeaders();
     const params = new HttpParams().set('post_id', post_id)
     return this.http.get<any>(endpoint, { headers: authToken, params: params });
-  } 
+  }
 
-  public uploadMedia(image:any) {
+  public uploadMedia(image: any) {
     const formData = new FormData();
-    formData.append('image', image); 
+    formData.append('image', image);
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UploadMedia);
     return this.http.post<any>(endpoint, formData);
   }
 
   public findBusiness(price: number, post_category: number, posts_per_page: number, page_no: number): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness);
-    const authToken = this.authService.getAuthHeaders();
     const params = new HttpParams().set('price', price).set('post_category', post_category).set('posts_per_page', posts_per_page).set('page_no', page_no);
-    return this.http.get<any>(endpoint, { headers: authToken, params: params });
+    return this.http.get<any>(endpoint, { params: params });
   }
 
   public ListingBusiness(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness);
-    const authToken = this.authService.getAuthHeaders();
-    return this.http.get<any>(endpoint, { headers: authToken });
+    return this.http.get<any>(endpoint);
   }
 
+
+  
 }

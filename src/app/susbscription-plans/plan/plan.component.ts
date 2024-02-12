@@ -67,5 +67,8 @@ export class PlanComponent {
 
   navigateToConfirmPayment(id: any) {
     this.router.navigate(['/confirm-payment', id])
+    if (!this.isAuthenticated) {
+      this.router.navigateByUrl('/login')
+    }
   }
 }
