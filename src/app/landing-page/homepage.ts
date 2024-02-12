@@ -10,6 +10,7 @@ import {
   TestimonialsComponent,
   EventsComponent,
 } from './views'
+import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 
 @Component({
   selector: 'app-homepage',
@@ -23,6 +24,7 @@ import {
     CardSwiperComponent,
     EventsComponent,
     PlanComponent,
+    TrendingServicesComponent
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

@@ -75,6 +75,9 @@ export class BusinessService {
     return this.http.get<any>(endpoint);
   }
 
-
+public trendingBusiness(): Observable<any> {
+  const endpoint = GenericHelper.appendBaseUrl(Endpoints.TrendingBusiness);
+  return this.http.get<any>(endpoint);
+}
   
 }

@@ -1,1 +1,40 @@
-<p>trending-services works!</p>
+<div class="container-fluid buisness-cat">
+    <div class="heading">
+      <h1>Our Business Categories</h1>
+      <p>
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
+        cubilia curae; Proin sodales ultrices nulla blandit volutpat.Vestibulum
+        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+        curae; Proin sodales ultrices nulla blandit volutpat.
+      </p>
+    </div>
+    <div class="explore-more-btn">
+      <button class="btn orange-background-btn">Explore More</button>
+    </div>
+  </div>
+  <div class="Categories-swiper-container container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+          @for(key of businessCat ; track $index){
+          <swiper-slide>
+            <div class="main-cnt d-flex flex-column mb-3 mt-4">
+              <div>
+                <div class="img-cnt">
+                  <img [src]="key.image" style="width:100%">
+                </div>
+               
+              </div>
+              <div>
+                <h3 class="card-heading">{{key.name}}</h3>
+              </div>
+            </div>
+            
+          </swiper-slide>
+        }
+        
+        </swiper-container>
+      </div>
+    </div>
+  </div>
+  

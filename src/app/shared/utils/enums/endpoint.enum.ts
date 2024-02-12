@@ -19,5 +19,6 @@ export enum Endpoints {
   FindBusiness = "business_data_search",
   GetBusinessByUserId = "get_all_business_data_by_userid",
   ListingBusiness = "get_publish_business_data",
-  DeleteAddedBusiness = ""
+  DeleteAddedBusiness = "post_data_delete",
+  TrendingBusiness = "trending_data_get"
 }
