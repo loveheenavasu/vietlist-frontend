@@ -4,6 +4,10 @@
 section {
     background-color: #F6F6F7;
 
+    .container-fluid {
+        max-width: 1360px;
+    }
+
     .upcoming-description {
         padding-top: 6rem;
 
@@ -45,7 +49,7 @@ section {
     }
 
     .events-main-card {
-        width: 33rem;
+        width: 26rem;
         margin-bottom: 1.5rem;
         min-height: 33.125rem;
         height: auto;

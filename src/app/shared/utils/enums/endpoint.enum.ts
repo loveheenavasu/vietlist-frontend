@@ -18,5 +18,8 @@ export enum Endpoints {
   UploadMedia = "uplaod_media",
   FindBusiness = "business_data_search",
   GetBusinessByUserId = "get_all_business_data_by_userid",
-  ListingBusiness = "get_publish_business_data"
+  ListingBusiness = "get_publish_business_data",
+  HomePage = "homepage_content",
+  FooterContent = "get_footer_data",
+  SubscribeNewsletter = "subscribe_newsletter"
 }

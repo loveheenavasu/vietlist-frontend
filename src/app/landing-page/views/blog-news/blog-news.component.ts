@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core'
+import { Component, HostListener, Input } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
@@ -21,13 +21,19 @@ import { blogItem } from '@vietlist/shared'
   styleUrl: './blog-news.component.scss',
 })
 export class BlogNewsComponent {
+  @Input() homePageData?: any
   public orderValue?: number
+  public blogDetail?: any
 
-  constructor() {}
+  constructor() { }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
     console.log(this.orderValue)
+  }
+
+  ngOnInit() {
+    this.blogDetail = this.homePageData
   }
 
   public blogItem: blogItem[] = [

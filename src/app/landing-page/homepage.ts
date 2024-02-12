@@ -9,7 +9,9 @@ import {
   ExplainingPlatformComponent,
   TestimonialsComponent,
   EventsComponent,
+  CtaVerifiedBusinessComponent
 } from './views'
+import { HomepageService } from './views/service/homepage.service'
 
 @Component({
   selector: 'app-homepage',
@@ -23,6 +25,7 @@ import {
     CardSwiperComponent,
     EventsComponent,
     PlanComponent,
+    CtaVerifiedBusinessComponent
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
@@ -34,10 +37,24 @@ export class HomepageComponent {
     'logo3.png',
     // Add more logo URLs as needed
   ]
+  homePageData?: any
   currentLogoIndex = 0
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private homePageContent: HomepageService) {
     console.log('Init component homepge')
+  }
+
+  ngOnInit() {
+    this.getHomePageContent()
+  }
+
+  public getHomePageContent() {
+    this.homePageContent.homePageContent().subscribe({
+      next: (res: any) => {
+        this.homePageData = res.data
+      }
+    })
+
   }
 
   nextLogo() {

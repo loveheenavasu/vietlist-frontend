@@ -35,15 +35,44 @@
     <div class="col-12 col-md-6 col-lg-3">
       <ul>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" /> Praesent nulla
-          massa, hendrerit vestibulum gravida in, feugiat auctor felis.
+          <img src="/assets/icons/mdi_location-radius.svg" />
+          {{footerPageContent?.contact?.address}}
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +123 400 12356
+          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1 {{footerPageContent?.contact?.phone_number}}
         </li>
-        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +223 48900 123</li>
-        <li><img src="/assets/icons/email.svg" /> Pexample&#64;mail.com</li>
+        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +1 {{footerPageContent?.contact?.phone_number}}</li>
+        <li><img src="/assets/icons/email.svg" /> {{footerPageContent?.contact?.email}}</li>
       </ul>
+      <div class="social-link">
+        <ul>
+          <li>
+            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
+              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
+              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
+              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
+              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
+              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-12 col-md-6 col-lg-3">
       <ul>
@@ -63,20 +92,18 @@
     <div class="col-12 col-md-6 col-lg-3">
       <ul>
         <li>
-          <div class="d-flex">
-            <div>
-              <input
-                type="text"
-                class="newsletter"
-                placeholder="Email Address"
-              />
+          <form [formGroup]="newsLetterSubscribeForm">
+            <div class="d-flex">
+              <div>
+                <input type="text" class="newsletter" formControlName="email" placeholder="Email Address" />
+              </div>
+              <div>
+                <button class="btn orange-background-btn enter-btn" (click)="subscribeEmailNewsletter()">
+                  &#8594;
+                </button>
+              </div>
             </div>
-            <div>
-              <button class="btn orange-background-btn enter-btn">
-                &#8594;
-              </button>
-            </div>
-          </div>
+          </form>
         </li>
         <li>
           Lorem ipsum dolor sit amet consectetur. Consequat orci ultricies entum
@@ -94,20 +121,22 @@
       <ul>
         <li><img src="/assets/icons/brand-logo.svg" alt="Logo" /></li>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" /> Praesent nulla
-          massa, hendrerit vestibulum gravida in, feugiat auctor felis.
+          <img src="/assets/icons/mdi_location-radius.svg" />
+          {{footerPageContent?.contact?.address}}
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +123 400 12356
+          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1 {{footerPageContent?.contact?.phone_number}}
         </li>
-        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +223 48900 123</li>
-        <li><img src="/assets/icons/email.svg" /> Pexample&#64;mail.com</li>
+        <li><img src="/assets/icons/ri_whatsapp-fill.svg" /> +1 {{footerPageContent?.contact?.phone_number}}</li>
+        <li><img src="/assets/icons/email.svg" /> {{footerPageContent?.contact?.email}}</li>
       </ul>
     </div>
 
     <div class="col-12 col-md-6">
       <ul>
-        <li><h3 class="mobile-view-quick-links">Quick Links</h3></li>
+        <li>
+          <h3 class="mobile-view-quick-links">Quick Links</h3>
+        </li>
         <li class="links">Resources</li>
         <li class="links">For User</li>
         <li class="links">For Businesses</li>
@@ -123,15 +152,13 @@
     </div>
     <div class="col-12 col-md-6">
       <ul>
-        <li><h3>Newsletter Subscribe</h3></li>
+        <li>
+          <h3>Newsletter Subscribe</h3>
+        </li>
         <li>
           <div class="d-flex">
             <div>
-              <input
-                type="text"
-                class="newsletter"
-                placeholder="Email Address"
-              />
+              <input type="text" class="newsletter" placeholder="Email Address" />
             </div>
             <div>
               <button class="btn orange-background-btn enter-btn">
@@ -145,6 +172,37 @@
           sed et
         </li>
       </ul>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="social-link">
+        <ul>
+          <li>
+            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
+              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
+              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
+              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
+              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+            </a>
+          </li>
+          <li>
+            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
+              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

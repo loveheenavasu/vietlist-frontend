@@ -1,18 +1,18 @@
 <div class="container-fluid g-0">
-  <div class="banner-1">
-    <div class="content">
-      <h1>Find & Explore Businesses</h1>
-      <p>
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia curae; Proin sodales ultrices nulla blandit volutpat.curae;
-        Proin sodales ultrices nulla blandit volutpat.
-      </p>
-      <div class="d-flex justify-content-center">
-        <div (click)="findBusiness()">
-          <button class="btn find-buisness-btn">Find a Business</button>
-        </div>
-        <div class="mx-3">
-          <button class="btn list-buisness-btn" (click)="listBusiness()">List your Business</button>
+  <div class="banner-1" style="background-image: url({{homePageData?.navigate_business_sections?.banner_image}});">
+    <div class="content-wrapper">
+      <div class="content">
+        <h1>{{homePageData?.navigate_business_sections?.title}}</h1>
+        <p>
+          {{homePageData?.navigate_business_sections?.description}}
+        </p>
+        <div class="d-flex justify-content-center">
+          <div (click)="findBusiness()">
+            <button class="btn find-buisness-btn">Find a Business</button>
+          </div>
+          <div class="mx-3">
+            <button class="btn list-buisness-btn" (click)="listBusiness()">List your Business</button>
+          </div>
         </div>
       </div>
     </div>
@@ -34,25 +34,23 @@
   </div>
 </div>
 <section>
-  <app-buisness-category></app-buisness-category>
-</section>
-<!-- <section>
-  <app-buisness-category></app-buisness-category>
+  <app-buisness-category [homePageData]="homePageData"></app-buisness-category>
 </section>
 <section>
-  <app-blog-news></app-blog-news>
+  <app-blog-news [homePageData]="homePageData"></app-blog-news>
 </section>
 <section>
-  <app-events></app-events>
+  <app-events [homePageData]="homePageData"></app-events>
 </section>
 <section>
   <app-testimonials></app-testimonials>
 </section>
 <section>
-  <app-explaining-platform></app-explaining-platform>
+  <app-explaining-platform [homePageData]="homePageData"></app-explaining-platform>
 </section>
-
-
+<!-- <section>
+  <app-buisness-category></app-buisness-category>
+</section>
 <section>
   <app-claim-your-buisness></app-claim-your-buisness>
 </section>
@@ -61,5 +59,16 @@
   <vietlist-card-swiper></vietlist-card-swiper>
 </section> -->
 <section class="my-5">
-  <app-plan></app-plan>
+  <app-plan [homePageData]="homePageData"></app-plan>
+</section>
+<section>
+  <app-cta-verified-business [homePageData]="homePageData"></app-cta-verified-business>
+</section>
+<section>
+  <app-claim-your-buisness [homePageData]="homePageData"></app-claim-your-buisness>
+</section>
+<section class="advertising">
+  <div class="ads-container">
+    <img src="/assets/image/sale-ads-img.svg" alt="ads" />
+  </div>
 </section>

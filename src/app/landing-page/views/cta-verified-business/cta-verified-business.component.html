@@ -1,0 +1,28 @@
+<div class="container-fluid g-0">
+    <div class="cta-description">
+        <div class="heading">
+            <h1>{{ctaContent?.verified_business_section?.title}}</h1>
+        </div>
+        <div class="description">
+            <p>{{ctaContent?.verified_business_section?.description}}</p>
+        </div>
+        <div class="verified-business-btn">
+            <button
+                class="btn orange-background-btn">{{ctaContent?.verified_business_section?.verified_business}}</button>
+        </div>
+    </div>
+    <div class="cta-verfied-image">
+        <div class="image-container">
+            <div class="d-flex">
+                @for (item of verifiedImage; track $index) {
+                <div class="image">
+                    <img [src]="item.image" alt="verfied-image" />
+                    <div class="verified-logo">
+                        <img [src]="item.verified_logo" alt="verfied-logo" />
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

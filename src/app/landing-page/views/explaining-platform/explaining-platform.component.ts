@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-explaining-platform',
@@ -7,4 +7,13 @@ import { Component } from '@angular/core'
   templateUrl: './explaining-platform.component.html',
   styleUrl: './explaining-platform.component.scss',
 })
-export class ExplainingPlatformComponent {}
+export class ExplainingPlatformComponent {
+  @Input() homePageData?: any
+  public platformContent?: any
+
+  constructor() { }
+
+  ngOnInit() {
+    this.platformContent = this.homePageData
+  }
+}

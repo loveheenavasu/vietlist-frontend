@@ -1,153 +1,179 @@
 @import "../../../assets/scss/common";
 
-.sale-cnt{
-    height:373px;
+.sale-cnt {
+    height: 373px;
 }
 
-.sale{
-   img{
-    margin-left:2.5em;
-   }
-
-   .off{
-    font-weight: var(--font-weight-light);
-    font-size: 36px;
-    margin-right: 45px;
-    margin-top:25px;
-    margin-bottom: 0px;
-   }
-
-   .decsription{
-    font-size:16px;
-    font-weight: var(--font-weight-light);
-    margin-left:2.5em;
-   }
-}
-
-
-ul{
-    list-style-type: none;
-    li{
-        margin-bottom:20px;
-        font-size:16px;
-        color:var(--dark-grey);
-        font-weight:var(--font-weight-light);
-   
-      
+.sale {
+    img {
+        margin-left: 2.5em;
     }
 
-    .links{
+    .off {
+        font-weight: var(--font-weight-light);
+        font-size: 36px;
+        margin-right: 45px;
+        margin-top: 25px;
+        margin-bottom: 0px;
+    }
+
+    .decsription {
+        font-size: 16px;
+        font-weight: var(--font-weight-light);
+        margin-left: 2.5em;
+    }
+}
+
+
+ul {
+    list-style-type: none;
+
+    li {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+
+
+    }
+
+    .links {
         cursor: pointer;
 
-        &:hover{
-            color:var(--primary-color-orange)
+        &:hover {
+            color: var(--primary-color-orange)
         }
     }
 }
-.desktop-footer{
-    display:block
+
+.social-link {
+    ul {
+        display: flex;
+        gap: 10px;
+    }
 }
-.links-cnt{
+
+.desktop-footer {
+    display: block
+}
+
+.links-cnt {
     // margin-top:4.5%;
     border-top: solid 1px #cacaca;
     padding: 20px 20px;
-    h3{
+
+    h3 {
         font-size: 22px;
         font-weight: var(--font-weight-semibold);
-        color:var(--dark-grey);
+        color: var(--dark-grey);
         padding-left: 2rem;
     }
 }
 
-.newsletter{
-    border:solid 1px #E7E8F2;
-    height:55px;
+.newsletter {
+    border: solid 1px #E7E8F2;
+    height: 55px;
     background: #FCFCFC;
-    padding:0 10px;
-    border-radius:6px
-}
-.enter-btn{
-    height:55px;
+    padding: 0 10px;
+    border-radius: 6px
 }
 
-.mobile-view-footer{
-    display:none
+.enter-btn {
+    height: 55px;
 }
-@media screen and (max-width:991px){
-    .mobile-view-footer{
-        display:block
-    }
-    .desktop-footer{
-        display:none
-    }
-   .links-cnt{
-    h3{
-        padding-left:0px;
-        margin-top:20px;
-    }
-   }
 
-    .sale >img{
+.mobile-view-footer {
+    display: none
+}
+
+@media screen and (max-width:991px) {
+    .mobile-view-footer {
+        display: block
+    }
+
+    .desktop-footer {
+        display: none
+    }
+
+    .links-cnt {
+        h3 {
+            padding-left: 0px;
+            margin-top: 20px;
+        }
+    }
+
+    .sale>img {
         margin-left: 0px;
         width: 100%;
         margin-top: 8%;
         padding: 16px;
     }
 
-    .container{
-        margin-top:3rem
+    .container {
+        margin-top: 3rem
     }
 }
 
 
-@media screen and (max-width:768px){
-    .mobile-view-footer{
-        display:block
+@media screen and (max-width:768px) {
+    .mobile-view-footer {
+        display: block
     }
-    .desktop-footer{
-        display:none
-    }
-   .links-cnt{
-    h3{
-        padding-left:0px;
-        margin-top:20px;
-    }
-   }
 
-    .sale >img{
+    .desktop-footer {
+        display: none
+    }
+
+    .links-cnt {
+        h3 {
+            padding-left: 0px;
+            margin-top: 20px;
+        }
+    }
+
+    .sale>img {
         margin-left: 0px;
         width: 100%;
         margin-top: 8%;
         padding: 16px;
     }
 
-    .container{
-        margin-top:3rem
+    .container {
+        margin-top: 3rem
     }
 }
 
-@media screen and (max-width:480px){
-    .mobile-view-footer{
-        display:block
-    }
-    .desktop-footer{
-        display:none
-    }
-   .links-cnt{
-    h3{
-        padding-left:0px;
-        margin-top:20px;
-    }
-   }
+@media screen and (max-width:480px) {
+    .mobile-view-footer {
+        display: block;
 
-    .sale >img{
+        .social-link {
+            ul {
+                display: flex;
+                gap: 10px;
+            }
+        }
+    }
+
+    .desktop-footer {
+        display: none
+    }
+
+    .links-cnt {
+        h3 {
+            padding-left: 0px;
+            margin-top: 20px;
+        }
+    }
+
+    .sale>img {
         margin-left: 0px;
         width: 100%;
         margin-top: 8%;
         padding: 16px;
     }
 
-    .container{
-        margin-top:3rem
+    .container {
+        margin-top: 3rem
     }
 }
