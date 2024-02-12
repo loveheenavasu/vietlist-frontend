@@ -18,6 +18,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-find-business',
@@ -80,7 +81,8 @@ export class FindBusinessComponent {
   ngOnInit() {
     this.getBusinessCat()
     this.initMap()
-    this.getPublishBusinessData()
+    // this.getPublishBusinessData()
+    this.searchBusiness()
   }
   public handleLayout(layout: string) {
     this.selectedLayout = layout
@@ -128,23 +130,77 @@ export class FindBusinessComponent {
       })
   }
 
+  // public searchBusiness() {
+  //   this.loader = true
+  //   const post_category = this.findBusinessForm.value.post_category
+  //   const price = this.findBusinessForm.value.slidervalue
+  //   const postPerPage = 2
+  //   const params: FindBusinessParams = {};
+  //   if (post_category) {
+  //     params['post_category'] = post_category
+  //   }
+  //   if (price) {
+  //     params['price'] = price
+  //   }
+  //   if (postPerPage) {
+  //     params['posts_per_page'] = postPerPage
+  //   }
+  //   if(this.currentPage){
+  //     params['page_no'] = this.currentPage
+  //   }
+  //   if (this.city) {
+  //     params['city'] = this.city;
+  //   }
+  //   if (this.state) {
+  //     params['region'] = this.state;
+  //   }
+  //   if (this.fullAddress) {
+  //     params['street'] = this.fullAddress;
+  //   }
+  //   if (this.zipcode) {
+  //     params['zip'] = this.zipcode;
+  //   }
+  //   if (this.country) {
+  //     params['country'] = this.country;
+  //   }
+  
+  
+  //   this.businessCategoriesService
+  //     .findBusiness(params)
+  //     .subscribe({
+  //       next: (res: any) => {
+  //         this.loader = false
+  //         this.isPaginationClick = false
+  //         this.isPaginationVisible = true
+  //         this.fullPageLoaderService.hideLoader()
+  //         this.findBusinessData = res.data
+  //         this.totalCount = res.total_count
+  //         this.maxPrice = res.max_price;
+  //       },
+  //       error: (err: any) => {
+  //         this.loader = false
+  //       },
+  //     })
+  // }
+  
   public searchBusiness() {
-    this.loader = true
-    const post_category = this.findBusinessForm.value.post_category
-    const price = this.findBusinessForm.value.slidervalue
-    const postPerPage = 2
+    this.loader = true;
+    const post_category = this.findBusinessForm.value.post_category;
+    const price = this.findBusinessForm.value.slidervalue;
+    const postPerPage = 2;
     const params: FindBusinessParams = {};
+    
     if (post_category) {
-      params['post_category'] = post_category
+      params['post_category'] = post_category;
     }
     if (price) {
-      params['price'] = price
+      params['price'] = price;
     }
     if (postPerPage) {
-      params['posts_per_page'] = postPerPage
+      params['posts_per_page'] = postPerPage;
     }
-    if(this.currentPage){
-      params['page_no'] = this.currentPage
+    if (this.currentPage) {
+      params['page_no'] = this.currentPage;
     }
     if (this.city) {
       params['city'] = this.city;
@@ -161,24 +217,42 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country;
     }
-  
-    this.businessCategoriesService
-      .findBusiness(params)
-      .subscribe({
+    
+    if (!post_category) {
+      // If post_category is not provided, make the API call without any parameters
+      this.businessCategoriesService.ListingBusiness().subscribe({
         next: (res: any) => {
-          this.loader = false
-          this.isPaginationClick = false
-          this.isPaginationVisible = true
-          this.fullPageLoaderService.hideLoader()
-          this.findBusinessData = res.data
-          this.totalCount = res.total_count
+          this.loader = false;
+          this.isPaginationClick = false;
+          this.isPaginationVisible = true;
+          this.fullPageLoaderService.hideLoader();
+          this.findBusinessData = res.data;
+          this.totalCount = res.total_count;
           this.maxPrice = res.max_price;
         },
         error: (err: any) => {
-          this.loader = false
+          this.loader = false;
         },
-      })
+      });
+    } else {
+      // If post_category is provided, make the API call with the constructed parameters
+      this.businessCategoriesService.findBusiness(params).subscribe({
+        next: (res: any) => {
+          this.loader = false;
+          this.isPaginationClick = false;
+          this.isPaginationVisible = true;
+          this.fullPageLoaderService.hideLoader();
+          this.findBusinessData = res.data;
+          this.totalCount = res.total_count;
+          this.maxPrice = res.max_price;
+        },
+        error: (err: any) => {
+          this.loader = false;
+        },
+      });
+    }
   }
+  
 
   public handlePageChange(event: number): void {
     this.isPaginationClick = true

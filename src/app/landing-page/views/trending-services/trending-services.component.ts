@@ -1,3 +1,5 @@
+import { LoaderComponent } from 'src/app/common-ui';
+import { FullPageLoaderService } from './../../../shared/utils/services/loader.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
@@ -27,7 +29,8 @@ register()
     MatButtonModule,
     MatIconModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    LoaderComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './trending-services.component.html',
@@ -39,7 +42,7 @@ export class TrendingServicesComponent {
 
   public businessCat: any[] = []
   public trendingHeaderContent: any
-
+  public isLoader:boolean = false
   public street: any
   public state: any
   public country: any
@@ -69,7 +72,7 @@ export class TrendingServicesComponent {
       init() { },
     },
   }
-  constructor(private businessService: BusinessService) {
+  constructor(private businessService: BusinessService , private fullPageloader:FullPageLoaderService) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -78,12 +81,12 @@ export class TrendingServicesComponent {
   }
 
   ngOnInit() {
-    this.getCategroies()
+    this.getTrendingCategroies()
     this.trendingHeaderContent = this.homePageData
     this.getBusinessCat()
   }
 
-  getCategroies() {
+  getTrendingCategroies() {
     this.businessService.trendingBusiness().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
@@ -96,6 +99,7 @@ export class TrendingServicesComponent {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.post_category = res.data
+        console.log(this.post_category)
       },
       error: (err) => {},
     })
@@ -129,6 +133,7 @@ export class TrendingServicesComponent {
   }
 
   public search() {
+    this.isLoader = true
     const params: FindBusinessParams = {};
     if (this.city) {
       params['city'] = this.city;
@@ -151,8 +156,10 @@ export class TrendingServicesComponent {
   
     this.businessService.findBusiness(params).subscribe({
       next: (res) => {
-        console.log(res)
-        this.post_category = res.data
+        this.isLoader = false
+
+        this.businessCat = res.data
+        console.log(this.businessCat)
       },
       error: (error) => {
        

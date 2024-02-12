@@ -1,6 +1,7 @@
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
-import { Router, RouterLink } from '@angular/router'
+import { Router, RouterLink, RouterLinkActive } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -20,6 +21,9 @@ import Swal from 'sweetalert2'
     RouterLink,
     MatIconModule,
     LoginComponent,
+    MatButtonModule,
+    RouterLinkActive,
+    
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -33,33 +37,7 @@ export class HeaderComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
 
-  public navItems: NavItem[] = [
-    {
-      label: 'Home',
-      href: '/',
-      active: true,
-    },
-    {
-      label: 'Categories',
-      href: '/categories',
-    },
-    {
-      label: 'Add a Business',
-      href: '/benefits-of-joining',
-    },
-    {
-      label: 'Blog/News',
-      href: '/blog-news',
-    },
-    {
-      label: 'Events',
-      href: '/events',
-    },
-    {
-      label: 'Contact Us',
-      href: '/contact-us',
-    },
-  ]
+ 
 
   /**
    *

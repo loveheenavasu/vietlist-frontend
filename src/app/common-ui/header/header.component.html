@@ -116,27 +116,35 @@
       <div class="offcanvas-body">
         <div class="list-item">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            @for (item of navItems; track $index) {
-              <li class="nav-item">
-                <span
-                  [routerLink]="item.href"
-                  [ngClass]="{
-                    'nav-link': true,
-                    'nav-bar-items': true,
-                    active: isRouteActive(item.href)
-                  }"
-                >
-                  <div>
-                    {{ item.label }}
-                  </div>
-                  <div class="dot">
-                    <p></p>
-                  </div>
-                </span>
-              </li>
-            }
+            <li class="nav-item">
+              <span [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</span>
+            </li>
+            <li class="nav-item" [matMenuTriggerFor]="menucat">
+              <span  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Categories <i class="fa fa-caret-down" aria-hidden="true"></i> </span>
+              <mat-menu #menucat="matMenu">
+                <button mat-menu-item>
+                  <span [routerLink]="['/business-categories']" >Business Categories</span>
+                </button>
+                <button mat-menu-item>
+                  <span [routerLink]="['/business-listing']">Business Listing</span>
+                </button>
+              </mat-menu>
+            </li>
+            <li class="nav-item" routerLink="/benefits-of-joining" routerLinkActive="active" >
+              <span>Add a Business</span>
+            </li>
+            <li class="nav-item">
+              <span>Blogs/News</span>
+            </li>
+            <li class="nav-item">
+              <span>Events</span>
+            </li>
+            <li class="nav-item">
+              <span>Contact Us</span>
+            </li>
           </ul>
         </div>
+        
         <div class="country-wrapper small-screen-wrapper">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">

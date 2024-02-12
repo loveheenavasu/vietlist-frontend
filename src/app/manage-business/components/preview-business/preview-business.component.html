@@ -3,9 +3,19 @@
     <h1>Preview Your Business</h1>
   </div>
 </section>
+
 <form action="" [formGroup]="previewForm">
   <div class="container-fluid my-5">
     <div class="main-card">
+      <div class="breadcrumb">
+        <div class="breadcrumb">
+          <span class="manage-business" (click)="manageBusiness()">Manage Business</span> 
+          <span class="business-details">&nbsp; > </span>
+          <span class="business-details">&nbsp;Business Details</span> 
+        </div>
+        
+      </div>
+      
       <h4>Business Information</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">

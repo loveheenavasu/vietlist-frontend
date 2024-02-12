@@ -24,7 +24,12 @@
       </div>
       <div class="mx-1">
         <div class="search-btn" (click)="search()">
-            <i class="fa fa-search" aria-hidden="true"></i>
+           
+            @if(isLoader){
+            <app-loader></app-loader>
+            } @else{
+                <i class="fa fa-search" aria-hidden="true"></i>
+            }
           </div>
     </div>
   </div>

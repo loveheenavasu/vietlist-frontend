@@ -4,41 +4,35 @@
   </div>
 </section>
 <div class="container-fluid g-0">
-  <div class="search row">
-    <div class="search-input col">
-      <div class="input-group">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Search for"
-        />
+  <div class="row search-fields mt-4">
+    <div class="d-flex">
+      <div class=" flex-grow-1">
+        <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
+          @for (key of post_category; track $index) {
+            <mat-option [value]="key.id">{{ key.name }}</mat-option>
+          }
+        </mat-select>
       </div>
-    </div>
-    <div class="add-zipcode col">
-      <div class="input-group">
-        <span class="input-group-text" id="basic-addon1">
-          <img src="/assets/icons/location-icon.svg" alt="location-icon" />
-        </span>
-        <input
-          type="text"
-          class="form-control"
-          aria-describedby="basic-addon1"
-          id="exampleFormControlInput1"
-          placeholder="Near"
-        />
+      <div class="mx-1 flex-grow-1">
+        <AutocompleteComponent
+          (setAddress)="getAddress($event)"
+          adressType="geocode"
+          [value]="street"
+        ></AutocompleteComponent>
       </div>
-    </div>
-    <div class="search-btn col-1 g-0">
-      <button class="btn">
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </button>
+      <div class="mx-1">
+        <div class="search-btn" (click)="search()">
+           
+            @if(isLoader){
+            <app-loader></app-loader>
+            } @else{
+                <i class="fa fa-search" aria-hidden="true"></i>
+            }
+          </div>
     </div>
   </div>
-  <div class="lisiting-container">
+</div>
+  <div class="lisiting-container mt-4">
     <div class="layout-icon d-flex align-items-center">
       <div
         class="grid-layout-icon d-flex align-items-center"

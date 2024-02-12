@@ -39,6 +39,9 @@ export class MyBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.businessArray = res.data
       },
+      error:(err)=>{
+        this.fullPageLoaderService.hideLoader()
+      }
     })
   }
 
@@ -47,12 +50,17 @@ export class MyBusinessComponent {
       next: (res) => {
         Swal.fire({})
       },
+      error:(err)=>{
+        this.fullPageLoaderService.hideLoader()
+      }
     })
   }
+
   ngOnDestroy() {}
   public viewBusiness(postId: any) {
     this.router.navigate(['/preview-business', postId])
   }
+
   removeLocalstoagekey() {
     this.localStorage.removeData('isBusinessFormFilled')
     this.localStorage.removeData('isSubscriptionFormFilled')

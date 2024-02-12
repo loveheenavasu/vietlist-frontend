@@ -1,5 +1,17 @@
 @import "../../../assets/scss/common.scss";
 @import "../../../assets/scss/banner";
+.search-fields{
+    margin:2rem auto
+}
+.search-btn {
+    background-color: var(--primary-color-orange);
+    width: fit-content;
+    padding: 8px 12px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 .container-fluid {
     max-width: 1170px;

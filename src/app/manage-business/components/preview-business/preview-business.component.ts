@@ -1,5 +1,5 @@
 import { BusinessService } from 'src/app/manage-business/service/business.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { Component } from '@angular/core'
 import {
   FormBuilder,
@@ -13,20 +13,21 @@ import { CommonModule } from '@angular/common'
 @Component({
   selector: 'app-preview-business',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule , RouterLink],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
 })
 export class PreviewBusinessComponent {
   public postId: any
   public businessFormDetails: any
-  logo: any
+  public logo: any
   public previewForm: FormGroup
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
+    public router:Router
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -94,8 +95,8 @@ export class PreviewBusinessComponent {
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
 
-        this.dataget = res?.data
-        this.businessFormDetails = res?.data[0]
+        this.dataget = res?.data || 'NA'
+        this.businessFormDetails = res?.data[0] 
         this.previewForm.patchValue(this.businessFormDetails)
         this.logo = res?.data[0]?.logo
         // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
@@ -118,5 +119,9 @@ export class PreviewBusinessComponent {
       },
       error: (err) => {},
     })
+  }
+
+  public manageBusiness(){
+    this.router.navigateByUrl('/manage-profile/my-business')
   }
 }

@@ -13,7 +13,7 @@ import {
   PreviewBusinessComponent,
   SubscriptionFormComponent,
 } from './manage-business'
-import { BusinessCategories } from './categories'
+import { BusinessCategories, BusinessListingComponent } from './categories'
 import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
   EditProfileComponent,
@@ -76,6 +76,10 @@ export default [
   {
     path: 'business-categories',
     loadComponent: () => BusinessCategories,
+  },
+  {
+    path: 'business-listing',
+    loadComponent: () => BusinessListingComponent,
   },
   {
     path: 'preview-business',

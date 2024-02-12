@@ -1,8 +1,8 @@
 export interface NavItem {
   label: string
-  href: string
+  href?: string
   active?: boolean
-  subItems?: NavItem[]
+  subItems?: boolean
 }
 
 export interface ProfileMenu {

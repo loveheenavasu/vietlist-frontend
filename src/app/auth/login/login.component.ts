@@ -1,7 +1,7 @@
 import { Router } from '@angular/router'
 import { Component, HostListener } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { ForgotPasswordComponent } from '../public-api'
+
 import { NgFor, NgIf } from '@angular/common'
 import {
   FormBuilder,
@@ -21,6 +21,7 @@ import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { AuthenticationService } from '@vietlist/shared'
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'
 
 @Component({
   selector: 'app-login',

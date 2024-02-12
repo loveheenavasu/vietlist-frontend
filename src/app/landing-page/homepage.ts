@@ -13,6 +13,7 @@ import {
 } from './views'
 import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 import { HomepageService } from './views/service/homepage.service'
+import { NgOptimizedImage } from '@angular/common'
 
 @Component({
   selector: 'app-homepage',
@@ -28,6 +29,7 @@ import { HomepageService } from './views/service/homepage.service'
     PlanComponent,
     TrendingServicesComponent,
     CtaVerifiedBusinessComponent,
+    NgOptimizedImage
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',

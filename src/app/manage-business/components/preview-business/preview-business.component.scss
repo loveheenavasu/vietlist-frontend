@@ -1,6 +1,6 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-
+@import "../../../../assets/scss/variables/color";
 
 .main-card{
     margin: auto;
@@ -25,3 +25,23 @@
         border-radius: 4px;
         height: auto!important;
     }
+
+    .breadcrumb {
+        font-size:20px;
+      }
+      .manage-business{
+        cursor:pointer;
+        color:var(--primary-color-orange);
+       
+      }
+      .business-details{
+        color:rgb(138, 138, 138)
+      }
+      
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+      
+     
+      
+    
