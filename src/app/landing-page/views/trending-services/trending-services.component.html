@@ -1,40 +1,55 @@
 <div class="container-fluid buisness-cat">
-    <div class="heading">
-      <h1>Our Business Categories</h1>
-      <p>
-        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-        cubilia curae; Proin sodales ultrices nulla blandit volutpat.Vestibulum
-        ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-        curae; Proin sodales ultrices nulla blandit volutpat.
-      </p>
-    </div>
-    <div class="explore-more-btn">
-      <button class="btn orange-background-btn">Explore More</button>
+  <div class="heading">
+    <h1>{{trendingHeaderContent?.community_section?.title}}</h1>
+    <p>
+      {{trendingHeaderContent?.community_section?.description}}
+    </p>
+  </div>
+  <div class="search-form">
+    <div>
+      <div class="search row">
+        <div class="search-input col">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search for" />
+          </div>
+        </div>
+        <div class="add-zipcode col">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <img src="/assets/icons/location-icon.svg" alt="location-icon" />
+            </span>
+            <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+              placeholder="Near" />
+          </div>
+        </div>
+        <div class="search-btn col-1 g-0">
+          <button class="btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="Categories-swiper-container container-fluid">
+  <div class="Categories-swiper-container ">
     <div class="row">
       <div class="col-md-12">
         <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
           @for(key of businessCat ; track $index){
           <swiper-slide>
-            <div class="main-cnt d-flex flex-column mb-3 mt-4">
-              <div>
-                <div class="img-cnt">
-                  <img [src]="key.image" style="width:100%">
-                </div>
-               
-              </div>
-              <div>
-                <h3 class="card-heading">{{key.name}}</h3>
+            <div class="main-cnt d-flex  mb-3 mt-4">
+              <div class="image-container">
+                <img [src]="key.image" />
               </div>
             </div>
-            
+
           </swiper-slide>
-        }
-        
+          }
+
         </swiper-container>
       </div>
     </div>
   </div>
-  
+</div>

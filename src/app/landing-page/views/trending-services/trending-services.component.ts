@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Input, ViewChild } from '@angular/core';
 import { BusinessService } from 'src/app/manage-business/service/business.service';
 import { register } from 'swiper/element';
 register()
@@ -13,8 +13,11 @@ register()
 })
 export class TrendingServicesComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
+  @Input() homePageData?: any
 
- public businessCat:any[]=[]
+  public businessCat: any[] = []
+  public trendingHeaderContent: any
+
   swiperParams = {
     slidesPerView: 1,
     autoplay: true,
@@ -30,10 +33,10 @@ export class TrendingServicesComponent {
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
-  constructor(private businessService:BusinessService) {
+  constructor(private businessService: BusinessService) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -41,13 +44,15 @@ export class TrendingServicesComponent {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCategroies()
+    this.trendingHeaderContent = this.homePageData
   }
-  getCategroies(){
+  getCategroies() {
     this.businessService.trendingBusiness().subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.businessCat = res.data
+        console.log("check trending", this.businessCat)
       }
     })
   }

@@ -1,11 +1,14 @@
 @import "../../../../assets/scss/common";
 
+
+
+
 .buisness-cat {
   padding-top: 6rem;
 }
 
 .container-fluid {
-
+  background-color: #F2F2F2;
 
   h1 {
     @extend %sh-styles;
@@ -19,6 +22,58 @@
 
   .heading {
     @extend %shm-styles;
+  }
+
+  .search-form {
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+
+    .search {
+      margin-bottom: 1.875rem;
+      padding: 0.625rem;
+
+      .search-input {
+        width: 100%;
+        height: 100%;
+
+
+        .input-group {
+
+          .input-group-text,
+          .form-control {
+            background-color: white;
+            border: none;
+          }
+
+        }
+
+      }
+
+      .add-zipcode {
+        .input-group {
+
+          .input-group-text,
+          .form-control {
+            background-color: #fff;
+            border: none;
+          }
+
+        }
+      }
+
+      .search-btn {
+        margin-bottom: 1.25rem;
+
+        .btn {
+          background-color: var(--primary-color-orange);
+
+          i {
+            color: var(--white);
+          }
+        }
+      }
+    }
   }
 
   .explore-more-btn {
@@ -39,24 +94,33 @@
 }
 
 
+.Categories-swiper-container {
+  padding-bottom: 6.25rem;
 
-.main-cnt {
-  width: fit-content;
-  border-radius: 20px;
-  box-shadow: 0px 4px 20px 0px #00000012;
-  height: auto;
-  display: flex;
-  align-items: center;
-  padding: 25px;
+  .main-cnt {
+    width: fit-content;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px 0px #00000012;
+    height: 440px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+
+    .image-container {
+      width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+  }
 }
 
-.img-cnt {
-  height: 252px;
-  width: 152px;
-  margin: auto;
-  object-fit: cover;
 
-}
 
 
 .card-heading {
@@ -73,7 +137,7 @@
 
 swiper-container {
   width: 100%;
-  height: 25rem;
+  height: 28rem;
   margin: 20px auto;
 }
 

@@ -54,6 +54,7 @@ export class HomepageComponent {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
         this.homePageData = res.data
+        console.log("check homepage data", this.homePageData)
       }
     })
 
