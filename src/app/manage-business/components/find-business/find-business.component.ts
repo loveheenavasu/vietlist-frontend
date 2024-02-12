@@ -81,8 +81,8 @@ export class FindBusinessComponent {
   ngOnInit() {
     this.getBusinessCat()
     this.initMap()
-    // this.getPublishBusinessData()
-    this.searchBusiness()
+    this.getPublishBusinessData()
+    // this.searchBusiness()
     this.findBusinessForm.value.slidervalue.setValue(0)
   }
   public handleLayout(layout: string) {
@@ -131,77 +131,23 @@ export class FindBusinessComponent {
       })
   }
 
-  // public searchBusiness() {
-  //   this.loader = true
-  //   const post_category = this.findBusinessForm.value.post_category
-  //   const price = this.findBusinessForm.value.slidervalue
-  //   const postPerPage = 2
-  //   const params: FindBusinessParams = {};
-  //   if (post_category) {
-  //     params['post_category'] = post_category
-  //   }
-  //   if (price) {
-  //     params['price'] = price
-  //   }
-  //   if (postPerPage) {
-  //     params['posts_per_page'] = postPerPage
-  //   }
-  //   if(this.currentPage){
-  //     params['page_no'] = this.currentPage
-  //   }
-  //   if (this.city) {
-  //     params['city'] = this.city;
-  //   }
-  //   if (this.state) {
-  //     params['region'] = this.state;
-  //   }
-  //   if (this.fullAddress) {
-  //     params['street'] = this.fullAddress;
-  //   }
-  //   if (this.zipcode) {
-  //     params['zip'] = this.zipcode;
-  //   }
-  //   if (this.country) {
-  //     params['country'] = this.country;
-  //   }
-  
-  
-  //   this.businessCategoriesService
-  //     .findBusiness(params)
-  //     .subscribe({
-  //       next: (res: any) => {
-  //         this.loader = false
-  //         this.isPaginationClick = false
-  //         this.isPaginationVisible = true
-  //         this.fullPageLoaderService.hideLoader()
-  //         this.findBusinessData = res.data
-  //         this.totalCount = res.total_count
-  //         this.maxPrice = res.max_price;
-  //       },
-  //       error: (err: any) => {
-  //         this.loader = false
-  //       },
-  //     })
-  // }
-  
   public searchBusiness() {
-    this.loader = true;
-    const post_category = this.findBusinessForm.value.post_category;
-    const price = this.findBusinessForm.value.slidervalue;
-    const postPerPage = 2;
+    this.loader = true
+    const post_category = this.findBusinessForm.value.post_category
+    const price = this.findBusinessForm.value.slidervalue
+    const postPerPage = 2
     const params: FindBusinessParams = {};
-    
     if (post_category) {
-      params['post_category'] = post_category;
+      params['post_category'] = post_category
     }
     if (price) {
-      params['price'] = price;
+      params['price'] = price
     }
     if (postPerPage) {
-      params['posts_per_page'] = postPerPage;
+      params['posts_per_page'] = postPerPage
     }
-    if (this.currentPage) {
-      params['page_no'] = this.currentPage;
+    if(this.currentPage){
+      params['page_no'] = this.currentPage
     }
     if (this.city) {
       params['city'] = this.city;
@@ -218,42 +164,27 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country;
     }
-    
-    if (!post_category) {
-      // If post_category is not provided, make the API call without any parameters
-      this.businessCategoriesService.ListingBusiness().subscribe({
+  
+  
+    this.businessCategoriesService
+      .findBusiness(params)
+      .subscribe({
         next: (res: any) => {
-          this.loader = false;
-          this.isPaginationClick = false;
-          this.isPaginationVisible = true;
-          this.fullPageLoaderService.hideLoader();
-          this.findBusinessData = res.data;
-          this.totalCount = res.total_count;
+          this.loader = false
+          this.isPaginationClick = false
+          this.isPaginationVisible = true
+          this.fullPageLoaderService.hideLoader()
+          this.findBusinessData = res.data
+          this.totalCount = res.total_count
           this.maxPrice = res.max_price;
         },
         error: (err: any) => {
-          this.loader = false;
+          this.loader = false
         },
-      });
-    } else {
-      // If post_category is provided, make the API call with the constructed parameters
-      this.businessCategoriesService.findBusiness(params).subscribe({
-        next: (res: any) => {
-          this.loader = false;
-          this.isPaginationClick = false;
-          this.isPaginationVisible = true;
-          this.fullPageLoaderService.hideLoader();
-          this.findBusinessData = res.data;
-          this.totalCount = res.total_count;
-          this.maxPrice = res.max_price;
-        },
-        error: (err: any) => {
-          this.loader = false;
-        },
-      });
-    }
+      })
   }
   
+
 
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
@@ -272,6 +203,8 @@ export class FindBusinessComponent {
     this.slidervalue = this.findBusinessForm.value.slidervalue
   }
 
+  
+  
   public initMap() {
     console.log(this.latitude, this.longitude, 'LATLNG')
     let map: any
@@ -282,8 +215,8 @@ export class FindBusinessComponent {
       // Create a new Google Map instance
       map = new google.maps.Map(mapElement, {
         center: {
-          lat: parseFloat(this.latitude[30.3610]),
-          lng: parseFloat(this.longitude[76.8485]),
+          lat: parseFloat(this.latitude[0]),
+          lng: parseFloat(this.longitude[0]),
         }, // Use dynamic values
         zoom: 13,
       })
