@@ -20,5 +20,8 @@ export enum Endpoints {
   GetBusinessByUserId = "get_all_business_data_by_userid",
   ListingBusiness = "get_publish_business_data",
   DeleteAddedBusiness = "post_data_delete",
-  TrendingBusiness = "trending_data_get"
+  TrendingBusiness = "trending_data_get",
+  HomePage = "homepage_content",
+  FooterContent = "get_footer_data",
+  SubscribeNewsletter = "subscribe_newsletter"
 }

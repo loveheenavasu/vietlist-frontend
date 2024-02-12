@@ -1,0 +1,66 @@
+@import "../../../../assets/scss/common";
+
+.container-fluid {
+    background-color: #F2F2F2;
+
+    .cta-description {
+        width: 55%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 3.125rem;
+        padding-bottom: 3.125rem;
+
+        .heading {
+
+            h1 {
+                @extend %sh-styles;
+                font-size: 32px;
+            }
+        }
+
+        .description {
+
+
+            p {
+                @extend %ssh-styles;
+            }
+
+        }
+
+        .verified-business-btn {
+            display: flex;
+            justify-content: center;
+
+            .btn:hover {
+                color: var(--primary-color-orange);
+                border: 1px solid #F89705;
+                background-color: var(--white);
+            }
+        }
+    }
+
+    .cta-verfied-image {
+        .image-container {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 6.25rem;
+
+            .d-flex {
+                gap: 35px;
+                flex-wrap: wrap;
+                justify-content: center;
+
+                .image {
+                    position: relative;
+
+                    .verified-logo {
+                        position: absolute;
+                        top: -23px;
+                        right: -19px;
+                    }
+                }
+            }
+        }
+    }
+}

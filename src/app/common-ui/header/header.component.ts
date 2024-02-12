@@ -22,7 +22,6 @@ import Swal from 'sweetalert2'
     RouterLink,
     MatIconModule,
     LoginComponent,
-
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

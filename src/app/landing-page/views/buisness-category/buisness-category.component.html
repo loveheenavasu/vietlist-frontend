@@ -1,15 +1,13 @@
 <div class="container-fluid buisness-cat">
   <div class="heading">
-    <h1>Our Business Categories</h1>
+    <h1>{{businessCategoryContent?.business_category_section?.title}}</h1>
     <p>
-      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-      cubilia curae; Proin sodales ultrices nulla blandit volutpat.Vestibulum
-      ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-      curae; Proin sodales ultrices nulla blandit volutpat.
+      {{businessCategoryContent?.business_category_section?.description}}
     </p>
   </div>
   <div class="explore-more-btn">
-    <button class="btn orange-background-btn">Explore More</button>
+    <button
+      class="btn orange-background-btn">{{businessCategoryContent?.business_category_section?.explore_more || Explore more}}</button>
   </div>
 </div>
 <div class="Categories-swiper-container container-fluid">
@@ -21,22 +19,23 @@
           <div class="main-cnt d-flex flex-column mb-3 mt-4">
             <div>
               <div class="img-cnt" *ngIf="key.icon !== null">
-                <i [class]="key.icon" style="width:100%"></i>
+                <!-- <i [class]="key.icon" style="width:100%"></i> -->
+                <img [src]="key.image">
               </div>
               <div class="img-cnt" *ngIf="key.icon == null">
                 <img [src]="key.image" style="width:100%">
               </div>
               <div class="img-cnt" *ngIf="key.icon == null || key.image == null">
-                 <p>Image not found</p>
+                <p>Image not found</p>
               </div>
             </div>
-            <div>
-              <h3 class="card-heading">{{key.name}}</h3>
+            <div class="card-heading-container">
+              <h4 class="card-heading" [innerHtml]="key.name"></h4>
             </div>
           </div>
         </swiper-slide>
-      }
-      
+        }
+
       </swiper-container>
     </div>
   </div>

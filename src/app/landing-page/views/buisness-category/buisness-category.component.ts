@@ -3,8 +3,10 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   ElementRef,
+  Input,
   ViewChild,
 } from '@angular/core'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element/bundle'
 
@@ -20,8 +22,10 @@ register()
 })
 export class BuisnessCategoryComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
+  @Input() homePageData?: any
 
- public businessCat:any[]=[]
+  public businessCat: any[] = []
+  public businessCategoryContent?: any
   swiperParams = {
     slidesPerView: 1,
     autoplay: true,
@@ -37,10 +41,10 @@ export class BuisnessCategoryComponent {
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
-  constructor(private businessService:BusinessService) {
+  constructor(private businessService: BusinessService, private sanitizer: DomSanitizer) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -48,14 +52,22 @@ export class BuisnessCategoryComponent {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getCategroies()
+    this.businessCategoryContent = this.homePageData
+
   }
-  getCategroies(){
+  getCategroies() {
     this.businessService.getBusinessCat().subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.businessCat = res.data
+        console.log("chekc", res)
       }
     })
   }
+
+  public getTrustedHTML(htmlString: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(htmlString)
+  }
+
 }

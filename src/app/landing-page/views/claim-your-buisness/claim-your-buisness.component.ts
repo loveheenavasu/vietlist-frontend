@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common'
-import { Component, HostListener } from '@angular/core'
+import { Component, HostListener, Input } from '@angular/core'
 
 @Component({
   selector: 'app-claim-your-buisness',
@@ -9,6 +9,19 @@ import { Component, HostListener } from '@angular/core'
   styleUrl: './claim-your-buisness.component.scss',
 })
 export class ClaimYourBuisnessComponent {
+  @Input() homePageData?: any
+
+  public claimBusinessHeaderContent?: any
+  constructor() { }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    // Adjust content layout based on the window size
+  }
+
+  ngOnInit() {
+    this.claimBusinessHeaderContent = this.homePageData
+  }
+
   public buisnessFacility = [
     {
       title: 'Boost Your Visibility',
@@ -54,15 +67,11 @@ export class ClaimYourBuisnessComponent {
     },
 
     {
-      title: 'Boost Your Community Support',
+      title: 'Community Support',
       icon: '/assets/icons/community-support.svg',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
   ]
-  constructor() {}
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    // Adjust content layout based on the window size
-  }
+
 }

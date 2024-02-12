@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-events',
@@ -8,5 +8,11 @@ import { Component } from '@angular/core'
   styleUrl: './events.component.scss',
 })
 export class EventsComponent {
-  constructor() {}
+  @Input() homePageData?: any
+  public eventContent?: any
+  constructor() { }
+
+  ngOnInit() {
+    this.eventContent = this.homePageData
+  }
 }

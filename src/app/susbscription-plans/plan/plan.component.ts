@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { AuthenticationService } from './../../shared/utils/services/authentication.service'
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { PlansService } from '../service/plan.service'
@@ -14,12 +14,14 @@ import { FullPageLoaderService } from '@vietlist/shared'
   styleUrl: './plan.component.scss',
 })
 export class PlanComponent {
+  @Input() homePageData?: any
   public subscriptionPlainDetail?: any
   public userAlreadyLogin: boolean = false
   public subscriptionPlans: any[] = []
   public planId: any
   public authToken: any
   public isAuthenticated: boolean = false
+  public planHeaderContent?: any
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
@@ -30,6 +32,7 @@ export class PlanComponent {
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
+    this.planHeaderContent = this.homePageData
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })

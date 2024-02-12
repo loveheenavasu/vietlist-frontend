@@ -72,6 +72,11 @@
     }
 }
 
+.container {
+    margin-bottom: 6.25rem;
+
+}
+
 
 .card {
     width: 100%;
@@ -79,9 +84,9 @@
     background-color: var(--light-grey-2);
     box-shadow: 4px 10px 34px 0px rgba(0, 0, 0, 0.09);
     padding: 20px;
-    height: auto;// Set the height as a percentage
+    height: auto; // Set the height as a percentage
     margin-top: 40px;
-    min-height:22vh;
+    min-height: 22vh;
 
     h3 {
         font-size: 18px;
