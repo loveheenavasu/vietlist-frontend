@@ -55,7 +55,6 @@ export class LoginComponent {
   //   console.log("resize",event)
   //   this.screenSize = event
 
-
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -74,26 +73,19 @@ export class LoginComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screensize = event.target.innerWidth
-
   }
 
   public forgotPassword() {
     if (this.screensize > 720) {
       this.dialogWidth = '45%'
     } else if (this.screensize < 720) {
-      this.dialogWidth = '90%';
+      this.dialogWidth = '90%'
     }
 
-
     this.dialog.open(ForgotPasswordComponent, {
-      width: this.dialogWidth
+      width: this.dialogWidth,
     })
-
-
   }
-
-
-
 
   public navigateToRegister() {
     this.router.navigateByUrl('/register')

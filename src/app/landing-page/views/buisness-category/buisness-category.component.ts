@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgIf } from '@angular/common'
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
@@ -6,7 +6,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element/bundle'
 
@@ -41,10 +41,13 @@ export class BuisnessCategoryComponent {
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
-  constructor(private businessService: BusinessService, private sanitizer: DomSanitizer) {
+  constructor(
+    private businessService: BusinessService,
+    private sanitizer: DomSanitizer,
+  ) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -55,19 +58,17 @@ export class BuisnessCategoryComponent {
   ngOnInit() {
     this.getCategroies()
     this.businessCategoryContent = this.homePageData
-
   }
   getCategroies() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
-        console.log("chekc", res)
-      }
+        console.log('chekc', res)
+      },
     })
   }
 
   public getTrustedHTML(htmlString: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(htmlString)
   }
-
 }

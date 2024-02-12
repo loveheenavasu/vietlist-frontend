@@ -11,7 +11,7 @@ export class ExplainingPlatformComponent {
   @Input() homePageData?: any
   public platformContent?: any
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.platformContent = this.homePageData

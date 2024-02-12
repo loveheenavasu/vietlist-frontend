@@ -18,8 +18,8 @@ export class AuthenticationService {
   private registerUserInfo: any
 
   /**
-   * 
-   * @param localstorageservice 
+   *
+   * @param localstorageservice
    */
 
   constructor(private localstorageservice: LocalStorageService) {
@@ -30,11 +30,9 @@ export class AuthenticationService {
 
     this.isSubscriptionSubject = new BehaviorSubject<any>(
       this.checkSubscriptionStatus(),
-
     )
     this.isSubscription$ = this.isSubscriptionSubject.asObservable()
   }
-
 
   public setSubscriptonStatus(status: string) {
     this.subscriptionStatus = status
@@ -43,14 +41,18 @@ export class AuthenticationService {
     } else {
       this.isSubscriptionSubject.next(false)
     }
-    this.localstorageservice.saveData('subscriptionStatus', this.subscriptionStatus)
+    this.localstorageservice.saveData(
+      'subscriptionStatus',
+      this.subscriptionStatus,
+    )
   }
 
   public checkSubscriptionStatus() {
-    const checkSubscriptionStatus = this.localstorageservice.getData('subscriptionStatus')
-    console.log("behaviour", checkSubscriptionStatus)
+    const checkSubscriptionStatus =
+      this.localstorageservice.getData('subscriptionStatus')
+    console.log('behaviour', checkSubscriptionStatus)
 
-    if (checkSubscriptionStatus == "active") {
+    if (checkSubscriptionStatus == 'active') {
       return true
     } else {
       return false

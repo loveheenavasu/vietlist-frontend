@@ -8,8 +8,6 @@ import { LoginComponent } from '../../auth'
 import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 
-
-
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -73,7 +71,6 @@ export class HeaderComponent {
     private router: Router,
     public dialog: MatDialog,
     private sessionservice: AuthenticationService,
-
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -91,10 +88,9 @@ export class HeaderComponent {
       this.subscriptionStatus = res
       // console.log("check the subscription status", this.subscriptionStatus)
     })
-
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) { }
+  onResize(event: Event) {}
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -116,7 +112,10 @@ export class HeaderComponent {
     // console.log("chekc ", this.userRole)
     if (this.userRole == Roles.subscriber) {
       this.router.navigateByUrl('/manage-profile')
-    } else if (this.userRole == Roles.businessOwner && !this.subscriptionStatus) {
+    } else if (
+      this.userRole == Roles.businessOwner &&
+      !this.subscriptionStatus
+    ) {
       // console.log("check2")
       Swal.fire({
         toast: true,
@@ -129,7 +128,10 @@ export class HeaderComponent {
         timerProgressBar: true,
       })
       this.router.navigateByUrl('/subscription-plans')
-    } else if (this.userRole == Roles.businessOwner && this.subscriptionStatus) {
+    } else if (
+      this.userRole == Roles.businessOwner &&
+      this.subscriptionStatus
+    ) {
       // console.log("check3")
       this.router.navigateByUrl('/manage-profile')
     }

@@ -9,7 +9,7 @@ import {
   ExplainingPlatformComponent,
   TestimonialsComponent,
   EventsComponent,
-  CtaVerifiedBusinessComponent
+  CtaVerifiedBusinessComponent,
 } from './views'
 import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 import { HomepageService } from './views/service/homepage.service'
@@ -27,7 +27,7 @@ import { HomepageService } from './views/service/homepage.service'
     EventsComponent,
     PlanComponent,
     TrendingServicesComponent,
-    CtaVerifiedBusinessComponent
+    CtaVerifiedBusinessComponent,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
@@ -42,7 +42,10 @@ export class HomepageComponent {
   homePageData?: any
   currentLogoIndex = 0
 
-  constructor(private router: Router, private homePageContent: HomepageService) {
+  constructor(
+    private router: Router,
+    private homePageContent: HomepageService,
+  ) {
     console.log('Init component homepge')
   }
 
@@ -54,10 +57,8 @@ export class HomepageComponent {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
         this.homePageData = res.data
-        console.log("check homepage data", this.homePageData)
-      }
+      },
     })
-
   }
 
   nextLogo() {

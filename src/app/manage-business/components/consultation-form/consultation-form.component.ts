@@ -51,7 +51,16 @@ export class ConsultationFormComponent {
     // video.src = videoUrl
     video.src = value.video_upload
     this.video_upload = value.video_upload
-    const controls = ['consultation_booking_link', 'consultation_mode', 'consultation_description', 'special_offers', 'services_list', 'price', 'video_url', 'business_hours']
+    const controls = [
+      'consultation_booking_link',
+      'consultation_mode',
+      'consultation_description',
+      'special_offers',
+      'services_list',
+      'price',
+      'video_url',
+      'business_hours',
+    ]
 
     controls.forEach((control) => {
       this.ConsultationForm.get(control)?.patchValue(value?.[control] || '')
@@ -140,7 +149,7 @@ export class ConsultationFormComponent {
       this.isFormFilled = res
     })
 
-    const localData = this.localstorage.getData("isConsultationFormFilled")
+    const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
   }
 
@@ -173,7 +182,6 @@ export class ConsultationFormComponent {
     const videoFiles: File[] = files.filter((file) =>
       file.type.startsWith('video/'),
     )
-
 
     // If there are any image files, you can remove them
     const imageFiles: File[] = files.filter((file) =>
@@ -209,14 +217,14 @@ export class ConsultationFormComponent {
         this.video_upload = video.src
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
-            this.video_upload = res.image_url;
+            this.video_upload = res.image_url
             // this.verification_upload = res.image_url
             this.vediosUrl = res.image_url
           },
           error: (err: any) => {
             // Handle errors
-          }
-        });
+          },
+        })
         video.controls = true // Add controls to the video element
         video.width = 320 // Set the width of the video element
         video.height = 240 // Set the height of the video element
@@ -263,7 +271,6 @@ export class ConsultationFormComponent {
       }
       reader.readAsDataURL(file)
     })
-
   }
 
   onRemove(videoElement: HTMLElement) {
@@ -314,11 +321,9 @@ export class ConsultationFormComponent {
       },
       error: (err: any) => {
         // Handle errors
-      }
-    });
-
+      },
+    })
   }
-
 
   public days = [
     { name: 'Mon', times: [{ start: '', end: '' }] },
@@ -344,7 +349,7 @@ export class ConsultationFormComponent {
     }
   }
 
-  onSubmit() { }
+  onSubmit() {}
 
   removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
@@ -394,7 +399,7 @@ export class ConsultationFormComponent {
       special_offers: this.ConsultationForm.value.special_offers,
       video_upload: this.vediosUrl,
       image: this.imageUrl,
-      final_submission: 1
+      final_submission: 1,
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
@@ -404,10 +409,10 @@ export class ConsultationFormComponent {
             this.isLoader = false
             this.consultationFormSubmit.emit()
             this.businessService.isBusinessBioFormFilled.next(true)
-            this.localstorage.saveData("isConsultationFormFilled", "true")
+            this.localstorage.saveData('isConsultationFormFilled', 'true')
             this.businessService.isConsultationFormFilled.next(true)
             this.isFormFilled = true
-           this.localstorage.removeData('postId')
+            this.localstorage.removeData('postId')
             Swal.fire({
               toast: true,
               text: 'Successfully added Business bio details.',
@@ -443,10 +448,10 @@ export class ConsultationFormComponent {
             this.isLoader = false
             this.consultationFormSubmit.emit()
             this.businessService.isBusinessBioFormFilled.next(true)
-            this.localstorage.saveData("isConsultationFormFilled", "true")
+            this.localstorage.saveData('isConsultationFormFilled', 'true')
             this.businessService.isConsultationFormFilled.next(true)
             this.isFormFilled = true
-             this.localstorage.removeData('postId')
+            this.localstorage.removeData('postId')
             Swal.fire({
               toast: true,
               text: 'Successfully updated Business bio details.',

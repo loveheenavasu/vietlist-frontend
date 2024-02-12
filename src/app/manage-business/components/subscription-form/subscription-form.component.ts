@@ -28,41 +28,41 @@ import { LoaderComponent } from 'src/app/common-ui'
     ReactiveFormsModule,
     NgFor,
     NgIf,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './subscription-form.component.html',
   styleUrl: './subscription-form.component.scss',
 })
 export class SubscriptionFormComponent {
-  verified_badge:any
-  verification_upload:any
-  lastPart!:string
-  check!:boolean
+  verified_badge: any
+  verification_upload: any
+  lastPart!: string
+  check!: boolean
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
-     this.verified_badge = value.verified_badge
-      if(this.verified_badge == '1'){
-         console.log('trueeee')
-    this.check = true
-      }else{
-        console.log('trueeee2')
-        this.check = false
-      }
-      this.verification_upload = value.verification_upload
-      const parts: string[] = this.verification_upload.split('/');
-      this.lastPart = parts[parts.length - 1];
-    
-      this.cdr.detectChanges();
+    this.verified_badge = value.verified_badge
+    if (this.verified_badge == '1') {
+      console.log('trueeee')
+      this.check = true
+    } else {
+      console.log('trueeee2')
+      this.check = false
+    }
+    this.verification_upload = value.verification_upload
+    const parts: string[] = this.verification_upload.split('/')
+    this.lastPart = parts[parts.length - 1]
+
+    this.cdr.detectChanges()
     const controls = ['facebook', 'twitter', 'instagram']
 
     controls.forEach((control) => {
       this.subscriptionForm.get(control)?.patchValue(value?.[control] || '')
     })
   }
-  checkdvalue:any
-  document:any
-  public isFormFilled:boolean = false
-  public isLoader:boolean = false
+  checkdvalue: any
+  document: any
+  public isFormFilled: boolean = false
+  public isLoader: boolean = false
   title = 'dropzone'
   files: File[] = []
   public verifiedBadge = new FormControl(false)
@@ -76,24 +76,23 @@ export class SubscriptionFormComponent {
     private route: ActivatedRoute,
     private router: Router,
     private localstorage: LocalStorageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.subscriptionForm = this.fb.group({
       facebook: ['', Validators.required],
       twitter: ['', Validators.required],
       instagram: ['', Validators.required],
-      
     })
-   
+
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 
-    this.businessService.isSubscriptionFormFilled.subscribe((res)=>{
+    this.businessService.isSubscriptionFormFilled.subscribe((res) => {
       this.isFormFilled = res
     })
 
-    const isFormFIlled = this.localstorage.getData("isSubscriptionFormFilled")
-     this.isFormFilled = Boolean(isFormFIlled)
+    const isFormFIlled = this.localstorage.getData('isSubscriptionFormFilled')
+    this.isFormFilled = Boolean(isFormFIlled)
   }
 
   // onSelect(event: any) {
@@ -112,10 +111,7 @@ export class SubscriptionFormComponent {
   //   console.log(event)
   //   this.files.splice(this.files.indexOf(event), 1)
   // }
-  ngOnInit() {
- 
-  }
-
+  ngOnInit() {}
 
   public onSelect(event: any) {
     console.log(event.addedFiles)
@@ -135,38 +131,33 @@ export class SubscriptionFormComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      });
-      
+      })
     } else {
-      this.files.push(...event.addedFiles);
-      this.filesString = this.files.map((file) => file.name).join(', ');
+      this.files.push(...event.addedFiles)
+      this.filesString = this.files.map((file) => file.name).join(', ')
       // this.isFilesPresent = true;
-      const file = event.addedFiles[0]; 
+      const file = event.addedFiles[0]
       this.businessService.uploadMedia(this.files[0]).subscribe({
         next: (res: any) => {
-  
-          this.document = res.image_url;
+          this.document = res.image_url
           this.verification_upload = res.image_url
-          const parts: string[] = this.verification_upload.split('/');
-          this.lastPart = parts[parts.length - 1];
+          const parts: string[] = this.verification_upload.split('/')
+          this.lastPart = parts[parts.length - 1]
         },
         error: (err: any) => {
           // Handle errors
-        }
-      });
-      
-   
+        },
+      })
     }
   }
 
- public  onRemove(event: any) {
+  public onRemove(event: any) {
     console.log(event)
     this.files.splice(this.files.indexOf(event), 1)
   }
 
   public getSafeURL(file: File): any {
     return URL.createObjectURL(file)
-
   }
 
   public addBusiness() {
@@ -176,12 +167,12 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
-      verification_upload:this.document,
-      verified_badge:this.verifiedBadge.value ? 1 : 0
-    } 
-    if(this.isFormFilled){
+      verification_upload: this.document,
+      verified_badge: this.verifiedBadge.value ? 1 : 0,
+    }
+    if (this.isFormFilled) {
       this.businessService.updateBusiness(body).subscribe({
-        next:(res)=>{
+        next: (res) => {
           this.isLoader = false
           this.formSubmit.emit()
           Swal.fire({
@@ -195,35 +186,31 @@ export class SubscriptionFormComponent {
             timerProgressBar: true,
           })
         },
-        error:(err)=>{
-
-        }
+        error: (err) => {},
       })
-    }else {
-    this.businessService.addBusiness(body).subscribe({
-      next: (res) => {
-        if (res) {
-          this.isLoader= false
-          this.formSubmit.emit()
-          this.businessService.isSubscriptionFormFilled.next(true)
-          this.localstorage.saveData("isSubscriptionFormFilled" , "true")
-          this.isFormFilled = true
-          Swal.fire({
-            toast: true,
-            text: 'Successfully added subscription details.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-        }
-      },
-      error:(err)=>{
-
-      }
-    })
-  }
+    } else {
+      this.businessService.addBusiness(body).subscribe({
+        next: (res) => {
+          if (res) {
+            this.isLoader = false
+            this.formSubmit.emit()
+            this.businessService.isSubscriptionFormFilled.next(true)
+            this.localstorage.saveData('isSubscriptionFormFilled', 'true')
+            this.isFormFilled = true
+            Swal.fire({
+              toast: true,
+              text: 'Successfully added subscription details.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
+        },
+        error: (err) => {},
+      })
+    }
   }
 }

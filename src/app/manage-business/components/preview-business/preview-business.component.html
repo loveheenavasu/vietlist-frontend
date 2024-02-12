@@ -14,22 +14,33 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Business Description</label>
-          <input formControlName="post_content" class="input-control" readonly />
+          <input
+            formControlName="post_content"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Owner Name</label>
           <input formControlName="owner_name" class="input-control" readonly />
         </div>
-
       </div>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label>Business Email</label>
-          <input formControlName="business_email" class="input-control" readonly />
+          <input
+            formControlName="business_email"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Contact Details</label>
-          <input formControlName="contact_phone" class="input-control" readonly />
+          <input
+            formControlName="contact_phone"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Website Url</label>
@@ -39,15 +50,24 @@
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label>Business Histor</label>
-          <textarea formControlName="business_historybackground" cols="30" rows="10" readonly></textarea>
+          <textarea
+            formControlName="business_historybackground"
+            cols="30"
+            rows="10"
+            readonly
+          ></textarea>
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Mission & Vission</label>
-          <textarea formControlName="mission__vision" cols="30" rows="10" readonly></textarea>
+          <textarea
+            formControlName="mission__vision"
+            cols="30"
+            rows="10"
+            readonly
+          ></textarea>
         </div>
-
       </div>
-      <br>
+      <br />
       <h4>Social Links</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
@@ -63,15 +83,23 @@
           <input formControlName="twitter" class="input-control" readonly />
         </div>
       </div>
-      <br>
+      <br />
       <h4>Categories and Tags</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label>Post Categories</label>
           <div class="input-control">
-            <ng-container *ngFor="let key of businessFormDetails?.post_category; let i = index">
+            <ng-container
+              *ngFor="
+                let key of businessFormDetails?.post_category;
+                let i = index
+              "
+            >
               <span [innerHTML]="key.name"></span>
-              <ng-container *ngIf="i !== businessFormDetails.post_category.length - 1">, </ng-container>
+              <ng-container
+                *ngIf="i !== businessFormDetails.post_category.length - 1"
+                >,
+              </ng-container>
             </ng-container>
           </div>
           <!-- <input formControlName="post_category" class="input-control" readonly /> -->
@@ -80,9 +108,11 @@
           <label>Tags</label>
 
           <div class="input-control">
-            <ng-container *ngFor="let key of businessFormDetails?.post_tags, let i = index">
+            <ng-container
+              *ngFor="let key of businessFormDetails?.post_tags; let i = index"
+            >
               <ng-container>
-                {{key.name}}
+                {{ key.name }}
               </ng-container>
             </ng-container>
           </div>
@@ -90,17 +120,21 @@
         <div class="col-12 col-md-6 col-lg-4">
           <label>Default Category</label>
           <div class="input-control">
-            <ng-container *ngFor="let item of businessFormDetails?.default_category | keyvalue; let last = last">
+            <ng-container
+              *ngFor="
+                let item of businessFormDetails?.default_category | keyvalue;
+                let last = last
+              "
+            >
               <span [innerHTML]="item.value"></span>
               <ng-container *ngIf="!last">, </ng-container>
             </ng-container>
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <h4>Business Address</h4>
       <div class="row my-3">
-
         <div class="col-12 col-md-6 col-lg-4">
           <label>Country</label>
           <input formControlName="country" class="input-control" readonly />
@@ -113,7 +147,6 @@
           <label>City</label>
           <input class="input-control" formControlName="city" readonly />
         </div>
-
       </div>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
@@ -142,26 +175,42 @@
       <div class="row my-3">
         <map name=""></map>
       </div>
-      <br>
+      <br />
       <h4>Booking & Consultation</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label>Consultation Booking Link </label>
-          <input formControlName="consultation_booking_link" class="input-control" readonly />
+          <input
+            formControlName="consultation_booking_link"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Consultation Mode</label>
-          <input formControlName="consultation_mode" class="input-control" readonly />
+          <input
+            formControlName="consultation_mode"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Consultation Description</label>
-          <input formControlName="consultation_description" class="input-control" readonly />
+          <input
+            formControlName="consultation_description"
+            class="input-control"
+            readonly
+          />
         </div>
       </div>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
           <label>Service</label>
-          <input formControlName="services_list" class="input-control" readonly />
+          <input
+            formControlName="services_list"
+            class="input-control"
+            readonly
+          />
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Price</label>
@@ -169,10 +218,14 @@
         </div>
         <div class="col-12 col-md-6 col-lg-4">
           <label>Special Offer</label>
-          <input formControlName="special_offers" class="input-control" readonly />
+          <input
+            formControlName="special_offers"
+            class="input-control"
+            readonly
+          />
         </div>
       </div>
-      <br>
+      <br />
       <!-- <h4>Booking Open Hours</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
@@ -180,7 +233,7 @@
           <input class="input-control" />
         </div>
       </div> -->
-      <br>
+      <br />
       <h4>Multimedia</h4>
       <div class="row my-3">
         <div class="col-12 col-md-6 col-lg-4">
@@ -192,9 +245,8 @@
         <div class="col-12 col-md-6 col-lg-4">
           <label> Images</label>
           <div *ngFor="let data of businessFormDetails?.image">
-            <img  [src]="data" width="100px" height="100px" />
+            <img [src]="data" width="100px" height="100px" />
           </div>
-
         </div>
       </div>
     </div>

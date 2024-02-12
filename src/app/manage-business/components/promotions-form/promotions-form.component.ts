@@ -1,23 +1,28 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
-import { NgxDropzoneModule } from 'ngx-dropzone';
+import { HttpClient } from '@angular/common/http'
+import { Component } from '@angular/core'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatSelectModule } from '@angular/material/select'
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
+import { NgxDropzoneModule } from 'ngx-dropzone'
 
 @Component({
   selector: 'app-promotions-form',
   standalone: true,
-  imports: [MatCheckboxModule, NgxDropzoneModule, MatSelectModule, RecaptchaFormsModule, RecaptchaModule],
+  imports: [
+    MatCheckboxModule,
+    NgxDropzoneModule,
+    MatSelectModule,
+    RecaptchaFormsModule,
+    RecaptchaModule,
+  ],
   templateUrl: './promotions-form.component.html',
-  styleUrl: './promotions-form.component.scss'
+  styleUrl: './promotions-form.component.scss',
 })
 export class PromotionsFormComponent {
-
   title = 'dropzone'
   files: File[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   onSelect(event: any) {
     console.log(event)
@@ -38,7 +43,6 @@ export class PromotionsFormComponent {
   }
 
   resolved(captchaResponse: string | null) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+    console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
-
 }

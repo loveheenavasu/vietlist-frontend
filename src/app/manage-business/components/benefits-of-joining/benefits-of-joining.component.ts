@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router'
 import { AuthenticationService, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 
-
 @Component({
   selector: 'app-benefits-of-joining',
   standalone: true,
@@ -15,7 +14,10 @@ export class BenefitsOfJoiningComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
 
-  constructor(private router: Router, private sessionservice: AuthenticationService) {
+  constructor(
+    private router: Router,
+    private sessionservice: AuthenticationService,
+  ) {
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
@@ -36,13 +38,16 @@ export class BenefitsOfJoiningComponent {
   }
 
   addBusiness() {
-    console.log("check ---->", Roles.subscriber)
+    console.log('check ---->', Roles.subscriber)
     if (this.userRole == Roles.subscriber) {
-      console.log("check1 ---->")
+      console.log('check1 ---->')
       this.router.navigateByUrl('/register')
-    } else if (this.userRole == Roles.businessOwner && !this.subscriptionStatus) {
+    } else if (
+      this.userRole == Roles.businessOwner &&
+      !this.subscriptionStatus
+    ) {
       // console.log("check2")
-      console.log("check2 ---->")
+      console.log('check2 ---->')
       Swal.fire({
         toast: true,
         text: 'Please choose plan',
@@ -54,15 +59,16 @@ export class BenefitsOfJoiningComponent {
         timerProgressBar: true,
       })
       this.router.navigateByUrl('/subscription-plans')
-    } else if (this.userRole == Roles.businessOwner && this.subscriptionStatus) {
-      console.log("check3 ---->")
+    } else if (
+      this.userRole == Roles.businessOwner &&
+      this.subscriptionStatus
+    ) {
+      console.log('check3 ---->')
       this.router.navigateByUrl('/list-business')
     } else if (!this.userRole) {
-      console.log("check3 ---->")
+      console.log('check3 ---->')
 
       this.router.navigateByUrl('/login')
     }
-
   }
-
 }

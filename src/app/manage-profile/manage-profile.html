@@ -18,7 +18,10 @@
                 <label class="custom-file-upload">
                   <input #fileInput type="file" />
                   <div class="d-flex justify-content-center icon">
-                    <i class="fa fa-camera" (change)="handleFileInput($event)"></i>
+                    <i
+                      class="fa fa-camera"
+                      (change)="handleFileInput($event)"
+                    ></i>
                   </div>
                 </label>
               </div>
@@ -27,8 +30,12 @@
             <div class="tabs_responsive">
               <ul>
                 @for(key of sidebarMenu ; track $index){
-                <li (click)="addClass($index)" [ngClass]="{'active': activeIndex == $index}" [routerLink]="key.url"
-                  style="cursor:pointer">
+                <li
+                  (click)="addClass($index)"
+                  [ngClass]="{'active': activeIndex == $index}"
+                  [routerLink]="key.url"
+                  style="cursor: pointer"
+                >
                   <span><i [class]="key.icon"></i></span>{{key.label}}
                 </li>
                 }

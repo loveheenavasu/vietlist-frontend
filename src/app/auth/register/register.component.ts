@@ -171,7 +171,10 @@ export class RegisterComponent {
               'vietlist::user',
               JSON.stringify(res?.data?.user),
             )
-            this.localStorageServce.saveData('loginInfo', JSON.stringify(res.data.user))
+            this.localStorageServce.saveData(
+              'loginInfo',
+              JSON.stringify(res.data.user),
+            )
             this.sessionServce.setSubscriptonStatus(res.data.user.status)
           }
           Swal.fire({

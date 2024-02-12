@@ -8,7 +8,11 @@ import {
 import { NgForm, FormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
-import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  FullPageLoaderService,
+  LocalStorageService,
+} from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
 import { NgFor, NgIf } from '@angular/common'
@@ -47,8 +51,8 @@ export class ConfirmPaymentComponent {
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
     public router: Router,
-    private localStorageService: LocalStorageService
-  ) { }
+    private localStorageService: LocalStorageService,
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -69,7 +73,7 @@ export class ConfirmPaymentComponent {
           variables: { colorPrimaryText: 'red' },
         }
         const elements = stripe.elements({ appearance })
-        this.card = elements.create('card', { hidePostalCode: true, })
+        this.card = elements.create('card', { hidePostalCode: true })
         this.card.mount(this.cardInfo.nativeElement)
         const billingAddressOptions = {
           classes: {
@@ -99,9 +103,9 @@ export class ConfirmPaymentComponent {
       next: (res: any) => {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
-        console.log(this.paymentIntent, "this.payemnetintent")
+        console.log(this.paymentIntent, 'this.payemnetintent')
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
@@ -113,7 +117,6 @@ export class ConfirmPaymentComponent {
     }
     this.cd.detectChanges()
   }
-
 
   // async onSubmit(form: NgForm) {
   //   const { paymentMethod, error } = await this.stripe.confirmCardSetup(this.paymentIntent , {
@@ -147,33 +150,34 @@ export class ConfirmPaymentComponent {
 
   async onSubmit(form: NgForm) {
     // Assuming you have a card element, if not, adapt accordingly
-    const { setupIntent, error } = await this.stripe.confirmCardSetup(this.paymentIntent, {
-      payment_method: {
-        card: this.card,
+    const { setupIntent, error } = await this.stripe.confirmCardSetup(
+      this.paymentIntent,
+      {
+        payment_method: {
+          card: this.card,
+        },
       },
-    });
+    )
 
     if (error) {
-      console.error(error.message);
+      console.error(error.message)
     } else {
       this.paymentMethod = setupIntent
       if (this.paymentMethod) {
         this.confirmSubscription()
       }
-      console.log('SetupIntent confirmed:', setupIntent);
+      console.log('SetupIntent confirmed:', setupIntent)
       // Handle success, e.g., redirect to a success page
     }
   }
 
-
-
   public confirmSubscription() {
     const body = {
       level_id: this.planId,
-      "pm_data": {
+      pm_data: {
         id: this.paymentMethod?.payment_method,
-        billing_details: this.billingAddress
-      }
+        billing_details: this.billingAddress,
+      },
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
@@ -187,8 +191,8 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        if (res.data?.status == "active") {
-          const status = res.data?.status;
+        if (res.data?.status == 'active') {
+          const status = res.data?.status
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
         }

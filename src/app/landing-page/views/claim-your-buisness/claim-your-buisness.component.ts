@@ -12,7 +12,7 @@ export class ClaimYourBuisnessComponent {
   @Input() homePageData?: any
 
   public claimBusinessHeaderContent?: any
-  constructor() { }
+  constructor() {}
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     // Adjust content layout based on the window size
@@ -73,5 +73,4 @@ export class ClaimYourBuisnessComponent {
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
   ]
-
 }

@@ -27,15 +27,15 @@ export class ProfileService {
     return this.http.post<any>(endpoint, body)
   }
 
-  public getBusinessByUserId():Observable<any> {
+  public getBusinessByUserId(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint, {headers:authToken})
+    return this.http.get<any>(endpoint, { headers: authToken })
   }
 
-  public deleteBuisness(postId:any):Observable<any>{
+  public deleteBuisness(postId: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, postId , {headers:authToken})
+    return this.http.post<any>(endpoint, postId, { headers: authToken })
   }
 }

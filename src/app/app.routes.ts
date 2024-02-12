@@ -1,4 +1,4 @@
-import { BusinessBioComponent } from './manage-business/components/business-bio/business-bio.component';
+import { BusinessBioComponent } from './manage-business/components/business-bio/business-bio.component'
 import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
@@ -11,11 +11,14 @@ import {
   FindBusinessComponent,
   ListBusinessComponent,
   PreviewBusinessComponent,
-  SubscriptionFormComponent
+  SubscriptionFormComponent,
 } from './manage-business'
 import { BusinessCategories } from './categories'
-import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component';
-import { EditProfileComponent, MyBusinessComponent } from './manage-profile/components';
+import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
+import {
+  EditProfileComponent,
+  MyBusinessComponent,
+} from './manage-profile/components'
 
 export default [
   {
@@ -34,15 +37,15 @@ export default [
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
-    children:[
+    children: [
       {
-        path:'',
-        component:EditProfileComponent
+        path: '',
+        component: EditProfileComponent,
       },
       {
-        path:'my-business',
-        component:MyBusinessComponent
-      }
+        path: 'my-business',
+        component: MyBusinessComponent,
+      },
     ],
     canActivate: [AuthGuard],
   },
@@ -57,7 +60,6 @@ export default [
   {
     path: 'subscription-plans',
     loadComponent: () => PlanComponent,
-
   },
   {
     path: 'find-business',
@@ -66,7 +68,6 @@ export default [
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
-
   },
   {
     path: 'benefits-of-joining',

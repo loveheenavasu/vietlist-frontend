@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core'
 export class EventsComponent {
   @Input() homePageData?: any
   public eventContent?: any
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.eventContent = this.homePageData

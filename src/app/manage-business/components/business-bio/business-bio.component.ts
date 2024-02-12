@@ -24,7 +24,11 @@ import { BusinessService } from '../../service/business.service'
 export class BusinessBioComponent {
   @Output() buinessFormSubmit = new EventEmitter<void>()
   @Input() set businessbioData(value: any) {
-    const controls = ['owner_name', 'business_historybackground', 'mission__vision']
+    const controls = [
+      'owner_name',
+      'business_historybackground',
+      'mission__vision',
+    ]
 
     controls.forEach((control) => {
       this.businessBioForm.get(control)?.patchValue(value?.[control] || '')
@@ -33,7 +37,7 @@ export class BusinessBioComponent {
   public businessBioForm!: FormGroup
   public isLoader: boolean = false
   public postId: any
-  public isFormFilled:boolean = false
+  public isFormFilled: boolean = false
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -50,18 +54,15 @@ export class BusinessBioComponent {
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 
-    this.businessService.isBusinessBioFormFilled.subscribe((res)=>{
+    this.businessService.isBusinessBioFormFilled.subscribe((res) => {
       this.isFormFilled = res
     })
 
-    const isFormFIlled = this.localstorage.getData("isBusinessBioFormFilled")
-     this.isFormFilled = Boolean(isFormFIlled)
-
+    const isFormFIlled = this.localstorage.getData('isBusinessBioFormFilled')
+    this.isFormFilled = Boolean(isFormFIlled)
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public addBusiness() {
     this.isLoader = true
@@ -72,7 +73,7 @@ export class BusinessBioComponent {
         this.businessBioForm.value.business_historybackground,
       mission__vision: this.businessBioForm.value.mission__vision,
     }
-    if(this.isFormFilled){
+    if (this.isFormFilled) {
       this.businessService.updateBusiness(body).subscribe({
         next: (res) => {
           if (res) {
@@ -90,19 +91,17 @@ export class BusinessBioComponent {
             })
           }
         },
-        error:(err)=>{
-
-        }
+        error: (err) => {},
       })
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         if (res) {
           this.isLoader = false
-          
+
           this.buinessFormSubmit.emit()
           this.businessService.isBusinessBioFormFilled.next(true)
-          this.localstorage.saveData("isBusinessBioFormFilled" , "true")
+          this.localstorage.saveData('isBusinessBioFormFilled', 'true')
           this.isFormFilled = true
           Swal.fire({
             toast: true,
@@ -116,9 +115,7 @@ export class BusinessBioComponent {
           })
         }
       },
-      error:(err)=>{
-        
-      }
+      error: (err) => {},
     })
   }
 }

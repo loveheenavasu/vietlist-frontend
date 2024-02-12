@@ -4,46 +4,56 @@
   </div>
 </div>
 <form [formGroup]="businessBioForm">
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label"
-      >Owner / Manager Name <span class="asterik">*</span>
-    </label>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label"
+        >Owner / Manager Name <span class="asterik">*</span>
+      </label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input
+        class="input-control"
+        placeholder="Enter owner name"
+        formControlName="owner_name"
+      />
+    </div>
   </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" placeholder="Enter owner name" formControlName="owner_name"/>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Business History / Background</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="6"
+        placeholder="Enter business history"
+        formControlName="business_historybackground"
+      ></textarea>
+    </div>
   </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Business History / Background</label>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Mission & Vission </label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input
+        class="input-control"
+        placeholder="Enter company's mission & vission"
+        formControlName="mission__vision"
+      />
+    </div>
   </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <textarea
-      name=""
-      id=""
-      cols="30"
-      rows="6"
-      placeholder="Enter business history"
-      formControlName="business_historybackground"
-    ></textarea>
+  <div style="width: 100%; text-align: end">
+    <button
+      type="button"
+      class="btn orange-background-btn ms-auto"
+      [disabled]="!businessBioForm.valid"
+      (click)="addBusiness()"
+    >
+      <app-loader *ngIf="isLoader"></app-loader>
+      <span *ngIf="!isLoader">Next</span>
+    </button>
   </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Mission & Vission </label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input
-      class="input-control"
-      placeholder="Enter company's mission & vission"
-      formControlName="mission__vision"
-    />
-  </div>
-</div>
-<div style="width: 100%; text-align: end">
-  <button type="button" class="btn orange-background-btn ms-auto"  [disabled]="!businessBioForm.valid" (click)="addBusiness()">
-    <app-loader *ngIf="isLoader"></app-loader> <span *ngIf="!isLoader">Next</span>
-  </button>
-</div>
 </form>

@@ -7,9 +7,15 @@
 <div class="container-fluid g-0">
   <div class="container">
     <div class="form-cnt">
-      <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout mt-4">
+      <form
+        #checkout="ngForm"
+        (ngSubmit)="onSubmit(checkout)"
+        class="checkout mt-4"
+      >
         <div class="form-row mt-4">
-          <label for="billing-address-element" class="card-details">Billing Address</label>
+          <label for="billing-address-element" class="card-details"
+            >Billing Address</label
+          >
           <div id="billing-address-element" #billingAddressElement></div>
         </div>
 
@@ -17,13 +23,22 @@
           <label for="card-info" class="card-details">Card Details</label>
           <div id="card-info" #cardInfo class="custom-card-element"></div>
 
-          <div id="card-errors" role="alert" *ngIf="error" class="error-message">
+          <div
+            id="card-errors"
+            role="alert"
+            *ngIf="error"
+            class="error-message"
+          >
             {{ error.message }}
           </div>
         </div>
 
-        <div class="d-flex  justify-content-center ">
-          <button type="submit btn btn-orange-b" class="custom-pay-button" (click)="confirmSubscription()">
+        <div class="d-flex justify-content-center">
+          <button
+            type="submit btn btn-orange-b"
+            class="custom-pay-button"
+            (click)="confirmSubscription()"
+          >
             Pay
           </button>
         </div>

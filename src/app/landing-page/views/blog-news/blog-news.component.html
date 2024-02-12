@@ -1,51 +1,56 @@
 <section class="px-5">
   <div class="blog-news-container row">
     <div class="text-center heading-small-screen">
-      <h1>{{blogDetail?.blog_section?.title}}</h1>
+      <h1>{{ blogDetail?.blog_section?.title }}</h1>
       <p>
-        {{blogDetail?.blog_section?.description}}
+        {{ blogDetail?.blog_section?.description }}
       </p>
-      <button class="btn orange-background-btn">{{blogDetail?.blog_section?.view_all_articles}}</button>
+      <button class="btn orange-background-btn">
+        {{ blogDetail?.blog_section?.view_all_articles }}
+      </button>
     </div>
-    <div class="blog-article col-12 col-md-9" [ngClass]="{ 'order-1': orderValue === 1, 'order-2': orderValue === 2 }">
+    <div
+      class="blog-article col-12 col-md-9"
+      [ngClass]="{ 'order-1': orderValue === 1, 'order-2': orderValue === 2 }"
+    >
       <div class="heading text-center">
-        <h1>{{blogDetail?.blog_section?.title}}</h1>
+        <h1>{{ blogDetail?.blog_section?.title }}</h1>
         <p>
-          {{blogDetail?.blog_section?.description}}
+          {{ blogDetail?.blog_section?.description }}
         </p>
         <button class="btn orange-background-btn">View All Articles</button>
       </div>
       <div class="blog-card">
         @for (item of blogItem; track $index) {
-        <mat-card class="example-card">
-          <mat-card-header>
-            <div class="img">
-              <img [src]="item.img" />
-            </div>
-          </mat-card-header>
-          <mat-card-content>
-            <span class="date">{{ item.date }}</span>
-            <div class="title">
-              <h2>{{ item.title }}</h2>
-            </div>
-            <div class="description">
-              <p>{{ item.description }}</p>
-            </div>
-            <mat-divider></mat-divider>
-          </mat-card-content>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div class="img">
+                <img [src]="item.img" />
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <span class="date">{{ item.date }}</span>
+              <div class="title">
+                <h2>{{ item.title }}</h2>
+              </div>
+              <div class="description">
+                <p>{{ item.description }}</p>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-card-content>
 
-          <mat-card-footer>
-            <div class="footer d-flex">
-              <div class="profile-image">
-                <img [src]="item.profileImage" alt="profile-image" />
+            <mat-card-footer>
+              <div class="footer d-flex">
+                <div class="profile-image">
+                  <img [src]="item.profileImage" alt="profile-image" />
+                </div>
+                <div class="user-detail">
+                  <h5>{{ item.userName }}</h5>
+                  <p>{{ item.designation }}</p>
+                </div>
               </div>
-              <div class="user-detail">
-                <h5>{{ item.userName }}</h5>
-                <p>{{ item.designation }}</p>
-              </div>
-            </div>
-          </mat-card-footer>
-        </mat-card>
+            </mat-card-footer>
+          </mat-card>
         }
       </div>
     </div>

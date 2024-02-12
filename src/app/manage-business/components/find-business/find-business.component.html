@@ -6,7 +6,7 @@
 
 <div class="container-fluid g-0">
   <div class="row">
-    <div class="col-12 col-md-12 col-lg-6 mt-4 ">
+    <div class="col-12 col-md-12 col-lg-6 mt-4">
       <div id="map" style="height: 450px; width: 100%"></div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6 mt-2">
@@ -44,28 +44,39 @@
             <div class="d-flex">
               <div class="mx-2 w-100">
                 <!-- <input type="text" class="input-control" placeholder="category" /> -->
-                <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category"
-                  formControlName="post_category">
+                <mat-select
+                  (selectionChange)="onCategoryChange()"
+                  class="vietlist-select"
+                  placeholder="Category"
+                  formControlName="post_category"
+                >
                   @for (key of businessCat; track $index) {
-                  <mat-option [value]="key.id">{{ key.name }}</mat-option>
+                    <mat-option [value]="key.id">{{ key.name }}</mat-option>
                   }
                 </mat-select>
               </div>
 
               <div class="mx-2 w-100">
-                <mat-select class="vietlist-select" placeholder="Choose Model" formControlName="model">
+                <mat-select
+                  class="vietlist-select"
+                  placeholder="Choose Model"
+                  formControlName="model"
+                >
                   <mat-option value="retail">Retail</mat-option>
                   <mat-option value="restaurant">Restaurant</mat-option>
                   <mat-option value="restaurant">Service</mat-option>
                 </mat-select>
               </div>
-
             </div>
           </div>
           <div class="row mt-3">
             <div class="d-flex">
               <div class="mx-2 w-100">
-                <input type="text" class="input-control" formControlName="address" placeholder="Address" />
+                <AutocompleteComponent
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="street"
+              ></AutocompleteComponent>
               </div>
               <!-- <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Hours" formControlName="hours">
@@ -83,110 +94,135 @@
           <div class="row mt-3">
             <div class="d-flex">
               <div class="mx-2 w-100">
-                <div class="d-flex justify-content-between  ">
+                <div class="d-flex justify-content-between">
                   <div>
                     <label>Choose price</label>
                   </div>
                   <div class="pe-2">
-                    <label>Price : $ {{slidervalue}}</label>
+                    <label>Price : $ {{ slidervalue }}</label>
                   </div>
                 </div>
-                <mat-slider (change)="updatePrice($event)" [max]="maxPrice" [min]="0">
-                  <input matSliderThumb formControlName="slidervalue" #slider>
+                <mat-slider
+                  (change)="updatePrice($event)"
+                  [max]="maxPrice"
+                  [min]="0"
+                >
+                  <input matSliderThumb formControlName="slidervalue" #slider />
                 </mat-slider>
-
               </div>
             </div>
           </div>
           <div class="find-btn">
-            <button class="btn search-button" (click)="searchBusiness()">
+            <button class="btn search-button"  (click)="searchBusiness()">
               @if (isPaginationClick) {
-              <span>Find</span>
-              }@else if(!loader) {
-              <span>Find</span>
-              }
-              @else {
-              <app-loader></app-loader>
+                <span>Find</span>
+              } @else if (!loader) {
+                <span>Find</span>
+              } @else {
+                <app-loader></app-loader>
               }
             </button>
           </div>
         </div>
       </form>
       <div class="col-md-12 mt-5">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-          (pageChange)="handlePageChange($event)"></pagination-controls>
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+          (pageChange)="handlePageChange($event)"
+        ></pagination-controls>
       </div>
 
       <!---GRID VIEW----->
       <div class="row mt-5">
         @if (selectedLayout == 'grid') {
-        <div class="col-12">
-          @for (item of findBusinessData; track $index) {
-          <div class="grid-view-card">
-            <div class="business-img">
-              <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
-            </div>
-            <div class="business-info">
-              <div class="d-flex justify-content-center profile-wrapper">
-                <div class="business-profile-img">
-                  <img src="/assets/image/gridcircleImage.png" alt="business-profile-img" />
+          <div class="col-12">
+            @for (item of findBusinessData; track $index) {
+              <div class="grid-view-card">
+                <div class="business-img">
+                  <img
+                    src="/assets/image/grid-image1.jpeg"
+                    alt="business-img"
+                  />
                 </div>
-              </div>
-              <div class="business-title">
-                <h2>{{item.post_title}}</h2>
-                <span>{{item.post_content}}</span>
-              </div>
-              <div class="business-package">
-                <p>$ Package : Free Business</p>
-              </div>
-              <div class="business-rating">
-                <div class="d-flex">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-        } @else {
-        <div class="col-12 ">
-          @for (item of findBusinessData | paginate: { itemsPerPage: postPerPage, currentPage: currentPage,
-          totalItems: totalCount
-          }; track $index)
-          {
-          <div class="list-view-card mb-5">
-            <div class="business-list-wrapper d-flex">
-              <div class="business-list-img">
-                <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
-              </div>
-              <div class="business-list-info">
-                <div class="business-list-title">
-                  <h2>
-                    <a routerLink="#" routerLinkActive="router-link-active">{{item.post_title}}</a>
-                  </h2>
-                  <span>{{item.post_content}}</span>
-                </div>
-                <div class="business-list-package">
-                  <p>$ Package : Free Business</p>
-                </div>
-                <div class="business-list-rating">
-                  <div class="d-flex">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
+                <div class="business-info">
+                  <div class="d-flex justify-content-center profile-wrapper">
+                    <div class="business-profile-img">
+                      <img
+                        src="/assets/image/gridcircleImage.png"
+                        alt="business-profile-img"
+                      />
+                    </div>
+                  </div>
+                  <div class="business-title">
+                    <h2>{{ item.post_title }}</h2>
+                    <span>{{ item.post_content }}</span>
+                  </div>
+                  <div class="business-package">
+                    <p>$ Package : Free Business</p>
+                  </div>
+                  <div class="business-rating">
+                    <div class="d-flex">
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                      <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            }
           </div>
-          }
-        </div>
+        } @else {
+          <div class="col-12">
+            @for (
+              item of findBusinessData
+                | paginate
+                  : {
+                      itemsPerPage: postPerPage,
+                      currentPage: currentPage,
+                      totalItems: totalCount
+                    };
+              track $index
+            ) {
+              <div class="list-view-card mb-5">
+                <div class="business-list-wrapper d-flex">
+                  <div class="business-list-img">
+                    <img
+                      src="/assets/image/grid-image1.jpeg"
+                      alt="business-img"
+                    />
+                  </div>
+                  <div class="business-list-info">
+                    <div class="business-list-title">
+                      <h2>
+                        <a
+                          routerLink="#"
+                          routerLinkActive="router-link-active"
+                          >{{ item.post_title }}</a
+                        >
+                      </h2>
+                      <span>{{ item.post_content }}</span>
+                    </div>
+                    <div class="business-list-package">
+                      <p>$ Package : Free Business</p>
+                    </div>
+                    <div class="business-list-rating">
+                      <div class="d-flex">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
         }
       </div>
     </div>
@@ -201,7 +237,10 @@
       <div class="business-inner-wrapper d-flex">
         <div class="carrer-professional-img">
           <div class="img-wrapper">
-            <img src="/assets/image/carrer-proffesional.jpeg" alt="carrer-professional" />
+            <img
+              src="/assets/image/carrer-proffesional.jpeg"
+              alt="carrer-professional"
+            />
 
             <div class="img-over-text">
               <div class="d-flex align-items-end text-container">
@@ -218,7 +257,10 @@
                   <div class="d-flex">
                     <div class="delivered-by">
                       <div class="d-flex align-items-center">
-                        <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                        <i
+                          class="fa fa-user-circle-o pe-2"
+                          aria-hidden="true"
+                        ></i>
                         <span class="pe-2">By BlogBlitz</span>
                       </div>
                     </div>
@@ -241,7 +283,10 @@
           <div class="list-container">
             <div class="d-flex">
               <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+                <img
+                  src="/assets/image/carrer-proffessional-list1.jpeg"
+                  alt="list-image"
+                />
               </div>
               <div class="list-info">
                 <div class="title">
@@ -256,7 +301,10 @@
                 <div class="d-flex">
                   <div class="delivered-by">
                     <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <i
+                        class="fa fa-user-circle-o pe-2"
+                        aria-hidden="true"
+                      ></i>
                       <span class="pe-2">By BlogBlitz</span>
                     </div>
                   </div>
@@ -273,7 +321,10 @@
           <div class="list-container">
             <div class="d-flex">
               <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+                <img
+                  src="/assets/image/carrer-proffessional-list1.jpeg"
+                  alt="list-image"
+                />
               </div>
               <div class="list-info">
                 <div class="title">
@@ -288,7 +339,10 @@
                 <div class="d-flex">
                   <div class="delivered-by">
                     <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <i
+                        class="fa fa-user-circle-o pe-2"
+                        aria-hidden="true"
+                      ></i>
                       <span class="pe-2">By BlogBlitz</span>
                     </div>
                   </div>
@@ -305,7 +359,10 @@
           <div class="list-container">
             <div class="d-flex">
               <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+                <img
+                  src="/assets/image/carrer-proffessional-list1.jpeg"
+                  alt="list-image"
+                />
               </div>
               <div class="list-info">
                 <div class="title">
@@ -320,7 +377,10 @@
                 <div class="d-flex">
                   <div class="delivered-by">
                     <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <i
+                        class="fa fa-user-circle-o pe-2"
+                        aria-hidden="true"
+                      ></i>
                       <span class="pe-2">By BlogBlitz</span>
                     </div>
                   </div>
@@ -337,7 +397,10 @@
           <div class="list-container">
             <div class="d-flex">
               <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
+                <img
+                  src="/assets/image/carrer-proffessional-list1.jpeg"
+                  alt="list-image"
+                />
               </div>
               <div class="list-info">
                 <div class="title">
@@ -352,7 +415,10 @@
                 <div class="d-flex">
                   <div class="delivered-by">
                     <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                      <i
+                        class="fa fa-user-circle-o pe-2"
+                        aria-hidden="true"
+                      ></i>
                       <span class="pe-2">By BlogBlitz</span>
                     </div>
                   </div>
