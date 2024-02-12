@@ -95,7 +95,10 @@
 
 
 .Categories-swiper-container {
-  padding-bottom: 6.25rem;
+  // padding-bottom: 6.25rem;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 
   .main-cnt {
     width: fit-content;
@@ -109,12 +112,45 @@
     .image-container {
       width: 100%;
       height: 100%;
+      position: relative;
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 10px;
+      }
+
+      .trending-content {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+
+        .trending {
+          position: absolute;
+          top: 0;
+          right: 15px;
+
+          .trending-text {
+            background-color: var(--primary-color-orange);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 4px;
+          }
+        }
+
+        .trending-title {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+
+          h3 {
+            color: var(--white);
+          }
+        }
       }
     }
   }
@@ -136,8 +172,8 @@
 }
 
 swiper-container {
-  width: 100%;
-  height: 28rem;
+  width: 90%;
+  height: 35rem;
   margin: 20px auto;
 }
 
@@ -150,16 +186,44 @@ swiper-slide {
   align-items: center;
 }
 
-.search-fields{
-    width:65%;
-    margin:auto
+.search-fields {
+  width: 65%;
+  margin: auto
 }
+
 .search-btn {
-    background-color: var(--primary-color-orange);
-    width: fit-content;
-    padding: 8px 12px;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
+  background-color: var(--primary-color-orange);
+  width: fit-content;
+  padding: 8px 12px;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+swiper-container::part(bullet-active) {
+  background-color: #F89705;
+  width: 28px;
+  height: 13.94px;
+  border-radius: 10px;
+}
+
+swiper-container::part(bullet) {
+  width: 13.94px;
+  height: 13.94px;
+  border-radius: 50%;
+}
+
+@media (max-width: 500px) {
+  .container-fluid {
+    .search-fields {
+      .d-flex {
+        flex-direction: column;
+
+        .search-btn {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

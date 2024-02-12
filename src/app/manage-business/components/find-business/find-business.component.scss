@@ -41,6 +41,10 @@
     margin-top: 15px;
 }
 
+::ng-deep.mat-mdc-select {
+    padding: 7px 10px;
+}
+
 ::ng-deep.mat-mdc-slider {
     width: 95% !important;
 }

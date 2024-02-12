@@ -41,16 +41,13 @@
 
     .cta-verfied-image {
         .image-container {
-            width: 90%;
+            width: 95%;
             margin-left: auto;
             margin-right: auto;
             padding-bottom: 6.25rem;
 
-            .d-flex {
-                gap: 35px;
-                flex-wrap: wrap;
-                justify-content: center;
 
+            .mySwiper {
                 .image {
                     position: relative;
 
@@ -59,8 +56,37 @@
                         top: -23px;
                         right: -19px;
                     }
+
                 }
             }
         }
     }
+}
+
+swiper-container {
+    width: 90%;
+    height: 26rem;
+    margin: 20px auto;
+}
+
+swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+swiper-container::part(bullet-active) {
+    background-color: #F89705;
+    width: 28px;
+    height: 13.94px;
+    border-radius: 10px;
+}
+
+swiper-container::part(bullet) {
+    width: 13.94px;
+    height: 13.94px;
+    border-radius: 50%;
 }

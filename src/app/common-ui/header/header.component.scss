@@ -180,7 +180,7 @@
             flex-wrap: nowrap;
             padding: 0.5rem;
             border-radius: 4px;
-            top: 22dvh;
+            top: 13dvh;
             right: 12%;
             background-color: var(--white);
 
@@ -416,15 +416,17 @@
 @media(max-width:1500px) {
 
     .container-fluid {
+        padding: 0px 30px;
+
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 60%;
+                    width: 64%;
                 }
             }
 
             .right-nav {
-                width: 20%;
+                width: 22%;
                 margin-left: 0;
             }
         }

@@ -11,33 +11,30 @@
     </button>
   </div>
 </div>
-<div class="Categories-swiper-container container-fluid">
+<div class="Categories-swiper-container ">
   <div class="row">
     <div class="col-md-12">
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
         @for (key of businessCat; track $index) {
-          <swiper-slide>
-            <div class="main-cnt d-flex flex-column mb-3 mt-4">
-              <div>
-                <div class="img-cnt" *ngIf="key.icon !== null">
-                  <!-- <i [class]="key.icon" style="width:100%"></i> -->
-                  <img [src]="key.image" />
-                </div>
-                <div class="img-cnt" *ngIf="key.icon == null">
-                  <img [src]="key.image" style="width: 100%" />
-                </div>
-                <div
-                  class="img-cnt"
-                  *ngIf="key.icon == null || key.image == null"
-                >
-                  <p>Image not found</p>
-                </div>
+        <swiper-slide>
+          <div class="main-cnt d-flex flex-column mb-3 mt-4">
+            <div>
+              <div class="img-cnt" *ngIf="key.icon !== null">
+                <!-- <i [class]="key.icon" style="width:100%"></i> -->
+                <img [src]="key.image" />
               </div>
-              <div class="card-heading-container">
-                <h4 class="card-heading" [innerHtml]="key.name"></h4>
+              <div class="img-cnt" *ngIf="key.icon == null">
+                <img [src]="key.image" style="width: 100%" />
+              </div>
+              <div class="img-cnt" *ngIf="key.icon == null || key.image == null">
+                <p>Image not found</p>
               </div>
             </div>
-          </swiper-slide>
+            <div class="card-heading-container">
+              <h4 class="card-heading" [innerHtml]="key.name"></h4>
+            </div>
+          </div>
+        </swiper-slide>
         }
       </swiper-container>
     </div>

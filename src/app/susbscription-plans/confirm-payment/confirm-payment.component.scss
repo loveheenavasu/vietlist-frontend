@@ -4,6 +4,7 @@
 .container {
   margin-top: 5rem;
   margin-bottom: 10em;
+  width: 50%;
   // display:flex;
   // align-items: center;
 }
@@ -63,4 +64,10 @@ label {
 
 .StripeElement--webkit-autofill {
   display: none !important;
+}
+
+@media (max-width:500px) {
+  .container {
+    width: 100%;
+  }
 }

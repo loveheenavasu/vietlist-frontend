@@ -121,3 +121,8 @@
   --mat-radio-checked-ripple-color: none !important;
   --mat-radio-disabled-label-color: rgba(0, 0, 0, 0.38);
 }
+
+::ng-deep.dropdown-menu.show {
+  height: 200px;
+  overflow: auto;
+}
