@@ -46,7 +46,7 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
   ) {
-    console.log('Init component homepge')
+    this.getHomePageContent()
   }
 
   ngOnInit() {

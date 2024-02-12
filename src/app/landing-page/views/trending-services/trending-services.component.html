@@ -8,27 +8,24 @@
 
   <div class="row search-fields">
     <div class="d-flex">
-      <div class=" flex-grow-1">
+      <div class=" flex-grow-1 mb-1">
         <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
           @for (key of post_category; track $index) {
-            <mat-option [value]="key.id">{{ key.name }}</mat-option>
+          <mat-option [value]="key.id">{{ key.name }}</mat-option>
           }
         </mat-select>
       </div>
-      <div class="mx-1 flex-grow-1">
-        <AutocompleteComponent
-          (setAddress)="getAddress($event)"
-          adressType="geocode"
-          [value]="street"
-        ></AutocompleteComponent>
+      <div class="mx-1 flex-grow-1 mb-2">
+        <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+        </AutocompleteComponent>
       </div>
       <div class="mx-1">
         <div class="search-btn" (click)="search()">
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
   </div>
-</div>
   <div class="Categories-swiper-container ">
     <div class="row">
       <div class="col-md-12">
@@ -38,6 +35,14 @@
             <div class="main-cnt d-flex  mb-3 mt-4">
               <div class="image-container">
                 <img [src]="key.image" />
+                <div class="trending-content">
+                  <div class="trending">
+                    <p class="trending-text">Trending</p>
+                  </div>
+                  <div class="trending-title">
+                    <h3>{{key.name}}</h3>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -45,12 +50,4 @@
           }
 
         </swiper-container>
-    <h1>Our Business Categories</h1>
-    <p>
-      Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-      cubilia curae; Proin sodales ultrices nulla blandit volutpat.Vestibulum
-      ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-      curae; Proin sodales ultrices nulla blandit volutpat.
-    </p>
-  </div>
-
+      </div>

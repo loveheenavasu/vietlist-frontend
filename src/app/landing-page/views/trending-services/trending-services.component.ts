@@ -53,16 +53,21 @@ export class TrendingServicesComponent {
   public category = new FormControl('')
   swiperParams = {
     slidesPerView: 1,
-    autoplay: true,
+    // autoplay: true,
+    pagination: {
+      clickable: true,
+    },
     spaceBetween: 30,
     disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 2,
         spaceBetween: 20,
+        autoplay: true,
       },
       1388: {
-        slidesPerView: 4,
+        slidesPerView: 5,
+        autoplay: true,
       },
     },
     on: {
@@ -76,6 +81,8 @@ export class TrendingServicesComponent {
       swiperEl.initialize()
     })
   }
+
+
 
   ngOnInit() {
     this.getCategroies()
@@ -97,7 +104,7 @@ export class TrendingServicesComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -148,16 +155,16 @@ export class TrendingServicesComponent {
     if (this.category.value) {
       params['post_category'] = this.category.value;
     }
-  
+
     this.businessService.findBusiness(params).subscribe({
       next: (res) => {
         console.log(res)
         this.post_category = res.data
       },
       error: (error) => {
-       
+
       }
     });
   }
-  
+
 }
