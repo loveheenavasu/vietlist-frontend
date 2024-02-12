@@ -282,8 +282,8 @@ export class FindBusinessComponent {
       // Create a new Google Map instance
       map = new google.maps.Map(mapElement, {
         center: {
-          lat: parseFloat(this.latitude[0]),
-          lng: parseFloat(this.longitude[0]),
+          lat: parseFloat(this.latitude[30.3610]),
+          lng: parseFloat(this.longitude[76.8485]),
         }, // Use dynamic values
         zoom: 13,
       })

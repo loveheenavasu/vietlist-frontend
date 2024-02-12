@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core'
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Input, ViewChild } from '@angular/core'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -6,6 +6,7 @@ register()
   selector: 'app-cta-verified-business',
   standalone: true,
   imports: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cta-verified-business.component.html',
   styleUrl: './cta-verified-business.component.scss',
 })
