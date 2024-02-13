@@ -1,4 +1,4 @@
-import { Router } from '@angular/router'
+import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
 import { Component } from '@angular/core'
@@ -53,7 +53,19 @@ export class HomepageComponent {
 
   ngOnInit() {
     this.getHomePageContent()
+    this.subscribeToRouterEvents(); 
   }
+ 
+  private subscribeToRouterEvents(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/' || event.url === '/home') {
+          window.location.reload();
+        }
+      }
+    });
+  }
+
 
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({

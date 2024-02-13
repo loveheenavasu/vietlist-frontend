@@ -1,7 +1,7 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
@@ -26,6 +26,7 @@ import { filter } from 'rxjs';
     LoginComponent,
     MatButtonModule,
     RouterLinkActive,
+    RouterModule
     
   ],
   templateUrl: './header.component.html',
