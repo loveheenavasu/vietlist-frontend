@@ -38,4 +38,16 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post<any>(endpoint, postId, { headers: authToken })
   }
+
+  public changePasswrd(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ChangePassword)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body ,  { headers: authToken })
+  }
+
+  public deletAccount(body:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ChangePassword)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body ,  { headers: authToken })
+  }
 }

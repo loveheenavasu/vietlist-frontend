@@ -25,5 +25,6 @@ export enum Endpoints {
   FooterContent = 'get_footer_data',
   SubscribeNewsletter = 'subscribe_newsletter',
   EventTags = 'event_tags_data_get',
-  EventCatgeory = 'get_event_category'
+  EventCatgeory = 'get_event_category',
+  ChangePassword = "changepassword",
 }

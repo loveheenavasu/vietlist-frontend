@@ -16,6 +16,7 @@ import {
 import { BusinessCategories, BusinessListingComponent } from './categories'
 import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
+  ChangePasswordComponent,
   EditProfileComponent,
   MyBusinessComponent,
 } from './manage-profile/components'
@@ -46,6 +47,10 @@ export default [
       {
         path: 'my-business',
         component: MyBusinessComponent,
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
       },
     ],
     canActivate: [AuthGuard],

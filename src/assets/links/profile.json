@@ -7,7 +7,7 @@
     {
       "label": "Change Password",
       "icon": "fa fa-asterisk",
-      "url": "/about"
+      "url": "/manage-profile/change-password"
     },
     {
       "label": "Notifications",

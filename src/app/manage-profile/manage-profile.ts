@@ -2,11 +2,9 @@ import { RouterOutlet, RouterLink, Router } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
-  LocalStorageService,
   ProfileMenu,
   SidebarService,
 } from '@vietlist/shared'
-import { FullPageLoaderService } from '../shared/utils/services/loader.service'
 import { EditProfileComponent } from './components'
 import { NgClass, NgIf } from '@angular/common'
 
