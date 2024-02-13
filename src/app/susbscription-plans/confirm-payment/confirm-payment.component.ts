@@ -164,14 +164,14 @@ export class ConfirmPaymentComponent {
     } else {
       this.paymentMethod = setupIntent
       if (this.paymentMethod) {
-        this.confirmSubscription()
+        this.confirmSubscriptionPayment()
       }
       console.log('SetupIntent confirmed:', setupIntent)
       // Handle success, e.g., redirect to a success page
     }
   }
 
-  public confirmSubscription() {
+  public confirmSubscriptionPayment() {
     const body = {
       level_id: this.planId,
       pm_data: {
