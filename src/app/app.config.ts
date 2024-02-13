@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core'
+import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { provideRouter, withInMemoryScrolling } from '@angular/router'
 
 import routes from './app.routes'
@@ -12,7 +12,8 @@ import {
 import { provideNgxStripe } from 'ngx-stripe'
 import { ErrorHandlerInterceptor } from '@vietlist/shared'
 import { environment } from 'src/environments/environment.development'
-import { AppComponent } from './app.component'
+import { MatNativeDateModule } from '@angular/material/core'
+
 const stripePublishKey = environment.stripe_publish_key
 
 export const appConfig: ApplicationConfig = {
@@ -27,5 +28,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([ErrorHandlerInterceptor])),
     provideNgxStripe(stripePublishKey),
+    importProvidersFrom(MatNativeDateModule)
   ],
 }

@@ -7,11 +7,6 @@ import {
 } from '@vietlist/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { BusinessCategoryResponse, TagsResponse } from './business.interface'
-interface Files {
-  uri: string
-  type: string
-  size: number
-}
 
 
 @Injectable({

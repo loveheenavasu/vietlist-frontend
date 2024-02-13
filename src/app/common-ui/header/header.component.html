@@ -137,8 +137,16 @@
             <li class="nav-item">
               <span>Blogs/News</span>
             </li>
-            <li class="nav-item">
-              <span>Events</span>
+            <li class="nav-item" [matMenuTriggerFor]="menuevent">
+              <span>Events  <i class="fa fa-caret-down" aria-hidden="true"></i>  </span>
+              <mat-menu #menuevent="matMenu">
+                <button mat-menu-item>
+                  <span [routerLink]="['/add-event']" >All Events</span>
+                </button>
+                <button mat-menu-item>
+                  <span [routerLink]="['/business-listing']">Add Event</span>
+                </button>
+              </mat-menu>
             </li>
             <li class="nav-item">
               <span>Contact Us</span>

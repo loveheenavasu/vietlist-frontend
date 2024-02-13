@@ -557,10 +557,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
 })
 export class ListBusinessComponent {
   public isloader: boolean = false
-  // public latitude!: any
-  // public longitude!: any
-  latitude: number = 0;
-  longitude: number = 0;
+  public latitude: number = 0;
+  public longitude: number = 0;
   public separateDialCode = true
   public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
@@ -570,12 +568,11 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-  verification_upload:any
-  map: google.maps.Map | null = null; // Declare and initialize the map property
-  latt! : number
-  longi !:number
+  public verification_upload:any
+  public map: google.maps.Map | null = null; // Declare and initialize the map property
+  public latt! : number
+  public longi !:number
   public selectedMapView = 'default';
-  
   public categoriesValue: any
   public post_category: BusinessCategoryResponse[] = []
   public post_tags :any[] = []
@@ -606,7 +603,7 @@ export class ListBusinessComponent {
   public selectedTagsString = ''
   public street = ''
   public tags:any[]=[]
-  verifiedBadge:any
+  public verifiedBadge:any
   /**
    *
    * @param _formBuilder

@@ -19,6 +19,7 @@ import {
   EditProfileComponent,
   MyBusinessComponent,
 } from './manage-profile/components'
+import { AddEventComponent } from './manage-event'
 
 export default [
   {
@@ -84,6 +85,10 @@ export default [
   {
     path: 'preview-business',
     loadComponent: () => PreviewBusinessComponent,
+  },
+  {
+    path: 'add-event',
+    loadComponent: () => AddEventComponent,
   },
   {
     path: '**',
