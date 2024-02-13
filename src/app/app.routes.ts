@@ -17,8 +17,10 @@ import { BusinessCategories, BusinessListingComponent } from './categories'
 import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
   ChangePasswordComponent,
+  DeleteAccountComponent,
   EditProfileComponent,
   MyBusinessComponent,
+  SettingComponent,
 } from './manage-profile/components'
 import { AddEventComponent } from './manage-event'
 
@@ -51,6 +53,14 @@ export default [
       {
         path: 'change-password',
         component: ChangePasswordComponent,
+      },
+      {
+        path: 'delete-account',
+        component: DeleteAccountComponent,
+      },
+      {
+        path: 'setting',
+        component: SettingComponent,
       },
     ],
     canActivate: [AuthGuard],
