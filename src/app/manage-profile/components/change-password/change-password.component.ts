@@ -45,17 +45,12 @@ export class ChangePasswordComponent {
     this.changePassword = this.fb.group({
       old_password: ['', Validators.required],
       new_password: ['', Validators.required],
-      
     })
     const data = this.sessionservice.getUserdata()
     this.email = data?.user_email
-
   }
-  ngOnInit() {
- 
-  }
+  ngOnInit() {}
 
-  
   public hidePassword() {
     if (this.isHidePassword) {
       this.isHidePassword = false
@@ -64,7 +59,7 @@ export class ChangePasswordComponent {
     }
   }
 
-    handleChangePassword() {
+  handleChangePassword() {
     this.loaderService.showLoader()
     const body = {
       email: this.email,
@@ -85,11 +80,8 @@ export class ChangePasswordComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-
       },
-      error: (err) => {
-     
-      },
+      error: (err) => {},
     })
   }
 }

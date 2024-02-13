@@ -27,14 +27,18 @@
 
 ul {
     list-style-type: none;
-
+    .flex-row{
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+    }
     li {
         margin-bottom: 20px;
         font-size: 16px;
         color: var(--dark-grey);
         font-weight: var(--font-weight-light);
-
-
+        height:2rem;
+        
     }
 
     .links {
@@ -72,14 +76,16 @@ ul {
 
 .newsletter {
     border: solid 1px #E7E8F2;
-    height: 55px;
+    height: 45px;
     background: #FCFCFC;
     padding: 0 10px;
-    border-radius: 6px
+    border-radius: 6px 0px 0px 6px
 }
 
 .enter-btn {
-    height: 55px;
+    height: 45px;
+    width:3rem;
+    border-radius:0px 6px 6px 0px !important
 }
 
 .mobile-view-footer {

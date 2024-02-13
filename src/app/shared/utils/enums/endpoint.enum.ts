@@ -26,6 +26,7 @@ export enum Endpoints {
   SubscribeNewsletter = 'subscribe_newsletter',
   EventTags = 'event_tags_data_get',
   EventCatgeory = 'get_event_category',
-  ChangePassword = "changepassword",
-  DeleteAccount = 'delete_user_account'
+  ChangePassword = 'changepassword',
+  DeleteAccount = 'delete_user_account',
+  NotificaionAllow = 'profile_notification_setting',
 }

@@ -1,4 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Input, ViewChild } from '@angular/core'
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -45,10 +51,10 @@ export class CtaVerifiedBusinessComponent {
       1920: {
         slidesPerView: 5,
         autoplay: true,
-      }
+      },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
 
@@ -60,25 +66,25 @@ export class CtaVerifiedBusinessComponent {
     image: string
     verified_logo: string
   }[] = [
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-    ]
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+  ]
 }

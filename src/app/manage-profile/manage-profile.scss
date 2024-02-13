@@ -102,7 +102,74 @@ li.active {
     color: rgb(255, 128, 0) !important;
 }
 
-@media only screen and (min-width: 400px) and (max-width: 768px) {
+@media screen and (max-width:1341px) {
+
+
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 14px;
+
+
+
+    }
+
+
+.sidebar-items {
+    margin: 0 auto;
+    width: 80%;
+    padding: 20px 35px;
+
+    ul {
+        list-style-type: none;
+        margin-top: 2.5rem;
+        padding: 0;
+
+        /* Remove default padding */
+        li {
+            margin-bottom: 26px;
+            line-height: 20px;
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 14px;
+
+            span {
+                margin-right: 10px;
+            }
+        }
+    }
+
+}
+
+}
+
+@media screen and (max-width:1199px) {
+
+
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 8px;
+
+
+
+    }
+
+}
+@media screen and (max-width: 991px) {
+    .sidebar-cnt {
+        height: 100%;
+        width: 95%;
+        margin: auto;
+        background-color: #f3f8fd;
+        display: flex;
+        justify-content: center;
+  
+    }
+}
+@media screen and (max-width: 768px) {
+    .container{
+        padding:10px;
+    }
     li.active {
         background: orange;
         padding: 1px;
@@ -143,7 +210,6 @@ li.active {
         overflow: hidden;
         border-top: solid 11px white;
         padding-top: 24px;
-        /* padding-bottom: 19px; */
         padding-left: 27px;
     }
 

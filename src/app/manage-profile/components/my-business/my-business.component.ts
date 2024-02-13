@@ -39,9 +39,9 @@ export class MyBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.businessArray = res.data
       },
-      error:(err)=>{
+      error: (err) => {
         this.fullPageLoaderService.hideLoader()
-      }
+      },
     })
   }
 
@@ -50,9 +50,9 @@ export class MyBusinessComponent {
       next: (res) => {
         Swal.fire({})
       },
-      error:(err)=>{
+      error: (err) => {
         this.fullPageLoaderService.hideLoader()
-      }
+      },
     })
   }
 

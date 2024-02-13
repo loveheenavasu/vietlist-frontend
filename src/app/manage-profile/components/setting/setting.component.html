@@ -1,1 +1,57 @@
-<p>setting works!</p>
+<h3>Notification Settings</h3>
+<div class="container-fluid g-0">
+  <div class="row mt-4">
+    <div class="col-12 col-md-12 col-lg-6">
+      <h5>Enable Notifications for Profile Views</h5>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <mat-slide-toggle
+        [formContol]="profileView"
+        [(ngModel)]="profileViews"
+        (change)="valueChange('profileViews')"
+        >On</mat-slide-toggle
+      >
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-md-12 col-lg-6">
+      <h5>Enable Real Time Notifications</h5>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <mat-slide-toggle
+        (change)="valueChange('realTime')"
+        [(ngModel)]="realTime"
+        >On</mat-slide-toggle
+      >
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-md-12 col-lg-6">
+      <h5>Enable Periodic Notifications</h5>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <mat-slide-toggle
+        (change)="valueChange('periodicNotify')"
+        [(ngModel)]="periodicNotify"
+        >On</mat-slide-toggle
+      >
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-md-12 col-lg-6">
+      <h5>Enable Notifications for Blogs Views</h5>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <mat-slide-toggle
+        (change)="valueChange('blogsView')"
+        [(ngModel)]="blogsView"
+        >On</mat-slide-toggle
+      >
+    </div>
+  </div>
+  <div class="row mt-4">
+    <button class="btn orange-background-btn" (click)="allowNotification()">
+      Save
+    </button>
+  </div>
+</div>

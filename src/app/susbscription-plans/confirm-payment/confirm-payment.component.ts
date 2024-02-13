@@ -52,7 +52,7 @@ export class ConfirmPaymentComponent {
     private loaderService: FullPageLoaderService,
     public router: Router,
     private localStorageService: LocalStorageService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -73,7 +73,7 @@ export class ConfirmPaymentComponent {
           variables: { colorPrimaryText: 'red' },
         }
         const elements = stripe.elements({ appearance })
-        this.card = elements.create('card', { hidePostalCode: true, })
+        this.card = elements.create('card', { hidePostalCode: true })
         this.card.mount(this.cardInfo.nativeElement)
         const billingAddressOptions = {
           classes: {
@@ -105,7 +105,7 @@ export class ConfirmPaymentComponent {
         this.paymentIntent = res.client_secret
         console.log(this.paymentIntent, 'this.payemnetintent')
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 

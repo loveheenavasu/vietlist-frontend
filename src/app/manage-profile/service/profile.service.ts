@@ -39,15 +39,24 @@ export class ProfileService {
     return this.http.post<any>(endpoint, postId, { headers: authToken })
   }
 
-  public changePasswrd(body:any): Observable<any> {
+  public changePasswrd(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ChangePassword)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body ,  { headers: authToken })
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
   public deleteAccount(): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAccount);
-    const authToken: any = this.sessionService.getAuthHeaders();
-    return this.http.delete<any>(endpoint, { headers: authToken });
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAccount)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.delete<any>(endpoint, { headers: authToken })
+  }
+
+  public allowNotificationSetting(notification: any): Observable<any> {
+    const formData = new FormData()
+    formData.append('notification', JSON.stringify(notification))
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.NotificaionAllow)
+    const authToken: any = this.sessionService.getAuthHeaders()
+
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
 }

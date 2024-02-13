@@ -21,31 +21,31 @@
   <div class="swiper-testimonial">
     <swiper-container #swiperDemo class="mySwiper" init="false">
       @for (item of testimonialData; track $index) {
-      <swiper-slide>
-        <div class="card">
-          <div class="card-body">
-            <div class="rating">
-              @for (r of returnCount(item.rating); track $index) {
-              <div class="rating-svg">
-                <img src="/assets/image/orange-star.svg" alt="rating" />
+        <swiper-slide>
+          <div class="card">
+            <div class="card-body">
+              <div class="rating">
+                @for (r of returnCount(item.rating); track $index) {
+                  <div class="rating-svg">
+                    <img src="/assets/image/orange-star.svg" alt="rating" />
+                  </div>
+                }
               </div>
-              }
-            </div>
-            <div class="description">
-              <p>{{ item.description }}</p>
-            </div>
-            <div class="footer">
-              <div class="profile">
-                <img [src]="item.userProfile" alt="user-image" />
+              <div class="description">
+                <p>{{ item.description }}</p>
               </div>
-              <div class="user-info">
-                <h5>{{ item.userName }}</h5>
-                <p>{{ item.userCountry }}</p>
+              <div class="footer">
+                <div class="profile">
+                  <img [src]="item.userProfile" alt="user-image" />
+                </div>
+                <div class="user-info">
+                  <h5>{{ item.userName }}</h5>
+                  <p>{{ item.userCountry }}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </swiper-slide>
+        </swiper-slide>
       }
     </swiper-container>
   </div>

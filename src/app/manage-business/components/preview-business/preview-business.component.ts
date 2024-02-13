@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common'
 @Component({
   selector: 'app-preview-business',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule , RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
 })
@@ -27,7 +27,7 @@ export class PreviewBusinessComponent {
     private _route: ActivatedRoute,
     private businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
-    public router:Router
+    public router: Router,
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -96,7 +96,7 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
 
         this.dataget = res?.data || 'NA'
-        this.businessFormDetails = res?.data[0] 
+        this.businessFormDetails = res?.data[0]
         this.previewForm.patchValue(this.businessFormDetails)
         this.logo = res?.data[0]?.logo
         // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
@@ -121,7 +121,7 @@ export class PreviewBusinessComponent {
     })
   }
 
-  public manageBusiness(){
+  public manageBusiness() {
     this.router.navigateByUrl('/manage-profile/my-business')
   }
 }
