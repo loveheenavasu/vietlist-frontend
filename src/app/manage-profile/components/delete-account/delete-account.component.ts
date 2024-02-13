@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Router } from '@angular/router'
 import { FullPageLoaderService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { ProfileService } from '../../service/profile.service'
@@ -24,7 +25,8 @@ import { ProfileService } from '../../service/profile.service'
 export class DeleteAccountComponent {
   constructor(
     private profileService: ProfileService,
-    private fullPageloader: FullPageLoaderService,
+    private router:Router
+    
   ) {}
 
   public handleDeleteAccount() {
@@ -50,6 +52,7 @@ export class DeleteAccountComponent {
               timer: 3000,
               timerProgressBar: true,
             })
+            this.router.navigateByUrl('/')
           },
         })
       }

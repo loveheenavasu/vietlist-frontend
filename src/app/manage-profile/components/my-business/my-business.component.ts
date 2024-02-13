@@ -45,15 +45,40 @@ export class MyBusinessComponent {
     })
   }
 
+  
+
   deleteBusiness(postId: any) {
-    this.profileService.deleteBuisness(postId).subscribe({
-      next: (res) => {
-        Swal.fire({})
-      },
-      error: (err) => {
-        this.fullPageLoaderService.hideLoader()
-      },
+    Swal.fire({
+      title: 'Do you really want to delete your business?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff9900',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profileService.deleteBuisness({post_id:postId}).subscribe({
+          next: (res) => {
+            Swal.fire({
+              toast: true,
+              text: res.message,
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+            this.getBusiness()
+          },
+          error: (err) => {
+            this.fullPageLoaderService.hideLoader()
+          },
+        })
+      }
     })
+ 
   }
 
   ngOnDestroy() {}

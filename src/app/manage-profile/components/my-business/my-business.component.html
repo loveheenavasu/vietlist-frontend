@@ -109,7 +109,15 @@
                 </div> -->
               </div>
             </div>
+           
           }
+
+@if(!businessArray.length){
+  <div class="grid-view-container row mt-5">
+    <h4 class="no-records-found text-center">No records found</h4>
+  </div>
+}
+
         </div>
       } @else {
         <div class="list-view-container">

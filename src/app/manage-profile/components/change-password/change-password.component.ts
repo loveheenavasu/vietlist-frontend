@@ -1,4 +1,4 @@
-import { CommonModule, NgIf } from '@angular/common'
+import { NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import {
   FormsModule,
@@ -9,18 +9,21 @@ import {
 } from '@angular/forms'
 import { Router } from '@angular/router'
 import {
-  ProfileMenu,
   FullPageLoaderService,
   AuthenticationService,
+  FormControlValidationDirective,
 } from '@vietlist/shared'
+import { matchValidator } from 'src/app/auth/register/validator'
+
 import Swal from 'sweetalert2'
 
 import { ProfileService } from '../../service/profile.service'
 
+
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgIf ,     FormControlValidationDirective,],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
 })
@@ -37,7 +40,6 @@ export class ChangePasswordComponent {
    */
   constructor(
     private profileDetail: ProfileService,
-    private router: Router,
     private loaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private sessionservice: AuthenticationService,
@@ -45,7 +47,13 @@ export class ChangePasswordComponent {
     this.changePassword = this.fb.group({
       old_password: ['', Validators.required],
       new_password: ['', Validators.required],
-    })
+      confirm_password: ['', [Validators.required]],
+    },
+    {
+      validators: matchValidator('new_password', 'confirm_password'),
+    },
+    )
+ 
     const data = this.sessionservice.getUserdata()
     this.email = data?.user_email
   }

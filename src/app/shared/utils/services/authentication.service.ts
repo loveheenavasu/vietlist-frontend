@@ -99,6 +99,7 @@ export class AuthenticationService {
     this.localstorageservice.removeData('vietlist::user')
     this.localstorageservice.removeData('subscriptionStatus')
     this.localstorageservice.removeData('postId')
+    this.localstorageservice.clearData()
   }
 
   // Get the authentication token

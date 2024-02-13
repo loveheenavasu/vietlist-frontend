@@ -53,7 +53,7 @@ export class SubscriptionFormComponent {
     this.lastPart = parts[parts.length - 1]
 
     this.cdr.detectChanges()
-    const controls = ['facebook', 'twitter', 'instagram']
+    const controls = [this.subscriptionForm.value]
 
     controls.forEach((control) => {
       this.subscriptionForm.get(control)?.patchValue(value?.[control] || '')

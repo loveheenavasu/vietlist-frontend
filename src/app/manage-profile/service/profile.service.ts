@@ -23,9 +23,11 @@ export class ProfileService {
   }
 
   public userProfileUpdate(body: any): Observable<any> {
+    const authToken: any = this.sessionService.getAuthHeaders()
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.updateUserProfile)
-    return this.http.post<any>(endpoint, body)
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
+
 
   public getBusinessByUserId(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
@@ -34,7 +36,7 @@ export class ProfileService {
   }
 
   public deleteBuisness(postId: any): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAddedBusiness)
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post<any>(endpoint, postId, { headers: authToken })
   }
