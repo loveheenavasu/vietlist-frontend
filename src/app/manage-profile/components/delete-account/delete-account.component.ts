@@ -39,13 +39,13 @@ export class DeleteAccountComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.profileService.deleteAccount().subscribe({
-          next: (res:any) => {
+          next: (res: any) => {
             Swal.fire({
               toast: true,
               text: res.message,
               animation: false,
               icon: 'success',
-              position: 'top-right',  
+              position: 'top-right',
               showConfirmButton: false,
               timer: 3000,
               timerProgressBar: true,

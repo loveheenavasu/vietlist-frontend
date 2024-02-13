@@ -444,7 +444,7 @@ export class ConsultationFormComponent {
       this.businessService.updateBusiness(updatebody).subscribe({
         next: (res: any) => {
           if (res) {
-            this.router.navigateByUrl('/manage-profile')
+            this.router.navigateByUrl('/manage-profile/my-business')
             this.isLoader = false
             this.consultationFormSubmit.emit()
             this.businessService.isBusinessBioFormFilled.next(true)

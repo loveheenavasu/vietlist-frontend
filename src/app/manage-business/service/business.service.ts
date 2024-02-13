@@ -8,7 +8,6 @@ import {
 import { BehaviorSubject, Observable } from 'rxjs'
 import { BusinessCategoryResponse, TagsResponse } from './business.interface'
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -66,19 +65,16 @@ export class BusinessService {
     return this.http.post<any>(endpoint, formData)
   }
 
-
-  
   public findBusiness(params: { [key: string]: any }): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness);
-    let queryParams = new HttpParams();
-    Object.keys(params).forEach(key => {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
       if (params[key] !== undefined) {
-        queryParams = queryParams.set(key, params[key]);
+        queryParams = queryParams.set(key, params[key])
       }
-    });
-    return this.http.get<any>(endpoint, { params: queryParams });
+    })
+    return this.http.get<any>(endpoint, { params: queryParams })
   }
-  
 
   public ListingBusiness(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness)

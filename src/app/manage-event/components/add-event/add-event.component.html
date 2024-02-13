@@ -66,29 +66,41 @@
             </div>
           </div>
         </div>
-        @if(recurringEvent.value == 'true'){
-        <div class="row my-4 px-2 align-items-center">
-          <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Event Duration(days)</label>
+        @if (recurringEvent.value == 'true') {
+          <div class="row my-4 px-2 align-items-center">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label class="listing-form-label">Event Duration(days)</label>
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <input
+                type="number"
+                class="input-control"
+                formControlName="event_duration"
+              />
+            </div>
           </div>
-          <div class="col-12 col-md-12 col-lg-8">
-            <input type="number" class="input-control" formControlName="event_duration"/>
+          <div class="row my-4 px-2 align-items-center">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label class="listing-form-label">Repeats Every</label>
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <input
+                type="number"
+                class="input-control"
+                formControlName="repeats_event"
+              />
+            </div>
           </div>
-        </div>
-        <div class="row my-4 px-2 align-items-center">
-          <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label">Repeats Every</label>
-          </div>
-          <div class="col-12 col-md-12 col-lg-8">
-            <input type="number" class="input-control" formControlName="repeats_event"/>
-          </div>
-        </div>
-        <div class="row my-4 px-2 align-items-center">
+          <div class="row my-4 px-2 align-items-center">
             <div class="col-12 col-md-12 col-lg-4">
               <label class="listing-form-label">Repeat Type</label>
             </div>
             <div class="col-12 col-md-12 col-lg-8">
-              <input type="number" class="input-control" formControlName="event_type"/>
+              <input
+                type="number"
+                class="input-control"
+                formControlName="event_type"
+              />
             </div>
           </div>
           <div class="row my-4 px-2 align-items-center">
@@ -102,9 +114,12 @@
                 aria-label="Select an option"
                 [formControl]="recurringEvent"
               >
-                <mat-radio-button value="After a certain number of occurrences">After a certain number of occurrences
+                <mat-radio-button value="After a certain number of occurrences"
+                  >After a certain number of occurrences
                 </mat-radio-button>
-                <mat-radio-button value="After a certain date"> After a certain date</mat-radio-button>
+                <mat-radio-button value="After a certain date">
+                  After a certain date</mat-radio-button
+                >
               </mat-radio-group>
             </div>
           </div>
@@ -158,7 +173,10 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <textarea class="input-control" formControlName="post_content"></textarea>
+            <textarea
+              class="input-control"
+              formControlName="post_content"
+            ></textarea>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">

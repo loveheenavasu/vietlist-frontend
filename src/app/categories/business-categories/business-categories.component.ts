@@ -13,7 +13,15 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 @Component({
   selector: 'app-business-categories',
   standalone: true,
-  imports: [MatIconModule, NgClass , AutocompleteComponent , LoaderComponent , FormsModule , ReactiveFormsModule , MatSelectModule ],
+  imports: [
+    MatIconModule,
+    NgClass,
+    AutocompleteComponent,
+    LoaderComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+  ],
   templateUrl: './business-categories.component.html',
   styleUrl: './business-categories.component.scss',
 })
@@ -28,7 +36,7 @@ export class BusinessCategories {
   public fullAddress: any
   public longitude: any
   public latitude: any
-  public isLoader:boolean = false
+  public isLoader: boolean = false
   public post_category: any[] = []
   public category = new FormControl('')
   public subscription!: Subscription
@@ -95,36 +103,34 @@ export class BusinessCategories {
 
   public search() {
     this.isLoader = true
-    const params: FindBusinessParams = {};
+    const params: FindBusinessParams = {}
     if (this.city) {
-      params['city'] = this.city;
+      params['city'] = this.city
     }
     if (this.state) {
-      params['region'] = this.state;
+      params['region'] = this.state
     }
     if (this.fullAddress) {
-      params['street'] = this.fullAddress;
+      params['street'] = this.fullAddress
     }
     if (this.zipcode) {
-      params['zip'] = this.zipcode;
+      params['zip'] = this.zipcode
     }
     if (this.country) {
-      params['country'] = this.country;
+      params['country'] = this.country
     }
     if (this.category.value) {
-      params['post_category'] = this.category.value;
+      params['post_category'] = this.category.value
     }
-  
+
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res) => {
         this.isLoader = false
 
         this.businessCategoriesArray = res.data
       },
-      error: (error) => {
-       
-      }
-    });
+      error: (error) => {},
+    })
   }
   ngOnDestroy() {
     // this.subscription.unsubscribe();
