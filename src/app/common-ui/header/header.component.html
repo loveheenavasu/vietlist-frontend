@@ -1,15 +1,8 @@
-<nav
-  class="navbar navbar-expand-xl fixed-top bg-body-tertiary"
-  style="z-index: 1000"
->
+<nav class="navbar navbar-expand-xl fixed-top bg-body-tertiary" style="z-index: 1000">
   <div class="container-fluid g-0">
     <div class="logo-container">
       <a class="navbar-brand" href="#">
-        <img
-          class="brand-logo"
-          src="/assets/icons/brand-logo.svg"
-          alt="brand-logo"
-        />
+        <img class="brand-logo" src="/assets/icons/brand-logo.svg" alt="brand-logo" />
       </a>
     </div>
     <div class="sm-navbar d-flex">
@@ -18,13 +11,8 @@
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  (click)="toggleDropdown($event)"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="/assets/icons/united-states.svg" alt="us-flag" />
                 </a>
                 <mat-menu #menu="matMenu">
@@ -47,36 +35,20 @@
           <div class="search-icon" (click)="handleSearchFiled()">
             <img src="/assets/icons/search-icon.svg" alt="search-icon" />
           </div>
-          <div
-            class="search row"
-            [ngClass]="{
+          <div class="search row" [ngClass]="{
               'hide-search-field': !isSearchInputVisible,
               'show-search-Input': isSearchInputVisible
-            }"
-          >
+            }">
             <div class="search-input col">
-              <input
-                type="text"
-                class="form-control"
-                id="exampleFormControlInput1"
-                placeholder="Search here"
-              />
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
             </div>
             <div class="add-zipcode col">
               <div class="input-group">
                 <span class="input-group-text" id="basic-addon1">
-                  <img
-                    src="/assets/icons/location-icon.svg"
-                    alt="location-icon"
-                  />
+                  <img src="/assets/icons/location-icon.svg" alt="location-icon" />
                 </span>
-                <input
-                  type="text"
-                  class="form-control"
-                  aria-describedby="basic-addon1"
-                  id="exampleFormControlInput1"
-                  placeholder="Add zipcode"
-                />
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+                  placeholder="Add zipcode" />
               </div>
             </div>
             <div class="search-btn col-1 g-0">
@@ -86,44 +58,30 @@
           </div>
         </div>
       </div>
-      <div
-        class="navbar-toggler"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <div class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="custom-toggle">
           <img src="/assets/icons/menu-toggle.svg" alt="toggle" />
         </span>
       </div>
     </div>
-    <div
-      class="offcanvas offcanvas-start"
-      tabindex="-1"
-      id="offcanvasNavbar"
-      aria-labelledby="offcanvasNavbarLabel"
-    >
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <div class="list-item">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <span [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</span>
+              <span [routerLink]="['/']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">Home</span>
             </li>
             <li class="nav-item" [matMenuTriggerFor]="menucat">
-              <span  routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Categories <i class="fa fa-caret-down" aria-hidden="true"></i> </span>
+              <span routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Categories <i
+                  class="fa fa-caret-down" aria-hidden="true"></i> </span>
               <mat-menu #menucat="matMenu">
                 <button mat-menu-item>
-                  <span [routerLink]="['/business-categories']" >Business Categories</span>
+                  <span [routerLink]="['/business-categories']">Business Categories</span>
                 </button>
                 <button mat-menu-item>
                   <span [routerLink]="['/business-listing']">Business Listing</span>
@@ -131,9 +89,10 @@
               </mat-menu>
             </li>
             <li class="nav-item">
-              <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
+              <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
             </li>
-            
+
             <li class="nav-item">
               <span>Blogs/News</span>
             </li>
@@ -153,18 +112,13 @@
             </li>
           </ul>
         </div>
-        
+
         <div class="country-wrapper small-screen-wrapper">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  (click)="toggleDropdown($event)"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="/assets/icons/united-states.svg" alt="us-flag" />
                 </a>
                 <mat-menu #menu="matMenu">
@@ -190,36 +144,20 @@
             <div class="search-icon" (click)="handleSearchFiled()">
               <img src="/assets/icons/search-icon.svg" alt="search-icon" />
             </div>
-            <div
-              class="search row"
-              [ngClass]="{
+            <div class="search row" [ngClass]="{
                 'hide-search-field': !isSearchInputVisible,
                 'show-search-Input': isSearchInputVisible
-              }"
-            >
+              }">
               <div class="search-input col">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleFormControlInput1"
-                  placeholder="Search here"
-                />
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
               </div>
               <div class="add-zipcode col">
                 <div class="input-group">
                   <span class="input-group-text" id="basic-addon1">
-                    <img
-                      src="/assets/icons/location-icon.svg"
-                      alt="location-icon"
-                    />
+                    <img src="/assets/icons/location-icon.svg" alt="location-icon" />
                   </span>
-                  <input
-                    type="text"
-                    class="form-control"
-                    aria-describedby="basic-addon1"
-                    id="exampleFormControlInput1"
-                    placeholder="Add zipcode"
-                  />
+                  <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
+                    placeholder="Add zipcode" />
                 </div>
               </div>
               <div class="search-btn col-1 g-0">
@@ -230,20 +168,12 @@
 
           <div class="btn-container">
             <div class="login-btn">
-              <button
-                type=" button"
-                class="btn"
-                (click)="isAuthenticated ? onLogout() : login()"
-              >
+              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
             </div>
             <div class="sign-up-btn">
-              <button
-                type="button"
-                class="btn"
-                (click)="isAuthenticated ? profile() : signup()"
-              >
+              <button type="button" class="btn" (click)="isAuthenticated ? profile() : signup()">
                 {{ isAuthenticated ? 'Profile' : 'Sign Up' }}
               </button>
             </div>

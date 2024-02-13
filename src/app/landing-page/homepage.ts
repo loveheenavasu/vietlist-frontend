@@ -49,6 +49,7 @@ export class HomepageComponent {
     private homePageContent: HomepageService,
   ) {
     this.getHomePageContent()
+    this.subscribeToRouterEvents()
   }
 
   ngOnInit() {
