@@ -28,20 +28,24 @@ export class BuisnessCategoryComponent {
   public businessCategoryContent?: any
   swiperParams = {
     slidesPerView: 1,
-    autoplay: true,
+    pagination: {
+      clickable: true,
+    },
     spaceBetween: 30,
     disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 3,
         spaceBetween: 20,
+        autoplay: true,
       },
       1388: {
         slidesPerView: 6,
+        autoplay: true,
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   constructor(

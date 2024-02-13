@@ -22,23 +22,28 @@
     }
 
     .content {
-      width: 725px;
+      width: 855px;
       text-align: center;
       margin-top: 22px;
 
       h1 {
         font-weight: var(--font-weight-semibold);
         color: var(--light-grey);
-        font-size: 48px;
+        font-size: 3rem;
         font-family: Roboto Slab;
+        margin-bottom: 0.75rem;
       }
 
       p {
-        font-weight: var(--font-weight-light);
+        font-weight: var(--font-weight-normal);
         color: var(--light-grey);
-        font-size: 19px;
+        font-size: 1.5rem;
         margin-top: 10px;
+        font-family: 'Roboto';
+      }
 
+      .d-flex {
+        margin-top: 2rem;
       }
 
       .find-buisness-btn {
@@ -82,19 +87,19 @@
       margin: auto 5%;
 
       h1 {
-        font-size: 28px;
+        font-size: 2rem;
         color: var(--light-grey);
         text-transform: capitalize;
-        font-weight: var(--font-weight-semibold);
-
+        font-weight: var(--font-weight-bold);
+        font-family: 'Roboto';
       }
 
       p {
-        font-weight: var(--font-weight-light);
+        font-weight: var(--font-weight-normal);
         color: var(--light-grey);
         font-size: 19px;
         margin-top: 10px;
-
+        font-family: 'Roboto';
       }
 
       .explore-more-btn {
@@ -131,6 +136,27 @@
           p {
             font-size: 16px;
           }
+        }
+      }
+    }
+
+    .banner-2 {
+      .content {
+        h1 {
+          font-size: 1.5rem;
+          text-align: center;
+        }
+
+        p {
+          font-size: 1rem;
+          width: 300px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .explore-btn-wrapper {
+          display: flex;
+          justify-content: center;
         }
       }
     }

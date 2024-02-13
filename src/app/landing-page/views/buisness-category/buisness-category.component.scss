@@ -6,13 +6,19 @@
 
 .container-fluid {
 
+  .heading {
+    width: 53.43%;
+    margin-bottom: 16px
+  }
 
   h1 {
     @extend %sh-styles;
+    font-family: 'Roboto';
   }
 
   p {
-    @extend %ssh-styles
+    @extend %ssh-styles;
+    font-family: 'Roboto';
   }
 
   ;
@@ -97,6 +103,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  font-family: 'Roboto';
 }
 
 .Categories-swiper-container {
@@ -104,11 +111,12 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 6rem;
 }
 
 swiper-container {
   width: 100%;
-  height: 25rem;
+  height: 100%;
   margin: 20px auto;
 }
 
@@ -119,4 +127,47 @@ swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width:500px) {
+  .container-fluid {
+
+
+    .heading {
+      width: 100%;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  swiper-container {
+    height: 24rem;
+  }
+
+  .Categories-swiper-container {
+    padding-bottom: 0px;
+  }
+
+  .card-heading {
+    font-size: 1rem;
+  }
+}
+
+swiper-container::part(bullet-active) {
+  background-color: #F89705;
+  width: 28px;
+  height: 13.94px;
+  border-radius: 10px;
+}
+
+swiper-container::part(bullet) {
+  width: 13.94px;
+  height: 13.94px;
+  border-radius: 50%;
 }

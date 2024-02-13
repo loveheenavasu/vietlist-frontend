@@ -38,8 +38,9 @@ export class CtaVerifiedBusinessComponent {
         autoplay: true,
       },
       1388: {
-        slidesPerView: 3,
+        slidesPerView: 4,
         autoplay: true,
+        spaceBetween: 20,
       },
       1920: {
         slidesPerView: 5,

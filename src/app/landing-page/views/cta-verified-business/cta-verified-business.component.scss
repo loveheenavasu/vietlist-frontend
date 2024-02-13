@@ -90,3 +90,11 @@ swiper-container::part(bullet) {
     height: 13.94px;
     border-radius: 50%;
 }
+
+@media (max-width:1500px) {
+
+    swiper-container {
+        width: 100%;
+
+    }
+}

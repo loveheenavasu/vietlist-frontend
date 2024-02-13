@@ -4,103 +4,114 @@
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 @import "./assets/scss/index";
 @import "@ng-select/ng-select/themes/default.theme.css";
+
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .listing-heading h3 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 body {
-    margin: 0;
-    padding: 0px;
-    font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif;
 }
+
 .error-message {
-    color: rgb(255, 32, 32);
-    font-size:14px;
-    padding:0px;
-    margin:0px;
-    /* Add any other styling properties as needed */
-  }
-  
-  .swal2-popup.swal2-toast {
-    padding: 10px !important;
+  color: rgb(255, 32, 32);
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+  /* Add any other styling properties as needed */
+}
+
+.swal2-popup.swal2-toast {
+  padding: 10px !important;
 
 }
 
 
-.swal2-icon .sa-icon{
-    width: 20px !important; 
-    height: 20px !important;
+.swal2-icon .sa-icon {
+  width: 20px !important;
+  height: 20px !important;
 }
 
 
 //Ngx-intel-tel-input styling//
 
 ngx-intl-tel-input.form-control {
-  padding:0 30px;
+  padding: 0 30px;
+}
+
+::ng-deep.dropdown-menu.show {
+  height: 200px;
+  overflow: auto;
 }
 
 .iti {
-    position: relative;
-    display: inline-block;
-    width: 100%;
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
 ngx-intl-tel-input input {
-    height: 44px;
-    width:100%;
-    margin-bottom: 0px;
-    padding: 10px 25px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #c7cace;
-    border-radius: 4px;
-    font-size: 18px;
-  }
-  
-  ngx-intl-tel-input.ng-invalid.ng-touched input {
-    border: 1px solid #c0392b;
-  }
-  
-  ngx-intl-tel-input input:hover {
-    box-shadow:none !important;
-  }
-  
-  ngx-intl-tel-input input:focus {
-    outline: none !important;
-    border-color: #3498db;
-    box-shadow: none !important;
-  }
-  
-  ngx-intl-tel-input input::-webkit-input-placeholder {
-    color: #bac2c7;
-  }
-  
-  ngx-intl-tel-input input:-ms-input-placeholder {
-    color: #bac2c7;
-  }
-  
-  ngx-intl-tel-input input::-ms-input-placeholder {
-    color: #bac2c7;
-  }
-  
-  ngx-intl-tel-input input::placeholder {
-    color: #bac2c7;
-  }
-  
-  ngx-intl-tel-input input[disabled] {
-    background-color: #e5eaf1;
-  }
+  height: 44px;
+  width: 100%;
+  margin-bottom: 0px;
+  padding: 10px 25px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c7cace;
+  border-radius: 4px;
+  font-size: 18px;
+}
 
-  .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input, .iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-ng-c2982863745] input[_ngcontent-ng-c2982863745] {
-    padding-left: 98px;
-    font-weight: 400;
-    font-size: 16px;
-    color:#757575!important;
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+  border: 1px solid #c0392b;
+}
+
+ngx-intl-tel-input input:hover {
+  box-shadow: none !important;
+}
+
+ngx-intl-tel-input input:focus {
+  outline: none !important;
+  border-color: #3498db;
+  box-shadow: none !important;
+}
+
+ngx-intl-tel-input input::-webkit-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input:-ms-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input::-ms-input-placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input::placeholder {
+  color: #bac2c7;
+}
+
+ngx-intl-tel-input input[disabled] {
+  background-color: #e5eaf1;
+}
+
+.iti.separate-dial-code.iti--allow-dropdown.iti-sdc-3 input,
+.iti.separate-dial-code.iti--allow-dropdown.iti-sdc-4[_ngcontent-ng-c2982863745] input[_ngcontent-ng-c2982863745] {
+  padding-left: 98px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #757575 !important;
 }

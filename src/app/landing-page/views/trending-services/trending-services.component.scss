@@ -4,11 +4,15 @@
 
 
 .buisness-cat {
-  padding-top: 6rem;
+  padding: 6rem 0rem;
 }
 
 .container-fluid {
   background-color: #F2F2F2;
+
+  .heading {
+    margin-bottom: 24px
+  }
 
   h1 {
     @extend %sh-styles;
@@ -173,7 +177,7 @@
 
 swiper-container {
   width: 90%;
-  height: 35rem;
+  height: 28rem;
   margin: 20px auto;
 }
 
@@ -187,7 +191,7 @@ swiper-slide {
 }
 
 .search-fields {
-  width: 65%;
+  width: 54.26%;
   margin: auto
 }
 
@@ -216,14 +220,44 @@ swiper-container::part(bullet) {
 
 @media (max-width: 500px) {
   .container-fluid {
-    .search-fields {
-      .d-flex {
-        flex-direction: column;
+    padding-bottom: 45px;
+  }
 
-        .search-btn {
-          width: 100%;
-        }
+  .search-fields {
+    padding: 0 24px;
+    width: 100%;
+    flex-direction: column;
+
+    .flex-grow-1 {
+      margin-bottom: 16px !important;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+
+    .search-btn-container {
+      display: flex;
+      justify-content: center;
+
+      .search-btn {
+        width: 50%;
       }
     }
+
+  }
+
+  .Categories-swiper-container {
+    padding-top: 0px;
+
+    .main-cnt {
+      height: 352px;
+    }
+  }
+
+
+}
+
+@media(max-width:1500px) {
+  .Categories-swiper-container {
+    width: 100%;
   }
 }
