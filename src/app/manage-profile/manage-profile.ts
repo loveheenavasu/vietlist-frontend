@@ -31,6 +31,7 @@ export class ManageProfileComponent {
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
+  public isUploading: boolean = false
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
@@ -73,6 +74,7 @@ export class ManageProfileComponent {
   }
 
   private uploadImage(arrayBuffer: ArrayBuffer) {
+    this.isUploading = true; // Set uploading flag
     console.log('array buffer', arrayBuffer)
     const blob = new Blob([arrayBuffer], { type: 'image/jpeg' })
     console.log('check blob', blob)
@@ -86,8 +88,11 @@ export class ManageProfileComponent {
       next: (res: any) => {
         this.imgUrl = res.data.user.user_image
         this.fetchProfileDetail()
+        this.isUploading = false; // Reset upl
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+          this.isUploading = false; // Reset upl
+      },
     })
   }
 

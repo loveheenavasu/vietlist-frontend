@@ -101,7 +101,27 @@
 li.active {
     color: rgb(255, 128, 0) !important;
 }
-
+.profile-pic-div.uploading {
+    position: relative;
+  }
+  
+  .profile-pic-div.uploading::after {
+    content: '';
+    position: absolute;
+    top: -3px; /* Adjust as needed */
+    left: -3px; /* Adjust as needed */
+    width: calc(100% + 6px); /* Adjust as needed */
+    height: calc(100% + 6px); /* Adjust as needed */
+    border: 3px solid var(--primary-color-orange); /* Border color */
+    border-radius: 50%; /* Make it a circle */
+    border-top-color: transparent; /* Hide the top border */
+    animation: spin 2s linear infinite; /* Add rotation animation */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   
 @media screen and (max-width:1341px) {
 
