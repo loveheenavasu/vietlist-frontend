@@ -24,7 +24,10 @@
 
               </div>
             </div>
-            <p class="user-email">{{userEmail}}</p>
+            <p class="user-email" #tooltip="matTooltip"
+            matTooltip="{{userEmail}}"
+            >{{ userEmail.length > 20 ? userEmail.slice(0, 20) + '...' : userEmail }}</p>
+            <div class="tabs_responsive">
             <div class="tabs_responsive">
               <ul>
                 @for(key of sidebarMenu ; track $index){

@@ -8,11 +8,11 @@ import {
 import { EditProfileComponent } from './components'
 import { NgClass, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent, NgIf, NgClass, RouterOutlet, RouterLink],
+  imports: [EditProfileComponent, NgIf, NgClass, RouterOutlet, RouterLink , MatTooltipModule],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -23,7 +23,7 @@ export class ManageProfileComponent {
   public userEmail: any
   public imgUrl: any
   public activeIndex: any = 0
-
+  public showFullEmail: boolean = false;
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
@@ -110,5 +110,9 @@ export class ManageProfileComponent {
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url;
+  }
+
+  public viewFullEmail(){
+    this.showFullEmail = !this.showFullEmail;
   }
 }

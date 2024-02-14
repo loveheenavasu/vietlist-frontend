@@ -166,8 +166,6 @@ export class ConfirmPaymentComponent {
       if (this.paymentMethod) {
         this.confirmSubscriptionPayment()
       }
-      console.log('SetupIntent confirmed:', setupIntent)
-      // Handle success, e.g., redirect to a success page
     }
   }
 
@@ -181,6 +179,7 @@ export class ConfirmPaymentComponent {
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
+        this.router.navigateByUrl('/manage-profile')
         Swal.fire({
           toast: true,
           text: res.message,
@@ -190,6 +189,7 @@ export class ConfirmPaymentComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
+          
         })
         if (res.data?.status == 'active') {
           const status = res.data?.status
