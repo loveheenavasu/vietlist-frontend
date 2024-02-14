@@ -22,7 +22,7 @@ export class ManageProfileComponent {
   public sidebarMenu: ProfileMenu[] = []
   public userEmail: any
   public imgUrl: any
-  activeIndex: number = 0
+  public activeIndex: any = 0
 
   constructor(
     private sidebarService: SidebarService,
@@ -30,10 +30,12 @@ export class ManageProfileComponent {
     private router: Router,
     private profileService:ProfileService
   ) {
+
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
     this.userEmail = data?.user_email
     this.fetchProfileDetail()
+    this.activeIndex = this.router.url;
   }
 
   public getSidebarLinks() {
@@ -105,7 +107,8 @@ export class ManageProfileComponent {
       },
     })
   }
-  addClass(index: number) {
-    this.activeIndex = index
+  addClass(url: string) {
+    // Update the activeIndex when clicking on a menu item
+    this.activeIndex = url;
   }
 }

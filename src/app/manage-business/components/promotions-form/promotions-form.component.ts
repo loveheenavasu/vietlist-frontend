@@ -1,3 +1,4 @@
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
@@ -14,6 +15,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
     MatSelectModule,
     RecaptchaFormsModule,
     RecaptchaModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './promotions-form.component.html',
   styleUrl: './promotions-form.component.scss',
@@ -21,8 +24,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
 export class PromotionsFormComponent {
   title = 'dropzone'
   files: File[] = []
-
-  constructor(private http: HttpClient) {}
+  public promotions : FormGroup
+  constructor(private http: HttpClient , private fb:FormBuilder) {
+    this.promotions = this.fb.group({
+      faq:[''],
+      
+    })
+  }
 
   onSelect(event: any) {
     console.log(event)

@@ -43,6 +43,7 @@ export class ChangePasswordComponent {
     private loaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private sessionservice: AuthenticationService,
+    private router:Router
     
   ) {
     this.changePassword = this.fb.group({
@@ -91,6 +92,7 @@ export class ChangePasswordComponent {
           timerProgressBar: true,
         })
         this.sessionservice.clearAuthentication()
+        this.router.navigateByUrl('/')
       },
       error: (err) => {},
     })
