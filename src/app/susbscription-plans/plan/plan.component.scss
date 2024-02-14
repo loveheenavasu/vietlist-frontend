@@ -1,9 +1,23 @@
 @import "../../../assets/scss/common.scss";
 
 .main-container {
-    max-width: 1140px;
-    margin-top: 9rem;
-    margin-bottom: 6rem
+
+    margin-top: 6.5rem;
+    margin-bottom: 6rem;
+
+    .subscription-container {
+        width: 84%;
+        margin-left: auto;
+        margin-right: auto;
+
+        .subscription-plan-cnt {
+            width: 95%;
+        }
+    }
+}
+
+.heading {
+    width: 56%
 }
 
 h1 {
@@ -123,6 +137,7 @@ p {
         // height: auto;
         height: 28.438rem;
         overflow: auto;
+        padding: 0 0.625rem;
         margin-bottom: 1.25rem;
 
         ul {
@@ -165,7 +180,10 @@ p {
     width: fit-content;
 }
 
+
+
 @media screen and (max-width: 1440px) {
+
     .subscription-plan-cnt {
         min-height: auto;
         margin-bottom: 30px;
@@ -208,6 +226,23 @@ p {
 }
 
 @media screen and (max-width: 768px) {
+
+    .main-container {
+        margin-bottom: 2.625rem;
+
+        .heading {
+            width: 100%;
+
+            h1 {
+                font-size: 24px !important;
+            }
+
+            p {
+                font-size: 16px !important;
+            }
+        }
+    }
+
     .subscription-plan-cnt {
         min-height: auto;
         margin-bottom: 30px;
