@@ -167,6 +167,14 @@ li.active {
     }
 }
 @media screen and (max-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 auto!important;
+        width: 100%!important;
+    }
+    .col-md-8 {
+        flex: 0 0 auto!important;
+        width: 100%!important;
+    }
     .container{
         padding:10px;
     }

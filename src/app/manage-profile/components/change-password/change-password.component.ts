@@ -43,6 +43,7 @@ export class ChangePasswordComponent {
     private loaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private sessionservice: AuthenticationService,
+    
   ) {
     this.changePassword = this.fb.group({
       old_password: ['', Validators.required],
@@ -78,6 +79,7 @@ export class ChangePasswordComponent {
     this.profileDetail.changePasswrd(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
+
         Swal.fire({
           toast: true,
           text: res.message,
@@ -88,6 +90,7 @@ export class ChangePasswordComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        this.sessionservice.clearAuthentication()
       },
       error: (err) => {},
     })

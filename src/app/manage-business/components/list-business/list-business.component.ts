@@ -914,11 +914,11 @@ export class ListBusinessComponent {
   }
 
   public changeMapView() {
-    console.log('Selected map view:', this.selectedMapView)
-
+    console.log('Selected map view:', this.businessInfoForm.value.mapview)
+   
     if (this.map !== null) {
       console.log('Changing map view...')
-      switch (this.selectedMapView) {
+      switch (this.businessInfoForm.value.mapview) {
         case 'satellite':
           this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE)
           break
