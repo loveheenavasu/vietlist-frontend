@@ -366,8 +366,10 @@
 }
 
 @media (max-width:768px) {
+
     .business-inner-wrapper {
         flex-direction: column;
+        gap: 20px;
 
         .carrer-professional-img {
             width: 100%;
@@ -375,6 +377,26 @@
 
         .carrer-professional-list {
             width: 100%;
+        }
+    }
+
+    .carrer-professional {
+        .business-inner-wrapper {
+            .carrer-professional-img {
+                .img-wrapper {
+                    .img-over-text {
+                        span {
+                            font-size: 12px;
+                        }
+
+                        .img-over-heading {
+                            h3 {
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
