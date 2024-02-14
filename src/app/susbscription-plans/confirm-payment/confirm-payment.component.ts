@@ -52,7 +52,7 @@ export class ConfirmPaymentComponent {
     private loaderService: FullPageLoaderService,
     public router: Router,
     private localStorageService: LocalStorageService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -105,7 +105,7 @@ export class ConfirmPaymentComponent {
         this.paymentIntent = res.client_secret
         console.log(this.paymentIntent, 'this.payemnetintent')
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 
@@ -160,6 +160,16 @@ export class ConfirmPaymentComponent {
     )
 
     if (error) {
+      Swal.fire({
+        toast: true,
+        text: error.message,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
       console.error(error.message)
     } else {
       this.paymentMethod = setupIntent
@@ -179,7 +189,7 @@ export class ConfirmPaymentComponent {
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
-        this.router.navigateByUrl('/manage-profile')
+        console.log("check res---", res)
         Swal.fire({
           toast: true,
           text: res.message,
@@ -189,10 +199,11 @@ export class ConfirmPaymentComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-          
+
         })
-        if (res.data?.status == 'active') {
-          const status = res.data?.status
+        if (res.data?.status == "success") {
+          const status = 'active'
+          console.log("check status", status)
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
         }
