@@ -33,6 +33,7 @@ export class ManageProfileComponent {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
     this.userEmail = data?.user_email
+    this.fetchProfileDetail()
   }
 
   public getSidebarLinks() {
@@ -78,6 +79,7 @@ export class ManageProfileComponent {
       next: (res:any) => {
      
         this.imgUrl = res.data.user.user_image
+        this.fetchProfileDetail()
       },
       error: (err:any) => {
 
@@ -88,6 +90,20 @@ export class ManageProfileComponent {
   public openFileInput(event: any) {
     console.log("checking")
     this.handleFileInput(event)
+  }
+
+  public  fetchProfileDetail() {
+    // this.loaderService.showLoader()
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.imgUrl = res.data.user.user_image
+        console.log(res)
+       
+      },
+      error: (err: any) => {
+        this.router.navigateByUrl('/login')
+      },
+    })
   }
   addClass(index: number) {
     this.activeIndex = index

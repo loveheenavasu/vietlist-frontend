@@ -142,7 +142,7 @@ li.active {
 
 }
 
-@media screen and (max-width:1199px) {
+@media screen and (max-width:1399px) {
 
 
     .sidebar-items {
@@ -155,7 +155,19 @@ li.active {
     }
 
 }
-@media screen and (max-width: 991px) {
+
+@media screen and (max-width:1199px) {
+
+
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 8px;
+
+
+
+    }
+
     .sidebar-cnt {
         height: 100%;
         width: 95%;
@@ -164,6 +176,34 @@ li.active {
         display: flex;
         justify-content: center;
   
+    }
+
+}
+@media screen and (max-width: 991px) {
+    .sidebar-cnt {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        background-color: #f3f8fd;
+        display: flex;
+        justify-content: center;
+  
+    }
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 5px;
+
+
+
+    }
+
+    .user-email {
+        color: #1E73bE;
+        text-align: center;
+        font-weight: var(--font-weight-semibold);
+        font-size: 15px;
+        margin-top: 1rem;
     }
 }
 @media screen and (max-width: 768px) {
