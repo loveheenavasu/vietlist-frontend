@@ -297,16 +297,17 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <mat-select
-              class="vietlist-select"
-              placeholder="Select Map View"
-              formControlName="mapview"
-              (click)="changeMapView()"
-            >
-              <mat-option value="default view">Default View</mat-option>
-              <mat-option value="satellite view">Satellite Map</mat-option>
-              <mat-option value="hybrid view">Hybrid Map</mat-option>
-              <mat-option value="terrain view">Terrain Map</mat-option>
-            </mat-select>
+            class="vietlist-select"
+            placeholder="Select Map View"
+            formControlName="mapview"
+            (selectionChange)="changeMapView()"
+          >
+            <mat-option value="default">Default View</mat-option>
+            <mat-option value="satellite">Satellite Map</mat-option>
+            <mat-option value="hybrid">Hybrid Map</mat-option>
+            <mat-option value="terrain">Terrain Map</mat-option>
+          </mat-select>
+
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center align-items-center">
