@@ -1,15 +1,16 @@
+import { LoaderComponent } from 'src/app/common-ui';
 import { CommonModule } from '@angular/common'
 import { AuthenticationService } from './../../shared/utils/services/authentication.service'
 import { Component, Input } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { PlansService } from '../service/plan.service'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { FullPageLoaderService, UserStatus } from '@vietlist/shared'
 
 @Component({
   selector: 'app-plan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule ],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss',
 })
@@ -83,12 +84,19 @@ export class PlanComponent {
   }
 
   handleFreePlan() {
+    this.loaderService.showLoader()
     const body = {
       level_id: this.freePlanId,
     }
     this.subscriptionService.freePlanSubscription(body).subscribe({
       next: (res) => {
+        this.loaderService.hideLoader()
         console.log(res)
+        if (res.data?.status == UserStatus.Active) {
+          const status = UserStatus.Active
+          this.sessionService.setSubscriptonStatus(status)
+          this.router.navigateByUrl('/manage-profile')
+        }
       },
     })
   }
