@@ -412,16 +412,16 @@ export class ConsultationFormComponent {
            this.localstorage.removeData('isBusinessBioFormFilled')
            this.localstorage.removeData('isConsultationFormFilled')
            this.router.navigateByUrl('/manage-profile/my-business')
-            Swal.fire({
-              toast: true,
-              text: 'Successfully added Consultancy details.',
-              animation: false,
-              icon: 'success',
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-            })
+            // Swal.fire({
+            //   toast: true,
+            //   text: 'Successfully added Consultancy details.',
+            //   animation: false,
+            //   icon: 'success',
+            //   position: 'top-right',
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            //   timerProgressBar: true,
+            // })
           }
         },
       })

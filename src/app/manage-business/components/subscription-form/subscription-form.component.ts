@@ -175,16 +175,16 @@ export class SubscriptionFormComponent {
         next: (res) => {
           this.isLoader = false
           this.formSubmit.emit()
-          Swal.fire({
-            toast: true,
-            text: 'Successfully updated subscription details.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Successfully updated subscription details.',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {},
       })
@@ -197,16 +197,16 @@ export class SubscriptionFormComponent {
             this.businessService.isSubscriptionFormFilled.next(true)
             this.localstorage.saveData('isSubscriptionFormFilled', 'true')
             this.isFormFilled = true
-            Swal.fire({
-              toast: true,
-              text: 'Successfully added subscription details.',
-              animation: false,
-              icon: 'success',
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-            })
+            // Swal.fire({
+            //   toast: true,
+            //   text: 'Successfully added subscription details.',
+            //   animation: false,
+            //   icon: 'success',
+            //   position: 'top-right',
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            //   timerProgressBar: true,
+            // })
           }
         },
         error: (err) => {},

@@ -995,16 +995,16 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
           )
-          Swal.fire({
-            toast: true,
-            text: 'Business Information updated successfully!',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Business Information updated successfully!',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {
           this.isloader = false
@@ -1024,16 +1024,16 @@ export class ListBusinessComponent {
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
-          Swal.fire({
-            toast: true,
-            text: 'Business Information added successfully!',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Business Information added successfully!',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {
           this.isloader = false
