@@ -97,7 +97,6 @@ export class TrendingServicesComponent {
     this.businessService.trendingBusiness().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
-        console.log('check trending', this.businessCat)
       },
     })
   }
@@ -106,7 +105,6 @@ export class TrendingServicesComponent {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.post_category = res.data
-        console.log(this.post_category)
       },
       error: (err) => {},
     })
@@ -166,7 +164,6 @@ export class TrendingServicesComponent {
         this.isLoader = false
 
         this.businessCat = res.data
-        console.log(this.businessCat)
       },
       error: (error) => {},
     })

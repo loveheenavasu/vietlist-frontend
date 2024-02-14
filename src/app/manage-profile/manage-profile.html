@@ -16,17 +16,28 @@
                   <img *ngIf="imgUrl" [src]="imgUrl" alt="profile" />
                 </div>
                 <label class="custom-file-upload">
-                  <input #fileInput type="file" (change)="handleFileInput($event)" />
+                  <input
+                    #fileInput
+                    type="file"
+                    (change)="handleFileInput($event)"
+                  />
                   <div class="d-flex justify-content-center icon">
-                    <i class="fa fa-camera" (change)="openFileInput($event)"></i>
+                    <i
+                      class="fa fa-camera"
+                      (change)="openFileInput($event)"
+                    ></i>
                   </div>
                 </label>
-
               </div>
             </div>
-            <p class="user-email" #tooltip="matTooltip"
-            matTooltip="{{userEmail}}"
-            >{{ userEmail.length > 19 ? userEmail.slice(0, 19) + '...' : userEmail }}</p>
+            <p
+              class="user-email"
+              #tooltip="matTooltip"
+              matTooltip="{{userEmail}}"
+            >
+              {{ userEmail.length > 19 ? userEmail.slice(0, 19) + '...' :
+              userEmail }}
+            </p>
 
             <div class="tabs_responsive">
               <ul>
@@ -43,9 +54,10 @@
                   (click)="addClass(key.url)"
                   [ngClass]="{ 'active': activeIndex === key.url }"
                   [routerLink]="key.url"
-                  style="cursor: pointer">
-                <span><i [class]="key.icon"></i></span>{{ key.label }}
-              </li>
+                  style="cursor: pointer"
+                >
+                  <span><i [class]="key.icon"></i></span>{{ key.label }}
+                </li>
                 }
               </ul>
             </div>

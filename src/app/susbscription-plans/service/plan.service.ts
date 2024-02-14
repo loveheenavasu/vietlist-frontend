@@ -32,4 +32,10 @@ export class PlansService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
+
+  public freePlanSubscription(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FreeSubscriptionAPI)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
 }

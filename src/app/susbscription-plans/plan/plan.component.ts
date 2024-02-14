@@ -22,6 +22,7 @@ export class PlanComponent {
   public authToken: any
   public isAuthenticated: boolean = false
   public planHeaderContent?: any
+  public freePlanId: any
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
@@ -69,9 +70,26 @@ export class PlanComponent {
   }
 
   navigateToConfirmPayment(id: any) {
-    this.router.navigate(['/confirm-payment', id])
-    if (!this.isAuthenticated) {
-      this.router.navigateByUrl('/login')
+    console.log(typeof id, 'planId')
+    this.freePlanId = id
+    if (id == '1') {
+      this.handleFreePlan()
+    } else {
+      this.router.navigate(['/confirm-payment', id])
+      if (!this.isAuthenticated) {
+        this.router.navigateByUrl('/login')
+      }
     }
+  }
+
+  handleFreePlan() {
+    const body = {
+      level_id: this.freePlanId,
+    }
+    this.subscriptionService.freePlanSubscription(body).subscribe({
+      next: (res) => {
+        console.log(res)
+      },
+    })
   }
 }

@@ -8,11 +8,18 @@ import {
 import { EditProfileComponent } from './components'
 import { NgClass, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip'
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
-  imports: [EditProfileComponent, NgIf, NgClass, RouterOutlet, RouterLink , MatTooltipModule],
+  imports: [
+    EditProfileComponent,
+    NgIf,
+    NgClass,
+    RouterOutlet,
+    RouterLink,
+    MatTooltipModule,
+  ],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
 })
@@ -23,19 +30,18 @@ export class ManageProfileComponent {
   public userEmail: any
   public imgUrl: any
   public activeIndex: any = 0
-  public showFullEmail: boolean = false;
+  public showFullEmail: boolean = false
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
-    private profileService:ProfileService
+    private profileService: ProfileService,
   ) {
-
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
     this.userEmail = data?.user_email
     this.fetchProfileDetail()
-    this.activeIndex = this.router.url;
+    this.activeIndex = this.router.url
   }
 
   public getSidebarLinks() {
@@ -49,58 +55,53 @@ export class ManageProfileComponent {
   }
 
   public handleFileInput(event: any) {
-    console.log(event, 'event');
-    event.stopPropagation();
-    console.log('Checking image path', event);
+    console.log(event, 'event')
+    event.stopPropagation()
+    console.log('Checking image path', event)
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
+      const reader = new FileReader()
 
-      reader.readAsArrayBuffer(event.target.files[0]);
+      reader.readAsArrayBuffer(event.target.files[0])
 
       reader.onload = (event) => {
         if (event.target) {
-          const arrayBuffer = event.target.result as ArrayBuffer;
-          this.uploadImage(arrayBuffer);
+          const arrayBuffer = event.target.result as ArrayBuffer
+          this.uploadImage(arrayBuffer)
         }
-      };
+      }
     }
   }
 
   private uploadImage(arrayBuffer: ArrayBuffer) {
+    console.log('array buffer', arrayBuffer)
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' })
+    console.log('check blob', blob)
 
-    console.log("array buffer", arrayBuffer)
-    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
-    console.log("check blob", blob)
-
-    const formData = new FormData();
-    formData.append('user_email', '');
-    formData.append('display_user_name', '');
-    formData.append('user_image', blob, 'image.jpg');
+    const formData = new FormData()
+    formData.append('user_email', '')
+    formData.append('display_user_name', '')
+    formData.append('user_image', blob, 'image.jpg')
 
     this.profileService.userProfileUpdate(formData).subscribe({
-      next: (res:any) => {
-     
+      next: (res: any) => {
         this.imgUrl = res.data.user.user_image
         this.fetchProfileDetail()
       },
-      error: (err:any) => {
-
-      }
-    });
+      error: (err: any) => {},
+    })
   }
 
   public openFileInput(event: any) {
-    console.log("checking")
+    console.log('checking')
     this.handleFileInput(event)
   }
 
-  public  fetchProfileDetail() {
+  public fetchProfileDetail() {
     // this.loaderService.showLoader()
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.imgUrl = res.data.user.user_image
         console.log(res)
-       
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
@@ -109,10 +110,10 @@ export class ManageProfileComponent {
   }
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
-    this.activeIndex = url;
+    this.activeIndex = url
   }
 
-  public viewFullEmail(){
-    this.showFullEmail = !this.showFullEmail;
+  public viewFullEmail() {
+    this.showFullEmail = !this.showFullEmail
   }
 }

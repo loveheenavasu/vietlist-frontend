@@ -51,43 +51,54 @@ export class ConsultationFormComponent {
     // video.src = videoUrl
     video.src = value.video_upload
     this.video_upload = value.video_upload
-    const controls = ['consultation_booking_link', 'consultation_mode', 'consultation_description', 'special_offers', 'services_list', 'price', 'video_url', 'business_hours']
+    const controls = [
+      'consultation_booking_link',
+      'consultation_mode',
+      'consultation_description',
+      'special_offers',
+      'services_list',
+      'price',
+      'video_url',
+      'business_hours',
+    ]
 
     controls.forEach((control) => {
       this.ConsultationForm.get(control)?.patchValue(value?.[control] || '')
     })
   }
   @ViewChild('select') select!: NgSelectComponent
-  searchTerm: string = ''
-  video_upload: any
-  daysName: any
-  vediosUrl: any
-  startTime: any
-  endTime: any
-  jsonString: any
-  title = 'dropzone'
-  clearTable = false
-  files: File[] = []
-  imagePreviews: any
-  imageUrl: any
-  showTimeTable: boolean = false
+  public searchTerm: string = ''
+  public video_upload: any
+  public daysName: any
+  public vediosUrl: any
+  public startTime: any
+  public endTime: any
+  public jsonString: any
+  public title = 'dropzone'
+  public clearTable = false
+  public files: File[] = []
+  public imagePreviews: any
+  public imageUrl: any
+  public showTimeTable: boolean = false
   public ConsultationForm!: FormGroup
   public isLoader: boolean = false
-  postId: any
-  formattedData!: any[]
-  selectedData: any
-  selectedTimeZone: any
+  public postId: any
+  public formattedData!: any[]
+  public selectedData: any
+  public selectedTimeZone: any
   public isFormFilled: boolean = false
-  // Timezone :string[] =[]
-  Timezone: {
+  public filess: any
+  public Timezone: {
     region: string
     timeZones: { country: string; offset: string }[]
   }[] = []
 
-  timeZones: { region: string; zones: { name: string; offset: string }[] }[] =
-    []
+  public timeZones: {
+    region: string
+    zones: { name: string; offset: string }[]
+  }[] = []
 
-  isLastRemoved: boolean[] = []
+  public isLastRemoved: boolean[] = []
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -98,22 +109,17 @@ export class ConsultationFormComponent {
   ) {
     const timeZoneNames = moment.tz.names()
 
-    // Define Timezone as an array of objects
-
-    // Your code to populate Timezone array
     timeZoneNames.forEach((timeZone) => {
-      const country = timeZone.split('/')[0] // Extract country name
-      const region = timeZone.split('/')[0].replace(/_/g, ' ') // Extract region name, replacing underscores with spaces
+      const country = timeZone.split('/')[0]
+      const region = timeZone.split('/')[0].replace(/_/g, ' ')
       const utcOffset = moment.tz(timeZone).utcOffset()
 
-      // Find or create the region in the Timezone array
       let regionObject = this.Timezone.find((item) => item.region === region)
       if (!regionObject) {
         regionObject = { region: region, timeZones: [] }
         this.Timezone.push(regionObject)
       }
 
-      // Calculate the UTC offset in the format UTC+/-HH:MM
       const hours = Math.floor(Math.abs(utcOffset) / 60)
       const minutes = Math.abs(utcOffset) % 60
       const offsetString = `UTC${utcOffset >= 0 ? '+' : '-'}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
@@ -140,7 +146,7 @@ export class ConsultationFormComponent {
       this.isFormFilled = res
     })
 
-    const localData = this.localstorage.getData("isConsultationFormFilled")
+    const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
   }
 
@@ -157,7 +163,7 @@ export class ConsultationFormComponent {
   }
 
   onTimeZoneChange(event: any) {
-    this.selectedTimeZone = event // Update selectedTimeZone with the selected time zone
+    this.selectedTimeZone = event
   }
   onInputChange(event: Event): void {
     const target = event.target as HTMLInputElement
@@ -165,15 +171,14 @@ export class ConsultationFormComponent {
       this.select.filter(target.value)
     }
   }
-  filess: any
+
   onSelect(event: any) {
     const files: File[] = event.addedFiles
     this.filess = files
-    // Filter out only video files
+
     const videoFiles: File[] = files.filter((file) =>
       file.type.startsWith('video/'),
     )
-
 
     // If there are any image files, you can remove them
     const imageFiles: File[] = files.filter((file) =>
@@ -209,14 +214,14 @@ export class ConsultationFormComponent {
         this.video_upload = video.src
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
-            this.video_upload = res.image_url;
+            this.video_upload = res.image_url
             // this.verification_upload = res.image_url
             this.vediosUrl = res.image_url
           },
           error: (err: any) => {
             // Handle errors
-          }
-        });
+          },
+        })
         video.controls = true // Add controls to the video element
         video.width = 320 // Set the width of the video element
         video.height = 240 // Set the height of the video element
@@ -263,7 +268,6 @@ export class ConsultationFormComponent {
       }
       reader.readAsDataURL(file)
     })
-
   }
 
   onRemove(videoElement: HTMLElement) {
@@ -314,11 +318,9 @@ export class ConsultationFormComponent {
       },
       error: (err: any) => {
         // Handle errors
-      }
-    });
-
+      },
+    })
   }
-
 
   public days = [
     { name: 'Mon', times: [{ start: '', end: '' }] },
@@ -344,7 +346,7 @@ export class ConsultationFormComponent {
     }
   }
 
-  onSubmit() { }
+  onSubmit() {}
 
   removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
@@ -379,7 +381,6 @@ export class ConsultationFormComponent {
     )
 
     this.isLoader = true
-
     const body = {
       post_id: this.postId,
       consultation_booking_link:
@@ -390,75 +391,34 @@ export class ConsultationFormComponent {
       services_list: this.ConsultationForm.value.services_list,
       price: this.ConsultationForm.value.price,
       video_url: this.ConsultationForm.value.video_url,
-      business_hours: businessHours, // Modified to stringify the businessHours array
+      business_hours: businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
       video_upload: this.vediosUrl,
       image: this.imageUrl,
-      final_submission: 1
+     
     }
-
+    if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
         next: (res: any) => {
           if (res) {
-            this.router.navigateByUrl('/manage-profile')
             this.isLoader = false
             this.consultationFormSubmit.emit()
-            this.localstorage.saveData("isConsultationFormFilled", "true")
+            this.localstorage.saveData('isConsultationFormFilled', 'true')
             this.businessService.isConsultationFormFilled.next(true)
             this.isFormFilled = true
-           this.localstorage.removeData('postId')
-           this.localstorage.removeData('isSubscriptionFormFilled')
-           this.localstorage.removeData('isBusinessFormFilled')
-           this.localstorage.removeData('isBusinessBioFormFilled')
-           this.localstorage.removeData('isConsultationFormFilled')
-           this.router.navigateByUrl('/manage-profile/my-business')
-            // Swal.fire({
-            //   toast: true,
-            //   text: 'Successfully added Consultancy details.',
-            //   animation: false,
-            //   icon: 'success',
-            //   position: 'top-right',
-            //   showConfirmButton: false,
-            //   timer: 3000,
-            //   timerProgressBar: true,
-            // })
           }
         },
       })
-    
+    } else if (this.isFormFilled) {
+      this.businessService.updateBusiness(body).subscribe({
+        next: (res) => {
+          this.isLoader = false
+          this.consultationFormSubmit.emit()
+          this.localstorage.saveData('isConsultationFormFilled', 'true')
+          this.businessService.isConsultationFormFilled.next(true)
+          this.isFormFilled = true
+        },
+      })
+    }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

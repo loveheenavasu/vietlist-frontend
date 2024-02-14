@@ -3,14 +3,14 @@
 <div class="container-fluid g-0 links-cnt desktop-footer">
   <!-- <div class="container"> -->
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img ">
+    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img">
       <img src="/assets/icons/brand-logo.svg" alt="Logo" />
     </div>
     <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
       <h3>Quick Links</h3>
     </div>
     <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center"></div>
-    <div class="col-12 col-md-6 col-lg-3 d-flex  align-items-center">
+    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
       <h3 class="newsletter-heading">Newsletter Subscribe</h3>
     </div>
   </div>
@@ -48,7 +48,6 @@
               {{ footerPageContent?.contact?.phone_number }}
             </div>
           </div>
-
         </li>
         <li>
           <div class="d-flex info-wrapper">
@@ -64,28 +63,52 @@
       <div class="social-link">
         <ul>
           <li>
-            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
-              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.facebook"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/FacebookIcon.svg"
+                alt="facbook-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
-              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.linkedin"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                alt="linkedin-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+              <img
+                src="/assets/icons/Social-Link/TwitterIcon.svg"
+                alt="twitter-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+              <img
+                src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                alt="youtube-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
-              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.pinterest"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                alt="pinterest-logo"
+              />
             </a>
           </li>
         </ul>
@@ -112,10 +135,18 @@
           <form [formGroup]="newsLetterSubscribeForm">
             <div class="d-flex">
               <div>
-                <input type="text" class="newsletter" formControlName="email" placeholder="Email Address" />
+                <input
+                  type="text"
+                  class="newsletter"
+                  formControlName="email"
+                  placeholder="Email Address"
+                />
               </div>
               <div>
-                <button class="btn orange-background-btn enter-btn" (click)="subscribeEmailNewsletter()">
+                <button
+                  class="btn orange-background-btn enter-btn"
+                  (click)="subscribeEmailNewsletter()"
+                >
                   &#8594;
                 </button>
               </div>
@@ -208,7 +239,11 @@
         <li>
           <div class="d-flex">
             <div>
-              <input type="text" class="newsletter" placeholder="Email Address" />
+              <input
+                type="text"
+                class="newsletter"
+                placeholder="Email Address"
+              />
             </div>
             <div>
               <button class="btn orange-background-btn enter-btn">
@@ -227,28 +262,52 @@
       <div class="social-link">
         <ul>
           <li>
-            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
-              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.facebook"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/FacebookIcon.svg"
+                alt="facbook-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
-              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.linkedin"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                alt="linkedin-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+              <img
+                src="/assets/icons/Social-Link/TwitterIcon.svg"
+                alt="twitter-logo"
+              />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+              <img
+                src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                alt="youtube-logo"
+              />
             </a>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
-              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+            <a
+              [href]="footerPageContent?.social_link?.pinterest"
+              target="_blank"
+            >
+              <img
+                src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                alt="pinterest-logo"
+              />
             </a>
           </li>
         </ul>

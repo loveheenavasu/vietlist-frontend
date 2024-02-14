@@ -28,7 +28,6 @@ export class ProfileService {
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-
   public getBusinessByUserId(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
     const authToken: any = this.sessionService.getAuthHeaders()

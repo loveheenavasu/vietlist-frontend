@@ -12,6 +12,7 @@ import {
   AuthenticationService,
   FullPageLoaderService,
   LocalStorageService,
+  UserStatus,
 } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
@@ -52,7 +53,7 @@ export class ConfirmPaymentComponent {
     private loaderService: FullPageLoaderService,
     public router: Router,
     private localStorageService: LocalStorageService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -105,7 +106,7 @@ export class ConfirmPaymentComponent {
         this.paymentIntent = res.client_secret
         console.log(this.paymentIntent, 'this.payemnetintent')
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
@@ -169,7 +170,7 @@ export class ConfirmPaymentComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      });
+      })
       console.error(error.message)
     } else {
       this.paymentMethod = setupIntent
@@ -189,7 +190,7 @@ export class ConfirmPaymentComponent {
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
-        console.log("check res---", res)
+        console.log('check res---', res)
         Swal.fire({
           toast: true,
           text: res.message,
@@ -199,11 +200,9 @@ export class ConfirmPaymentComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-
         })
-        if (res.data?.status == "success") {
-          const status = 'active'
-          console.log("check status", status)
+        if (res.data?.status == UserStatus.Active) {
+          const status = UserStatus.Active
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
         }

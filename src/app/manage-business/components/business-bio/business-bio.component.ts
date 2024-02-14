@@ -94,29 +94,29 @@ export class BusinessBioComponent {
         },
         error: (err) => {},
       })
-    } else if(!this.isFormFilled){
-    this.businessService.addBusiness(body).subscribe({
-      next: (res) => {
-        if (res) {
-          this.isLoader = false
-          this.buinessFormSubmit.emit()
-          this.businessService.isBusinessBioFormFilled.next(true)
-          this.localstorage.saveData('isBusinessBioFormFilled', 'true')
-          this.isFormFilled = true
-          // Swal.fire({
-          //   toast: true,
-          //   text: 'Successfully added Business bio details.',
-          //   animation: false,
-          //   icon: 'success',
-          //   position: 'top-right',
-          //   showConfirmButton: false,
-          //   timer: 3000,
-          //   timerProgressBar: true,
-          // })
-        }
-      },
-      error: (err) => {},
-    })
-  }
+    } else if (!this.isFormFilled) {
+      this.businessService.addBusiness(body).subscribe({
+        next: (res) => {
+          if (res) {
+            this.isLoader = false
+            this.buinessFormSubmit.emit()
+            this.businessService.isBusinessBioFormFilled.next(true)
+            this.localstorage.saveData('isBusinessBioFormFilled', 'true')
+            this.isFormFilled = true
+            // Swal.fire({
+            //   toast: true,
+            //   text: 'Successfully added Business bio details.',
+            //   animation: false,
+            //   icon: 'success',
+            //   position: 'top-right',
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            //   timerProgressBar: true,
+            // })
+          }
+        },
+        error: (err) => {},
+      })
+    }
   }
 }

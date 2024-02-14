@@ -1,4 +1,4 @@
-import { LocalStorageService } from '@vietlist/shared'
+import { LocalStorageService, UserStatus } from '@vietlist/shared'
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 
@@ -36,7 +36,7 @@ export class AuthenticationService {
 
   public setSubscriptonStatus(status: string) {
     this.subscriptionStatus = status
-    if (status == 'active') {
+    if (status == UserStatus.Active) {
       this.isSubscriptionSubject.next(true)
     } else {
       this.isSubscriptionSubject.next(false)
@@ -50,9 +50,7 @@ export class AuthenticationService {
   public checkSubscriptionStatus() {
     const checkSubscriptionStatus =
       this.localstorageservice.getData('subscriptionStatus')
-    console.log('behaviour', checkSubscriptionStatus)
-
-    if (checkSubscriptionStatus == 'active') {
+    if (checkSubscriptionStatus == UserStatus.Active) {
       return true
     } else {
       return false
@@ -60,11 +58,9 @@ export class AuthenticationService {
   }
 
   public isSubscriptionStatus(): boolean {
-    // console.log("check the value of subscription", this.isSubscriptionSubject.value)
     return this.isSubscriptionSubject.value
   }
 
-  // Set authentication status to true when a token is received
   public setAuthenticationStatusTrue(token: string): void {
     this.accessToken = token
     this.isAuthenticatedSubject.next(true)
@@ -126,7 +122,6 @@ export class AuthenticationService {
   public getAuthHeaders(): any {
     return {
       Authorization: `Bearer ${this.accessToken}`,
-      // Add other headers as needed
     }
   }
 }

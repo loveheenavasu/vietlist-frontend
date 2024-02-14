@@ -1,4 +1,4 @@
-import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service';
+import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 // import { RouterOutlet } from '@angular/router'
 // import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
 // import {
@@ -605,7 +605,7 @@ export class ListBusinessComponent {
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
-    private fullPageLoader:FullPageLoaderService
+    private fullPageLoader: FullPageLoaderService,
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -643,7 +643,6 @@ export class ListBusinessComponent {
 
     const localFlag = this.localStorageService.getData('isBusinessFormFilled')
     this.isFormFilled = Boolean(localFlag)
-
   }
 
   ngOnInit() {
@@ -821,7 +820,7 @@ export class ListBusinessComponent {
       .getBusiness(this.postId ? this.postId : postId)
       .subscribe({
         next: (res) => {
-              this.fullPageLoader.hideLoader()
+          this.fullPageLoader.hideLoader()
           this.businessFormDetails = res?.data?.[0] || null
           this.tags = this.businessFormDetails.post_tags.map(
             (tag: any) => tag.id,
@@ -915,7 +914,7 @@ export class ListBusinessComponent {
 
   public changeMapView() {
     console.log('Selected map view:', this.businessInfoForm.value.mapview)
-   
+
     if (this.map !== null) {
       console.log('Changing map view...')
       switch (this.businessInfoForm.value.mapview) {

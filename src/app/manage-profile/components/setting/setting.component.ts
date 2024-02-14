@@ -64,31 +64,25 @@ export class SettingComponent {
 
   public allowNotification() {
     const body = {
-     
-        profile_views: this.profileViews ? 1 : 0,
-        real_time_notification: this.realTime ? 1 : 0,
-        periodic_notification: this.periodicNotify ? 1 : 0,
-        blog_views: this.blogsView ? 1 : 0,
-     
+      profile_views: this.profileViews ? 1 : 0,
+      real_time_notification: this.realTime ? 1 : 0,
+      periodic_notification: this.periodicNotify ? 1 : 0,
+      blog_views: this.blogsView ? 1 : 0,
     }
 
-   
-
-    this.profileService
-      .allowNotificationSetting(body)
-      .subscribe({
-        next: (res) => {
-          Swal.fire({
-            toast: true,
-            text: res.message,
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-        },
-      })
+    this.profileService.allowNotificationSetting(body).subscribe({
+      next: (res) => {
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+      },
+    })
   }
 }

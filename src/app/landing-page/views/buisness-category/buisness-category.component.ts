@@ -46,7 +46,7 @@ export class BuisnessCategoryComponent {
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   constructor(

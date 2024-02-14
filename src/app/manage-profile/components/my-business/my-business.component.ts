@@ -45,8 +45,6 @@ export class MyBusinessComponent {
     })
   }
 
-  
-
   deleteBusiness(postId: any) {
     Swal.fire({
       title: 'Do you really want to delete your business?',
@@ -58,7 +56,7 @@ export class MyBusinessComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.profileService.deleteBuisness({post_id:postId}).subscribe({
+        this.profileService.deleteBuisness({ post_id: postId }).subscribe({
           next: (res) => {
             Swal.fire({
               toast: true,
@@ -78,7 +76,6 @@ export class MyBusinessComponent {
         })
       }
     })
- 
   }
 
   ngOnDestroy() {}
