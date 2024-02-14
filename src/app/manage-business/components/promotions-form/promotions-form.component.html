@@ -1,5 +1,7 @@
-<div class="row">
-  <div class="col-12">
+<form [formGroup]="promotions">
+
+  <!-- <div class="row"> -->
+  <!-- <div class="col-12">
     <h1 class="listing-form-heading">Events & promotions</h1>
   </div>
 </div>
@@ -40,7 +42,7 @@
   <div class="col-12 col-md-12 col-lg-8">
     <input class="input-control" />
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="col-12">
     <h1 class="listing-form-heading">FAQ</h1>
@@ -57,6 +59,7 @@
       cols="30"
       rows="6"
       placeholder="Write here ..."
+      formControlName="faq"
     ></textarea>
     <div class="form-text">
       <span>Add question answer</span>
@@ -162,3 +165,4 @@
     </div>
   </div>
 </div>
+</form>

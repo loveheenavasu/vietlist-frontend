@@ -23,10 +23,10 @@
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Booking and Consultation</strong>
         </li>
-        <!-- <li>
+        <li>
           <span><i class="fa fa-step-forward" aria-hidden="true"></i></span
           ><strong>Events and promotions</strong>
-        </li> -->
+        </li>
       </ul>
     </div>
     <form [formGroup]="businessInfoForm">
@@ -459,6 +459,8 @@
         ></app-consultation-form>
       </section>
     }
+
+    <!-- <app-promotions-form></app-promotions-form> -->
     <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <!-- <section class="my-4">
       <app-consultation-form (fornSubmit)="getBusinessFormDetails(postId)"
