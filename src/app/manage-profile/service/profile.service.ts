@@ -23,9 +23,11 @@ export class ProfileService {
   }
 
   public userProfileUpdate(body: any): Observable<any> {
+    const authToken: any = this.sessionService.getAuthHeaders()
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.updateUserProfile)
-    return this.http.post<any>(endpoint, body)
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
+
 
   public getBusinessByUserId(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
@@ -34,20 +36,29 @@ export class ProfileService {
   }
 
   public deleteBuisness(postId: any): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAddedBusiness)
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post<any>(endpoint, postId, { headers: authToken })
   }
 
-  public changePasswrd(body:any): Observable<any> {
+  public changePasswrd(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ChangePassword)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body ,  { headers: authToken })
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
   public deleteAccount(): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAccount);
-    const authToken: any = this.sessionService.getAuthHeaders();
-    return this.http.delete<any>(endpoint, { headers: authToken });
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAccount)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.delete<any>(endpoint, { headers: authToken })
+  }
+
+  public allowNotificationSetting(notification: any): Observable<any> {
+    const formData = new FormData()
+    formData.append('notification', JSON.stringify(notification))
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.NotificaionAllow)
+    const authToken: any = this.sessionService.getAuthHeaders()
+
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
 }

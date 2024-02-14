@@ -1,3 +1,4 @@
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { provideRouter, withInMemoryScrolling } from '@angular/router'
 
@@ -28,6 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([ErrorHandlerInterceptor])),
     provideNgxStripe(stripePublishKey),
-    importProvidersFrom(MatNativeDateModule)
+    importProvidersFrom(MatNativeDateModule, MatSlideToggleModule),
   ],
 }

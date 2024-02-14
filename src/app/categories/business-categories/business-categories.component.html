@@ -6,8 +6,12 @@
 <div class="container-fluid g-0">
   <div class="row search-fields mt-4">
     <div class="d-flex">
-      <div class=" flex-grow-1">
-        <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
+      <div class="flex-grow-1">
+        <mat-select
+          class="vietlist-select"
+          placeholder="Category"
+          [formControl]="category"
+        >
           @for (key of post_category; track $index) {
             <mat-option [value]="key.id">{{ key.name }}</mat-option>
           }
@@ -22,16 +26,15 @@
       </div>
       <div class="mx-1">
         <div class="search-btn" (click)="search()">
-           
-            @if(isLoader){
+          @if (isLoader) {
             <app-loader></app-loader>
-            } @else{
-                <i class="fa fa-search" aria-hidden="true"></i>
-            }
-          </div>
+          } @else {
+            <i class="fa fa-search" aria-hidden="true"></i>
+          }
+        </div>
+      </div>
     </div>
   </div>
-</div>
   <div class="lisiting-container mt-4">
     <div class="layout-icon d-flex align-items-center">
       <div

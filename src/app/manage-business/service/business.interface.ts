@@ -15,13 +15,13 @@ export interface TagsResponse {
 }
 
 export interface FindBusinessParams {
-  city?: string;
-  region?: string;
-  street?: string;
-  zip?: string;
-  country?: string;
-  post_category?: string;
-  price?:any,
-  posts_per_page?:any;
-  page_no?:any
+  city?: string
+  region?: string
+  street?: string
+  zip?: string
+  country?: string
+  post_category?: string
+  price?: any
+  posts_per_page?: any
+  page_no?: any
 }

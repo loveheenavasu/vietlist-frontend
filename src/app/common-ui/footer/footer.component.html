@@ -1,118 +1,104 @@
-<div class="container-fluid g-0">
-  <!-- <div class="sale-cnt">
-    <div class="row">
-      <div class="col-12 col-lg-6">
-        <img src="/assets/icons/sale.svg" width="100%" height="100%" />
-      </div>
-      <div class="col-12 col-lg-6 m-auto">
-        <div class="sale">
-          <img src="/assets/icons/sale-text.svg" />
-          <p class="off text-end">UP TO 50% OFF</p>
-          <span class="decsription"
-            >Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia curae; Proin s</span
-          >
-        </div>
-      </div>
-    </div>
-  </div> -->
-</div>
+<!-- <div class="container-fluid g-0">
+</div> -->
 <div class="container-fluid g-0 links-cnt desktop-footer">
   <!-- <div class="container"> -->
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
+    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img ">
       <img src="/assets/icons/brand-logo.svg" alt="Logo" />
     </div>
-    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
+    <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
       <h3>Quick Links</h3>
     </div>
-    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center"></div>
-    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
-      <h3>Newsletter Subscribe</h3>
+    <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center"></div>
+    <div class="col-12 col-md-6 col-lg-3 d-flex  align-items-center">
+      <h3 class="newsletter-heading">Newsletter Subscribe</h3>
     </div>
   </div>
   <div class="row mt-3">
-    <div class="col-12 col-md-6 col-lg-3">
+    <div class="col-12 col-md-6 col-lg-5">
       <ul>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" />
-          {{ footerPageContent?.contact?.address }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/mdi_location-radius.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.address }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/fluent_call-28-filled.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/ri_whatsapp-fill.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
+
         </li>
         <li>
-          <img src="/assets/icons/email.svg" />
-          {{ footerPageContent?.contact?.email }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/email.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.email }}
+            </div>
+          </div>
         </li>
       </ul>
       <div class="social-link">
         <ul>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.facebook"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/FacebookIcon.svg"
-                alt="facbook-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
+              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
             </a>
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.linkedin"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/LinkedinIcon.svg"
-                alt="linkedin-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
+              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/TwitterIcon.svg"
-                alt="twitter-logo"
-              />
+              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/YoutubeIcon.svg"
-                alt="youtube-logo"
-              />
+              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
             </a>
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.pinterest"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/PrinterestIcon.svg"
-                alt="pinterest-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
+              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
             </a>
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-3">
+    <div class="col-12 col-md-6 col-lg-2">
       <ul>
         <li class="links">Resources</li>
         <li class="links">For User</li>
         <li class="links">For Businesses</li>
       </ul>
     </div>
-    <div class="col-12 col-md-6 col-lg-3">
+    <div class="col-12 col-md-6 col-lg-2">
       <ul>
         <li class="links">FAQ</li>
         <li class="links">Sitemap</li>
@@ -126,25 +112,17 @@
           <form [formGroup]="newsLetterSubscribeForm">
             <div class="d-flex">
               <div>
-                <input
-                  type="text"
-                  class="newsletter"
-                  formControlName="email"
-                  placeholder="Email Address"
-                />
+                <input type="text" class="newsletter" formControlName="email" placeholder="Email Address" />
               </div>
               <div>
-                <button
-                  class="btn orange-background-btn enter-btn"
-                  (click)="subscribeEmailNewsletter()"
-                >
+                <button class="btn orange-background-btn enter-btn" (click)="subscribeEmailNewsletter()">
                   &#8594;
                 </button>
               </div>
             </div>
           </form>
         </li>
-        <li>
+        <li class="mt-4">
           Lorem ipsum dolor sit amet consectetur. Consequat orci ultricies entum
           sed et
         </li>
@@ -160,20 +138,46 @@
       <ul>
         <li><img src="/assets/icons/brand-logo.svg" alt="Logo" /></li>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" />
-          {{ footerPageContent?.contact?.address }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/mdi_location-radius.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.address }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/fluent_call-28-filled.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/ri_whatsapp-fill.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/email.svg" />
-          {{ footerPageContent?.contact?.email }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/email.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.email }}
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -204,11 +208,7 @@
         <li>
           <div class="d-flex">
             <div>
-              <input
-                type="text"
-                class="newsletter"
-                placeholder="Email Address"
-              />
+              <input type="text" class="newsletter" placeholder="Email Address" />
             </div>
             <div>
               <button class="btn orange-background-btn enter-btn">
@@ -227,52 +227,28 @@
       <div class="social-link">
         <ul>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.facebook"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/FacebookIcon.svg"
-                alt="facbook-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
+              <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
             </a>
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.linkedin"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/LinkedinIcon.svg"
-                alt="linkedin-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
+              <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/TwitterIcon.svg"
-                alt="twitter-logo"
-              />
+              <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
             </a>
           </li>
           <li>
             <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/YoutubeIcon.svg"
-                alt="youtube-logo"
-              />
+              <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
             </a>
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.pinterest"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/PrinterestIcon.svg"
-                alt="pinterest-logo"
-              />
+            <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
+              <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
             </a>
           </li>
         </ul>

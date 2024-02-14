@@ -60,6 +60,7 @@ export class BusinessBioComponent {
 
     const isFormFIlled = this.localstorage.getData('isBusinessBioFormFilled')
     this.isFormFilled = Boolean(isFormFIlled)
+    console.log(this.isFormFilled)
   }
 
   ngOnInit() {}
@@ -93,12 +94,11 @@ export class BusinessBioComponent {
         },
         error: (err) => {},
       })
-    }
+    } else if(!this.isFormFilled){
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         if (res) {
           this.isLoader = false
-
           this.buinessFormSubmit.emit()
           this.businessService.isBusinessBioFormFilled.next(true)
           this.localstorage.saveData('isBusinessBioFormFilled', 'true')
@@ -117,5 +117,6 @@ export class BusinessBioComponent {
       },
       error: (err) => {},
     })
+  }
   }
 }

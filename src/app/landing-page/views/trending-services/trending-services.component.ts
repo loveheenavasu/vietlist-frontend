@@ -1,6 +1,6 @@
-import { LoaderComponent } from 'src/app/common-ui';
-import { FullPageLoaderService } from './../../../shared/utils/services/loader.service';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from 'src/app/common-ui'
+import { FullPageLoaderService } from './../../../shared/utils/services/loader.service'
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
@@ -15,9 +15,8 @@ import {
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import { FindBusinessParams } from 'src/app/manage-business/service/business.interface';
+import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
 register()
-
 
 @Component({
   selector: 'app-trending-services',
@@ -30,7 +29,7 @@ register()
     MatIconModule,
     ReactiveFormsModule,
     FormsModule,
-    LoaderComponent
+    LoaderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './trending-services.component.html',
@@ -42,7 +41,7 @@ export class TrendingServicesComponent {
 
   public businessCat: any[] = []
   public trendingHeaderContent: any
-  public isLoader:boolean = false
+  public isLoader: boolean = false
   public street: any
   public state: any
   public country: any
@@ -74,18 +73,19 @@ export class TrendingServicesComponent {
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
-  constructor(private businessService: BusinessService , private fullPageloader:FullPageLoaderService) {
+  constructor(
+    private businessService: BusinessService,
+    private fullPageloader: FullPageLoaderService,
+  ) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
     })
   }
-
-
 
   ngOnInit() {
     this.getTrendingCategroies()
@@ -97,8 +97,8 @@ export class TrendingServicesComponent {
     this.businessService.trendingBusiness().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
-        console.log("check trending", this.businessCat)
-      }
+        console.log('check trending', this.businessCat)
+      },
     })
   }
 
@@ -108,7 +108,7 @@ export class TrendingServicesComponent {
         this.post_category = res.data
         console.log(this.post_category)
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -141,24 +141,24 @@ export class TrendingServicesComponent {
 
   public search() {
     this.isLoader = true
-    const params: FindBusinessParams = {};
+    const params: FindBusinessParams = {}
     if (this.city) {
-      params['city'] = this.city;
+      params['city'] = this.city
     }
     if (this.state) {
-      params['region'] = this.state;
+      params['region'] = this.state
     }
     if (this.fullAddress) {
-      params['street'] = this.fullAddress;
+      params['street'] = this.fullAddress
     }
     if (this.zipcode) {
-      params['zip'] = this.zipcode;
+      params['zip'] = this.zipcode
     }
     if (this.country) {
-      params['country'] = this.country;
+      params['country'] = this.country
     }
     if (this.category.value) {
-      params['post_category'] = this.category.value;
+      params['post_category'] = this.category.value
     }
 
     this.businessService.findBusiness(params).subscribe({
@@ -168,10 +168,7 @@ export class TrendingServicesComponent {
         this.businessCat = res.data
         console.log(this.businessCat)
       },
-      error: (error) => {
-
-      }
-    });
+      error: (error) => {},
+    })
   }
-
 }

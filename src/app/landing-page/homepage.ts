@@ -29,7 +29,7 @@ import { NgOptimizedImage } from '@angular/common'
     PlanComponent,
     TrendingServicesComponent,
     CtaVerifiedBusinessComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
@@ -54,19 +54,18 @@ export class HomepageComponent {
 
   ngOnInit() {
     this.getHomePageContent()
-    this.subscribeToRouterEvents(); 
-  }
- 
-  private subscribeToRouterEvents(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        if (event.url === '/' || event.url === '/home') {
-          window.location.reload();
-        }
-      }
-    });
+    this.subscribeToRouterEvents()
   }
 
+  private subscribeToRouterEvents(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/' || event.url === '/home') {
+          window.location.reload()
+        }
+      }
+    })
+  }
 
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({

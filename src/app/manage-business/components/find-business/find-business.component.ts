@@ -13,7 +13,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { BusinessCategoryResponse, FindBusinessParams } from '../../service/business.interface'
+import {
+  BusinessCategoryResponse,
+  FindBusinessParams,
+} from '../../service/business.interface'
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
@@ -34,7 +37,7 @@ import Swal from 'sweetalert2'
     NgxPaginationModule,
     MatSliderModule,
     FormsModule,
-    AutocompleteComponent
+    AutocompleteComponent,
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -136,7 +139,7 @@ export class FindBusinessComponent {
     const post_category = this.findBusinessForm.value.post_category
     const price = this.findBusinessForm.value.slidervalue
     const postPerPage = 2
-    const params: FindBusinessParams = {};
+    const params: FindBusinessParams = {}
     if (post_category) {
       params['post_category'] = post_category
     }
@@ -146,45 +149,40 @@ export class FindBusinessComponent {
     if (postPerPage) {
       params['posts_per_page'] = postPerPage
     }
-    if(this.currentPage){
+    if (this.currentPage) {
       params['page_no'] = this.currentPage
     }
     if (this.city) {
-      params['city'] = this.city;
+      params['city'] = this.city
     }
     if (this.state) {
-      params['region'] = this.state;
+      params['region'] = this.state
     }
     if (this.fullAddress) {
-      params['street'] = this.fullAddress;
+      params['street'] = this.fullAddress
     }
     if (this.zipcode) {
-      params['zip'] = this.zipcode;
+      params['zip'] = this.zipcode
     }
     if (this.country) {
-      params['country'] = this.country;
+      params['country'] = this.country
     }
-  
-  
-    this.businessCategoriesService
-      .findBusiness(params)
-      .subscribe({
-        next: (res: any) => {
-          this.loader = false
-          this.isPaginationClick = false
-          this.isPaginationVisible = true
-          this.fullPageLoaderService.hideLoader()
-          this.findBusinessData = res.data
-          this.totalCount = res.total_count
-          this.maxPrice = res.max_price;
-        },
-        error: (err: any) => {
-          this.loader = false
-        },
-      })
-  }
-  
 
+    this.businessCategoriesService.findBusiness(params).subscribe({
+      next: (res: any) => {
+        this.loader = false
+        this.isPaginationClick = false
+        this.isPaginationVisible = true
+        this.fullPageLoaderService.hideLoader()
+        this.findBusinessData = res.data
+        this.totalCount = res.total_count
+        this.maxPrice = res.max_price
+      },
+      error: (err: any) => {
+        this.loader = false
+      },
+    })
+  }
 
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
@@ -203,8 +201,6 @@ export class FindBusinessComponent {
     this.slidervalue = this.findBusinessForm.value.slidervalue
   }
 
-  
-  
   public initMap() {
     console.log(this.latitude, this.longitude, 'LATLNG')
     let map: any
@@ -270,7 +266,6 @@ export class FindBusinessComponent {
         if (type == 'administrative_area_level_1') {
           this.state = element.long_name
         }
-        
       })
     })
     this.latitude = place.geometry.location.lat()

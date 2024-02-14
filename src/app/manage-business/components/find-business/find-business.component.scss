@@ -3,7 +3,8 @@
 
 .container-fluid {
 
-    // margin-top:10rem;
+    margin-top: 8rem;
+
     .row {
         // width: 100%;
     }
@@ -378,6 +379,10 @@
         .carrer-professional-list {
             width: 100%;
         }
+
+        .social-link {
+            margin-top: 3rem;
+        }
     }
 
     .carrer-professional {
@@ -398,5 +403,13 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .mobile-view-footer.social-link ul {
+        display: flex;
+        gap: 10px;
+        margin-top: 40px !important;
     }
 }

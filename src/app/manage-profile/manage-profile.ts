@@ -7,6 +7,7 @@ import {
 } from '@vietlist/shared'
 import { EditProfileComponent } from './components'
 import { NgClass, NgIf } from '@angular/common'
+import { ProfileService } from './service/profile.service'
 
 @Component({
   selector: 'app-manage-profile',
@@ -18,7 +19,6 @@ import { NgClass, NgIf } from '@angular/common'
 export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
   fileInput!: ElementRef<HTMLInputElement>
-
   public sidebarMenu: ProfileMenu[] = []
   public userEmail: any
   public imgUrl: any
@@ -28,6 +28,7 @@ export class ManageProfileComponent {
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
+    private profileService:ProfileService
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
@@ -45,24 +46,47 @@ export class ManageProfileComponent {
   }
 
   public handleFileInput(event: any) {
-    console.log(event, 'event')
-    event.stopPropagation()
-    console.log('Checking image path', event)
+    console.log(event, 'event');
+    event.stopPropagation();
+    console.log('Checking image path', event);
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader()
+      const reader = new FileReader();
 
-      reader.readAsDataURL(event.target.files[0])
+      reader.readAsArrayBuffer(event.target.files[0]);
 
       reader.onload = (event) => {
         if (event.target) {
-          this.imgUrl = event.target.result
-          console.log('Image URL:', this.imgUrl)
+          const arrayBuffer = event.target.result as ArrayBuffer;
+          this.uploadImage(arrayBuffer);
         }
-      }
+      };
     }
   }
 
+  private uploadImage(arrayBuffer: ArrayBuffer) {
+
+    console.log("array buffer", arrayBuffer)
+    const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+    console.log("check blob", blob)
+
+    const formData = new FormData();
+    formData.append('user_email', '');
+    formData.append('display_user_name', '');
+    formData.append('user_image', blob, 'image.jpg');
+
+    this.profileService.userProfileUpdate(formData).subscribe({
+      next: (res:any) => {
+     
+        this.imgUrl = res.data.user.user_image
+      },
+      error: (err:any) => {
+
+      }
+    });
+  }
+
   public openFileInput(event: any) {
+    console.log("checking")
     this.handleFileInput(event)
   }
   addClass(index: number) {

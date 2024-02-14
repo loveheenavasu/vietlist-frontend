@@ -1,1 +1,1 @@
-export * from "./components/add-event/add-event.component"
+export * from './components/add-event/add-event.component'

@@ -1,22 +1,30 @@
 <div class="container-fluid buisness-cat">
   <div class="heading">
-    <h1>{{trendingHeaderContent?.community_section?.title}}</h1>
+    <h1>{{ trendingHeaderContent?.community_section?.title }}</h1>
     <p>
-      {{trendingHeaderContent?.community_section?.description}}
+      {{ trendingHeaderContent?.community_section?.description }}
     </p>
   </div>
 
   <div class="row">
-    <div class="d-flex  search-fields">
-      <div class=" flex-grow-1 mb-1">
-        <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
+    <div class="d-flex search-fields">
+      <div class="flex-grow-1 mb-1">
+        <mat-select
+          class="vietlist-select"
+          placeholder="Category"
+          [formControl]="category"
+        >
           @for (key of post_category; track $index) {
-          <mat-option [value]="key.id">{{ key.name }}</mat-option>
+            <mat-option [value]="key.id">{{ key.name }}</mat-option>
           }
         </mat-select>
       </div>
       <div class="mx-1 flex-grow-1 mb-2">
-        <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+        <AutocompleteComponent
+          (setAddress)="getAddress($event)"
+          adressType="geocode"
+          [value]="street"
+        >
         </AutocompleteComponent>
       </div>
       <div class="mx-1 search-btn-container">
