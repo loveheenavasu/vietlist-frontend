@@ -6,21 +6,25 @@ section {
 }
 
 .container-fluid {
+    padding: 6rem 6.25rem;
+
     .testimonial-info {
-        padding-top: 6rem;
+
 
         .heading {
             h1 {
                 @extend %sh-styles;
+                font-family: 'Roboto';
             }
         }
 
         .description {
-            width: 75%;
-            margin: 0 auto 45px auto;
+            width: 61%;
+            margin: 0 auto 1px auto;
 
             p {
                 @extend %ssh-styles;
+                font-family: 'Roboto';
             }
 
         }
@@ -44,7 +48,6 @@ section {
 
 .swiper-testimonial {
     height: 100%;
-    padding-bottom: 6rem;
 }
 
 swiper-container {
@@ -69,14 +72,16 @@ swiper-slide img {
 }
 
 swiper-container {
-    width: 90%;
-    height: 44rem;
+    width: 100%;
+    height: 38rem;
     margin: 20px auto;
 
     .card {
         border-radius: 10px;
         border: 1px solid #EBEBEB;
         background: #FFF;
+        width: 522px;
+
 
         .card-body {
             .rating {
@@ -98,7 +103,7 @@ swiper-container {
 
             .footer {
                 display: flex;
-                padding: 3.75rem 2.75rem;
+                padding: 3rem 2.75rem;
 
                 .profile {
                     width: 71px;
@@ -159,5 +164,12 @@ swiper-container::part(bullet) {
         .footer {
             padding: 1.75rem 2.75rem !important;
         }
+    }
+}
+
+@media (max-width:1500px) {
+    swiper-container {
+        width: 100%;
+        height: 38rem;
     }
 }

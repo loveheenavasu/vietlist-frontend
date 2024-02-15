@@ -2,17 +2,19 @@
 
 section {
     .blog-news-container {
+        padding: 6rem 6.25rem;
 
         .heading-small-screen {
             display: none;
         }
 
         .blog-article {
-            padding-top: 6.25rem;
-
             .heading {
-                padding: 0px 155px;
-                margin-bottom: 102px;
+                // padding: 0px 155px;
+                margin-bottom: 6.063rem;
+                width: 92%;
+                margin-left: auto;
+                margin-right: auto;
 
                 h1 {
                     @extend %sh-styles;
@@ -41,7 +43,7 @@ section {
 
                 .example-card {
                     width: 32.5rem;
-                    margin-bottom: 30px;
+                    margin-bottom: 32px;
                     margin-right: 42px;
 
 

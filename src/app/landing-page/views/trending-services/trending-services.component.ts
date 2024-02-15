@@ -68,12 +68,16 @@ export class TrendingServicesComponent {
         autoplay: true,
       },
       1388: {
+        slidesPerView: 4,
+        autoplay: true,
+      },
+      1500: {
         slidesPerView: 5,
         autoplay: true,
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   constructor(
@@ -106,7 +110,7 @@ export class TrendingServicesComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -165,7 +169,7 @@ export class TrendingServicesComponent {
 
         this.businessCat = res.data
       },
-      error: (error) => {},
+      error: (error) => { },
     })
   }
 }

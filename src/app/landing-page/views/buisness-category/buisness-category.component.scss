@@ -107,7 +107,7 @@
 }
 
 .Categories-swiper-container {
-  padding-top: 2.625rem;
+  // padding-top: 2.625rem;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -137,17 +137,17 @@ swiper-slide {
       width: 100%;
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 2.4rem;
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.6rem;
       }
     }
   }
 
   swiper-container {
-    height: 24rem;
+    height: 35rem;
   }
 
   .Categories-swiper-container {
@@ -155,7 +155,7 @@ swiper-slide {
   }
 
   .card-heading {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 }
 

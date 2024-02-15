@@ -35,7 +35,7 @@ export class TestimonialsComponent {
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   constructor() {

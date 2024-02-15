@@ -8,31 +8,23 @@
 
   <div class="row">
     <div class="d-flex search-fields">
-      <div class="flex-grow-1 mb-1">
-        <mat-select
-          class="vietlist-select"
-          placeholder="Category"
-          [formControl]="category"
-        >
+      <div class="mb-1  category-select  ">
+        <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
           @for (key of post_category; track $index) {
-            <mat-option [value]="key.id">{{ key.name }}</mat-option>
+          <mat-option [value]="key.id">{{ key.name }}</mat-option>
           }
         </mat-select>
       </div>
-      <div class="mx-1 flex-grow-1 mb-2">
-        <AutocompleteComponent
-          (setAddress)="getAddress($event)"
-          adressType="geocode"
-          [value]="street"
-        >
+      <div class="mx-1 mb-2 address-input ">
+        <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
         </AutocompleteComponent>
       </div>
       <div class="mx-1 search-btn-container">
         <div class="search-btn" (click)="search()">
           @if (isLoader) {
-            <app-loader></app-loader>
+          <app-loader></app-loader>
           } @else {
-            <i class="fa fa-search" aria-hidden="true"></i>
+          <i class="fa fa-search" aria-hidden="true"></i>
           }
         </div>
       </div>
@@ -40,27 +32,23 @@
     <div class="Categories-swiper-container">
       <div class="row">
         <div class="col-md-12">
-          <swiper-container
-            #busniessCategoriesSwiper
-            class="mySwiper"
-            init="false"
-          >
+          <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
             @for (key of businessCat; track $index) {
-              <swiper-slide>
-                <div class="main-cnt d-flex mb-3 mt-4">
-                  <div class="image-container">
-                    <img [src]="key.image" />
-                    <div class="trending-content">
-                      <div class="trending">
-                        <p class="trending-text">Trending</p>
-                      </div>
-                      <div class="trending-title">
-                        <h3>{{ key.name }}</h3>
-                      </div>
+            <swiper-slide>
+              <div class="main-cnt d-flex mb-3 mt-4">
+                <div class="image-container">
+                  <img [src]="key.image" />
+                  <div class="trending-content">
+                    <div class="trending">
+                      <p class="trending-text">Trending</p>
+                    </div>
+                    <div class="trending-title">
+                      <h3>{{ key.name }}</h3>
                     </div>
                   </div>
                 </div>
-              </swiper-slide>
+              </div>
+            </swiper-slide>
             }
           </swiper-container>
         </div>

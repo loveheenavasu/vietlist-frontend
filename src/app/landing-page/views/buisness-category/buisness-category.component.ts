@@ -44,13 +44,17 @@ export class BuisnessCategoryComponent {
         autoplay: false,
       },
       1388: {
-        slidesPerView: 6,
+        slidesPerView: 5,
         pagination: false,
 
       },
+      1500: {
+        slidesPerView: 6,
+        pagination: false,
+      }
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   constructor(
