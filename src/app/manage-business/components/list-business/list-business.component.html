@@ -456,14 +456,14 @@
         ></app-business-bio>
       </section>
     }
-    @if (businessFormDetails && businessFormDetails?.owner_name) {
+    <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
       <section class="my-4">
         <app-consultation-form
           (consultationFormSubmit)="getBusinessFormDetails(postId)"
           [consultationData]="businessFormDetails"
         ></app-consultation-form>
       </section>
-    }
+    <!-- } -->
 
     @if (businessFormDetails && businessFormDetails?.special_offers) {
     <app-promotions-form ></app-promotions-form>
