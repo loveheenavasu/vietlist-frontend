@@ -95,8 +95,8 @@ export class ChangePasswordComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.sessionservice.clearAuthentication()
-        this.router.navigateByUrl('/')
+        // this.sessionservice.clearAuthentication()
+        // this.router.navigateByUrl('/')
       },
       error: (err) => {},
     })

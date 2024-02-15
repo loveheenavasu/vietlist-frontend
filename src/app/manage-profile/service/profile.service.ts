@@ -60,4 +60,11 @@ export class ProfileService {
 
     return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
+
+  public getAllowedSetting(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetNotificationsetting)
+    const authToken: any = this.sessionService.getAuthHeaders()
+
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
 }

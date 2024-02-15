@@ -37,7 +37,22 @@ ul{
     background-color: var(--primary-color-orange) !important;
 
 }
-
+.mat-button-toggle-group {
+    background-color: aqua;
+    width: 300px;
+}
+.mat-button-toggle {
+    margin-top: 5px !important;
+    background-color:gray;
+    width: 100px;
+}
+.mat-button-toggle:hover {
+    color: red;
+    background-color: green;
+}
+.mat-button-toggle-checked {
+    background-color:blue;
+} 
 
 .table-responsive {
     overflow-x: auto;
