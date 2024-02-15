@@ -27,7 +27,8 @@ export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
   fileInput!: ElementRef<HTMLInputElement>
   public sidebarMenu: ProfileMenu[] = []
-  public userEmail: any
+  public userFirstName: any
+  public userLastName: any
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
@@ -40,7 +41,9 @@ export class ManageProfileComponent {
   ) {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
-    this.userEmail = data?.user_email
+    this.userFirstName = data?.first_name
+    this.userLastName = data?.last_name
+    console.log(data)
     this.fetchProfileDetail()
     this.activeIndex = this.router.url
   }
@@ -118,7 +121,7 @@ export class ManageProfileComponent {
     this.activeIndex = url
   }
 
-  public viewFullEmail() {
-    this.showFullEmail = !this.showFullEmail
-  }
+  // public viewFullEmail() {
+  //   this.showFullEmail = !this.showFullEmail
+  // }
 }

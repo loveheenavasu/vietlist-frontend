@@ -17,9 +17,7 @@ import {
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
 import { NgFor, NgIf } from '@angular/common'
-const stripePublishKey = environment.stripe_publish_key
-declare var stripe: any
-declare var elements: any
+
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
@@ -181,6 +179,7 @@ export class ConfirmPaymentComponent {
   }
 
   public confirmSubscriptionPayment() {
+    this.loaderService.showLoader()
     const body = {
       level_id: this.planId,
       pm_data: {
@@ -190,7 +189,7 @@ export class ConfirmPaymentComponent {
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
-        console.log('check res---', res)
+        this.loaderService.hideLoader()
         Swal.fire({
           toast: true,
           text: res.message,

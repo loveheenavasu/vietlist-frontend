@@ -387,11 +387,14 @@
             </ngx-dropzone>
       
             <div class="main_images mt-3">
-              @for (preview of imagePreviews; track $index) {
-                <div class="images__" *ngIf="preview">
-                  <img [src]="preview" alt="Image Preview" width="150" height="150" />
+              
+                <div class="images__" >
+                  @for (preview of imagePreviews; track $index) {
+                    <img *ngIf="preview" [src]="preview" alt="Image Preview" width="150" height="150" />
+                  } @empty { 
+                    <img *ngIf="businessFormDetails?.logo" [src]="businessFormDetails.logo" alt="Image Preview" width="150" height="150" />
+                  }
                 </div>
-              }
             </div>
             <!-- <div class="row selected-images" *ngIf="isFilesPresent">
               <div class="mx-2">

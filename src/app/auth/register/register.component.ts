@@ -88,6 +88,9 @@ export class RegisterComponent {
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
   ) {
+    this.contact_details.valueChanges.subscribe((res)=>{
+      console.log(res)
+    })
     this.signupForm = this.fb.nonNullable.group(
       {
         username: ['', Validators.required],
@@ -139,6 +142,7 @@ export class RegisterComponent {
   }
 
   public handleRegistrationSubmission() {
+    const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(this.contact_details?.value?.dialCode);
     const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
@@ -147,11 +151,11 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: parseInt(this.contact_details.value?.e164Number),
+      contact_details: parseInt(formattedPhoneNumber?.length ? formattedPhoneNumber[1] : ''),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
+      country_code:this.contact_details.value.dialCode
     }
-
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value

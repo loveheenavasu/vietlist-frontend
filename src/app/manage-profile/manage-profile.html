@@ -24,14 +24,15 @@
               </div>
               
             </div>
-            <p
+            <!-- <p
               class="user-email"
               #tooltip="matTooltip"
               matTooltip="{{userEmail}}"
             >
               {{ userEmail.length > 19 ? userEmail.slice(0, 19) + '...' :
               userEmail }}
-            </p>
+            </p> -->
+            <p  class="user-email">{{userFirstName}}{{userLastName}}</p>
 
             <div class="tabs_responsive">
               <ul>

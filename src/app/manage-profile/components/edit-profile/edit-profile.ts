@@ -5,17 +5,31 @@ import { Router } from '@angular/router'
 import { ProfileMenu } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
+import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input-gg'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule , NgxIntlTelInputModule,],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })
 export class EditProfileComponent {
+  public separateDialCode = true
+  public SearchCountryField = SearchCountryField
+  public CountryISO = CountryISO
+  public PhoneNumberFormat = PhoneNumberFormat
+  public preferredCountries: CountryISO[] = [
+    CountryISO.UnitedStates,
+    CountryISO.UnitedKingdom,
+  ]
+
   public email!: string //
   public userName: string = ''
+  public last_name :string = ''
+  public first_name : string = ''
+  public contact_details : string = ''
   public userDetails: any
   public isLoginSucess?: any
   public sidebarMenu: ProfileMenu[] = []
@@ -36,6 +50,9 @@ export class EditProfileComponent {
         if (res) {
           this.email = res.data.user.user_email ? res.data.user.user_email : ' '
           this.userName = res.data?.user?.user_nicename
+          this.last_name = res.data?.user?.last_name
+          this.first_name = res.data?.user?.first_name
+          this.contact_details = res.data?.user?.contact
         }
       },
       error: (err: any) => {
@@ -50,15 +67,27 @@ export class EditProfileComponent {
       user_email: this.email,
       display_user_name: this.userName,
       user_image: '',
+      first_name:this.first_name,
+      last_name:this.last_name,
+      country:this.contact_details
     }
     console.log('check update', body)
     this.profileDetail.userProfileUpdate(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
-        console.log('update-profile', res)
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
       },
       error: (err) => {
-        console.log('update profile error', err)
+        
       },
     })
   }
