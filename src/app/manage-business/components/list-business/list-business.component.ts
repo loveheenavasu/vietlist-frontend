@@ -594,6 +594,9 @@ export class ListBusinessComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
+  public imagePreviews: any
+  public imageUrl: any
+  public filess: any
   /**
    *
    * @param _formBuilder
@@ -751,6 +754,49 @@ export class ListBusinessComponent {
   //     }
   // }
 
+  onSelectImage(event: any) {
+    this.files.push(...event.addedFiles)
+
+    const formData = new FormData()
+
+    for (var i = 0; i < this.files.length; i++) {
+      console.log(this.files[i], 'this.files[i]')
+      formData.append('file[]', this.files[i])
+    }
+    this.displayImagePreviews()
+  }
+  displayImagePreviews() {
+    // Assuming you have an array to store image URLs for preview
+    this.imagePreviews = []
+
+    // Loop through each file
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i]
+      const reader = new FileReader()
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file)
+
+      // Define the onload event handler
+      reader.onload = () => {
+        // Cast reader.result to string
+        const result = reader.result as string
+
+        // Push the data URL (image preview) to the array
+        // this.imagePreviews.push(result)
+      }
+    }
+    this.businessService.uploadMedia(this.files[0]).subscribe({
+      next: (res: any) => {
+        this.imageUrl = res.image_url
+        this.imagePreviews.push(res.image_url)
+      },
+      error: (err: any) => {
+        // Handle errors
+      },
+    })
+  }
+
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -861,6 +907,7 @@ export class ListBusinessComponent {
               : 'NA',
             instagram: this.businessFormDetails.instagram,
             facebook: this.businessFormDetails.facebook,
+            logo:this.businessFormDetails.logo 
           })
 
           // this.tags = this.businessFormDetails.post_tags

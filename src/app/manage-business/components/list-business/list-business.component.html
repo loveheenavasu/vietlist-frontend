@@ -376,19 +376,24 @@
         <div class="row px-2 my-3">
           <div class="col-12">
             <label for="" class="listing-form-label mb-2">Business Logo</label>
-            <ngx-dropzone
-              *ngIf="!files.length"
-              (change)="onSelect($event)"
-              [accept]="'.png,.png,.png , .webp'"
-            >
-              <ngx-dropzone-label>
-                <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
+            <ngx-dropzone (change)="onSelectImage($event)"  
+            (change)="onSelect($event)"
+            [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+              <ngx-dropzone-label
+                ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
                 here or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
-                .webp)
-              </ngx-dropzone-label>
+                .webp)</ngx-dropzone-label
+              >
             </ngx-dropzone>
-
-            <div class="row selected-images" *ngIf="isFilesPresent">
+      
+            <div class="main_images mt-3">
+              @for (preview of imagePreviews; track $index) {
+                <div class="images__" *ngIf="preview">
+                  <img [src]="preview" alt="Image Preview" width="150" height="150" />
+                </div>
+              }
+            </div>
+            <!-- <div class="row selected-images" *ngIf="isFilesPresent">
               <div class="mx-2">
                 <div class="image-box">
                   <img [src]="uploadMediaUrl" />
@@ -401,7 +406,7 @@
                 </div>
               </div>
               <app-loader *ngIf="!uploadMediaUrl"></app-loader>
-            </div>
+            </div> -->
 
             <!-- <div class="row selected-images" *ngIf="files.length > 0">
                 <div *ngFor="let file of files" class="mx-2">
