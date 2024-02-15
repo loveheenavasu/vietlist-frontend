@@ -226,11 +226,11 @@ export class ConsultationFormComponent {
         `
         // Create the video container
         const videoElement = document.createElement('div')
-        videoElement.classList.add('video-preview') // Add a class for styling purposes
+        videoElement?.classList?.add('video-preview') // Add a class for styling purposes
 
         // Create remove button
         const removeButton = document.createElement('button')
-        removeButton.classList.add('remove_button')
+        removeButton?.classList?.add('remove_button')
         removeButton.textContent = 'Remove'
         removeButton.style.cssText = `
   background: orange;

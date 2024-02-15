@@ -28,14 +28,21 @@
             <div class="tabs_responsive">
               <ul>
                 @for(key of sidebarMenu ; track $index){
-                <li
-                  (click)="addClass($index)"
-                  [ngClass]="{'active': activeIndex == $index}"
+                  <li
+                  (click)="addClass(key.url)"
+                  [ngClass]="{ 'active': activeIndex === key.url }"
+                  [routerLink]="key.url"
+                  style="cursor: pointer">
+                <span><i [class]="key.icon"></i></span>{{ key.label }}
+              </li>
+                <!-- <li
+                  (click)="addClass($index, key.url )"
+                  [ngClass]="{ 'active': activeIndex == key.url }"
                   [routerLink]="key.url"
                   style="cursor: pointer"
                 >
                   <span><i [class]="key.icon"></i></span>{{key.label}}
-                </li>
+                </li> -->
                 }
               </ul>
             </div>

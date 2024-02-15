@@ -300,12 +300,12 @@
               class="vietlist-select"
               placeholder="Select Map View"
               formControlName="mapview"
-              (click)="changeMapView()"
+              (selectionChange)="changeMapView()"
             >
-              <mat-option value="default view">Default View</mat-option>
-              <mat-option value="satellite view">Satellite Map</mat-option>
-              <mat-option value="hybrid view">Hybrid Map</mat-option>
-              <mat-option value="terrain view">Terrain Map</mat-option>
+              <mat-option value="default">Default View</mat-option>
+              <mat-option value="satellite">Satellite Map</mat-option>
+              <mat-option value="hybrid">Hybrid Map</mat-option>
+              <mat-option value="terrain">Terrain Map</mat-option>
             </mat-select>
           </div>
         </div>

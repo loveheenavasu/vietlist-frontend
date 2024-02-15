@@ -22,8 +22,9 @@ export class ManageProfileComponent {
   public sidebarMenu: ProfileMenu[] = []
   public userEmail: any
   public imgUrl: any
-  activeIndex: number = 0
-
+  activeIndex: any
+  url:any
+  getRoute:any
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
@@ -33,13 +34,16 @@ export class ManageProfileComponent {
     this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
     this.userEmail = data?.user_email
+    this.activeIndex = this.router.url;
   }
 
   public getSidebarLinks() {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
+    
     })
   }
+  
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -89,7 +93,8 @@ export class ManageProfileComponent {
     console.log("checking")
     this.handleFileInput(event)
   }
-  addClass(index: number) {
-    this.activeIndex = index
+  addClass(url: string) {
+    // Update the activeIndex when clicking on a menu item
+    this.activeIndex = url;
   }
 }
