@@ -31,29 +31,24 @@ export class CtaVerifiedBusinessComponent {
 
   swiperParams = {
     slidesPerView: 1,
-    pagination: {
-      clickable: true,
-    },
+    navigation: true,
     spaceBetween: 30,
     disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 2,
         spaceBetween: 20,
-        autoplay: true,
       },
       1388: {
         slidesPerView: 4,
-        autoplay: true,
         spaceBetween: 20,
       },
       1920: {
         slidesPerView: 5,
-        autoplay: true,
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
 
@@ -65,25 +60,25 @@ export class CtaVerifiedBusinessComponent {
     image: string
     verified_logo: string
   }[] = [
-    {
-      image: '/assets/image/cta-verified-img1.svg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image: '/assets/image/cta-verified-img1.svg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image: '/assets/image/cta-verified-img1.svg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image: '/assets/image/cta-verified-img1.svg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image: '/assets/image/cta-verified-img1.svg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-  ]
+      {
+        image: '/assets/image/cta-verified-img1.svg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: '/assets/image/cta-verified-img1.svg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: '/assets/image/cta-verified-img1.svg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: '/assets/image/cta-verified-img1.svg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: '/assets/image/cta-verified-img1.svg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+    ]
 }

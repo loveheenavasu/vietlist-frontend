@@ -1,18 +1,13 @@
 @import "../../../../assets/scss/common";
 
 .container-fluid {
+    padding-top: 6rem;
 
     .explaining-description {
+        width: 54.64%;
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: 2.625rem;
-        padding-top: 6rem;
-
-        @media (max-width: 768px) {
-            .heading {
-                h1 {
-                    font-size: 24px;
-                }
-            }
-        }
 
         .heading {
             // padding: 0rem 1.25rem;
@@ -23,8 +18,7 @@
         }
 
         .description {
-            width: 75%;
-            margin: 0 auto 45px auto;
+            margin: 0 auto 16px auto;
 
             p {
                 @extend %ssh-styles;
@@ -55,7 +49,35 @@
             object-fit: contain;
         }
     }
+}
 
+@media (max-width: 768px) {
+    .container-fluid {
+        padding-top: 4.2rem;
 
+        .explaining-description {
+            width: 100% !important;
+            margin-bottom: 4.2rem;
 
+            .heading {
+                h1 {
+                    font-size: 24px;
+                }
+            }
+
+            .description {
+                margin-bottom: 2.4rem;
+
+                p {
+                    padding: 0px 22px;
+                }
+            }
+
+            .learn-more-btn {
+                .btn {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
 }

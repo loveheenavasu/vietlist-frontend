@@ -139,7 +139,44 @@ swiper-container {
 }
 
 @media (max-width:768px) {
+    .upcoming-container {
+        padding: 3.4rem 2.2rem 2rem 2.2rem !important;
+
+        .upcoming-description {
+            width: 100% !important;
+
+            .description {
+                margin-bottom: 2.1rem;
+            }
+
+            .explore-btn {
+                .btn {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        .upcoming-swiper {
+            padding-top: 6.2rem;
+
+            .events-main-card {
+                width: 100% !important;
+                margin-bottom: 2.4rem;
+            }
+        }
+    }
+
     .collection-description-wrapper {
-        flex-wrap: wrap;
+        flex-direction: column;
+
+        .description {
+            width: 100% !important;
+        }
+
+        .view-collection {
+            .btn {
+                font-size: 1.6rem;
+            }
+        }
     }
 }

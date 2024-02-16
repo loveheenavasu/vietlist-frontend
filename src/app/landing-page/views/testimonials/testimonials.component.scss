@@ -73,7 +73,7 @@ swiper-slide img {
 
 swiper-container {
     width: 100%;
-    height: 38rem;
+    height: 100%;
     margin: 20px auto;
 
     .card {
@@ -156,6 +156,28 @@ swiper-container::part(bullet) {
 }
 
 @media (max-width:768px) {
+    .container-fluid {
+        padding: 4.2rem 2.2rem;
+
+        .testimonial-info {
+            .description {
+                width: 100%;
+                margin-bottom: 2.4rem;
+
+                p {
+                    padding: 0px;
+                }
+            }
+
+            .submit-testimonial {
+                .btn {
+                    padding: 12px;
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+
     .swiper-testimonial {
         padding-bottom: 2.625rem;
     }
@@ -165,11 +187,46 @@ swiper-container::part(bullet) {
             padding: 1.75rem 2.75rem !important;
         }
     }
+
+    swiper-container {
+        width: 90% !important;
+        height: 100% !important;
+    }
+
+    swiper-container::part(button-next) {
+        color: #F89705 !important;
+        right: -3.4rem !important;
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    swiper-container::part(button-prev) {
+        color: #F89705 !important;
+        left: -3.4rem !important;
+        width: 35px !important;
+        height: 35px !important;
+    }
 }
 
 @media (max-width:1500px) {
     swiper-container {
         width: 100%;
-        height: 38rem;
+        height: 100%;
     }
+}
+
+swiper-container::part(button-next) {
+    color: #F89705 !important;
+    right: -4rem;
+
+}
+
+swiper-container::part(button-prev) {
+    color: #F89705 !important;
+    left: -4rem;
+
+}
+
+swiper-container::part(container) {
+    position: initial;
 }

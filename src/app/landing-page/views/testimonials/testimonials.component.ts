@@ -22,9 +22,7 @@ export class TestimonialsComponent {
 
   swiperParams = {
     slidesPerView: 1,
-    pagination: {
-      clickable: true,
-    },
+    navigation: true,
     spaceBetween: 30,
     breakpoints: {
       768: {

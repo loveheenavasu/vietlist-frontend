@@ -55,25 +55,19 @@ export class TrendingServicesComponent {
   public category = new FormControl('')
   swiperParams = {
     slidesPerView: 1,
-    // autoplay: true,
-    pagination: {
-      clickable: true,
-    },
+    navigation: true,
     spaceBetween: 30,
     disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 2,
         spaceBetween: 20,
-        autoplay: true,
       },
       1388: {
         slidesPerView: 4,
-        autoplay: true,
       },
       1500: {
         slidesPerView: 5,
-        autoplay: true,
       },
     },
     on: {
