@@ -77,7 +77,7 @@ export class ManageProfileComponent {
   }
 
   private uploadImage(arrayBuffer: ArrayBuffer) {
-    this.isUploading = true; // Set uploading flag
+    this.isUploading = true // Set uploading flag
     console.log('array buffer', arrayBuffer)
     const blob = new Blob([arrayBuffer], { type: 'image/jpeg' })
     console.log('check blob', blob)
@@ -91,10 +91,10 @@ export class ManageProfileComponent {
       next: (res: any) => {
         this.imgUrl = res.data.user.user_image
         this.fetchProfileDetail()
-        this.isUploading = false; // Reset upl
+        this.isUploading = false // Reset upl
       },
       error: (err: any) => {
-          this.isUploading = false; // Reset upl
+        this.isUploading = false // Reset upl
       },
     })
   }

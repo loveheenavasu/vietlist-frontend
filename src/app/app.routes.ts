@@ -70,7 +70,7 @@ export default [
       },
       {
         path: 'subscription',
-        component:ManageSubscriptionComponent,
+        component: ManageSubscriptionComponent,
       },
     ],
     canActivate: [AuthGuard],

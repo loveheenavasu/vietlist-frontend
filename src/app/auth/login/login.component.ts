@@ -69,18 +69,15 @@ export class LoginComponent {
       username: ['', Validators.required],
       password: ['', Validators.required],
     })
-  
   }
-  screensize:any = "35%"
+  screensize: any = '35%'
   dialogWidth: any
-  height:any
+  height: any
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screensize = event.target.innerWidth
     console.log(this.screensize)
   }
-
- 
 
   public forgotPassword() {
     if (this.screensize > 720) {
@@ -88,11 +85,11 @@ export class LoginComponent {
     } else if (this.screensize < 720) {
       this.dialogWidth = '90%'
       this.height = '45%'
-    } 
+    }
 
     this.dialog.open(ForgotPasswordComponent, {
       width: this.dialogWidth,
-      height:this.height
+      height: this.height,
     })
   }
 

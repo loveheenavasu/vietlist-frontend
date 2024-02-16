@@ -1,4 +1,4 @@
-import { LoaderComponent } from 'src/app/common-ui';
+import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
 import { AuthenticationService } from './../../shared/utils/services/authentication.service'
 import { Component, Input } from '@angular/core'
@@ -10,7 +10,7 @@ import { FullPageLoaderService, UserStatus } from '@vietlist/shared'
 @Component({
   selector: 'app-plan',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss',
 })

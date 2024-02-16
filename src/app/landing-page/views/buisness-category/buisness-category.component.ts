@@ -8,7 +8,7 @@ import {
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
-import { register } from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle'
 
 register()
 
@@ -31,7 +31,7 @@ export class BuisnessCategoryComponent {
     spaceBetween: 30,
     pagination: {
       clickable: true,
-      dynamicBullets: true
+      dynamicBullets: true,
     },
     autoplay: {
       delay: 5000,
@@ -46,7 +46,6 @@ export class BuisnessCategoryComponent {
       1388: {
         slidesPerView: 6,
         pagination: false,
-
       },
     },
     on: {

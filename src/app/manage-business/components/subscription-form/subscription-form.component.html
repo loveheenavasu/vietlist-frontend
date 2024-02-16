@@ -26,19 +26,25 @@
           >Verification upload</label
         >
 
-        <ngx-dropzone (change)="onSelectImage($event)"  
-        [accept]="'.pdf,.doc,.docx'">
+        <ngx-dropzone
+          (change)="onSelectImage($event)"
+          [accept]="'.pdf,.doc,.docx'"
+        >
           <ngx-dropzone-label
             ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
             or Browse a file (Allowed .pdf , .docx, .doc)</ngx-dropzone-label
           >
         </ngx-dropzone>
-  
+
         <div class="main_images mt-3">
-          
-            <div class="images__" >
-              <p>{{files[0]?.name}}</p>
-              <!-- @for (preview of imagePreviews; track $index) {
+          <div class="images__">
+            @if (files[0]) {
+              <p>{{ files[0].name }}</p>
+            } @else {
+              <p>{{businessFormDetails?.verification_upload}}</p>
+            }
+
+            <!-- @for (preview of imagePreviews; track $index) {
               
                 <p *ngIf="preview">{{preview.name}}</p>
          
@@ -46,9 +52,8 @@
                 <p  *ngIf="businessFormDetails?.verification_upload">{{businessFormDetails?.verification_upload}}</p>
                 
               } -->
-            </div>
+          </div>
         </div>
-     
       </div>
     </div>
   }

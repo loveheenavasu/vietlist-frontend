@@ -597,6 +597,7 @@ export class ListBusinessComponent {
   public imagePreviews: any
   public imageUrl: any
   public filess: any
+  public isImageLoading:boolean = false
   /**
    *
    * @param _formBuilder
@@ -609,6 +610,7 @@ export class ListBusinessComponent {
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
     private fullPageLoader: FullPageLoaderService,
+    private cd: ChangeDetectorRef,
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -766,6 +768,7 @@ export class ListBusinessComponent {
     this.displayImagePreviews()
   }
   displayImagePreviews() {
+    this.isImageLoading = true
     // Assuming you have an array to store image URLs for preview
     this.imagePreviews = []
 
@@ -788,6 +791,7 @@ export class ListBusinessComponent {
     }
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
+        this.isImageLoading = false
         this.imageUrl = res.image_url
         this.imagePreviews.push(res.image_url)
       },
@@ -834,14 +838,15 @@ export class ListBusinessComponent {
     })
   }
   public getAddress(place: any) {
+    console.log(place)
     this.fullAddress = place.formatted_address
     this.state = ''
     this.country = ''
     this.city = ''
     this.zipcode = ''
     const array = place
-    array.address_components.filter((element: any) => {
-      element.types.filter((type: any) => {
+    array.address_components.forEach((element: any) => {
+      element.types.forEach((type: any) => {
         if (type == 'country') {
           this.country = element.long_name
         }
@@ -858,8 +863,10 @@ export class ListBusinessComponent {
     })
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
+    this.cd.detectChanges()
     this.initMap()
   }
+
   public getBusinessFormDetails(postId: any) {
     this.fullPageLoader.showLoader()
     this.businessService
@@ -907,7 +914,7 @@ export class ListBusinessComponent {
               : 'NA',
             instagram: this.businessFormDetails.instagram,
             facebook: this.businessFormDetails.facebook,
-            logo:this.businessFormDetails.logo 
+            logo: this.businessFormDetails.logo,
           })
 
           // this.tags = this.businessFormDetails.post_tags

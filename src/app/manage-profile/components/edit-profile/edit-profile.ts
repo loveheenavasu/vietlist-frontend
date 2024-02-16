@@ -5,13 +5,18 @@ import { Router } from '@angular/router'
 import { ProfileMenu } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
-import { CountryISO, NgxIntlTelInputModule, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input-gg'
+import {
+  CountryISO,
+  NgxIntlTelInputModule,
+  PhoneNumberFormat,
+  SearchCountryField,
+} from 'ngx-intl-tel-input-gg'
 import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule , NgxIntlTelInputModule,],
+  imports: [FormsModule, CommonModule, NgxIntlTelInputModule],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })
@@ -27,9 +32,9 @@ export class EditProfileComponent {
 
   public email!: string //
   public userName: string = ''
-  public last_name :string = ''
-  public first_name : string = ''
-  public contact_details : string = ''
+  public last_name: string = ''
+  public first_name: string = ''
+  public contact_details: string = ''
   public userDetails: any
   public isLoginSucess?: any
   public sidebarMenu: ProfileMenu[] = []
@@ -67,9 +72,9 @@ export class EditProfileComponent {
       user_email: this.email,
       display_user_name: this.userName,
       user_image: '',
-      first_name:this.first_name,
-      last_name:this.last_name,
-      country:this.contact_details
+      first_name: this.first_name,
+      last_name: this.last_name,
+      country: this.contact_details,
     }
     console.log('check update', body)
     this.profileDetail.userProfileUpdate(body).subscribe({
@@ -86,9 +91,7 @@ export class EditProfileComponent {
           timerProgressBar: true,
         })
       },
-      error: (err) => {
-        
-      },
+      error: (err) => {},
     })
   }
 }

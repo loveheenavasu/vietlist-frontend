@@ -1,15 +1,20 @@
-import { FullPageLoaderService } from './../../../shared/utils/services/loader.service';
+import { FullPageLoaderService } from './../../../shared/utils/services/loader.service'
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import Swal from 'sweetalert2'
 import { ProfileService } from '../../service/profile.service'
-import { LoaderComponent } from 'src/app/common-ui';
+import { LoaderComponent } from 'src/app/common-ui'
 
 @Component({
   selector: 'app-setting',
   standalone: true,
-  imports: [MatSlideToggleModule, FormsModule, ReactiveFormsModule , LoaderComponent],
+  imports: [
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    LoaderComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss'],
@@ -20,20 +25,18 @@ export class SettingComponent {
   public periodicNotify!: boolean
   public blogsView!: boolean
   public profileView = new FormControl()
-  public isLoader:boolean = false
+  public isLoader: boolean = false
 
-  constructor(private profileService: ProfileService , private fullPageLoader:FullPageLoaderService) {
+  constructor(
+    private profileService: ProfileService,
+    private fullPageLoader: FullPageLoaderService,
+  ) {}
 
-  }
-
-
-  ngOnInit(){
+  ngOnInit() {
     this.getAllowedNotification()
   }
 
-
   valueChange(event: any) {
-    
     if (event == 'profileViews') {
       this.profileViews
     } else if (event == 'realTime') {
@@ -45,9 +48,6 @@ export class SettingComponent {
     }
   }
 
- 
-
-  
   public allowNotification() {
     this.isLoader = true
     const body = {
@@ -80,14 +80,11 @@ export class SettingComponent {
     this.profileService.getAllowedSetting().subscribe({
       next: (res) => {
         this.fullPageLoader.hideLoader()
-        this.profileViews = res.data.profile_view === 1;
-        this.realTime = res.data.real_time_notification === 1;
-        this.periodicNotify = res.data.periodic_notification === 1;
-        this.blogsView = res.data.blog_views === 1;
+        this.profileViews = res.data.profile_view === 1
+        this.realTime = res.data.real_time_notification === 1
+        this.periodicNotify = res.data.periodic_notification === 1
+        this.blogsView = res.data.blog_views === 1
       },
-    });
+    })
   }
-  
-
-  
 }

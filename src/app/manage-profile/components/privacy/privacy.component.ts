@@ -1,14 +1,12 @@
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSelectModule } from '@angular/material/select';
-import { Component } from '@angular/core';
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatSelectModule } from '@angular/material/select'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-privacy',
   standalone: true,
-  imports: [MatSelectModule , MatCheckboxModule],
+  imports: [MatSelectModule, MatCheckboxModule],
   templateUrl: './privacy.component.html',
-  styleUrl: './privacy.component.scss'
+  styleUrl: './privacy.component.scss',
 })
-export class PrivacyComponent {
-
-}
+export class PrivacyComponent {}

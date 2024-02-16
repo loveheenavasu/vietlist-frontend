@@ -116,11 +116,12 @@
           > -->
         </div>
       </div>
-      <ngx-dropzone (change)="onSelectImage($event)">
-        <ngx-dropzone-label
+      <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+        <ngx-dropzone-label *ngIf="!isImageUploading"
           ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file</ngx-dropzone-label
+          Browse a file (You can upload multiple videos)</ngx-dropzone-label
         >
+        <div *ngIf="isImageUploading" class="loader"></div> 
       </ngx-dropzone>
       <div class="main_images">
         @for (preview of imagePreviews; track $index) {
@@ -133,29 +134,31 @@
   </div>
   <div class="row px-2 my-3">
     <div class="col-12">
-      <!--a dropzone-->
-      <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
       <label for="" class="listing-form-label mb-2">Video upload</label>
       <!-- formControlName="video_upload" -->
       <ngx-dropzone [accept]="'.mp4,.mov'" (change)="onSelect($event)">
-        <ngx-dropzone-label
+        <ngx-dropzone-label *ngIf="!isVideoUploading"
           ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file</ngx-dropzone-label
+          Browse a file (You can upload multiple videos)</ngx-dropzone-label
         >
+       <div *ngIf="isVideoUploading" class="loader"></div> 
       </ngx-dropzone>
     </div>
     <div id="video-preview-container">
-      <video
+      @for(videoUrl of video_upload; track $index) {
+        <video
         style="margin: 10px; object-fit: cover"
-        *ngIf="video_upload"
+        *ngIf="videoUrl"
         width="320"
         height="240"
         controls
       >
-        <source [src]="video_upload" type="video/mp4" />
-        <source [src]="video_upload" type="video/ogg" />
+        <source [src]="videoUrl" type="video/mp4" />
+        <source [src]="videoUrl" type="video/ogg" />
         Your browser does not support the video tag.
       </video>
+      }
+     
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -298,7 +301,11 @@
       [disabled]="!ConsultationForm.valid"
       (click)="addBusiness()"
     >
+     @if(isLoader){
+      <app-loader></app-loader>
+     } @else {
       Next
+     }
     </button>
   </div>
 </form>

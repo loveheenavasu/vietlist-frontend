@@ -43,12 +43,11 @@ export class SubscriptionFormComponent {
 
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
-    this.businessFormDetails = value || undefined;
+    this.businessFormDetails = value || undefined
     this.verified_badge = value?.verified_badge
     if (this.verified_badge == '1') {
       this.check = true
     } else {
-
       this.check = false
     }
     this.verification_upload = value?.verification_upload
@@ -59,9 +58,9 @@ export class SubscriptionFormComponent {
     this.subscriptionForm?.patchValue({
       facebook: value?.facebook,
       instagram: value?.instagram,
-      twitter: value?.twitter
+      twitter: value?.twitter,
     })
-  } 
+  }
   public checkdvalue: any
   public document: any
   public isFormFilled: boolean = false
@@ -98,7 +97,7 @@ export class SubscriptionFormComponent {
   ngOnInit() {}
 
   onSelectImage(event: any) {
-    this.files.push(...event.addedFiles)
+    this.files = [...event.addedFiles]
 
     const formData = new FormData()
 
@@ -125,7 +124,7 @@ export class SubscriptionFormComponent {
         const result = reader.result as string
       }
     }
-    console.log(this.files[0] , 'files[0]')
+    console.log(this.files[0], 'files[0]')
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
         this.imageUrl = res.image_url
@@ -148,7 +147,7 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
-      verification_upload: this.imageUrl ,
+      verification_upload: this.imageUrl,
       verified_badge: this.verifiedBadge.value ? 1 : 0,
     }
     if (this.isFormFilled) {

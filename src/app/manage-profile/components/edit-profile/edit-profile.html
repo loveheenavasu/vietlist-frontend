@@ -18,46 +18,36 @@
     </div>
     <div class="form-group">
       <div class="col-12">
-        <input
-          type="text"
-          class="input-control"
-          [(ngModel)]="first_name"
-
-        />
+        <input type="text" class="input-control" [(ngModel)]="first_name" />
       </div>
     </div>
     <div class="form-group">
       <div class="col-12">
-        <input
-          type="text"
-          class="input-control"
-          [(ngModel)]="last_name"
-       
-        />
+        <input type="text" class="input-control" [(ngModel)]="last_name" />
       </div>
     </div>
     <div class="form-group">
       <div class="col-12">
         <ngx-intl-tel-input
-        [cssClass]="'input-control'"
-        [preferredCountries]="preferredCountries"
-        [enableAutoCountrySelect]="true"
-        [enablePlaceholder]="true"
-        [searchCountryFlag]="true"
-        [searchCountryField]="[
+          [cssClass]="'input-control'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[
           SearchCountryField.Iso2,
           SearchCountryField.Name
         ]"
-        [selectFirstCountry]="false"
-        [selectedCountryISO]="CountryISO.India"
-        [maxLength]="15"
-        [phoneValidation]="true"
-        [separateDialCode]="true"
-        [numberFormat]="PhoneNumberFormat.National"
-        name="phone"
-        [(ngModel)]="contact_details"
-      >
-      </ngx-intl-tel-input>
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.India"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          [separateDialCode]="true"
+          [numberFormat]="PhoneNumberFormat.National"
+          name="phone"
+          [(ngModel)]="contact_details"
+        >
+        </ngx-intl-tel-input>
       </div>
     </div>
     <div class="form-group">
