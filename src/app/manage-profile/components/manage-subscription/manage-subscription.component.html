@@ -21,13 +21,7 @@
                   <li>
                     <b>
                       {{
-                        userDetails?.level_id == 2
-                          ? 'Basic Plan'
-                          : userDetails?.level_id == 1
-                            ? 'Free'
-                            : userDetails?.level_id == 3
-                              ? 'Elite'
-                              : ''
+                        subscriptionDetails?.user_membership[0]?.level_name
                       }}
                     </b>
                   </li>
@@ -38,8 +32,12 @@
                   <li class="change_cancel">Cancel Plan</li>
                 </ul>
               </td>
-              <td>Data 2</td>
-              <td>Data 3</td>
+              <td>   {{
+                subscriptionDetails?.user_membership[0]?.billing
+              }}</td>
+              <td>   {{
+                subscriptionDetails?.user_membership[0]?.enddate
+              }}</td>
               <!-- Add more data cells as needed -->
             </tr>
             <!-- Add more rows of data as needed -->
@@ -84,7 +82,7 @@
             @for(key of subscriptionDetails?.invoice_detail ; track $index){
             <tr>
               <td>{{key.formattedTimeStamp}}</td>
-              <td>{{key.membership_id}}</td>
+              <td>{{key.level_name}}</td>
               <td>{{key.total}}</td>
               <td>{{key.status}}</td>
             
