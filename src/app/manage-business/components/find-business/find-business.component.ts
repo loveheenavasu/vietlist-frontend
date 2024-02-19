@@ -57,7 +57,9 @@ export class FindBusinessComponent {
   public totalCount: number = 0
   public price: number = 0
   public slidervalue: number = 0
+  public slideValueStart: number = 0
   public maxPrice: number = 0
+  public minPrice: number = 0
   public latitude: any = []
   public longitude: any = []
   public street: any
@@ -137,7 +139,7 @@ export class FindBusinessComponent {
   public searchBusiness() {
     this.loader = true
     const post_category = this.findBusinessForm.value.post_category
-    const price = this.findBusinessForm.value.slidervalue
+    const price = this.slidervalue
     const postPerPage = 2
     const params: FindBusinessParams = {}
     if (post_category) {
@@ -196,9 +198,9 @@ export class FindBusinessComponent {
   }
 
   public updatePrice(event: any) {
-    console.log('range', this.findBusinessForm.value.slidervalue)
+
     this.price = event.value
-    this.slidervalue = this.findBusinessForm.value.slidervalue
+    this.slidervalue = this.slidervalue
   }
 
   public initMap() {

@@ -3,7 +3,7 @@ import { FullPageLoaderService } from './../../../shared/utils/services/loader.s
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectChange, MatSelectModule } from '@angular/material/select'
 import { NgIf } from '@angular/common'
 import {
   Component,
@@ -16,6 +16,7 @@ import { BusinessService } from 'src/app/manage-business/service/business.servic
 import { register } from 'swiper/element'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
+import { Router } from '@angular/router'
 register()
 
 @Component({
@@ -77,6 +78,7 @@ export class TrendingServicesComponent {
   constructor(
     private businessService: BusinessService,
     private fullPageloader: FullPageLoaderService,
+    private router: Router
   ) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
@@ -165,5 +167,10 @@ export class TrendingServicesComponent {
       },
       error: (error) => { },
     })
+  }
+  onCategorySelectionChange(event: MatSelectChange) {
+    const categoryId = event.value;
+    console.log("check the value of select", categoryId)
+
   }
 }

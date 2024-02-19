@@ -1,6 +1,7 @@
 @import "../../../assets/scss/variables/color";
 
 .container-fluid {
+
     .navbar-brand {
         .logo-container {
             .brand-logo {
@@ -183,6 +184,7 @@
             border-radius: 4px;
             top: 13dvh;
             right: 12%;
+            height: 100%;
             background-color: var(--white);
 
             .search-input {
@@ -194,7 +196,7 @@
                     // width: 433px;
                     background-color: var(--light-grey);
                     border: none;
-
+                    height: 100%;
                 }
             }
 
@@ -203,11 +205,11 @@
                     // width: 399px;s
                     background-color: var(--light-grey);
                     border: none;
-
                 }
 
                 .input-group {
                     flex-wrap: nowrap;
+                    height: 100%;
 
                     .input-group-text {
                         background-color: var(--light-grey);
@@ -473,9 +475,74 @@
     }
 }
 
-@media(min-width:1600px) {
+@media(min-width:1201px) and (max-width:1400px) {
+    .container-fluid {
+        .logo-container {
+            .navbar-brand {
+                img {
+                    width: 150px;
+                }
+            }
+        }
+
+        .offcanvas-body {
+            .list-item {
+                width: 100% !important;
+                margin: 0px;
+
+                .navbar-nav {
+                    .nav-item {
+                        font-size: 14px;
+                        padding: 13px;
+                    }
+                }
+            }
+        }
+
+        .right-nav {
+            width: 35% !important;
+        }
+    }
+}
+
+@media(min-width:1501px) and (max-width:1675px) {
+    .container-fluid {
+        padding: 0px 30px;
+
+        .offcanvas-body {
+            .list-item {
+                width: 57% !important;
+                margin-right: auto !important;
+            }
+
+            .right-nav {
+                width: 20%;
+            }
+        }
+    }
+}
+
+@media(min-width:1676px) and (max-width:1919px) {
     .container-fluid {
         max-width: 1720px;
+        margin-left: 3.313rem;
+        margin-right: 3.313rem;
+
+        .offcanvas-body {
+            .list-item {
+                width: 50% !important;
+                margin-right: auto !important;
+            }
+
+            .right-nav {
+                width: 21%;
+            }
+        }
+    }
+}
+
+@media (min-width:1920px) {
+    .container-fluid {
         margin-left: 6.313rem;
         margin-right: 6.313rem;
     }
