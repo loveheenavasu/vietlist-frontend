@@ -1,5 +1,5 @@
-<section class="px-5">
-  <div class="blog-news-container row">
+<section>
+  <div class="blog-news-container container-fluid g-0 row">
     <div class="text-center heading-small-screen">
       <h1>{{ blogDetail?.blog_section?.title }}</h1>
       <p>
@@ -19,35 +19,35 @@
       </div>
       <div class="blog-card">
         @for (item of blogItem; track $index) {
-          <mat-card class="example-card">
-            <mat-card-header>
-              <div class="img">
-                <img [src]="item.img" />
-              </div>
-            </mat-card-header>
-            <mat-card-content>
-              <span class="date">{{ item.date }}</span>
-              <div class="title">
-                <h2>{{ item.title }}</h2>
-              </div>
-              <div class="description">
-                <p>{{ item.description }}</p>
-              </div>
-              <mat-divider></mat-divider>
-            </mat-card-content>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div class="img">
+              <img [src]="item.img" />
+            </div>
+          </mat-card-header>
+          <mat-card-content>
+            <span class="date">{{ item.date }}</span>
+            <div class="title">
+              <h2>{{ item.title }}</h2>
+            </div>
+            <div class="description">
+              <p class="blog-description">{{ item.description }}</p>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-content>
 
-            <mat-card-footer>
-              <div class="footer d-flex">
-                <div class="profile-image">
-                  <img [src]="item.profileImage" alt="profile-image" />
-                </div>
-                <div class="user-detail">
-                  <h5>{{ item.userName }}</h5>
-                  <p>{{ item.designation }}</p>
-                </div>
+          <mat-card-footer>
+            <div class="footer d-flex">
+              <div class="profile-image">
+                <img [src]="item.profileImage" alt="profile-image" />
               </div>
-            </mat-card-footer>
-          </mat-card>
+              <div class="user-detail">
+                <h5>{{ item.userName }}</h5>
+                <p>{{ item.designation }}</p>
+              </div>
+            </div>
+          </mat-card-footer>
+        </mat-card>
         }
       </div>
     </div>

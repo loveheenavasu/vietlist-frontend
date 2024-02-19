@@ -376,22 +376,42 @@
         <div class="row px-2 my-3">
           <div class="col-12">
             <label for="" class="listing-form-label mb-2">Business Logo</label>
-            <ngx-dropzone (change)="onSelectImage($event)"  
-            (change)="onSelect($event)"
-            [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-              <ngx-dropzone-label
+            <ngx-dropzone
+              (change)="onSelectImage($event)"
+              (change)="onSelect($event)"
+              [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
+            >
+              <ngx-dropzone-label *ngIf="!isImageLoading"
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
                 here or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
                 .webp)</ngx-dropzone-label
               >
+              <div class="loader" *ngIf="isImageLoading"></div>
             </ngx-dropzone>
-      
+
             <div class="main_images mt-3">
-              @for (preview of imagePreviews; track $index) {
-                <div class="images__" *ngIf="preview">
-                  <img [src]="preview" alt="Image Preview" width="150" height="150" />
-                </div>
-              }
+              <div class="images__">
+                @for (preview of imagePreviews; track $index) {
+                  <div class="removeImage">
+                    <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
+                  </div>
+                  <img
+                    *ngIf="preview"
+                    [src]="preview"
+                    alt="Image Preview"
+                    width="150"
+                    height="150"
+                  />
+                } @empty {
+                  <img
+                    *ngIf="businessFormDetails?.logo"
+                    [src]="businessFormDetails.logo"
+                    alt="Image Preview"
+                    width="150"
+                    height="150"
+                  />
+                }
+              </div>
             </div>
             <!-- <div class="row selected-images" *ngIf="isFilesPresent">
               <div class="mx-2">
@@ -466,7 +486,7 @@
     }
 
     @if (businessFormDetails && businessFormDetails?.special_offers) {
-    <app-promotions-form ></app-promotions-form>
+      <app-promotions-form></app-promotions-form>
     }
     <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <!-- <section class="my-4">

@@ -1,6 +1,6 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-
+@import "../../../../assets/scss/image-loader.scss";
 
 .mat-stepper-horizontal {
   margin-top: 8px;
@@ -9,8 +9,19 @@
 .mat-mdc-form-field {
   margin-top: 16px;
 }
-
-
+.images__ {
+  position: relative;
+}
+.removeImage {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  font-size: 18px;
+}
+.removeImage i{
+color: #ff9900;
+cursor: pointer;
+}
 .main-card {
   margin: auto;
   height: auto;
@@ -216,8 +227,8 @@ span.ng-arrow-wrapper {
 
 .select2-selection::ng-deep .ng-option {
   color: black;
-  margin-left: 35px;
-  margin-right: 35px;
+  // margin-left: 35px;
+  // margin-right: 35px;
 }
 
 .select2-selection::ng-deep .ng-option:hover {
@@ -238,6 +249,15 @@ span.ng-arrow-wrapper {
 
 .select2-selection::ng-deep .ng-select-container .ng-arrow-wrapper {
   display: none;
+}
+
+::ng-deep.mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-full.mat-pseudo-checkbox-indeterminate {
+  background-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: #000 !important;
 }
 
 .image-box {

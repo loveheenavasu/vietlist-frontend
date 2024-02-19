@@ -1,5 +1,4 @@
 //Common Styles//
-
 %homepage-banner-button-styles {
   @at-root {
     %hbb-button-styles {
@@ -83,6 +82,10 @@
   transition: background-color 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.3s ease;
 }
 
+.dashboard-heading{
+  font-size: 28px;
+}
+
 
 .input-control {
   width: 100%;
@@ -91,6 +94,7 @@
   height: 40px;
   padding: 10px;
   border-radius: 4px
+
 }
 
 .input-control:focus {

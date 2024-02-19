@@ -8,12 +8,23 @@
 html,
 body {
   height: 100%;
+  font-size: 16px;
 }
 
 html {
   scroll-behavior: smooth;
 }
-
+.removeImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  z-index: 999999;
+}
+.removeImage i{
+color: #ff9900;
+cursor: pointer;
+}
 .listing-heading h3 {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -35,6 +46,7 @@ body {
 
 .swal2-popup.swal2-toast {
   padding: 10px !important;
+  font-size: 16px !important;
 
 }
 
@@ -114,4 +126,20 @@ ngx-intl-tel-input input[disabled] {
   font-weight: 400;
   font-size: 16px;
   color: #757575 !important;
+}
+
+@media(max-width:1500px) {
+
+  html,
+  body {
+    font-size: 14px;
+  }
+}
+
+@media(max-width:768px) {
+
+  html,
+  body {
+    font-size: 10px;
+  }
 }

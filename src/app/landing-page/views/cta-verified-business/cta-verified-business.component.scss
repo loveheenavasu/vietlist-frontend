@@ -2,19 +2,20 @@
 
 .container-fluid {
     background-color: #F2F2F2;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 
     .cta-description {
         width: 55%;
         margin-left: auto;
         margin-right: auto;
-        padding-top: 6.063rem;
-        padding-bottom: 2.375rem;
+
 
         .heading {
 
             h1 {
                 @extend %sh-styles;
-                font-size: 32px;
+                font-size: 2rem;
             }
         }
 
@@ -23,6 +24,8 @@
 
             p {
                 @extend %ssh-styles;
+                margin-top: 0px;
+                margin-bottom: 16px;
             }
 
         }
@@ -44,7 +47,7 @@
             width: 95%;
             margin-left: auto;
             margin-right: auto;
-            padding-bottom: 2.25rem;
+            // padding-bottom: 2.25rem;
 
 
             .mySwiper {
@@ -64,8 +67,8 @@
 }
 
 swiper-container {
-    width: 90%;
-    height: 26rem;
+    width: 100%;
+    height: 356px;
     margin: 20px auto;
 }
 
@@ -94,16 +97,84 @@ swiper-container::part(bullet) {
 @media (max-width:1500px) {
 
     swiper-container {
-        width: 100%;
+        width: 100% !important;
+    }
+
+    swiper-container::part(button-next) {
+        right: -2rem !important;
+
+    }
+
+    swiper-container::part(button-prev) {
+        left: -2rem !important;
 
     }
 }
 
 @media (max-width:768px) {
-    .cta-description {
-        width: 100% !important;
-        padding-left: 10px;
-        padding-right: 10px;
+    .container-fluid {
+        padding-top: 3.2rem;
         padding-bottom: 0px !important;
+
+        .cta-description {
+            width: 100% !important;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 0px !important;
+
+            .heading {
+                h1 {
+                    font-size: 2.4rem;
+                }
+            }
+
+            .description {
+                p {
+                    padding: 0px 12px;
+                    margin-bottom: 24px;
+                }
+            }
+
+            .verified-business-btn {
+                .btn {
+                    font-size: 1.6rem;
+                }
+            }
+        }
     }
+
+    swiper-container {
+        height: 407px;
+        margin: 0px !important;
+    }
+
+    swiper-container::part(button-next) {
+        color: #F89705 !important;
+        right: -1rem !important;
+        width: 35px !important;
+        height: 35px !important;
+    }
+
+    swiper-container::part(button-prev) {
+        color: #F89705 !important;
+        left: -1rem !important;
+        width: 35px !important;
+        height: 35px !important;
+    }
+}
+
+swiper-container::part(button-next) {
+    color: #F89705 !important;
+    right: -4rem;
+
+}
+
+swiper-container::part(button-prev) {
+    color: #F89705 !important;
+    left: -4rem;
+
+}
+
+swiper-container::part(container) {
+    position: initial;
 }

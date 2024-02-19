@@ -27,7 +27,8 @@ export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
   fileInput!: ElementRef<HTMLInputElement>
   public sidebarMenu: ProfileMenu[] = []
-  public userEmail: any
+  public userFirstName: any
+  public userLastName: any
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
@@ -38,18 +39,18 @@ export class ManageProfileComponent {
     private router: Router,
     private profileService: ProfileService,
   ) {
-    this.getSidebarLinks()
+    // this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
-    this.userEmail = data?.user_email
+    this.userFirstName = data?.first_name
+    this.userLastName = data?.last_name
+    console.log(data)
     this.fetchProfileDetail()
     this.activeIndex = this.router.url
-  }
-
-  public getSidebarLinks() {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
     })
   }
+  
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -74,7 +75,7 @@ export class ManageProfileComponent {
   }
 
   private uploadImage(arrayBuffer: ArrayBuffer) {
-    this.isUploading = true; // Set uploading flag
+    this.isUploading = true // Set uploading flag
     console.log('array buffer', arrayBuffer)
     const blob = new Blob([arrayBuffer], { type: 'image/jpeg' })
     console.log('check blob', blob)
@@ -88,10 +89,10 @@ export class ManageProfileComponent {
       next: (res: any) => {
         this.imgUrl = res.data.user.user_image
         this.fetchProfileDetail()
-        this.isUploading = false; // Reset upl
+        this.isUploading = false // Reset upl
       },
       error: (err: any) => {
-          this.isUploading = false; // Reset upl
+        this.isUploading = false // Reset upl
       },
     })
   }
@@ -113,12 +114,13 @@ export class ManageProfileComponent {
       },
     })
   }
+  
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
   }
 
-  public viewFullEmail() {
-    this.showFullEmail = !this.showFullEmail
-  }
+  // public viewFullEmail() {
+  //   this.showFullEmail = !this.showFullEmail
+  // }
 }

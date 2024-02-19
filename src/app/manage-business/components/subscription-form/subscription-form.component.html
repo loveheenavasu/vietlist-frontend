@@ -25,19 +25,27 @@
         <label for="" class="listing-form-label mb-2"
           >Verification upload</label
         >
-        <ngx-dropzone (change)="onSelect($event)" [accept]="'.pdf,.doc,.docx'">
-          <ngx-dropzone-label>
-            <i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
-            or Browse a file (Allowed .pdf , .docx, .doc)
-          </ngx-dropzone-label>
+
+        <ngx-dropzone
+          (change)="onSelectImage($event)"
+          [accept]="'.pdf,.doc,.docx'"
+        >
+          <ngx-dropzone-label *ngIf="!isImageUploading"
+            ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+            or Browse a file (Allowed .pdf , .docx, .doc)</ngx-dropzone-label
+          >
+          <div *ngIf="isImageUploading" class="loader"></div> 
         </ngx-dropzone>
 
-        <p *ngIf="lastPart">
-          {{ lastPart }}
-          <a href="{{ verification_upload }}" target="_blank"
-            ><i class="fa fa-external-link" aria-hidden="true"></i
-          ></a>
-        </p>
+        <div class="main_images mt-3">
+          <div class="images__">
+            @if (files[0]) {
+              <p>{{ files[0].name }}</p>
+            } @else {
+              <p>{{businessFormDetails?.verification_upload}}</p>
+            }
+          </div>
+        </div>
       </div>
     </div>
   }

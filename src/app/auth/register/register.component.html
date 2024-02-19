@@ -118,18 +118,45 @@
         </div>
 
         <div class="col-12">
-          <div class="form-group">
-            <input
-              class="input-control"
-              type="password"
-              formControlName="confirm_password"
-              placeholder="Confirm Password"
-              appFormControlValidation
-              [validationMsgId]="'confirm-password-required-msg'"
-            />
-            <!-- <span class="error-message" *ngIf="passwordsMismatch()">
-              Confirm Password does not match
-            </span> -->
+          <div class="form-group mt-3">
+            <div class="col-12">
+              <div class="input-group">
+                <input
+                  class="input-control"
+                  [type]="!isHideConfirmPassword ? 'password' : 'text'"
+                  placeholder="Confirm Password"
+                  formControlName="confirm_password"
+                />
+                <span
+                  class="input-group-text"
+                  id="basic-addon2"
+                  (click)="hideConfirmPassword()"
+                >
+                  <i
+                    *ngIf="!isHideConfirmPassword"
+                    class="fa fa-eye-slash"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
+                  <i
+                    *ngIf="isHideConfirmPassword"
+                    class="fa fa-eye"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
+                </span>
+              </div>
+              <p
+                class="error-message"
+                *ngIf="
+                  (signupForm.get('confirm_password')?.touched ||
+                  signupForm.get('confirm_password')?.dirty) &&
+                  signupForm.get('confirm_password')?.errors
+                "
+              >
+                Confirm Password doesn't match with Password.
+              </p>
+            </div>
           </div>
         </div>
         @if (selectedSignupType == userRole.businessOwner) {
@@ -160,7 +187,6 @@
             ]"
             [selectFirstCountry]="false"
             [selectedCountryISO]="CountryISO.India"
-            [maxLength]="15"
             [phoneValidation]="true"
             [separateDialCode]="true"
             [numberFormat]="PhoneNumberFormat.National"

@@ -1,7 +1,5 @@
 import { Output, EventEmitter, ChangeDetectorRef } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
 import { NgFor, NgIf } from '@angular/common'
-import { HttpClient } from '@angular/common/http'
 import { Component, Input } from '@angular/core'
 import {
   FormBuilder,
@@ -34,19 +32,23 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrl: './subscription-form.component.scss',
 })
 export class SubscriptionFormComponent {
-  verified_badge: any
-  verification_upload: any
-  lastPart!: string
-  check!: boolean
+  public verified_badge: any
+  public verification_upload: any
+  public lastPart!: string
+  public check!: boolean
+  public imagePreviews: any
+  public imageUrl: any
+  public filess: any
+  public businessFormDetails: any
+  public isImageUploading:boolean = false
+
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
-    console.log(value)
+    this.businessFormDetails = value || undefined
     this.verified_badge = value?.verified_badge
     if (this.verified_badge == '1') {
-      console.log('trueeee')
       this.check = true
     } else {
-      console.log('trueeee2')
       this.check = false
     }
     this.verification_upload = value?.verification_upload
@@ -57,25 +59,22 @@ export class SubscriptionFormComponent {
     this.subscriptionForm?.patchValue({
       facebook: value?.facebook,
       instagram: value?.instagram,
-      twitter: value?.twitter
+      twitter: value?.twitter,
     })
-  } 
-  checkdvalue: any
-  document: any
+  }
+  public checkdvalue: any
+  public document: any
   public isFormFilled: boolean = false
   public isLoader: boolean = false
-  title = 'dropzone'
-  files: File[] = []
+  public title = 'dropzone'
+  public files: File[] = []
   public verifiedBadge = new FormControl(false)
   public subscriptionForm: FormGroup
   public filesString: any
   public postId: any
   constructor(
-    private http: HttpClient,
     private fb: FormBuilder,
     private businessService: BusinessService,
-    private route: ActivatedRoute,
-    private router: Router,
     private localstorage: LocalStorageService,
     private cdr: ChangeDetectorRef,
   ) {
@@ -96,65 +95,48 @@ export class SubscriptionFormComponent {
     this.isFormFilled = Boolean(isFormFIlled)
   }
 
-  // onSelect(event: any) {
-  //   console.log(event.addedFiles)
-  //   this.files.push(...event.addedFiles)
-
-  //   const formData = new FormData()
-
-  //   for (var i = 0; i < this.files.length; i++) {
-  //     formData.append('file[]', this.files[i])
-  //   }
-
-  // }
-
-  // onRemove(event: any) {
-  //   console.log(event)
-  //   this.files.splice(this.files.indexOf(event), 1)
-  // }
   ngOnInit() {}
 
-  public onSelect(event: any) {
-    console.log(event.addedFiles)
-    this.files.push(...event.addedFiles)
-    this.filesString = this.files.map((file) => file.name).join(', ')
-    console.log(this.filesString)
+  onSelectImage(event: any) {
+    this.files = [...event.addedFiles]
 
-    console.log(this.files)
+    const formData = new FormData()
 
-    if (event.addedFiles.length > 1) {
-      Swal.fire({
-        toast: true,
-        text: 'You can only upload one file.',
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      })
-    } else {
-      this.files.push(...event.addedFiles)
-      this.filesString = this.files.map((file) => file.name).join(', ')
-      // this.isFilesPresent = true;
-      const file = event.addedFiles[0]
-      this.businessService.uploadMedia(this.files[0]).subscribe({
-        next: (res: any) => {
-          this.document = res.image_url
-          this.verification_upload = res.image_url
-          const parts: string[] = this.verification_upload.split('/')
-          this.lastPart = parts[parts.length - 1]
-        },
-        error: (err: any) => {
-          // Handle errors
-        },
-      })
+    for (var i = 0; i < this.files.length; i++) {
+      console.log(this.files[i], 'this.files[i]')
+      formData.append('file[]', this.files[i])
     }
+    this.displayImagePreviews()
   }
+  displayImagePreviews() {
+    this.isImageUploading = true
+    // Assuming you have an array to store image URLs for preview
+    this.imagePreviews = []
 
-  public onRemove(event: any) {
-    console.log(event)
-    this.files.splice(this.files.indexOf(event), 1)
+    // Loop through each file
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i]
+      const reader = new FileReader()
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file)
+
+      // Define the onload event handler
+      reader.onload = () => {
+        const result = reader.result as string
+      }
+    }
+    console.log(this.files[0], 'files[0]')
+    this.businessService.uploadMedia(this.files[0]).subscribe({
+      next: (res: any) => {
+        this.isImageUploading = false
+        this.imageUrl = res.image_url
+        this.imagePreviews.push(res.image_url)
+      },
+      error: (err: any) => {
+        // Handle errors
+      },
+    })
   }
 
   public getSafeURL(file: File): any {
@@ -168,7 +150,7 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
-      verification_upload: this.document,
+      verification_upload: this.imageUrl,
       verified_badge: this.verifiedBadge.value ? 1 : 0,
     }
     if (this.isFormFilled) {

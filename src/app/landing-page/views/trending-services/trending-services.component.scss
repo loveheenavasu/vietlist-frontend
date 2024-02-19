@@ -4,28 +4,50 @@
 
 
 .buisness-cat {
-  padding: 6rem 0rem;
+  padding: 6rem 6.25rem;
 }
 
 .container-fluid {
   background-color: #F2F2F2;
 
   .heading {
-    margin-bottom: 24px
+    margin-bottom: 24px;
+
+
+    h1 {
+      @extend %sh-styles;
+    }
+
+    p {
+      @extend %ssh-styles
+    }
   }
 
-  h1 {
-    @extend %sh-styles;
-  }
-
-  p {
-    @extend %ssh-styles
-  }
-
-  ;
 
   .heading {
     @extend %shm-styles;
+  }
+
+  .category-select {
+    margin-right: 10px;
+    width: 50%;
+
+    .mat-mdc-select {
+      padding: 7px 10px !important;
+    }
+  }
+
+  .address-input {
+    width: 50%;
+
+    .input-control {
+      height: 55px !important;
+      // font-size: 14px !important;
+    }
+
+    ::ng-deep input::placeholder {
+      font-size: 14px;
+    }
   }
 
   .search-form {
@@ -129,18 +151,19 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        top: 0;
+        top: 15px;
 
         .trending {
           position: absolute;
           top: 0;
-          right: 15px;
+          right: 24px;
 
           .trending-text {
             background-color: var(--primary-color-orange);
             color: var(--white);
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 4px;
+            font-size: 0.875rem;
           }
         }
 
@@ -152,6 +175,7 @@
           width: 100%;
 
           h3 {
+            padding: 0px 10px;
             color: var(--white);
           }
         }
@@ -177,7 +201,7 @@
 
 swiper-container {
   width: 90%;
-  height: 28rem;
+  // height: 27rem;
   margin: 20px auto;
 }
 
@@ -191,36 +215,49 @@ swiper-slide {
 }
 
 .search-fields {
-  width: 54.26%;
-  margin: auto
+  width: 52.27%;
+  margin: auto;
+
+  .search-btn-container {
+    margin-left: 18px !important;
+  }
 }
 
 .search-btn {
   background-color: var(--primary-color-orange);
-  width: fit-content;
-  padding: 8px 12px;
+  width: 55px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: #fff;
   cursor: pointer;
   border-radius: 5px;
 }
 
-swiper-container::part(bullet-active) {
-  background-color: #F89705;
-  width: 28px;
-  height: 13.94px;
-  border-radius: 10px;
-}
 
-swiper-container::part(bullet) {
-  width: 13.94px;
-  height: 13.94px;
-  border-radius: 50%;
-}
 
-@media (max-width: 500px) {
-  .container-fluid {
-    padding-bottom: 45px;
+@media (max-width: 768px) {
+  .buisness-cat {
+    padding: 4.6rem 2.2rem;
+
+    .heading {
+      p {
+        font-size: 1.6rem;
+      }
+    }
+
+    .category-select {
+      width: 100%;
+      margin-bottom: 1.6rem !important;
+    }
+
+    .address-input {
+      width: 100%;
+      margin-bottom: 1.6rem !important;
+    }
   }
 
   .search-fields {
@@ -253,6 +290,24 @@ swiper-container::part(bullet) {
     }
   }
 
+  swiper-container {
+    width: 90% !important;
+
+  }
+
+  swiper-container::part(button-next) {
+    color: #F89705 !important;
+    right: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  swiper-container::part(button-prev) {
+    color: #F89705 !important;
+    left: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
+  }
 
 }
 
@@ -260,4 +315,25 @@ swiper-container::part(bullet) {
   .Categories-swiper-container {
     width: 100%;
   }
+
+  swiper-container {
+    width: 100%;
+    // height: 45rem;
+  }
+}
+
+swiper-container::part(button-next) {
+  color: #F89705 !important;
+  right: -4rem;
+
+}
+
+swiper-container::part(button-prev) {
+  color: #F89705 !important;
+  left: -4rem;
+
+}
+
+swiper-container::part(container) {
+  position: initial;
 }

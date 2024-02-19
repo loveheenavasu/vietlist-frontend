@@ -1,13 +1,21 @@
 @import "../../../../assets/scss/common";
+@import "../../../../assets/scss/table.scss";
 
 .container-fluid{
     margin-top:3rem
+}
+
+h3{
+    font-size:28px;
 }
 
 h5{
     color:rgb(82, 82, 82);
     font-size:25px;
     font-weight:500
+}
+p{
+    font-size:15px
 }
 
 ul{
@@ -53,30 +61,3 @@ ul{
 .mat-button-toggle-checked {
     background-color:blue;
 } 
-
-.table-responsive {
-    overflow-x: auto;
-  }
-  
-  /* Optional: Add styling for the table */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  /* Optional: Style table for smaller screens */
-  @media screen and (max-width: 600px) {
-    th, td {
-      font-size: 12px;
-    }
-  }
-  

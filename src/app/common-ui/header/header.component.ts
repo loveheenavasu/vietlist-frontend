@@ -130,6 +130,14 @@ export class HeaderComponent {
       this.router.navigateByUrl('/manage-profile')
     }
   }
+  
+  @HostListener('document:click', ['$event'])
+  handleClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.search-box')) {
+      this.isSearchInputVisible = false;
+    }
+  }
 
   public handleSearchFiled() {
     if (this.isSearchInputVisible) {

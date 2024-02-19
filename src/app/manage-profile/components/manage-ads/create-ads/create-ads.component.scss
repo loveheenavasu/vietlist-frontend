@@ -1,0 +1,29 @@
+@import "../../../../../assets/scss/common.scss";
+@import "../../../../../assets/scss/table";
+
+
+.input-group {
+    position: relative;
+
+    .fa.fa-calendar-o {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+}
+
+.col__ {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+/* Custom styles for the active tab */
+::ng-deep .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.ng-star-inserted.mdc-tab--active.mdc-tab-indicator--active {
+    color: blue;
+    border: solid 1px gray!important;
+   border-bottom: 0px;
+}
+  

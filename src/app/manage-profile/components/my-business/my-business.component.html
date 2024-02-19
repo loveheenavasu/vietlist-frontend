@@ -34,7 +34,7 @@
       </div>
     </div> -->
   <div class="heading_____">
-    <h2>Business Listing</h2>
+    <h3 class="dashboard-heading">Business Listing</h3>
     <button
       class="btn orange-background-btn mx-1"
       routerLink="/list-business"
@@ -67,7 +67,7 @@
           @for (key of businessArray; track $index) {
             <div class="grid-card col-lg-5">
               <div class="listing-img" *ngIf="key.image !== null">
-                <img [src]="key.image" />
+                <img [src]="key.image[0]" />
               </div>
               <div class="listing-img" *ngIf="key.image == null">
                 <img src="../../../../assets/image/No-image-found.jpeg" />
@@ -79,22 +79,25 @@
                   </h3>
                 </div>
                 <div class="listing-info">
-                  <p>
-                    {{ key.post_content }}
+                  <p >
+                    {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
                   </p>
-                  <button
-                    class="btn orange-background-btn"
-                    (click)="deleteBusiness(key.post_id)"
-                  >
-                    Delete
-                  </button>
-                  <button
-                    class="btn orange-background-btn mx-1"
-                    (click)="viewBusiness(key.post_id)"
-                  >
-                    View
-                  </button>
+                  
+               
                 </div>
+
+                <button
+                class="btn orange-background-btn"
+                (click)="deleteBusiness(key.post_id)"
+              >
+                Delete
+              </button>
+              <button
+                class="btn orange-background-btn mx-1"
+                (click)="viewBusiness(key.post_id)"
+              >
+                View
+              </button>
                 <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>
                 </div> -->
@@ -123,10 +126,10 @@
             <div class="d-flex small-screen-view">
               <div class="listing-img-container">
                 <div class="listing-img" *ngIf="key.image">
-                  <img [src]="key.image" />
+                  <img [src]="key.image[0]" />
                 </div>
-                <div class="listing-img" *ngIf="key.image == null">
-                  <img src="../../../../assets/image/No-image-found.jpeg" />
+                <div class="listing-img" *ngIf="key.image == []">
+                  <img src="/assets/image/No-image-found.jpeg" />
                 </div>
               </div>
               <div class="listing-img-info">
@@ -135,8 +138,11 @@
                 </div>
                 <div class="listing-info">
                   <p>
-                    {{ key.post_content }}
+                    {{ key.post_content.length > 40 ? (key.post_content.slice(0, 37) + '...') : key.post_content }}
                   </p>
+                  
+                    
+                  
                   <button
                     class="btn orange-background-btn"
                     (click)="deleteBusiness(key.post_id)"

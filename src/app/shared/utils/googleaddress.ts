@@ -53,6 +53,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
       },
     )
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
+      console.log(autocomplete)
       const place = autocomplete.getPlace()
       this.invokeEvent(place)
       // Trigger reverse geocoding
