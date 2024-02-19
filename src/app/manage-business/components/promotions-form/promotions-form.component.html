@@ -75,13 +75,15 @@
       <!--a dropzone-->
       <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
       <label for="" class="listing-form-label mb-2">Upload certificates</label>
-      <ngx-dropzone (change)="onSelectImage($event)">
-        <ngx-dropzone-label>
-          <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here or
-          Browse a file (Allowed .png, .png, .png, .jpeg , .jpg. .webp)
-        </ngx-dropzone-label>
+
+      <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+        <ngx-dropzone-label *ngIf="!isImageUploading"
+          ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
+          Browse a file (You can upload multiple videos)</ngx-dropzone-label
         >
+        <div *ngIf="isImageUploading" class="loader"></div> 
       </ngx-dropzone>
+  
       <div class="main_images mt-1">
         @for (preview of imagePreviews; track $index) {
           <div class="images__" *ngIf="preview">
@@ -170,13 +172,16 @@
       </div>
       </div> -->
     <div style="width: 100%; text-align: end">
-      <button type="button" class="btn orange-background-btn ms-auto" (click)="handleFinalSubmission()" [disabled]="!term_and_condition.value || !recaptcha.value">
-        
-        @if(isLoader){
+      <button
+        type="button"
+        class="btn orange-background-btn ms-auto"
+        (click)="handleFinalSubmission()"
+        [disabled]="!term_and_condition.value || !recaptcha.value"
+      >
+        @if (isLoader) {
           <app-loader></app-loader>
-        }@else {
-        <span>Next</span>
-
+        } @else {
+          <span>Next</span>
         }
       </button>
     </div>

@@ -1,3 +1,4 @@
+import { filter } from 'rxjs';
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import {
@@ -46,11 +47,13 @@ export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
+    console.log(value);
     this.imagePreviews = value.image
-    const video: HTMLVideoElement = document.createElement('video')
-    // video.src = videoUrl
-    video.src = value.video_upload
-    this.video_upload = value.video_upload
+    // const video: HTMLVideoElement = document.createElement('video')
+    // // video.src = videoUrl
+    // video.src = value.video_upload
+    this.video_upload = value?.video_upload || [];
+    
     const controls = [
       'consultation_booking_link',
       'consultation_mode',
@@ -68,9 +71,9 @@ export class ConsultationFormComponent {
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
-  public video_upload: any
+  public video_upload: any[] = [];
   public daysName: any
-  public vediosUrl: any
+  public vediosUrl: any[] = [];
   public startTime: any
   public endTime: any
   public jsonString: any
@@ -92,13 +95,26 @@ export class ConsultationFormComponent {
     region: string
     timeZones: { country: string; offset: string }[]
   }[] = []
-
+public isVideoUploading:boolean = false
+public isImageUploading:boolean = false
   public timeZones: {
     region: string
     zones: { name: string; offset: string }[]
   }[] = []
-
+  public selectedWeek: string[] = []
   public isLastRemoved: boolean[] = []
+  public imageUrlsArr:any[]=[]
+
+
+/**
+ * 
+ * @param http 
+ * @param renderer 
+ * @param fb 
+ * @param businessService 
+ * @param router 
+ * @param localstorage 
+ */
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -148,7 +164,8 @@ export class ConsultationFormComponent {
 
     const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
-  }
+  }//end constrctor 
+
 
   formatData() {
     this.formattedData = []
@@ -165,6 +182,7 @@ export class ConsultationFormComponent {
   onTimeZoneChange(event: any) {
     this.selectedTimeZone = event
   }
+
   onInputChange(event: Event): void {
     const target = event.target as HTMLInputElement
     if (target) {
@@ -204,67 +222,65 @@ export class ConsultationFormComponent {
     // Handle the uploaded video files
     videoFiles.forEach((file) => {
       const reader = new FileReader()
-
+      this.isVideoUploading = true
       reader.onload = () => {
         const videoUrl = reader.result as string
-
-        // Declare the video variable
-        const video: HTMLVideoElement = document.createElement('video')
-        // video.src = videoUrl
-        this.video_upload = video.src
+        // const video: HTMLVideoElement = document.createElement('video')
+        // this.video_upload = video.src
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
-            this.video_upload = res.image_url
-            // this.verification_upload = res.image_url
-            this.vediosUrl = res.image_url
+            this.isVideoUploading = false
+            this.video_upload = [...this.video_upload, res.image_url]
+            console.log(this.video_upload)
+            this.vediosUrl = [...this.vediosUrl, res.image_url]
           },
           error: (err: any) => {
             // Handle errors
           },
         })
-        video.controls = true // Add controls to the video element
-        video.width = 320 // Set the width of the video element
-        video.height = 240 // Set the height of the video element
-        video.style.cssText = `
-        margin:10px; 
-        object-fit:cover;
-        `
-        // Create the video container
-        const videoElement = document.createElement('div')
-        videoElement.classList.add('video-preview') // Add a class for styling purposes
+        // video.controls = true // Add controls to the video element
+        // video.width = 320 // Set the width of the video element
+        // video.height = 240 // Set the height of the video element
+        // video.style.cssText = `
+        // margin:10px; 
+        // object-fit:cover;
+        // `
+        // // Create the video container
+        // const videoElement = document.createElement('div')
+        // videoElement.classList.add('video-preview') // Add a class for styling purposes
 
-        // Create remove button
-        const removeButton = document.createElement('button')
-        removeButton.classList.add('remove_button')
-        removeButton.textContent = 'Remove'
-        removeButton.style.cssText = `
-  background: orange;
-  display: block;
-  width: 94.7%;
-  margin: auto;
-  color: #fff;
-  border: 0;
-  margin-top: -12px;
-`
+        // // Create remove button
+        // const removeButton = document.createElement('button')
+        // removeButton.classList.add('remove_button')
+        // removeButton.textContent = 'Remove'
+        // removeButton.style.cssText = `
+        // background: orange;
+        // display: block;
+        // width: 94.7%;
+        // margin: auto;
+        // color: #fff;
+        // border: 0;
+        // margin-top: -12px;
+        //   `
 
-        removeButton.addEventListener('click', () => {
-          this.onRemove(videoElement)
-        })
+        // removeButton.addEventListener('click', () => {
+        //   this.onRemove(videoElement)
+        // })
 
-        videoElement.appendChild(video)
-        videoElement.appendChild(removeButton)
+        // videoElement.appendChild(video)
+        // videoElement.appendChild(removeButton)
 
-        // Get the video container element
-        const videoContainer = document.getElementById(
-          'video-preview-container',
-        )
+        // // Get the video container element
+        // const videoContainer = document.getElementById(
+        //   'video-preview-container',
+        // )
 
-        // Ensure that the video container exists before appending the video element
-        if (videoContainer) {
-          videoContainer.appendChild(videoElement)
-        } else {
-          console.error('Video preview container not found.')
-        }
+        // // Ensure that the video container exists before appending the video element
+        // if (videoContainer) {
+        //   videoContainer.appendChild(videoElement)
+        // } else {
+        //   console.error('Video preview container not found.')
+        // }
       }
       reader.readAsDataURL(file)
     })
@@ -280,19 +296,14 @@ export class ConsultationFormComponent {
   //   this.videoContainer.splice(this.videoContainer.indexOf(this.videoContainer), 1)
   // }
   onSelectImage(event: any) {
-    this.files.push(...event.addedFiles)
-
-    const formData = new FormData()
-
-    for (var i = 0; i < this.files.length; i++) {
-      console.log(this.files[i], 'this.files[i]')
-      formData.append('file[]', this.files[i])
-    }
+    this.files = [...event.addedFiles]
     this.displayImagePreviews()
   }
+
   displayImagePreviews() {
+    this.isImageUploading = true
     // Assuming you have an array to store image URLs for preview
-    this.imagePreviews = []
+    this.imagePreviews = [...this.imagePreviews];
 
     // Loop through each file
     for (let i = 0; i < this.files.length; i++) {
@@ -313,6 +324,7 @@ export class ConsultationFormComponent {
     }
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
+        this.isImageUploading = false
         this.imageUrl = res.image_url
         this.imagePreviews.push(res.image_url)
       },
@@ -335,7 +347,7 @@ export class ConsultationFormComponent {
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
   }
-  selectedWeek: string[] = []
+
   onWeekSelect(dayName: string, event: Event) {
     const checked = (event.target as HTMLInputElement).checked
 
@@ -350,11 +362,12 @@ export class ConsultationFormComponent {
 
   removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
-
     this.isLastRemoved[dayIndex] = this.days[dayIndex].times.length === 0
   }
 
+
   public addBusiness(): void {
+    this.isLoader = true
     const selectedDaysData = this.days.filter((day) =>
       this.selectedWeek.includes(day.name),
     )
@@ -393,13 +406,13 @@ export class ConsultationFormComponent {
       video_url: this.ConsultationForm.value.video_url,
       business_hours: businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
-      video_upload: this.vediosUrl,
-      image: this.imageUrl,
-     
+      video_upload: this.vediosUrl?.filter((item: any) => item ? true : false),
+      image: this.imagePreviews?.filter((item: any) => item ? true : false)
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
         next: (res: any) => {
+          this.isLoader = false
           if (res) {
             this.isLoader = false
             this.consultationFormSubmit.emit()
@@ -408,6 +421,9 @@ export class ConsultationFormComponent {
             this.isFormFilled = true
           }
         },
+        error:(err)=>{
+          this.isLoader = false
+        }
       })
     } else if (this.isFormFilled) {
       this.businessService.updateBusiness(body).subscribe({
@@ -418,6 +434,9 @@ export class ConsultationFormComponent {
           this.businessService.isConsultationFormFilled.next(true)
           this.isFormFilled = true
         },
+        error:(err)=>{
+          this.isLoader = false
+        }
       })
     }
   }

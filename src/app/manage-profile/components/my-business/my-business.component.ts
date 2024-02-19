@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ProfileService } from './../../service/profile.service'
 import { MatIconModule } from '@angular/material/icon'
 import { Component } from '@angular/core'
@@ -10,7 +11,7 @@ import { Router, RouterLink } from '@angular/router'
 @Component({
   selector: 'app-my-business',
   standalone: true,
-  imports: [MatIconModule, NgClass, NgIf, RouterLink],
+  imports: [MatIconModule, NgClass, NgIf, RouterLink , MatTooltipModule],
   templateUrl: './my-business.component.html',
   styleUrl: './my-business.component.scss',
 })

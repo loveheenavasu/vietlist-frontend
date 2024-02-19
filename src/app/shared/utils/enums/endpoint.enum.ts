@@ -30,5 +30,8 @@ export enum Endpoints {
   DeleteAccount = 'delete_user_account',
   NotificaionAllow = 'profile_notification_setting',
   FreeSubscriptionAPI = 'subscription',
-  GetNotificationsetting = 'get_profile_notification_setting'
+  GetNotificationsetting = 'get_profile_notification_setting',
+  UserSubscriptionDetails = 'user_subscription_detail_get',
+  ListingPrivacySet = 'listing_privacy_set',
+  GetSetPrivacy = 'listing_privacy_get'
 }

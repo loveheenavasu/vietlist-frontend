@@ -1,22 +1,11 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-
-
+@import "../../../../assets/scss/image-loader.scss";
 .upload-instruction {
     color: #6c757d;
     font-size: 12px;
 }
-.main_images .images__ {
-    margin-right: 15px;
-    margin-top: 13px;
-    object-fit: cover;
-}
-.main_images {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: scroll;
-}
+
 div#video-preview-container{
     // text-align: center;
     display: flex;
@@ -80,18 +69,12 @@ video{
     min-height: 0px;
     border-radius: 0;
     background: #F2F2F2;
-    // border : solid 1px rgba(128, 128, 128, 0.1882352941) !important;
-    // border: 0;
+
     height: 45px;
     border-radius: 6px;
     border: 0px !important;
   }  
-//   .select2-selection::ng-deep .ng-select-container .ng-value {  
-//     background-color: #ff9900 !important;
-//     border: 1px solid #f90 !important;
-//     color: #fff !important;
-//     margin-right: 10px !important;
-//   }  
+
   
   .select2-selection::ng-deep .ng-select-container .ng-value .ng-value-icon{  
    

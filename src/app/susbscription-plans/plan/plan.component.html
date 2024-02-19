@@ -25,6 +25,7 @@
                 </div>
                 <div class="ml-2"><span>/per Month</span></div>
               </div>
+<<<<<<< HEAD
             </div>
             <div class="plan-list">
               <ul>
@@ -42,6 +43,26 @@
                 isAuthenticated === true ? 'Choose Plan' : 'Sign me up !'
                 }}
               </button>
+=======
+              <div class="plan-list">
+                <ul>
+                  @for (
+                    item of getDescriptionItems(plan.description);
+                    track $index
+                  ) {
+                    <li><span class="tick-icon"></span> {{ item }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="plan-action">
+                <button
+                  class="btn orange-background-btn"
+                  (click)="navigateToConfirmPayment(plan.id)"
+                >
+                  {{userDetails?.level_id ===  plan.id ? 'Active' : 'Choose Plan'}}
+                </button>
+              </div>
+>>>>>>> 0c3af6e00bf5ae6cc59b0f90126b5421e959838a
             </div>
           </div>
         </div>

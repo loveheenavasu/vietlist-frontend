@@ -11,27 +11,34 @@
         <div class="sidebar-cnt">
           <div class="sidebar-items">
             <div class="upload-profile">
-              <div class="profile-pic-div" [ngClass]="{ 'uploading': isUploading }">
+              <div
+                class="profile-pic-div"
+                [ngClass]="{ 'uploading': isUploading }"
+              >
                 <div class="image">
                   <img *ngIf="imgUrl" [src]="imgUrl" alt="profile" />
                 </div>
                 <label class="custom-file-upload">
-                  <input #fileInput type="file" (change)="handleFileInput($event)" />
+                  <input
+                    #fileInput
+                    type="file"
+                    (change)="handleFileInput($event)"
+                  />
                   <div class="d-flex justify-content-center icon">
                     <i class="fa fa-camera" (click)="openFileInput($event)"></i>
                   </div>
                 </label>
               </div>
-              
             </div>
-            <p
+            <!-- <p
               class="user-email"
               #tooltip="matTooltip"
               matTooltip="{{userEmail}}"
             >
               {{ userEmail.length > 19 ? userEmail.slice(0, 19) + '...' :
               userEmail }}
-            </p>
+            </p> -->
+            <p class="user-email">{{userFirstName}} {{userLastName}}</p>
 
             <div class="tabs_responsive">
               <ul>
