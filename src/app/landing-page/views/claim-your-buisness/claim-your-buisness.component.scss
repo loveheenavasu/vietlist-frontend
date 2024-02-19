@@ -26,21 +26,23 @@
         .content {
             position: relative;
             z-index: 2; // Ensure the content is on top of the overlay
-            width: 700px;
+            width: 40%;
             text-align: center;
-            margin-top: 22px;
+            // margin-top: 22px;
 
             h1 {
                 font-weight: var(--font-weight-semibold);
                 color: var(--light-grey);
-                font-size: 32px;
+                font-size: 2rem;
+                margin-bottom: 14px;
             }
 
             p {
                 font-weight: var(--font-weight-light);
                 color: #FFFFFF;
-                font-size: 19px;
-                margin-top: 10px;
+                font-size: 1.5rem;
+                margin-top: 0.625rem;
+                margin-bottom: 2.938rem;
             }
 
             .find-buisness-btn {
@@ -70,6 +72,17 @@
             }
         }
     }
+
+    .claim-container {
+        padding: 0rem 6.25rem;
+        padding-bottom: 5.813rem;
+
+        .card {
+            .d-flex {
+                gap: 36px;
+            }
+        }
+    }
 }
 
 .container {
@@ -83,9 +96,9 @@
     border-radius: 30px;
     background-color: var(--light-grey-2);
     box-shadow: 4px 10px 34px 0px rgba(0, 0, 0, 0.09);
-    padding: 20px;
+    padding: 20px 10px 20px 32px;
     height: auto; // Set the height as a percentage
-    margin-top: 40px;
+    margin-top: 1.5rem;
     min-height: 22vh;
 
     h3 {
@@ -103,8 +116,8 @@
 
 .icon-div {
     background: var(--primary-color-orange);
-    width: 55px;
-    height: 55px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -114,5 +127,27 @@
     img {
         max-width: 100%;
         max-height: 100%;
+    }
+}
+
+@media(max-width:768px) {
+    .banner-1 {
+        .content {
+            width: 74% !important;
+
+            h1 {
+                font-size: 3.4rem !important;
+            }
+
+            p {
+                font-size: 1.6rem !important;
+                margin-bottom: 3.75rem !important;
+            }
+        }
+    }
+
+    .claim-container {
+        padding: 0rem 1.125rem !important;
+        padding-bottom: 5.813rem !important;
     }
 }

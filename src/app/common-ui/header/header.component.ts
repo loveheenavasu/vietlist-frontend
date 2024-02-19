@@ -84,7 +84,7 @@ export class HeaderComponent {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {}
+  onResize(event: Event) { }
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -128,6 +128,13 @@ export class HeaderComponent {
     ) {
       // console.log("check3")
       this.router.navigateByUrl('/manage-profile')
+    }
+  }
+  @HostListener('document:click', ['$event'])
+  handleClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.search-box')) {
+      this.isSearchInputVisible = false;
     }
   }
 

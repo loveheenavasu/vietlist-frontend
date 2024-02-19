@@ -5,11 +5,13 @@ section {
     background-color: #F6F6F7;
 
     .upcoming-container {
-        max-width: 1360px;
+        padding: 6rem 6.25rem;
     }
 
     .upcoming-description {
-        padding-top: 6rem;
+        width: 61%;
+        margin-left: auto;
+        margin-right: auto;
 
         .heading {
             h1 {
@@ -18,8 +20,8 @@ section {
         }
 
         .description {
-            width: 75%;
-            margin: 0 auto 45px auto;
+            width: 100%;
+            margin: 0 auto 16px auto;
 
             p {
                 @extend %ssh-styles;
@@ -44,13 +46,13 @@ section {
     }
 
     .upcoming-swiper {
-        padding-bottom: 5.625rem;
+        // padding-bottom: 5.625rem;
         padding-top: 2.625rem;
     }
 
     .events-main-card {
-        width: 26rem;
-        margin-bottom: 1.5rem;
+        width: 31%;
+        // margin-bottom: 1.5rem;
         min-height: 33.125rem;
         height: auto;
         border-radius: 4px;
@@ -117,19 +119,64 @@ swiper-container {
     .collection-description-wrapper {
         padding: 1.5rem 0px;
 
+
         .description {
             padding: 1.25rem 1.5rem;
+            width: 50%;
 
             p {
                 color: var(--white);
                 font-size: 16px;
             }
         }
+
+        .view-collection {
+            .btn {
+                border-radius: 0px;
+            }
+        }
     }
 }
 
 @media (max-width:768px) {
+    .upcoming-container {
+        padding: 3.4rem 2.2rem 2rem 2.2rem !important;
+
+        .upcoming-description {
+            width: 100% !important;
+
+            .description {
+                margin-bottom: 2.1rem;
+            }
+
+            .explore-btn {
+                .btn {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        .upcoming-swiper {
+            padding-top: 6.2rem;
+
+            .events-main-card {
+                width: 100% !important;
+                margin-bottom: 2.4rem;
+            }
+        }
+    }
+
     .collection-description-wrapper {
-        flex-wrap: wrap;
+        flex-direction: column;
+
+        .description {
+            width: 100% !important;
+        }
+
+        .view-collection {
+            .btn {
+                font-size: 1.6rem;
+            }
+        }
     }
 }
