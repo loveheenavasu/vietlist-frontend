@@ -25,6 +25,8 @@ import {
   SettingComponent,
 } from './manage-profile/components'
 import { AddEventComponent } from './manage-event'
+import { CreateAdsComponent } from './manage-profile/components/manage-ads/create-ads/create-ads.component'
+import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
 
 export default [
   {
@@ -71,6 +73,14 @@ export default [
       {
         path: 'subscription',
         component: ManageSubscriptionComponent,
+      },
+      {
+        path: 'manage-ads',
+        component:AdsListComponent,
+      },
+      {
+        path: 'create-ad',
+        component:CreateAdsComponent,
       },
     ],
     canActivate: [AuthGuard],

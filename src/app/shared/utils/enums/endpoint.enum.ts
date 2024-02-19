@@ -33,5 +33,7 @@ export enum Endpoints {
   GetNotificationsetting = 'get_profile_notification_setting',
   UserSubscriptionDetails = 'user_subscription_detail_get',
   ListingPrivacySet = 'listing_privacy_set',
-  GetSetPrivacy = 'listing_privacy_get'
+  GetSetPrivacy = 'listing_privacy_get',
+  GetAds = 'get_all_ad',
+  GetSpaces = 'get_ad_spaces'
 }

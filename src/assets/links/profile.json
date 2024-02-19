@@ -22,7 +22,7 @@
     {
       "label": "Ads",
       "icon": "fa fa-cog",
-      "url": "/contact"
+      "url": "/manage-profile/manage-ads"
     },
     {
       "label": "Invoices",
