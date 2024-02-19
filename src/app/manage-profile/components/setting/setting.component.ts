@@ -81,7 +81,7 @@ export class SettingComponent {
       next: (res) => {
         this.fullPageLoader.hideLoader()
         this.profileViews = res.data.profile_views === 1
-        this.realTime = res.data.real_time_notification === 1
+        this.realTime = res.data.real_time_notification  === 1
         this.periodicNotify = res.data.periodic_notification === 1
         this.blogsView = res.data.blog_views === 1
       },
