@@ -92,4 +92,20 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get<any>(endpoint ,{ headers: authToken })
   }
+
+  public getAds(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetAds,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint ,{ headers: authToken })
+  }
+
+  public getSpaces(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetSpaces,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint ,{ headers: authToken })
+  }
 }
