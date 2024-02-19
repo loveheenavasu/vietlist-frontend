@@ -63,6 +63,7 @@ export class ChangePasswordComponent {
     const data = this.sessionservice.getUserdata()
     this.email = data?.user_email
   }
+
   ngOnInit() {}
 
   public hidePassword() {
@@ -80,7 +81,6 @@ export class ChangePasswordComponent {
       old_password: this.changePassword.value.old_password,
       new_password: this.changePassword.value.new_password,
     }
-    console.log('check update', body)
     this.profileDetail.changePasswrd(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
@@ -95,10 +95,14 @@ export class ChangePasswordComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.sessionservice.clearAuthentication()
-        this.router.navigateByUrl('/')
       },
       error: (err) => {},
     })
+  }
+
+  public isHideConfirmPassword: boolean = true
+
+  hideConfirmPassword() {
+    this.isHideConfirmPassword = !this.isHideConfirmPassword
   }
 }

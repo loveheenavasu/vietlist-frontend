@@ -9,3 +9,18 @@ h5{
     font-size:16px;
     font-weight:500
 }
+
+.mdc-switch:enabled .mdc-switch__track::after {
+    background: #545353;
+}
+
+::ng-deep.mdc-switch-selected-handle-color{
+    background-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-switch:enabled .mdc-switch__track::after {
+    background: var(--primary-color-orange) !important;
+}
+::ng-deep.mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
+    background: var(--primary-color-orange) !important;
+}

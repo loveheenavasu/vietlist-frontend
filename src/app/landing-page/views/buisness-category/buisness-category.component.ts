@@ -29,28 +29,21 @@ export class BuisnessCategoryComponent {
   swiperParams = {
     slidesPerView: 1,
     spaceBetween: 30,
-    pagination: {
-      clickable: true,
-      dynamicBullets: true
-    },
-    autoplay: {
-      delay: 5000,
-    },
-    disableOnInteraction: false,
+    navigation: true,
+    slidesPreview: 1,
     breakpoints: {
       768: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        autoplay: false,
+        slidesPerView: 2,
       },
-      1388: {
+      1200: {
+        slidesPerView: 5,
+      },
+      1500: {
         slidesPerView: 6,
-        pagination: false,
-
-      },
+      }
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   constructor(

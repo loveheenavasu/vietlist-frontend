@@ -84,10 +84,12 @@
             padding-top: 1.25rem;
 
             .grid-card {
-                margin-bottom: 1.5rem;
-                border:solid 1px rgb(206, 206, 206);
                 margin-right:1.5rem;
                 border-radius:2px;
+                margin-bottom: 1.5rem;
+                padding: 0px;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            }
                 .listing-img {
                     height: 240px;
 
@@ -114,6 +116,7 @@
 
                     .listing-info {
                         font-size: 1rem;
+                        height:10rem;
                     }
 
                     .listing-rating {
@@ -163,8 +166,7 @@
                 }
             }
         }
-    }
-
+    
 }
 /* CSS to align "No records found" message */
 .grid-view-container {

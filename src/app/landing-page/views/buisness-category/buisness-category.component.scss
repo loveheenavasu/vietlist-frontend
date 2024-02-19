@@ -47,10 +47,11 @@
 
 
 .main-cnt {
-  width: fit-content;
+
   border-radius: 20px;
   box-shadow: 0px 4px 20px 0px #00000012;
   height: auto;
+  width: 261px;
   display: flex;
   align-items: center;
   padding: 25px;
@@ -68,6 +69,8 @@
   .card-heading {
     color: var(--white);
   }
+
+
 }
 
 .img-cnt {
@@ -107,7 +110,7 @@
 }
 
 .Categories-swiper-container {
-  padding-top: 2.625rem;
+  // padding-top: 2.625rem;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -117,7 +120,8 @@
 swiper-container {
   width: 100%;
   height: 100%;
-  margin: 20px auto;
+  margin: 2.625rem auto;
+  position: relative;
 }
 
 swiper-slide {
@@ -129,7 +133,7 @@ swiper-slide {
   align-items: center;
 }
 
-@media (max-width:500px) {
+@media (max-width:768px) {
   .container-fluid {
 
 
@@ -137,17 +141,18 @@ swiper-slide {
       width: 100%;
 
       h1 {
-        font-size: 1.5rem;
+        font-size: 2.4rem;
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.6rem;
       }
     }
   }
 
   swiper-container {
-    height: 24rem;
+    height: 35rem;
+    width: 90% !important;
   }
 
   .Categories-swiper-container {
@@ -155,19 +160,40 @@ swiper-slide {
   }
 
   .card-heading {
-    font-size: 1rem;
+    font-size: 1.6rem;
+  }
+
+  swiper-container::part(button-next) {
+    color: #F89705 !important;
+    right: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  swiper-container::part(button-prev) {
+    color: #F89705 !important;
+    left: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
   }
 }
 
-swiper-container::part(bullet-active) {
-  background-color: #F89705;
-  width: 28px;
-  height: 13.94px;
-  border-radius: 10px;
+// ::ng-deep.swiper-button-next,
+// .swiper-button-prev {
+//   color: #F89705 !important;
+// }
+swiper-container::part(button-next) {
+  color: #F89705 !important;
+  right: -2.813rem;
+
 }
 
-swiper-container::part(bullet) {
-  width: 13.94px;
-  height: 13.94px;
-  border-radius: 50%;
+swiper-container::part(button-prev) {
+  color: #F89705 !important;
+  left: -2.813rem;
+
+}
+
+swiper-container::part(container) {
+  position: initial;
 }

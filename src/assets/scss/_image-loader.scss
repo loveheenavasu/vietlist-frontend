@@ -1,0 +1,28 @@
+
+
+.loader {
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: l5 1s infinite linear alternate;
+    margin:0 auto;
+  }
+  @keyframes l5 {
+      0%  {box-shadow: 20px 0 #f96c00, -20px #f96c00;background: #f96c00 }
+      33% {box-shadow: 20px 0 #f96c00, -20px 0 #f96c00;background: #f96c00}
+      66% {box-shadow: 20px 0 #f96c00,-20px 0 #f96c00; background: #f96c00}
+      100%{box-shadow: 20px 0 #f96c00,-20px 0 #f96c00; background: #f96c00 }
+  }
+
+  .main_images .images__ {
+    margin-right: 15px;
+    margin-top: 13px;
+    object-fit: cover;
+}
+.main_images {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: scroll;
+    gap: 10px;
+}

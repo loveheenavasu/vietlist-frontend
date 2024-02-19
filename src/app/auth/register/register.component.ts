@@ -74,13 +74,19 @@ export class RegisterComponent {
       label: this.formatLabel(key),
     }),
   )
-  /**
-   * @signupform
-   */
   public signupForm: FormGroup
   public business_type = new FormControl('')
   public contact_details = new FormControl()
 
+
+  /**
+   * 
+   * @param router 
+   * @param fb 
+   * @param authService 
+   * @param localStorageServce 
+   * @param sessionServce 
+   */
   constructor(
     public router: Router,
     private fb: FormBuilder,
@@ -88,6 +94,7 @@ export class RegisterComponent {
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
   ) {
+
     this.signupForm = this.fb.nonNullable.group(
       {
         username: ['', Validators.required],
@@ -139,6 +146,9 @@ export class RegisterComponent {
   }
 
   public handleRegistrationSubmission() {
+    const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
+      this.contact_details?.value?.dialCode,
+    )
     const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
@@ -147,11 +157,13 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: parseInt(this.contact_details.value?.e164Number),
+      contact_details: parseInt(
+        formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
+      ),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
+      country_code: this.contact_details.value.dialCode,
     }
-
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
@@ -164,8 +176,6 @@ export class RegisterComponent {
         next: (res) => {
           this.loader = false
           this.sessionServce.userRole.next(res?.data?.user?.user_role)
-
-          console.log(res)
           if (res) {
             this.localStorageServce.saveData(
               'vietlist::user',
@@ -199,11 +209,11 @@ export class RegisterComponent {
               this.router.navigateByUrl('/manage-profile')
             }
           }
-          console.log(res)
+          
         },
         error: (err) => {
           this.loader = false
-          console.log(err.error.message, 'Error')
+          
         },
       })
     } else {
@@ -232,16 +242,12 @@ export class RegisterComponent {
     }
   }
 
+
   public hideConfirmPassword() {
-    if (this.isHideConfirmPassword) {
-      this.isHideConfirmPassword = false
-    } else {
-      this.isHideConfirmPassword = true
-    }
+    this.isHideConfirmPassword = !this.isHideConfirmPassword
   }
 
   public formatLabel(key: keyof typeof Roles): string {
-    // Example: Convert "businessOwner" to "Business Owner"
     return key
       .replace(/([A-Z])/g, ' $1')
       .replace(/^./, (str) => str.toUpperCase())
@@ -252,4 +258,5 @@ export class RegisterComponent {
       ? null
       : event.charCode >= 48 && event.charCode <= 57
   }
+
 }

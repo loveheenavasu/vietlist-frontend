@@ -1,4 +1,4 @@
-import { LoaderComponent } from 'src/app/common-ui';
+import { LoaderComponent } from 'src/app/common-ui'
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -30,7 +30,7 @@ import { LocalStorageService } from '@vietlist/shared'
     FormsModule,
     ReactiveFormsModule,
     NgIf,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './promotions-form.component.html',
   styleUrl: './promotions-form.component.scss',
@@ -39,7 +39,7 @@ export class PromotionsFormComponent {
   @Output() promotionFormSubmit = new EventEmitter<void>()
   public title = 'dropzone'
   public files: File[] = []
-  public imagePreviews: any
+  public imagePreviews: any [] =[]
   public imageUrl: any
   public filess: any
   public vediosUrl: any
@@ -47,7 +47,8 @@ export class PromotionsFormComponent {
   public promotions: FormGroup
   public video_upload: any
   public recaptcha = new FormControl('')
-  public isLoader:boolean = false
+  public isLoader: boolean = false
+  public isImageUploading:boolean = false
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -63,127 +64,16 @@ export class PromotionsFormComponent {
     })
   }
 
-  onSelect(event: any) {
-    const files: File[] = event.addedFiles
-    this.filess = files
 
-    const videoFiles: File[] = files.filter((file) =>
-      file.type.startsWith('video/'),
-    )
 
-    // If there are any image files, you can remove them
-    const imageFiles: File[] = files.filter((file) =>
-      file.type.startsWith('image/'),
-    )
-    if (imageFiles.length > 0) {
-      // Handle the presence of image files (disable or display a message)
-      Swal.fire({
-        toast: true,
-        text: 'Image files are not allowed. Please upload only video files.',
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      })
-      console.log(
-        'Image files are not allowed. Please upload only video files.',
-      )
-    }
-
-    // Handle the uploaded video files
-    videoFiles.forEach((file) => {
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        const videoUrl = reader.result as string
-
-        // Declare the video variable
-        const video: HTMLVideoElement = document.createElement('video')
-        // video.src = videoUrl
-        this.video_upload = video.src
-        this.businessService.uploadMedia(this.filess[0]).subscribe({
-          next: (res: any) => {
-            this.video_upload = res.image_url
-            // this.verification_upload = res.image_url
-            this.vediosUrl = res.image_url
-          },
-          error: (err: any) => {
-            // Handle errors
-          },
-        })
-        video.controls = true // Add controls to the video element
-        video.width = 320 // Set the width of the video element
-        video.height = 240 // Set the height of the video element
-        video.style.cssText = `
-        margin:10px; 
-        object-fit:cover;
-        `
-        // Create the video container
-        const videoElement = document.createElement('div')
-        videoElement.classList.add('video-preview') // Add a class for styling purposes
-
-        // Create remove button
-        const removeButton = document.createElement('button')
-        removeButton.classList.add('remove_button')
-        removeButton.textContent = 'Remove'
-        removeButton.style.cssText = `
-        background: orange;
-        display: block;
-        width: 94.7%;
-        margin: auto;
-        color: #fff;
-        border: 0;
-        margin-top: -12px;
-        `
-
-        removeButton.addEventListener('click', () => {
-          this.onRemove(videoElement)
-        })
-
-        videoElement.appendChild(video)
-        videoElement.appendChild(removeButton)
-
-        // Get the video container element
-        const videoContainer = document.getElementById(
-          'video-preview-container',
-        )
-
-        // Ensure that the video container exists before appending the video element
-        if (videoContainer) {
-          videoContainer.appendChild(videoElement)
-        } else {
-          console.error('Video preview container not found.')
-        }
-      }
-      reader.readAsDataURL(file)
-    })
-  }
-
-  onRemove(videoElement: HTMLElement) {
-    if (videoElement && videoElement.parentNode) {
-      videoElement.parentNode.removeChild(videoElement)
-    }
-  }
-  // public onRemove() {
-  //   console.log(this.videoContainer)
-  //   this.videoContainer.splice(this.videoContainer.indexOf(this.videoContainer), 1)
-  // }
   onSelectImage(event: any) {
-    this.files.push(...event.addedFiles)
-
-    const formData = new FormData()
-
-    for (var i = 0; i < this.files.length; i++) {
-      console.log(this.files[i], 'this.files[i]')
-      formData.append('file[]', this.files[i])
-    }
+    this.files = [...event.addedFiles]
     this.displayImagePreviews()
   }
+
   displayImagePreviews() {
-    // Assuming you have an array to store image URLs for preview
-    this.imagePreviews = []
+    this.isImageUploading = true
+    this.imagePreviews = [...this.imagePreviews];
 
     // Loop through each file
     for (let i = 0; i < this.files.length; i++) {
@@ -197,13 +87,11 @@ export class PromotionsFormComponent {
       reader.onload = () => {
         // Cast reader.result to string
         const result = reader.result as string
-
-        // Push the data URL (image preview) to the array
-        // this.imagePreviews.push(result)
       }
     }
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
+        this.isImageUploading = false
         this.imageUrl = res.image_url
         this.imagePreviews.push(res.image_url)
       },
@@ -217,7 +105,7 @@ export class PromotionsFormComponent {
   }
 
   public handleFinalSubmission() {
-  this.isLoader = true
+    this.isLoader = true
     const body = {
       faq: this.promotions.value.faq,
       physical_accessibility: this.promotions.value.physical_accessibility,

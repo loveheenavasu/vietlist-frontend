@@ -1,95 +1,99 @@
 <h3 class="m-0">Manage Subscription</h3>
 <div class="container-fluid g-0">
   <div class="row mt-4">
-    
     <div class="col-12 col-md-12">
       <h5>My Membership</h5>
     </div>
     <div class="col-12 col-md-12 mt-3">
-        <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>Level</th>
-                  <th>Billing</th>
-                  <th>Expiration</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <ul>
-                        <li><b>
-                            {{ 
-                              userDetails.level_id == 2 ? 'Basic Plan' : 
-                              userDetails.level_id == 1 ? 'Free' : 
-                              userDetails.level_id == 3 ? 'Elite' : ''
-                            }}
-                          </b></li>
-                          
-                        <li class="change_cancel" (click)="handleChangePlan()">Change Plan </li>
-                        <li class="change_cancel">Cancel Plan </li>
-                    </ul>
-                  </td>
-                  <td>Data 2</td>
-                  <td>Data 3</td>
-                  <!-- Add more data cells as needed -->
-                </tr>
-                <!-- Add more rows of data as needed -->
-              </tbody>
-            </table>
-          </div>
-          
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Billing</th>
+              <th>Expiration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <ul>
+                  <li>
+                    <b>
+                      {{
+                        userDetails?.level_id == 2
+                          ? 'Basic Plan'
+                          : userDetails?.level_id == 1
+                            ? 'Free'
+                            : userDetails?.level_id == 3
+                              ? 'Elite'
+                              : ''
+                      }}
+                    </b>
+                  </li>
+
+                  <li class="change_cancel" (click)="handleChangePlan()">
+                    Change Plan
+                  </li>
+                  <li class="change_cancel">Cancel Plan</li>
+                </ul>
+              </td>
+              <td>Data 2</td>
+              <td>Data 3</td>
+              <!-- Add more data cells as needed -->
+            </tr>
+            <!-- Add more rows of data as needed -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="row mt-4">
-    
-    <div class="col-12 col-md-12 ">
+    <div class="col-12 col-md-12">
       <h5>My Account</h5>
     </div>
     <div class="col-12 col-lg-6 mt-3">
-      <p class="user-email">Username</p>     
+      <p class="user-email">Username</p>
     </div>
     <div class="col-12 col-lg-6 mt-3">
-     <p>{{userDetails.display_name}}</p>
+      <p>{{ subscriptionDetails?.user_name }}</p>
     </div>
     <div class="col-12 col-lg-6">
-        <p class="user-email">Email</p>     
-      </div>
-      <div class="col-12 col-lg-6">
-        <p>{{userDetails.user_email}}</p>
-      </div>
+      <p class="user-email">Email</p>
+    </div>
+    <div class="col-12 col-lg-6">
+      <p>{{ subscriptionDetails?.email }}</p>
+    </div>
   </div>
   <div class="row mt-4">
-    
     <div class="col-12 col-md-12">
       <h5>Past Invoices</h5>
     </div>
     <div class="col-12 col-md-12 mt-3">
-        <div class="table-responsive">
-            <table>
-              <thead>
-                <tr>
-                  <th>DATE</th>
-                  <th>LEVEL</th>
-                  <th>AMOUNT</th>
-                  <th>STATUS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Data 1</td>
-                  <td>Data 2</td>
-                  <td>Data 3</td>
-                  <td>Data 3</td>
-                  <!-- Add more data cells as needed -->
-                </tr>
-                <!-- Add more rows of data as needed -->
-              </tbody>
-            </table>
-          </div>
-          
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>LEVEL</th>
+              <th>AMOUNT</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(key of subscriptionDetails?.invoice_detail ; track $index){
+            <tr>
+              <td>{{key.formattedTimeStamp}}</td>
+              <td>{{key.membership_id}}</td>
+              <td>{{key.total}}</td>
+              <td>{{key.status}}</td>
+            
+            </tr>
+          }
+            
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
- 
 </div>

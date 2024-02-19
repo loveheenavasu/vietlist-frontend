@@ -17,18 +17,17 @@
         <button class="btn orange-background-btn">Submit a Testimonial</button>
       </div>
     </div>
-  </div>
-  <div class="swiper-testimonial">
-    <swiper-container #swiperDemo class="mySwiper" init="false">
-      @for (item of testimonialData; track $index) {
+    <div class="swiper-testimonial">
+      <swiper-container #swiperDemo class="mySwiper" init="false">
+        @for (item of testimonialData; track $index) {
         <swiper-slide>
           <div class="card">
             <div class="card-body">
               <div class="rating">
                 @for (r of returnCount(item.rating); track $index) {
-                  <div class="rating-svg">
-                    <img src="/assets/image/orange-star.svg" alt="rating" />
-                  </div>
+                <div class="rating-svg">
+                  <img src="/assets/image/orange-star.svg" alt="rating" />
+                </div>
                 }
               </div>
               <div class="description">
@@ -46,7 +45,8 @@
             </div>
           </div>
         </swiper-slide>
-      }
-    </swiper-container>
+        }
+      </swiper-container>
+    </div>
   </div>
 </section>

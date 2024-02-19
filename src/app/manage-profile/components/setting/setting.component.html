@@ -51,7 +51,11 @@
   </div>
   <div class="row mt-4 mx-1">
     <button class="btn orange-background-btn" (click)="allowNotification()">
-      Save
+      @if (isLoader) {
+        <app-loader></app-loader>
+      } @else {
+        Save
+      }
     </button>
   </div>
 </div>
