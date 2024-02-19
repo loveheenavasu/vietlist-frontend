@@ -1,1 +1,29 @@
-<p>ads-list works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 ms-auto">
+            <button class="btn orange-background-btn" (click)="handleCreateAdd()">Create New Ad</button>
+        </div>
+    </div>
+    <div class="table-responsive mt-3">
+        <table>
+            <thead>
+                <tr>
+                    <th>AD CONTENT</th>
+                    <th>STATS</th>
+                    <th>ORDER DETAILS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(key of allAds ; track $index){
+                <tr>
+                    <td>{{key}}</td>
+                    <td>Data 1</td>
+                    <td>Data 1</td>
+                    <td>Data 1</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
