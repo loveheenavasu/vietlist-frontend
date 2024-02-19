@@ -319,7 +319,10 @@ export class ListBusinessComponent {
       },
     })
   }
-
+  
+  removeItem(index:any) {
+    this.imagePreviews.splice(index, 1);
+}
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -487,7 +490,6 @@ export class ListBusinessComponent {
 
   public changeMapView() {
     console.log('Selected map view:', this.businessInfoForm.value.mapview)
-
     if (this.map !== null) {
       console.log('Changing map view...')
       switch (this.businessInfoForm.value.mapview) {

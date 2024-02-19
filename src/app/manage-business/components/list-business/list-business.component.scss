@@ -9,8 +9,19 @@
 .mat-mdc-form-field {
   margin-top: 16px;
 }
-
-
+.images__ {
+  position: relative;
+}
+.removeImage {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  font-size: 18px;
+}
+.removeImage i{
+color: #ff9900;
+cursor: pointer;
+}
 .main-card {
   margin: auto;
   height: auto;

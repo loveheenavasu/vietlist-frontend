@@ -65,7 +65,7 @@ export class FormControlValidationDirective {
     )
 
     const errorSpan = document.createElement('span')
-    errorSpan.classList.add('error-message')
+    errorSpan?.classList?.add('error-message')
     errorSpan.textContent = errorMessage
 
     this.el.nativeElement.insertAdjacentElement('afterend', errorSpan)

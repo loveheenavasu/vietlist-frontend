@@ -52,8 +52,7 @@ export class ConsultationFormComponent {
     // const video: HTMLVideoElement = document.createElement('video')
     // // video.src = videoUrl
     // video.src = value.video_upload
-    this.video_upload = value?.video_upload || [];
-    
+    this.video_upload = value?.video_upload;
     const controls = [
       'consultation_booking_link',
       'consultation_mode',
@@ -71,7 +70,7 @@ export class ConsultationFormComponent {
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
-  public video_upload: any[] = [];
+  public video_upload :any = [];
   public daysName: any
   public vediosUrl: any[] = [];
   public startTime: any
@@ -230,8 +229,17 @@ public isImageUploading:boolean = false
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
             this.isVideoUploading = false
-            this.video_upload = [...this.video_upload, res.image_url]
+            if (this.video_upload && this.video_upload.length > 0) {
+              this.video_upload.shift(); // Remove the element at index 0
+          }
+      
+          // Append res.image_url to the video_upload array
+          if (res.image_url) {
+              this.video_upload = [...this.video_upload, res.image_url];
+          }
+            // this.video_upload = [...this.video_upload, res.image_url]
             console.log(this.video_upload)
+            
             this.vediosUrl = [...this.vediosUrl, res.image_url]
           },
           error: (err: any) => {
@@ -285,7 +293,9 @@ public isImageUploading:boolean = false
       reader.readAsDataURL(file)
     })
   }
-
+  removeItems(index:any) {
+    this.video_upload.splice(index, 1);
+}
   onRemove(videoElement: HTMLElement) {
     if (videoElement && videoElement.parentNode) {
       videoElement.parentNode.removeChild(videoElement)
@@ -333,7 +343,9 @@ public isImageUploading:boolean = false
       },
     })
   }
-
+  removeItem(index:any) {
+    this.imagePreviews.splice(index, 1);
+}
   public days = [
     { name: 'Mon', times: [{ start: '', end: '' }] },
     { name: 'Tue', times: [{ start: '', end: '' }] },

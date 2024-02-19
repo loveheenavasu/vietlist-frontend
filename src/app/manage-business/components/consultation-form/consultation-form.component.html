@@ -9,11 +9,8 @@
       <label class="listing-form-label">Consultation Booking Link </label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input
-        class="input-control"
-        placeholder="Enter consultation booking link"
-        formControlName="consultation_booking_link"
-      />
+      <input class="input-control" placeholder="Enter consultation booking link"
+        formControlName="consultation_booking_link" />
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -21,11 +18,7 @@
       <label class="listing-form-label">Consultation Mode </label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-select
-        class="vietlist-select"
-        placeholder="Select consultation mode"
-        formControlName="consultation_mode"
-      >
+      <mat-select class="vietlist-select" placeholder="Select consultation mode" formControlName="consultation_mode">
         <mat-option value="In-Person">In-Person</mat-option>
         <mat-option value="Online">Online</mat-option>
         <mat-option value="Both">Both</mat-option>
@@ -37,31 +30,18 @@
       <label class="listing-form-label">Consultation Description </label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <textarea
-        name=""
-        id=""
-        cols="30"
-        rows="6"
-        placeholder="Enter consultation description"
-        formControlName="consultation_description"
-      ></textarea>
+      <textarea name="" id="" cols="30" rows="6" placeholder="Enter consultation description"
+        formControlName="consultation_description"></textarea>
     </div>
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label"
-        >Special Offer <span class="asterik">*</span>
+      <label class="listing-form-label">Special Offer <span class="asterik">*</span>
       </label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <textarea
-        formControlName="special_offers"
-        name=""
-        id=""
-        cols="30"
-        rows="6"
-        placeholder="List any special offer"
-      ></textarea>
+      <textarea formControlName="special_offers" name="" id="" cols="30" rows="6"
+        placeholder="List any special offer"></textarea>
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -69,18 +49,10 @@
       <label class="listing-form-label">Services List </label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-select
-        class="vietlist-select"
-        placeholder="Select service"
-        formControlName="services_list"
-      >
+      <mat-select class="vietlist-select" placeholder="Select service" formControlName="services_list">
         <mat-option value="All retail store">All retail store</mat-option>
-        <mat-option value="A service oriented business"
-          >A service oriented business</mat-option
-        >
-        <mat-option value="A food and beverage establishment"
-          >A food and beverage establishment</mat-option
-        >
+        <mat-option value="A service oriented business">A service oriented business</mat-option>
+        <mat-option value="A food and beverage establishment">A food and beverage establishment</mat-option>
       </mat-select>
     </div>
   </div>
@@ -89,11 +61,7 @@
       <label class="listing-form-label">Price</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input
-        class="input-control"
-        placeholder="Enter the price in $ (no currency symbol)"
-        formControlName="price"
-      />
+      <input class="input-control" placeholder="Enter the price in $ (no currency symbol)" formControlName="price" />
     </div>
   </div>
   <div class="row">
@@ -116,18 +84,21 @@
           > -->
         </div>
       </div>
-      <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-        <ngx-dropzone-label *ngIf="!isImageUploading"
-          ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple videos)</ngx-dropzone-label
-        >
-        <div *ngIf="isImageUploading" class="loader"></div> 
+      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+        <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+          or
+          Browse a file (You can upload multiple videos)</ngx-dropzone-label>
+        <div *ngIf="isImageUploading" class="loader"></div>
       </ngx-dropzone>
       <div class="main_images">
         @for (preview of imagePreviews; track $index) {
-          <div class="images__" *ngIf="preview">
-            <img [src]="preview" alt="Image Preview" width="150" height="150" />
+
+        <div class="images__" *ngIf="preview">
+          <div class="removeImage">
+            <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
           </div>
+          <img [src]="preview" alt="Image Preview" width="150" height="150" />
+        </div>
         }
       </div>
     </div>
@@ -137,28 +108,28 @@
       <label for="" class="listing-form-label mb-2">Video upload</label>
       <!-- formControlName="video_upload" -->
       <ngx-dropzone [accept]="'.mp4,.mov'" (change)="onSelect($event)">
-        <ngx-dropzone-label *ngIf="!isVideoUploading"
-          ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple videos)</ngx-dropzone-label
-        >
-       <div *ngIf="isVideoUploading" class="loader"></div> 
+        <ngx-dropzone-label *ngIf="!isVideoUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+          or
+          Browse a file (You can upload multiple videos)</ngx-dropzone-label>
+        <div *ngIf="isVideoUploading" class="loader"></div>
       </ngx-dropzone>
     </div>
     <div id="video-preview-container">
       @for(videoUrl of video_upload; track $index) {
-        <video
-        style="margin: 10px; object-fit: cover"
-        *ngIf="videoUrl"
-        width="320"
-        height="240"
-        controls
-      >
-        <source [src]="videoUrl" type="video/mp4" />
-        <source [src]="videoUrl" type="video/ogg" />
-        Your browser does not support the video tag.
-      </video>
+      <div class="vedio____" *ngIf="video_upload.length > 0">
+        <div class="removeImage" >
+          <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItems($index)"></i>
+        </div>
+
+
+        <video style="margin: 10px; object-fit: cover" *ngIf="videoUrl" width="320" height="240" controls>
+          <source [src]="videoUrl" type="video/mp4" />
+          <source [src]="videoUrl" type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       }
-     
+
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -166,11 +137,8 @@
       <label class="listing-form-label">video url</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input
-        class="input-control"
-        placeholder="Add  video url  or code here, Youtube etc."
-        formControlName="video_url"
-      />
+      <input class="input-control" placeholder="Add  video url  or code here, Youtube etc."
+        formControlName="video_url" />
     </div>
   </div>
 
@@ -184,12 +152,8 @@
       <label class="listing-form-label">Business opening hours</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-radio-group
-        aria-label="Select an option"
-        name="radio"
-        [(ngModel)]="showTimeTable"
-        formControlName="business_hours"
-      >
+      <mat-radio-group aria-label="Select an option" name="radio" [(ngModel)]="showTimeTable"
+        formControlName="business_hours">
         <mat-radio-button [value]="true"> Yes </mat-radio-button>
         <mat-radio-button [value]="false"> No </mat-radio-button>
       </mat-radio-group>
@@ -209,46 +173,25 @@
                 <td>
                   <!-- <i class="fa fa-dot-circle-o" aria-hidden="true"></i> -->
                   <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      [value]="day.name"
-                      id="terms"
-                      (change)="onWeekSelect(day.name, $event)"
-                    />
+                    <input class="form-check-input" type="checkbox" [value]="day.name" id="terms"
+                      (change)="onWeekSelect(day.name, $event)" />
                   </div>
                 </td>
                 <td>
-                  <ng-container
-                    *ngFor="let time of day.times; let timeIndex = index"
-                  >
+                  <ng-container *ngFor="let time of day.times; let timeIndex = index">
                     <div class="row">
                       <div class="col-10 d-flex">
                         <div>
-                          <input
-                            class="input-control"
-                            type="time"
-                            placeholder="Start Time"
-                            [ngModelOptions]="{ standalone: true }"
-                            [(ngModel)]="day.times[timeIndex].start"
-                          />
+                          <input class="input-control" type="time" placeholder="Start Time"
+                            [ngModelOptions]="{ standalone: true }" [(ngModel)]="day.times[timeIndex].start" />
                         </div>
                         <div>
-                          <input
-                            class="input-control"
-                            type="time"
-                            placeholder="End Time"
-                            [ngModelOptions]="{ standalone: true }"
-                            [(ngModel)]="day.times[timeIndex].end"
-                          />
+                          <input class="input-control" type="time" placeholder="End Time"
+                            [ngModelOptions]="{ standalone: true }" [(ngModel)]="day.times[timeIndex].end" />
                         </div>
                       </div>
                       <div class="col-2">
-                        <i
-                          class="fa fa-minus-circle"
-                          aria-hidden="true"
-                          (click)="removeTime(dayIndex, timeIndex)"
-                        ></i>
+                        <i class="fa fa-minus-circle" aria-hidden="true" (click)="removeTime(dayIndex, timeIndex)"></i>
                       </div>
                     </div>
                   </ng-container>
@@ -256,11 +199,7 @@
                 <td>
                   <div class="row">
                     <div class="col">
-                      <i
-                        class="fa fa-plus-circle"
-                        aria-hidden="true"
-                        (click)="addTime(dayIndex)"
-                      ></i>
+                      <i class="fa fa-plus-circle" aria-hidden="true" (click)="addTime(dayIndex)"></i>
                     </div>
                   </div>
                 </td>
@@ -272,16 +211,9 @@
                 Timezone:
               </th>
               <td colspan="4">
-                <ng-select
-                  class="select2-selection"
-                  [items]="formattedData"
-                  bindLabel="label"
-                  bindValue="label"
-                  placeholder="Select your timezone.."
-                  [groupBy]="'value'"
-                  [ngModelOptions]="{ standalone: true }"
-                  [(ngModel)]="selectedData"
-                >
+                <ng-select class="select2-selection" [items]="formattedData" bindLabel="label" bindValue="label"
+                  placeholder="Select your timezone.." [groupBy]="'value'" [ngModelOptions]="{ standalone: true }"
+                  [(ngModel)]="selectedData">
                 </ng-select>
               </td>
             </tr>
@@ -295,17 +227,13 @@
     </div>
   </div>
   <div style="width: 100%; text-align: end">
-    <button
-      type="button"
-      class="btn orange-background-btn ms-auto"
-      [disabled]="!ConsultationForm.valid"
-      (click)="addBusiness()"
-    >
-     @if(isLoader){
+    <button type="button" class="btn orange-background-btn ms-auto" [disabled]="!ConsultationForm.valid"
+      (click)="addBusiness()">
+      @if(isLoader){
       <app-loader></app-loader>
-     } @else {
+      } @else {
       Next
-     }
+      }
     </button>
   </div>
 </form>

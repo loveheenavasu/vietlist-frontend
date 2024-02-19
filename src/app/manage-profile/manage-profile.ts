@@ -39,20 +39,18 @@ export class ManageProfileComponent {
     private router: Router,
     private profileService: ProfileService,
   ) {
-    this.getSidebarLinks()
+    // this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
     this.userFirstName = data?.first_name
     this.userLastName = data?.last_name
     console.log(data)
     this.fetchProfileDetail()
     this.activeIndex = this.router.url
-  }
-
-  public getSidebarLinks() {
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
     })
   }
+  
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)

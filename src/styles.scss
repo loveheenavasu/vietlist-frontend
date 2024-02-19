@@ -14,7 +14,17 @@ body {
 html {
   scroll-behavior: smooth;
 }
-
+.removeImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  z-index: 999999;
+}
+.removeImage i{
+color: #ff9900;
+cursor: pointer;
+}
 .listing-heading h3 {
   text-overflow: ellipsis;
   overflow: hidden;
