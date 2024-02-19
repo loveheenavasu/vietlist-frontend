@@ -59,7 +59,7 @@
               <div class="mx-2 w-100">
                 <mat-select
                   class="vietlist-select"
-                  placeholder="Choose Model"
+                  placeholder="Select business type"
                   formControlName="model"
                 >
                   <mat-option value="retail">Retail</mat-option>
@@ -76,7 +76,8 @@
                   (setAddress)="getAddress($event)"
                   adressType="geocode"
                   [value]="street"
-                ></AutocompleteComponent>
+                >
+                </AutocompleteComponent>
               </div>
               <!-- <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Hours" formControlName="hours">

@@ -1,5 +1,6 @@
-<div class="row">
-  <div class="col-12">
+<form [formGroup]="promotions">
+  <!-- <div class="row"> -->
+  <!-- <div class="col-12">
     <h1 class="listing-form-heading">Events & promotions</h1>
   </div>
 </div>
@@ -40,125 +41,144 @@
   <div class="col-12 col-md-12 col-lg-8">
     <input class="input-control" />
   </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <h1 class="listing-form-heading">FAQ</h1>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">FAQ</label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <textarea
-      name=""
-      id=""
-      cols="30"
-      rows="6"
-      placeholder="Write here ..."
-    ></textarea>
-    <div class="form-text">
-      <span>Add question answer</span>
+</div> -->
+  <div class="row">
+    <div class="col-12">
+      <h1 class="listing-form-heading">FAQ</h1>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <h1 class="listing-form-heading">Certifications</h1>
-  </div>
-</div>
-<div class="row px-2 my-3">
-  <div class="col-12">
-    <!--a dropzone-->
-    <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
-    <label for="" class="listing-form-label mb-2">Upload certificates</label>
-    <ngx-dropzone (change)="onSelect($event)">
-      <ngx-dropzone-label
-        ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-        Browse a file</ngx-dropzone-label
-      >
-      <!-- <ngx-dropzone-preview  (removed)="onRemove('f')"> -->
-      <!-- <ngx-dropzone-label>Drap and Drop here or Browse a file</ngx-dropzone-label> -->
-      <!-- </ngx-dropzone-preview> -->
-    </ngx-dropzone>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <h1 class="listing-form-heading">Accessibility Options</h1>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Physical Accessibility</label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" />
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Digital Accessibility</label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" />
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4"></div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <mat-checkbox class="event-checkbox"
-      >Business Owner/Associate?</mat-checkbox
-    >
-    <div class="form-text">
-      <span>Mark listing as clamied</span>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">FAQ</label>
     </div>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Choose Layout</label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <mat-select class="vietlist-select" placeholder="Select Choose Layout ...">
-      <mat-option value="Simple Layout">Simple Layout</mat-option>
-      <mat-option value="Standard Layout">Standard Layout </mat-option>
-    </mat-select>
-    <div class="form-text">
-      <span>Available different layout</span>
-    </div>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4"></div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <mat-checkbox class="event-checkbox">Terms & Conditions</mat-checkbox>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4"></div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <re-captcha
-      (resolved)="resolved($event)"
-      siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
-      formControlName="recaptcha"
-    ></re-captcha>
-  </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4"></div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <div class="d-flex">
-      <div class="submit-btn">
-        <button class="btn">Submit Listing</button>
+    <div class="col-12 col-md-12 col-lg-8">
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="6"
+        placeholder="Write here ..."
+        formControlName="faq"
+      ></textarea>
+      <div class="form-text">
+        <span>Add question answer</span>
       </div>
-      <div class="preview-btn">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h1 class="listing-form-heading">Certifications</h1>
+    </div>
+  </div>
+  <div class="row px-2 my-3">
+    <div class="col-12">
+      <!--a dropzone-->
+      <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+      <label for="" class="listing-form-label mb-2">Upload certificates</label>
+      <ngx-dropzone (change)="onSelectImage($event)">
+        <ngx-dropzone-label>
+          <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here or
+          Browse a file (Allowed .png, .png, .png, .jpeg , .jpg. .webp)
+        </ngx-dropzone-label>
+        >
+      </ngx-dropzone>
+      <div class="main_images mt-1">
+        @for (preview of imagePreviews; track $index) {
+          <div class="images__" *ngIf="preview">
+            <img [src]="preview" alt="Image Preview" width="150" height="150" />
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h1 class="listing-form-heading">Accessibility Options</h1>
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Physical Accessibility</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" />
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Digital Accessibility</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" />
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4"></div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-checkbox class="event-checkbox"
+        >Business Owner/Associate?</mat-checkbox
+      >
+      <div class="form-text">
+        <span>Mark listing as clamied</span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Choose Layout</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-select
+        class="vietlist-select"
+        placeholder="Select Choose Layout ..."
+      >
+        <mat-option value="Simple Layout">Simple Layout</mat-option>
+        <mat-option value="Standard Layout">Standard Layout </mat-option>
+      </mat-select>
+      <div class="form-text">
+        <span>Available different layout</span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4"></div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-checkbox class="event-checkbox" [formControl]="term_and_condition"
+        >Terms & Conditions <span class="asterik">*</span></mat-checkbox
+      >
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4"></div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <re-captcha
+        (resolved)="resolved($event)"
+        siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
+        [formControl]="recaptcha"
+      ></re-captcha>
+    </div>
+  </div>
+  <div class="row my-3 px-2">
+    <!-- <div class="submit-btn">
+          <button class="btn">Submit</button>
+        </div>
+        <div class="preview-btn">
         <button class="btn">
           Preview Listing
           <i class="fa fa-external-link" aria-hidden="true"></i>
         </button>
       </div>
+      </div> -->
+    <div style="width: 100%; text-align: end">
+      <button type="button" class="btn orange-background-btn ms-auto" (click)="handleFinalSubmission()" [disabled]="!term_and_condition.value || !recaptcha.value">
+        
+        @if(isLoader){
+          <app-loader></app-loader>
+        }@else {
+        <span>Next</span>
+
+        }
+      </button>
     </div>
   </div>
-</div>
+</form>

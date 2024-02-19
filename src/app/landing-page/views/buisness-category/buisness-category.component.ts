@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common'
+import { CommonModule, NgIf } from '@angular/common'
 import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
@@ -8,14 +8,14 @@ import {
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
-import { register } from 'swiper/element/bundle'
+import { register } from 'swiper/element/bundle';
 
 register()
 
 @Component({
   selector: 'app-buisness-category',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './buisness-category.component.html',
   styleUrl: './buisness-category.component.scss',
@@ -28,24 +28,29 @@ export class BuisnessCategoryComponent {
   public businessCategoryContent?: any
   swiperParams = {
     slidesPerView: 1,
+    spaceBetween: 30,
     pagination: {
       clickable: true,
+      dynamicBullets: true
     },
-    spaceBetween: 30,
+    autoplay: {
+      delay: 5000,
+    },
     disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 3,
         spaceBetween: 20,
-        autoplay: true,
+        autoplay: false,
       },
       1388: {
         slidesPerView: 6,
-        autoplay: true,
+        pagination: false,
+
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   constructor(

@@ -25,8 +25,7 @@ import { ProfileService } from '../../service/profile.service'
 export class DeleteAccountComponent {
   constructor(
     private profileService: ProfileService,
-    private router:Router
-    
+    private router: Router,
   ) {}
 
   public handleDeleteAccount() {

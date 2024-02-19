@@ -29,37 +29,42 @@
       </div>
       <div class="mx-1 search-btn-container">
         <div class="search-btn" (click)="search()">
-
-          @if(isLoader){
-          <app-loader></app-loader>
-          } @else{
-          <i class="fa fa-search" aria-hidden="true"></i>
+          @if (isLoader) {
+            <app-loader></app-loader>
+          } @else {
+            <i class="fa fa-search" aria-hidden="true"></i>
           }
         </div>
       </div>
     </div>
-    <div class="Categories-swiper-container ">
+    <div class="Categories-swiper-container">
       <div class="row">
         <div class="col-md-12">
-          <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-            @for(key of businessCat ; track $index){
-            <swiper-slide>
-              <div class="main-cnt d-flex  mb-3 mt-4">
-                <div class="image-container">
-                  <img [src]="key.image" />
-                  <div class="trending-content">
-                    <div class="trending">
-                      <p class="trending-text">Trending</p>
-                    </div>
-                    <div class="trending-title">
-                      <h3>{{key.name}}</h3>
+          <swiper-container
+            #busniessCategoriesSwiper
+            class="mySwiper"
+            init="false"
+          >
+            @for (key of businessCat; track $index) {
+              <swiper-slide>
+                <div class="main-cnt d-flex mb-3 mt-4">
+                  <div class="image-container">
+                    <img [src]="key.image" />
+                    <div class="trending-content">
+                      <div class="trending">
+                        <p class="trending-text">Trending</p>
+                      </div>
+                      <div class="trending-title">
+                        <h3>{{ key.name }}</h3>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-            </swiper-slide>
+              </swiper-slide>
             }
-
           </swiper-container>
         </div>
+      </div>
+    </div>
+  </div>
+</div>

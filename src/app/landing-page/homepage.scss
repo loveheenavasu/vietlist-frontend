@@ -22,7 +22,7 @@
     }
 
     .content {
-      width: 855px;
+      width: 46.1%;
       text-align: center;
       margin-top: 22px;
 
@@ -83,7 +83,7 @@
     align-items: center;
 
     .content {
-      width: 550px;
+      width: 38.2%;
       margin: auto 5%;
 
       h1 {
@@ -124,11 +124,13 @@
   }
 }
 
-@media(max-width:766px) {
+@media(max-width:768px) {
   .container-fluid {
     .banner-1 {
       .content-wrapper {
         .content {
+          width: 100%;
+
           h1 {
             font-size: 24px;
           }
@@ -142,6 +144,8 @@
 
     .banner-2 {
       .content {
+        width: 100%;
+
         h1 {
           font-size: 1.5rem;
           text-align: center;
@@ -157,6 +161,36 @@
         .explore-btn-wrapper {
           display: flex;
           justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+@media(max-width:1500px) {
+  .container-fluid {
+    .banner-1 {
+      .content-wrapper {
+        .content {
+          h1 {
+            font-size: 2.375rem;
+          }
+
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    .banner-2 {
+      .content {
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        p {
+          font-size: 1rem;
         }
       }
     }

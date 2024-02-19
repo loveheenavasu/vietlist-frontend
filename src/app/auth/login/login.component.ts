@@ -16,6 +16,7 @@ import {
   FormControlValidationDirective,
   LocalStorageService,
   Roles,
+  UserStatus,
 } from '@vietlist/shared'
 import { AuthService } from '../service/auth.service'
 import { LoaderComponent } from 'src/app/common-ui'
@@ -109,7 +110,7 @@ export class LoginComponent {
             this.router.navigateByUrl('/subscription-plans')
           } else if (
             res.data.user.user_role == Roles.businessOwner &&
-            res.data.user.status == 'active'
+            res.data.user.status == UserStatus.Active
           ) {
             this.router.navigateByUrl('/manage-profile')
           } else if (res.data.user.user_role == Roles.subscriber) {

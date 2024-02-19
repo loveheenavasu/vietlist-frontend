@@ -31,7 +31,6 @@ export class CtaVerifiedBusinessComponent {
 
   swiperParams = {
     slidesPerView: 1,
-    // autoplay: true,
     pagination: {
       clickable: true,
     },

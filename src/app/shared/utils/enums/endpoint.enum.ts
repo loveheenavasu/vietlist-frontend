@@ -29,4 +29,5 @@ export enum Endpoints {
   ChangePassword = 'changepassword',
   DeleteAccount = 'delete_user_account',
   NotificaionAllow = 'profile_notification_setting',
+  FreeSubscriptionAPI = 'subscription',
 }

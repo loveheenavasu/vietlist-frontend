@@ -19,7 +19,9 @@ import {
   ChangePasswordComponent,
   DeleteAccountComponent,
   EditProfileComponent,
+  ManageSubscriptionComponent,
   MyBusinessComponent,
+  PrivacyComponent,
   SettingComponent,
 } from './manage-profile/components'
 import { AddEventComponent } from './manage-event'
@@ -61,6 +63,14 @@ export default [
       {
         path: 'setting',
         component: SettingComponent,
+      },
+      {
+        path: 'privacy',
+        component: PrivacyComponent,
+      },
+      {
+        path: 'subscription',
+        component:ManageSubscriptionComponent,
       },
     ],
     canActivate: [AuthGuard],

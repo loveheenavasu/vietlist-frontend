@@ -19,11 +19,15 @@ import Swal from 'sweetalert2'
 
 import { ProfileService } from '../../service/profile.service'
 
-
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf ,     FormControlValidationDirective,],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+    FormControlValidationDirective,
+  ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
 })
@@ -43,17 +47,19 @@ export class ChangePasswordComponent {
     private loaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private sessionservice: AuthenticationService,
+    private router: Router,
   ) {
-    this.changePassword = this.fb.group({
-      old_password: ['', Validators.required],
-      new_password: ['', Validators.required],
-      confirm_password: ['', [Validators.required]],
-    },
-    {
-      validators: matchValidator('new_password', 'confirm_password'),
-    },
+    this.changePassword = this.fb.group(
+      {
+        old_password: ['', Validators.required],
+        new_password: ['', Validators.required],
+        confirm_password: ['', [Validators.required]],
+      },
+      {
+        validators: matchValidator('new_password', 'confirm_password'),
+      },
     )
- 
+
     const data = this.sessionservice.getUserdata()
     this.email = data?.user_email
   }
@@ -78,6 +84,7 @@ export class ChangePasswordComponent {
     this.profileDetail.changePasswrd(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
+
         Swal.fire({
           toast: true,
           text: res.message,
@@ -88,6 +95,8 @@ export class ChangePasswordComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        this.sessionservice.clearAuthentication()
+        this.router.navigateByUrl('/')
       },
       error: (err) => {},
     })

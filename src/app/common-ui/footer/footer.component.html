@@ -3,7 +3,7 @@
 <div class="container-fluid g-0 links-cnt desktop-footer">
   <!-- <div class="container"> -->
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center">
+    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img">
       <img src="/assets/icons/brand-logo.svg" alt="Logo" />
     </div>
     <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
@@ -11,27 +11,53 @@
     </div>
     <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center"></div>
     <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
-      <h3>Newsletter Subscribe</h3>
+      <h3 class="newsletter-heading">Newsletter Subscribe</h3>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-12 col-md-6 col-lg-5">
       <ul>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" />
-          {{ footerPageContent?.contact?.address }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/mdi_location-radius.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.address }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/fluent_call-28-filled.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/ri_whatsapp-fill.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/email.svg" />
-          {{ footerPageContent?.contact?.email }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/email.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.email }}
+            </div>
+          </div>
         </li>
       </ul>
       <div class="social-link">
@@ -143,20 +169,46 @@
       <ul>
         <li><img src="/assets/icons/brand-logo.svg" alt="Logo" /></li>
         <li>
-          <img src="/assets/icons/mdi_location-radius.svg" />
-          {{ footerPageContent?.contact?.address }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/mdi_location-radius.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.address }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/fluent_call-28-filled.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/fluent_call-28-filled.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/ri_whatsapp-fill.svg" /> +1
-          {{ footerPageContent?.contact?.phone_number }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/ri_whatsapp-fill.svg" />
+            </div>
+            <div>
+              +1
+              {{ footerPageContent?.contact?.phone_number }}
+            </div>
+          </div>
         </li>
         <li>
-          <img src="/assets/icons/email.svg" />
-          {{ footerPageContent?.contact?.email }}
+          <div class="d-flex info-wrapper">
+            <div>
+              <img src="/assets/icons/email.svg" />
+            </div>
+            <div>
+              {{ footerPageContent?.contact?.email }}
+            </div>
+          </div>
         </li>
       </ul>
     </div>

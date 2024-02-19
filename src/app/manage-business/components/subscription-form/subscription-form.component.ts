@@ -40,7 +40,8 @@ export class SubscriptionFormComponent {
   check!: boolean
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
-    this.verified_badge = value.verified_badge
+    console.log(value)
+    this.verified_badge = value?.verified_badge
     if (this.verified_badge == '1') {
       console.log('trueeee')
       this.check = true
@@ -48,17 +49,17 @@ export class SubscriptionFormComponent {
       console.log('trueeee2')
       this.check = false
     }
-    this.verification_upload = value.verification_upload
-    const parts: string[] = this.verification_upload.split('/')
-    this.lastPart = parts[parts.length - 1]
+    this.verification_upload = value?.verification_upload
+    const parts: string[] = this.verification_upload?.split('/')
+    this.lastPart = parts?.[parts?.length - 1]
 
     this.cdr.detectChanges()
-    const controls = [this.subscriptionForm.value]
-
-    controls.forEach((control) => {
-      this.subscriptionForm.get(control)?.patchValue(value?.[control] || '')
+    this.subscriptionForm?.patchValue({
+      facebook: value?.facebook,
+      instagram: value?.instagram,
+      twitter: value?.twitter
     })
-  }
+  } 
   checkdvalue: any
   document: any
   public isFormFilled: boolean = false
@@ -175,16 +176,16 @@ export class SubscriptionFormComponent {
         next: (res) => {
           this.isLoader = false
           this.formSubmit.emit()
-          Swal.fire({
-            toast: true,
-            text: 'Successfully updated subscription details.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Successfully updated subscription details.',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {},
       })
@@ -197,16 +198,16 @@ export class SubscriptionFormComponent {
             this.businessService.isSubscriptionFormFilled.next(true)
             this.localstorage.saveData('isSubscriptionFormFilled', 'true')
             this.isFormFilled = true
-            Swal.fire({
-              toast: true,
-              text: 'Successfully added subscription details.',
-              animation: false,
-              icon: 'success',
-              position: 'top-right',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-            })
+            // Swal.fire({
+            //   toast: true,
+            //   text: 'Successfully added subscription details.',
+            //   animation: false,
+            //   icon: 'success',
+            //   position: 'top-right',
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            //   timerProgressBar: true,
+            // })
           }
         },
         error: (err) => {},

@@ -1,4 +1,4 @@
-<div class="container main-container">
+<div class="container-fluid main-container">
   <div class="heading">
     <h1>{{ planHeaderContent?.plans_section?.title }}</h1>
     <p>
@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <div class="container">
+  <div class="subscription-container">
     <div class="row">
       @for (plan of subscriptionPlans; track $index) {
         <div class="col-12 col-md-6 col-lg-4">

@@ -1,4 +1,4 @@
-import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service';
+import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 // import { RouterOutlet } from '@angular/router'
 // import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
 // import {
@@ -594,6 +594,9 @@ export class ListBusinessComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
+  public imagePreviews: any
+  public imageUrl: any
+  public filess: any
   /**
    *
    * @param _formBuilder
@@ -605,7 +608,7 @@ export class ListBusinessComponent {
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
-    private fullPageLoader:FullPageLoaderService
+    private fullPageLoader: FullPageLoaderService,
   ) {
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -643,7 +646,6 @@ export class ListBusinessComponent {
 
     const localFlag = this.localStorageService.getData('isBusinessFormFilled')
     this.isFormFilled = Boolean(localFlag)
-
   }
 
   ngOnInit() {
@@ -752,6 +754,49 @@ export class ListBusinessComponent {
   //     }
   // }
 
+  onSelectImage(event: any) {
+    this.files.push(...event.addedFiles)
+
+    const formData = new FormData()
+
+    for (var i = 0; i < this.files.length; i++) {
+      console.log(this.files[i], 'this.files[i]')
+      formData.append('file[]', this.files[i])
+    }
+    this.displayImagePreviews()
+  }
+  displayImagePreviews() {
+    // Assuming you have an array to store image URLs for preview
+    this.imagePreviews = []
+
+    // Loop through each file
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i]
+      const reader = new FileReader()
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file)
+
+      // Define the onload event handler
+      reader.onload = () => {
+        // Cast reader.result to string
+        const result = reader.result as string
+
+        // Push the data URL (image preview) to the array
+        // this.imagePreviews.push(result)
+      }
+    }
+    this.businessService.uploadMedia(this.files[0]).subscribe({
+      next: (res: any) => {
+        this.imageUrl = res.image_url
+        this.imagePreviews.push(res.image_url)
+      },
+      error: (err: any) => {
+        // Handle errors
+      },
+    })
+  }
+
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -821,7 +866,7 @@ export class ListBusinessComponent {
       .getBusiness(this.postId ? this.postId : postId)
       .subscribe({
         next: (res) => {
-              this.fullPageLoader.hideLoader()
+          this.fullPageLoader.hideLoader()
           this.businessFormDetails = res?.data?.[0] || null
           this.tags = this.businessFormDetails.post_tags.map(
             (tag: any) => tag.id,
@@ -862,6 +907,7 @@ export class ListBusinessComponent {
               : 'NA',
             instagram: this.businessFormDetails.instagram,
             facebook: this.businessFormDetails.facebook,
+            logo:this.businessFormDetails.logo 
           })
 
           // this.tags = this.businessFormDetails.post_tags
@@ -915,7 +961,6 @@ export class ListBusinessComponent {
 
   public changeMapView() {
     console.log('Selected map view:', this.businessInfoForm.value.mapview)
-   
     if (this.map !== null) {
       console.log('Changing map view...')
       switch (this.businessInfoForm.value.mapview) {
@@ -995,16 +1040,16 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
           )
-          Swal.fire({
-            toast: true,
-            text: 'Business Information updated successfully!',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Business Information updated successfully!',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {
           this.isloader = false
@@ -1024,16 +1069,16 @@ export class ListBusinessComponent {
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
-          Swal.fire({
-            toast: true,
-            text: 'Business Information added successfully!',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
+          // Swal.fire({
+          //   toast: true,
+          //   text: 'Business Information added successfully!',
+          //   animation: false,
+          //   icon: 'success',
+          //   position: 'top-right',
+          //   showConfirmButton: false,
+          //   timer: 3000,
+          //   timerProgressBar: true,
+          // })
         },
         error: (err) => {
           this.isloader = false

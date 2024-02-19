@@ -1,0 +1,67 @@
+@import "../../../../assets/scss/common";
+
+.container-fluid{
+    margin-top:3rem
+}
+
+h5{
+    color:rgb(82, 82, 82);
+    font-size:25px;
+    font-weight:500
+}
+
+ul{
+    list-style-type: none;
+    margin:0px ;
+    padding:0px
+}
+    
+.change_cancel{
+    color:rgb(90, 170, 255);
+    cursor: pointer;
+}
+.user-email{
+    font-size:18px;
+    color:rgb(133, 133, 133);
+    font-weight:500
+}
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: var(--primary-color-orange) !important;
+
+}
+
+
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  /* Optional: Add styling for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Optional: Style table for smaller screens */
+  @media screen and (max-width: 600px) {
+    th, td {
+      font-size: 12px;
+    }
+  }
+  

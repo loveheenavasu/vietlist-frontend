@@ -12,6 +12,7 @@ import {
   AuthenticationService,
   FullPageLoaderService,
   LocalStorageService,
+  UserStatus,
 } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
@@ -160,14 +161,22 @@ export class ConfirmPaymentComponent {
     )
 
     if (error) {
+      Swal.fire({
+        toast: true,
+        text: error.message,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
       console.error(error.message)
     } else {
       this.paymentMethod = setupIntent
       if (this.paymentMethod) {
         this.confirmSubscriptionPayment()
       }
-      console.log('SetupIntent confirmed:', setupIntent)
-      // Handle success, e.g., redirect to a success page
     }
   }
 
@@ -181,6 +190,7 @@ export class ConfirmPaymentComponent {
     }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
+        console.log('check res---', res)
         Swal.fire({
           toast: true,
           text: res.message,
@@ -191,8 +201,8 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        if (res.data?.status == 'active') {
-          const status = res.data?.status
+        if (res.data?.status == UserStatus.Active) {
+          const status = UserStatus.Active
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
         }

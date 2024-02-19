@@ -101,7 +101,28 @@
 li.active {
     color: rgb(255, 128, 0) !important;
 }
-
+.profile-pic-div.uploading {
+    position: relative;
+  }
+  
+  .profile-pic-div.uploading::after {
+    content: '';
+    position: absolute;
+    top: -3px; /* Adjust as needed */
+    left: -3px; /* Adjust as needed */
+    width: calc(100% + 6px); /* Adjust as needed */
+    height: calc(100% + 6px); /* Adjust as needed */
+    border: 3px solid var(--primary-color-orange); /* Border color */
+    border-radius: 50%; /* Make it a circle */
+    border-top-color: transparent; /* Hide the top border */
+    animation: spin 2s linear infinite; /* Add rotation animation */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
 @media screen and (max-width:1341px) {
 
 
@@ -142,7 +163,7 @@ li.active {
 
 }
 
-@media screen and (max-width:1199px) {
+@media screen and (max-width:1399px) {
 
 
     .sidebar-items {
@@ -155,7 +176,19 @@ li.active {
     }
 
 }
-@media screen and (max-width: 991px) {
+
+@media screen and (max-width:1199px) {
+
+
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 8px;
+
+
+
+    }
+
     .sidebar-cnt {
         height: 100%;
         width: 95%;
@@ -165,16 +198,45 @@ li.active {
         justify-content: center;
   
     }
+
+}
+@media screen and (max-width: 991px) {
+    .sidebar-cnt {
+        height: 100%;
+        width: 100%;
+        margin: auto;
+        background-color: #f3f8fd;
+        display: flex;
+        justify-content: center;
+  
+    }
+    .sidebar-items {
+        margin: 0 auto;
+        width: 80%;
+        padding: 5px;
+
+
+
+    }
+
+    .user-email {
+        color: #1E73bE;
+        text-align: center;
+        font-weight: var(--font-weight-semibold);
+        font-size: 15px;
+        margin-top: 1rem;
+        cursor:pointer
+    }
 }
 @media screen and (max-width: 768px) {
-    .col-md-4 {
-        flex: 0 0 auto!important;
-        width: 100%!important;
-    }
-    .col-md-8 {
-        flex: 0 0 auto!important;
-        width: 100%!important;
-    }
+    // .col-md-4 {
+    //     flex: 0 0 auto!important;
+    //     width: 100%!important;
+    // }
+    // .col-md-8 {
+    //     flex: 0 0 auto!important;
+    //     width: 100%!important;
+    // }
     .container{
         padding:10px;
     }
