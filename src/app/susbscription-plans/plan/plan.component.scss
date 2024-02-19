@@ -2,8 +2,8 @@
 
 .main-container {
 
-    padding-top: 6.5rem;
-    padding-bottom: 6rem;
+    margin-top: 6.5rem;
+    margin-bottom: 6rem;
 
     .subscription-container {
         width: 84%;
@@ -176,7 +176,7 @@ p {
 
 
 .plan-action {
-    margin: 0 auto 42px auto;
+    margin: 0 auto 25px auto;
     width: fit-content;
 }
 
@@ -228,12 +228,10 @@ p {
 @media screen and (max-width: 768px) {
 
     .main-container {
-        padding-top: 3.2rem;
-        padding-bottom: 2.625rem;
+        margin-bottom: 2.625rem;
 
         .heading {
             width: 100%;
-            padding: 0px 22px;
 
             h1 {
                 font-size: 24px !important;
@@ -266,12 +264,6 @@ p {
 
     .subscription-plan-cnt .plan-content {
         margin-top: 42px
-    }
-
-    .plan-action {
-        .btn {
-            font-size: 1.6rem;
-        }
     }
 }
 
