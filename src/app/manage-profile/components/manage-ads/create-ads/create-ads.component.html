@@ -1,90 +1,124 @@
 <h3 class="dashboard-heading">Create Ad</h3>
-<div class="container-fluid mt-3 g-0" >
-    <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >Email</label
-          >
+<div class="container-fluid mt-3 g-0">
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Email</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" placeholder="Enter the title of your business" />
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Choose Space</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-select class="vietlist-select" placeholder="Choose Space">
+        @for(key of allSpaces;track $index){
+        <mat-option [value]="key.id">{{key.name}}</mat-option>
+        }
+      </mat-select>
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Billing Model</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" placeholder="Enter the title of your business" />
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Live preview</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" placeholder="Enter the live preview" />
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Title</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" placeholder="Enter the title of your business" />
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Description</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <textarea name="" id="" cols="30" rows="6" placeholder="Enter Description"></textarea>
+    </div>
+  </div>
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">URL</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" placeholder="Enter Url" />
+    </div>
+  </div>
+
+
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Image</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input (change)="onSelectImage($event)" type="file" class="input-control" style="height:51px" />
+    </div>
+  </div>
+
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Start Date</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <div class="col__">
+        <div class="input-group">
+          <input matInput [matDatepicker]="picker" class="input-control" (click)="picker.open()" />
+          <i class="fa fa-calendar-o" (click)="picker.open()"></i>
+          <mat-datepicker #picker></mat-datepicker>
         </div>
-        <div class="col-12 col-md-12 col-lg-8">
-          <input
-            class="input-control"
-            placeholder="Enter the title of your business"
-          />
+        &nbsp; &nbsp;
+        <input type="time" class="input-control" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">End Date</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <div class="col__">
+        <div class="input-group">
+          <input matInput [matDatepicker]="pickers" class="input-control" (click)="picker.open()" />
+          <i class="fa fa-calendar-o" (click)="picker.open()"></i>
+          <mat-datepicker #pickers ></mat-datepicker>
+        </div>
+        &nbsp; &nbsp;
+        <input type="time" class="input-control" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row my-4 align-items-center">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Geo-Target-Ad</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <div class="col__">
+        <div class="input-group">
+          <mat-tab-group>
+            <mat-tab label="First"> Content 1 </mat-tab>
+            <mat-tab label="Second"> Content 2 </mat-tab>
+          </mat-tab-group>
+          
         </div>
       </div>
-      <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >Choose Space</label
-          >
-        </div>
-        <div class="col-12 col-md-12 col-lg-8">
-            <mat-select
-            
-            class="vietlist-select"
-            placeholder="Choose Space"
-            
-          >
-           @for(key of allSpaces;track $index){ 
-              <mat-option [value]="key.id">{{key.name}}</mat-option>
-           }
-          </mat-select>
-        </div>
-      </div>
-      <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >Billing Model</label
-          >
-        </div>
-        <div class="col-12 col-md-12 col-lg-8">
-          <input
-            class="input-control"
-            placeholder="Enter the title of your business"
-          />
-        </div>
-      </div>
-      <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >Title</label
-          >
-        </div>
-        <div class="col-12 col-md-12 col-lg-8">
-          <input
-            class="input-control"
-            placeholder="Enter the title of your business"
-          />
-        </div>
-      </div>
-      <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >Description</label
-          >
-        </div>
-        <div class="col-12 col-md-12 col-lg-8">
-            <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="6"
-            placeholder="Enter Description"
-          ></textarea>
-        </div>
-      </div>
-      <div class="row my-4 align-items-center">
-        <div class="col-12 col-md-12 col-lg-4">
-          <label class="listing-form-label"
-            >URL</label
-          >
-        </div>
-        <div class="col-12 col-md-12 col-lg-8">
-          <input
-            class="input-control"
-            placeholder="Enter Url"
-          />
-        </div>
-      </div>
+    </div>
+  </div>
 </div>
