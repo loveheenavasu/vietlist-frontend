@@ -40,7 +40,7 @@ export class PlanComponent {
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
-    // this.fetchProfileDetail()
+    this.fetchProfileDetail()
   }
 
   public fetchSubscriptionPlanData() {
@@ -101,15 +101,14 @@ export class PlanComponent {
     })
   }
 
-  // public fetchProfileDetail() {
-  //   this.profileService.userDetails().subscribe({
-  //     next: (res) => {
-  //       this.userDetails = res.data?.user
-  //       console.log(this.userDetails, "userDetails")
-  //     },
-  //     error: (err: any) => {
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetails = res.data?.user
+      },
+      error: (err: any) => {
 
-  //     },
-  //   })
-  // }
+      },
+    })
+  }
 }
