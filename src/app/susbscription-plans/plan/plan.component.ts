@@ -40,7 +40,9 @@ export class PlanComponent {
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
+    if(this.isAuthenticated){
     this.fetchProfileDetail()
+    }
   }
 
   public fetchSubscriptionPlanData() {
