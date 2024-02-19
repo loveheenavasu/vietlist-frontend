@@ -24,15 +24,15 @@ export class PlanComponent {
   public isAuthenticated: boolean = false
   public planHeaderContent?: any
   public freePlanId: any
-  public userDetails:any
+  public userDetails: any
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
     private router: Router,
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
-    private profileService:ProfileService
-  ) {}
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
@@ -54,7 +54,7 @@ export class PlanComponent {
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 
@@ -104,8 +104,8 @@ export class PlanComponent {
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
-      this.userDetails = res.data?.user
-      console.log(this.userDetails, "userDetails")
+        this.userDetails = res.data?.user
+        console.log(this.userDetails, "userDetails")
       },
       error: (err: any) => {
 
