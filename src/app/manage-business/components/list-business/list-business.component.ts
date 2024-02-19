@@ -319,6 +319,7 @@ export class ListBusinessComponent {
       },
     })
   }
+  
   removeItem(index:any) {
     this.imagePreviews.splice(index, 1);
 }
