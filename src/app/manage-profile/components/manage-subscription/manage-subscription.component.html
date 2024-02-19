@@ -56,13 +56,13 @@
       <p class="user-email">Username</p>
     </div>
     <div class="col-12 col-lg-6 mt-3">
-      <p>{{ userDetails?.display_name }}</p>
+      <p>{{ subscriptionDetails?.user_name }}</p>
     </div>
     <div class="col-12 col-lg-6">
       <p class="user-email">Email</p>
     </div>
     <div class="col-12 col-lg-6">
-      <p>{{ userDetails?.user_email }}</p>
+      <p>{{ subscriptionDetails?.email }}</p>
     </div>
   </div>
   <div class="row mt-4">
@@ -81,14 +81,16 @@
             </tr>
           </thead>
           <tbody>
+            @for(key of subscriptionDetails?.invoice_detail ; track $index){
             <tr>
-              <td>Data 1</td>
-              <td>Data 2</td>
-              <td>Data 3</td>
-              <td>Data 3</td>
-              <!-- Add more data cells as needed -->
+              <td>{{key.formattedTimeStamp}}</td>
+              <td>{{key.membership_id}}</td>
+              <td>{{key.total}}</td>
+              <td>{{key.status}}</td>
+            
             </tr>
-            <!-- Add more rows of data as needed -->
+          }
+            
           </tbody>
         </table>
       </div>

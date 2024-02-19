@@ -66,7 +66,30 @@ export class ProfileService {
       Endpoints.GetNotificationsetting,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-
     return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+  public subscriptionDetails(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.UserSubscriptionDetails,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+  public setPrivacy(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.ListingPrivacySet,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body ,{ headers: authToken })
+  }
+
+  public getPrivacy(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetSetPrivacy,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint ,{ headers: authToken })
   }
 }

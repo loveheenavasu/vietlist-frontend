@@ -381,11 +381,12 @@
               (change)="onSelect($event)"
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
             >
-              <ngx-dropzone-label
+              <ngx-dropzone-label *ngIf="!isImageLoading"
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
                 here or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
                 .webp)</ngx-dropzone-label
               >
+              <div class="loader" *ngIf="isImageLoading"></div>
             </ngx-dropzone>
 
             <div class="main_images mt-3">

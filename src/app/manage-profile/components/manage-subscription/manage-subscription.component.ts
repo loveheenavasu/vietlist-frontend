@@ -12,7 +12,8 @@ import { ProfileService } from '../../service/profile.service'
 })
 export class ManageSubscriptionComponent {
   public userDetails: any
-
+  public subscriptionDetails:any
+  public formattedTimeStamp:any
   constructor(
     private profileDetail: ProfileService,
     private loaderService: FullPageLoaderService,
@@ -21,6 +22,7 @@ export class ManageSubscriptionComponent {
 
   ngOnInit() {
     this.fetchProfileDetail()
+    this.getUserSubscriptionDetails()
   }
 
   public fetchProfileDetail() {
@@ -30,10 +32,22 @@ export class ManageSubscriptionComponent {
         this.loaderService.hideLoader()
         if (res) {
           this.userDetails = res?.data?.user
-          console.log(this.userDetails)
         }
       },
       error: (err: any) => {},
+    })
+  }
+
+  public getUserSubscriptionDetails(){
+    this.profileDetail.subscriptionDetails().subscribe({
+      next:(res)=>{
+        this.subscriptionDetails = res.data
+        this.subscriptionDetails.invoice_detail.forEach((element:any) => {
+         element.formattedTimeStamp  = element.timestamp.split(' ')[0]
+        });
+      },error:(err)=>{
+
+      }
     })
   }
 

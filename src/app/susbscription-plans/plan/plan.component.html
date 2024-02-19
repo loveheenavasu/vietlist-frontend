@@ -42,9 +42,7 @@
                   class="btn orange-background-btn"
                   (click)="navigateToConfirmPayment(plan.id)"
                 >
-                  {{
-                    isAuthenticated === true ? 'Choose Plan' : 'Sign me up !'
-                  }}
+                  {{userDetails?.level_id ===  plan.id ? 'Active' : 'Choose Plan'}}
                 </button>
               </div>
             </div>

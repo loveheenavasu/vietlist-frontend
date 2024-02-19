@@ -1,3 +1,4 @@
+import { filter } from 'rxjs';
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import {
@@ -405,8 +406,8 @@ public isImageUploading:boolean = false
       video_url: this.ConsultationForm.value.video_url,
       business_hours: businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
-      video_upload: this.vediosUrl,
-      image: this.imagePreviews
+      video_upload: this.vediosUrl?.filter((item: any) => item ? true : false),
+      image: this.imagePreviews?.filter((item: any) => item ? true : false)
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
@@ -420,6 +421,9 @@ public isImageUploading:boolean = false
             this.isFormFilled = true
           }
         },
+        error:(err)=>{
+          this.isLoader = false
+        }
       })
     } else if (this.isFormFilled) {
       this.businessService.updateBusiness(body).subscribe({
@@ -430,6 +434,9 @@ public isImageUploading:boolean = false
           this.businessService.isConsultationFormFilled.next(true)
           this.isFormFilled = true
         },
+        error:(err)=>{
+          this.isLoader = false
+        }
       })
     }
   }

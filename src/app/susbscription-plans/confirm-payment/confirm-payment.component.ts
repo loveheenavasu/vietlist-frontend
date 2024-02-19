@@ -11,7 +11,6 @@ import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
 import {
   AuthenticationService,
   FullPageLoaderService,
-  LocalStorageService,
   UserStatus,
 } from '@vietlist/shared'
 import Swal from 'sweetalert2'
@@ -28,8 +27,7 @@ import { NgFor, NgIf } from '@angular/common'
 export class ConfirmPaymentComponent {
   @ViewChild('cardInfo', { static: false }) cardInfo!: ElementRef
   @ViewChild('billingAddressElement', { static: true })
-  billingAddressElement!: ElementRef
-
+  public billingAddressElement!: ElementRef
   public stripe: any
   public loading = false
   public confirmation: any
@@ -50,7 +48,7 @@ export class ConfirmPaymentComponent {
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
     public router: Router,
-    private localStorageService: LocalStorageService,
+
   ) {}
 
   ngOnInit() {
@@ -61,7 +59,9 @@ export class ConfirmPaymentComponent {
     if (this.authToken) {
       this.getPaymentIntent()
     }
+
   }
+
   ngAfterViewInit() {
     this.stripeService
       .setPublishableKey(environment.stripe_publish_key)
@@ -79,7 +79,6 @@ export class ConfirmPaymentComponent {
             base: 'stripe-address-element',
           },
           placeholder: 'Enter your billing address',
-          // Set mode to 'billing' to collect billing address
           mode: 'billing',
         }
         this.billingAddressElements = elements.create(
@@ -102,7 +101,6 @@ export class ConfirmPaymentComponent {
       next: (res: any) => {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
-        console.log(this.paymentIntent, 'this.payemnetintent')
       },
       error: (err: any) => {},
     })
@@ -117,38 +115,8 @@ export class ConfirmPaymentComponent {
     this.cd.detectChanges()
   }
 
-  // async onSubmit(form: NgForm) {
-  //   const { paymentMethod, error } = await this.stripe.confirmCardSetup(this.paymentIntent , {
-  //     payment_method: {
-  //       card:this.card
-  //     },
-
-  //   })
-
-  //   if (error) {
-  //     Swal.fire({
-  //       toast: true,
-  //       text: error.error.message,
-  //       animation: false,
-  //       icon: 'error',
-  //       position: 'top-right',
-  //       showConfirmButton: false,
-  //       timer: 3000,
-  //       timerProgressBar: true,
-  //     })
-  //     console.log('Error:', error)
-  //   } else {
-  //     console.log('Success!', paymentMethod)
-  //     // Access billing details
-  //     this.paymentMethod = paymentMethod.payment_method
-  //     // const billingDetails = paymentMethod.billing_details
-  //     // console.log('Billing Details:', billingDetails)
-  //     this.confirmSubscription()
-  //   }
-  // }
 
   async onSubmit(form: NgForm) {
-    // Assuming you have a card element, if not, adapt accordingly
     const { setupIntent, error } = await this.stripe.confirmCardSetup(
       this.paymentIntent,
       {
@@ -169,7 +137,6 @@ export class ConfirmPaymentComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-      console.error(error.message)
     } else {
       this.paymentMethod = setupIntent
       if (this.paymentMethod) {
@@ -208,4 +175,7 @@ export class ConfirmPaymentComponent {
       },
     })
   }
+
+
+
 }

@@ -116,6 +116,7 @@ export class ManageProfileComponent {
       },
     })
   }
+  
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url

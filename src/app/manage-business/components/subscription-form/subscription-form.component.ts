@@ -40,6 +40,7 @@ export class SubscriptionFormComponent {
   public imageUrl: any
   public filess: any
   public businessFormDetails: any
+  public isImageUploading:boolean = false
 
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
@@ -108,6 +109,7 @@ export class SubscriptionFormComponent {
     this.displayImagePreviews()
   }
   displayImagePreviews() {
+    this.isImageUploading = true
     // Assuming you have an array to store image URLs for preview
     this.imagePreviews = []
 
@@ -127,6 +129,7 @@ export class SubscriptionFormComponent {
     console.log(this.files[0], 'files[0]')
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
+        this.isImageUploading = false
         this.imageUrl = res.image_url
         this.imagePreviews.push(res.image_url)
       },

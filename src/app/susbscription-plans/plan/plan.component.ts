@@ -1,4 +1,3 @@
-import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
 import { AuthenticationService } from './../../shared/utils/services/authentication.service'
 import { Component, Input } from '@angular/core'
@@ -6,6 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { PlansService } from '../service/plan.service'
 import { FullPageLoaderService, UserStatus } from '@vietlist/shared'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
   selector: 'app-plan',
@@ -24,12 +24,14 @@ export class PlanComponent {
   public isAuthenticated: boolean = false
   public planHeaderContent?: any
   public freePlanId: any
+  public userDetails:any
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
     private router: Router,
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
+    private profileService:ProfileService
   ) {}
 
   ngOnInit() {
@@ -38,13 +40,13 @@ export class PlanComponent {
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
+    this.fetchProfileDetail()
   }
 
   public fetchSubscriptionPlanData() {
     this.loaderService.showLoader()
     this.subscriptionService.subscriptionPlan().subscribe({
       next: (res: any) => {
-        console.log('check subscription data', res)
         this.loaderService.hideLoader()
         const plansArray = Object.values(res.data).filter(
           (item) => typeof item === 'object',
@@ -71,7 +73,6 @@ export class PlanComponent {
   }
 
   navigateToConfirmPayment(id: any) {
-    console.log(typeof id, 'planId')
     this.freePlanId = id
     if (id == '1') {
       this.handleFreePlan()
@@ -91,12 +92,23 @@ export class PlanComponent {
     this.subscriptionService.freePlanSubscription(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
-        console.log(res)
         if (res.data?.status == UserStatus.Active) {
           const status = UserStatus.Active
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
         }
+      },
+    })
+  }
+
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+      this.userDetails = res.data?.user
+      console.log(this.userDetails, "userDetails")
+      },
+      error: (err: any) => {
+
       },
     })
   }

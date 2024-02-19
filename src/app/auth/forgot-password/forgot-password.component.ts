@@ -1,10 +1,10 @@
 import { NgIf, CommonModule } from '@angular/common'
 import { LoaderComponent } from './../../common-ui/loader/loader.component'
 import { Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 
 import { FormControlValidationDirective } from 'src/app/shared/utils/directives/control-validation.directive'
@@ -50,6 +50,15 @@ export class ForgotPasswordComponent {
   public hideOTP: boolean = true
   public loader: boolean = false
   public isResentOTP: boolean = false
+
+  /**
+   * 
+   * @param matDialogRef 
+   * @param dialog 
+   * @param router 
+   * @param authService 
+   * @param fb 
+   */
   constructor(
     public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
     public dialog: MatDialog,
@@ -57,6 +66,7 @@ export class ForgotPasswordComponent {
     private authService: AuthService,
     private fb: FormBuilder,
   ) {
+    
     this.forgotPasswordForm = this.fb.group({
       email: [
         '',
@@ -67,6 +77,10 @@ export class ForgotPasswordComponent {
         ],
       ],
     })
+  }
+
+  ngOnInit(){
+    this.updateSize()
   }
 
   public close() {
@@ -84,8 +98,6 @@ export class ForgotPasswordComponent {
   }
 
   public getOtp(isResendOTP: boolean) {
-    console.log(isResendOTP, 'isResendOTP')
-
     if (this.forgotPasswordForm.valid) {
       if (isResendOTP == false) {
         this.loader = true
@@ -200,10 +212,8 @@ export class ForgotPasswordComponent {
     }
   }
 
-  validateEmailFormat() {
+ public validateEmailFormat() {
     const emailControl: any = this.forgotPasswordForm.get('email')
-
-    // Check if the email is touched and is not empty before validating the format
     if (emailControl.touched && emailControl.value) {
       const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       const isValid = emailPattern.test(emailControl.value)
@@ -214,5 +224,9 @@ export class ForgotPasswordComponent {
         emailControl.setErrors(null)
       }
     }
+  }
+
+  public updateSize(){
+    this.matDialogRef.updateSize('600px' , '330px')
   }
 }

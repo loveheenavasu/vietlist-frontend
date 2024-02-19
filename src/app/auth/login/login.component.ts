@@ -53,10 +53,6 @@ export class LoginComponent {
    * @param fb
    */
 
-  // @HostListener('window:resize', ['$event'])
-  //   console.log("resize",event)
-  //   this.screenSize = event
-
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -76,7 +72,6 @@ export class LoginComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.screensize = event.target.innerWidth
-    console.log(this.screensize)
   }
 
   public forgotPassword() {
@@ -134,7 +129,6 @@ export class LoginComponent {
         },
         error: (err: any) => {
           this.loader = false
-          console.log(err, 'error')
         },
       })
     }
