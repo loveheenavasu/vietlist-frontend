@@ -39,10 +39,10 @@
 
         <div class="main_images mt-3">
           <div class="images__">
-            @if (files[0]) {
-              <p>{{ files[0].name }}</p>
+            @if ( this.imageUrl) {
+              <p>{{ this.imageUrl }}</p>
             } @else {
-              <p>{{businessFormDetails?.verification_upload}}</p>
+              <p>{{businessFormDetails?.verification_upload[0]}}</p>
             }
           </div>
         </div>

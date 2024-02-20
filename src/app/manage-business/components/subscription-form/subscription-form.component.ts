@@ -33,7 +33,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 })
 export class SubscriptionFormComponent {
   public verified_badge: any
-  public verification_upload: any
+  public verification_upload: any=[]
   public lastPart!: string
   public check!: boolean
   public imagePreviews: any
@@ -52,7 +52,7 @@ export class SubscriptionFormComponent {
       this.check = false
     }
     this.verification_upload = value?.verification_upload
-    const parts: string[] = this.verification_upload?.split('/')
+    const parts: string[] = this.verification_upload
     this.lastPart = parts?.[parts?.length - 1]
 
     this.cdr.detectChanges()
@@ -108,25 +108,20 @@ export class SubscriptionFormComponent {
     }
     this.displayImagePreviews()
   }
+
+
   displayImagePreviews() {
     this.isImageUploading = true
-    // Assuming you have an array to store image URLs for preview
     this.imagePreviews = []
-
-    // Loop through each file
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i]
       const reader = new FileReader()
-
-      // Read the file as a data URL
       reader.readAsDataURL(file)
-
-      // Define the onload event handler
       reader.onload = () => {
         const result = reader.result as string
       }
     }
-    console.log(this.files[0], 'files[0]')
+  
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
         this.isImageUploading = false

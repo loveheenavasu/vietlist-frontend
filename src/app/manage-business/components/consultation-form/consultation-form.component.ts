@@ -103,7 +103,15 @@ public isImageUploading:boolean = false
   public selectedWeek: string[] = []
   public isLastRemoved: boolean[] = []
   public imageUrlsArr:any[]=[]
-
+  public days = [
+    { name: 'Mon', times: [{ start: '', end: '' }] },
+    { name: 'Tue', times: [{ start: '', end: '' }] },
+    { name: 'Wed', times: [{ start: '', end: '' }] },
+    { name: 'Thu', times: [{ start: '', end: '' }] },
+    { name: 'Fri', times: [{ start: '', end: '' }] },
+    { name: 'Sat', times: [{ start: '', end: '' }] },
+    { name: 'Sun', times: [{ start: '', end: '' }] },
+  ]
 
 /**
  * 
@@ -166,7 +174,7 @@ public isImageUploading:boolean = false
   }//end constrctor 
 
 
-  formatData() {
+ public formatData() {
     this.formattedData = []
     this.Timezone.forEach((regionData) => {
       regionData.timeZones.forEach((timeZone) => {
@@ -178,7 +186,7 @@ public isImageUploading:boolean = false
     })
   }
 
-  onTimeZoneChange(event: any) {
+ public onTimeZoneChange(event: any) {
     this.selectedTimeZone = event
   }
 
@@ -339,22 +347,17 @@ public isImageUploading:boolean = false
         this.imagePreviews.push(res.image_url)
       },
       error: (err: any) => {
-        // Handle errors
+       
       },
     })
   }
-  removeItem(index:any) {
+
+
+  public removeItem(index:any) {
     this.imagePreviews.splice(index, 1);
 }
-  public days = [
-    { name: 'Mon', times: [{ start: '', end: '' }] },
-    { name: 'Tue', times: [{ start: '', end: '' }] },
-    { name: 'Wed', times: [{ start: '', end: '' }] },
-    { name: 'Thu', times: [{ start: '', end: '' }] },
-    { name: 'Fri', times: [{ start: '', end: '' }] },
-    { name: 'Sat', times: [{ start: '', end: '' }] },
-    { name: 'Sun', times: [{ start: '', end: '' }] },
-  ]
+
+ 
 
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
