@@ -100,7 +100,7 @@ public isLoader :boolean= false
   }
 
 
-  addBillingAddress(){
+  public addBillingAddress(){
     
   this.isLoader = true
     const body = {
