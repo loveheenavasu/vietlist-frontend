@@ -77,6 +77,23 @@ export class ProfileService {
     return this.http.get<any>(endpoint, { headers: authToken })
   }
 
+
+  public setBillingAddress(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.SetBillingAddress,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body ,{ headers: authToken })
+  }
+
+  public getBillingAddress(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetBillingDetails,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
   public setPrivacy(body:any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.ListingPrivacySet,

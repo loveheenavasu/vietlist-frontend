@@ -16,6 +16,7 @@ import {
 import { BusinessCategories, BusinessListingComponent } from './categories'
 import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
+  BillingAddressComponent,
   ChangePasswordComponent,
   DeleteAccountComponent,
   EditProfileComponent,
@@ -81,6 +82,10 @@ export default [
       {
         path: 'create-ad',
         component:CreateAdsComponent,
+      },
+      {
+        path: 'billing-address',
+        component:BillingAddressComponent,
       },
     ],
     canActivate: [AuthGuard],

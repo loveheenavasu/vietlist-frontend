@@ -48,11 +48,42 @@ export class ConsultationFormComponent {
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
     console.log(value);
-    this.imagePreviews = value.image
-    // const video: HTMLVideoElement = document.createElement('video')
-    // // video.src = videoUrl
-    // video.src = value.video_upload
-    this.video_upload = value?.video_upload;
+    this.imagePreviews = value?.image || [];
+    this.video_upload = value?.video_upload || [];
+
+    console.log(value?.business_hours)
+    console.log(JSON.parse(value?.business_hours))
+    
+    let businessHours: any[] = JSON.parse(value?.business_hours);
+    this.showTimeTable = true;
+    const timezone = businessHours?.[businessHours?.length - 1]?.[0];
+    businessHours?.pop();
+    const hours = businessHours;
+
+    const formattedDays = hours?.map((day) => {
+      const value = day?.map((item: any) => item)?.[0]?.split(' ');
+      const times = value[1]?.split(','); 
+      return {
+        name: value?.[0],
+        times: times?.map((time: string) => {
+          return {
+            start: time?.split('-')?.[0] || '',
+            end: time?.split('-')?.[1] || ''
+          };
+        })
+      }
+    });
+
+    this.days?.forEach((day) => {
+      formattedDays?.forEach((newDay) => {
+        if(day?.name === newDay?.name) {
+          day.times = newDay?.times
+        }
+      })
+    })
+
+    console.log(this.days);
+    
     const controls = [
       'consultation_booking_link',
       'consultation_mode',
@@ -79,7 +110,7 @@ export class ConsultationFormComponent {
   public title = 'dropzone'
   public clearTable = false
   public files: File[] = []
-  public imagePreviews: any
+  public imagePreviews: any[]=[]
   public imageUrl: any
   public showTimeTable: boolean = false
   public ConsultationForm!: FormGroup
@@ -254,49 +285,7 @@ public isImageUploading:boolean = false
             // Handle errors
           },
         })
-        // video.controls = true // Add controls to the video element
-        // video.width = 320 // Set the width of the video element
-        // video.height = 240 // Set the height of the video element
-        // video.style.cssText = `
-        // margin:10px; 
-        // object-fit:cover;
-        // `
-        // // Create the video container
-        // const videoElement = document.createElement('div')
-        // videoElement.classList.add('video-preview') // Add a class for styling purposes
-
-        // // Create remove button
-        // const removeButton = document.createElement('button')
-        // removeButton.classList.add('remove_button')
-        // removeButton.textContent = 'Remove'
-        // removeButton.style.cssText = `
-        // background: orange;
-        // display: block;
-        // width: 94.7%;
-        // margin: auto;
-        // color: #fff;
-        // border: 0;
-        // margin-top: -12px;
-        //   `
-
-        // removeButton.addEventListener('click', () => {
-        //   this.onRemove(videoElement)
-        // })
-
-        // videoElement.appendChild(video)
-        // videoElement.appendChild(removeButton)
-
-        // // Get the video container element
-        // const videoContainer = document.getElementById(
-        //   'video-preview-container',
-        // )
-
-        // // Ensure that the video container exists before appending the video element
-        // if (videoContainer) {
-        //   videoContainer.appendChild(videoElement)
-        // } else {
-        //   console.error('Video preview container not found.')
-        // }
+  
       }
       reader.readAsDataURL(file)
     })
@@ -375,14 +364,18 @@ public isImageUploading:boolean = false
 
   onSubmit() {}
 
-  removeTime(dayIndex: number, timeIndex: number) {
+  public removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
     this.isLastRemoved[dayIndex] = this.days[dayIndex].times.length === 0
   }
 
 
+
+
+  
   public addBusiness(): void {
     this.isLoader = true
+    console.log(this.days)
     const selectedDaysData = this.days.filter((day) =>
       this.selectedWeek.includes(day.name),
     )
@@ -397,16 +390,23 @@ public isImageUploading:boolean = false
       })
     })
 
+    console.log(selectedDaysData)
+
     // const resultArray = Object.keys(jsonData).map(day => `${day} ${jsonData[day].join(', ')}`);
     const resultArray = this.selectedWeek.map((day) => {
-      const times = jsonData[day] ? jsonData[day].join(', ') : ''
+      const times = jsonData[day] ? jsonData[day].join(',') : ''
       return `${day} ${times}`
     })
+
+    console.log(resultArray)
+
     const selectedData = [this.selectedData]
     // const businessHours = [resultArray, selectedData]; // Modified the way of constructing businessHours array
     const businessHours = JSON.stringify(
       resultArray.map((item) => [item]).concat([selectedData]),
     )
+
+    console.log(businessHours);
 
     this.isLoader = true
     const body = {
@@ -421,8 +421,8 @@ public isImageUploading:boolean = false
       video_url: this.ConsultationForm.value.video_url,
       business_hours: businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
-      video_upload: this.vediosUrl?.filter((item: any) => item ? true : false),
-      image: this.imagePreviews?.filter((item: any) => item ? true : false)
+      video_upload: this.vediosUrl && this.vediosUrl.length > 0 ? this.vediosUrl.filter((item: any) => item ? true : false) : null,
+      image: this.imagePreviews && this.imagePreviews.length > 0 ? this.imagePreviews.filter((item: any) => item ? true : false) : null
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({

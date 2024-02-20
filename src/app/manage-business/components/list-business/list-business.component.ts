@@ -209,7 +209,6 @@ export class ListBusinessComponent {
 
   public onRemove() {
     this.uploadMediaUrl = ''
-    // this.files.splice(this.files.indexOf(event), 1)
     if (this.files.length === 0) {
       this.isFilesPresent = false
     }
@@ -219,93 +218,26 @@ export class ListBusinessComponent {
     return URL.createObjectURL(file)
   }
 
-  //   public initMap() {
-  //     let map
-  //     // Get the map container element by its ID
-  //     const mapElement = document.getElementById('map')
 
-  //     // Ensure that the map element is not null
-  //     if (mapElement !== null) {
-  //       // Create a new Google Map instance
-  //        map = new google.maps.Map(mapElement?.id ? mapElement : document.createElement('div'), {
-  //         center: { lat: this.latitude, lng: this.longitude },
-  //         zoom: 13,
-  //         mapTypeId: google.maps.MapTypeId.ROADMAP
-  //       });
-
-  //       // map = new google.maps.Map(mapElement, {
-  //       //   center: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-  //       //   zoom: 13,
-  //       //   mapTypeId: google.maps.MapTypeId.ROADMAP
-  //       // })
-
-  //       if (this.latitude && this.longitude) {
-  //         // Add a marker to the map
-  //         const marker = new google.maps.Marker({
-  //           position: { lat: this.latitude, lng: this.longitude }, // Use dynamic values
-  //           map: map,
-  //           title: 'Marker Title',
-  //         })
-  //       }
-  //     } else {
-  //     }
-  //   }
-  //   selectedMapView = 'default';
-  //   changeMapView() {
-  //     console.log(this.selectedMapView,'selectedMapView')
-  //     const mapElement = document.getElementById('map');
-
-  //     if (mapElement !== null) {
-  //         const map = new google.maps.Map(mapElement);
-
-  //         switch (this.selectedMapView) {
-  //             case 'satellite':
-  //                 map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-  //                 break;
-  //             case 'hybrid':
-  //                 map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-  //                 break;
-  //             case 'terrain':
-  //                 map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-  //                 break;
-  //             default:
-  //                 map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-  //                 break;
-  //         }
-  //     }
-  // }
-
-  onSelectImage(event: any) {
+  public onSelectImage(event: any) {
     this.files.push(...event.addedFiles)
-
     const formData = new FormData()
-
     for (var i = 0; i < this.files.length; i++) {
       console.log(this.files[i], 'this.files[i]')
       formData.append('file[]', this.files[i])
     }
     this.displayImagePreviews()
   }
-  displayImagePreviews() {
-    this.isImageLoading = true
-    // Assuming you have an array to store image URLs for preview
-    this.imagePreviews = []
 
-    // Loop through each file
+  public displayImagePreviews() {
+    this.isImageLoading = true
+    this.imagePreviews = []
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i]
       const reader = new FileReader()
-
-      // Read the file as a data URL
       reader.readAsDataURL(file)
-
-      // Define the onload event handler
       reader.onload = () => {
-        // Cast reader.result to string
         const result = reader.result as string
-
-        // Push the data URL (image preview) to the array
-        // this.imagePreviews.push(result)
       }
     }
     this.businessService.uploadMedia(this.files[0]).subscribe({
@@ -320,9 +252,11 @@ export class ListBusinessComponent {
     })
   }
   
-  removeItem(index:any) {
+
+  public removeItem(index:any) {
     this.imagePreviews.splice(index, 1);
-}
+  }
+
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -337,10 +271,12 @@ export class ListBusinessComponent {
     })
   }
 
+
   public onCategoryChange() {
     this.categoriesValue = this.businessInfoForm.value.post_category
     this.getDefaultCat()
   }
+
 
   public getTags() {
     this.businessService.getTags().subscribe({
@@ -350,6 +286,7 @@ export class ListBusinessComponent {
       error: (err) => {},
     })
   }
+
 
   public getDefaultCat() {
     this.businessService.getDefaultCat(this.categoriesValue).subscribe({
@@ -438,9 +375,6 @@ export class ListBusinessComponent {
             facebook: this.businessFormDetails.facebook,
             logo: this.businessFormDetails.logo,
           })
-
-          // this.tags = this.businessFormDetails.post_tags
-          console.log(this.tags, 'post_tagspost_tagspost_tags')
           this.selectedDefaultCategories.push({
             id: this.businessFormDetails.default_category.id,
             name: this.businessFormDetails.default_category.name,
@@ -569,16 +503,6 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
           )
-          // Swal.fire({
-          //   toast: true,
-          //   text: 'Business Information updated successfully!',
-          //   animation: false,
-          //   icon: 'success',
-          //   position: 'top-right',
-          //   showConfirmButton: false,
-          //   timer: 3000,
-          //   timerProgressBar: true,
-          // })
         },
         error: (err) => {
           this.isloader = false
@@ -598,16 +522,6 @@ export class ListBusinessComponent {
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
-          // Swal.fire({
-          //   toast: true,
-          //   text: 'Business Information added successfully!',
-          //   animation: false,
-          //   icon: 'success',
-          //   position: 'top-right',
-          //   showConfirmButton: false,
-          //   timer: 3000,
-          //   timerProgressBar: true,
-          // })
         },
         error: (err) => {
           this.isloader = false

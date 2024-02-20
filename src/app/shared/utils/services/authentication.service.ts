@@ -11,7 +11,7 @@ export class AuthenticationService {
   private isSubscriptionSubject: BehaviorSubject<boolean>
   public isSubscription$: Observable<boolean>
   public userRole = new BehaviorSubject<string>('')
-
+  public userDetailResponse = new BehaviorSubject<string>('')
   private accessToken: string = ''
   private subscriptionStatus: string = ''
   private loginInfo: any
