@@ -2,6 +2,7 @@ import { RouterOutlet, RouterLink, Router } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
+  LocalStorageService,
   ProfileMenu,
   SidebarService,
 } from '@vietlist/shared'
@@ -38,6 +39,7 @@ export class ManageProfileComponent {
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
+    private localStorage: LocalStorageService
   ) {
     // this.getSidebarLinks()
     const data = this.sessionservice.getUserdata()
@@ -50,7 +52,7 @@ export class ManageProfileComponent {
       this.sidebarMenu = res
     })
   }
-  
+
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -107,6 +109,7 @@ export class ManageProfileComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.imgUrl = res.data.user.user_image
+        this.localStorage.saveData('level_id', res.data.user.level_id)
         console.log(res)
       },
       error: (err: any) => {
@@ -114,7 +117,7 @@ export class ManageProfileComponent {
       },
     })
   }
-  
+
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url

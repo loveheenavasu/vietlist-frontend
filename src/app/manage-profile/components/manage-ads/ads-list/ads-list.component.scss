@@ -1,2 +1,25 @@
 @import "../../../../../assets/scss/common.scss";
-@import "../../../../../assets/scss/table"
+@import "../../../../../assets/scss/table";
+
+.container-fluid {
+
+    .action-wrapper {
+        gap: 15px;
+
+        .edit-icon {
+            i {
+                color: var(--primary-color-mustard);
+                font-size: 18px;
+                cursor: pointer;
+            }
+        }
+
+        .delete-icon {
+            i {
+                color: #f11111;
+                font-size: 18px;
+                cursor: pointer;
+            }
+        }
+    }
+}

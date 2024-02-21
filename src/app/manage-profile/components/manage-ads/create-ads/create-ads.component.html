@@ -1,137 +1,201 @@
-<h3 class="dashboard-heading">Create Ad</h3>
+<h3 class="dashboard-heading">Create new Ad</h3>
 <div class="container-fluid mt-3 g-0">
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Email</label>
+  <form [formGroup]="createAdForm">
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Email</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" placeholder="Enter email address" formControlName="buyer_email" readonly />
+      </div>
     </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter the title of your business" />
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Choose Space</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <mat-select class="vietlist-select" (selectionChange)="onSelectSpace($event.value)" placeholder="Choose Space"
+          formControlName="space_id">
+          @for(key of allSpaces;track $index){
+          <mat-option [value]="key.id">{{key.name}}</mat-option>
+          }
+        </mat-select>
+      </div>
     </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Choose Space</label>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Ad Model</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <mat-radio-group aria-label="Select an option" formControlName="ad_model">
+          @for (item of billingModelType; track $index) {
+          <mat-radio-button value="{{item.value}}" (click)="handleBillingModel(item.value)">
+            <div>
+              <span>{{item.name}}</span>
+            </div>
+            <div class="text-center">
+              <span>({{item.value}})</span>
+            </div>
+          </mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
     </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <mat-select class="vietlist-select" placeholder="Choose Space">
-        @for(key of allSpaces;track $index){
-        <mat-option [value]="key.id">{{key.name}}</mat-option>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Title</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" placeholder="Enter the title of your business" formControlName="title" />
+      </div>
+    </div>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Description</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <textarea name="" id="" cols="30" rows="6" placeholder="Enter Description"
+          formControlName="description"></textarea>
+      </div>
+    </div>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">URL</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <input class="input-control" placeholder="Enter Url" formControlName="url" />
+      </div>
+    </div>
+
+
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Image</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <input (change)="onSelectImage($event)" type="file" class="input-control" style="height:51px"
+          formControlName="img" />
+      </div>
+    </div>
+
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Live preview</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8 ads-banner-container">
+        @if (isImageLoading) {
+        <!-- <div style="width: 100%;"> -->
+        <app-loader></app-loader>
+        <!-- </div> -->
+        } @else {
+        <div class="ads-banner" style="background-image: url({{imageUrl}});">
+          <div class="ads-detail">
+            <div class="title">
+              <h3>{{this.adsTitle}}</h3>
+            </div>
+            <div class="description">
+              <p>{{this.adsDescription}}</p>
+            </div>
+          </div>
+        </div>
         }
-      </mat-select>
-    </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Billing Model</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter the title of your business" />
-    </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Live preview</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter the live preview" />
-    </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Title</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter the title of your business" />
-    </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Description</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <textarea name="" id="" cols="30" rows="6" placeholder="Enter Description"></textarea>
-    </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">URL</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter Url" />
-    </div>
-  </div>
-
-
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Image</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <input (change)="onSelectImage($event)" type="file" class="input-control" style="height:51px" />
-    </div>
-  </div>
-
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Start Date</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <div class="col__">
-        <div class="input-group">
-          <input matInput [matDatepicker]="picker" class="input-control" (click)="picker.open()" />
-          <i class="fa fa-calendar-o" (click)="picker.open()"></i>
-          <mat-datepicker #picker></mat-datepicker>
-        </div>
-        &nbsp; &nbsp;
-        <input type="time" class="input-control" />
       </div>
     </div>
-  </div>
-
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">End Date</label>
+    @if (!moreOptionsvisible) {
+    <div class="more-felids" (click)="handleMoreOptions()">
+      <p>more options ....</p>
     </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <div class="col__">
-        <div class="input-group">
-          <input matInput [matDatepicker]="pickers" class="input-control" (click)="picker.open()" />
-          <i class="fa fa-calendar-o" (click)="picker.open()"></i>
-          <mat-datepicker #pickers ></mat-datepicker>
-        </div>
-        &nbsp; &nbsp;
-        <input type="time" class="input-control" />
+    } @else {
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Start Date</label>
       </div>
-    </div>
-  </div>
-
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Show in specific Countries</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <div class="col__">
-        <div class="input-group">
-          <mat-tab-group>
-            <mat-tab label="Show in Countories"> Content 1 </mat-tab>
-            <mat-tab label="Advanced"> Content 2 </mat-tab>
-          </mat-tab-group>
-          
+      <div class="col-12 col-md-12 col-lg-8">
+        <div class="col__">
+          <div class="input-group">
+            <input matInput [matDatepicker]="picker" class="input-control" formControlName="starts"
+              (click)="picker.open()" />
+            <i class="fa fa-calendar-o" (click)="picker.open()"></i>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          &nbsp; &nbsp;
+          <input type="time" formControlName="startsTime" class="input-control" />
         </div>
       </div>
     </div>
-  </div>
-  <div class="row my-4 align-items-center">
-    <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Number of impressions per User/Session</label>
-    </div>
-    <div class="col-12 col-md-12 col-lg-8">
-      <div class="col__">
-        <div class="input-group">
-          <input type="text" class="input-control" />
-          
+
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">End Date</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <div class="col__">
+          <div class="input-group">
+            <input matInput [matDatepicker]="endPicker" class="input-control" formControlName="ends"
+              (click)="endPicker.open()" />
+            <i class="fa fa-calendar-o" (click)="endPicker.open()"></i>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </div>
+          &nbsp; &nbsp;
+          <input type="time" class="input-control" formControlName="endsTime" />
         </div>
       </div>
     </div>
-  </div>
+
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Show in specific Countries</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+
+        <mat-select class="vietlist-select" placeholder="select country" (selectionChange)="onCountrySelect()"
+          formControlName="show_in_country">
+          @for (key of countryList; track $index) {
+          <mat-option [value]="key.name">{{ key.name }}</mat-option>
+          }
+        </mat-select>
+
+        <!-- <div class="col__">
+          <div class="input-group">
+            <mat-tab-group>
+              <mat-tab label="Show in Countries">
+                <mat-select class="vietlist-select" placeholder="select country" (selectionChange)="onCountrySelect()"
+                  formControlName="show_in_country">
+                  @for (key of countryList; track $index) {
+                  <mat-option [value]="key.name">{{ key.name }}</mat-option>
+                  }
+                </mat-select>
+              </mat-tab>
+              <mat-tab label="Advanced"> Content 2 </mat-tab>
+            </mat-tab-group>
+
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        <label class="listing-form-label">Number of impressions per User/Session</label>
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        <div class="col__">
+          <div class="input-group">
+            <input type="text" class="input-control" formControlName="capping" />
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+    <div class="row">
+      <div class="col-md-12 ms-auto text-center ">
+        @if (!editData) {
+        <button class="btn orange-background-btn" (click)="handleCreateAds()">Submit</button>
+        } @else {
+        <button class="btn orange-background-btn" (click)="updateAd()">Update</button>
+        }
+
+
+      </div>
+    </div>
+  </form>
 </div>
