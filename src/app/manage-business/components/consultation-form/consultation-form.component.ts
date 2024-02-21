@@ -311,6 +311,41 @@ export class ConsultationFormComponent {
   // }
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
+    //  console.log( this.files,' this.files this.files this.files')
+    if (this.vediosHide.level_id == '1') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'You can upload only 5 images',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
+    if (this.vediosHide.level_id == '2') {
+
+      if (this.files.length > 20) {
+        console.log('upload 20 images ')
+        Swal.fire({
+          toast: true,
+          text: 'You can upload only 20 images',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
     this.displayImagePreviews()
   }
 
