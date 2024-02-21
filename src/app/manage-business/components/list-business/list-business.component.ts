@@ -71,6 +71,7 @@ export class ListBusinessComponent {
   public latitude: number = 0
   public longitude: number = 0
   public separateDialCode = true
+  public isImageUploading: boolean = false
   public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
@@ -79,6 +80,7 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
+  vediosHide: any
   public verification_upload: any
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public latt!: number
@@ -143,6 +145,7 @@ export class ListBusinessComponent {
 
     this.authService.userDetails.subscribe((res:any)=>{
       if(res){
+        this.vediosHide = res
          this.userDetailsLevel_id = res
         if(res.level_id == '1'){
           this.hidemapview = true
@@ -584,6 +587,84 @@ export class ListBusinessComponent {
           this.isloader = false
         },
       })
+    }
+  }
+
+  onSelectImages(event: any) {
+    this.files = [...event.addedFiles]
+    //  console.log( this.files,' this.files this.files this.files')
+    if (this.vediosHide.level_id == '1') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'You can upload only 5 images',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
+    // if (this.vediosHide.level_id == '2') {
+
+    //   if (this.files.length > 20) {
+    //     console.log('upload 20 images ')
+    //     Swal.fire({
+    //       toast: true,
+    //       text: 'You can upload only 20 images',
+    //       animation: false,
+    //       icon: 'error',
+    //       position: 'top-right',
+    //       showConfirmButton: false,
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     })
+    //     return
+    //   }
+    // }
+    this.displayImagePreviewss()
+  }
+
+  displayImagePreviewss() {
+    this.isImageUploading = true
+    // Assuming you have an array to store image URLs for preview
+    // this.imagePreviews = [...this.imagePreviews];
+
+    // Loop through each file
+    for (let i = 0; i < this.files.length; i++) {
+      const file = this.files[i]
+      const reader = new FileReader()
+
+      // Read the file as a data URL
+      reader.readAsDataURL(file)
+
+      // Define the onload event handler
+      reader.onload = () => {
+        // Cast reader.result to string
+        const result = reader.result as string
+        // Push the data URL (image preview) to the array
+        // this.imagePreviews.push(result)
+      }
+    }
+    if (this.files.length < 20) {
+      this.businessService.uploadMedia(this.files[0]).subscribe({
+        next: (res: any) => {
+          this.isImageUploading = false
+          this.imageUrl = res.image_url
+          this.imagePreviews = [res.image_url]
+        },
+        error: (err: any) => {
+
+        },
+      })
+    } else {
+      console.log("Images upload length exceeds 20. Cannot upload more images.");
+
     }
   }
 }

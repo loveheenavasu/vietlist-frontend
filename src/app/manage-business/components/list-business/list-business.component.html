@@ -439,6 +439,40 @@
             </div> -->
           </div>
         </div>
+        <div class="row my-3 px-2"  *ngIf="vediosHide.level_id =='1'">
+          <div class="col-12">
+            <!--a dropzone-->
+            <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+            <div class="row">
+              <div class="col-sm-2 col-md-12">
+                <label for="" class="listing-form-label mb-2">Images</label>
+              </div>
+              <div class="col-sm-10 col-md-12 upload-instruction">
+                <!-- <span
+                  >You can upload more than one image to create a image gallery on the
+                  details page.</span
+                > -->
+              </div>
+            </div>
+            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+                or
+                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+              <div *ngIf="isImageUploading" class="loader"></div>
+            </ngx-dropzone>
+            <div class="main_images">
+              @for (preview of imagePreviews; track $index) {
+      
+              <div class="images__" *ngIf="preview">
+                <div class="removeImage">
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
+                </div>
+                <img [src]="preview" alt="Image Preview" width="150" height="150" />
+              </div>
+              }
+            </div>
+          </div>
+        </div>
         <div style="width: 100%; text-align: end">
           <button
             type="button"
