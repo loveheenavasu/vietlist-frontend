@@ -15,7 +15,9 @@
           [(ngModel)]="check"
           [formControl]="verifiedBadge"
         />
-        <label class="form-check-label" for="terms"> Verified Badge </label>
+        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '1'"> {{ 'Verified Badge'}} </label>
+        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '2'"> {{ 'Verified Member'}} </label>
+        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '3'"> {{ 'Elite Member'}} </label>
       </div>
     </div>
   </div>
@@ -39,8 +41,8 @@
 
         <div class="main_images mt-3">
           <div class="images__">
-            @if (files[0]) {
-              <p>{{ files[0].name }}</p>
+            @if ( this.imageUrl) {
+              <p>{{ this.imageUrl }}</p>
             } @else {
               <p>{{businessFormDetails?.verification_upload}}</p>
             }

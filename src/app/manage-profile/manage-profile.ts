@@ -27,8 +27,7 @@ export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
   fileInput!: ElementRef<HTMLInputElement>
   public sidebarMenu: ProfileMenu[] = []
-  public userFirstName: any
-  public userLastName: any
+  public userDetail:any
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
@@ -39,16 +38,20 @@ export class ManageProfileComponent {
     private router: Router,
     private profileService: ProfileService,
   ) {
-    // this.getSidebarLinks()
-    const data = this.sessionservice.getUserdata()
-    this.userFirstName = data?.first_name
-    this.userLastName = data?.last_name
-    console.log(data)
-    this.fetchProfileDetail()
+
+
     this.activeIndex = this.router.url
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
     })
+
+    this.sessionservice.userDetailResponse.subscribe((res)=>{
+      this.userDetail = res
+    })
+  }
+
+  ngOnInit(){
+        this.fetchProfileDetail()
   }
   
 
@@ -87,6 +90,7 @@ export class ManageProfileComponent {
 
     this.profileService.userProfileUpdate(formData).subscribe({
       next: (res: any) => {
+        this.userDetail = res.data?.user
         this.imgUrl = res.data.user.user_image
         this.fetchProfileDetail()
         this.isUploading = false // Reset upl
@@ -103,9 +107,9 @@ export class ManageProfileComponent {
   }
 
   public fetchProfileDetail() {
-    // this.loaderService.showLoader()
     this.profileService.userDetails().subscribe({
       next: (res) => {
+        this.userDetail = res.data.user
         this.imgUrl = res.data.user.user_image
         console.log(res)
       },

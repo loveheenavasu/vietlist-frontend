@@ -52,14 +52,7 @@
       <label class="listing-form-label">FAQ</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <textarea
-        name=""
-        id=""
-        cols="30"
-        rows="6"
-        placeholder="Write here ..."
-        formControlName="faq"
-      ></textarea>
+      <textarea name="" id="" cols="30" rows="6" placeholder="Write here ..." formControlName="faq"></textarea>
       <div class="form-text">
         <span>Add question answer</span>
       </div>
@@ -79,16 +72,16 @@
       <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
         <ngx-dropzone-label *ngIf="!isImageUploading"
           ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple videos)</ngx-dropzone-label
+          Browse a file (You can upload multiple images)</ngx-dropzone-label
         >
         <div *ngIf="isImageUploading" class="loader"></div> 
       </ngx-dropzone>
   
       <div class="main_images mt-1">
         @for (preview of imagePreviews; track $index) {
-          <div class="images__" *ngIf="preview">
-            <img [src]="preview" alt="Image Preview" width="150" height="150" />
-          </div>
+        <div class="images__" *ngIf="preview">
+          <img [src]="preview" alt="Image Preview" width="150" height="150" />
+        </div>
         }
       </div>
     </div>
@@ -117,9 +110,7 @@
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4"></div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-checkbox class="event-checkbox"
-        >Business Owner/Associate?</mat-checkbox
-      >
+      <mat-checkbox class="event-checkbox">Business Owner/Associate?</mat-checkbox>
       <div class="form-text">
         <span>Mark listing as clamied</span>
       </div>
@@ -130,10 +121,7 @@
       <label class="listing-form-label">Choose Layout</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-select
-        class="vietlist-select"
-        placeholder="Select Choose Layout ..."
-      >
+      <mat-select class="vietlist-select" placeholder="Select Choose Layout ...">
         <mat-option value="Simple Layout">Simple Layout</mat-option>
         <mat-option value="Standard Layout">Standard Layout </mat-option>
       </mat-select>
@@ -145,19 +133,15 @@
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4"></div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-checkbox class="event-checkbox" [formControl]="term_and_condition"
-        >Terms & Conditions <span class="asterik">*</span></mat-checkbox
-      >
+      <mat-checkbox class="event-checkbox" [formControl]="term_and_condition">Terms & Conditions <span
+          class="asterik">*</span></mat-checkbox>
     </div>
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4"></div>
     <div class="col-12 col-md-12 col-lg-8">
-      <re-captcha
-        (resolved)="resolved($event)"
-        siteKey="6LeHRDsfAAAAAOkNj6VcGBU8jcX1qjiMqV_jhXMf"
-        [formControl]="recaptcha"
-      ></re-captcha>
+      <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
+        [formControl]="recaptcha"></re-captcha>
     </div>
   </div>
   <div class="row my-3 px-2">

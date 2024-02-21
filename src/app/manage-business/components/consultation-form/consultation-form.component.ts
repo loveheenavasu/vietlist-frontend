@@ -21,7 +21,7 @@ import {
 } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { BusinessService } from '../../service/business.service'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
 import * as moment from 'moment-timezone'
@@ -48,11 +48,42 @@ export class ConsultationFormComponent {
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
     console.log(value);
-    this.imagePreviews = value.image
-    // const video: HTMLVideoElement = document.createElement('video')
-    // // video.src = videoUrl
-    // video.src = value.video_upload
-    this.video_upload = value?.video_upload;
+    this.imagePreviews = value?.image || [];
+    this.video_upload = value?.video_upload || [];
+
+    console.log(value?.business_hours)
+    console.log(JSON.parse(value?.business_hours))
+
+    let businessHours: any[] = JSON.parse(value?.business_hours);
+    this.showTimeTable = true;
+    const timezone = businessHours?.[businessHours?.length - 1]?.[0];
+    businessHours?.pop();
+    const hours = businessHours;
+
+    const formattedDays = hours?.map((day) => {
+      const value = day?.map((item: any) => item)?.[0]?.split(' ');
+      const times = value[1]?.split(',');
+      return {
+        name: value?.[0],
+        times: times?.map((time: string) => {
+          return {
+            start: time?.split('-')?.[0] || '',
+            end: time?.split('-')?.[1] || ''
+          };
+        })
+      }
+    });
+
+    this.days?.forEach((day) => {
+      formattedDays?.forEach((newDay) => {
+        if (day?.name === newDay?.name) {
+          day.times = newDay?.times
+        }
+      })
+    })
+
+    console.log(this.days);
+
     const controls = [
       'consultation_booking_link',
       'consultation_mode',
@@ -70,7 +101,7 @@ export class ConsultationFormComponent {
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
-  public video_upload :any = [];
+  public video_upload: any = [];
   public daysName: any
   public vediosUrl: any[] = [];
   public startTime: any
@@ -79,7 +110,7 @@ export class ConsultationFormComponent {
   public title = 'dropzone'
   public clearTable = false
   public files: File[] = []
-  public imagePreviews: any
+  public imagePreviews: any[] = []
   public imageUrl: any
   public showTimeTable: boolean = false
   public ConsultationForm!: FormGroup
@@ -94,26 +125,35 @@ export class ConsultationFormComponent {
     region: string
     timeZones: { country: string; offset: string }[]
   }[] = []
-public isVideoUploading:boolean = false
-public isImageUploading:boolean = false
+  public isVideoUploading: boolean = false
+  public isImageUploading: boolean = false
   public timeZones: {
     region: string
     zones: { name: string; offset: string }[]
   }[] = []
   public selectedWeek: string[] = []
   public isLastRemoved: boolean[] = []
-  public imageUrlsArr:any[]=[]
+  public imageUrlsArr: any[] = []
+  public days = [
+    { name: 'Mon', times: [{ start: '', end: '' }] },
+    { name: 'Tue', times: [{ start: '', end: '' }] },
+    { name: 'Wed', times: [{ start: '', end: '' }] },
+    { name: 'Thu', times: [{ start: '', end: '' }] },
+    { name: 'Fri', times: [{ start: '', end: '' }] },
+    { name: 'Sat', times: [{ start: '', end: '' }] },
+    { name: 'Sun', times: [{ start: '', end: '' }] },
+  ]
 
-
-/**
- * 
- * @param http 
- * @param renderer 
- * @param fb 
- * @param businessService 
- * @param router 
- * @param localstorage 
- */
+  /**
+   * 
+   * @param http 
+   * @param renderer 
+   * @param fb 
+   * @param businessService 
+   * @param router 
+   * @param localstorage 
+   */
+  vediosHide: any
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -121,9 +161,15 @@ public isImageUploading:boolean = false
     private businessService: BusinessService,
     private router: Router,
     private localstorage: LocalStorageService,
+    private authService: AuthenticationService
+
   ) {
     const timeZoneNames = moment.tz.names()
-
+    this.authService.userDetails.subscribe((res: any) => {
+      if (res) {
+        this.vediosHide = res
+      }
+    })
     timeZoneNames.forEach((timeZone) => {
       const country = timeZone.split('/')[0]
       const region = timeZone.split('/')[0].replace(/_/g, ' ')
@@ -166,7 +212,7 @@ public isImageUploading:boolean = false
   }//end constrctor 
 
 
-  formatData() {
+  public formatData() {
     this.formattedData = []
     this.Timezone.forEach((regionData) => {
       regionData.timeZones.forEach((timeZone) => {
@@ -178,7 +224,7 @@ public isImageUploading:boolean = false
     })
   }
 
-  onTimeZoneChange(event: any) {
+  public onTimeZoneChange(event: any) {
     this.selectedTimeZone = event
   }
 
@@ -229,73 +275,31 @@ public isImageUploading:boolean = false
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
             this.isVideoUploading = false
-          //   if (this.video_upload && this.video_upload.length > 0) {
-          //     this.video_upload.shift(); // Remove the element at index 0
-          // }
-      
-          // // Append res.image_url to the video_upload array
-          // if (res.image_url) {
-          //     this.video_upload = [...this.video_upload, res.image_url];
-          // }
+            //   if (this.video_upload && this.video_upload.length > 0) {
+            //     this.video_upload.shift(); // Remove the element at index 0
+            // }
+
+            // // Append res.image_url to the video_upload array
+            // if (res.image_url) {
+            //     this.video_upload = [...this.video_upload, res.image_url];
+            // }
             this.video_upload = [res.image_url]
             console.log(this.video_upload)
-            
+
             this.vediosUrl = [...this.vediosUrl, res.image_url]
           },
           error: (err: any) => {
             // Handle errors
           },
         })
-        // video.controls = true // Add controls to the video element
-        // video.width = 320 // Set the width of the video element
-        // video.height = 240 // Set the height of the video element
-        // video.style.cssText = `
-        // margin:10px; 
-        // object-fit:cover;
-        // `
-        // // Create the video container
-        // const videoElement = document.createElement('div')
-        // videoElement.classList.add('video-preview') // Add a class for styling purposes
 
-        // // Create remove button
-        // const removeButton = document.createElement('button')
-        // removeButton.classList.add('remove_button')
-        // removeButton.textContent = 'Remove'
-        // removeButton.style.cssText = `
-        // background: orange;
-        // display: block;
-        // width: 94.7%;
-        // margin: auto;
-        // color: #fff;
-        // border: 0;
-        // margin-top: -12px;
-        //   `
-
-        // removeButton.addEventListener('click', () => {
-        //   this.onRemove(videoElement)
-        // })
-
-        // videoElement.appendChild(video)
-        // videoElement.appendChild(removeButton)
-
-        // // Get the video container element
-        // const videoContainer = document.getElementById(
-        //   'video-preview-container',
-        // )
-
-        // // Ensure that the video container exists before appending the video element
-        // if (videoContainer) {
-        //   videoContainer.appendChild(videoElement)
-        // } else {
-        //   console.error('Video preview container not found.')
-        // }
       }
       reader.readAsDataURL(file)
     })
   }
-  removeItems(index:any) {
+  removeItems(index: any) {
     this.video_upload.splice(index, 1);
-}
+  }
   onRemove(videoElement: HTMLElement) {
     if (videoElement && videoElement.parentNode) {
       videoElement.parentNode.removeChild(videoElement)
@@ -327,34 +331,33 @@ public isImageUploading:boolean = false
       reader.onload = () => {
         // Cast reader.result to string
         const result = reader.result as string
-
         // Push the data URL (image preview) to the array
         // this.imagePreviews.push(result)
       }
     }
-    this.businessService.uploadMedia(this.files[0]).subscribe({
-      next: (res: any) => {
-        this.isImageUploading = false
-        this.imageUrl = res.image_url
-        this.imagePreviews = [res.image_url]
-      },
-      error: (err: any) => {
-        // Handle errors
-      },
-    })
+    if (this.files.length < 20) {
+      this.businessService.uploadMedia(this.files[0]).subscribe({
+        next: (res: any) => {
+          this.isImageUploading = false
+          this.imageUrl = res.image_url
+          this.imagePreviews = [res.image_url]
+        },
+        error: (err: any) => {
+
+        },
+      })
+    } else {
+      console.log("Images upload length exceeds 20. Cannot upload more images.");
+
+    }
   }
-  removeItem(index:any) {
+
+
+  public removeItem(index: any) {
     this.imagePreviews.splice(index, 1);
-}
-  public days = [
-    { name: 'Mon', times: [{ start: '', end: '' }] },
-    { name: 'Tue', times: [{ start: '', end: '' }] },
-    { name: 'Wed', times: [{ start: '', end: '' }] },
-    { name: 'Thu', times: [{ start: '', end: '' }] },
-    { name: 'Fri', times: [{ start: '', end: '' }] },
-    { name: 'Sat', times: [{ start: '', end: '' }] },
-    { name: 'Sun', times: [{ start: '', end: '' }] },
-  ]
+  }
+
+
 
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
@@ -370,16 +373,20 @@ public isImageUploading:boolean = false
     }
   }
 
-  onSubmit() {}
+  onSubmit() { }
 
-  removeTime(dayIndex: number, timeIndex: number) {
+  public removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
     this.isLastRemoved[dayIndex] = this.days[dayIndex].times.length === 0
   }
 
 
+
+
+
   public addBusiness(): void {
     this.isLoader = true
+    console.log(this.days)
     const selectedDaysData = this.days.filter((day) =>
       this.selectedWeek.includes(day.name),
     )
@@ -394,16 +401,23 @@ public isImageUploading:boolean = false
       })
     })
 
+    console.log(selectedDaysData)
+
     // const resultArray = Object.keys(jsonData).map(day => `${day} ${jsonData[day].join(', ')}`);
     const resultArray = this.selectedWeek.map((day) => {
-      const times = jsonData[day] ? jsonData[day].join(', ') : ''
+      const times = jsonData[day] ? jsonData[day].join(',') : ''
       return `${day} ${times}`
     })
+
+    console.log(resultArray)
+
     const selectedData = [this.selectedData]
     // const businessHours = [resultArray, selectedData]; // Modified the way of constructing businessHours array
     const businessHours = JSON.stringify(
       resultArray.map((item) => [item]).concat([selectedData]),
     )
+
+    console.log(businessHours);
 
     this.isLoader = true
     const body = {
@@ -418,8 +432,8 @@ public isImageUploading:boolean = false
       video_url: this.ConsultationForm.value.video_url,
       business_hours: businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
-      video_upload: this.vediosUrl?.filter((item: any) => item ? true : false),
-      image: this.imagePreviews?.filter((item: any) => item ? true : false)
+      video_upload: this.vediosUrl && this.vediosUrl.length > 0 ? this.vediosUrl.filter((item: any) => item ? true : false) : null,
+      image: this.imagePreviews && this.imagePreviews.length > 0 ? this.imagePreviews.filter((item: any) => item ? true : false) : null
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
@@ -433,7 +447,7 @@ public isImageUploading:boolean = false
             this.isFormFilled = true
           }
         },
-        error:(err)=>{
+        error: (err) => {
           this.isLoader = false
         }
       })
@@ -446,7 +460,7 @@ public isImageUploading:boolean = false
           this.businessService.isConsultationFormFilled.next(true)
           this.isFormFilled = true
         },
-        error:(err)=>{
+        error: (err) => {
           this.isLoader = false
         }
       })
