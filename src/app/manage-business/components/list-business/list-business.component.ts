@@ -118,6 +118,7 @@ export class ListBusinessComponent {
   public tags: any[] = []
   public verifiedBadge: any
   public imagePreviews: any
+  public imagePreviewss: any
   public imageUrl: any
   public filess: any
   userDetail:any
@@ -656,7 +657,7 @@ export class ListBusinessComponent {
         next: (res: any) => {
           this.isImageUploading = false
           this.imageUrl = res.image_url
-          this.imagePreviews = [res.image_url]
+          this.imagePreviewss = [res.image_url]
         },
         error: (err: any) => {
 
