@@ -229,15 +229,15 @@ public isImageUploading:boolean = false
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
             this.isVideoUploading = false
-            if (this.video_upload && this.video_upload.length > 0) {
-              this.video_upload.shift(); // Remove the element at index 0
-          }
+          //   if (this.video_upload && this.video_upload.length > 0) {
+          //     this.video_upload.shift(); // Remove the element at index 0
+          // }
       
-          // Append res.image_url to the video_upload array
-          if (res.image_url) {
-              this.video_upload = [...this.video_upload, res.image_url];
-          }
-            // this.video_upload = [...this.video_upload, res.image_url]
+          // // Append res.image_url to the video_upload array
+          // if (res.image_url) {
+          //     this.video_upload = [...this.video_upload, res.image_url];
+          // }
+            this.video_upload = [res.image_url]
             console.log(this.video_upload)
             
             this.vediosUrl = [...this.vediosUrl, res.image_url]
@@ -313,7 +313,7 @@ public isImageUploading:boolean = false
   displayImagePreviews() {
     this.isImageUploading = true
     // Assuming you have an array to store image URLs for preview
-    this.imagePreviews = [...this.imagePreviews];
+    // this.imagePreviews = [...this.imagePreviews];
 
     // Loop through each file
     for (let i = 0; i < this.files.length; i++) {
@@ -336,7 +336,7 @@ public isImageUploading:boolean = false
       next: (res: any) => {
         this.isImageUploading = false
         this.imageUrl = res.image_url
-        this.imagePreviews.push(res.image_url)
+        this.imagePreviews = [res.image_url]
       },
       error: (err: any) => {
         // Handle errors
