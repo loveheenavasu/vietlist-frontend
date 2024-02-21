@@ -3,6 +3,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
   ProfileMenu,
+  Roles,
   SidebarService,
 } from '@vietlist/shared'
 import { EditProfileComponent } from './components'
@@ -25,13 +26,14 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 })
 export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
-  fileInput!: ElementRef<HTMLInputElement>
+  public fileInput!: ElementRef<HTMLInputElement>
   public sidebarMenu: ProfileMenu[] = []
   public userDetail:any
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
   public isUploading: boolean = false
+  public role = Roles
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
