@@ -126,7 +126,7 @@ export class ListBusinessComponent {
   public tags: any[] = []
   public verifiedBadge: any
   public imagePreviews: any
-  public imagePreviewss: any[]=[]
+  public levelOneImageArr: any[]=[]
   public imageUrl: any
   public filess: any
   userDetail:any
@@ -226,33 +226,6 @@ export class ListBusinessComponent {
       },
     })
   }
-  public onSelect(event: any) {
-    if (event.addedFiles.length > 1) {
-      Swal.fire({
-        toast: true,
-        text: 'You can only upload one file.',
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      })
-    } else {
-      this.files.push(...event.addedFiles)
-      this.filesString = this.files.map((file) => file.name).join(', ')
-      this.isFilesPresent = true
-      const file = event.addedFiles[0]
-      this.businessService.uploadMedia(this.files[0]).subscribe({
-        next: (res: any) => {
-          this.uploadMediaUrl = res.image_url
-        },
-        error: (err: any) => {
-          // Handle errors
-        },
-      })
-    }
-  }
 
   public onRemove() {
     this.uploadMediaUrl = ''
@@ -266,17 +239,17 @@ export class ListBusinessComponent {
   }
 
 
-  public onSelectImage(event: any) {
+  public onSelectLogo(event: any) {
     this.files.push(...event.addedFiles)
     const formData = new FormData()
     for (var i = 0; i < this.files.length; i++) {
       console.log(this.files[i], 'this.files[i]')
       formData.append('file[]', this.files[i])
     }
-    this.displayImagePreviews()
+    this.displayBusinessLogo()
   }
 
-  public displayImagePreviews() {
+  public displayBusinessLogo() {
     if (this.files.length === 0) {
       return; // No files to upload
     }
@@ -310,7 +283,7 @@ export class ListBusinessComponent {
 
 
   public  removeImageItem(index:any) {
-    this.imagePreviewss.splice(index, 1);
+    this.levelOneImageArr.splice(index, 1);
   }
  
   public onTagSelectionChange() {
@@ -571,6 +544,7 @@ export class ListBusinessComponent {
     } else if  (this.userDetailsLevel_id.level_id == '1') {
       body.final_submission = 1;
       body.terms_conditions = this.term_and_condition.value,
+      body.image = this.levelOneImageArr
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -616,7 +590,7 @@ export class ListBusinessComponent {
 
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
-    if (this.imagePreviewss.length >= 5) {
+    if (this.levelOneImageArr.length >= 5) {
       Swal.fire({
         toast: true,
         text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
@@ -682,8 +656,9 @@ export class ListBusinessComponent {
       // Upload each file
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.imagePreviewss.push(res.image_url);
-          if (this.imagePreviewss.length >= maxImages) {
+          this.isImageUploading = false;
+          this.levelOneImageArr.push(res.image_url);
+          if (this.levelOneImageArr.length >= maxImages) {
             this.isImageUploading = false; 
           }
         },
