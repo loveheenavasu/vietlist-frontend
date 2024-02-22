@@ -2,6 +2,7 @@ import { RouterOutlet, RouterLink, Router } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
+  LocalStorageService,
   ProfileMenu,
   SidebarService,
 } from '@vietlist/shared'
@@ -32,23 +33,41 @@ export class ManageProfileComponent {
   public activeIndex: any = 0
   public showFullEmail: boolean = false
   public isUploading: boolean = false
+  menuItems: any
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
+     private localStorage : LocalStorageService
   ) {
 
 
     this.activeIndex = this.router.url
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
+     const role = this.localStorage.getData('loginInfo')
+     const roleGet = JSON.parse(role)
+        if(roleGet.user_role == 'subscriber'){
+          this.menuItems = this.sidebarMenu.filter(tab =>
+                  tab.label !== 'Ads' &&
+                  tab.label !== 'My Business' &&
+                  tab.label !== 'Subscriptions' &&
+                  tab.label !== 'Billing Address'
+                );
+        }else if (roleGet.user_role == 'subscriber') {
+          return this.menuItems
+        } else {
+          return this.menuItems = this.sidebarMenu
+        }
+   
     })
 
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res
     })
   }
+  
 
   ngOnInit(){
         this.fetchProfileDetail()
