@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import {
   AuthenticationService,
@@ -11,10 +11,11 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class ProfileService {
+
   constructor(
     private http: HttpClient,
     private sessionService: AuthenticationService,
-  ) {}
+  ) { }
 
   public userDetails(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ProfileDetail)
@@ -78,12 +79,12 @@ export class ProfileService {
   }
 
 
-  public setBillingAddress(body:any): Observable<any> {
+  public setBillingAddress(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.SetBillingAddress,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body ,{ headers: authToken })
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
   public getBillingAddress(): Observable<any> {
@@ -94,12 +95,12 @@ export class ProfileService {
     return this.http.get<any>(endpoint, { headers: authToken })
   }
 
-  public setPrivacy(body:any): Observable<any> {
+  public setPrivacy(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.ListingPrivacySet,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body ,{ headers: authToken })
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
   public getPrivacy(): Observable<any> {
@@ -107,7 +108,7 @@ export class ProfileService {
       Endpoints.GetSetPrivacy,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint ,{ headers: authToken })
+    return this.http.get<any>(endpoint, { headers: authToken })
   }
 
   public getAds(): Observable<any> {
@@ -115,7 +116,7 @@ export class ProfileService {
       Endpoints.GetAds,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint ,{ headers: authToken })
+    return this.http.get<any>(endpoint, { headers: authToken })
   }
 
   public getSpaces(): Observable<any> {
@@ -123,6 +124,53 @@ export class ProfileService {
       Endpoints.GetSpaces,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint ,{ headers: authToken })
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+  public createAd(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.CreateAd
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public getAdById(adsId: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetAdById
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('ad_id', adsId)
+    return this.http.get<any>(endpoint, { headers: authToken, params: params })
+  }
+
+  public getAdByUserId(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetAdByUserId
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+  public updateAd(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.UpdateAd
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public deleteAd(adsId: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.DeleteAd
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('ad_id', adsId)
+    return this.http.delete<any>(endpoint, { headers: authToken, params: params })
+  }
+
+  public getIPAddress() {
+
+    return this.http.get("http://api.ipify.org/?format=json")
   }
 }

@@ -1,6 +1,91 @@
 @import "../../../../../assets/scss/common.scss";
 @import "../../../../../assets/scss/table";
+@import "../../../../../assets/scss/image-loader";
 
+
+.container-fluid {
+
+    .display-limit-wrapper {
+        background-color: #f5f5f5;
+        padding: 5px 20px;
+        width: 24%;
+
+        .display-limit {
+            p {
+                margin: 0px;
+            }
+
+            span {
+                display: block;
+                text-align: center;
+            }
+        }
+    }
+
+    .more-felids {
+
+        p {
+            margin: 0px;
+            width: 15%;
+            cursor: pointer;
+        }
+    }
+
+    .more-felids:hover {
+        color: darkblue;
+    }
+
+    .ads-banner-container {
+        padding: 20px;
+        border: solid 1px rgba(128, 128, 128, 0.1882352941);
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+
+        .ads-banner {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            .ads-detail {
+                padding: 20px;
+
+                .title {
+                    h3 {
+                        font-size: 18px;
+                        color: var(--white);
+                    }
+                }
+
+                .description {
+                    p {
+                        font-size: 14px;
+                        color: var(--white)
+                    }
+                }
+            }
+        }
+    }
+
+    .current-location-label {
+        margin-top: 10px;
+
+        p {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .bold-text {
+        font-weight: 600;
+    }
+}
 
 .input-group {
     position: relative;
@@ -19,15 +104,40 @@
 }
 
 ::ng-deep span.mdc-tab__text-label {
-    color: #3989c2!important;
+    color: #3989c2 !important;
 }
+
 /* Custom styles for the active tab */
 ::ng-deep .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.ng-star-inserted.mdc-tab--active.mdc-tab-indicator--active {
     color: #3989c2;
-    border: solid 1px #8080802e!important;
-   border-bottom: 0px!important;
+    border: solid 1px #8080802e !important;
+    border-bottom: 0px !important;
 }
+
 ::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content {
     transition-duration: var(--mat-tab-animation-duration, 250ms);
-    display: none!important;
+    display: none !important;
+}
+
+::ng-deep.mdc-form-field {
+    flex-direction: column !important;
+    padding: 5px 20px !important;
+    background-color: #f5f5f5 !important;
+    margin-right: 1.875rem;
+}
+
+::ng-deep.mdc-radio__native-control:enabled:checked+.mdc-radio__background .mdc-radio__outer-circle {
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep .mdc-radio__native-control:enabled+.mdc-radio__background .mdc-radio__inner-circle {
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mat-mdc-radio-button.mat-accent {
+    --mdc-radio-selected-focus-icon-color: none !important;
+    --mdc-radio-selected-focus-icon-color: none !important;
+    --mdc-radio-selected-hover-icon-color: none !important;
+    --mdc-radio-selected-icon-color: none !important;
+    --mat-radio-checked-ripple-color: none !important;
 }

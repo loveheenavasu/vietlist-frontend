@@ -36,6 +36,12 @@ export enum Endpoints {
   GetSetPrivacy = 'listing_privacy_get',
   GetAds = 'get_all_ad',
   GetSpaces = 'get_ad_spaces',
+  CreateAd = 'create_ad',
+  GetAdById = 'get_ad_by_id',
+  UpdateAd = 'update_ad',
+  DeleteAd = 'delete_ad',
+  GetAdByUserId = 'get_user_ad_stats',
   SetBillingAddress = 'user_billing_address_set',
-  GetBillingDetails = 'user_billing_address_get'
+  GetBillingDetails = 'user_billing_address_get',
+  ShowAd = 'get_ad_and_space_data'
 }

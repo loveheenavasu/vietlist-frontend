@@ -10,12 +10,15 @@ body {
   height: 100%;
   font-size: 16px;
 }
+
 .listing-info {
   overflow: hidden;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .removeImage {
   position: absolute;
   top: 0;
@@ -23,10 +26,12 @@ html {
   font-size: 18px;
   // z-index: 999999;
 }
-.removeImage i{
-color: #ff9900;
-cursor: pointer;
+
+.removeImage i {
+  color: #ff9900;
+  cursor: pointer;
 }
+
 .listing-heading h3 {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -127,7 +132,7 @@ ngx-intl-tel-input input[disabled] {
   padding-left: 98px;
   font-weight: 400;
   font-size: 16px;
-  color: #757575 !important;
+  color: #000 !important;
 }
 
 @media(max-width:1500px) {

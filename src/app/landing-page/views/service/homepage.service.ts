@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
   providedIn: 'root',
 })
 export class HomepageService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -22,5 +22,10 @@ export class HomepageService {
   public EmailSubscribeNewsletter(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.SubscribeNewsletter)
     return this.http.post<any>(endpoint, body)
+  }
+
+  public showAD(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ShowAd)
+    return this.http.get<any>(endpoint)
   }
 }

@@ -41,7 +41,7 @@ export class ManageProfileComponent {
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
-     private localStorage : LocalStorageService
+    private localStorage: LocalStorageService
   ) {
 
 
@@ -80,7 +80,7 @@ export class ManageProfileComponent {
   ngOnInit(){
         this.fetchProfileDetail()
   }
-  
+
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -132,6 +132,7 @@ export class ManageProfileComponent {
       next: (res) => {
         this.userDetail = res.data.user
         this.imgUrl = res.data.user.user_image
+        this.localStorage.saveData('level_id', res.data.user.level_id)
         console.log(res)
       },
       error: (err: any) => {
@@ -140,8 +141,8 @@ export class ManageProfileComponent {
       },
     })
   }
-  
-  public addClass(url: string) {
+
+  addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
   }

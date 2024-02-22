@@ -1,28 +1,60 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 ms-auto">
+        <div class="col-md-12 ms-auto text-end ">
             <button class="btn orange-background-btn" (click)="handleCreateAdd()">Create New Ad</button>
         </div>
     </div>
     <div class="table-responsive mt-3">
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th>AD CONTENT</th>
                     <th>STATS</th>
-                    <th>ORDER DETAILS</th>
-                    <th>ACTION</th>
+                    <th class="text-center">ACTION</th>
                 </tr>
             </thead>
             <tbody>
+                @if (allAds.length > 0) {
                 @for(key of allAds ; track $index){
                 <tr>
-                    <td>{{key}}</td>
-                    <td>Data 1</td>
-                    <td>Data 1</td>
-                    <td>Data 1</td>
+                    <td>
+                        <div class="d-flex ads-content-wrapper ">
+                            <div class="image-wrapper">
+                                <img [src]="key.ad_data.img" alt="ad_business" />
+                            </div>
+                            <div class="ads-description">
+                                <div class="ads-title">
+                                    <h4>{{key.ad_data.title}}</h4>
+                                </div>
+                                <div class="ads-desc">
+                                    <p>{{key.ad_data.description}}</p>
+                                </div>
+                                <div class="ads-url">
+                                    <a>{{key.ad_data?.url}}</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{key.stats_data}}</td>
+                    <td>
+                        <div class="d-flex justify-content-center action-wrapper">
+                            <div class="edit-icon" (click)="onEdit(key)">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </div>
+                            <div class="delete-icon" (click)="deleteAd(key.ad_data?.id)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 }
+                } @else {
+                <tr>
+                    <td class="text-center" colspan="4">No ads</td>
+                </tr>
+                }
+
             </tbody>
         </table>
     </div>

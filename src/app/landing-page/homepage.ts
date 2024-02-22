@@ -43,6 +43,9 @@ export class HomepageComponent {
   ]
   homePageData?: any
   currentLogoIndex = 0
+  public adDetails: any;
+  public showAdInTop: any
+  currentIndex: number = 0;
 
   constructor(
     private router: Router,
@@ -55,7 +58,29 @@ export class HomepageComponent {
   ngOnInit() {
     this.getHomePageContent()
     this.subscribeToRouterEvents()
+    this.showAdDataFetch()
   }
+
+  public showAdDataFetch() {
+    this.homePageContent.showAD().subscribe({
+      next: (res: any) => {
+        console.log("check show ad", res)
+        this.adDetails = res.data
+        this.showAdHomePageTop()
+        console.log("check the ads array", this.adDetails)
+      }
+    })
+  }
+
+  public showAdHomePageTop() {
+    this.adDetails.map((data: any) => {
+      if (data.Page_key == 'Home Top') {
+        this.showAdInTop = data.ads_detail
+        console.log("check top ad", this.showAdInTop)
+      }
+    })
+  }
+
 
   private subscribeToRouterEvents(): void {
     this.router.events.subscribe((event) => {
