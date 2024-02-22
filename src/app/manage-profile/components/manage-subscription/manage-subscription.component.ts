@@ -39,8 +39,10 @@ export class ManageSubscriptionComponent {
   }
 
   public getUserSubscriptionDetails(){
+    this.loaderService.showLoader()
     this.profileDetail.subscriptionDetails().subscribe({
       next:(res)=>{
+        this.loaderService.hideLoader()
         this.subscriptionDetails = res.data
         this.subscriptionDetails.invoice_detail.forEach((element:any) => {
          element.formattedTimeStamp  = element.timestamp.split(' ')[0]

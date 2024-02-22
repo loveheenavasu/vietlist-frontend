@@ -43,14 +43,6 @@
             <div class="tabs_responsive">
               <ul>
                 @for(key of menuItems ; track $index){
-                <!-- <li
-                  (click)="addClass($index)"
-                  [ngClass]="{'active': activeIndex == $index}"
-                  [routerLink]="key.url"
-                  style="cursor: pointer"
-                >
-                  <span><i [class]="key.icon"></i></span>{{key.label}}
-                </li> -->
                 <li
                   (click)="addClass(key.url)"
                   [ngClass]="{ 'active': activeIndex === key.url }"
@@ -59,6 +51,7 @@
                 >
                   <span><i [class]="key.icon"></i></span>{{ key.label }}
                 </li>
+              
                 }
               </ul>
             </div>

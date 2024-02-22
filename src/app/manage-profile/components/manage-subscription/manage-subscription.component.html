@@ -35,7 +35,8 @@
               <td>   {{
                 subscriptionDetails?.user_membership[0]?.billing
               }}</td>
-              <td>   {{
+              <td>   {{ 
+                subscriptionDetails?.user_membership[0]?.level_id == '1' ? '--' :
                 subscriptionDetails?.user_membership[0]?.enddate
               }}</td>
               <!-- Add more data cells as needed -->

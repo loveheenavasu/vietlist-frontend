@@ -350,44 +350,54 @@ export class ConsultationFormComponent {
   }
 
   displayImagePreviews() {
-    this.isImageUploading = true
-    // Assuming you have an array to store image URLs for preview
-    // this.imagePreviews = [...this.imagePreviews];
-
-    // Loop through each file
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i]
-      const reader = new FileReader()
-
-      // Read the file as a data URL
-      reader.readAsDataURL(file)
-
-      // Define the onload event handler
-      reader.onload = () => {
-        // Cast reader.result to string
-        const result = reader.result as string
-        // Push the data URL (image preview) to the array
-        // this.imagePreviews.push(result)
-      }
+    let maxImages: any;
+    switch (this.vediosHide.level_id) {
+      case '2':
+        maxImages = 20;
+        break;
+      case '3':
+      default:
+        maxImages = Infinity;
+        break;
     }
-    if (this.files.length < 20) {
-      this.businessService.uploadMedia(this.files[0]).subscribe({
+  
+    if (this.files.length > maxImages) {
+      Swal.fire({
+        toast: true,
+        text: `You can only select up to ${maxImages} images at a time.`,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+  
+    this.isImageUploading = true;
+    const filesToUpload = this.files.slice(0, maxImages);
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader(); 
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false
-          this.imageUrl = res.image_url
-          this.imagePreviews = [res.image_url]
+          this.isImageUploading = false; 
+          this.imagePreviews.push(res.image_url);
+          if (this.imagePreviews.length >= maxImages && this.vediosHide.level_id !== '3') {
+            this.isImageUploading = false; 
+          }
         },
         error: (err: any) => {
-
+          this.isImageUploading = false;
         },
-      })
-    } else {
-      console.log("Images upload length exceeds 20. Cannot upload more images.");
-
-    }
+      });
+    });
   }
-
-
+  
   public removeItem(index: any) {
     this.imagePreviews.splice(index, 1);
   }

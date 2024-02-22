@@ -100,7 +100,8 @@ export class PromotionsFormComponent {
       },
     })
   }
-  resolved(captchaResponse: string | null) {
+
+  public resolved(captchaResponse: string | null) {
     console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
 

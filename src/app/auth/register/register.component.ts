@@ -162,7 +162,7 @@ export class RegisterComponent {
       ),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
-      country_code: this.contact_details.value.dialCode,
+      country_code: this.contact_details.value?.dialCode,
     }
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
@@ -170,7 +170,8 @@ export class RegisterComponent {
         body['contact_details'] = parseInt(
           this.contact_details.value?.e164Number,
         )
-      }
+       body['country_code'] =  this.contact_details.value.dialCode
+            }
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
