@@ -11,6 +11,7 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class ProfileService {
+
   constructor(
     private http: HttpClient,
     private sessionService: AuthenticationService,
@@ -72,6 +73,23 @@ export class ProfileService {
   public subscriptionDetails(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.UserSubscriptionDetails,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+
+  public setBillingAddress(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.SetBillingAddress,
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public getBillingAddress(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetBillingDetails,
     )
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get<any>(endpoint, { headers: authToken })
@@ -149,5 +167,10 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     const params = new HttpParams().set('ad_id', adsId)
     return this.http.delete<any>(endpoint, { headers: authToken, params: params })
+  }
+
+  public getIPAddress() {
+
+    return this.http.get("http://api.ipify.org/?format=json")
   }
 }

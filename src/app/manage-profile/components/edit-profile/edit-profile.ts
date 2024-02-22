@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { ProfileService } from '../../service/profile.service'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { ProfileMenu } from '@vietlist/shared'
+import { AuthenticationService, ProfileMenu } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 import {
@@ -42,6 +42,7 @@ export class EditProfileComponent {
     private profileDetail: ProfileService,
     private router: Router,
     private loaderService: FullPageLoaderService,
+    private sessionservice: AuthenticationService,
   ) {}
   ngOnInit() {
     this.fetchProfileDetail()
@@ -79,6 +80,7 @@ export class EditProfileComponent {
     console.log('check update', body)
     this.profileDetail.userProfileUpdate(body).subscribe({
       next: (res) => {
+        this.sessionservice.userDetailResponse.next(res.data.user)
         this.loaderService.hideLoader()
         Swal.fire({
           toast: true,

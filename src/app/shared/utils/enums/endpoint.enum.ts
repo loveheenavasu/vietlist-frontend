@@ -40,5 +40,8 @@ export enum Endpoints {
   GetAdById = 'get_ad_by_id',
   UpdateAd = 'update_ad',
   DeleteAd = 'delete_ad',
-  GetAdByUserId = 'get_user_ad_stats'
+  GetAdByUserId = 'get_user_ad_stats',
+  SetBillingAddress = 'user_billing_address_set',
+  GetBillingDetails = 'user_billing_address_get',
+  ShowAd = 'get_ad_and_space_data'
 }

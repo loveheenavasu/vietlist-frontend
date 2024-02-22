@@ -10,7 +10,6 @@
                 <tr>
                     <th>AD CONTENT</th>
                     <th>STATS</th>
-                    <th>ORDER DETAILS</th>
                     <th class="text-center">ACTION</th>
                 </tr>
             </thead>
@@ -19,21 +18,31 @@
                 @for(key of allAds ; track $index){
                 <tr>
                     <td>
-                        <div class="d-flex">
-                            <div>
+                        <div class="d-flex ads-content-wrapper ">
+                            <div class="image-wrapper">
                                 <img [src]="key.ad_data.img" alt="ad_business" />
                             </div>
-                            <div></div>
+                            <div class="ads-description">
+                                <div class="ads-title">
+                                    <h4>{{key.ad_data.title}}</h4>
+                                </div>
+                                <div class="ads-desc">
+                                    <p>{{key.ad_data.description}}</p>
+                                </div>
+                                <div class="ads-url">
+                                    <a>{{key.ad_data?.url}}</a>
+                                </div>
+
+                            </div>
                         </div>
                     </td>
-                    <td>Data 1</td>
-                    <td>Data 1</td>
+                    <td>{{key.stats_data}}</td>
                     <td>
                         <div class="d-flex justify-content-center action-wrapper">
                             <div class="edit-icon" (click)="onEdit(key)">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </div>
-                            <div class="delete-icon" (click)="deleteAd(key.id)">
+                            <div class="delete-icon" (click)="deleteAd(key.ad_data?.id)">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </div>
                         </div>

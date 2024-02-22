@@ -146,10 +146,16 @@ export class HeaderComponent {
       this.isSearchInputVisible = true
     }
   }
-
+  offsetFlag!:boolean
   public onLogout() {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
   }
+  @HostListener('window:scroll', ['$event']) getScrollHeight(event:any) {
+    if(window.pageYOffset> 0 )
+     this.offsetFlag = false;
+    else
+      this.offsetFlag = true;
+ }
 }

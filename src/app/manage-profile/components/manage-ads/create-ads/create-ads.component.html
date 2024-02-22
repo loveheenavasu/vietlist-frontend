@@ -154,7 +154,9 @@
           <mat-option [value]="key.name">{{ key.name }}</mat-option>
           }
         </mat-select>
-
+        <div class="current-location-label">
+          <p (click)="getCurrentLocation()">see your location details</p>
+        </div>
         <!-- <div class="col__">
           <div class="input-group">
             <mat-tab-group>
@@ -171,6 +173,33 @@
 
           </div>
         </div> -->
+      </div>
+    </div>
+    <div class="row my-4 align-items-center">
+      <div class="col-12 col-md-12 col-lg-4">
+        @if (locationData) {
+        <div class="ipaddress">
+          IP: <span class="bold-text">{{ipAddress}}</span>
+        </div>
+        }
+      </div>
+      <div class="col-12 col-md-12 col-lg-8">
+        @if (locationData) {
+        <div class="country">
+          Country : <span class="bold-text">{{country}}</span>
+        </div>
+        <div class="region">
+          Region : <span class="bold-text">{{region}}</span>
+        </div>
+        <div class="country">
+          City : <span class="bold-text">{{city}}</span>
+        </div>
+        <div class="country">
+          Zipcode : <span class="bold-text">{{zipcode}}</span>
+        </div>
+        } @else if (locationLoading) {
+        <div class="loader"></div>
+        }
       </div>
     </div>
     <div class="row my-4 align-items-center">

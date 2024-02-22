@@ -42,7 +42,7 @@
     {
       "label": "Billing Address",
       "icon": "fa fa-credit-card-alt",
-      "url": "/contact"
+      "url": "/manage-profile/billing-address"
     },
     {
       "label": "My Bookings",

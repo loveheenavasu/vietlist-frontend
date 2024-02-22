@@ -101,12 +101,12 @@ swiper-container::part(bullet) {
     }
 
     swiper-container::part(button-next) {
-        right: -3rem !important;
+        right: -2rem !important;
 
     }
 
     swiper-container::part(button-prev) {
-        left: -3rem !important;
+        left: -2rem !important;
 
     }
 }

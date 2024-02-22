@@ -3,6 +3,43 @@
 
 .container-fluid {
 
+    .ads-content-wrapper {
+        gap: 10px;
+
+        .image-wrapper {
+            width: 100px;
+            height: 60px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .ads-description {
+            .ads-title {
+                h4 {
+                    font-size: 16px;
+                }
+            }
+
+            .ads-desc {
+                p {
+                    font-size: 12px;
+                    margin-bottom: 0px;
+                }
+            }
+
+            .ads-url {
+                a {
+                    color: blue;
+                    text-decoration: underline;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
     .action-wrapper {
         gap: 15px;
 

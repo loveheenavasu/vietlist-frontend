@@ -35,7 +35,7 @@ export class AdsListComponent {
 
   public onEdit(data: any) {
 
-    const queryParams: NavigationExtras = { queryParams: { id: data?.id } };
+    const queryParams: NavigationExtras = { queryParams: { id: data.ad_data?.id } };
     this.router.navigate(['/manage-profile/create-ad'], queryParams);
   }
 
@@ -43,7 +43,6 @@ export class AdsListComponent {
     console.log("check delete id", adId)
     this.profileService.deleteAd(adId).subscribe({
       next: (res) => {
-        console.log("check delete data", res)
         Swal.fire({
           toast: true,
           text: 'Ad  deleted successfully ',
@@ -54,7 +53,7 @@ export class AdsListComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.allAds = this.allAds.filter(ad => ad.id !== adId);
+        this.allAds = this.allAds.filter(ad => ad.ad_data.id !== adId);
       }
     })
   }

@@ -1,0 +1,174 @@
+<section>
+  <h3 class="dashboard-heading">Billing Address</h3>
+  <form [formGroup]="billingInfo">
+  <div class="row mt-5">
+    <div class="form-group">
+      <label class="listing-form-label">First Name</label>
+      <div class="col-12 mt-1">
+        <input type="text" class="input-control" placeholder="Enter First Name" formControlName="pmpro_bfirstname" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="listing-form-label">Last Name</label>
+      <div class="col-12 mt-1">
+        <input type="text" class="input-control" placeholder="Enter Last Name" formControlName="pmpro_blastname"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-12 col-md-12">
+        <label class="listing-form-label">Address</label>
+        <AutocompleteComponent
+          (setAddress)="getAddress($event)"
+          adressType="geocode"
+          [value]="street"
+        ></AutocompleteComponent>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-12 col-md-12">
+        <label class="listing-form-label">Country</label>
+      </div>
+
+      <input
+        class="input-control"
+        type="text"
+        placeholder="Choose a country..."
+        [(ngModel)]="country"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div class="form-group">
+      <div class="col-12 col-md-12">
+        <label class="listing-form-label"
+          >Region</label
+        >
+      </div>
+
+      <input
+        class="input-control"
+        type="text"
+        placeholder="Select region or type a new one"
+        [(ngModel)]="state"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+
+    <div class="form-group">
+      <div class="col-12 col-md-12">
+        <label class="listing-form-label"
+          >City</label
+        >
+
+        <input
+          class="input-control"
+          type="text"
+          placeholder="Select city or type a new one"
+          [(ngModel)]="city"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-12 col-md-12">
+        <label class="listing-form-label">Zip/Post Code</label>
+      </div>
+
+      <input
+        class="input-control"
+        type="text"
+        placeholder="Enter zip code"
+        [(ngModel)]="zipcode"
+        [ngModelOptions]="{ standalone: true }"
+      />
+    </div>
+    <div class="form-group">
+ 
+        <div class="col-12">
+            <label class="listing-form-label">Phone Number</label>
+          <ngx-intl-tel-input
+            [cssClass]="'input-control'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.India"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            [separateDialCode]="true"
+            [numberFormat]="PhoneNumberFormat.National"
+            name="phone"
+            [(ngModel)]="contact_details"
+            [ngModelOptions]="{ standalone: true }"
+          >
+          </ngx-intl-tel-input>
+        </div>
+      </div>
+    <div class="form-group">
+        <div class="col-12 col-md-12">
+          <label class="listing-form-label"
+            >Company</label
+          >
+  
+          <input
+            class="input-control"
+            type="text"
+            placeholder="Enter Company"
+            formControlName="company"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-12 col-md-12">
+          <label class="listing-form-label"
+            >Company ID</label
+          >
+  
+          <input
+            class="input-control"
+            type="text"
+            placeholder="Enter Company id"
+            formControlName="company_id"
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-12 col-md-12">
+          <label class="listing-form-label"
+            >Other email address</label
+          >
+  
+          <input
+            class="input-control"
+            type="text"
+            placeholder="Enter email"
+            formControlName="other_email_addresses"
+          />
+          @if (billingInfo.get('other_email_addresses')?.hasError('pattern')) {
+            <span class="error-message">Enter valid email</span>
+          }
+        </div>
+      </div>
+      <div class="form-group">
+        <button
+          class="btn orange-background-btn-w-100"
+          (click)="addBillingAddress()"
+        >
+        @if(isLoader){
+            <app-loader></app-loader>
+        }@else {
+            Save
+        }
+        
+        </button>
+      </div>
+  </div>
+</form>
+</section>
