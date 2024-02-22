@@ -1,5 +1,6 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { RouterOutlet } from '@angular/router'
+import { Route, Router, RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
 import {
   BusinessCategoryResponse,
@@ -10,6 +11,7 @@ import { MatCardModule } from '@angular/material/card'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -29,11 +31,14 @@ import {
   SearchCountryField,
 } from 'ngx-intl-tel-input-gg'
 import { BusinessService } from '../../service/business.service'
-import { FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { PromotionsFormComponent } from '../promotions-form/promotions-form.component'
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxDropzoneModule } from 'ngx-dropzone'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { RecaptchaModule } from 'ng-recaptcha'
+
 
 @Component({
   selector: 'app-list-business',
@@ -59,7 +64,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
     RouterOutlet,
     LoaderComponent,
     NgxDropzoneModule,
+    RecaptchaModule,
     JsonPipe,
+    MatCheckboxModule
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
@@ -69,6 +76,7 @@ export class ListBusinessComponent {
   public latitude: number = 0
   public longitude: number = 0
   public separateDialCode = true
+  public isImageUploading: boolean = false
   public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
@@ -77,6 +85,9 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
+  public vediosHide: any
+  public term_and_condition = new FormControl('')
+  public recaptcha = new FormControl('')
   public verification_upload: any
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public latt!: number
@@ -114,8 +125,12 @@ export class ListBusinessComponent {
   public tags: any[] = []
   public verifiedBadge: any
   public imagePreviews: any
+  public imagePreviewss: any[]=[]
   public imageUrl: any
   public filess: any
+  userDetail:any
+  hidemapview!:boolean
+  hideVedioupload!:boolean
   public isImageLoading:boolean = false
   /**
    *
@@ -123,14 +138,32 @@ export class ListBusinessComponent {
    * @param businessService
    * @param localStorageService
    */
-
+  userDetailsLevel_id:any
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
     private fullPageLoader: FullPageLoaderService,
     private cd: ChangeDetectorRef,
+    private profileService: ProfileService,
+    private authService : AuthenticationService,
+    private router: Router,
   ) {
+    this.fetchProfileDetail()
+
+    this.authService.userDetails.subscribe((res:any)=>{
+      if(res){
+        this.vediosHide = res
+         this.userDetailsLevel_id = res
+        if(res.level_id == '1'){
+          this.hidemapview = true
+        }else{
+          this.hidemapview = false
+        }
+        
+      }
+      
+    })
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
       contact_phone: ['', Validators.required],
@@ -171,14 +204,27 @@ export class ListBusinessComponent {
 
   ngOnInit() {
     this.getBusinessCat()
-
+  
     if (this.postId) {
       this.getBusinessFormDetails(this.postId)
     }
     this.getTags()
     this.initMap()
   }
-
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetail = res.data.user
+        this.localStorageService.saveData('userDetails', this.userDetail.level_id)
+        this.authService.userDetails.next(this.userDetail)
+        // this.imgUrl = res.data.user.user_image
+        // console.log(res)
+      },
+      error: (err: any) => {
+        // this.router.navigateByUrl('/login')
+      },
+    })
+  }
   public onSelect(event: any) {
     if (event.addedFiles.length > 1) {
       Swal.fire({
@@ -230,33 +276,42 @@ export class ListBusinessComponent {
   }
 
   public displayImagePreviews() {
-    this.isImageLoading = true
-    this.imagePreviews = []
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i]
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const result = reader.result as string
-      }
+    if (this.files.length === 0) {
+      return; // No files to upload
     }
-    this.businessService.uploadMedia(this.files[0]).subscribe({
-      next: (res: any) => {
-        this.isImageLoading = false
-        this.imageUrl = res.image_url
-        this.imagePreviews.push(res.image_url)
-      },
-      error: (err: any) => {
-        // Handle errors
-      },
-    })
+    
+    this.isImageLoading = true;
+    const latestFile = this.files[this.files.length - 1]; // Get the latest file
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      const result = reader.result as string;
+      this.businessService.uploadMedia(latestFile).subscribe({
+        next: (res: any) => {
+          this.isImageLoading = false;
+          this.imageUrl = res.image_url;
+          this.imagePreviews = [res.image_url]; // Replace old preview with new one
+        },
+        error: (err: any) => {
+          // Handle errors
+        }
+      });
+    };
+    
+    reader.readAsDataURL(latestFile);
   }
+  
   
 
   public removeItem(index:any) {
     this.imagePreviews.splice(index, 1);
   }
 
+
+  public  removeImageItem(index:any) {
+    this.imagePreviewss.splice(index, 1);
+  }
+ 
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -334,61 +389,61 @@ export class ListBusinessComponent {
         next: (res) => {
           this.fullPageLoader.hideLoader()
           this.businessFormDetails = res?.data?.[0] || null
-          this.tags = this.businessFormDetails.post_tags.map(
+          this.tags = this.businessFormDetails?.post_tags.map(
             (tag: any) => tag.id,
           )
-          this.uploadMediaUrl = this.businessFormDetails.logo
+          this.uploadMediaUrl = this.businessFormDetails?.logo
           if (this.uploadMediaUrl) {
             this.isFilesPresent = true
           } else {
             this.isFilesPresent = false
           }
           this.verification_upload =
-            this.businessFormDetails.verification_upload
-          this.verifiedBadge = this.businessFormDetails.verified_badge
+            this.businessFormDetails?.verification_upload
+          this.verifiedBadge = this.businessFormDetails?.verified_badge
           this.businessInfoForm.patchValue({
-            post_title: this.businessFormDetails.post_title
-              ? this.businessFormDetails.post_title
+            post_title: this.businessFormDetails?.post_title
+              ? this.businessFormDetails?.post_title
               : 'NA',
-            post_content: this.businessFormDetails.post_content
-              ? this.businessFormDetails.post_content
+            post_content: this.businessFormDetails?.post_content
+              ? this.businessFormDetails?.post_content
               : 'NA',
-            business_email: this.businessFormDetails.business_email
-              ? this.businessFormDetails.business_email
+            business_email: this.businessFormDetails?.business_email
+              ? this.businessFormDetails?.business_email
               : 'NA',
-            contact_phone: this.businessFormDetails.contact_phone
-              ? this.businessFormDetails.contact_phone
+            contact_phone: this.businessFormDetails?.contact_phone
+              ? this.businessFormDetails?.contact_phone
               : 'NA',
-            website: this.businessFormDetails.website
-              ? this.businessFormDetails.website
+            website: this.businessFormDetails?.website
+              ? this.businessFormDetails?.website
               : 'Na',
-            mapview: this.businessFormDetails.mapview
-              ? this.businessFormDetails.mapview
+            mapview: this.businessFormDetails?.mapview
+              ? this.businessFormDetails?.mapview
               : 'NA',
-            post_category: this.businessFormDetails.post_category?.map(
+            post_category: this.businessFormDetails?.post_category?.map(
               (category: any) => category?.id,
             ),
-            default_category: this.businessFormDetails.default_category
-              ? this.businessFormDetails.default_category.id
+            default_category: this.businessFormDetails?.default_category
+              ? this.businessFormDetails?.default_category.id
               : 'NA',
-            instagram: this.businessFormDetails.instagram,
-            facebook: this.businessFormDetails.facebook,
-            logo: this.businessFormDetails.logo,
+            instagram: this.businessFormDetails?.instagram,
+            facebook: this.businessFormDetails?.facebook,
+            logo: this.businessFormDetails?.logo,
           })
           this.selectedDefaultCategories.push({
-            id: this.businessFormDetails.default_category.id,
-            name: this.businessFormDetails.default_category.name,
+            id: this.businessFormDetails?.default_category?.id,
+            name: this.businessFormDetails?.default_category?.name,
           })
 
-          this.street = this.businessFormDetails.street
-          this.latitude = Number(this.businessFormDetails.latitude)
-          this.longitude = Number(this.businessFormDetails.longitude)
-          this.latt = this.businessFormDetails.latitude
-          this.longi = this.businessFormDetails.longitude
-          this.zipcode = this.businessFormDetails.zip
-          this.state = this.businessFormDetails.region
-          this.country = this.businessFormDetails.country
-          this.city = this.businessFormDetails.city
+          this.street = this.businessFormDetails?.street
+          this.latitude = Number(this.businessFormDetails?.latitude)
+          this.longitude = Number(this.businessFormDetails?.longitude)
+          this.latt = this.businessFormDetails?.latitude
+          this.longi = this.businessFormDetails?.longitude
+          this.zipcode = this.businessFormDetails?.zip
+          this.state = this.businessFormDetails?.region
+          this.country = this.businessFormDetails?.country
+          this.city = this.businessFormDetails?.city
 
           this.initMap()
         },
@@ -508,7 +563,31 @@ export class ListBusinessComponent {
           this.isloader = false
         },
       })
-    } else {
+    } else if  (this.userDetailsLevel_id.level_id == '1') {
+      body.final_submission = 1;
+      body.terms_conditions = this.term_and_condition.value,
+      this.businessService.addBusiness(body).subscribe({
+        next: (res) => {
+          this.isloader = false
+          this.addBusinessFormData = res
+          this.isFormFilled = true
+          this.postId = res.post_id
+          this.isSubscriptionStepper = true
+          this.getBusinessFormDetails(this.postId)
+          this.localStorageService.saveData('postId', this.postId)
+          this.businessService.isBusinessFormFilled.next(true)
+          this.localStorageService.saveData('isBusinessFormFilled', 'true')
+          const post_id = res.post_id
+
+          this.businessService.storePostId.next(post_id)
+          this.router.navigateByUrl('/manage-profile/my-business')
+        },
+        error: (err) => {
+          this.isloader = false
+        },
+      })
+
+    }else{
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -529,4 +608,87 @@ export class ListBusinessComponent {
       })
     }
   }
+
+  public onSelectImages(event: any) {
+    this.files = [...event.addedFiles]
+    if (this.imagePreviewss.length >= 5) {
+      Swal.fire({
+        toast: true,
+        text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+
+    if (this.vediosHide.level_id == '1') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'Max 5 images allowed. Upgrade your plan for more',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
+    this.displayLevelOneImages()
+  }
+
+  public displayLevelOneImages() {
+    let maxImages:any = 5;
+    if (this.files.length > maxImages) {
+      Swal.fire({
+        toast: true,
+        text: `You can only select up to ${maxImages} images at a time.`,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+  
+    this.isImageUploading = true;
+  
+
+    const filesToUpload = this.files.slice(0, maxImages);
+
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+  
+      // Upload each file
+      this.businessService.uploadMedia(file).subscribe({
+        next: (res: any) => {
+          this.imagePreviewss.push(res.image_url);
+          if (this.imagePreviewss.length >= maxImages) {
+            this.isImageUploading = false; 
+          }
+        },
+        error: (err: any) => {
+          this.isImageUploading = false;
+          // Handle errors if needed
+        },
+      });
+    });
+  }
+  
+  
 }

@@ -18,12 +18,16 @@
     justify-content: space-between;
 }
 
-
-
+::ng-deep span.mdc-tab__text-label {
+    color: #3989c2!important;
+}
 /* Custom styles for the active tab */
 ::ng-deep .mdc-tab.mat-mdc-tab.mat-mdc-focus-indicator.ng-star-inserted.mdc-tab--active.mdc-tab-indicator--active {
-    color: blue;
-    border: solid 1px gray!important;
-   border-bottom: 0px;
+    color: #3989c2;
+    border: solid 1px #8080802e!important;
+   border-bottom: 0px!important;
 }
-  
+::ng-deep .mdc-tab-indicator .mdc-tab-indicator__content {
+    transition-duration: var(--mat-tab-animation-duration, 250ms);
+    display: none!important;
+}

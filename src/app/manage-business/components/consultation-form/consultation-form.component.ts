@@ -21,7 +21,7 @@ import {
 } from '@angular/forms'
 import Swal from 'sweetalert2'
 import { BusinessService } from '../../service/business.service'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
 import * as moment from 'moment-timezone'
@@ -53,7 +53,7 @@ export class ConsultationFormComponent {
 
     console.log(value?.business_hours)
     console.log(JSON.parse(value?.business_hours))
-    
+
     let businessHours: any[] = JSON.parse(value?.business_hours);
     this.showTimeTable = true;
     const timezone = businessHours?.[businessHours?.length - 1]?.[0];
@@ -62,7 +62,7 @@ export class ConsultationFormComponent {
 
     const formattedDays = hours?.map((day) => {
       const value = day?.map((item: any) => item)?.[0]?.split(' ');
-      const times = value[1]?.split(','); 
+      const times = value[1]?.split(',');
       return {
         name: value?.[0],
         times: times?.map((time: string) => {
@@ -76,14 +76,14 @@ export class ConsultationFormComponent {
 
     this.days?.forEach((day) => {
       formattedDays?.forEach((newDay) => {
-        if(day?.name === newDay?.name) {
+        if (day?.name === newDay?.name) {
           day.times = newDay?.times
         }
       })
     })
 
     console.log(this.days);
-    
+
     const controls = [
       'consultation_booking_link',
       'consultation_mode',
@@ -101,7 +101,7 @@ export class ConsultationFormComponent {
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
-  public video_upload :any = [];
+  public video_upload: any = [];
   public daysName: any
   public vediosUrl: any[] = [];
   public startTime: any
@@ -110,7 +110,7 @@ export class ConsultationFormComponent {
   public title = 'dropzone'
   public clearTable = false
   public files: File[] = []
-  public imagePreviews: any[]=[]
+  public imagePreviews: any[] = []
   public imageUrl: any
   public showTimeTable: boolean = false
   public ConsultationForm!: FormGroup
@@ -125,15 +125,15 @@ export class ConsultationFormComponent {
     region: string
     timeZones: { country: string; offset: string }[]
   }[] = []
-public isVideoUploading:boolean = false
-public isImageUploading:boolean = false
+  public isVideoUploading: boolean = false
+  public isImageUploading: boolean = false
   public timeZones: {
     region: string
     zones: { name: string; offset: string }[]
   }[] = []
   public selectedWeek: string[] = []
   public isLastRemoved: boolean[] = []
-  public imageUrlsArr:any[]=[]
+  public imageUrlsArr: any[] = []
   public days = [
     { name: 'Mon', times: [{ start: '', end: '' }] },
     { name: 'Tue', times: [{ start: '', end: '' }] },
@@ -144,15 +144,16 @@ public isImageUploading:boolean = false
     { name: 'Sun', times: [{ start: '', end: '' }] },
   ]
 
-/**
- * 
- * @param http 
- * @param renderer 
- * @param fb 
- * @param businessService 
- * @param router 
- * @param localstorage 
- */
+  /**
+   * 
+   * @param http 
+   * @param renderer 
+   * @param fb 
+   * @param businessService 
+   * @param router 
+   * @param localstorage 
+   */
+  vediosHide: any
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -160,9 +161,15 @@ public isImageUploading:boolean = false
     private businessService: BusinessService,
     private router: Router,
     private localstorage: LocalStorageService,
+    private authService: AuthenticationService
+
   ) {
     const timeZoneNames = moment.tz.names()
-
+    this.authService.userDetails.subscribe((res: any) => {
+      if (res) {
+        this.vediosHide = res
+      }
+    })
     timeZoneNames.forEach((timeZone) => {
       const country = timeZone.split('/')[0]
       const region = timeZone.split('/')[0].replace(/_/g, ' ')
@@ -205,7 +212,7 @@ public isImageUploading:boolean = false
   }//end constrctor 
 
 
- public formatData() {
+  public formatData() {
     this.formattedData = []
     this.Timezone.forEach((regionData) => {
       regionData.timeZones.forEach((timeZone) => {
@@ -217,7 +224,7 @@ public isImageUploading:boolean = false
     })
   }
 
- public onTimeZoneChange(event: any) {
+  public onTimeZoneChange(event: any) {
     this.selectedTimeZone = event
   }
 
@@ -268,31 +275,31 @@ public isImageUploading:boolean = false
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
             this.isVideoUploading = false
-            if (this.video_upload && this.video_upload.length > 0) {
-              this.video_upload.shift(); // Remove the element at index 0
-          }
-      
-          // Append res.image_url to the video_upload array
-          if (res.image_url) {
-              this.video_upload = [...this.video_upload, res.image_url];
-          }
-            // this.video_upload = [...this.video_upload, res.image_url]
+            //   if (this.video_upload && this.video_upload.length > 0) {
+            //     this.video_upload.shift(); // Remove the element at index 0
+            // }
+
+            // // Append res.image_url to the video_upload array
+            // if (res.image_url) {
+            //     this.video_upload = [...this.video_upload, res.image_url];
+            // }
+            this.video_upload = [res.image_url]
             console.log(this.video_upload)
-            
+
             this.vediosUrl = [...this.vediosUrl, res.image_url]
           },
           error: (err: any) => {
             // Handle errors
           },
         })
-  
+
       }
       reader.readAsDataURL(file)
     })
   }
-  removeItems(index:any) {
+  removeItems(index: any) {
     this.video_upload.splice(index, 1);
-}
+  }
   onRemove(videoElement: HTMLElement) {
     if (videoElement && videoElement.parentNode) {
       videoElement.parentNode.removeChild(videoElement)
@@ -304,49 +311,98 @@ public isImageUploading:boolean = false
   // }
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
+    //  console.log( this.files,' this.files this.files this.files')
+    if (this.vediosHide.level_id == '1') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'You can upload only 5 images',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
+    if (this.vediosHide.level_id == '2') {
+
+      if (this.files.length > 20) {
+        console.log('upload 20 images ')
+        Swal.fire({
+          toast: true,
+          text: 'You can upload only 20 images',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
     this.displayImagePreviews()
   }
 
   displayImagePreviews() {
-    this.isImageUploading = true
-    // Assuming you have an array to store image URLs for preview
-    this.imagePreviews = [...this.imagePreviews];
-
-    // Loop through each file
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i]
-      const reader = new FileReader()
-
-      // Read the file as a data URL
-      reader.readAsDataURL(file)
-
-      // Define the onload event handler
-      reader.onload = () => {
-        // Cast reader.result to string
-        const result = reader.result as string
-
-        // Push the data URL (image preview) to the array
-        // this.imagePreviews.push(result)
-      }
+    let maxImages: any;
+    switch (this.vediosHide.level_id) {
+      case '2':
+        maxImages = 20;
+        break;
+      case '3':
+      default:
+        maxImages = Infinity;
+        break;
     }
-    this.businessService.uploadMedia(this.files[0]).subscribe({
-      next: (res: any) => {
-        this.isImageUploading = false
-        this.imageUrl = res.image_url
-        this.imagePreviews.push(res.image_url)
-      },
-      error: (err: any) => {
-       
-      },
-    })
+  
+    if (this.files.length > maxImages) {
+      Swal.fire({
+        toast: true,
+        text: `You can only select up to ${maxImages} images at a time.`,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+  
+    this.isImageUploading = true;
+    const filesToUpload = this.files.slice(0, maxImages);
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader(); 
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      this.businessService.uploadMedia(file).subscribe({
+        next: (res: any) => {
+          this.isImageUploading = false; 
+          this.imagePreviews.push(res.image_url);
+          if (this.imagePreviews.length >= maxImages && this.vediosHide.level_id !== '3') {
+            this.isImageUploading = false; 
+          }
+        },
+        error: (err: any) => {
+          this.isImageUploading = false;
+        },
+      });
+    });
+  }
+  
+  public removeItem(index: any) {
+    this.imagePreviews.splice(index, 1);
   }
 
 
-  public removeItem(index:any) {
-    this.imagePreviews.splice(index, 1);
-}
-
- 
 
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
@@ -362,7 +418,7 @@ public isImageUploading:boolean = false
     }
   }
 
-  onSubmit() {}
+  onSubmit() { }
 
   public removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
@@ -372,7 +428,7 @@ public isImageUploading:boolean = false
 
 
 
-  
+
   public addBusiness(): void {
     this.isLoader = true
     console.log(this.days)
@@ -436,7 +492,7 @@ public isImageUploading:boolean = false
             this.isFormFilled = true
           }
         },
-        error:(err)=>{
+        error: (err) => {
           this.isLoader = false
         }
       })
@@ -449,7 +505,7 @@ public isImageUploading:boolean = false
           this.businessService.isConsultationFormFilled.next(true)
           this.isFormFilled = true
         },
-        error:(err)=>{
+        error: (err) => {
           this.isLoader = false
         }
       })

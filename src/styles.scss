@@ -10,7 +10,9 @@ body {
   height: 100%;
   font-size: 16px;
 }
-
+.listing-info {
+  overflow: hidden;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -19,7 +21,7 @@ html {
   top: 0;
   right: 0;
   font-size: 18px;
-  z-index: 999999;
+  // z-index: 999999;
 }
 .removeImage i{
 color: #ff9900;

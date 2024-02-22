@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { DndDropEvent, DndModule } from 'ngx-drag-drop'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import Swal from 'sweetalert2'
@@ -72,18 +72,24 @@ export class SubscriptionFormComponent {
   public subscriptionForm: FormGroup
   public filesString: any
   public postId: any
+  changeBadgetext!:boolean
+  hidefileds:any
   constructor(
     private fb: FormBuilder,
     private businessService: BusinessService,
     private localstorage: LocalStorageService,
     private cdr: ChangeDetectorRef,
+    private authService : AuthenticationService
   ) {
     this.subscriptionForm = this.fb.group({
       facebook: ['', Validators.required],
       twitter: ['', Validators.required],
       instagram: ['', Validators.required],
     })
-
+this.authService.userDetails.subscribe((res:any)=>{
+this.hidefileds = res
+   
+})
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 

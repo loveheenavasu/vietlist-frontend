@@ -43,7 +43,6 @@
             <div class="tabs_responsive">
               <ul>
                 @for(key of sidebarMenu ; track $index){
-                
                 <li
                   (click)="addClass(key.url)"
                   [ngClass]="{ 'active': activeIndex === key.url }"
