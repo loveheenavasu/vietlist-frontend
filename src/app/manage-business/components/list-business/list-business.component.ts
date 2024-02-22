@@ -37,7 +37,7 @@ import { PromotionsFormComponent } from '../promotions-form/promotions-form.comp
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
-import { RecaptchaModule } from 'ng-recaptcha'
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
 
 
 @Component({
@@ -64,6 +64,7 @@ import { RecaptchaModule } from 'ng-recaptcha'
     RouterOutlet,
     LoaderComponent,
     NgxDropzoneModule,
+    RecaptchaFormsModule,
     RecaptchaModule,
     JsonPipe,
     MatCheckboxModule
@@ -500,6 +501,10 @@ export class ListBusinessComponent {
     }
   }
 
+  public resolved(captchaResponse: string | null) {
+    
+  }
+
   public addBusiness(val?: any) {
     this.isloader = true
     const body: any = {
@@ -587,7 +592,7 @@ export class ListBusinessComponent {
         },
       })
 
-    }else{
+    }else if(!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
