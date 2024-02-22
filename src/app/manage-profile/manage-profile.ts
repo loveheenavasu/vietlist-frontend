@@ -60,9 +60,7 @@ export class ManageProfileComponent {
   }
 
   public handleFileInput(event: any) {
-    console.log(event, 'event')
     event.stopPropagation()
-    console.log('Checking image path', event)
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader()
 
@@ -79,10 +77,7 @@ export class ManageProfileComponent {
 
   private uploadImage(arrayBuffer: ArrayBuffer) {
     this.isUploading = true // Set uploading flag
-    console.log('array buffer', arrayBuffer)
     const blob = new Blob([arrayBuffer], { type: 'image/jpeg' })
-    console.log('check blob', blob)
-
     const formData = new FormData()
     formData.append('user_email', '')
     formData.append('display_user_name', '')
@@ -102,7 +97,6 @@ export class ManageProfileComponent {
   }
 
   public openFileInput(event: any) {
-    console.log('checking')
     this.handleFileInput(event)
   }
 
@@ -115,16 +109,21 @@ export class ManageProfileComponent {
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
+      
       },
     })
   }
   
-  addClass(url: string) {
+  public addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
   }
 
-  // public viewFullEmail() {
-  //   this.showFullEmail = !this.showFullEmail
-  // }
+ public filterTabsByLevelId(levelId:any){
+  if(this.userDetail.level_id == '1'){
+    this.sidebarMenu = this.sidebarMenu.filter((res)=>{
+      res.label !== ''
+    })
+  }
+ }
 }

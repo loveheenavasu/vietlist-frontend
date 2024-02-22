@@ -1,3 +1,4 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { Route, Router, RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
@@ -10,6 +11,7 @@ import { MatCardModule } from '@angular/material/card'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -35,6 +37,7 @@ import { PromotionsFormComponent } from '../promotions-form/promotions-form.comp
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { RecaptchaModule } from 'ng-recaptcha'
 
 
 @Component({
@@ -61,7 +64,9 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
     RouterOutlet,
     LoaderComponent,
     NgxDropzoneModule,
+    RecaptchaModule,
     JsonPipe,
+    MatCheckboxModule
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
@@ -80,7 +85,9 @@ export class ListBusinessComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-  vediosHide: any
+  public vediosHide: any
+  public term_and_condition = new FormControl('')
+  public recaptcha = new FormControl('')
   public verification_upload: any
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public latt!: number
@@ -118,7 +125,7 @@ export class ListBusinessComponent {
   public tags: any[] = []
   public verifiedBadge: any
   public imagePreviews: any
-  public imagePreviewss: any
+  public imagePreviewss: any[]=[]
   public imageUrl: any
   public filess: any
   userDetail:any
@@ -269,33 +276,42 @@ export class ListBusinessComponent {
   }
 
   public displayImagePreviews() {
-    this.isImageLoading = true
-    this.imagePreviews = []
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i]
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => {
-        const result = reader.result as string
-      }
+    if (this.files.length === 0) {
+      return; // No files to upload
     }
-    this.businessService.uploadMedia(this.files[0]).subscribe({
-      next: (res: any) => {
-        this.isImageLoading = false
-        this.imageUrl = res.image_url
-        this.imagePreviews.push(res.image_url)
-      },
-      error: (err: any) => {
-        // Handle errors
-      },
-    })
+    
+    this.isImageLoading = true;
+    const latestFile = this.files[this.files.length - 1]; // Get the latest file
+    const reader = new FileReader();
+    
+    reader.onload = () => {
+      const result = reader.result as string;
+      this.businessService.uploadMedia(latestFile).subscribe({
+        next: (res: any) => {
+          this.isImageLoading = false;
+          this.imageUrl = res.image_url;
+          this.imagePreviews = [res.image_url]; // Replace old preview with new one
+        },
+        error: (err: any) => {
+          // Handle errors
+        }
+      });
+    };
+    
+    reader.readAsDataURL(latestFile);
   }
+  
   
 
   public removeItem(index:any) {
     this.imagePreviews.splice(index, 1);
   }
 
+
+  public  removeImageItem(index:any) {
+    this.imagePreviewss.splice(index, 1);
+  }
+ 
   public onTagSelectionChange() {
     const tagNames = this.tags.map((tag) => tag.toString()) // Convert tag numbers to strings
     this.selectedTagsString = tagNames.join(', ') // Convert array to string with comma separator
@@ -548,6 +564,8 @@ export class ListBusinessComponent {
         },
       })
     } else if  (this.userDetailsLevel_id.level_id == '1') {
+      body.final_submission = 1;
+      body.terms_conditions = this.term_and_condition.value,
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -591,16 +609,29 @@ export class ListBusinessComponent {
     }
   }
 
-  onSelectImages(event: any) {
+  public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
-    //  console.log( this.files,' this.files this.files this.files')
+    if (this.imagePreviewss.length >= 5) {
+      Swal.fire({
+        toast: true,
+        text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+
     if (this.vediosHide.level_id == '1') {
 
       if (this.files.length > 5) {
         console.log('upload 5 images ')
         Swal.fire({
           toast: true,
-          text: 'You can upload only 5 images',
+          text: 'Max 5 images allowed. Upgrade your plan for more',
           animation: false,
           icon: 'error',
           position: 'top-right',
@@ -611,61 +642,53 @@ export class ListBusinessComponent {
         return
       }
     }
-    // if (this.vediosHide.level_id == '2') {
-
-    //   if (this.files.length > 20) {
-    //     console.log('upload 20 images ')
-    //     Swal.fire({
-    //       toast: true,
-    //       text: 'You can upload only 20 images',
-    //       animation: false,
-    //       icon: 'error',
-    //       position: 'top-right',
-    //       showConfirmButton: false,
-    //       timer: 3000,
-    //       timerProgressBar: true,
-    //     })
-    //     return
-    //   }
-    // }
-    this.displayImagePreviewss()
+    this.displayLevelOneImages()
   }
 
-  displayImagePreviewss() {
-    this.isImageUploading = true
-    // Assuming you have an array to store image URLs for preview
-    // this.imagePreviews = [...this.imagePreviews];
-
-    // Loop through each file
-    for (let i = 0; i < this.files.length; i++) {
-      const file = this.files[i]
-      const reader = new FileReader()
-
-      // Read the file as a data URL
-      reader.readAsDataURL(file)
-
-      // Define the onload event handler
-      reader.onload = () => {
-        // Cast reader.result to string
-        const result = reader.result as string
-        // Push the data URL (image preview) to the array
-        // this.imagePreviews.push(result)
-      }
+  public displayLevelOneImages() {
+    let maxImages:any = 5;
+    if (this.files.length > maxImages) {
+      Swal.fire({
+        toast: true,
+        text: `You can only select up to ${maxImages} images at a time.`,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
     }
-    if (this.files.length < 20) {
-      this.businessService.uploadMedia(this.files[0]).subscribe({
+  
+    this.isImageUploading = true;
+  
+
+    const filesToUpload = this.files.slice(0, maxImages);
+
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+  
+      // Upload each file
+      this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false
-          this.imageUrl = res.image_url
-          this.imagePreviewss = [res.image_url]
+          this.imagePreviewss.push(res.image_url);
+          if (this.imagePreviewss.length >= maxImages) {
+            this.isImageUploading = false; 
+          }
         },
         error: (err: any) => {
-
+          this.isImageUploading = false;
+          // Handle errors if needed
         },
-      })
-    } else {
-      console.log("Images upload length exceeds 20. Cannot upload more images.");
-
-    }
+      });
+    });
   }
+  
+  
 }
