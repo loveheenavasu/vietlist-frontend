@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
+import { Roles } from '../enums';
 import { AuthenticationService, LocalStorageService } from '../services';
 
 @Injectable({
@@ -10,8 +11,7 @@ import { AuthenticationService, LocalStorageService } from '../services';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private sessionService: AuthenticationService,
-    private localStorage: LocalStorageService,
+    private sessionService: AuthenticationService
   ) { }
 
   canActivate(
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
         if (isAuthenticated) {
           return this.sessionService.userRole.pipe(
             switchMap((userRole) => {
-              if (userRole === 'subscriber') {
+              if (userRole === Roles.subscriber) {
                 return of(true);
               } else {
                 return this.sessionService.isSubscription$;
@@ -35,7 +35,8 @@ export class AuthGuard implements CanActivate {
           return of(false);
         }
       }),
-      catchError(() => {
+      catchError((err) => {
+        console.log(err , "ERROR")
         this.router.navigateByUrl('/');
         return of(false);
       }),

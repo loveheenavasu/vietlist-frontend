@@ -2,6 +2,7 @@ import { RouterOutlet, RouterLink, Router } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
+  LocalStorageService,
   ProfileMenu,
   Roles,
   SidebarService,
@@ -33,24 +34,48 @@ export class ManageProfileComponent {
   public activeIndex: any = 0
   public showFullEmail: boolean = false
   public isUploading: boolean = false
+  menuItems: any
   public role = Roles
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
+     private localStorage : LocalStorageService
   ) {
 
 
     this.activeIndex = this.router.url
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
+     const role = this.localStorage.getData('loginInfo')
+     const roleGet = JSON.parse(role)
+        if(roleGet.user_role == Roles.subscriber){
+          this.menuItems = this.sidebarMenu.filter(tab =>
+                  tab.label !== 'Ads' &&
+                  tab.label !== 'My Business' &&
+                  tab.label !== 'Subscriptions' &&
+                  tab.label !== 'Billing Address' &&
+                  tab.label !== 'Privacy' &&
+                  tab.label !== 'Notifications' &&
+                  tab.label !== 'Invoices' &&
+                  tab.label !== 'Transactions' &&
+                  tab.label !== 'Settings' &&
+                  tab.label !== 'My Bookings'
+                );
+        }else if (roleGet.user_role == 'subscriber') {
+          return this.menuItems
+        } else {
+          return this.menuItems = this.sidebarMenu
+        }
+   
     })
 
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res
     })
   }
+  
 
   ngOnInit(){
         this.fetchProfileDetail()

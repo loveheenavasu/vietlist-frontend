@@ -62,7 +62,7 @@
     {
       "label": "Logout",
       "icon": "fa fa-sign-out",
-      "url": "/contact"
+      "url": "/"
     },
     {
       "label": "Settings",

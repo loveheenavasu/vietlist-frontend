@@ -3,7 +3,7 @@ import { ProfileService } from '../../service/profile.service'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
 import { AuthenticationService, ProfileMenu } from '@vietlist/shared'
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgIf } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 import {
   CountryISO,
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgxIntlTelInputModule],
+  imports: [FormsModule, CommonModule, NgxIntlTelInputModule , NgIf],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })

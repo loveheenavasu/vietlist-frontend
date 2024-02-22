@@ -15,9 +15,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
 import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
-import { profile } from 'console'
-import { link } from 'fs'
-import { filter } from 'rxjs'
+
 
 @Component({
   selector: 'app-header',
