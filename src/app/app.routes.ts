@@ -28,6 +28,8 @@ import {
 import { AddEventComponent } from './manage-event'
 import { CreateAdsComponent } from './manage-profile/components/manage-ads/create-ads/create-ads.component'
 import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
+import { AllEventComponent } from './manage-event/components/all-event/all-event.component'
+import { EventDetailsComponent } from './manage-event/components/event-details/event-details.component'
 
 export default [
   {
@@ -129,6 +131,14 @@ export default [
   {
     path: 'add-event',
     loadComponent: () => AddEventComponent,
+  },
+  {
+    path: 'events',
+    loadComponent: () => AllEventComponent,
+  },
+  {
+    path: 'event-details/:id',
+    loadComponent: () => EventDetailsComponent,
   },
   {
     path: '**',

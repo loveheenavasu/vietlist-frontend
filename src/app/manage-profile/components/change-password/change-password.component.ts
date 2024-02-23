@@ -96,7 +96,9 @@ export class ChangePasswordComponent {
           timerProgressBar: true,
         })
       },
-      error: (err) => {},
+      error: (err) => {
+        this.loaderService.hideLoader()
+      },
     })
   }
 

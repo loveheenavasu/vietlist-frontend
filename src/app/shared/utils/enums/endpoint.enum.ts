@@ -26,6 +26,8 @@ export enum Endpoints {
   SubscribeNewsletter = 'subscribe_newsletter',
   EventTags = 'event_tags_data_get',
   EventCatgeory = 'get_event_category',
+  EventDetailsByPostId = 'get_event_using_postid',
+  GetPublishEvent = 'get_publish_event',
   ChangePassword = 'changepassword',
   DeleteAccount = 'delete_user_account',
   NotificaionAllow = 'profile_notification_setting',

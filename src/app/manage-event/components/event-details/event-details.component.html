@@ -1,0 +1,39 @@
+<section class="banner">
+    <div class="content">
+      <h1>{{eventDetails?.post_title | titlecase}}</h1>
+    </div>
+  </section>
+  
+  <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-8">
+            <h3 class="event-page-heading">Event Details</h3>
+
+            <p class="content">{{eventDetails?.post_content}}</p>
+        </div>
+        <div class="col-12 col-md-12 col-lg-4">
+           <div class="profile-info-div">
+
+           </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="event-page-heading">Photo(s)</h3>
+
+             <div>
+                <img [src]="eventDetails?.featured_image"/>
+             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="event-page-heading">Map</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3 class="event-page-heading">Reviews</h3>
+        </div>
+    </div>
+  </div>
