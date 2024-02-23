@@ -1,7 +1,6 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-
-
+@import "../../../../assets/scss/image-loader.scss";
   .mat-mdc-form-field {
     margin-top: 16px;
   }
@@ -15,8 +14,10 @@
   max-width:1140px;
   padding: 35px;
   }
-
-
+.imagePriview{
+  object-fit: scale-down;
+}
+  
   .mat-mdc-radio-button ~ .mat-mdc-radio-button {
     margin-left: 16px;
   }

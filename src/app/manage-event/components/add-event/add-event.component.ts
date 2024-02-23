@@ -66,10 +66,13 @@ export class AddEventComponent {
   public latitude: number = 0
   public longitude: number = 0
   public separateDialCode = true
+  public isImageUploading: boolean = false
+  public levelOneImageArr: any[]=[]
   public isFirstStepCompleted: boolean = false
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
+  ImageUrl:any
   public preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
@@ -98,6 +101,7 @@ export class AddEventComponent {
   public zipcode: any
   public localStoragePostId: any
   public isFormFilled: boolean = false
+  public vediosHide: any
   public filesString: any
   public files: File[] = []
   public fullAddress: any
@@ -110,6 +114,7 @@ export class AddEventComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
+  checkValue: any
   /**
    *
    * @param _formBuilder
@@ -124,25 +129,56 @@ export class AddEventComponent {
     private eventService: EventService,
   ) {
     this.businessInfoForm = this._formBuilder.group({
-      post_title: ['', Validators.required],
-      contact_phone: ['', Validators.required],
-      business_email: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-        ],
-      ],
+      event_title: ['', Validators.required],
+      // contact_phone: ['', Validators.required],
+      // business_email: [
+      //   '',
+      //   [
+      //     Validators.required,
+      //     Validators.email,
+      //     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      //   ],
+      // ],
+      eventStartDate:[''],
+      eventEndDate:[''],
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
-      post_content: ['', Validators.required],
+      event_description: ['', Validators.required],
       website: [''],
+      event_duration:[''],
+      repeats_event:[''],
+      event_type:[''],
+      occurrences:[''],
+      end_date_recurring:[''],
       mapview: [''],
+      startDate:[''],
+      endDate:['']
     })
-    this.recurringEvent.valueChanges.subscribe((res) => {})
-  }
+    this.recurringEvent.valueChanges.subscribe((res) => {
+          console.log(res,'recurringEvent')
+           this.checkValue = res
+      const controlsToValidate = [
+        // 'event_duration',
+        // 'repeats_event',
+        // 'event_type',
+        // 'occurrences',
+        // 'end_date_recurring'
+        'startDate',
+        'endDate'
+      ];
 
+      controlsToValidate.forEach(controlName => {
+        const control = this.businessInfoForm.get(controlName);
+        if (res) {
+          control?.setValidators(Validators.required);
+        } else {
+          control?.clearValidators();
+        }
+        control?.updateValueAndValidity();
+      });
+    });
+  }
+  
   ngOnInit() {
     this.getBusinessCat()
 
@@ -219,6 +255,10 @@ export class AddEventComponent {
       error: (err) => {},
     })
   }
+  public  removeImageItem() {
+    this.ImageUrl = ''
+    // this.levelOneImageArr.splice(index, 1);
+  }
 
   public getDefaultCat() {
     this.businessService.getDefaultCat(this.categoriesValue).subscribe({
@@ -228,6 +268,7 @@ export class AddEventComponent {
       error: (err) => {},
     })
   }
+  
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -371,14 +412,95 @@ export class AddEventComponent {
     }
   }
 
+
+
+  public onSelectImages(event: any) {
+    this.files = [...event.addedFiles]
+    // if (this.levelOneImageArr.length >= 5) {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
+    //     animation: false,
+    //     icon: 'warning',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //   });
+    //   return;
+    // }
+
+    // if (this.vediosHide.level_id == '1') {
+
+    //   if (this.files.length > 5) {
+    //     console.log('upload 5 images ')
+    //     Swal.fire({
+    //       toast: true,
+    //       text: 'Max 5 images allowed. Upgrade your plan for more',
+    //       animation: false,
+    //       icon: 'error',
+    //       position: 'top-right',
+    //       showConfirmButton: false,
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     })
+    //     return
+    //   }
+    // }
+    this.displayLevelOneImages()
+  }
+
+  public displayLevelOneImages() {
+    let maxImages:any = 5;
+    // if (this.files.length > maxImages) {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: `You can only select up to ${maxImages} images at a time.`,
+    //     animation: false,
+    //     icon: 'error',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //   });
+    //   return;
+    // }
+  
+    this.isImageUploading = true;
+  
+
+    const filesToUpload = this.files.slice(0, maxImages);
+
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+  
+      // Upload each file
+      this.businessService.uploadMedia(file).subscribe({
+        next: (res: any) => {
+          this.isImageUploading = false;
+          this.ImageUrl = res.image_url
+          this.levelOneImageArr.push(res.image_url);
+          if (this.levelOneImageArr.length >= maxImages) {
+            this.isImageUploading = false; 
+          }
+        },
+        error: (err: any) => {
+          this.isImageUploading = false;
+          // Handle errors if needed
+        },
+      });
+    });
+  }
+
   public addBusiness(val?: any) {
     this.isloader = true
     const body: any = {
-      post_title: this.businessInfoForm.value.post_title,
-      contact_phone: parseInt(
-        this.businessInfoForm.value.contact_phone?.e164Number,
-      ),
-      business_email: this.businessInfoForm.value.business_email,
+      post_title: this.businessInfoForm.value.event_title,
       post_category: this.businessInfoForm.value.post_category.join(', '),
       default_category: this.businessInfoForm.value.default_category,
       latitude: this.latitude,
@@ -387,21 +509,16 @@ export class AddEventComponent {
       region: this.state,
       country: this.country,
       zip: this.zipcode,
-      post_content: this.businessInfoForm.value.post_content,
-      website: this.businessInfoForm.value.website,
+      post_content: this.businessInfoForm.value.event_description,
+      featured_image:this.ImageUrl,
       post_tags: this.selectedTagsString,
       street: this.fullAddress,
-      logo: this.uploadMediaUrl,
       mapview: this.businessInfoForm.value.mapview,
     }
     if (this.isFormFilled) {
       this.isloader = true
       const updatebody: any = {
-        post_title: this.businessInfoForm.value.post_title,
-        contact_phone: parseInt(
-          this.businessInfoForm.value.contact_phone?.e164Number,
-        ),
-        business_email: this.businessInfoForm.value.business_email,
+        post_title: this.businessInfoForm.value.event_title,
         post_category: this.businessInfoForm.value.post_category.join(', '),
         default_category: this.businessInfoForm.value.default_category,
         latitude: this.latitude,
@@ -410,15 +527,11 @@ export class AddEventComponent {
         region: this.state,
         country: this.country,
         zip: this.zipcode,
-        post_content: this.businessInfoForm.value.post_content,
-        website: this.businessInfoForm.value.website,
+        post_content: this.businessInfoForm.value.event_description,
+        featured_image:this.ImageUrl,
         post_tags: this.selectedTagsString,
         street: this.fullAddress,
-        logo: this.uploadMediaUrl,
         mapview: this.businessInfoForm.value.mapview,
-        post_id: this.localStoragePostId
-          ? this.localStoragePostId
-          : this.postId,
       }
       this.businessService.updateBusiness(updatebody).subscribe({
         next: (res) => {
@@ -445,7 +558,7 @@ export class AddEventComponent {
         },
       })
     } else {
-      this.businessService.addBusiness(body).subscribe({
+      this.businessService.addEvent(body).subscribe({
         next: (res) => {
           this.isloader = false
           this.addBusinessFormData = res
@@ -460,7 +573,7 @@ export class AddEventComponent {
           this.businessService.storePostId.next(post_id)
           Swal.fire({
             toast: true,
-            text: 'Business Information added successfully!',
+            text: 'Event Information added successfully!',
             animation: false,
             icon: 'success',
             position: 'top-right',
@@ -475,4 +588,6 @@ export class AddEventComponent {
       })
     }
   }
+
+
 }
