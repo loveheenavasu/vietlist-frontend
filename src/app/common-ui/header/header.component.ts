@@ -149,6 +149,7 @@ export class HeaderComponent {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
+    window.location.reload()
   }
   @HostListener('window:scroll', ['$event']) getScrollHeight(event:any) {
     if(window.pageYOffset> 0 )
