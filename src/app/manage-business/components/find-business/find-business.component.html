@@ -197,11 +197,29 @@
       </div>
     </div>
     <div class="col-12 ads-section">
+
       <div class="ads-wrapper">
-        <div class="ads-text d-flex justify-content-center p-2">
-          <p>Ads section</p>
+        @if(searchPageAd){
+        <div class="ads-banner"
+          (click)="CountClickStats(searchPageAd[currentIndex]?.id,searchPageAd[currentIndex]?.space_id)"
+          style="background-image: url({{searchPageAd[currentIndex]?.img}})">
+          <div class="ads-text d-flex justify-content-center p-2">
+            <div class="ad-title">
+              <h1>{{searchPageAd[currentIndex]?.title}}</h1>
+            </div>
+            <div class="ad-desc">
+              <p>{{searchPageAd[currentIndex]?.description}}</p>
+            </div>
+            @if(searchPageAd[currentIndex]?.url){
+            <div class="explore-more-btn btn">
+              <a [href]="searchPageAd[currentIndex]?.url" target="_blank">Explore </a>
+            </div>
+            }
+          </div>
         </div>
+        }
       </div>
+
     </div>
     <div class="col-12 carrer-professional">
       <div class="business-inner-wrapper d-flex">

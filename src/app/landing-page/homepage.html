@@ -17,19 +17,33 @@
       </div>
     </div>
   </div>
-  <div class="banner-2" style="background-image: url({{showAdInTop[currentIndex]?.img}});">
-    <div class="content">
-      <h1>
-        {{showAdInTop[currentIndex]?.title}}
-      </h1>
-      <p>
-        {{showAdInTop[currentIndex]?.description}}
-      </p>
-      <div class="explore-btn-wrapper">
-        <button class="btn explore-more-btn grey-bg-btn">Explore More</button>
-      </div>
-    </div>
+  @if (showAdInTop) {
+  <div class="Categories-swiper-container">
+    <swiper-container #adSwiper class="mySwiper" init="false">
+
+      @for (key of showAdInTop; track $index) {
+      <swiper-slide>
+        <div class="banner-2" style="background-image: url({{key?.img}});"
+          (click)="CountClickStats(showAdInTop[currentIndex]?.id,showAdInTop[currentIndex]?.space_id)">
+          <div class="content">
+            <h1>
+              {{key?.title}}
+            </h1>
+            <p>
+              {{key?.description}}
+            </p>
+            @if (showAdInTop[currentIndex]?.url) {
+            <div class="explore-btn-wrapper">
+              <button class="btn explore-more-btn grey-bg-btn">Explore More</button>
+            </div>
+            }
+          </div>
+        </div>
+      </swiper-slide>
+      }
+    </swiper-container>
   </div>
+  }
 </div>
 <section>
   <app-buisness-category [homePageData]="homePageData"></app-buisness-category>
@@ -38,7 +52,8 @@
   <app-trending-services [homePageData]="homePageData"></app-trending-services>
 </section>
 <section>
-  <app-blog-news [homePageData]="homePageData"></app-blog-news>
+  <app-blog-news (bannerClick)="CountClickStats($event.adId, $event.spaceId)" [homePageData]="homePageData"
+    [adDetails]="adDetails"></app-blog-news>
 </section>
 <section>
   <app-events [homePageData]="homePageData"></app-events>
@@ -59,7 +74,23 @@
   <app-claim-your-buisness [homePageData]="homePageData"></app-claim-your-buisness>
 </section>
 <section class="advertising">
-  <div class="ads-container">
-    <img src="/assets/image/sale-ads-img.svg" alt="ads" />
+  @if (showAdInFooter) {
+  <div class="ads-container"
+    (click)="CountClickStats(showAdInFooter[currentIndex]?.id,showAdInFooter[currentIndex]?.space_id)"
+    style="background-image: url({{showAdInFooter[currentIndex].img}});">
+    <div class="ad-text overlay">
+      <div class="ad-title">
+        <h1>{{showAdInFooter[currentIndex].title}}</h1>
+      </div>
+      <div class="ad-desc">
+        <p>{{showAdInFooter[currentIndex].description}}</p>
+      </div>
+      @if(showAdInFooter[currentIndex]?.url){
+      <div class="explore-more-btn btn">
+        <a [href]="showAdInFooter[currentIndex]?.url" target="_blank">Explore </a>
+      </div>
+      }
+    </div>
   </div>
+  }
 </section>

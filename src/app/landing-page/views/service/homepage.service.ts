@@ -28,4 +28,9 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ShowAd)
     return this.http.get<any>(endpoint)
   }
+
+  public setStats(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetStats)
+    return this.http.post<any>(endpoint, body)
+  }
 }

@@ -22,6 +22,9 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import Swal from 'sweetalert2'
+import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import { interval, repeat, take } from 'rxjs'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
   selector: 'app-find-business',
@@ -68,10 +71,18 @@ export class FindBusinessComponent {
   public city: any
   public zipcode: any
   public fullAddress: any
+  public searchPageAd: any
+  public currentIndex: number = 0
+  public ipAddress: any
+  public multipleSpaceId: string[] = []
+  public multipleAdId: string[] = []
+
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private fb: FormBuilder,
+    private searchAd: HomepageService,
+    private IpService: ProfileService
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -84,12 +95,108 @@ export class FindBusinessComponent {
   }
 
   ngOnInit() {
+    this.fetchSearchAd()
+    if (this.searchPageAd) {
+      interval(30000)
+        .pipe(take(this.searchPageAd.length), repeat())
+        .subscribe(() => {
+          if (this.currentIndex === this.searchPageAd.length - 1) {
+            this.currentIndex = 0;
+          }
+          else {
+            this.currentIndex++;
+          }
+
+        });
+    }
     this.getBusinessCat()
     this.initMap()
     this.getPublishBusinessData()
     // this.searchBusiness()
     this.findBusinessForm.value.slidervalue.setValue(0)
   }
+
+
+  public fetchSearchAd() {
+    this.searchAd.showAD().subscribe({
+      next: (res: any) => {
+        res.data.forEach((data: any) => {
+          if (data.Page_key == 'Search') {
+            this.searchPageAd = data.ads_detail
+            this.searchPageAd.forEach((ad: any) => {
+              this.multipleSpaceId.push(ad.space_id);
+              this.multipleAdId.push(ad.id)
+            });
+            this.setStats()
+            // console.log("check search ad", this.searchPageAd)
+          }
+        })
+      }
+    })
+  }
+
+  public getIPAdress() {
+    this.IpService.getIPAddress().subscribe((res: any) => {
+      this.ipAddress = res.ip
+    })
+  }
+
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = this.padZero(date.getMonth() + 1);
+    const day = this.padZero(date.getDate());
+    const hours = this.padZero(date.getHours());
+    const minutes = this.padZero(date.getMinutes());
+    const seconds = this.padZero(date.getSeconds());
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  private padZero(value: number): string {
+    return value < 10 ? `0${value}` : `${value}`;
+  }
+
+  public myBrowser() {
+    if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
+      return 'Opera';
+    } else if (navigator.userAgent.indexOf("Chrome") != -1) {
+      return 'Chrome';
+    } else if (navigator.userAgent.indexOf("Safari") != -1) {
+      return 'Safari';
+    } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+      return 'Firefox';
+    } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!(document as any).documentMode == true)) {
+      return 'IE';
+    } else {
+      return 'unknown';
+    }
+  }
+
+  public setStats(ad_id?: string, space_id?: string) {
+    this.getIPAdress()
+    const currentDate = new Date();
+    const actionTime = this.formatDate(currentDate);
+    const currentRoute = window.location.href;
+
+    const body = {
+      space_id: space_id ? space_id : this.multipleSpaceId,
+      ad_id: ad_id ? ad_id : this.multipleAdId,
+      action_type: space_id && ad_id ? 'click' : 'view',
+      action_time: actionTime,
+      user_ip: this.ipAddress,
+      browser: this.myBrowser(),
+      page_url: currentRoute
+    }
+    this.searchAd.setStats(body).subscribe({
+      next: (res: any) => {
+        // console.log("check stats res", res)
+      }
+    })
+  }
+
+  public CountClickStats(ad_id: string, space_id: string) {
+    this.setStats(ad_id, space_id)
+  }
+
   public handleLayout(layout: string) {
     this.selectedLayout = layout
   }
