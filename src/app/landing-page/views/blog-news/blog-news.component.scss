@@ -41,7 +41,8 @@ section {
                 width: 100%;
                 flex-wrap: wrap;
                 // gap: 2.5rem;
-                font-size:16px;
+                font-size: 16px;
+
                 .example-card {
                     width: 32.5rem;
                     margin-bottom: 32px;
@@ -123,6 +124,9 @@ section {
             .banner-img {
                 width: 100%;
                 height: 100%;
+                background-repeat: no-repeat;
+                background-size: cover;
+                transition: background-image 0.5s ease;
                 // background-image: url();
                 // background: url("/assets/icons/blog-banner.svg"), lightgray 50% / cover no-repeat;
 
@@ -131,8 +135,13 @@ section {
                 }
 
                 .banner-text {
-                    margin-top: 5.563rem;
+                    padding-top: 2.5rem;
                     padding-left: 2.125rem;
+                    background: rgba(57, 57, 57, 0.5);
+                    width: 100%;
+                    height: 100%;
+                    inset: 0;
+                    color: var(--white);
 
                     h3 {
                         text-align: left;
@@ -153,6 +162,11 @@ section {
                         color: var(--primary-color-orange);
                         border: 1px solid #F90;
                         padding: 0.75rem 1.625rem;
+
+                        a {
+                            color: var(--primary-color-orange) !important;
+                            text-decoration: none !important;
+                        }
                     }
                 }
             }
@@ -187,6 +201,10 @@ section {
             }
         }
 
+        .blog-banner {
+            height: 300px !important;
+        }
+
         .blog-card {
             .example-card {
                 margin-right: 0rem !important;
@@ -212,8 +230,42 @@ section {
     }
 
     .blog-banner {
-        height: 1560px !important;
+        height: 400px !important;
         margin-bottom: 41px;
+
+        .banner-img {
+            .banner-text {
+                color: var(--white);
+
+                h3 {
+                    font-size: 1.6rem !important;
+                    width: 100% !important;
+                    text-align: center !important;
+                }
+
+                p {
+                    font-size: 1.4rem !important;
+                    line-height: 0px !important;
+                    padding-top: 1rem !important;
+                    width: 100% !important;
+                    text-align: center !important;
+                }
+
+                .btn {
+                    margin-top: 1.2rem !important;
+                }
+            }
+
+            .overlay {
+                position: absolute;
+                background: rgba(57, 57, 57, 0.5);
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+                inset: 0;
+            }
+        }
     }
 }
 

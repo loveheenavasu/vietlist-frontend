@@ -213,10 +213,44 @@
     height: 100%;
     padding: 0.625rem 0rem;
 
-    .ads-text {
-        height: 50vh;
-        align-items: center;
+    .ads-banner {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        transition: background-image 0.5s ease;
     }
+
+    .ads-text {
+        height: 35vh;
+        align-items: center;
+        flex-direction: column;
+        color: var(--white);
+        background: rgba(57, 57, 57, 0.5);
+        inset: 0;
+
+        .explore-more-btn {
+            width: 9rem;
+            transition: none;
+            background-color: #f2f2f2;
+
+            a {
+                color: var(--primary-color-mustard) !important;
+                text-decoration: none;
+            }
+
+
+        }
+
+        .explore-more-btn:hover {
+            background-color: transparent;
+            border: solid 1.5px var(--primary-color-mustard);
+            color: var(--primary-color-mustard)
+        }
+    }
+
 }
 
 .carrer-professional {
