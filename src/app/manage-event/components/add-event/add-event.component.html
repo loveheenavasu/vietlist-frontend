@@ -488,6 +488,18 @@
             </div>
           </div>
         </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-12">
+            <mat-checkbox class="event-checkbox" [formControl]="status">Is Bookable <span
+                class="asterik">*</span></mat-checkbox>
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-12">
+            <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
+              [formControl]="recaptcha"></re-captcha>
+          </div>
+        </div>
         <div style="width: 100%; text-align: end">
           <button
             type="button"
@@ -498,7 +510,8 @@
               !zipcode ||
               !state ||
               !city ||
-              !tags
+              !tags ||
+              debounce
             "
             (click)="addBusiness()"
           >

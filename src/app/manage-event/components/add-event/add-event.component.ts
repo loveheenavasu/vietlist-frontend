@@ -23,6 +23,7 @@ import {
   CountryISO,
   PhoneNumberFormat,
 } from 'ngx-intl-tel-input-gg'
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
 import { LoaderComponent } from 'src/app/common-ui'
 import { BusinessCategoryResponse } from 'src/app/manage-business/service/business.interface'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
@@ -31,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import Swal from 'sweetalert2'
 import { MatNativeDateModule } from '@angular/material/core'
 import { EventService } from '../../service/event.service'
+import { MatCheckboxModule } from '@angular/material/checkbox'
 
 @Component({
   selector: 'app-add-event',
@@ -55,6 +57,10 @@ import { EventService } from '../../service/event.service'
     LoaderComponent,
     NgxDropzoneModule,
     JsonPipe,
+    RecaptchaFormsModule,
+    RecaptchaModule,
+    MatCheckboxModule
+
   ],
 
   templateUrl: './add-event.component.html',
@@ -62,17 +68,20 @@ import { EventService } from '../../service/event.service'
 })
 export class AddEventComponent {
   public isloader: boolean = false
+  debounce: boolean = false
   public recurringEvent = new FormControl('')
+  public recaptcha = new FormControl('')
   public latitude: number = 0
   public longitude: number = 0
   public separateDialCode = true
   public isImageUploading: boolean = false
-  public levelOneImageArr: any[]=[]
+  public levelOneImageArr: any[] = []
   public isFirstStepCompleted: boolean = false
+  public status = new FormControl('')
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
-  ImageUrl:any
+  ImageUrl: any
   public preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
@@ -139,24 +148,24 @@ export class AddEventComponent {
       //     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       //   ],
       // ],
-      eventStartDate:[''],
-      eventEndDate:[''],
+      eventStartDate: [''],
+      eventEndDate: [''],
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
       event_description: ['', Validators.required],
       website: [''],
-      event_duration:[''],
-      repeats_event:[''],
-      event_type:[''],
-      occurrences:[''],
-      end_date_recurring:[''],
+      event_duration: [''],
+      repeats_event: [''],
+      event_type: [''],
+      occurrences: [''],
+      end_date_recurring: [''],
       mapview: [''],
-      startDate:[''],
-      endDate:['']
+      startDate: [''],
+      endDate: ['']
     })
     this.recurringEvent.valueChanges.subscribe((res) => {
-          console.log(res,'recurringEvent')
-           this.checkValue = res
+      console.log(res, 'recurringEvent')
+      this.checkValue = res
       const controlsToValidate = [
         // 'event_duration',
         // 'repeats_event',
@@ -178,7 +187,7 @@ export class AddEventComponent {
       });
     });
   }
-  
+
   ngOnInit() {
     this.getBusinessCat()
 
@@ -238,7 +247,7 @@ export class AddEventComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -252,12 +261,15 @@ export class AddEventComponent {
       next: (res: any) => {
         this.post_tags = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
-  public  removeImageItem() {
+  public removeImageItem() {
     this.ImageUrl = ''
     // this.levelOneImageArr.splice(index, 1);
+  }
+  public resolved(captchaResponse: string | null) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
 
   public getDefaultCat() {
@@ -265,10 +277,10 @@ export class AddEventComponent {
       next: (res: any) => {
         this.selectedDefaultCategories = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
-  
+
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -359,7 +371,7 @@ export class AddEventComponent {
 
           this.initMap()
         },
-        error: (err) => {},
+        error: (err) => { },
       })
   }
 
@@ -451,7 +463,7 @@ export class AddEventComponent {
   }
 
   public displayLevelOneImages() {
-    let maxImages:any = 5;
+    let maxImages: any = 5;
     // if (this.files.length > maxImages) {
     //   Swal.fire({
     //     toast: true,
@@ -465,20 +477,20 @@ export class AddEventComponent {
     //   });
     //   return;
     // }
-  
+
     this.isImageUploading = true;
-  
+
 
     const filesToUpload = this.files.slice(0, maxImages);
 
     filesToUpload.forEach((file, index) => {
       const reader = new FileReader();
-  
+
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
-  
+
       // Upload each file
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
@@ -486,7 +498,7 @@ export class AddEventComponent {
           this.ImageUrl = res.image_url
           this.levelOneImageArr.push(res.image_url);
           if (this.levelOneImageArr.length >= maxImages) {
-            this.isImageUploading = false; 
+            this.isImageUploading = false;
           }
         },
         error: (err: any) => {
@@ -498,7 +510,34 @@ export class AddEventComponent {
   }
 
   public addBusiness(val?: any) {
+    this.debounce = true
     this.isloader = true
+    // const body: any = {
+    //   post_title: this.businessInfoForm.value.event_title,
+    //   post_category: this.businessInfoForm.value.post_category.join(', '),
+    //   default_category: this.businessInfoForm.value.default_category,
+    //   latitude: this.latitude,
+    //   longitude: this.longitude,
+    //   city: this.city,
+    //   region: this.state,
+    //   country: this.country,
+    //   zip: this.zipcode,
+    //   post_content: this.businessInfoForm.value.event_description,
+    //   featured_image: this.ImageUrl,
+    //   post_tags: this.selectedTagsString,
+    //   street: this.fullAddress,
+    //   mapview: this.businessInfoForm.value.mapview,
+    //   status: this.status.value,
+    //   event_dates: {
+    //     start_date:this.businessInfoForm.value.eventStartDate,
+    //     end_date:this.businessInfoForm.value.eventEndDate,
+    //     all_day: this.checkValue,
+    //     start_time: this.businessInfoForm.value.startDate,
+    //     end_time: this.businessInfoForm.value.endDate,
+
+    //   }
+    // }
+
     const body: any = {
       post_title: this.businessInfoForm.value.event_title,
       post_category: this.businessInfoForm.value.post_category.join(', '),
@@ -510,67 +549,110 @@ export class AddEventComponent {
       country: this.country,
       zip: this.zipcode,
       post_content: this.businessInfoForm.value.event_description,
-      featured_image:this.ImageUrl,
+      featured_image: this.ImageUrl,
       post_tags: this.selectedTagsString,
       street: this.fullAddress,
       mapview: this.businessInfoForm.value.mapview,
-    }
-    if (this.isFormFilled) {
-      this.isloader = true
-      const updatebody: any = {
-        post_title: this.businessInfoForm.value.event_title,
-        post_category: this.businessInfoForm.value.post_category.join(', '),
-        default_category: this.businessInfoForm.value.default_category,
-        latitude: this.latitude,
-        longitude: this.longitude,
-        city: this.city,
-        region: this.state,
-        country: this.country,
-        zip: this.zipcode,
-        post_content: this.businessInfoForm.value.event_description,
-        featured_image:this.ImageUrl,
-        post_tags: this.selectedTagsString,
-        street: this.fullAddress,
-        mapview: this.businessInfoForm.value.mapview,
+      status: this.status.value,
+      // event_dates: {
+      //   start_date: this.businessInfoForm.value.eventStartDate,
+      //   end_date: this.businessInfoForm.value.eventEndDate,
+      //   all_day: this.checkValue,
+      //   start_time: this.businessInfoForm.value.startDate,
+      //   end_time: this.businessInfoForm.value.endDate,
+      // }
+    };
+
+    const formData = new FormData();
+    Object.entries(body).forEach(([key, value]) => {
+      if (typeof value === 'object' && value !== null) {
+        // Handle nested object properties
+        Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+          formData.append(`${key}[${nestedKey}]`, String(nestedValue));
+        });
+      } else {
+        formData.append(key, String(value));
       }
-      this.businessService.updateBusiness(updatebody).subscribe({
+    });
+    // Convert eventDates object to JSON and append to formData
+    const eventDates = {
+      start_date: this.businessInfoForm.value.eventStartDate,
+      end_date: this.businessInfoForm.value.eventEndDate,
+      all_day: this.checkValue,
+      start_time: this.businessInfoForm.value.startDate,
+      end_time: this.businessInfoForm.value.endDate,
+    };
+
+    formData.append('event_dates', JSON.stringify(eventDates));
+
+    // Log FormData contents
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+
+
+    // if (this.isFormFilled) {
+    //   this.isloader = true
+    //   const updatebody: any = {
+    //     post_title: this.businessInfoForm.value.event_title,
+    //     post_category: this.businessInfoForm.value.post_category.join(', '),
+    //     default_category: this.businessInfoForm.value.default_category,
+    //     latitude: this.latitude,
+    //     longitude: this.longitude,
+    //     city: this.city,
+    //     region: this.state,
+    //     country: this.country,
+    //     zip: this.zipcode,
+    //     post_content: this.businessInfoForm.value.event_description,
+    //     featured_image: this.ImageUrl,
+    //     post_tags: this.selectedTagsString,
+    //     street: this.fullAddress,
+    //     mapview: this.businessInfoForm.value.mapview,
+    //     status: this.status.value,
+    //     post_id: this.localStoragePostId
+    //       ? this.localStoragePostId
+    //       : this.postId,
+    //   }
+    //   this.businessService.updateBusiness(updatebody).subscribe({
+    //     next: (res) => {
+    //       this.isloader = false
+    //       this.addBusinessFormData = res
+    //       this.isFormFilled = true
+    //       this.isSubscriptionStepper = true
+    //       this.getBusinessFormDetails(
+    //         this.localStoragePostId ? this.localStoragePostId : this.postId,
+    //       )
+    //       Swal.fire({
+    //         toast: true,
+    //         text: 'Business Information updated successfully!',
+    //         animation: false,
+    //         icon: 'success',
+    //         position: 'top-right',
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         timerProgressBar: true,
+    //       })
+    //     },
+    //     error: (err) => {
+    //       this.isloader = false
+    //     },
+    //   })
+    // } else {
+      this.businessService.addEvent(formData).subscribe({
         next: (res) => {
-          this.isloader = false
-          this.addBusinessFormData = res
-          this.isFormFilled = true
-          this.isSubscriptionStepper = true
-          this.getBusinessFormDetails(
-            this.localStoragePostId ? this.localStoragePostId : this.postId,
-          )
-          Swal.fire({
-            toast: true,
-            text: 'Business Information updated successfully!',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-        },
-        error: (err) => {
-          this.isloader = false
-        },
-      })
-    } else {
-      this.businessService.addEvent(body).subscribe({
-        next: (res) => {
+          this.debounce = false
           this.isloader = false
           this.addBusinessFormData = res
           this.isFormFilled = true
           this.postId = res.post_id
-          this.isSubscriptionStepper = true
-          this.getBusinessFormDetails(this.postId)
-          this.localStorageService.saveData('postId', this.postId)
-          this.businessService.isBusinessFormFilled.next(true)
-          this.localStorageService.saveData('isBusinessFormFilled', 'true')
-          const post_id = res.post_id
-          this.businessService.storePostId.next(post_id)
+          // this.isSubscriptionStepper = true
+          // this.getBusinessFormDetails(this.postId)
+          // this.localStorageService.saveData('postId', this.postId)
+          // this.businessService.isBusinessFormFilled.next(true)
+          // this.localStorageService.saveData('isBusinessFormFilled', 'true')
+          // const post_id = res.post_id
+          // this.businessService.storePostId.next(post_id)
           Swal.fire({
             toast: true,
             text: 'Event Information added successfully!',
@@ -584,9 +666,10 @@ export class AddEventComponent {
         },
         error: (err) => {
           this.isloader = false
+          this.debounce = false
         },
       })
-    }
+    // }
   }
 
 

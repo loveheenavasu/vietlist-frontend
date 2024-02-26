@@ -13,11 +13,16 @@ import Swal from 'sweetalert2'
 export class BenefitsOfJoiningComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
-
+  public checkAuthentication:any
   constructor(
     private router: Router,
     private sessionservice: AuthenticationService,
   ) {
+    this.sessionservice.isAuthenticated$.subscribe((res)=>{
+      this.checkAuthentication = res
+      console.log(this.checkAuthentication,'checkAuthentication')
+    })
+
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })

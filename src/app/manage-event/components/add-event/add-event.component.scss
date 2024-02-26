@@ -4,7 +4,17 @@
   .mat-mdc-form-field {
     margin-top: 16px;
   }
-  
+  ::ng-deep.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: var(--primary-color-orange) !important;
+
+}
 
   .main-card{
   margin: auto;
