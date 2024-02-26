@@ -15,12 +15,12 @@ import {
 } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
-import { NgFor, NgIf } from '@angular/common'
+import { CommonModule, NgFor, NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [FormsModule, NgFor, NgIf, CommonModule],
   templateUrl: './confirm-payment.component.html',
   styleUrl: './confirm-payment.component.scss',
 })
@@ -40,6 +40,8 @@ export class ConfirmPaymentComponent {
   public planId: any
   public paymentIntent: any
   public paymentMethod: any
+  billingAddressValid: boolean = false; // Add this line
+
   constructor(
     private stripeService: AngularStripeService,
     private cd: ChangeDetectorRef,
@@ -91,6 +93,7 @@ export class ConfirmPaymentComponent {
         )
         this.billingAddressElements.on('change', (event: any) => {
           this.billingAddress = event.value
+          this.billingAddressValid = !!event.complete;
         })
         this.stripe = stripe
       })
@@ -117,6 +120,20 @@ export class ConfirmPaymentComponent {
 
 
   async onSubmit(form: NgForm) {
+    if (form.invalid || !this.billingAddressValid) {
+      // Handle invalid form submission
+      Swal.fire({
+        toast: true,
+        text: 'Please fill the Billing Address..',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      return;
+    }
     const { setupIntent, error } = await this.stripe.confirmCardSetup(
       this.paymentIntent,
       {

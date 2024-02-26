@@ -28,6 +28,8 @@ import {
 import { AddEventComponent } from './manage-event'
 import { CreateAdsComponent } from './manage-profile/components/manage-ads/create-ads/create-ads.component'
 import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
+import { LoginGuard } from './shared/utils/guard/login.guard'
+// import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
   {
@@ -42,6 +44,7 @@ export default [
   {
     path: 'login',
     loadComponent: () => LoginComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'manage-profile',
@@ -109,6 +112,7 @@ export default [
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: 'benefits-of-joining',
