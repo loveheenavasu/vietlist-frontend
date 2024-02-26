@@ -110,7 +110,7 @@ export class AuthenticationService {
   }
 
   // Helper method to check authentication status on page load
-  private checkAuthentication(): boolean {
+  public checkAuthentication(): boolean {
     const storedToken = this.localstorageservice.getData('accessToken')
     if (storedToken) {
       this.accessToken = storedToken

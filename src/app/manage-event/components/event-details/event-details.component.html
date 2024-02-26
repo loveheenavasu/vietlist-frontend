@@ -1,39 +1,154 @@
 <section class="banner">
-    <div class="content">
-      <h1>{{eventDetails?.post_title | titlecase}}</h1>
-    </div>
-  </section>
-  
-  <div class="container">
-    <div class="row">
-        <div class="col-12 col-md-12 col-lg-8">
-            <h3 class="event-page-heading">Event Details</h3>
-
-            <p class="content">{{eventDetails?.post_content}}</p>
-        </div>
-        <div class="col-12 col-md-12 col-lg-4">
-           <div class="profile-info-div">
-
-           </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h3 class="event-page-heading">Photo(s)</h3>
-
-             <div>
-                <img [src]="eventDetails?.featured_image"/>
-             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h3 class="event-page-heading">Map</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <h3 class="event-page-heading">Reviews</h3>
-        </div>
+  <div class="content">
+    <h1>{{ eventDetails?.post_title | titlecase }}</h1>
+    <p>{{ eventDetails?.country }}</p>
+    <div class="listing-rating">
+      <div class="d-flex">
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </div>
     </div>
   </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-12 col-lg-8">
+      <h3 class="event-page-heading">Event Details</h3>
+
+      <p class="content">{{ eventDetails?.post_content }}</p>
+    </div>
+    <div class="col-12 col-md-12 col-lg-4 mt-3">
+      <div class="profile-info-div">
+        <h3>Contact Info</h3>
+        {{ eventDetails?.user_detail?.display_name }}
+      </div>
+      <div class="profile-info-div mt-3">
+        <h3>Author</h3>
+        {{ eventDetails?.user_detail?.display_name }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h3 class="event-page-heading">Photo(s)</h3>
+
+      <div class="featured_image">
+        <img src="/assets/image/carrer-proffesional.jpeg" />
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3 class="event-page-heading">Map</h3>
+    </div>
+    <div class="col-12">
+      <div id="map" style="height: 300px; width: 100%"></div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3 class="event-page-heading">Reviews</h3>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <div class="alert alert-warning" role="alert">
+        Your email address will not be published.
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="textarea"
+          placeholder="Enter your review"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-6">
+        <ngx-star-rating [id]="'rating'" [disabled]="true"></ngx-star-rating>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <ngx-dropzone [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+          <ngx-dropzone-label
+            ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
+            or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
+            .webp)</ngx-dropzone-label
+          >
+          <!-- <div class="loader" *ngIf="isImageLoading"></div> -->
+        </ngx-dropzone>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <input
+          type="text"
+          class="input-control"
+          placeholder="Enter your name"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <input
+          type="text"
+          class="input-control"
+          placeholder="Enter your email"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <input
+          type="text"
+          class="input-control"
+          placeholder="Enter your website"
+        />
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <div class="form-group">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="terms"
+            />
+            <label class="form-check-label" for="terms">
+              Save my name, email, and website in this browser for the next time
+              I comment.
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="textarea"
+          placeholder="Enter your comments"
+        ></textarea>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-12 col-md-12 col-lg-6">
+        <button class="btn orange-background-btn-w-100">Post Review</button>
+      </div>
+    </div>
+  </div>
+</div>

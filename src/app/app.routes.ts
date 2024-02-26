@@ -11,10 +11,8 @@ import {
   FindBusinessComponent,
   ListBusinessComponent,
   PreviewBusinessComponent,
-  SubscriptionFormComponent,
 } from './manage-business'
 import { BusinessCategories, BusinessListingComponent } from './categories'
-import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
   BillingAddressComponent,
   ChangePasswordComponent,
@@ -44,6 +42,7 @@ export default [
   {
     path: 'login',
     loadComponent: () => LoginComponent,
+    
   },
   {
     path: 'manage-profile',

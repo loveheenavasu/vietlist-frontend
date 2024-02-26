@@ -13,7 +13,7 @@ import Swal from 'sweetalert2'
 export class BenefitsOfJoiningComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
-
+  public checkAuthentication:any
   constructor(
     private router: Router,
     private sessionservice: AuthenticationService,
@@ -31,6 +31,8 @@ export class BenefitsOfJoiningComponent {
       this.subscriptionStatus = res
       // console.log("check the subscription status", this.subscriptionStatus)
     })
+
+   
   }
 
   backToLogin() {

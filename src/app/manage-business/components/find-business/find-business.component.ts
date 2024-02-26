@@ -21,7 +21,6 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-find-business',
@@ -90,6 +89,7 @@ export class FindBusinessComponent {
     // this.searchBusiness()
     this.findBusinessForm.value.slidervalue.setValue(0)
   }
+
   public handleLayout(layout: string) {
     this.selectedLayout = layout
   }
@@ -109,7 +109,7 @@ export class FindBusinessComponent {
           }
         })
         this.initMap()
-        console.log(this.findBusinessData, 'RESPONSE')
+
       },
     })
   }
@@ -189,7 +189,7 @@ export class FindBusinessComponent {
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
     this.currentPage = event
-    console.log('check pagination ', this.currentPage)
+  
     if (this.findBusinessForm.value.post_category) {
       this.searchBusiness()
     } else {
@@ -204,7 +204,7 @@ export class FindBusinessComponent {
   }
 
   public initMap() {
-    console.log(this.latitude, this.longitude, 'LATLNG')
+    
     let map: any
     const mapElement = document.getElementById('map')
 
@@ -230,7 +230,7 @@ export class FindBusinessComponent {
         // ];
 
         this.findBusinessData.forEach((data) => {
-          console.log('check data', data)
+
           const marker = new google.maps.Marker({
             position: {
               lat: parseFloat(data.latitude),
@@ -239,11 +239,11 @@ export class FindBusinessComponent {
             map: map,
             title: 'Marker Title',
           })
-          console.log('check marker', marker)
+         
         })
       }
     } else {
-      console.error('Map element not found')
+      
     }
   }
 

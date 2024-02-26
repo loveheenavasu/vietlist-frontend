@@ -19,14 +19,31 @@ export class EventService {
     return this.http.get(endpoint)
   }
 
-  public getPublishEvents():Observable<any>{
+  public getPublishEvents(params: { [key: string]: any }):Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetPublishEvent)
-    return this.http.get(endpoint)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+    return this.http.get(endpoint , { params: queryParams })
   }
 
   public getEventDetailsByPostId(post_id:any):Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventDetailsByPostId)
     const params = new HttpParams().set('post_id' , post_id)
     return this.http.get<any>(endpoint, {params: params })
+  }
+
+  public findEvents(params: { [key: string]: any }): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+    return this.http.get<any>(endpoint, { params: queryParams })
   }
 }

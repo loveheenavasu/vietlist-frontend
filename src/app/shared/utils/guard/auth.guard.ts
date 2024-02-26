@@ -1,9 +1,10 @@
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { switchMap, catchError, tap } from 'rxjs/operators';
 import { Roles } from '../enums';
-import { AuthenticationService, LocalStorageService } from '../services';
+
 
 @Injectable({
   providedIn: 'root',
@@ -11,34 +12,79 @@ import { AuthenticationService, LocalStorageService } from '../services';
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private sessionService: AuthenticationService
+    private sessionService: AuthenticationService,
+    private localStorageService:LocalStorageService
   ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
-  ): Observable<boolean> {
+
+  ): Observable<boolean> | UrlTree {
     return this.sessionService.isAuthenticated$.pipe(
+      tap((res) => console.log(res)),
       switchMap((isAuthenticated) => {
+        console.log(isAuthenticated);
         if (isAuthenticated) {
           return this.sessionService.userRole.pipe(
             switchMap((userRole) => {
+              console.log('userRole', userRole)
               if (userRole === Roles.subscriber) {
                 return of(true);
               } else {
+                this.sessionService.isSubscription$.subscribe(res => console.log(res))
                 return this.sessionService.isSubscription$;
               }
             }),
           );
         } else {
-          this.router.navigateByUrl('/');
-          return of(false);
+          console.log('false')
+          if(this.sessionService.checkAuthentication()){
+            return of(true)
+          }
+          else {
+            return this.router.navigateByUrl('/');
+            return this.router.navigateByUrl('/');
+          }
         }
       }),
       catchError((err) => {
         console.log(err , "ERROR")
-        this.router.navigateByUrl('/');
-        return of(false);
+        return this.router.navigateByUrl('/');
+      }),
+    );
+  }
+}
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthHomeGuard implements CanActivate {
+  constructor(
+    private router: Router,
+    private sessionService: AuthenticationService,
+    private localStorageService:LocalStorageService
+  ) { }
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+
+  ): Observable<boolean> | UrlTree {
+    return this.sessionService.isAuthenticated$.pipe(
+      switchMap((isAuthenticated) => {
+        console.log(isAuthenticated);
+        if (!isAuthenticated) {
+          return of(true)
+        } else {
+          return of(false)
+        }
+      }),
+      catchError((err) => {
+        console.log(err , "ERROR")
+        return of(true);
       }),
     );
   }

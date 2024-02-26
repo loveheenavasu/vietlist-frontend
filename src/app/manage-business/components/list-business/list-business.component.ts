@@ -1,6 +1,6 @@
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-import { Route, Router, RouterOutlet } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { JsonPipe, NgClass, NgFor, NgIf } from '@angular/common'
 import {
   BusinessCategoryResponse,
@@ -129,9 +129,9 @@ export class ListBusinessComponent {
   public levelOneImageArr: any[]=[]
   public imageUrl: any
   public filess: any
-  userDetail:any
-  hidemapview!:boolean
-  hideVedioupload!:boolean
+  public userDetail:any
+  public hidemapview!:boolean
+  public hideVedioupload!:boolean
   public isImageLoading:boolean = false
   /**
    *
