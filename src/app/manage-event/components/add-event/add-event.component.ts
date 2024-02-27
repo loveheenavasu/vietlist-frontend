@@ -13,9 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatStepperModule } from '@angular/material/stepper'
-import { Router, RouterOutlet } from '@angular/router'
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService, Roles } from '@vietlist/shared'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
   NgxIntlTelInputModule,
@@ -68,7 +68,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 })
 export class AddEventComponent {
   public isloader: boolean = false
-  debounce: boolean = false
+  public debounce: boolean = false
   public recurringEvent = new FormControl('')
   public recaptcha = new FormControl('')
   public latitude: number = 0
@@ -81,7 +81,8 @@ export class AddEventComponent {
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
-  ImageUrl: any
+  public ImageUrl: any
+  public postId:any
   public preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
@@ -98,7 +99,6 @@ export class AddEventComponent {
   public addEventForm!: FormGroup
   public firstFormGroup!: FormGroup
   public secondFormGroup!: FormGroup
-  public postId: any
   public businessFormDetails: any
   public selectedDefaultCategories: any[] = []
   public selected0defaultCat: any
@@ -124,6 +124,7 @@ export class AddEventComponent {
   public tags: any[] = []
   public verifiedBadge: any
   public checkValue: any
+  public userInfo:any
   /**
    *
    * @param _formBuilder
@@ -137,23 +138,15 @@ export class AddEventComponent {
     private localStorageService: LocalStorageService,
     private eventService: EventService,
     private cd:ChangeDetectorRef,
-    private router:Router
+    private router:Router,
+    private sessionService:AuthenticationService,
+    private _activatedRoute:ActivatedRoute
   ) {
     this.addEventForm = this._formBuilder.group({
       event_title: ['', Validators.required],
-      // contact_phone: ['', Validators.required],
-      // business_email: [
-      //   '',
-      //   [
-      //     Validators.required,
-      //     Validators.email,
-      //     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-      //   ],
-      // ],
       eventStartDate: [''],
       eventEndDate: [''],
       post_category: ['', Validators.required],
-      // default_category: ['', Validators.required],
       event_description: ['', Validators.required],
       website: [''],
       event_duration: [''],
@@ -165,6 +158,10 @@ export class AddEventComponent {
       startDate: [''],
       endDate: ['']
     })
+
+    const loginData = this.localStorageService.getData('loginInfo')
+    this.userInfo = JSON.parse(loginData)
+
     this.recurringEvent.valueChanges.subscribe((res) => {
       console.log(res, 'recurringEvent')
       this.checkValue = res
@@ -177,7 +174,7 @@ export class AddEventComponent {
         'startDate',
         'endDate'
       ];
-
+      
       controlsToValidate.forEach(controlName => {
         const control = this.addEventForm.get(controlName);
         if (res) {
@@ -188,6 +185,12 @@ export class AddEventComponent {
         control?.updateValueAndValidity();
       });
     });
+
+
+    if(this._activatedRoute.params.subscribe((res) => {
+      this.postId = res['id']
+    })
+    
   }
 
   ngOnInit() {
@@ -196,7 +199,24 @@ export class AddEventComponent {
     if (this.postId) {
       this.getBusinessFormDetails(this.postId)
     }
-    // this.getTags()
+
+    this.sessionService.isAuthenticated$.subscribe((res)=>{
+      if(res == true && this.userInfo.user_role == Roles.businessOwner){
+
+      }else {
+        Swal.fire({
+          toast: true,
+          text: 'Signup as a business owner to add events !',
+          animation: false,
+          icon: 'warning',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.router.navigateByUrl('/register')
+      }
+    })
     this.initMap()
   }
 

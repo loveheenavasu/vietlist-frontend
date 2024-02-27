@@ -140,6 +140,10 @@ export default [
     loadComponent: () => AddEventComponent,
   },
   {
+    path: 'edit-event/:id',
+    loadComponent: () => AddEventComponent,
+  },
+  {
     path: 'events',
     loadComponent: () => AllEventComponent,
   },

@@ -52,4 +52,12 @@ export class EventService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get(endpoint , {headers:authToken})
   }
+
+  public deleteEvent(id:any){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteEvent)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    let params = new HttpParams().set('post_id', id);
+    return this.http.delete(endpoint , {headers:authToken , params:params})
+  }
+
 }
