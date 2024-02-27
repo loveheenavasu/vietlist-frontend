@@ -23,7 +23,6 @@ export class PlanComponent {
   public planId: any
   public authToken: any
   public isAuthenticated: boolean = false
-  public planHeaderContent?: any
   public freePlanId: any
   public userDetails: any
   constructor(
@@ -33,11 +32,11 @@ export class PlanComponent {
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
     private profileService: ProfileService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
-    this.planHeaderContent = this.homePageData
+
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
@@ -57,7 +56,7 @@ export class PlanComponent {
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 

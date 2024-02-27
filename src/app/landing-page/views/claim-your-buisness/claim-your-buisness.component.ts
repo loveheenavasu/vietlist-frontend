@@ -11,15 +11,14 @@ import { Component, HostListener, Input } from '@angular/core'
 export class ClaimYourBuisnessComponent {
   @Input() homePageData?: any
 
-  public claimBusinessHeaderContent?: any
-  constructor() {}
+  constructor() { }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     // Adjust content layout based on the window size
   }
 
   ngOnInit() {
-    this.claimBusinessHeaderContent = this.homePageData
+
   }
 
   public buisnessFacility = [

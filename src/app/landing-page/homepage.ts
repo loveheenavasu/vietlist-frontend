@@ -86,7 +86,7 @@ export class HomepageComponent {
 
   ngOnInit() {
     this.getHomePageContent()
-    this.subscribeToRouterEvents()
+    // this.subscribeToRouterEvents()
     this.showAdDataFetch()
     if (this.showAdInFooter) {
       interval(30000)
@@ -171,7 +171,7 @@ export class HomepageComponent {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
         this.adDetails = res.data
-        // console.log("check ad", this.adDetails)
+        console.log("check ad", this.adDetails)
         this.showAdHomePage()
       }
     })

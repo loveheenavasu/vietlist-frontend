@@ -59,7 +59,7 @@ export class BuisnessCategoryComponent {
 
   ngOnInit() {
     this.getCategroies()
-    this.businessCategoryContent = this.homePageData
+    // this.businessCategoryContent = this.homePageData
   }
   getCategroies() {
     this.businessService.getBusinessCat().subscribe({

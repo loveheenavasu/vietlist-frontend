@@ -19,7 +19,7 @@ register()
 export class CtaVerifiedBusinessComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   @Input() homePageData?: any
-  public ctaContent?: any
+
 
   constructor() {
     setTimeout(() => {
@@ -53,7 +53,6 @@ export class CtaVerifiedBusinessComponent {
   }
 
   ngOnInit() {
-    this.ctaContent = this.homePageData
   }
 
   public verifiedImage: {

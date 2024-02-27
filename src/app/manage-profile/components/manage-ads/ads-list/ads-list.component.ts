@@ -41,20 +41,34 @@ export class AdsListComponent {
 
   public deleteAd(adId: any) {
     console.log("check delete id", adId)
-    this.profileService.deleteAd(adId).subscribe({
-      next: (res) => {
-        Swal.fire({
-          toast: true,
-          text: 'Ad  deleted successfully ',
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
+    Swal.fire({
+      title: 'Do you really want to delete this Ad?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff9900',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profileService.deleteAd(adId).subscribe({
+          next: (res) => {
+            Swal.fire({
+              toast: true,
+              text: 'Ad  deleted successfully ',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+            this.allAds = this.allAds.filter(ad => ad.ad_data.id !== adId);
+          }
         })
-        this.allAds = this.allAds.filter(ad => ad.ad_data.id !== adId);
       }
+
     })
+
   }
 }

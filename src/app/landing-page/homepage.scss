@@ -104,6 +104,11 @@
       }
 
       .explore-more-btn {
+        a {
+          color: var(--primary-color-mustard);
+          text-decoration: none;
+        }
+
         &:hover {
           background-color: transparent;
           border: solid 1.5px var(--primary-color-mustard);
