@@ -25,6 +25,7 @@ import Swal from 'sweetalert2'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { interval, repeat, take } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-find-business',
@@ -76,13 +77,15 @@ export class FindBusinessComponent {
   public ipAddress: any
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
+  public categoryName: any
 
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private searchAd: HomepageService,
-    private IpService: ProfileService
+    private IpService: ProfileService,
+    private route: ActivatedRoute
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -92,10 +95,13 @@ export class FindBusinessComponent {
       price: [''],
       slidervalue: [''],
     })
+
+
   }
 
   ngOnInit() {
     this.fetchSearchAd()
+    this.getPublishBusinessData()
     if (this.searchPageAd) {
       interval(30000)
         .pipe(take(this.searchPageAd.length), repeat())
@@ -106,12 +112,27 @@ export class FindBusinessComponent {
           else {
             this.currentIndex++;
           }
-
         });
     }
+
+    this.route.params.subscribe((res) => {
+      this.categoryName = res['categoryName']
+      if (this.categoryName) {
+        this.route.queryParams.subscribe((params) => {
+          const selectedCategoryId = params['id']
+          if (selectedCategoryId) {
+            this.findBusinessForm.controls['post_category'].setValue(+selectedCategoryId)
+            const postPerPage = 2
+            this.searchBusiness()
+          }
+        })
+
+
+      }
+    })
+
     this.getBusinessCat()
     this.initMap()
-    this.getPublishBusinessData()
     // this.searchBusiness()
     this.findBusinessForm.value.slidervalue.setValue(0)
   }
@@ -276,6 +297,7 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country
     }
+    console.log("param", params)
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
@@ -284,6 +306,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        console.log("check findbusiness", this.findBusinessData)
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
       },

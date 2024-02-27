@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core'
 import {
   BuisnessCategoryComponent,
   ClaimYourBuisnessComponent,
@@ -73,11 +73,13 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
     private IpService: ProfileService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {
-    this.getHomePageContent()
+    // this.getHomePageContent()
     // this.subscribeToRouterEvents()
     setTimeout(() => {
+      this.cdr.detectChanges();
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
@@ -86,7 +88,7 @@ export class HomepageComponent {
 
   ngOnInit() {
     this.getHomePageContent()
-    this.subscribeToRouterEvents()
+    // this.subscribeToRouterEvents()
     this.showAdDataFetch()
     if (this.showAdInFooter) {
       interval(30000)
@@ -94,9 +96,11 @@ export class HomepageComponent {
         .subscribe(() => {
           if (this.currentIndex === this.showAdInFooter.length - 1) {
             this.currentIndex = 0;
+
           }
           else {
             this.currentIndex++;
+            this.cdr.detectChanges();
           }
 
         });
@@ -214,7 +218,10 @@ export class HomepageComponent {
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
-        this.homePageData = res.data
+        if (res.data) {
+          this.homePageData = res.data
+        }
+        // console.log("check home page content", this.homePageData)
       },
     })
   }
