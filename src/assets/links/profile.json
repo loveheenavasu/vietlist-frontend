@@ -55,6 +55,11 @@
       "url": "/manage-profile/my-business"
     },
     {
+      "label": "My Events",
+      "icon": "fa fa-briefcase",
+      "url": "/manage-profile/manage-events"
+    },
+    {
       "label": "Delete Account",
       "icon": "fa fa-user-times",
       "url": "/manage-profile/delete-account"

@@ -169,10 +169,13 @@
         let’s continue this journey of growth together.
       </p>
       <p>&nbsp;</p>
-      <p class="login">
-        Access and optimize your business listing:
-        <a [routerLink]="['/login']"> Log in </a>
-      </p>
+      @if(!checkAuthentication){
+        <p class="login" >
+          Access and optimize your business listing:
+          <a [routerLink]="['/login']"> Log in </a>
+        </p>
+      }
+     
     </div>
 
     <div>

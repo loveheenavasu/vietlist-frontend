@@ -251,7 +251,9 @@
         }
     }
 }
-
+li.mat-mdc-menu-trigger.nav-item.active {
+    color: var(--primary-color-orange);
+}
 /* Add the following CSS to your styles */
 .show-translation {
     float: left;

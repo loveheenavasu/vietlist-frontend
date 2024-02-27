@@ -45,7 +45,8 @@ export class HeaderComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
   public currentRoute: any
-
+  isDropdownActive: boolean = false;
+  isDropdownActiveEvent: boolean = false;
   /**
    *
    * @param router
@@ -81,6 +82,19 @@ export class HeaderComponent {
     })
   }
 
+  toggleDropdowns() {
+    this.isDropdownActive = true;
+  }
+  
+  toggleDropdownsEvent(){
+    this.isDropdownActiveEvent = true;
+  }
+  toggleDropdownsreset(){
+    this.isDropdownActive = false;
+  }
+  toggleDropdownsreset2(){
+    this.isDropdownActiveEvent = false;
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {}
 

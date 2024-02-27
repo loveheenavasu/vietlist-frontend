@@ -72,11 +72,22 @@
       <div class="offcanvas-body">
         <div class="list-item">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" (click)="toggleDropdownsreset();toggleDropdownsreset2()">
               <span [routerLink]="['/']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Home</span>
             </li>
-            <li class="nav-item" [matMenuTriggerFor]="menucat">
+            <li class="nav-item" [class.active]="isDropdownActive" (click)="toggleDropdowns();toggleDropdownsreset2()" [matMenuTriggerFor]="menucat">
+              <span>Categories <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+              <mat-menu #menucat="matMenu">
+                <button mat-menu-item routerLink="/business-categories" (click)="toggleDropdowns()">
+                  Business Categories
+                </button>
+                <button mat-menu-item routerLink="/business-listing"  (click)="toggleDropdowns()">
+                  Business Listing
+                </button>
+              </mat-menu>
+            </li>
+            <!-- <li class="nav-item"  [routerLink]="['/business-categories']" [matMenuTriggerFor]="menucat">
               <span routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Categories <i
                   class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
@@ -88,19 +99,19 @@
                   <span [routerLink]="['/business-listing']">Business Listing</span>
                 </button>
               </mat-menu>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <li class="nav-item" (click)="toggleDropdownsreset();toggleDropdownsreset2()">
               <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" (click)="toggleDropdownsreset();toggleDropdownsreset2()">
               <span>Blogs/News</span>
             </li>
-            <li class="nav-item" [matMenuTriggerFor]="menuevent">
+            <li class="nav-item" [class.active]="isDropdownActiveEvent" [matMenuTriggerFor]="menuevent" (click)="toggleDropdownsreset()" (click)="toggleDropdownsEvent()">
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
-              <mat-menu #menuevent="matMenu">
+              <mat-menu #menuevent="matMenu" >
                 <button mat-menu-item>
                   <span [routerLink]="['/events']">All Events</span>
                 </button>
@@ -118,7 +129,7 @@
         <div class="country-wrapper small-screen-wrapper">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" (click)="toggleDropdownsreset()">
                 <a class="nav-link dropdown-toggle" (click)="toggleDropdown($event)" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="/assets/icons/united-states.svg" alt="us-flag" />
