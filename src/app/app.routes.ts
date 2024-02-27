@@ -32,7 +32,7 @@ import { AdsListComponent } from './manage-profile/components/manage-ads/ads-lis
 export default [
   {
     path: '',
-    component: HomepageComponent,
+    loadComponent: () => HomepageComponent,
   },
 
   {
@@ -77,15 +77,15 @@ export default [
       },
       {
         path: 'manage-ads',
-        component:AdsListComponent,
+        component: AdsListComponent,
       },
       {
         path: 'create-ad',
-        component:CreateAdsComponent,
+        component: CreateAdsComponent,
       },
       {
         path: 'billing-address',
-        component:BillingAddressComponent,
+        component: BillingAddressComponent,
       },
     ],
     canActivate: [AuthGuard],
