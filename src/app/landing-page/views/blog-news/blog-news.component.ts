@@ -38,7 +38,7 @@ export class BlogNewsComponent {
   }
 
   ngOnInit() {
-    this.blogDetail = this.homePageData
+    // this.blogDetail = this.homePageData
     this.showAdBlogPage()
     if (this.blogAd) {
       interval(30000)
