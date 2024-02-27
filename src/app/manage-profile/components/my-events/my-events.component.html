@@ -18,31 +18,28 @@
         </tr>
       </thead>
       <tbody>
-        @for (key of eventsArray; track $index) {
-          <tr>
-            <td>
-              {{ key.post_title }}
-            </td>
-            <td>
-              {{ key.start_date }}
-            </td>
-            <td>
-              {{ key.end_date }}
-            </td>
-            <td>{{ key.post_category }}</td>
-            <td>{{ key.street }}</td>
-            <td>
-              <div class="d-flex">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-                <i class="fa fa-pencil" aria-hidden="true"  style="cursor:pointer" (click)="handleEdit(key.post_id)" ></i>
-                <i class="fa fa-trash" aria-hidden="true" style="cursor:pointer" (click)="handleDelete(key.post_id)"></i>
-              </div>
-            </td>
-            <!-- Add more data cells as needed -->
-          </tr>
-        }
+        @for(key of eventsArray; track $index){
+        <tr>
+          <td>
+            {{key?.post_title}}
+          </td>
+          <td> {{key?.event_dates?.start_date | date: 'dd/MM/yyyy'}}</td>
+          <td> {{key?.event_dates?.end_date | date: 'dd/MM/yyyy' }} </td>
+          <td> {{key?.post_category}}</td>
+          <td>{{key?.street}} </td>
+          <td>
+            <div class="d-flex">
+              <i class="fa fa-eye" style="cursor:pointer" (click)="gotToEventDetails(key.post_id, false)"  aria-hidden="true"></i>
+              <i class="fa fa-pencil" aria-hidden="true"  style="cursor:pointer" (click)="handleEdit(key.post_id)" ></i>
+              <i style="cursor:pointer"  (click)="handleDelete(key.post_id)" class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+          </td>
+          <!-- Add more data cells as needed -->
+        </tr>
+      }
         <!-- Add more rows of data as needed -->
       </tbody>
     </table>
   </div>
+
 </div>

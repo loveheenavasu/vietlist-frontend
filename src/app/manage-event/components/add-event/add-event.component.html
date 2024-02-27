@@ -174,29 +174,29 @@
           </div>
         </div>
 
-        @if (checkValue) {
+        @if (!checkValue) {
        
         
           <div class="row my-4 px-2 align-items-center">
             <div class="col-12 col-md-12 col-lg-4">
               <label class="listing-form-label"
-                > Start date <span class="asterik">*</span></label
+                > Start Time <span class="asterik">*</span></label
               >
             </div>
             <div class="col-12 col-md-12 col-lg-8">
               <div class="input-group">
                 <input
                   matInput
-                  [matDatepicker]="picker4"
+                  
                   class="input-control"
-                  (click)="picker4.open()"
-                  formControlName="startDate"
+                  type="time"
+                  formControlName="startTime"
                 />
 
-                <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #picker4></mat-datepicker>
-                <div class="error-message" *ngIf="addEventForm.controls['startDate'].invalid && addEventForm.controls['startDate'].touched">
-                  Start date is required.
+                <!-- <i class="fa fa-calendar-o"></i> -->
+                <!-- <mat-datepicker #picker4></mat-datepicker> -->
+                <div class="error-message" *ngIf="addEventForm.controls['startTime'].invalid && addEventForm.controls['startTime'].touched">
+                  Start Time is required.
               </div>
               </div>
             </div>
@@ -205,23 +205,22 @@
           <div class="row my-4 px-2 align-items-center">
             <div class="col-12 col-md-12 col-lg-4">
               <label class="listing-form-label"
-                > End date <span class="asterik">*</span></label
+                > End Time <span class="asterik">*</span></label
               >
             </div>
             <div class="col-12 col-md-12 col-lg-8">
               <div class="input-group">
                 <input
                   matInput
-                  [matDatepicker]="picker3"
+                  type="time"
                   class="input-control"
-                  (click)="picker3.open()"
-                  formControlName="endDate"
+                  formControlName="endTime"
                 />
 
-                <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #picker3></mat-datepicker>
-                <div class="error-message" *ngIf="addEventForm.controls['endDate'].invalid && addEventForm.controls['endDate'].touched">
-                  End date  is required.
+                <!-- <i class="fa fa-calendar-o"></i> -->
+                <!-- <mat-datepicker #picker3></mat-datepicker> -->
+                <div class="error-message" *ngIf="addEventForm.controls['endTime'].invalid && addEventForm.controls['endTime'].touched">
+                  End Time  is required.
               </div>
               </div>
             </div>
@@ -265,10 +264,9 @@
             <mat-select
               class="vietlist-select"
               placeholder="Category"
-              formControlName="post_category"
-          
+              formControlName="post_category"   
             >
-              @for (key of post_category; track $index) {
+              @for (key of post_categorys; track $index) {
                 <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
@@ -296,8 +294,8 @@
             >
           </div>
         </div> -->
-        <!-- <div class="row my-4 px-2 align-items-center"> -->
-          <!-- <div class="col-12 col-md-12 col-lg-4">
+        <!-- <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
               >Tags<span class="asterik">*</span></label
             >
@@ -319,8 +317,8 @@
               >Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small
             >
-          </div> -->
-        <!-- </div> -->
+          </div>
+        </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
@@ -438,7 +436,7 @@
             />
           </div>
         </div>
-        <div class="row my-4 px-2 align-items-center">
+        <div class="row my-4 px-2 align-items-center"  *ngIf="vediosHide?.level_id !='1'">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Map View</label>
           </div>
@@ -487,7 +485,7 @@
             </div>
           </div>
         </div>
-        <div class="row my-3 px-2">
+        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
           <div class="col-12 col-md-12 col-lg-12">
             <mat-checkbox class="event-checkbox" [formControl]="status">Is Bookable <span
                 class="asterik">*</span></mat-checkbox>
@@ -509,9 +507,10 @@
               !zipcode ||
               !state ||
               !city ||
+              !recaptcha.value ||
               debounce
             "
-            (click)="addBusiness()"
+            (click)="addEvent()"
           >
             <app-loader *ngIf="isloader"></app-loader
             ><span *ngIf="!isloader">Next</span>

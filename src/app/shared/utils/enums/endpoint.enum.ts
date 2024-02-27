@@ -48,7 +48,10 @@ export enum Endpoints {
   GetBillingDetails = 'user_billing_address_get',
   ShowAd = 'get_ad_and_space_data',
   AddEvent = 'set_event',
+  UpdateEvent = 'update_event',
   GetEventUsingUserId = 'get_event_using_userid',
   DeleteEvent = 'delete_event',
-  EditEvent = 'update_event'
+  EditEvent = 'update_event',
+  GetAllEvents = 'get_event_using_userid',
+  GetEventDetailsByID = 'get_event_using_postid'
 }

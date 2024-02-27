@@ -61,7 +61,6 @@ export class AllEventComponent {
   }
 
   ngOnInit() {
-    this.getEventCat()
     this.getPublishEventData()
   }
 
@@ -88,16 +87,7 @@ export class AllEventComponent {
       },
     })
   }
-
-
-  public getEventCat() {
-    this.eventService.getEventCat().subscribe({
-      next: (res: any) => {
-        this.event_category = res.data
-      },
-      error: (err) => {},
-    })
-  }
+  
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -186,8 +176,9 @@ export class AllEventComponent {
   }
 
  
-  public gotToEventDetails(id:any){
-    this.router.navigate(['/event-details', id])
+  public gotToEventDetails(id:any, isGlobal:any){
+    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+
   }
 
   public handlePageChange(event: number): void {

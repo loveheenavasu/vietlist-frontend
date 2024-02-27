@@ -17,14 +17,64 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
-      <h3 class="event-page-heading">Event Details</h3>
+      <div class="d-flex">
+        <h3 class="event-page-heading">Event Details</h3>
+      </div>
+      <div class="d-flex headings__">
+        <h3>Title</h3>
+        <h3>Start Date</h3>
+        <h3>End Date</h3>
+        <h3>Start Time</h3>
+        <h3>End Time</h3>
+      </div>
 
-      <p class="content">{{ eventDetails?.post_content }}</p>
+      <div class="d-flex headings___">
+        <p class="content">{{ eventDetails?.post_content }}</p>
+        <p class="content">{{ eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'}}</p>
+        <p class="content">{{ eventDetails?.event_dates.end_date | date: 'dd/MM/yyyy'}}</p>
+
+        <p class="content">{{ eventDetails?.event_dates.start_time}}</p>
+        <p class="content">{{ eventDetails?.event_dates.end_time}}</p>
+      </div>
+      <div class="d-flex">
+        <h3 class="event-page-heading">Address Details</h3>
+      </div>
+      <div class="d-flex headings__">
+        <h3>Country</h3>
+        <h3>City</h3>
+        <h3>Street</h3>
+        <h3></h3>
+        <h3></h3>
+      </div>
+
+      <div class="d-flex headings___">
+        <p class="content">{{ eventDetails?.country }}</p>
+        <p class="content">{{ eventDetails?.city}}</p>
+        <p class="content">{{ eventDetails?.street }}</p>
+        <p class="content"></p>
+        <p class="content"></p>
+      </div>
+
+      <div class="d-flex headings__">
+        <h3>Category</h3>
+        <h3></h3>
+        <h3></h3>
+        <h3></h3>
+        <h3></h3>
+      </div>
+      <div class="d-flex headings___">
+        <p class="content">{{ eventDetails?.post_category }}</p>
+        <p class="content"></p>
+        <p class="content"></p>
+
+        <p class="content"></p>
+        <p class="content"></p>
+      </div>
     </div>
     <div class="col-12 col-md-12 col-lg-4 mt-3">
       <div class="profile-info-div">
         <h3>Contact Info</h3>
-        {{ eventDetails?.user_detail?.display_name }}
+        {{ eventDetails?.user_detail?.contact_info }}
       </div>
       <div class="profile-info-div mt-3">
         <h3>Author</h3>
@@ -37,7 +87,8 @@
       <h3 class="event-page-heading">Photo(s)</h3>
 
       <div class="featured_image">
-        <img src="/assets/image/carrer-proffesional.jpeg" />
+        <img
+          [src]=" eventDetails.featured_image ? eventDetails.featured_image : '/assets/image/carrer-proffesional.jpeg'" />
       </div>
     </div>
   </div>
@@ -49,7 +100,7 @@
       <div id="map" style="height: 300px; width: 100%"></div>
     </div>
   </div>
-  <div class="row mt-5">
+  <div class="row mt-5" *ngIf="isGlobal == 'true'">
     <div class="col-12">
       <h3 class="event-page-heading">Reviews</h3>
     </div>
@@ -60,71 +111,45 @@
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="textarea"
-          placeholder="Enter your review"
-        ></textarea>
+        <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="Enter your review"></textarea>
       </div>
     </div>
 
     <div class="row">
       <div class="col-12 col-md-12 col-lg-6">
-        <ngx-star-rating [id]="'rating'" [disabled]="true"></ngx-star-rating>
+        <!-- <ngx-star-rating [id]="'rating'" [disabled]="true"></ngx-star-rating> -->
       </div>
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
         <ngx-dropzone [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-          <ngx-dropzone-label
-            ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
+          <ngx-dropzone-label><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
             or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
-            .webp)</ngx-dropzone-label
-          >
+            .webp)</ngx-dropzone-label>
           <!-- <div class="loader" *ngIf="isImageLoading"></div> -->
         </ngx-dropzone>
       </div>
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <input
-          type="text"
-          class="input-control"
-          placeholder="Enter your name"
-        />
+        <input type="text" class="input-control" placeholder="Enter your name" />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <input
-          type="text"
-          class="input-control"
-          placeholder="Enter your email"
-        />
+        <input type="text" class="input-control" placeholder="Enter your email" />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <input
-          type="text"
-          class="input-control"
-          placeholder="Enter your website"
-        />
+        <input type="text" class="input-control" placeholder="Enter your website" />
       </div>
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
         <div class="form-group">
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="terms"
-            />
+            <input class="form-check-input" type="checkbox" value="" id="terms" />
             <label class="form-check-label" for="terms">
               Save my name, email, and website in this browser for the next time
               I comment.
@@ -135,14 +160,7 @@
     </div>
     <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="textarea"
-          placeholder="Enter your comments"
-        ></textarea>
+        <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="Enter your comments"></textarea>
       </div>
     </div>
     <div class="row my-2">

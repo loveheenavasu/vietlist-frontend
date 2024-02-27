@@ -44,11 +44,7 @@ export class BusinessService {
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
-  public addEvent(body: any): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddEvent)
-    const authToken = this.authService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body, { headers: authToken })
-  }
+
   public updateBusiness(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateBusiness)
     const authToken = this.authService.getAuthHeaders()

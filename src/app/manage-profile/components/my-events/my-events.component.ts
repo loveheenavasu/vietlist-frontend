@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventService } from 'src/app/manage-event/service/event.service';
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-my-events',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './my-events.component.html',
   styleUrl: './my-events.component.scss'
 })
@@ -72,5 +73,10 @@ export class MyEventsComponent {
 
   public handleEdit(id:any){
     this.router.navigate(['/edit-event/' + id])
+  }
+
+  public gotToEventDetails(id:any, isGlobal:any){
+    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+
   }
 }

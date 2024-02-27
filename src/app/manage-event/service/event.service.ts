@@ -14,6 +14,19 @@ export class EventService {
     return this.http.get(endpoint)
   }
 
+  public addEvent(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddEvent)
+    const authToken = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public updateEvent(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateEvent)
+    const authToken = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+
   public getEventCat(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventCatgeory)
     return this.http.get(endpoint)

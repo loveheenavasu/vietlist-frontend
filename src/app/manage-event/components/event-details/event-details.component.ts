@@ -1,26 +1,27 @@
 import { ActivatedRoute } from '@angular/router'
 import { Component } from '@angular/core'
 import { EventService } from '../../service/event.service'
-import { TitleCasePipe } from '@angular/common'
+import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common'
 import { FullPageLoaderService } from '@vietlist/shared'
-import { NgxStarRatingModule } from 'ngx-star-rating'
+// import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
-
+// NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
   standalone: true,
-  imports: [TitleCasePipe , NgxStarRatingModule , NgxDropzoneModule,],
+  imports: [TitleCasePipe, NgxDropzoneModule, DatePipe, CommonModule],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
 })
 export class EventDetailsComponent {
-  public rating = 0 
+  public rating = 0
   public postId: any
   public eventDetails: any
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public latitude: number = 0
   public longitude: number = 0
-  public userDetails:any
+  public userDetails: any
+  public isGlobal:any
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -28,22 +29,48 @@ export class EventDetailsComponent {
   ) {
     this._activatedRoute.params.subscribe((res) => {
       this.postId = res['id']
-      console.log(this.postId)
     })
+    this._activatedRoute.queryParams.subscribe((res) => {
+      this.isGlobal = res['isGlobal'];
+      console.log(this.isGlobal, 'this.isGlobal');
+    });
   }
+
 
   ngOnInit() {
     if (this.postId) {
       this.getEventDetails()
     }
-    this.initMap()
+
   }
+
+
+
+  public getEventDetails() {
+    this.fullPageLoaderService.showLoader()
+    this.eventService.getEventDetailsByPostId(this.postId).subscribe({
+      next: (res) => {
+        this.fullPageLoaderService.hideLoader()
+        this.eventDetails = res?.data[0] || 'NA'
+        this.latitude = Number(this.eventDetails?.latitude),
+          this.longitude = Number(this.eventDetails?.longitude)
+        console.log(res)
+        this.initMap()
+      },
+      error: (err) => { },
+    })
+  }
+
 
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
+      console.log(this.latitude, this.eventDetails?.longitude, 'lng ;at')
       this.map = new google.maps.Map(mapElement, {
-        center: { lat: this.latitude, lng: this.longitude },
+        center: {
+          lat: this.latitude,
+          lng: this.longitude,
+        },
         zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       })
@@ -62,19 +89,5 @@ export class EventDetailsComponent {
     } else {
       console.error('Map element not found.')
     }
-  }
-
-  public getEventDetails() {
-    this.fullPageLoaderService.showLoader()
-    this.eventService.getEventDetailsByPostId(this.postId).subscribe({
-      next: (res) => {
-        this.fullPageLoaderService.hideLoader()
-        this.eventDetails = res?.data[0] || 'NA'
-        this.latitude = this.eventDetails?.latitude,
-        this.longitude = this.eventDetails?.longitude
-        console.log(res)
-      },
-      error: (err) => {},
-    })
   }
 }

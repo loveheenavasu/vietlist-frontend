@@ -56,7 +56,7 @@
     },
     {
       "label": "My Events",
-      "icon": "fa fa-briefcase",
+      "icon": "fa fa-calendar-check-o",
       "url": "/manage-profile/manage-events"
     },
     {
