@@ -22,7 +22,11 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get<any>(endpoint, { headers: authToken })
   }
-
+  public AllEventsList(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllEvents)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
   public userProfileUpdate(body: any): Observable<any> {
     const authToken: any = this.sessionService.getAuthHeaders()
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.updateUserProfile)

@@ -25,3 +25,14 @@ export interface FindBusinessParams {
   posts_per_page?: any
   page_no?: any
 }
+
+export interface FindEventParams {
+  city?: string
+  region?: string
+  street?: string
+  zip?: string
+  country?: string
+  post_category?: string
+  posts_per_page?: any
+  page_no?: any
+}

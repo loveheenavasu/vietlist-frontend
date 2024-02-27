@@ -36,6 +36,8 @@ export class BenefitsOfJoiningComponent {
       this.subscriptionStatus = res
       // console.log("check the subscription status", this.subscriptionStatus)
     })
+
+   
   }
 
   backToLogin() {

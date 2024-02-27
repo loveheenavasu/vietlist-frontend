@@ -1,0 +1,49 @@
+<div class="container-fluid g-0">
+  <div class="heading_____">
+    <h3 class="dashboard-heading">Events Listing</h3>
+    <button class="btn orange-background-btn mx-1" (click)="addEvent()">
+      Add New Event
+    </button>
+  </div>
+  <div class="table-responsive mt-5">
+    <table>
+      <thead>
+        <tr>
+          <th>Event Title</th>
+          <th>StartDate</th>
+          <th>EndDate</th>
+          <th>StartTime</th>
+          <th>EndTime</th>
+          <th>Category</th>
+          <th>Location</th>
+          <th>Bookable</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            {{Alleventslist?.post_title}}
+          </td>
+          <td> {{Alleventslist?.event_dates?.start_date | date: 'dd/MM/yyyy'}}</td>
+          <td> {{Alleventslist?.event_dates?.end_date | date: 'dd/MM/yyyy' }} </td>
+          <td> {{Alleventslist?.event_dates?.start_time}} </td>
+          <td> {{Alleventslist?.event_dates?.end_time}} </td>
+          <td> {{Alleventslist?.post_category}}</td>
+          <td>{{Alleventslist?.street}} </td>
+          <td>{{Alleventslist?.is_bookable_}} </td>
+          <td>
+            <div class="d-flex">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+              <i  (click)="gotToEventDetails(Alleventslist.post_id, false)" class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+          </td>
+          <!-- Add more data cells as needed -->
+        </tr>
+        <!-- Add more rows of data as needed -->
+      </tbody>
+    </table>
+  </div>
+
+</div>

@@ -13,9 +13,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatStepperModule } from '@angular/material/stepper'
-import { RouterOutlet } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
   NgxIntlTelInputModule,
@@ -33,6 +33,9 @@ import Swal from 'sweetalert2'
 import { MatNativeDateModule } from '@angular/material/core'
 import { EventService } from '../../service/event.service'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { AuthService } from 'src/app/auth/service/auth.service'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+// import { Router } from 'express'
 
 @Component({
   selector: 'app-add-event',
@@ -69,6 +72,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 export class AddEventComponent {
   public isloader: boolean = false
   debounce: boolean = false
+  userDetail:any
   public recurringEvent = new FormControl('')
   public recaptcha = new FormControl('')
   public latitude: number = 0
@@ -92,7 +96,7 @@ export class AddEventComponent {
   public longi!: number
   public selectedMapView = 'default'
   public categoriesValue: any
-  public post_category: BusinessCategoryResponse[] = []
+  public post_categorys: BusinessCategoryResponse[] = []
   public post_tags: any[] = []
   public isEditable = false
   public businessInfoForm!: FormGroup
@@ -124,6 +128,7 @@ export class AddEventComponent {
   public tags: any[] = []
   public verifiedBadge: any
   checkValue: any
+  userDetailsLevel_id:any
   /**
    *
    * @param _formBuilder
@@ -136,7 +141,27 @@ export class AddEventComponent {
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
     private eventService: EventService,
+    private authService : AuthenticationService,
+    private profileService: ProfileService,
+    private router :Router
   ) {
+    const getLevelId = localStorageService.getData('level_id')
+    // console.log( typeof getLevelId,' this.getLevelId')
+    this.userDetailsLevel_id  = getLevelId
+        this.authService.userDetails.subscribe((res:any)=>{
+      if(res){
+        this.vediosHide = res
+        //  this.userDetailsLevel_id = res
+          console.log( this.vediosHide,' this.vediosHide')
+        // if(res.level_id == '1'){
+        //   this.hidemapview = true
+        // }else{
+        //   this.hidemapview = false
+        // }
+        
+      }
+      
+    })
     this.businessInfoForm = this._formBuilder.group({
       event_title: ['', Validators.required],
       // contact_phone: ['', Validators.required],
@@ -151,7 +176,7 @@ export class AddEventComponent {
       eventStartDate: [''],
       eventEndDate: [''],
       post_category: ['', Validators.required],
-      default_category: ['', Validators.required],
+      // default_category: ['', Validators.required],
       event_description: ['', Validators.required],
       website: [''],
       event_duration: [''],
@@ -179,9 +204,10 @@ export class AddEventComponent {
       controlsToValidate.forEach(controlName => {
         const control = this.businessInfoForm.get(controlName);
         if (res) {
-          control?.setValidators(Validators.required);
-        } else {
           control?.clearValidators();
+        } else {
+          control?.setValidators(Validators.required);
+          
         }
         control?.updateValueAndValidity();
       });
@@ -194,10 +220,23 @@ export class AddEventComponent {
     if (this.postId) {
       this.getBusinessFormDetails(this.postId)
     }
-    this.getTags()
+    this.fetchProfileDetail()
     this.initMap()
   }
-
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetail = res.data.user
+        this.localStorageService.saveData('userDetails', this.userDetail.level_id)
+        this.authService.userDetails.next(this.userDetail)
+        // this.imgUrl = res.data.user.user_image
+        // console.log(res)
+      },
+      error: (err: any) => {
+        // this.router.navigateByUrl('/login')
+      },
+    })
+  }
   public onSelect(event: any) {
     if (event.addedFiles.length > 1) {
       Swal.fire({
@@ -245,7 +284,7 @@ export class AddEventComponent {
   public getBusinessCat() {
     this.eventService.getEventCat().subscribe({
       next: (res: any) => {
-        this.post_category = res.data
+        this.post_categorys = res.data
       },
       error: (err) => { },
     })
@@ -540,8 +579,8 @@ export class AddEventComponent {
 
     const body: any = {
       post_title: this.businessInfoForm.value.event_title,
-      post_category: this.businessInfoForm.value.post_category.join(', '),
-      default_category: this.businessInfoForm.value.default_category,
+      post_category: this.businessInfoForm.value.post_category,
+      // default_category: this.businessInfoForm.value.default_category,
       latitude: this.latitude,
       longitude: this.longitude,
       city: this.city,
@@ -550,10 +589,10 @@ export class AddEventComponent {
       zip: this.zipcode,
       post_content: this.businessInfoForm.value.event_description,
       featured_image: this.ImageUrl,
-      post_tags: this.selectedTagsString,
+      // post_tags: this.selectedTagsString,
       street: this.fullAddress,
       mapview: this.businessInfoForm.value.mapview,
-      status: this.status.value,
+      is_bookable_: this.status.value ? 1 : 0,
       // event_dates: {
       //   start_date: this.businessInfoForm.value.eventStartDate,
       //   end_date: this.businessInfoForm.value.eventEndDate,
@@ -663,6 +702,7 @@ export class AddEventComponent {
             timer: 3000,
             timerProgressBar: true,
           })
+          this.router.navigateByUrl('/manage-profile/manage-events')
         },
         error: (err) => {
           this.isloader = false

@@ -14,6 +14,7 @@ import {
 import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 import { HomepageService } from './views/service/homepage.service'
 import { NgOptimizedImage } from '@angular/common'
+import { interval, take } from 'rxjs'
 
 @Component({
   selector: 'app-homepage',
@@ -39,82 +40,82 @@ export class HomepageComponent {
     'logo1.png',
     'logo2.png',
     'logo3.png',
-    // Add more logo URLs as needed
   ]
-  homePageData?: any
-  currentLogoIndex = 0
-  public adDetails: any;
-  public showAdInTop: any
-  currentIndex: number = 0;
+  public homePageData?: any
+  public currentLogoIndex = 0
+  public adDetails: any
+  public showAdInTop: any [] = []
+  public currentIndex: number = 0
 
   constructor(
     private router: Router,
     private homePageContent: HomepageService,
   ) {
-    this.getHomePageContent()
-    // this.subscribeToRouterEvents()
+
   }
 
+  
   ngOnInit() {
-    this.getHomePageContent()
-    this.subscribeToRouterEvents()
-    this.showAdDataFetch()
+    this.getHomePageContent();
+    this.subscribeToRouterEvents();
+    this.showAdDataFetch();
+    interval(60000)
+      .pipe(take(this.showAdInTop.length))
+      .subscribe(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.showAdInTop.length;
+     
+      });
   }
 
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
-        console.log("check show ad", res)
-        this.adDetails = res.data
-        this.showAdHomePageTop()
-        console.log("check the ads array", this.adDetails)
-      }
-    })
+        this.adDetails = res.data;
+        this.showAdHomePageTop();
+      },
+    });
   }
 
   public showAdHomePageTop() {
     this.adDetails.map((data: any) => {
       if (data.Page_key == 'Home Top') {
-        this.showAdInTop = data.ads_detail
-        console.log("check top ad", this.showAdInTop)
+        this.showAdInTop = data.ads_detail;
       }
-    })
+    });
   }
-
 
   private subscribeToRouterEvents(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === '/' || event.url === '/home') {
-          window.location.reload()
+          window.location.reload();
         }
       }
-    })
+    });
   }
 
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
-        this.homePageData = res.data
+        this.homePageData = res.data;
       },
-    })
+    });
   }
 
-  nextLogo() {
-    this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length
-    console.log(this.currentLogoIndex)
+  public nextLogo() {
+    this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length;
   }
 
-  prevLogo() {
+  public prevLogo() {
     this.currentLogoIndex =
-      (this.currentLogoIndex - 1 + this.logos.length) % this.logos.length
+      (this.currentLogoIndex - 1 + this.logos.length) % this.logos.length;
   }
 
   public findBusiness() {
-    this.router.navigateByUrl('/find-business')
+    this.router.navigateByUrl('/find-business');
   }
 
   public listBusiness() {
-    this.router.navigateByUrl('/benefits-of-joining')
+    this.router.navigateByUrl('/benefits-of-joining');
   }
 }

@@ -107,6 +107,7 @@ export class PlanComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
       this.userDetails = res.data?.user
+      this.sessionService.userDetails.next(this.userDetails)
       console.log(this.userDetails, "userDetails")
       },
       error: (err: any) => {

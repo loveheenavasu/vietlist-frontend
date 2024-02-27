@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { GenericHelper, Endpoints } from '@vietlist/shared'
 
@@ -9,13 +9,41 @@ import { GenericHelper, Endpoints } from '@vietlist/shared'
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getEventTags(): Observable<any> {
+  public getEventTags(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventTags)
     return this.http.get(endpoint)
   }
 
-  getEventCat(): Observable<any> {
+  public getEventCat(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventCatgeory)
     return this.http.get(endpoint)
+  }
+
+  public getPublishEvents(params: { [key: string]: any }):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetPublishEvent)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+    return this.http.get(endpoint , { params: queryParams })
+  }
+
+  public getEventDetailsByPostId(post_id:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventDetailsByPostId)
+    const params = new HttpParams().set('post_id' , post_id)
+    return this.http.get<any>(endpoint, {params: params })
+  }
+
+  public findEvents(params: { [key: string]: any }): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+    return this.http.get<any>(endpoint, { params: queryParams })
   }
 }
