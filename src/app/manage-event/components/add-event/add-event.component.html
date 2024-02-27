@@ -10,7 +10,7 @@
         <h1 class="listing-form-heading">Event Information</h1>
       </div>
     </div>
-    <form [formGroup]="businessInfoForm">
+    <form [formGroup]="addEventForm">
       <section class="my-4">
         <!-- <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
@@ -82,7 +82,7 @@
                 formControlName="event_duration"
                 required
               />
-              <div class="error-message" *ngIf="businessInfoForm.controls['event_duration'].invalid && businessInfoForm.controls['event_duration'].touched">
+              <div class="error-message" *ngIf="addEventForm.controls['event_duration'].invalid && addEventForm.controls['event_duration'].touched">
                 Duration is required.
             </div>
             </div>
@@ -97,7 +97,7 @@
                 class="input-control"
                 formControlName="repeats_event"
               />
-              <div class="error-message" *ngIf="businessInfoForm.controls['repeats_event'].invalid && businessInfoForm.controls['repeats_event'].touched">
+              <div class="error-message" *ngIf="addEventForm.controls['repeats_event'].invalid && addEventForm.controls['repeats_event'].touched">
                 Repeats event is required.
             </div>
             </div>
@@ -112,7 +112,7 @@
                 class="input-control"
                 formControlName="event_type"
               />
-              <div class="error-message" *ngIf="businessInfoForm.controls['event_type'].invalid && businessInfoForm.controls['event_type'].touched">
+              <div class="error-message" *ngIf="addEventForm.controls['event_type'].invalid && addEventForm.controls['event_type'].touched">
                 Event type  is required.
             </div>
             </div>
@@ -135,7 +135,7 @@
                   After a certain date</mat-radio-button
                 >
               </mat-radio-group>
-              <div class="error-message" *ngIf="businessInfoForm.controls['occurrences'].invalid && businessInfoForm.controls['occurrences'].touched">
+              <div class="error-message" *ngIf="addEventForm.controls['occurrences'].invalid && addEventForm.controls['occurrences'].touched">
                 Occurrences is required.
             </div>
             </div>
@@ -158,7 +158,7 @@
 
                 <i class="fa fa-calendar-o"></i>
                 <mat-datepicker #picker3></mat-datepicker>
-                <div class="error-message" *ngIf="businessInfoForm.controls['end_date_recurring'].invalid && businessInfoForm.controls['end_date_recurring'].touched">
+                <div class="error-message" *ngIf="addEventForm.controls['end_date_recurring'].invalid && addEventForm.controls['end_date_recurring'].touched">
                   End date recurring is required.
               </div>
               </div>
@@ -195,7 +195,7 @@
 
                 <i class="fa fa-calendar-o"></i>
                 <mat-datepicker #picker4></mat-datepicker>
-                <div class="error-message" *ngIf="businessInfoForm.controls['startDate'].invalid && businessInfoForm.controls['startDate'].touched">
+                <div class="error-message" *ngIf="addEventForm.controls['startDate'].invalid && addEventForm.controls['startDate'].touched">
                   Start date is required.
               </div>
               </div>
@@ -220,7 +220,7 @@
 
                 <i class="fa fa-calendar-o"></i>
                 <mat-datepicker #picker3></mat-datepicker>
-                <div class="error-message" *ngIf="businessInfoForm.controls['endDate'].invalid && businessInfoForm.controls['endDate'].touched">
+                <div class="error-message" *ngIf="addEventForm.controls['endDate'].invalid && addEventForm.controls['endDate'].touched">
                   End date  is required.
               </div>
               </div>
@@ -263,11 +263,10 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <mat-select
-              (selectionChange)="onCategoryChange()"
               class="vietlist-select"
               placeholder="Category"
               formControlName="post_category"
-              multiple
+          
             >
               @for (key of post_category; track $index) {
                 <mat-option [value]="key.id">{{ key.name }}</mat-option>
@@ -275,7 +274,7 @@
             </mat-select>
           </div>
         </div>
-        <div class="row my-4 px-2 align-items-center">
+        <!-- <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
               >Default Category <span class="asterik">*</span></label
@@ -296,14 +295,14 @@
               marker.</small
             >
           </div>
-        </div>
-        <div class="row my-4 px-2 align-items-center">
-          <div class="col-12 col-md-12 col-lg-4">
+        </div> -->
+        <!-- <div class="row my-4 px-2 align-items-center"> -->
+          <!-- <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
               >Tags<span class="asterik">*</span></label
             >
-          </div>
-          <div class="col-12 col-md-12 col-lg-8">
+          </div> -->
+          <!-- <div class="col-12 col-md-12 col-lg-8">
             <ng-select
               class="select2-selection"
               [items]="post_tags"
@@ -320,8 +319,8 @@
               >Tags are short keywords, with no space within.(eg: tag1, tag2,
               tag3).</small
             >
-          </div>
-        </div>
+          </div> -->
+        <!-- </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
@@ -471,7 +470,7 @@
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
-                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+                Browse a file</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>
@@ -505,12 +504,11 @@
             type="button"
             class="btn orange-background-btn ms-auto"
             [disabled]="
-              !businessInfoForm.valid ||
+              !addEventForm.valid ||
               !country ||
               !zipcode ||
               !state ||
               !city ||
-              !tags ||
               debounce
             "
             (click)="addBusiness()"

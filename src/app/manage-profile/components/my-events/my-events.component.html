@@ -22,18 +22,19 @@
               </tr>
             </thead>
             <tbody>
+                @for(key of eventsArray ; track $index){
               <tr>
                 <td>
-               
+                    {{key.post_title}}
                 </td>
-                <td> </td>
-                <td>  </td>
-                <td>
-               
-                </td>
-                <td>
-               
-                </td>
+                  <td>
+                    {{key.start_date}}
+                  </td>
+                  <td>
+                    {{key.end_date}}
+                  </td>
+                  <td>{{key.post_category}}</td>
+                  <td>{{key.street}}</td>
                 <td>
                     <div class="d-flex">
                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -43,6 +44,7 @@
                 </td>
                 <!-- Add more data cells as needed -->
               </tr>
+            }
               <!-- Add more rows of data as needed -->
             </tbody>
           </table>

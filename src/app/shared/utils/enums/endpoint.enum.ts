@@ -47,5 +47,6 @@ export enum Endpoints {
   SetBillingAddress = 'user_billing_address_set',
   GetBillingDetails = 'user_billing_address_get',
   ShowAd = 'get_ad_and_space_data',
-  AddEvent = 'set_event'
+  AddEvent = 'set_event',
+  GetEventUsingUserId = 'get_event_using_userid'
 }

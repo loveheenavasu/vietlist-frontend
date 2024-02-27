@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, JsonPipe } from '@angular/common'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatStepperModule } from '@angular/material/stepper'
-import { RouterOutlet } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { LocalStorageService } from '@vietlist/shared'
 import { NgxDropzoneModule } from 'ngx-dropzone'
@@ -95,7 +95,7 @@ export class AddEventComponent {
   public post_category: BusinessCategoryResponse[] = []
   public post_tags: any[] = []
   public isEditable = false
-  public businessInfoForm!: FormGroup
+  public addEventForm!: FormGroup
   public firstFormGroup!: FormGroup
   public secondFormGroup!: FormGroup
   public postId: any
@@ -123,7 +123,7 @@ export class AddEventComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
-  checkValue: any
+  public checkValue: any
   /**
    *
    * @param _formBuilder
@@ -136,8 +136,10 @@ export class AddEventComponent {
     private businessService: BusinessService,
     private localStorageService: LocalStorageService,
     private eventService: EventService,
+    private cd:ChangeDetectorRef,
+    private router:Router
   ) {
-    this.businessInfoForm = this._formBuilder.group({
+    this.addEventForm = this._formBuilder.group({
       event_title: ['', Validators.required],
       // contact_phone: ['', Validators.required],
       // business_email: [
@@ -151,7 +153,7 @@ export class AddEventComponent {
       eventStartDate: [''],
       eventEndDate: [''],
       post_category: ['', Validators.required],
-      default_category: ['', Validators.required],
+      // default_category: ['', Validators.required],
       event_description: ['', Validators.required],
       website: [''],
       event_duration: [''],
@@ -177,7 +179,7 @@ export class AddEventComponent {
       ];
 
       controlsToValidate.forEach(controlName => {
-        const control = this.businessInfoForm.get(controlName);
+        const control = this.addEventForm.get(controlName);
         if (res) {
           control?.setValidators(Validators.required);
         } else {
@@ -194,7 +196,7 @@ export class AddEventComponent {
     if (this.postId) {
       this.getBusinessFormDetails(this.postId)
     }
-    this.getTags()
+    // this.getTags()
     this.initMap()
   }
 
@@ -252,18 +254,18 @@ export class AddEventComponent {
   }
 
   public onCategoryChange() {
-    this.categoriesValue = this.businessInfoForm.value.post_category
+    this.categoriesValue = this.addEventForm.value.post_category
     this.getDefaultCat()
   }
 
-  public getTags() {
-    this.eventService.getEventTags().subscribe({
-      next: (res: any) => {
-        this.post_tags = res.data
-      },
-      error: (err) => { },
-    })
-  }
+  // public getTags() {
+  //   this.eventService.getEventTags().subscribe({
+  //     next: (res: any) => {
+  //       this.post_tags = res.data
+  //     },
+  //     error: (err) => { },
+  //   })
+  // }
   public removeImageItem() {
     this.ImageUrl = ''
     // this.levelOneImageArr.splice(index, 1);
@@ -306,6 +308,7 @@ export class AddEventComponent {
     })
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
+    this.cd.detectChanges()
     this.initMap()
   }
   public getBusinessFormDetails(postId: any) {
@@ -326,7 +329,7 @@ export class AddEventComponent {
           this.verification_upload =
             this.businessFormDetails.verification_upload
           this.verifiedBadge = this.businessFormDetails.verified_badge
-          this.businessInfoForm.patchValue({
+          this.addEventForm.patchValue({
             post_title: this.businessFormDetails.post_title
               ? this.businessFormDetails.post_title
               : 'NA',
@@ -513,60 +516,49 @@ export class AddEventComponent {
     this.debounce = true
     this.isloader = true
     // const body: any = {
-    //   post_title: this.businessInfoForm.value.event_title,
-    //   post_category: this.businessInfoForm.value.post_category.join(', '),
-    //   default_category: this.businessInfoForm.value.default_category,
+    //   post_title: this.addEventForm.value.event_title,
+    //   post_category: this.addEventForm.value.post_category.join(', '),
+    //   default_category: this.addEventForm.value.default_category,
     //   latitude: this.latitude,
     //   longitude: this.longitude,
     //   city: this.city,
     //   region: this.state,
     //   country: this.country,
     //   zip: this.zipcode,
-    //   post_content: this.businessInfoForm.value.event_description,
+    //   post_content: this.addEventForm.value.event_description,
     //   featured_image: this.ImageUrl,
     //   post_tags: this.selectedTagsString,
     //   street: this.fullAddress,
-    //   mapview: this.businessInfoForm.value.mapview,
+    //   mapview: this.addEventForm.value.mapview,
     //   status: this.status.value,
     //   event_dates: {
-    //     start_date:this.businessInfoForm.value.eventStartDate,
-    //     end_date:this.businessInfoForm.value.eventEndDate,
+    //     start_date:this.addEventForm.value.eventStartDate,
+    //     end_date:this.addEventForm.value.eventEndDate,
     //     all_day: this.checkValue,
-    //     start_time: this.businessInfoForm.value.startDate,
-    //     end_time: this.businessInfoForm.value.endDate,
+    //     start_time: this.addEventForm.value.startDate,
+    //     end_time: this.addEventForm.value.endDate,
 
     //   }
     // }
 
     const body: any = {
-      post_title: this.businessInfoForm.value.event_title,
-      post_category: this.businessInfoForm.value.post_category.join(', '),
-      default_category: this.businessInfoForm.value.default_category,
+      post_title: this.addEventForm.value.event_title,
+      post_category: this.addEventForm.value.post_category,
       latitude: this.latitude,
       longitude: this.longitude,
       city: this.city,
       region: this.state,
       country: this.country,
       zip: this.zipcode,
-      post_content: this.businessInfoForm.value.event_description,
+      post_content: this.addEventForm.value.event_description,
       featured_image: this.ImageUrl,
-      post_tags: this.selectedTagsString,
       street: this.fullAddress,
-      mapview: this.businessInfoForm.value.mapview,
-      status: this.status.value,
-      // event_dates: {
-      //   start_date: this.businessInfoForm.value.eventStartDate,
-      //   end_date: this.businessInfoForm.value.eventEndDate,
-      //   all_day: this.checkValue,
-      //   start_time: this.businessInfoForm.value.startDate,
-      //   end_time: this.businessInfoForm.value.endDate,
-      // }
+      mapview: this.addEventForm.value.mapview,
     };
-
+    console.log(body)
     const formData = new FormData();
     Object.entries(body).forEach(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
-        // Handle nested object properties
         Object.entries(value).forEach(([nestedKey, nestedValue]) => {
           formData.append(`${key}[${nestedKey}]`, String(nestedValue));
         });
@@ -574,13 +566,12 @@ export class AddEventComponent {
         formData.append(key, String(value));
       }
     });
-    // Convert eventDates object to JSON and append to formData
     const eventDates = {
-      start_date: this.businessInfoForm.value.eventStartDate,
-      end_date: this.businessInfoForm.value.eventEndDate,
+      start_date: this.addEventForm.value.eventStartDate,
+      end_date: this.addEventForm.value.eventEndDate,
       all_day: this.checkValue,
-      start_time: this.businessInfoForm.value.startDate,
-      end_time: this.businessInfoForm.value.endDate,
+      start_time: this.addEventForm.value.startDate,
+      end_time: this.addEventForm.value.endDate,
     };
 
     formData.append('event_dates', JSON.stringify(eventDates));
@@ -595,20 +586,20 @@ export class AddEventComponent {
     // if (this.isFormFilled) {
     //   this.isloader = true
     //   const updatebody: any = {
-    //     post_title: this.businessInfoForm.value.event_title,
-    //     post_category: this.businessInfoForm.value.post_category.join(', '),
-    //     default_category: this.businessInfoForm.value.default_category,
+    //     post_title: this.addEventForm.value.event_title,
+    //     post_category: this.addEventForm.value.post_category.join(', '),
+    //     default_category: this.addEventForm.value.default_category,
     //     latitude: this.latitude,
     //     longitude: this.longitude,
     //     city: this.city,
     //     region: this.state,
     //     country: this.country,
     //     zip: this.zipcode,
-    //     post_content: this.businessInfoForm.value.event_description,
+    //     post_content: this.addEventForm.value.event_description,
     //     featured_image: this.ImageUrl,
     //     post_tags: this.selectedTagsString,
     //     street: this.fullAddress,
-    //     mapview: this.businessInfoForm.value.mapview,
+    //     mapview: this.addEventForm.value.mapview,
     //     status: this.status.value,
     //     post_id: this.localStoragePostId
     //       ? this.localStoragePostId
@@ -663,6 +654,7 @@ export class AddEventComponent {
             timer: 3000,
             timerProgressBar: true,
           })
+          this.router.navigateByUrl('/manage-profile/manage-events')
         },
         error: (err) => {
           this.isloader = false

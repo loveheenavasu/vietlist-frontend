@@ -45,7 +45,7 @@ export class AllEventComponent {
   public isLoader: boolean = false
   public event_category: any[] = []
   public category = new FormControl('')
-  public postPerPage: number = 1
+  public postPerPage: number = 10
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false

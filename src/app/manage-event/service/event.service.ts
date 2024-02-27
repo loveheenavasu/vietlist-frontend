@@ -1,13 +1,13 @@
 import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { GenericHelper, Endpoints } from '@vietlist/shared'
+import { GenericHelper, Endpoints, AuthenticationService } from '@vietlist/shared'
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private sessionService:AuthenticationService) {}
 
   public getEventTags(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventTags)
@@ -45,5 +45,11 @@ export class EventService {
       }
     })
     return this.http.get<any>(endpoint, { params: queryParams })
+  }
+
+  public getEventsByUserId(){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetEventUsingUserId)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get(endpoint , {headers:authToken})
   }
 }
