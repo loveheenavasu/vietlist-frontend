@@ -98,12 +98,14 @@ export class BlogNewsComponent {
   ]
 
   public showAdBlogPage() {
-    this.adDetails.map((res: any) => {
-      if (res.Page_key == 'Home Sidebar') {
-        this.blogAd = res.ads_detail
-        // console.log("check ad on blog page", this.blogAd)
-      }
-    })
+    if (this.adDetails) {
+      this.adDetails.map((res: any) => {
+        if (res.Page_key == 'Home Sidebar') {
+          this.blogAd = res.ads_detail
+          // console.log("check ad on blog page", this.blogAd)
+        }
+      })
+    }
   }
 
   public CountClickStats(adId: string, spaceId: string) {

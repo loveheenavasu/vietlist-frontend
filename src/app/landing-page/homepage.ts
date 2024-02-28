@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, NgZone, ViewChild } from '@angular/core'
 import {
   BuisnessCategoryComponent,
   ClaimYourBuisnessComponent,
@@ -14,7 +14,7 @@ import {
 import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 import { HomepageService } from './views/service/homepage.service'
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common'
-import { interval, repeat, take } from 'rxjs'
+import { Subscription, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle';
 import { ProfileService } from '../manage-profile/service/profile.service'
 
@@ -58,6 +58,9 @@ export class HomepageComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
+  public timerSubscription?: Subscription;
+  intervalId: any;
+
 
   swiperParams = {
     slidesPerView: 1,
@@ -73,36 +76,54 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
     private IpService: ProfileService,
-    private location: Location
+    private location: Location,
+    private zone: NgZone
   ) {
-    this.getHomePageContent()
+    // this.getHomePageContent()
     // this.subscribeToRouterEvents()
+    // this.showAdDataFetch()
     setTimeout(() => {
-      const swiperEl = this.swiper.nativeElement
+      const swiperEl = this.swiper?.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
-    })
+    }, 0)
   }
 
   ngOnInit() {
+    this.showAdDataFetch()
+    console.log("check compoment")
     this.getHomePageContent()
     // this.subscribeToRouterEvents()
-    this.showAdDataFetch()
+
     if (this.showAdInFooter) {
-      interval(30000)
-        .pipe(take(this.showAdInFooter.length), repeat())
-        .subscribe(() => {
-          if (this.currentIndex === this.showAdInFooter.length - 1) {
+      // Create a timer observable that emits a value every 6 seconds
+      const timer$ = interval(6000);
+
+      // Subscribe to the timer observable
+      this.timerSubscription = timer$.subscribe(() => {
+        // Update content periodically
+        this.zone.run(() => {
+          if (this.currentIndex === (this.showAdInFooter.length - 1)) {
             this.currentIndex = 0;
-          }
-          else {
+          } else {
             this.currentIndex++;
           }
-
         });
+      });
     }
 
   }
+  public showAdDataFetch() {
+    this.homePageContent.showAD().subscribe({
+      next: (res: any) => {
+        console.log("check ad1", res.data)
+        this.adDetails = res.data
+        console.log("check ad", this.adDetails)
+        this.showAdHomePage()
+      }
+    })
+  }
+
 
   public getIPAdress() {
     this.IpService.getIPAddress().subscribe((res: any) => {
@@ -167,26 +188,18 @@ export class HomepageComponent {
     this.setStats(ad_id, space_id)
   }
 
-  public showAdDataFetch() {
-    this.homePageContent.showAD().subscribe({
-      next: (res: any) => {
-        this.adDetails = res.data
-        // console.log("check ad", this.adDetails)
-        this.showAdHomePage()
-      }
-    })
-  }
+
 
 
   public showAdHomePage() {
     this.adDetails.map((data: any) => {
       if (data.Page_key == 'Home Top') {
         this.showAdInTop = data.ads_detail
-        // console.log("check top ad", this.showAdInTop)
+        console.log("check top ad", this.showAdInTop)
       }
       if (data.Page_key == 'Home Footer') {
         this.showAdInFooter = data.ads_detail
-        // console.log("check footer ads", this.showAdInFooter)
+        console.log("check footer ads", this.showAdInFooter)
       }
       if (data.Page_key != "Search") {
         data.ads_detail.forEach((ad: any) => {
@@ -235,5 +248,10 @@ export class HomepageComponent {
 
   public listBusiness() {
     this.router.navigateByUrl('/benefits-of-joining')
+  }
+  ngOnDestroy() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 }

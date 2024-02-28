@@ -246,7 +246,7 @@ export class CreateAdsComponent {
     this.profileService.createAd(body).subscribe({
       next: (res: any) => {
         console.log("check ad response", res)
-        this.location.back();
+        this.router.navigateByUrl('/manage-profile/manage-ads')
         Swal.fire({
           toast: true,
           text: 'Ad  created successfully ',
@@ -279,7 +279,7 @@ export class CreateAdsComponent {
     console.log("check update data", body)
     this.profileService.updateAd(body).subscribe({
       next: (res: any) => {
-        this.location.back();
+        this.router.navigateByUrl('manage-profile/manage-ads')
         Swal.fire({
           toast: true,
           text: 'Ad  Updated successfully ',

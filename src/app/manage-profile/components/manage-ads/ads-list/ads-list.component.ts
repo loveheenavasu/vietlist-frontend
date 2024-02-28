@@ -19,15 +19,7 @@ export class AdsListComponent {
     this.getAllAds()
   }
 
-  public getAllAds() {
-    this.profileService.getAdByUserId().subscribe({
-      next: (res) => {
-        console.log("check the ad data by userId", res)
-        this.allAds = res.data;
-        console.log("check ad array", this.allAds);
-      }
-    })
-  }
+
 
   public handleCreateAdd() {
     this.router.navigateByUrl('/manage-profile/create-ad')
@@ -53,6 +45,9 @@ export class AdsListComponent {
       if (result.isConfirmed) {
         this.profileService.deleteAd(adId).subscribe({
           next: (res) => {
+            if (res) {
+              this.getAllAds()
+            }
             Swal.fire({
               toast: true,
               text: 'Ad  deleted successfully ',
@@ -63,12 +58,21 @@ export class AdsListComponent {
               timer: 3000,
               timerProgressBar: true,
             })
-            this.allAds = this.allAds.filter(ad => ad.ad_data.id !== adId);
+            // this.allAds = this.allAds.filter(ad => ad.ad_data.id !== adId);
+
           }
         })
       }
 
     })
 
+  }
+  public getAllAds() {
+    this.profileService.getAdByUserId().subscribe({
+      next: (res) => {
+        console.log("check the ad data by userId", res)
+        this.allAds = res.data;
+      }
+    })
   }
 }

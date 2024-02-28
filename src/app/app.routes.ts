@@ -77,7 +77,7 @@ export default [
       },
       {
         path: 'manage-ads',
-        component: AdsListComponent,
+        loadComponent: () => AdsListComponent,
       },
       {
         path: 'create-ad',
