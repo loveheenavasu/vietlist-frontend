@@ -30,7 +30,7 @@ export class ProfileService {
   public reviewSet(body: any): Observable<any> {
     const authToken: any = this.sessionService.getAuthHeaders()
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.setReview)
-    return this.http.post<any>(endpoint, body, { headers: authToken })
+    return this.http.post<any>(endpoint, body,)
   }
   public userProfileUpdate(body: any): Observable<any> {
     const authToken: any = this.sessionService.getAuthHeaders()

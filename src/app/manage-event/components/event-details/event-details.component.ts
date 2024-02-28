@@ -9,16 +9,19 @@ import { NgxStarsModule } from 'ngx-stars'
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 // NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, TitleCasePipe, NgxDropzoneModule, NgxStarRatingModule, DatePipe, CommonModule,],
+  imports: [ReactiveFormsModule, FormsModule, TitleCasePipe, CommonModule, NgxDropzoneModule, NgxStarRatingModule, DatePipe, CommonModule,],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
   encapsulation: ViewEncapsulation.None
 })
 export class EventDetailsComponent {
+  starRatingValue: number = 5;
+  public footerPageContent?: any
   public reviewForm!: FormGroup
   public isImageUploading: boolean = false
   public files: File[] = []
@@ -38,7 +41,8 @@ export class EventDetailsComponent {
     private router: Router,
     private fb: FormBuilder,
     private businessService: BusinessService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private footerContent: HomepageService,
   ) {
     this.reviewForm = this.fb.group({
       ratings: ['', Validators.required],
@@ -47,7 +51,8 @@ export class EventDetailsComponent {
       email: [''],
       website: [''],
       save: [''],
-      comments: ['']
+      comments: [''],
+      starRatingValue:['']
     })
 
     this._activatedRoute.params.subscribe((res) => {
@@ -61,7 +66,7 @@ export class EventDetailsComponent {
 
 
   ngOnInit() {
-
+    this.starRatingValue = this.reviewForm.value.starRatingValue
     if (this.postId) {
       this.getEventDetails()
 
@@ -70,7 +75,13 @@ export class EventDetailsComponent {
   }
 
 
-
+  public getFooterContent() {
+    this.footerContent.footerContent().subscribe({
+      next: (res: any) => {
+        this.footerPageContent = res.data
+      },
+    })
+  }
 
   public manageBusiness() {
     this.router.navigateByUrl('/manage-profile/manage-events')
@@ -242,6 +253,7 @@ export class EventDetailsComponent {
         next: (res) => {
           console.log(res, 'hhhhhhhhhhh')
           this.getReviews()
+          
         },
         error: (err) => {
 

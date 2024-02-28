@@ -93,6 +93,59 @@
       <div class="profile-info-div">
         <h3>Contact Info</h3>
         {{ eventDetails?.user_detail?.contact_info }}
+        <div class="social-link">
+          <ul>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.facebook"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/FacebookIcon.svg"
+                  alt="facbook-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.linkedin"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                  alt="linkedin-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
+                <img
+                  src="/assets/icons/Social-Link/TwitterIcon.svg"
+                  alt="twitter-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
+                <img
+                  src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                  alt="youtube-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.pinterest"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                  alt="pinterest-logo"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="profile-info-div mt-3">
         <h3>Author</h3>
@@ -138,7 +191,9 @@
               {{'testing01@yopmail.com'}}
             </span>
             <span class="rating__">
-              <ngx-star-rating [disabled]="true"></ngx-star-rating>
+              <ngx-star-rating  formControlName="starRatingValue" [disabled]="true"></ngx-star-rating>
+
+
             </span>
           </div>
           <div class="comment-content comment card-body m-0">

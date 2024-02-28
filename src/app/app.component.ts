@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import {
   FooterComponent,
@@ -40,11 +40,15 @@ export class AppComponent {
     private loaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
+  }
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 }
