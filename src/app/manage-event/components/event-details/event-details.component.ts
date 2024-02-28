@@ -13,7 +13,7 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 @Component({
   selector: 'app-event-details',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, TitleCasePipe, NgxDropzoneModule, NgxStarRatingModule, DatePipe, CommonModule, NgxStarsModule],
+  imports: [ReactiveFormsModule, FormsModule, TitleCasePipe, NgxDropzoneModule, NgxStarRatingModule, DatePipe, CommonModule,],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
   encapsulation: ViewEncapsulation.None
