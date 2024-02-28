@@ -27,6 +27,7 @@ import {
   PhoneNumberFormat,
   SearchCountryField,
 } from 'ngx-intl-tel-input'
+import { debounceTime, Subject } from 'rxjs'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -173,6 +174,7 @@ export class RegisterComponent {
        body['country_code'] =  this.contact_details.value.dialCode
             }
       this.loader = true
+      
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
@@ -217,6 +219,7 @@ export class RegisterComponent {
           
         },
       })
+      
     } else {
       Swal.fire({
         toast: true,
@@ -229,6 +232,7 @@ export class RegisterComponent {
         timerProgressBar: true,
       })
     }
+  
   }
 
   public changeSignupType() {

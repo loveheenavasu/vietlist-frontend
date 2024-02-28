@@ -10,37 +10,33 @@
       <thead>
         <tr>
           <th>Event Title</th>
-          <th>StartDate</th>
-          <th>EndDate</th>
-          <th>StartTime</th>
-          <th>EndTime</th>
+          <th>Start Date</th>
+          <th>End Date</th>
           <th>Category</th>
           <th>Location</th>
-          <th>Bookable</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
+        @for(key of eventsArray; track $index){
         <tr>
           <td>
-            {{Alleventslist?.post_title}}
+            {{key?.post_title}}
           </td>
-          <td> {{Alleventslist?.event_dates?.start_date | date: 'dd/MM/yyyy'}}</td>
-          <td> {{Alleventslist?.event_dates?.end_date | date: 'dd/MM/yyyy' }} </td>
-          <td> {{Alleventslist?.event_dates?.start_time}} </td>
-          <td> {{Alleventslist?.event_dates?.end_time}} </td>
-          <td> {{Alleventslist?.post_category}}</td>
-          <td>{{Alleventslist?.street}} </td>
-          <td>{{Alleventslist?.is_bookable_}} </td>
+          <td> {{key?.event_dates?.start_date | date: 'dd/MM/yyyy'}}</td>
+          <td> {{key?.event_dates?.end_date | date: 'dd/MM/yyyy' }} </td>
+          <td> {{key?.post_category}}</td>
+          <td>{{key?.street}} </td>
           <td>
             <div class="d-flex">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-              <i  (click)="gotToEventDetails(Alleventslist.post_id, false)" class="fa fa-trash" aria-hidden="true"></i>
+              <i class="fa fa-eye" style="cursor:pointer" (click)="gotToEventDetails(key.post_id, false)"  aria-hidden="true"></i>
+              <i class="fa fa-pencil" aria-hidden="true"  style="cursor:pointer" (click)="handleEdit(key.post_id)" ></i>
+              <i style="cursor:pointer"  (click)="handleDelete(key.post_id)" class="fa fa-trash" aria-hidden="true"></i>
             </div>
           </td>
           <!-- Add more data cells as needed -->
         </tr>
+      }
         <!-- Add more rows of data as needed -->
       </tbody>
     </table>

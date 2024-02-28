@@ -1,18 +1,31 @@
 import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { GenericHelper, Endpoints } from '@vietlist/shared'
+import { GenericHelper, Endpoints, AuthenticationService } from '@vietlist/shared'
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private sessionService:AuthenticationService) {}
 
   public getEventTags(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventTags)
     return this.http.get(endpoint)
   }
+
+  public addEvent(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddEvent)
+    const authToken = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public updateEvent(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateEvent)
+    const authToken = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
 
   public getEventCat(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventCatgeory)
@@ -46,4 +59,18 @@ export class EventService {
     })
     return this.http.get<any>(endpoint, { params: queryParams })
   }
+
+  public getEventsByUserId(){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetEventUsingUserId)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get(endpoint , {headers:authToken})
+  }
+
+  public deleteEvent(id:any){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteEvent)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    let params = new HttpParams().set('post_id', id);
+    return this.http.delete(endpoint , {headers:authToken , params:params})
+  }
+
 }

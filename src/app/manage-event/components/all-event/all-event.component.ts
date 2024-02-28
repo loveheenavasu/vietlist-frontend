@@ -45,7 +45,8 @@ export class AllEventComponent {
   public isLoader: boolean = false
   public event_category: any[] = []
   public category = new FormControl('')
-  public postPerPage: number = 1
+  public postTitle = new FormControl('')
+  public postPerPage: number = 10
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
@@ -61,13 +62,23 @@ export class AllEventComponent {
   }
 
   ngOnInit() {
-    this.getEventCat()
     this.getPublishEventData()
+    this.getEventCat()
   }
 
   public handleLayout(layout: string) {
     this.selectedLayout = layout
   }
+
+  public getEventCat() {
+    this.eventService.getEventCat().subscribe({
+      next: (res: any) => {
+        this.event_category = res.data
+      },
+      error: (err) => {},
+    })
+  }
+
 
   public getPublishEventData() {
     this.fullPageLoaderService.showLoader()
@@ -81,23 +92,14 @@ export class AllEventComponent {
     }
     this.eventService.getPublishEvents(params).subscribe({
       next: (res: any) => {
-        console.log(res)
         this.fullPageLoaderService.hideLoader()
         this.publishEventsArray = res.data
+        console.log(res)
         console.log(this.publishEventsArray)
       },
     })
   }
-
-
-  public getEventCat() {
-    this.eventService.getEventCat().subscribe({
-      next: (res: any) => {
-        this.event_category = res.data
-      },
-      error: (err) => {},
-    })
-  }
+  
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -148,6 +150,9 @@ export class AllEventComponent {
     if (post_category) {
       params['post_category'] = post_category
     }
+    if(this.postTitle){
+      params['post_title'] = this.postTitle
+    }
     if (postPerPage) {
       params['posts_per_page'] = postPerPage
     }
@@ -178,6 +183,8 @@ export class AllEventComponent {
         this.fullPageLoaderService.hideLoader()
         this.publishEventsArray = res.data
         this.totalCount = res.total_count
+
+        console.log(res)
       },
       error: (err: any) => {
         this.isLoader = false

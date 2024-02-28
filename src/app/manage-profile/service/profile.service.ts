@@ -47,7 +47,7 @@ export class ProfileService {
   public deleteBuisness(postId: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAddedBusiness)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, postId, { headers: authToken })
+    return this.http.delete<any>(endpoint, { headers: authToken , body:postId })
   }
 
   public changePasswrd(body: any): Observable<any> {

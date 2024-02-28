@@ -61,10 +61,10 @@ export class EventDetailsComponent {
 
 
   ngOnInit() {
-    
+
     if (this.postId) {
       this.getEventDetails()
-     
+
     }
     this.getReviews()
   }
@@ -213,7 +213,7 @@ export class EventDetailsComponent {
       user_id: this.eventDetails?.user_detail?.user_id,
       rating: this.reviewForm.value.rating,
       ratings: this.reviewForm.value.ratings,
-      attachments: this.levelOneImageArr,
+      // attachments: this.levelOneImageArr,
     }
 
     const formData = new FormData();
@@ -227,6 +227,15 @@ export class EventDetailsComponent {
         formData.append(key, String(value));
       }
     });
+
+    formData.append('attachments', JSON.stringify(this.levelOneImageArr));
+
+    // Access the FormData object
+    formData.forEach((value, key) => {
+      console.log(key + ', ' + value);
+  });
+    console.log(formData, 'formData')
+    
     if (this.reviewForm.valid) {
 
       this.profileService.reviewSet(formData).subscribe({

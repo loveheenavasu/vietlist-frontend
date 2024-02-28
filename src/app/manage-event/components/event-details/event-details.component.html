@@ -17,66 +17,77 @@
 <div class="container">
   <div class="breadcrumb">
     <div class="breadcrumb">
-      <span class="manage-business" (click)="manageBusiness()">Manage Business</span>
+      <span class="manage-business" (click)="manageBusiness()">Events</span>
       <span class="business-details">&nbsp; > </span>
       <span class="business-details">&nbsp;Event Details</span>
     </div>
   </div>
   <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
-      <div class="d-flex">
+
+      <div class="row mt-3">
         <h3 class="event-page-heading">Event Details</h3>
-      </div>
-      <div class="d-flex headings__">
-        <h3>Title</h3>
-        <h3>Start Date</h3>
-        <h3>End Date</h3>
-        <h3>Start Time</h3>
-        <h3>End Time</h3>
-      </div>
-
-      <div class="d-flex headings___">
-        <p class="content">{{ eventDetails?.post_content }}</p>
-        <p class="content">{{ eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'}}</p>
-        <p class="content">{{ eventDetails?.event_dates.end_date | date: 'dd/MM/yyyy'}}</p>
-
-        <p class="content">{{ eventDetails?.event_dates.start_time}}</p>
-        <p class="content">{{ eventDetails?.event_dates.end_time}}</p>
-      </div>
-      <div class="d-flex">
-        <h3 class="event-page-heading">Address Details</h3>
-      </div>
-      <div class="d-flex headings__">
-        <h3>Country</h3>
-        <h3>City</h3>
-        <h3>Street</h3>
-        <h3></h3>
-        <h3></h3>
-      </div>
-
-      <div class="d-flex headings___">
-        <p class="content">{{ eventDetails?.country }}</p>
-        <p class="content">{{ eventDetails?.city}}</p>
-        <p class="content">{{ eventDetails?.street }}</p>
-        <p class="content"></p>
-        <p class="content"></p>
+        <table class="table table-responsive table-borderless">
+          <tbody>
+            <tr>
+              <td class="table-title">Description</td>
+              <td class="table-subtitle">{{ eventDetails?.post_content }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">Start Date</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ eventDetails?.event_dates.start_date | date:
+                'dd/MM/yyyy' }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">End Date</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ eventDetails?.event_dates.end_date | date:
+                'dd/MM/yyyy' }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">Start Time</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">End Time</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">Category</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.post_category }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="d-flex headings__">
-        <h3>Category</h3>
-        <h3></h3>
-        <h3></h3>
-        <h3></h3>
-        <h3></h3>
-      </div>
-      <div class="d-flex headings___">
-        <p class="content">{{ eventDetails?.post_category }}</p>
-        <p class="content"></p>
-        <p class="content"></p>
+      <div class="row mt-4">
+        <h3 class="event-page-heading">Address</h3>
+        <table class="table table-responsive table-borderless">
+          <tbody>
+            <tr>
+              <td class="table-title">Street</td>
+              <td class="table-subtitle">{{ eventDetails?.street }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">Region</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">Country</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country }}</td>
+            </tr>
+            <tr>
+              <td class="table-title">City</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city }}</td>
+            </tr>
 
-        <p class="content"></p>
-        <p class="content"></p>
+            <tr>
+              <td class="table-title">Zip</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     </div>
     <div class="col-12 col-md-12 col-lg-4 mt-3">
       <div class="profile-info-div">
@@ -89,33 +100,34 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row  my-4">
     <div class="col-12">
       <h3 class="event-page-heading">Photo(s)</h3>
 
       <div class="featured_image">
-        <img
-          [src]=" eventDetails?.featured_image ? eventDetails?.featured_image : '/assets/image/carrer-proffesional.jpeg'" />
+        <img [src]="
+            eventDetails?.featured_image
+              ? eventDetails?.featured_image
+              : '/assets/image/carrer-proffesional.jpeg'
+          " />
       </div>
     </div>
   </div>
-  <div class="row mt-5">
+  <div class="row  my-4">
     <div class="col-12">
       <h3 class="event-page-heading">Map</h3>
     </div>
-    <div class="col-12">
+    <div class="col-12 col-lg-6">
       <div id="map" style="height: 300px; width: 100%"></div>
     </div>
   </div>
 
+  @if(isGlobal == 'true'){
+  <form [formGroup]="reviewForm">
 
+    <div class="row mt-5">
 
-
-  <form [formGroup]="reviewForm" >
-    @if(isGlobal == 'true'){
-    <div class="row mt-5" >
-
-      <div class="col-12 col-lg-6 ">
+      <div class="col-12 col-lg-6">
         <div class="card mt-3 shadow-sm">
           <div class="bsui toast-header">
             <div class="profile__">
@@ -126,16 +138,16 @@
               {{'testing01@yopmail.com'}}
             </span>
             <span class="rating__">
-              <ngx-star-rating [disabled]="true" ></ngx-star-rating>
+              <ngx-star-rating [disabled]="true"></ngx-star-rating>
             </span>
           </div>
           <div class="comment-content comment card-body m-0">
             <div class="imagesSlider">
               <div class="images__">
-              <img
-              src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                <img
+                  src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+              </div>
             </div>
-          </div>
             <div class="description">
 
               <p>jhvghn</p>
@@ -195,24 +207,24 @@
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="name" class="input-control" placeholder="Enter your name" />
+          <input type="text" formControlName="name" class="input-control" placeholder="Enter your name"/>
         </div>
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="email" class="input-control" placeholder="Enter your email" />
+          <input type="text" formControlName="email" class="input-control" placeholder="Enter your email"/>
         </div>
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="website" class="input-control" placeholder="Enter your website" />
+          <input type="text" formControlName="website" class="input-control" placeholder="Enter your website"/>
         </div>
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" formControlName="save" type="checkbox" value="" id="terms" />
+              <input class="form-check-input" formControlName="save" type="checkbox" value="" id="terms"/>
               <label class="form-check-label" for="terms">
                 Save my name, email, and website in this browser for the next time
                 I comment.
@@ -234,6 +246,7 @@
       </div>
 
     </div>
-  }
+
   </form>
+  }
 </div>
