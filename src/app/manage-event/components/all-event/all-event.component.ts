@@ -187,7 +187,7 @@ export class AllEventComponent {
 
  
   public gotToEventDetails(id:any, isGlobal:any){
-    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+   this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
 
   }
 

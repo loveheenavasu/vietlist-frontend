@@ -15,6 +15,13 @@
 </section>
 
 <div class="container">
+  <div class="breadcrumb">
+    <div class="breadcrumb">
+      <span class="manage-business" (click)="manageBusiness()">Manage Business</span>
+      <span class="business-details">&nbsp; > </span>
+      <span class="business-details">&nbsp;Event Details</span>
+    </div>
+  </div>
   <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
       <div class="d-flex">
@@ -88,7 +95,7 @@
 
       <div class="featured_image">
         <img
-          [src]=" eventDetails.featured_image ? eventDetails.featured_image : '/assets/image/carrer-proffesional.jpeg'" />
+          [src]=" eventDetails?.featured_image ? eventDetails?.featured_image : '/assets/image/carrer-proffesional.jpeg'" />
       </div>
     </div>
   </div>
@@ -100,73 +107,133 @@
       <div id="map" style="height: 300px; width: 100%"></div>
     </div>
   </div>
-  <div class="row mt-5" *ngIf="isGlobal == 'true'">
-    <div class="col-12">
-      <h3 class="event-page-heading">Reviews</h3>
-    </div>
-    <div class="col-12 col-md-12 col-lg-6">
-      <div class="alert alert-warning" role="alert">
-        Your email address will not be published.
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="Enter your review"></textarea>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-12 col-md-12 col-lg-6">
-        <!-- <ngx-star-rating [id]="'rating'" [disabled]="true"></ngx-star-rating> -->
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <ngx-dropzone [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-          <ngx-dropzone-label><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
-            or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
-            .webp)</ngx-dropzone-label>
-          <!-- <div class="loader" *ngIf="isImageLoading"></div> -->
-        </ngx-dropzone>
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <input type="text" class="input-control" placeholder="Enter your name" />
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <input type="text" class="input-control" placeholder="Enter your email" />
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <input type="text" class="input-control" placeholder="Enter your website" />
-      </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="terms" />
-            <label class="form-check-label" for="terms">
-              Save my name, email, and website in this browser for the next time
-              I comment.
-            </label>
+
+
+
+  <form [formGroup]="reviewForm" >
+    @if(isGlobal == 'true'){
+    <div class="row mt-5" >
+
+      <div class="col-12 col-lg-6 ">
+        <div class="card mt-3 shadow-sm">
+          <div class="bsui toast-header">
+            <div class="profile__">
+              <img
+                src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+            </div>
+            <span>
+              {{'testing01@yopmail.com'}}
+            </span>
+            <span class="rating__">
+              <ngx-star-rating [disabled]="true" ></ngx-star-rating>
+            </span>
+          </div>
+          <div class="comment-content comment card-body m-0">
+            <div class="imagesSlider">
+              <div class="images__">
+              <img
+              src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+            </div>
+          </div>
+            <div class="description">
+
+              <p>jhvghn</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row my-2">
-      <div class="col-12 col-md-12 col-lg-6">
-        <textarea name="" id="" cols="30" rows="10" class="textarea" placeholder="Enter your comments"></textarea>
+      <div class="col-12">
+        <h3 class="event-page-heading">Reviews</h3>
       </div>
-    </div>
-    <div class="row my-2">
       <div class="col-12 col-md-12 col-lg-6">
-        <button class="btn orange-background-btn-w-100">Post Review</button>
+        <div class="alert alert-warning" role="alert">
+          Your email address will not be published.
+        </div>
       </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <textarea formControlName="ratings" name="" id="" cols="30" rows="10" class="textarea"
+            placeholder="Enter your review"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-6">
+          <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left;"></ngx-star-rating>
+        </div>
+      </div>
+
+
+      <div class="row my-3 px-2">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-sm-2 col-md-12">
+              <label for="" class="listing-form-label mb-2">Images</label>
+            </div>
+            <div class="col-sm-10 col-md-12 upload-instruction">
+            </div>
+          </div>
+          <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+            <ngx-dropzone-label><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
+              or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
+              .webp)</ngx-dropzone-label>
+            <div *ngIf="isImageUploading" class="loader"></div>
+
+          </ngx-dropzone>
+          <div class="main_images">
+            @for (preview of levelOneImageArr; track $index) {
+
+            <div class="images__" *ngIf="preview">
+              <div class="removeImage">
+                <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
+              </div>
+              <img [src]="preview" alt="Image Preview" width="150" height="150" />
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <input type="text" formControlName="name" class="input-control" placeholder="Enter your name" />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <input type="text" formControlName="email" class="input-control" placeholder="Enter your email" />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <input type="text" formControlName="website" class="input-control" placeholder="Enter your website" />
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" formControlName="save" type="checkbox" value="" id="terms" />
+              <label class="form-check-label" for="terms">
+                Save my name, email, and website in this browser for the next time
+                I comment.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <textarea formControlName="comments" name="" id="" cols="30" rows="10" class="textarea"
+            placeholder="Enter your comments"></textarea>
+        </div>
+      </div>
+      <div class="row my-2">
+        <div class="col-12 col-md-12 col-lg-6">
+          <button class="btn orange-background-btn-w-100" (click)="submit()">Post Review</button>
+        </div>
+      </div>
+
     </div>
-  </div>
+  }
+  </form>
 </div>
