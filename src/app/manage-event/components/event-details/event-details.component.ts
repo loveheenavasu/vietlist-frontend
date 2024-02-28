@@ -92,6 +92,8 @@ export class EventDetailsComponent {
     this.getReviews()
   }
 
+
+
   public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }

@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Output, EventEmitter, NgZone } from '@angular/core'
+import { Component, HostListener, Input, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
@@ -31,7 +31,7 @@ export class BlogNewsComponent {
   public blogAd?: any
   public currentIndex: number = 0
   public timerSubscription?: Subscription;
-  constructor(private zone: NgZone) { }
+  constructor(private zone: NgZone , private cdr:ChangeDetectorRef) { }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
@@ -56,6 +56,12 @@ export class BlogNewsComponent {
         });
       });
     }
+  }
+
+
+  ngAfterContentChecked(): void {
+    this.showAdBlogPage()
+    this.cdr.detectChanges();
   }
 
   public blogItem: blogItem[] = [
@@ -106,6 +112,7 @@ export class BlogNewsComponent {
       this.adDetails.map((res: any) => {
         if (res.Page_key == 'Home Sidebar') {
           this.blogAd = res.ads_detail
+          this.cdr.detectChanges()
           // console.log("check ad on blog page", this.blogAd)
         }
       })

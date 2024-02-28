@@ -53,31 +53,31 @@ export default [
     children: [
       {
         path: '',
-        component: EditProfileComponent,
+        loadComponent: () => EditProfileComponent,
       },
       {
         path: 'my-business',
-        component: MyBusinessComponent,
+        loadComponent: () => MyBusinessComponent,
       },
       {
         path: 'change-password',
-        component: ChangePasswordComponent,
+        loadComponent: () => ChangePasswordComponent,
       },
       {
         path: 'delete-account',
-        component: DeleteAccountComponent,
+        loadComponent: () => DeleteAccountComponent,
       },
       {
         path: 'setting',
-        component: SettingComponent,
+        loadComponent: () => SettingComponent,
       },
       {
         path: 'privacy',
-        component: PrivacyComponent,
+        loadComponent: () => PrivacyComponent,
       },
       {
         path: 'subscription',
-        component: ManageSubscriptionComponent,
+        loadComponent: () => ManageSubscriptionComponent,
       },
       {
         path: 'manage-ads',
@@ -85,15 +85,15 @@ export default [
       },
       {
         path: 'create-ad',
-        component: CreateAdsComponent,
+        loadComponent: () => CreateAdsComponent,
       },
       {
         path: 'billing-address',
-        component: BillingAddressComponent,
+        loadComponent: () => BillingAddressComponent,
       },
       {
         path:'manage-events',
-        component:MyEventsComponent
+        loadComponent: () => MyEventsComponent
       }
     ],
     canActivate: [AuthGuard],
@@ -112,6 +112,10 @@ export default [
   },
   {
     path: 'find-business',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business/:categoryName',
     loadComponent: () => FindBusinessComponent,
   },
   {

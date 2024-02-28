@@ -16,41 +16,17 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
-              <input
-                type="text"
-                class="input-control"
-                placeholder="Username or Email"
-                formControlName="username"
-                appFormControlValidation
-                [validationMsgId]="'username-required-msg'"
-              />
+              <input type="text" class="input-control" placeholder="Username or Email" formControlName="username"
+                appFormControlValidation [validationMsgId]="'username-required-msg'" />
             </div>
           </div>
           <div class="col-12">
             <div class="input-group">
-              <input
-                [type]="!isHidePassword ? 'password' : 'text'"
-                class="input-control pwd-control"
-                formControlName="password"
-                placeholder="Password"
-              />
-              <span
-                class="input-group-text"
-                id="basic-addon1"
-                (click)="hidePassword()"
-              >
-                <i
-                  *ngIf="!isHidePassword"
-                  class="fa fa-eye-slash"
-                  aria-hidden="true"
-                  style="color: #6c757d"
-                ></i>
-                <i
-                  *ngIf="isHidePassword"
-                  class="fa fa-eye"
-                  aria-hidden="true"
-                  style="color: #6c757d"
-                ></i>
+              <input [type]="!isHidePassword ? 'password' : 'text'" class="input-control pwd-control"
+                formControlName="password" placeholder="Password" />
+              <span class="input-group-text" id="basic-addon1" (click)="hidePassword()">
+                <i *ngIf="!isHidePassword" class="fa fa-eye-slash" aria-hidden="true" style="color: #6c757d"></i>
+                <i *ngIf="isHidePassword" class="fa fa-eye" aria-hidden="true" style="color: #6c757d"></i>
               </span>
             </div>
           </div>
@@ -60,12 +36,7 @@
               <div class="d-flex">
                 <div>
                   <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="remember"
-                    />
+                    <input class="form-check-input" type="checkbox" value="" id="remember" />
                     <label class="form-check-label" for="remember">
                       Remember me
                     </label>
@@ -78,11 +49,7 @@
             </div>
           </div>
           <div class="col-12">
-            <button
-              class="btn orange-background-btn-w-100"
-              [disabled]="!loginForm.valid"
-              (click)="login()"
-            >
+            <button class="btn orange-background-btn-w-100" [disabled]="!loginForm.valid || loader " (click)="login()">
               <span *ngIf="!loader">Submit</span>
               <app-loader *ngIf="loader"></app-loader>
             </button>
@@ -90,9 +57,7 @@
           <div class="mt-3">
             <p class="new-to-vietlist">
               New to Vietlist?
-              <span class="create-account" (click)="navigateToRegister()"
-                >Create account</span
-              >
+              <span class="create-account" (click)="navigateToRegister()">Create account</span>
             </p>
           </div>
         </div>
