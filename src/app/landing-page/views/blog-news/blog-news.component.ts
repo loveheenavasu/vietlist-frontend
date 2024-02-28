@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core'
+import { Component, HostListener, Input, Output, EventEmitter, NgZone, ChangeDetectorRef, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
@@ -6,7 +6,9 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { NgClass, NgFor } from '@angular/common'
 import { blogItem } from '@vietlist/shared'
 import { interval, repeat, Subscription, take } from 'rxjs'
+import { register } from 'swiper/element/bundle';
 
+register()
 
 @Component({
   selector: 'app-blog-news',
@@ -19,10 +21,12 @@ import { interval, repeat, Subscription, take } from 'rxjs'
     MatGridListModule,
     NgClass,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './blog-news.component.html',
   styleUrl: './blog-news.component.scss',
 })
 export class BlogNewsComponent {
+  @ViewChild('blogSwiper') swiperBlog!: ElementRef
   @Input() homePageData?: any
   @Input() adDetails?: any
   @Output() bannerClick: EventEmitter<{ adId: string, spaceId: string }> = new EventEmitter<{ adId: string, spaceId: string }>();
@@ -31,7 +35,23 @@ export class BlogNewsComponent {
   public blogAd?: any
   public currentIndex: number = 0
   public timerSubscription?: Subscription;
-  constructor(private zone: NgZone , private cdr:ChangeDetectorRef) { }
+  timerIntervals: any;
+
+  blogSwiperParams = {
+    slidesPerView: 1,
+    autoplay: {
+      delay: 6000
+    },
+
+    slidesPreview: 1,
+    on: {
+      init() { },
+    },
+  }
+
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef) {
+    // this.startTimer();
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
@@ -41,21 +61,20 @@ export class BlogNewsComponent {
   ngOnInit() {
     // this.blogDetail = this.homePageData
     this.showAdBlogPage()
-    if (this.blogAd) {
-      // Create a timer observable that emits a value every 6 seconds
-      const timer$ = interval(6000);
-      // Subscribe to the timer observable
-      this.timerSubscription = timer$.subscribe(() => {
-        // Update content periodically
-        this.zone.run(() => {
-          if (this.currentIndex === (this.blogAd.length - 1)) {
-            this.currentIndex = 0;
-          } else {
-            this.currentIndex++;
-          }
-        });
-      });
-    }
+    // if (this.blogAd) {
+    //   // Create an interval that updates content every 6 seconds
+    //   this.timerIntervals = setInterval(() => {
+
+    //     if (this.currentIndex === (this.blogAd.length - 1)) {
+    //       this.currentIndex = 0;
+    //     } else {
+    //       this.currentIndex++;
+    //     }
+    //     // Ensure Angular runs change detection after updating content
+    //     this.cdr.detectChanges();
+    //   }, 6000);
+    // }
+
   }
 
 
@@ -63,6 +82,8 @@ export class BlogNewsComponent {
     this.showAdBlogPage()
     this.cdr.detectChanges();
   }
+
+
 
   public blogItem: blogItem[] = [
     {
@@ -112,6 +133,13 @@ export class BlogNewsComponent {
       this.adDetails.map((res: any) => {
         if (res.Page_key == 'Home Sidebar') {
           this.blogAd = res.ads_detail
+          if (this.blogAd) {
+            if (this.swiperBlog && this.swiperBlog.nativeElement) {
+              const swiperEl = this.swiperBlog.nativeElement;
+              Object.assign(swiperEl, this.blogSwiperParams);
+              swiperEl.initialize();
+            }
+          }
           this.cdr.detectChanges()
           // console.log("check ad on blog page", this.blogAd)
         }
@@ -124,8 +152,9 @@ export class BlogNewsComponent {
   }
 
   ngOnDestroy() {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
+    // Clear the interval when the component is destroyed
+    if (this.timerIntervals) {
+      clearInterval(this.timerIntervals);
     }
   }
 

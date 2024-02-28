@@ -144,44 +144,55 @@
     position: relative;
     transition: background-image 0.5s ease;
 
-    .ad-text {
-
-      color: var(--white);
-
-      .ad-title {
-        h1 {
-          font-size: 2rem;
-          font-family: Roboto Slab;
-        }
-      }
-
-      .ad-desc {
-        p {
-          font-size: 1.2rem;
-          margin-top: 10px;
-          font-family: 'Roboto';
-        }
-      }
-
-      .explore-more-btn {
-        width: 9rem;
-        transition: none;
-        background-color: #f2f2f2;
-
-        a {
-          color: var(--primary-color-mustard) !important;
-          text-decoration: none;
-        }
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(57, 57, 57, 0.5);
+    }
 
 
-      }
 
-      .explore-more-btn:hover {
-        background-color: transparent;
-        border: solid 1.5px var(--primary-color-mustard);
-        color: var(--primary-color-mustard)
+
+    color: var(--white);
+
+    .ad-title {
+      h1 {
+        font-size: 2rem;
+        font-family: Roboto Slab;
       }
     }
+
+    .ad-desc {
+      p {
+        font-size: 1.2rem;
+        margin-top: 10px;
+        font-family: 'Roboto';
+      }
+    }
+
+    .explore-more-btn {
+      width: 9rem;
+      transition: none;
+      background-color: #f2f2f2;
+
+      a {
+        color: var(--primary-color-mustard) !important;
+        text-decoration: none;
+      }
+
+
+    }
+
+    .explore-more-btn:hover {
+      background-color: transparent;
+      border: solid 1.5px var(--primary-color-mustard);
+      color: var(--primary-color-mustard)
+    }
+
 
     .overlay {
       position: absolute;
@@ -256,6 +267,11 @@ swiper-container::part(bullet-active) {
 swiper-container::part(bullet) {
   background-color: #fff;
   border-radius: 10px;
+}
+
+swiper-container {
+  height: 100%;
+
 }
 
 // @media(max-width:1500px) {

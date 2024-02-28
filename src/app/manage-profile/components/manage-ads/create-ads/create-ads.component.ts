@@ -54,10 +54,10 @@ export class CreateAdsComponent {
   public locationData: boolean = false
   public ipAddress: string = ''
   public locationLoading: boolean = false
-  public isLoader:boolean =false
+  public isLoader: boolean = false
   public billingModelType = [
-    { name: 'Cost per Click', value: 'CPC' },
-    { name: 'Cost per Views', value: 'CPV' },
+    { name: 'Click', value: 'CPC' },
+    { name: 'Views', value: 'CPV' },
   ]
 
   constructor(private profileService: ProfileService, private router: Router,
@@ -255,7 +255,7 @@ export class CreateAdsComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        }).then(()=> this.router.navigate(['/manage-profile/manage-ads']))
+        }).then(() => this.router.navigate(['/manage-profile/manage-ads']))
 
       }
     })
