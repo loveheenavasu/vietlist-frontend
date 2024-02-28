@@ -23,9 +23,7 @@ import { AuthenticationService } from './shared'
   ],
   template: `
     <app-header></app-header>
-    @if (loaderVisible === true) {
-      <app-fullpage-loader></app-fullpage-loader>
-    }
+      <app-fullpage-loader *ngIf="loaderVisible == true"></app-fullpage-loader>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   `,
@@ -40,8 +38,8 @@ export class AppComponent {
     private loaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private changeDetector: ChangeDetectorRef,
-  ) {}
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {

@@ -4,8 +4,9 @@ import { Component, Input } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Router } from '@angular/router'
 import { PlansService } from '../service/plan.service'
-import { FullPageLoaderService, UserStatus } from '@vietlist/shared'
+import { FullPageLoaderService, Roles, UserStatus } from '@vietlist/shared'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-plan',
@@ -22,26 +23,25 @@ export class PlanComponent {
   public planId: any
   public authToken: any
   public isAuthenticated: boolean = false
-  public planHeaderContent?: any
   public freePlanId: any
-  public userDetails:any
+  public userDetails: any
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
     private router: Router,
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
-    private profileService:ProfileService
-  ) {}
+    private profileService: ProfileService,
+  ) { }
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
-    this.planHeaderContent = this.homePageData
+
     this.sessionService.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
     })
-    if(this.isAuthenticated){
-    this.fetchProfileDetail()
+    if (this.isAuthenticated) {
+      this.fetchProfileDetail()
     }
   }
 
@@ -56,7 +56,7 @@ export class PlanComponent {
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 
@@ -75,6 +75,7 @@ export class PlanComponent {
   }
 
   navigateToConfirmPayment(id: any) {
+    // if(this.userDetails?.role == Roles.businessOwner && this i){
     this.freePlanId = id
     if (id == '1') {
       this.handleFreePlan()
@@ -84,6 +85,19 @@ export class PlanComponent {
         this.router.navigateByUrl('/login')
       }
     }
+    // }
+    // else  {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: 'You have to register as a Business Owner to purchase plan',
+    //     animation: false,
+    //     icon: 'error',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //   })
+    // }
   }
 
   handleFreePlan() {
@@ -98,7 +112,26 @@ export class PlanComponent {
           const status = UserStatus.Active
           this.sessionService.setSubscriptonStatus(status)
           this.router.navigateByUrl('/manage-profile')
+        } else {
+          if (!this.isAuthenticated) {
+            this.router.navigateByUrl('/login')
+          } else {
+            Swal.fire({
+              toast: true,
+              text: 'You have to register as a Business Owner to purchase plan',
+              animation: false,
+              icon: 'error',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
         }
+      },
+      error: (err) => {
+        this.loaderService.hideLoader()
+        this.router.navigateByUrl('/login')
       },
     })
   }
@@ -111,7 +144,7 @@ export class PlanComponent {
       console.log(this.userDetails, "userDetails")
       },
       error: (err: any) => {
-
+        this.loaderService.hideLoader()
       },
     })
   }

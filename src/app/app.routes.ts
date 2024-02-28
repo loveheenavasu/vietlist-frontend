@@ -35,7 +35,7 @@ import { MyEventsComponent } from './manage-profile/components/my-events/my-even
 export default [
   {
     path: '',
-    component: HomepageComponent,
+    loadComponent: () => HomepageComponent,
   },
 
   {
@@ -81,15 +81,15 @@ export default [
       },
       {
         path: 'manage-ads',
-        component:AdsListComponent,
+        loadComponent: () => AdsListComponent,
       },
       {
         path: 'create-ad',
-        component:CreateAdsComponent,
+        component: CreateAdsComponent,
       },
       {
         path: 'billing-address',
-        component:BillingAddressComponent,
+        component: BillingAddressComponent,
       },
       {
         path:'manage-events',

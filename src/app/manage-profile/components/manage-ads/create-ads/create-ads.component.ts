@@ -54,7 +54,7 @@ export class CreateAdsComponent {
   public locationData: boolean = false
   public ipAddress: string = ''
   public locationLoading: boolean = false
-
+  public isLoader:boolean =false
   public billingModelType = [
     { name: 'Cost per Click', value: 'CPC' },
     { name: 'Cost per Views', value: 'CPV' },
@@ -228,6 +228,7 @@ export class CreateAdsComponent {
   }
 
   public handleCreateAds() {
+    this.isLoader = true
     this.convertDateFormat()
     const body = {
       buyer_email: this.createAdForm.value.buyer_email,
@@ -242,11 +243,9 @@ export class CreateAdsComponent {
       show_in_country: this.selectedCountry,
       capping: this.createAdForm.value.capping
     }
-    console.log("click is work", body)
     this.profileService.createAd(body).subscribe({
       next: (res: any) => {
-        console.log("check ad response", res)
-        this.location.back();
+        this.isLoader = false
         Swal.fire({
           toast: true,
           text: 'Ad  created successfully ',
@@ -256,12 +255,14 @@ export class CreateAdsComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        })
+        }).then(()=> this.router.navigate(['/manage-profile/manage-ads']))
+
       }
     })
   }
 
   public updateAd() {
+    this.isLoader = true
     this.convertDateFormat()
     const body = {
       buyer_email: this.createAdForm.value.buyer_email,
@@ -276,10 +277,10 @@ export class CreateAdsComponent {
       capping: this.createAdForm.value.capping,
       ad_id: this.adId
     }
-    console.log("check update data", body)
     this.profileService.updateAd(body).subscribe({
       next: (res: any) => {
-        this.location.back();
+        this.isLoader = false
+        this.router.navigateByUrl('manage-profile/manage-ads')
         Swal.fire({
           toast: true,
           text: 'Ad  Updated successfully ',

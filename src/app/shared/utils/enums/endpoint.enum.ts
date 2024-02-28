@@ -55,5 +55,6 @@ export enum Endpoints {
   GetAllEvents = 'get_event_using_userid',
   GetEventDetailsByID = 'get_event_using_postid',
   setReview='set_review',
-  getReview='get_review'
+  getReview='get_review',
+  SetStats = 'set_ad_stats'
 }
