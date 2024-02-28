@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import {
   FooterComponent,
@@ -23,9 +23,7 @@ import { AuthenticationService } from './shared'
   ],
   template: `
     <app-header></app-header>
-    @if (loaderVisible === true) {
-      <app-fullpage-loader></app-fullpage-loader>
-    }
+      <app-fullpage-loader *ngIf="loaderVisible == true"></app-fullpage-loader>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
   `,
@@ -40,11 +38,16 @@ export class AppComponent {
     private loaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
+  }
+
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
   }
 }

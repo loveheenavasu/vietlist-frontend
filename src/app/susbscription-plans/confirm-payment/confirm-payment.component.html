@@ -12,12 +12,16 @@
         (ngSubmit)="onSubmit(checkout)"
         class="checkout mt-4"
       >
-        <div class="form-row mt-4">
+      <div class="form-row mt-4" [ngClass]="{'is-invalid': !billingAddressValid}">
+        <label for="billing-address-element" class="card-details">Billing Address</label>
+        <div id="billing-address-element" #billingAddressElement></div>
+      </div>
+        <!-- <div class="form-row mt-4">
           <label for="billing-address-element" class="card-details"
             >Billing Address</label
           >
           <div id="billing-address-element" #billingAddressElement></div>
-        </div>
+        </div> -->
 
         <div class="form-row mt-4">
           <label for="card-info" class="card-details">Card Details</label>

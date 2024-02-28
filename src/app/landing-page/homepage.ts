@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, NgZone, ViewChild } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, NgZone, ViewChild, ChangeDetectorRef } from '@angular/core'
 import {
   BuisnessCategoryComponent,
   ClaimYourBuisnessComponent,
@@ -47,7 +47,6 @@ export class HomepageComponent {
     'logo1.png',
     'logo2.png',
     'logo3.png',
-    // Add more logo URLs as needed
   ]
   homePageData?: any
   currentLogoIndex = 0
@@ -76,25 +75,27 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
     private IpService: ProfileService,
-    private location: Location,
-    private zone: NgZone
+    private zone: NgZone,
+    private cdr:ChangeDetectorRef
   ) {
     // this.getHomePageContent()
     // this.subscribeToRouterEvents()
     // this.showAdDataFetch()
-    setTimeout(() => {
-      const swiperEl = this.swiper?.nativeElement
-      Object.assign(swiperEl, this.swiperParams)
-      swiperEl.initialize()
-    }, 0)
+    // setTimeout(() => {
+    //   if (this.swiper && this.swiper.nativeElement) {
+    //     const swiperEl = this.swiper.nativeElement;
+    //     Object.assign(swiperEl, this.swiperParams);
+    //     swiperEl.initialize();
+    //   } else {
+    //     console.error('Swiper or nativeElement is undefined or null.');
+    //   }
+    // }, 0);
   }
 
+  
   ngOnInit() {
     this.showAdDataFetch()
-    console.log("check compoment")
     this.getHomePageContent()
-    // this.subscribeToRouterEvents()
-
     if (this.showAdInFooter) {
       // Create a timer observable that emits a value every 6 seconds
       const timer$ = interval(6000);
@@ -107,17 +108,35 @@ export class HomepageComponent {
             this.currentIndex = 0;
           } else {
             this.currentIndex++;
+            this.cdr.detectChanges();
           }
         });
       });
     }
 
   }
+
+  ngAfterViewInit(){
+    this.showAdDataFetch()
+ 
+  }
+
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
         console.log("check ad1", res.data)
         this.adDetails = res.data
+        if(this.adDetails){
+          setTimeout(() => {
+            if (this.swiper && this.swiper.nativeElement) {
+              const swiperEl = this.swiper.nativeElement;
+              Object.assign(swiperEl, this.swiperParams);
+              swiperEl.initialize();
+            } else {
+              console.error('Swiper or nativeElement is undefined or null.');
+            }
+          }, 0);
+        }
         console.log("check ad", this.adDetails)
         this.showAdHomePage()
       }
@@ -194,8 +213,7 @@ export class HomepageComponent {
   public showAdHomePage() {
     this.adDetails.map((data: any) => {
       if (data.Page_key == 'Home Top') {
-        this.showAdInTop = data.ads_detail
-        console.log("check top ad", this.showAdInTop)
+        this.showAdInTop = data.ads_detail;
       }
       if (data.Page_key == 'Home Footer') {
         this.showAdInFooter = data.ads_detail
@@ -218,37 +236,41 @@ export class HomepageComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === '/' || event.url === '/home') {
-          window.location.reload()
+          window.location.reload();
         }
       }
-    })
+    });
   }
 
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
-        this.homePageData = res.data
+        if (res.data) {
+          this.homePageData = res.data
+        }
+        // console.log("check home page content", this.homePageData)
       },
-    })
+    });
   }
 
-  nextLogo() {
-    this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length
-    console.log(this.currentLogoIndex)
+  public nextLogo() {
+    this.currentLogoIndex = (this.currentLogoIndex + 1) % this.logos.length;
   }
 
-  prevLogo() {
+  public prevLogo() {
     this.currentLogoIndex =
-      (this.currentLogoIndex - 1 + this.logos.length) % this.logos.length
+      (this.currentLogoIndex - 1 + this.logos.length) % this.logos.length;
   }
 
   public findBusiness() {
-    this.router.navigateByUrl('/find-business')
+    this.router.navigateByUrl('/find-business');
   }
 
   public listBusiness() {
-    this.router.navigateByUrl('/benefits-of-joining')
+    this.router.navigateByUrl('/benefits-of-joining');
   }
+
+
   ngOnDestroy() {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();

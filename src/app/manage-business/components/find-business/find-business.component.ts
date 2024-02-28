@@ -21,10 +21,11 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import Swal from 'sweetalert2'
+import { interval, take, repeat } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
-import { interval, repeat, take } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import Swal from 'sweetalert2'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'app-find-business',
@@ -76,13 +77,15 @@ export class FindBusinessComponent {
   public ipAddress: any
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
+  public categoryName: any
 
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private fb: FormBuilder,
     private searchAd: HomepageService,
-    private IpService: ProfileService
+    private IpService: ProfileService,
+    private route: ActivatedRoute
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -92,10 +95,13 @@ export class FindBusinessComponent {
       price: [''],
       slidervalue: [''],
     })
+
+
   }
 
   ngOnInit() {
     this.fetchSearchAd()
+    this.getPublishBusinessData()
     if (this.searchPageAd) {
       interval(30000)
         .pipe(take(this.searchPageAd.length), repeat())
@@ -106,12 +112,27 @@ export class FindBusinessComponent {
           else {
             this.currentIndex++;
           }
-
         });
     }
+
+    this.route.params.subscribe((res) => {
+      this.categoryName = res['categoryName']
+      if (this.categoryName) {
+        this.route.queryParams.subscribe((params) => {
+          const selectedCategoryId = params['id']
+          if (selectedCategoryId) {
+            this.findBusinessForm.controls['post_category'].setValue(+selectedCategoryId)
+            const postPerPage = 2
+            this.searchBusiness()
+          }
+        })
+
+
+      }
+    })
+
     this.getBusinessCat()
     this.initMap()
-    this.getPublishBusinessData()
     // this.searchBusiness()
     this.findBusinessForm.value.slidervalue.setValue(0)
   }
@@ -216,7 +237,7 @@ export class FindBusinessComponent {
           }
         })
         this.initMap()
-        console.log(this.findBusinessData, 'RESPONSE')
+
       },
     })
   }
@@ -276,6 +297,7 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country
     }
+    console.log("param", params)
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
@@ -284,6 +306,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        console.log("check findbusiness", this.findBusinessData)
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
       },
@@ -296,7 +319,7 @@ export class FindBusinessComponent {
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
     this.currentPage = event
-    console.log('check pagination ', this.currentPage)
+  
     if (this.findBusinessForm.value.post_category) {
       this.searchBusiness()
     } else {
@@ -311,7 +334,7 @@ export class FindBusinessComponent {
   }
 
   public initMap() {
-    console.log(this.latitude, this.longitude, 'LATLNG')
+    
     let map: any
     const mapElement = document.getElementById('map')
 
@@ -337,7 +360,7 @@ export class FindBusinessComponent {
         // ];
 
         this.findBusinessData.forEach((data) => {
-          console.log('check data', data)
+
           const marker = new google.maps.Marker({
             position: {
               lat: parseFloat(data.latitude),
@@ -346,11 +369,11 @@ export class FindBusinessComponent {
             map: map,
             title: 'Marker Title',
           })
-          console.log('check marker', marker)
+         
         })
       }
     } else {
-      console.error('Map element not found')
+      
     }
   }
 

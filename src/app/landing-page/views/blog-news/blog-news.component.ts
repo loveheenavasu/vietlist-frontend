@@ -1,11 +1,11 @@
-import { Component, HostListener, Input, Output, EventEmitter } from '@angular/core'
+import { Component, HostListener, Input, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { NgClass, NgFor } from '@angular/common'
 import { blogItem } from '@vietlist/shared'
-import { interval, repeat, take } from 'rxjs'
+import { interval, repeat, Subscription, take } from 'rxjs'
 
 
 @Component({
@@ -30,7 +30,8 @@ export class BlogNewsComponent {
   public blogDetail?: any
   public blogAd?: any
   public currentIndex: number = 0
-  constructor() { }
+  public timerSubscription?: Subscription;
+  constructor(private zone: NgZone , private cdr:ChangeDetectorRef) { }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
@@ -41,17 +42,26 @@ export class BlogNewsComponent {
     // this.blogDetail = this.homePageData
     this.showAdBlogPage()
     if (this.blogAd) {
-      interval(30000)
-        .pipe(take(this.blogAd.length), repeat())
-        .subscribe(() => {
-          if (this.currentIndex === this.blogAd.length - 1) {
+      // Create a timer observable that emits a value every 6 seconds
+      const timer$ = interval(6000);
+      // Subscribe to the timer observable
+      this.timerSubscription = timer$.subscribe(() => {
+        // Update content periodically
+        this.zone.run(() => {
+          if (this.currentIndex === (this.blogAd.length - 1)) {
             this.currentIndex = 0;
-          }
-          else {
+          } else {
             this.currentIndex++;
           }
         });
+      });
     }
+  }
+
+
+  ngAfterContentChecked(): void {
+    this.showAdBlogPage()
+    this.cdr.detectChanges();
   }
 
   public blogItem: blogItem[] = [
@@ -102,6 +112,7 @@ export class BlogNewsComponent {
       this.adDetails.map((res: any) => {
         if (res.Page_key == 'Home Sidebar') {
           this.blogAd = res.ads_detail
+          this.cdr.detectChanges()
           // console.log("check ad on blog page", this.blogAd)
         }
       })
@@ -110,6 +121,12 @@ export class BlogNewsComponent {
 
   public CountClickStats(adId: string, spaceId: string) {
     this.bannerClick.emit({ adId, spaceId });
+  }
+
+  ngOnDestroy() {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
 }

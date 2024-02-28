@@ -139,8 +139,9 @@ export class PlanComponent {
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
-        this.userDetails = res.data?.user
-        console.log(this.userDetails, 'userDetails')
+      this.userDetails = res.data?.user
+      this.sessionService.userDetails.next(this.userDetails)
+      console.log(this.userDetails, "userDetails")
       },
       error: (err: any) => {
         this.loaderService.hideLoader()

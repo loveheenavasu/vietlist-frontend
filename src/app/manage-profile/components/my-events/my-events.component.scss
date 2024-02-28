@@ -1,0 +1,14 @@
+@import "../../../../assets/scss/common";
+@import "../../../../assets/scss/table.scss";
+@import "../../../../assets/scss/banner";
+.heading_____ {
+    display: flex;
+    justify-content: space-between;
+}
+th{
+    text-align: center;
+}
+.fa{
+    margin: 5px;
+     cursor: pointer;
+}

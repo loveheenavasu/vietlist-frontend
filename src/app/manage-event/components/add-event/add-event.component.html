@@ -10,9 +10,9 @@
         <h1 class="listing-form-heading">Event Information</h1>
       </div>
     </div>
-    <form [formGroup]="businessInfoForm">
+    <form [formGroup]="addEventForm">
       <section class="my-4">
-        <div class="row my-4 px-2 align-items-center">
+        <!-- <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
               >Recurring Event <span class="asterik">*</span></label
@@ -27,7 +27,7 @@
               <mat-radio-button value="false"> No</mat-radio-button>
             </mat-radio-group>
           </div>
-        </div>
+        </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
@@ -41,6 +41,7 @@
                 [matDatepicker]="picker"
                 class="input-control"
                 (click)="picker.open()"
+                formControlName="eventStartDate"
               />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker></mat-datepicker>
@@ -60,13 +61,14 @@
                 [matDatepicker]="picker2"
                 class="input-control"
                 (click)="picker2.open()"
+                formControlName="eventEndDate"
               />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker2></mat-datepicker>
             </div>
           </div>
         </div>
-        @if (recurringEvent.value == 'true') {
+        <!-- @if (recurringEvent.value == 'true') {
           <div class="row my-4 px-2 align-items-center">
             <div class="col-12 col-md-12 col-lg-4">
               <label class="listing-form-label">Event Duration(days)</label>
@@ -74,9 +76,15 @@
             <div class="col-12 col-md-12 col-lg-8">
               <input
                 type="number"
+                id="Duration"
+                name="Duration"
                 class="input-control"
                 formControlName="event_duration"
+                required
               />
+              <div class="error-message" *ngIf="addEventForm.controls['event_duration'].invalid && addEventForm.controls['event_duration'].touched">
+                Duration is required.
+            </div>
             </div>
           </div>
           <div class="row my-4 px-2 align-items-center">
@@ -89,6 +97,9 @@
                 class="input-control"
                 formControlName="repeats_event"
               />
+              <div class="error-message" *ngIf="addEventForm.controls['repeats_event'].invalid && addEventForm.controls['repeats_event'].touched">
+                Repeats event is required.
+            </div>
             </div>
           </div>
           <div class="row my-4 px-2 align-items-center">
@@ -101,6 +112,9 @@
                 class="input-control"
                 formControlName="event_type"
               />
+              <div class="error-message" *ngIf="addEventForm.controls['event_type'].invalid && addEventForm.controls['event_type'].touched">
+                Event type  is required.
+            </div>
             </div>
           </div>
           <div class="row my-4 px-2 align-items-center">
@@ -112,7 +126,7 @@
             <div class="col-12 col-md-12 col-lg-8">
               <mat-radio-group
                 aria-label="Select an option"
-                [formControl]="recurringEvent"
+                formControlName="occurrences"
               >
                 <mat-radio-button value="After a certain number of occurrences"
                   >After a certain number of occurrences
@@ -121,6 +135,9 @@
                   After a certain date</mat-radio-button
                 >
               </mat-radio-group>
+              <div class="error-message" *ngIf="addEventForm.controls['occurrences'].invalid && addEventForm.controls['occurrences'].touched">
+                Occurrences is required.
+            </div>
             </div>
           </div>
           <div class="row my-4 px-2 align-items-center">
@@ -136,21 +153,79 @@
                   [matDatepicker]="picker3"
                   class="input-control"
                   (click)="picker3.open()"
+                  formControlName="end_date_recurring"
                 />
+
                 <i class="fa fa-calendar-o"></i>
                 <mat-datepicker #picker3></mat-datepicker>
+                <div class="error-message" *ngIf="addEventForm.controls['end_date_recurring'].invalid && addEventForm.controls['end_date_recurring'].touched">
+                  End date recurring is required.
+              </div>
               </div>
             </div>
           </div>
-        }
+        } -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Set event for all day </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="form-check-input" type="checkbox" />
+            <input class="form-check-input" type="checkbox"  [formControl]="recurringEvent"/>
           </div>
         </div>
+
+        @if (!checkValue) {
+       
+        
+          <div class="row my-4 px-2 align-items-center">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label class="listing-form-label"
+                > Start Time <span class="asterik">*</span></label
+              >
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  
+                  class="input-control"
+                  type="time"
+                  formControlName="startTime"
+                />
+
+                <!-- <i class="fa fa-calendar-o"></i> -->
+                <!-- <mat-datepicker #picker4></mat-datepicker> -->
+                <div class="error-message" *ngIf="addEventForm.controls['startTime'].invalid && addEventForm.controls['startTime'].touched">
+                  Start Time is required.
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row my-4 px-2 align-items-center">
+            <div class="col-12 col-md-12 col-lg-4">
+              <label class="listing-form-label"
+                > End Time <span class="asterik">*</span></label
+              >
+            </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  type="time"
+                  class="input-control"
+                  formControlName="endTime"
+                />
+
+                <!-- <i class="fa fa-calendar-o"></i> -->
+                <!-- <mat-datepicker #picker3></mat-datepicker> -->
+                <div class="error-message" *ngIf="addEventForm.controls['endTime'].invalid && addEventForm.controls['endTime'].touched">
+                  End Time  is required.
+              </div>
+              </div>
+            </div>
+          </div>
+        }
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
@@ -162,7 +237,7 @@
               placeholder="Enter Event Title"
               class="input-control"
               type="text"
-              formControlName="post_title"
+              formControlName="event_title"
             />
           </div>
         </div>
@@ -175,7 +250,7 @@
           <div class="col-12 col-md-12 col-lg-8">
             <textarea
               class="input-control"
-              formControlName="post_content"
+              formControlName="event_description"
             ></textarea>
           </div>
         </div>
@@ -187,19 +262,17 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <mat-select
-              (selectionChange)="onCategoryChange()"
               class="vietlist-select"
               placeholder="Category"
-              formControlName="post_category"
-              multiple
+              formControlName="post_category"   
             >
-              @for (key of post_category; track $index) {
+              @for (key of post_categorys; track $index) {
                 <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
           </div>
         </div>
-        <div class="row my-4 px-2 align-items-center">
+        <!-- <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
               >Default Category <span class="asterik">*</span></label
@@ -220,14 +293,14 @@
               marker.</small
             >
           </div>
-        </div>
-        <div class="row my-4 px-2 align-items-center">
+        </div> -->
+        <!-- <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
               >Tags<span class="asterik">*</span></label
             >
-          </div>
-          <div class="col-12 col-md-12 col-lg-8">
+          </div> -->
+          <!-- <div class="col-12 col-md-12 col-lg-8">
             <ng-select
               class="select2-selection"
               [items]="post_tags"
@@ -245,7 +318,7 @@
               tag3).</small
             >
           </div>
-        </div>
+        </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
@@ -363,7 +436,7 @@
             />
           </div>
         </div>
-        <div class="row my-4 px-2 align-items-center">
+        <div class="row my-4 px-2 align-items-center"  *ngIf="vediosHide?.level_id !='1'">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Map View</label>
           </div>
@@ -381,34 +454,47 @@
             </mat-select>
           </div>
         </div>
-        <div class="row px-2 my-3">
+        <div class="row my-3 px-2" >
           <div class="col-12">
-            <label for="" class="listing-form-label mb-2">Business Logo</label>
-            <ngx-dropzone
-              *ngIf="!files.length"
-              (change)="onSelect($event)"
-              [accept]="'.png,.png,.png , .webp'"
-            >
-              <ngx-dropzone-label>
-                <i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
-                here or Browse a file (Allowed .png, .png, .png, .webp)
-              </ngx-dropzone-label>
-            </ngx-dropzone>
-
-            <div class="row selected-images" *ngIf="isFilesPresent">
-              <div class="mx-2">
-                <div class="image-box">
-                  <img [src]="uploadMediaUrl" />
-                  <button
-                    (click)="onRemove()"
-                    class="btn orange-background-btn mt-2"
-                  >
-                    Remove
-                  </button>
-                </div>
+            <!--a dropzone-->
+            <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+            <div class="row">
+              <div class="col-sm-2 col-md-12">
+                <label for="" class="listing-form-label mb-2">Images</label>
               </div>
-              <app-loader *ngIf="!uploadMediaUrl"></app-loader>
+              <div class="col-sm-10 col-md-12 upload-instruction">
+              </div>
             </div>
+            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+                or
+                Browse a file</ngx-dropzone-label>
+              <div *ngIf="isImageUploading" class="loader"></div>
+            
+            </ngx-dropzone>
+            <div class="main_images">
+              <!-- @for (preview of levelOneImageArr; track $index) { -->
+      
+              <div class="images__" *ngIf="ImageUrl">
+                <div class="removeImage">
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem()"></i>
+                </div>
+                <img [src]="ImageUrl" alt="Image Preview" width="150" height="150"  class="imagePriview"/>
+              </div>
+              <!-- } -->
+            </div>
+          </div>
+        </div>
+        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
+          <div class="col-12 col-md-12 col-lg-12">
+            <mat-checkbox class="event-checkbox" [formControl]="status">Is Bookable <span
+                class="asterik">*</span></mat-checkbox>
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-12">
+            <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
+              [formControl]="recaptcha"></re-captcha>
           </div>
         </div>
         <div style="width: 100%; text-align: end">
@@ -416,14 +502,15 @@
             type="button"
             class="btn orange-background-btn ms-auto"
             [disabled]="
-              !businessInfoForm.valid ||
+              !addEventForm.valid ||
               !country ||
               !zipcode ||
               !state ||
               !city ||
-              !tags
+              !recaptcha.value ||
+              debounce
             "
-            (click)="addBusiness()"
+            (click)="addEvent()"
           >
             <app-loader *ngIf="isloader"></app-loader
             ><span *ngIf="!isloader">Next</span>

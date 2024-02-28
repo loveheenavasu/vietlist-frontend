@@ -1,11 +1,20 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-
-
+@import "../../../../assets/scss/image-loader.scss";
   .mat-mdc-form-field {
     margin-top: 16px;
   }
-  
+  ::ng-deep.mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
+    background-color: var(--primary-color-orange) !important;
+
+}
 
   .main-card{
   margin: auto;
@@ -15,8 +24,10 @@
   max-width:1140px;
   padding: 35px;
   }
-
-
+.imagePriview{
+  object-fit: scale-down;
+}
+  
   .mat-mdc-radio-button ~ .mat-mdc-radio-button {
     margin-left: 16px;
   }

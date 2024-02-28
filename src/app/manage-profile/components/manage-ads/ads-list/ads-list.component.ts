@@ -1,7 +1,7 @@
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { AuthenticationService } from '@vietlist/shared';
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -13,12 +13,13 @@ import Swal from 'sweetalert2'
 })
 export class AdsListComponent {
   public allAds: any[] = []
-  constructor(private profileService: ProfileService, private router: Router, private sessionService: AuthenticationService) { }
+  constructor(private profileService: ProfileService, private router: Router, private sessionService: AuthenticationService , private fullpageloader:FullPageLoaderService) { }
 
   ngOnInit() {
     this.getAllAds()
   }
 
+  
 
 
   public handleCreateAdd() {
@@ -32,7 +33,6 @@ export class AdsListComponent {
   }
 
   public deleteAd(adId: any) {
-    console.log("check delete id", adId)
     Swal.fire({
       title: 'Do you really want to delete this Ad?',
       text: "You won't be able to revert this!",
@@ -68,9 +68,10 @@ export class AdsListComponent {
 
   }
   public getAllAds() {
+  this.fullpageloader.showLoader()
     this.profileService.getAdByUserId().subscribe({
       next: (res) => {
-        console.log("check the ad data by userId", res)
+        this.fullpageloader.hideLoader()
         this.allAds = res.data;
       }
     })

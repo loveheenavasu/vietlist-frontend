@@ -1,4 +1,4 @@
-import { BusinessBioComponent } from './manage-business/components/business-bio/business-bio.component'
+
 import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
 import { Routes } from '@angular/router'
@@ -11,10 +11,8 @@ import {
   FindBusinessComponent,
   ListBusinessComponent,
   PreviewBusinessComponent,
-  SubscriptionFormComponent,
 } from './manage-business'
 import { BusinessCategories, BusinessListingComponent } from './categories'
-import { ConsultationFormComponent } from './manage-business/components/consultation-form/consultation-form.component'
 import {
   BillingAddressComponent,
   ChangePasswordComponent,
@@ -28,6 +26,11 @@ import {
 import { AddEventComponent } from './manage-event'
 import { CreateAdsComponent } from './manage-profile/components/manage-ads/create-ads/create-ads.component'
 import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
+import { AllEventComponent } from './manage-event/components/all-event/all-event.component'
+import { EventDetailsComponent } from './manage-event/components/event-details/event-details.component'
+import { LoginGuard } from './shared/utils/guard/login.guard'
+import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
+// import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
   {
@@ -42,6 +45,7 @@ export default [
   {
     path: 'login',
     loadComponent: () => LoginComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'manage-profile',
@@ -49,31 +53,31 @@ export default [
     children: [
       {
         path: '',
-        component: EditProfileComponent,
+        loadComponent: () => EditProfileComponent,
       },
       {
         path: 'my-business',
-        component: MyBusinessComponent,
+        loadComponent: () => MyBusinessComponent,
       },
       {
         path: 'change-password',
-        component: ChangePasswordComponent,
+        loadComponent: () => ChangePasswordComponent,
       },
       {
         path: 'delete-account',
-        component: DeleteAccountComponent,
+        loadComponent: () => DeleteAccountComponent,
       },
       {
         path: 'setting',
-        component: SettingComponent,
+        loadComponent: () => SettingComponent,
       },
       {
         path: 'privacy',
-        component: PrivacyComponent,
+        loadComponent: () => PrivacyComponent,
       },
       {
         path: 'subscription',
-        component: ManageSubscriptionComponent,
+        loadComponent: () => ManageSubscriptionComponent,
       },
       {
         path: 'manage-ads',
@@ -81,12 +85,16 @@ export default [
       },
       {
         path: 'create-ad',
-        component: CreateAdsComponent,
+        loadComponent: () => CreateAdsComponent,
       },
       {
         path: 'billing-address',
-        component: BillingAddressComponent,
+        loadComponent: () => BillingAddressComponent,
       },
+      {
+        path:'manage-events',
+        loadComponent: () => MyEventsComponent
+      }
     ],
     canActivate: [AuthGuard],
   },
@@ -107,8 +115,13 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
+    path: 'find-business/:categoryName',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
+    canActivate: [AuthGuard] 
   },
   {
     path: 'benefits-of-joining',
@@ -129,6 +142,18 @@ export default [
   {
     path: 'add-event',
     loadComponent: () => AddEventComponent,
+  },
+  {
+    path: 'edit-event/:id',
+    loadComponent: () => AddEventComponent,
+  },
+  {
+    path: 'events',
+    loadComponent: () => AllEventComponent,
+  },
+  {
+    path: 'event-details/:id',
+    loadComponent: () => EventDetailsComponent,
   },
   {
     path: '**',

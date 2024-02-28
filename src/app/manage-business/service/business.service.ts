@@ -77,8 +77,14 @@ export class BusinessService {
   }
 
   public ListingBusiness(): Observable<any> {
+    
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness)
     return this.http.get<any>(endpoint)
+  }
+  public GetReviewList(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.getReview)
+    const params = new HttpParams().set('post_id', body)
+    return this.http.get<any>(endpoint, {params: params })
   }
 
   public trendingBusiness(): Observable<any> {
