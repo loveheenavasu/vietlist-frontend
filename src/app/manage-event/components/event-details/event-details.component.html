@@ -38,11 +38,11 @@
             </tr>
             <tr >
               <td class="table-title">Start Time</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time || 'NA' }}</td>
             </tr>
              <tr >
               <td class="table-title">End Time</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time || 'NA' }}</td>
             </tr>
             <tr >
               <td class="table-title">Category</td>
@@ -64,20 +64,20 @@
             </tr>
             <tr >
               <td class="table-title">Region</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region || 'NA'  }}</td>
             </tr>
             <tr >
               <td class="table-title">Country</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country || 'NA'  }}</td>
             </tr>
             <tr >
               <td class="table-title">City</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city || 'NA' }}</td>
             </tr>
          
              <tr >
               <td class="table-title">Zip</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip || 'NA'  }}</td>
             </tr>
           </tbody>
         </table>

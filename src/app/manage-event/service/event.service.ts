@@ -50,7 +50,7 @@ export class EventService {
   }
 
   public findEvents(params: { [key: string]: any }): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindBusiness)
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.FindEvent)
     let queryParams = new HttpParams()
     Object.keys(params).forEach((key) => {
       if (params[key] !== undefined) {
