@@ -2,31 +2,39 @@
 @import "../../../../assets/scss/banner";
 
 
-.container{
-    // max-width:1140px;
-    // width:100%;
-    // box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    margin-top:4rem;
-    margin-bottom:4rem;
+.main-container{
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    // background-color: #c0bfbf0c;
+    padding: 35px;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .event-page-heading{
     font-size:24px
 }
-.d-flex.headings__ h3 {
-    width: 100%;
-    /* margin-right: 10px; */
-    font-size: 18px;
-    /* text-align: center; */
-    margin-top: 16px;
-}
-.d-flex.headings___ p {
-    width: 100%;
+.headings__ {
+    font-size: 17px;
+    color:grey;
+    font-weight:var(--font-weight-normal)
 }
 
-.content{
-    font: size 24px;
-    color:var(--dark-grey)
+
+.content__{
+    font-size:17px;
+    color:var(--dark-grey);
+    background-color: #e2f2ff;
+    padding:15px;
+    border-radius:2px
+}
+
+  .table-title{
+    color: #000;
+    opacity: .6;
+    width: 15em;
+    font-size:15.5px;
 }
 
 .profile-info-div{
@@ -44,6 +52,7 @@
     color:var(--dark-grey);
     text-align: center  ;
 }
+
 
 .heading-left{
     font-size: 32px;

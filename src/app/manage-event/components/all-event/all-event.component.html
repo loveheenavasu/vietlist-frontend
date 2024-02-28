@@ -17,6 +17,9 @@
           }
         </mat-select>
       </div>
+      <div class="flex-grow-1 mx-1">
+        <input type="text" class="input-control" placeholder="Enter Title" [formControl]="postTitle"/>
+      </div>
       <div class="mx-1 flex-grow-1">
         <AutocompleteComponent
           (setAddress)="getAddress($event)"
@@ -74,7 +77,7 @@
           ) {
             <div class="grid-card col-lg-4">
               <div class="listing-img">
-                <img [src]="key.image" />
+                <img [src]="key.featured_image" />
               </div>
               <div class="listing-description">
                 <div class="listing-heading">
@@ -94,15 +97,17 @@
                 <!-- <div class="lisiting-package">
                     <span>$ Package : Free Business</span>
                   </div> -->
-                <!-- <div class="listing-rating">
-                    <div class="d-flex">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
+                  @if(key?.rating_count){
+                    <div class="listing-rating">
+                      <div class="d-flex">
+                        @if(key?.rating_count >= 1) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 2) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 3) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >  4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                      </div>
                     </div>
-                  </div> -->
+                  }
               </div>
             </div>
           }
@@ -122,7 +127,7 @@
             <div class="d-flex small-screen-view">
               <div class="listing-img-container">
                 <div class="listing-img">
-                  <img [src]="key.image" />
+                  <img [src]="key.featured_image" />
                 </div>
               </div>
               <div class="listing-img-info">
@@ -143,15 +148,17 @@
                 <!-- <div class="lisiting-package">
                     <span>$ Package : Free Business</span>
                   </div> -->
-                <!-- <div class="listing-rating">
-                    <div class="d-flex">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
+                  @if(key?.rating_count){
+                    <div class="listing-rating">
+                      <div class="d-flex">
+                        @if(key?.rating_count >= 1) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 2) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 3) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >= 4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                        @if(key?.rating_count >  4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(155, 155, 155);font-size:17px"></i>}
+                      </div>
                     </div>
-                  </div> -->
+                  }
               </div>
             </div>
           }
