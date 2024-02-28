@@ -76,7 +76,7 @@ export class HomepageComponent {
     private homePageContent: HomepageService,
     private IpService: ProfileService,
     private zone: NgZone,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) {
     // this.getHomePageContent()
     // this.subscribeToRouterEvents()
@@ -92,7 +92,7 @@ export class HomepageComponent {
     // }, 0);
   }
 
-  
+
   ngOnInit() {
     this.showAdDataFetch()
     this.getHomePageContent()
@@ -116,17 +116,17 @@ export class HomepageComponent {
 
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.showAdDataFetch()
- 
+
   }
 
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
-        console.log("check ad1", res.data)
+        // console.log("check ad1", res.data)
         this.adDetails = res.data
-        if(this.adDetails){
+        if (this.adDetails) {
           setTimeout(() => {
             if (this.swiper && this.swiper.nativeElement) {
               const swiperEl = this.swiper.nativeElement;
