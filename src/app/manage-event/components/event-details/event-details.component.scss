@@ -117,6 +117,47 @@
     display: flex;
     align-items: start;
 }
+.social-link {
+    padding-top: 1.25rem;
+
+    ul {
+        display: flex;
+        gap: 10px;
+        padding: 0px;
+    }
+}
+
+ul {
+    list-style-type: none;
+
+    .flex-row {
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+    }
+
+    li {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+        height: auto;
+
+        .info-wrapper {
+            width: 385px;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .links {
+        cursor: pointer;
+
+        &:hover {
+            color: var(--primary-color-orange)
+        }
+    }
+}
 .images__{
     overflow: hidden;
 }
@@ -153,3 +194,12 @@ ngx-star-rating .star {
     color: var(--dark-grey);
     font-size: 15px;
   }
+  .btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    color: var(--bs-btn-disabled-color);
+    pointer-events: none;
+    background-color: var(--bs-btn-disabled-bg);
+    border-color: var(--bs-btn-disabled-border-color);
+    opacity: var(--bs-btn-disabled-opacity);
+    background: orange!important;
+    border: none!important;
+}

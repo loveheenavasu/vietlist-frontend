@@ -17,6 +17,7 @@ import { BusinessService } from 'src/app/manage-business/service/business.servic
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
+import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 // NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
@@ -37,6 +38,10 @@ import Swal from 'sweetalert2'
   encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
+  starRatingValue!: number ;
+  
+  rating3: number;
+  public footerPageContent?: any
   public reviewForm!: FormGroup
   public isImageUploading: boolean = false
   public files: File[] = []
@@ -59,7 +64,9 @@ export class EventDetailsComponent {
     private fb: FormBuilder,
     private businessService: BusinessService,
     private profileService: ProfileService,
+    private footerContent: HomepageService,
   ) {
+    this.rating3 = 2;
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
       rating: ['', Validators.required],
@@ -74,6 +81,7 @@ export class EventDetailsComponent {
       ],
       comment_author_url: [''],
       save: [''],
+      starRatingValue:['']
     })
 
     this._activatedRoute.params.subscribe((res) => {
@@ -86,6 +94,7 @@ export class EventDetailsComponent {
   }
 
   ngOnInit() {
+    this.starRatingValue = 5
     if (this.postId) {
       this.getEventDetails()
     }
@@ -262,7 +271,7 @@ export class EventDetailsComponent {
           this.getReviews()
           Swal.fire({
             toast: true,
-            text: 'Review Added Successfully...',
+            text: res.message,
             animation: false,
             icon: 'success',
             position: 'top-right',

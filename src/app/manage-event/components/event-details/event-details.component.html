@@ -19,8 +19,8 @@
   <div class="breadcrumb mt-4">
     <div class="breadcrumb">
       <span class="manage-business" (click)="goToEvent()">Events</span>
-      <span class="business-details">&nbsp; > </span>
-      <span class="business-details">&nbsp;Event Details</span>
+      <span class="business-details">  > </span>
+      <span class="business-details"> Event Details</span>
     </div>
   </div>
 }
@@ -81,8 +81,7 @@
               <td class="table-title">City</td>
               <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city || 'NA' }}</td>
             </tr>
-
-            <tr>
+<tr>
               <td class="table-title">Zip</td>
               <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip || 'NA'}}</td>
             </tr>
@@ -142,7 +141,7 @@
            
             </span>
             <span class="rating__">
-              <ngx-star-rating [disabled]="true"></ngx-star-rating>
+              <ngx-star-rating [(ngModel)]="key.rating" [ngModelOptions]="{standalone: true}" [disabled]="true"></ngx-star-rating>
             </span>
           </div>
           <div class="comment-content comment card-body my-5">
@@ -174,9 +173,7 @@
           <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left;"></ngx-star-rating>
         </div>
       </div>
-
-
-      <!-- <div class="row my-3 px-2">
+<!-- <div class="row my-3 px-2">
         <div class="col-12">
           <div class="row">
             <div class="col-sm-2 col-md-12">
