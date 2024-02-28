@@ -110,20 +110,6 @@ export class HomepageComponent {
   ngOnInit() {
     this.showAdDataFetch()
     this.getHomePageContent()
-
-    if (this.showAdInFooter) {
-      // Create an interval that updates content every 6 seconds
-      this.timerInterval = setInterval(() => {
-
-        if (this.currentIndex === (this.showAdInFooter.length - 1)) {
-          this.currentIndex = 0;
-        } else {
-          this.currentIndex++;
-        }
-        // Ensure Angular runs change detection after updating content
-        this.cdr.detectChanges();
-      }, 6000);
-    }
   }
 
 
@@ -273,7 +259,7 @@ export class HomepageComponent {
         if (res.data) {
           this.homePageData = res.data
         }
-        // console.log("check home page content", this.homePageData)
+        console.log("check home page content", this.homePageData)
       },
     });
   }

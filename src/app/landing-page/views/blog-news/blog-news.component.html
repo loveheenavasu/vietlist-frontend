@@ -11,11 +11,11 @@
     </div>
     <div class="blog-article col-12 col-md-12 col-lg-9">
       <div class="heading text-center">
-        <h1>{{ blogDetail?.blog_section?.title }}</h1>
+        <h1>{{ homePageData?.blog_section?.title }}</h1>
         <p>
-          {{ blogDetail?.blog_section?.description }}
+          {{ homePageData?.blog_section?.description }}
         </p>
-        <button class="btn orange-background-btn">View All Articles</button>
+        <button class="btn orange-background-btn">{{ homePageData?.blog_section?.view_all_articles }}</button>
       </div>
       <div class="blog-card">
         @for (item of blogItem; track $index) {
