@@ -49,5 +49,7 @@ export enum Endpoints {
   ShowAd = 'get_ad_and_space_data',
   AddEvent = 'set_event',
   GetAllEvents = 'get_event_using_userid',
-  GetEventDetailsByID = 'get_event_using_postid'
+  GetEventDetailsByID = 'get_event_using_postid',
+  setReview='set_review',
+  getReview='get_review'
 }
