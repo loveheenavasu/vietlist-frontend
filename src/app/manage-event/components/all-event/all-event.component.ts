@@ -46,7 +46,7 @@ export class AllEventComponent {
   public event_category: any[] = []
   public category = new FormControl('')
   public postTitle = new FormControl('')
-  public postPerPage: number = 10
+  public postPerPage: number = 6
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
@@ -94,6 +94,7 @@ export class AllEventComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.publishEventsArray = res.data
+        this.totalCount = res.total_count
         console.log(res)
         console.log(this.publishEventsArray)
       },
@@ -130,7 +131,7 @@ export class AllEventComponent {
 
 
   public searchBusiness() {
-    if (!this.category.value && !this.street) {
+    if (!this.category.value && !this.street && !this.postTitle.value) {
       Swal.fire({
         toast: true,
         text: 'Please fill either category or address',
@@ -150,8 +151,8 @@ export class AllEventComponent {
     if (post_category) {
       params['post_category'] = post_category
     }
-    if(this.postTitle){
-      params['post_title'] = this.postTitle
+    if(this.postTitle.value){
+      params['post_title'] = this.postTitle.value
     }
     if (postPerPage) {
       params['posts_per_page'] = postPerPage
