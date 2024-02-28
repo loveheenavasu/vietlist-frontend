@@ -4,7 +4,7 @@
 @import "../../../../assets/scss/image-loader";
 
 .main-container{
-    max-width: 1200px;
+    max-width: 1140px;
     width: 100%;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     // background-color: #c0bfbf0c;
@@ -142,3 +142,14 @@ padding-left: 13px;
 ngx-star-rating .star {
     width: 39px;
 }
+
+
+.form-check-input:checked {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+  }
+  
+  .form-check-label {
+    color: var(--dark-grey);
+    font-size: 15px;
+  }

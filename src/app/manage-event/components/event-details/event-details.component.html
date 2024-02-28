@@ -1,5 +1,5 @@
 <section class="banner">
-  <div class="content">
+  <div class="content" >
     <h1>{{ eventDetails?.post_title | titlecase }}</h1>
     <p>{{ eventDetails?.country }}</p>
     <div class="listing-rating">
@@ -15,13 +15,15 @@
 </section>
 
 <div class="container">
-  <div class="breadcrumb">
+  @if(isGlobal == false){
+  <div class="breadcrumb mt-4">
     <div class="breadcrumb">
-      <span class="manage-business" (click)="manageBusiness()">Events</span>
+      <span class="manage-business" (click)="goToEvent()">Events</span>
       <span class="business-details">&nbsp; > </span>
       <span class="business-details">&nbsp;Event Details</span>
     </div>
   </div>
+}
   <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
 
@@ -45,15 +47,15 @@
             </tr>
             <tr>
               <td class="table-title">Start Time</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time || 'NA' }}</td>
             </tr>
             <tr>
               <td class="table-title">End Time</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time || 'NA'}}</td>
             </tr>
             <tr>
               <td class="table-title">Category</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.post_category }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.post_category?.name }}</td>
             </tr>
           </tbody>
         </table>
@@ -69,20 +71,20 @@
             </tr>
             <tr>
               <td class="table-title">Region</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region || 'NA' }}</td>
             </tr>
             <tr>
               <td class="table-title">Country</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country || 'NA' }}</td>
             </tr>
             <tr>
               <td class="table-title">City</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city || 'NA' }}</td>
             </tr>
 
             <tr>
               <td class="table-title">Zip</td>
-              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip }}</td>
+              <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip || 'NA'}}</td>
             </tr>
           </tbody>
         </table>
@@ -122,12 +124,13 @@
     </div>
   </div>
 
-  @if(isGlobal == 'true'){
+  <!-- @if(isGlobal == 'true'){ -->
   <form [formGroup]="reviewForm">
 
     <div class="row mt-5">
 
       <div class="col-12 col-lg-6">
+        @for(key of reviewsArray; track $index){
         <div class="card mt-3 shadow-sm">
           <div class="bsui toast-header">
             <div class="profile__">
@@ -135,38 +138,35 @@
                 src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
             </div>
             <span>
-              {{'testing01@yopmail.com'}}
+              {{key.comment_author_email}}
+           
             </span>
             <span class="rating__">
               <ngx-star-rating [disabled]="true"></ngx-star-rating>
             </span>
           </div>
-          <div class="comment-content comment card-body m-0">
-            <div class="imagesSlider">
+          <div class="comment-content comment card-body my-5">
+            <!-- <div class="imagesSlider">
               <div class="images__">
                 <img
                   src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
               </div>
-            </div>
+            </div> -->
             <div class="description">
 
-              <p>jhvghn</p>
+              <p>   {{key.comment_content}}</p>
             </div>
           </div>
         </div>
+        }
       </div>
-      <div class="col-12">
-        <h3 class="event-page-heading">Reviews</h3>
+        @if(isGlobal == 'true'){
+      <div class="col-12 mt-4">
+        <h3 class="event-page-heading">Leave Review</h3>
       </div>
       <div class="col-12 col-md-12 col-lg-6">
         <div class="alert alert-warning" role="alert">
           Your email address will not be published.
-        </div>
-      </div>
-      <div class="row my-2">
-        <div class="col-12 col-md-12 col-lg-6">
-          <textarea formControlName="ratings" name="" id="" cols="30" rows="10" class="textarea"
-            placeholder="Enter your review"></textarea>
         </div>
       </div>
       <div class="row">
@@ -176,7 +176,7 @@
       </div>
 
 
-      <div class="row my-3 px-2">
+      <!-- <div class="row my-3 px-2">
         <div class="col-12">
           <div class="row">
             <div class="col-sm-2 col-md-12">
@@ -204,20 +204,29 @@
             }
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="name" class="input-control" placeholder="Enter your name"/>
+          <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name"/>
         </div>
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="email" class="input-control" placeholder="Enter your email"/>
+          <input type="text" formControlName="comment_author_email" class="input-control" placeholder="Enter your email"/>
         </div>
+        @if (
+          reviewForm.get('comment_author_email')?.touched &&
+          reviewForm.get('comment_author_email')?.hasError('required')
+        ) {
+          <span class="error-message">Email is required</span>
+        }
+        @if (reviewForm.get('comment_author_email')?.hasError('pattern')) {
+          <span class="error-message">Enter valid email</span>
+        }
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="website" class="input-control" placeholder="Enter your website"/>
+          <input type="text" formControlName="comment_author_url" class="input-control" placeholder="Enter your website"/>
         </div>
       </div>
       <div class="row my-2">
@@ -235,18 +244,24 @@
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <textarea formControlName="comments" name="" id="" cols="30" rows="10" class="textarea"
+          <textarea formControlName="comment_content" name="" id="" cols="30" rows="10" class="textarea"
             placeholder="Enter your comments"></textarea>
         </div>
       </div>
-      <div class="row my-2">
+      <div class="row mt-2 mb-4">
         <div class="col-12 col-md-12 col-lg-6">
-          <button class="btn orange-background-btn-w-100" (click)="submit()">Post Review</button>
+          <button class="btn orange-background-btn-w-100" [disabled]="!reviewForm.valid" (click)="submit()">
+            @if(isLoader){
+            <app-loader></app-loader>
+            }@else {
+              Post Review
+            }
+          </button>
         </div>
       </div>
-
+    }
     </div>
 
   </form>
-  }
+  <!-- } -->
 </div>

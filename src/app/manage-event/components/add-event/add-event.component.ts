@@ -538,13 +538,13 @@ this._activatedRoute.params.subscribe((res) => {
           startTime:this.eventDetails.event_dates.start_time,
           endTime: this.eventDetails.event_dates.end_time,
           recurringEvent:this.eventDetails.event_dates.all_day,
-
+          
         })
         this.street = this.eventDetails.street,
         this.zipcode = this.eventDetails.zip,
         this.city = this.eventDetails.city,
         this.country = this.eventDetails.country,
-
+        this.ImageUrl = this.eventDetails.featured_image
         this.initMap()
       },
       error: (err) => { },

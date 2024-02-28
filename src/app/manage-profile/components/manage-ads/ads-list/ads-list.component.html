@@ -36,7 +36,11 @@
                             </div>
                         </div>
                     </td>
-                    <td>{{key.stats_data}}</td>
+                    <td>
+                        <div>
+                            view: {{key.stats_data.viewable}}
+                        </div>
+                    </td>
                     <td>
                         <div class="d-flex justify-content-center action-wrapper">
                             <div class="edit-icon" (click)="onEdit(key)">

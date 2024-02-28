@@ -6,17 +6,35 @@ import { FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { NgxStarsModule } from 'ngx-stars'
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { LoaderComponent } from 'src/app/common-ui'
+import Swal from 'sweetalert2'
 // NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, TitleCasePipe, NgxDropzoneModule, NgxStarRatingModule, DatePipe, CommonModule, NgxStarsModule],
+  imports: [
+    ReactiveFormsModule,
+    LoaderComponent,
+    FormsModule,
+    TitleCasePipe,
+    NgxDropzoneModule,
+    NgxStarRatingModule,
+    DatePipe,
+    CommonModule,
+    NgxStarsModule,
+  ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
   public reviewForm!: FormGroup
@@ -31,6 +49,8 @@ export class EventDetailsComponent {
   public longitude: number = 0
   public userDetails: any
   public isGlobal: any
+  public isLoader: boolean = false
+  public reviewsArray : any[]=[]
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -38,58 +58,58 @@ export class EventDetailsComponent {
     private router: Router,
     private fb: FormBuilder,
     private businessService: BusinessService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
   ) {
     this.reviewForm = this.fb.group({
-      ratings: ['', Validators.required],
+      comment_content: ['', Validators.required],
       rating: ['', Validators.required],
-      name: [''],
-      email: [''],
-      website: [''],
+      comment_author: [''],
+      comment_author_email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      comment_author_url: [''],
       save: [''],
-      comments: ['']
     })
 
     this._activatedRoute.params.subscribe((res) => {
       this.postId = res['id']
     })
     this._activatedRoute.queryParams.subscribe((res) => {
-      this.isGlobal = res['isGlobal'];
-      console.log(this.isGlobal, 'this.isGlobal');
-    });
+      this.isGlobal = res['isGlobal']
+      console.log(this.isGlobal, 'this.isGlobal')
+    })
   }
 
-
   ngOnInit() {
-
     if (this.postId) {
       this.getEventDetails()
-
     }
     this.getReviews()
   }
 
-
-
-
-  public manageBusiness() {
+  public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }
+
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
         this.eventDetails = res?.data[0] || 'NA'
-        this.latitude = Number(this.eventDetails?.latitude),
-          this.longitude = Number(this.eventDetails?.longitude)
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
         console.log(res)
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
-
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -157,7 +177,7 @@ export class EventDetailsComponent {
   }
 
   public displayLevelOneImages() {
-    let maxImages: any = 5;
+    let maxImages: any = 5
     // if (this.files.length > maxImages) {
     //   Swal.fire({
     //     toast: true,
@@ -172,83 +192,88 @@ export class EventDetailsComponent {
     //   return;
     // }
 
-    this.isImageUploading = true;
+    this.isImageUploading = true
 
-
-    const filesToUpload = this.files.slice(0, maxImages);
+    const filesToUpload = this.files.slice(0, maxImages)
 
     filesToUpload.forEach((file, index) => {
-      const reader = new FileReader();
+      const reader = new FileReader()
 
       reader.onload = () => {
-        const result = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+        const result = reader.result as string
+      }
+      reader.readAsDataURL(file)
 
       // Upload each file
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false;
-          this.levelOneImageArr.push(res.image_url);
+          this.isImageUploading = false
+          this.levelOneImageArr.push(res.image_url)
           if (this.levelOneImageArr.length >= maxImages) {
-            this.isImageUploading = false;
+            this.isImageUploading = false
           }
         },
         error: (err: any) => {
-          this.isImageUploading = false;
+          this.isImageUploading = false
           // Handle errors if needed
         },
-      });
-    });
+      })
+    })
   }
 
   public removeImageItem(index: any) {
-    this.levelOneImageArr.splice(index, 1);
+    this.levelOneImageArr.splice(index, 1)
   }
 
-
-  submit() {
+  public submit() {
+    this.isLoader = true
     const body = {
-      post_id: this.postId,
-      user_id: this.eventDetails?.user_detail?.user_id,
+      comment_post_ID: this.postId,
+      // user_id: this.eventDetails?.user_detail?.user_id,
       rating: this.reviewForm.value.rating,
-      ratings: this.reviewForm.value.ratings,
+      comment_author_url: this.reviewForm.value.comment_author_url,
+      comment_author_email: this.reviewForm.value.comment_author_email,
+      comment_author: this.reviewForm.value.comment_author,
+      comment_content: this.reviewForm.value.comment_content,
       // attachments: this.levelOneImageArr,
     }
-
-    const formData = new FormData();
+    const formData = new FormData()
     Object.entries(body).forEach(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
-        // Handle nested object properties
         Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-          formData.append(`${key}[${nestedKey}]`, String(nestedValue));
-        });
+          formData.append(`${key}[${nestedKey}]`, String(nestedValue))
+        })
       } else {
-        formData.append(key, String(value));
+        formData.append(key, String(value))
       }
-    });
-
-    formData.append('attachments', JSON.stringify(this.levelOneImageArr));
-
-    // Access the FormData object
+    })
+    // formData.append('attachments', JSON.stringify(this.levelOneImageArr));
     formData.forEach((value, key) => {
-      console.log(key + ', ' + value);
-  });
+      console.log(key + ', ' + value)
+    })
     console.log(formData, 'formData')
-    
-    if (this.reviewForm.valid) {
 
+    if (this.reviewForm.valid) {
       this.profileService.reviewSet(formData).subscribe({
         next: (res) => {
-          console.log(res, 'hhhhhhhhhhh')
+          this.isLoader = false
           this.getReviews()
+          Swal.fire({
+            toast: true,
+            text: 'Review Added Successfully...',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
         },
         error: (err) => {
-
+          this.isLoader = false
         },
       })
     } else {
-      console.log('Not valid----------')
     }
   }
 
@@ -270,8 +295,8 @@ export class EventDetailsComponent {
     //  console.log(formData, this.postId , 'formDataformDataformDataformData')
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-        console.log(res, 'jdhfjghjdghjfgjhdg')
-      }
+         this.reviewsArray = res.data
+      },
     })
   }
 }

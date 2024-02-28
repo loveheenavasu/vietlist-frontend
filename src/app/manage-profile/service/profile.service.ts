@@ -28,9 +28,9 @@ export class ProfileService {
     return this.http.get<any>(endpoint, { headers: authToken })
   }
   public reviewSet(body: any): Observable<any> {
-    const authToken: any = this.sessionService.getAuthHeaders()
+    // const authToken: any = this.sessionService.getAuthHeaders()
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.setReview)
-    return this.http.post<any>(endpoint, body, { headers: authToken })
+    return this.http.post<any>(endpoint, body)
   }
   public userProfileUpdate(body: any): Observable<any> {
     const authToken: any = this.sessionService.getAuthHeaders()
@@ -180,6 +180,6 @@ export class ProfileService {
 
   public getIPAddress() {
 
-    return this.http.get("http://api.ipify.org/?format=json")
+    return this.http.get("https://api.ipify.org/?format=json")
   }
 }
