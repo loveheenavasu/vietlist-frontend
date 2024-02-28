@@ -56,20 +56,28 @@
         <img src="/assets/icons/cross-icon.svg" alt="cross-icon" />
       </div> -->
       @if (blogAd) {
-      <div class="banner-img" (click)="CountClickStats(blogAd[currentIndex]?.id,blogAd[currentIndex]?.space_id)"
-        style="background-image: url({{blogAd[currentIndex]?.img}})">
-        <div class="banner-text overlay ">
-          <h3>{{blogAd[currentIndex]?.title}}</h3>
-          <p>
-            {{blogAd[currentIndex]?.description}}
-          </p>
-          @if (blogAd[currentIndex]?.url) {
-          <button class="btn">
-            <a [href]="blogAd[currentIndex]?.url" target="_blank">Explore </a>
-          </button>
-          }
-        </div>
-      </div>
+      <swiper-container #blogSwiper class="mySwiper" init="false">
+
+        @for (key of blogAd; track $index) {
+        <swiper-slide>
+          <div class="banner-img" (click)="CountClickStats(key?.id,key?.space_id)"
+            style="background-image: url({{key?.img}})">
+            <div class="banner-text overlay ">
+              <h3>{{key?.title}}</h3>
+              <p>
+                {{key?.description}}
+              </p>
+              @if (key?.url) {
+              <button class="btn">
+                <a [href]="key?.url" target="_blank">Explore </a>
+              </button>
+              }
+            </div>
+          </div>
+        </swiper-slide>
+        }
+      </swiper-container>
+
       }
     </div>
   </div>

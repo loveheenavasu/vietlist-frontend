@@ -21,7 +21,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import { interval, take, repeat } from 'rxjs'
+import { interval, take, repeat, Subscription } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
@@ -78,6 +78,7 @@ export class FindBusinessComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public categoryName: any
+  public intervalSubscription?: Subscription;
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -100,20 +101,9 @@ export class FindBusinessComponent {
   }
 
   ngOnInit() {
-    this.fetchSearchAd()
+
     this.getPublishBusinessData()
-    if (this.searchPageAd) {
-      interval(30000)
-        .pipe(take(this.searchPageAd.length), repeat())
-        .subscribe(() => {
-          if (this.currentIndex === this.searchPageAd.length - 1) {
-            this.currentIndex = 0;
-          }
-          else {
-            this.currentIndex++;
-          }
-        });
-    }
+
 
     this.route.params.subscribe((res) => {
       this.categoryName = res['categoryName']
@@ -134,7 +124,8 @@ export class FindBusinessComponent {
     this.getBusinessCat()
     this.initMap()
     // this.searchBusiness()
-    this.findBusinessForm.value.slidervalue.setValue(0)
+    this.findBusinessForm.controls['slidervalue'].setValue(0);
+    this.fetchSearchAd()
   }
 
 
@@ -150,6 +141,17 @@ export class FindBusinessComponent {
             });
             this.setStats()
             // console.log("check search ad", this.searchPageAd)
+            if (this.searchPageAd && this.searchPageAd.length > 0) {
+              this.intervalSubscription = interval(6000)
+                .pipe(take(this.searchPageAd.length), repeat())
+                .subscribe(() => {
+                  if (this.currentIndex === this.searchPageAd.length - 1) {
+                    this.currentIndex = 0;
+                  } else {
+                    this.currentIndex++;
+                  }
+                });
+            }
           }
         })
       }
@@ -319,7 +321,7 @@ export class FindBusinessComponent {
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
     this.currentPage = event
-  
+
     if (this.findBusinessForm.value.post_category) {
       this.searchBusiness()
     } else {
@@ -334,7 +336,7 @@ export class FindBusinessComponent {
   }
 
   public initMap() {
-    
+
     let map: any
     const mapElement = document.getElementById('map')
 
@@ -369,11 +371,11 @@ export class FindBusinessComponent {
             map: map,
             title: 'Marker Title',
           })
-         
+
         })
       }
     } else {
-      
+
     }
   }
 
@@ -402,5 +404,11 @@ export class FindBusinessComponent {
     })
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
+  }
+  ngOnDestroy() {
+    // Unsubscribe from the interval subscription if it exists
+    if (this.intervalSubscription) {
+      this.intervalSubscription.unsubscribe();
+    }
   }
 }

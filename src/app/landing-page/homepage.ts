@@ -43,6 +43,7 @@ register()
 })
 export class HomepageComponent {
   @ViewChild('adSwiper') swiper!: ElementRef
+  @ViewChild('footerSwiper') swiperFooter!: ElementRef
   logos: string[] = [
     'logo1.png',
     'logo2.png',
@@ -58,6 +59,7 @@ export class HomepageComponent {
   public multipleAdId: string[] = []
   public ipAddress: any
   public timerSubscription?: Subscription;
+  timerInterval: any;
   intervalId: any;
 
 
@@ -66,6 +68,17 @@ export class HomepageComponent {
     pagination: {
       clickable: true
     },
+    slidesPreview: 1,
+    on: {
+      init() { },
+    },
+  }
+  footerSwiperParams = {
+    slidesPerView: 1,
+    autoplay: {
+      delay: 6000
+    },
+
     slidesPreview: 1,
     on: {
       init() { },
@@ -90,36 +103,37 @@ export class HomepageComponent {
     //     console.error('Swiper or nativeElement is undefined or null.');
     //   }
     // }, 0);
+    // this.startTimer();
   }
 
 
   ngOnInit() {
     this.showAdDataFetch()
     this.getHomePageContent()
+
     if (this.showAdInFooter) {
-      // Create a timer observable that emits a value every 6 seconds
-      const timer$ = interval(6000);
+      // Create an interval that updates content every 6 seconds
+      this.timerInterval = setInterval(() => {
 
-      // Subscribe to the timer observable
-      this.timerSubscription = timer$.subscribe(() => {
-        // Update content periodically
-        this.zone.run(() => {
-          if (this.currentIndex === (this.showAdInFooter.length - 1)) {
-            this.currentIndex = 0;
-          } else {
-            this.currentIndex++;
-            this.cdr.detectChanges();
-          }
-        });
-      });
+        if (this.currentIndex === (this.showAdInFooter.length - 1)) {
+          this.currentIndex = 0;
+        } else {
+          this.currentIndex++;
+        }
+        // Ensure Angular runs change detection after updating content
+        this.cdr.detectChanges();
+      }, 6000);
     }
-
   }
+
+
 
   ngAfterViewInit() {
     this.showAdDataFetch()
 
   }
+
+
 
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
@@ -218,6 +232,17 @@ export class HomepageComponent {
       if (data.Page_key == 'Home Footer') {
         this.showAdInFooter = data.ads_detail
         console.log("check footer ads", this.showAdInFooter)
+        if (this.showAdInFooter) {
+          setTimeout(() => {
+            if (this.swiperFooter && this.swiperFooter.nativeElement) {
+              const swiperEl = this.swiperFooter.nativeElement;
+              Object.assign(swiperEl, this.footerSwiperParams);
+              swiperEl.initialize();
+            } else {
+              console.error('Swiper or nativeElement is undefined or null.');
+            }
+          }, 0);
+        }
       }
       if (data.Page_key != "Search") {
         data.ads_detail.forEach((ad: any) => {
@@ -270,10 +295,10 @@ export class HomepageComponent {
     this.router.navigateByUrl('/benefits-of-joining');
   }
 
-
   ngOnDestroy() {
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
+    // Clear the interval when the component is destroyed
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
     }
   }
 }

@@ -31,11 +31,9 @@
           @for (item of billingModelType; track $index) {
           <mat-radio-button value="{{item.value}}" (click)="handleBillingModel(item.value)">
             <div>
-              <span>{{item.name}}</span>
+              <span>{{item.name}} ({{item.value}})</span>
             </div>
-            <div class="text-center">
-              <span>({{item.value}})</span>
-            </div>
+
           </mat-radio-button>
           }
         </mat-radio-group>
@@ -220,17 +218,17 @@
         @if (!editData) {
         <button class="btn orange-background-btn" (click)="handleCreateAds()">
           @if(isLoader){
-            <app-loader></app-loader>
+          <app-loader></app-loader>
           } @else {
-            Submit
+          Submit
           }
         </button>
         } @else {
         <button class="btn orange-background-btn" (click)="updateAd()">
           @if(isLoader){
-            <app-loader></app-loader>
+          <app-loader></app-loader>
           } @else {
-            Submit
+          Submit
           }
         </button>
         }
