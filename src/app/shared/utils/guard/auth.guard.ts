@@ -78,6 +78,7 @@ export class AuthGuard implements CanActivate {
               if (requiredRoles.includes(userRole)) {
                  console.log(requiredRoles,'requiredRolesrequiredRoles',userRole )
                 return of(true);
+
               } else {
                 // Handle unauthorized access (e.g., show a warning message)
                 Swal.fire({

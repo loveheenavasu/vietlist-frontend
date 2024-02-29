@@ -60,6 +60,11 @@
       "url": "/manage-profile/manage-events"
     },
     {
+      "label": "Settings",
+      "icon": "fa fa-cog",
+      "url": "/manage-profile/setting"
+    },
+    {
       "label": "Delete Account",
       "icon": "fa fa-user-times",
       "url": "/manage-profile/delete-account"
@@ -68,11 +73,7 @@
       "label": "Logout",
       "icon": "fa fa-sign-out",
       "url": "/"
-    },
-    {
-      "label": "Settings",
-      "icon": "fa fa-cog",
-      "url": "/manage-profile/setting"
     }
+
   ]
   

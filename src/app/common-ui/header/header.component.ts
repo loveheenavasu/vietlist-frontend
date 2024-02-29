@@ -45,8 +45,9 @@ export class HeaderComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
   public currentRoute: any
-  isDropdownActive: boolean = false;
-  isDropdownActiveEvent: boolean = false;
+  public isDropdownActive: boolean = false;
+  public isDropdownActiveEvent: boolean = false;
+  public userInfo:any
   /**
    *
    * @param router
@@ -78,6 +79,30 @@ export class HeaderComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isSearchInputVisible = false
+      }
+    })
+  }
+
+  ngOnInit(){
+
+  }
+
+  public navigateOnAddEvent() {
+    this.sessionservice.isAuthenticated$.subscribe((res)=>{
+      if(res == true && this.userInfo.user_role == Roles.businessOwner){
+        this.router.navigate(['/add-event'])
+      }else {
+        Swal.fire({
+          toast: true,
+          text: 'Signup as a business owner to add events !',
+          animation: false,
+          icon: 'warning',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        // this.router.navigateByUrl('/manage-profile')
       }
     })
   }

@@ -8,6 +8,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
 import { NgxStarsModule } from 'ngx-stars'
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -38,9 +39,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
   encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
-  starRatingValue!: number;
-
-  rating3: number;
+ 
   public footerPageContent?: any
   public reviewForm!: FormGroup
   public isImageUploading: boolean = false
@@ -63,6 +62,9 @@ export class EventDetailsComponent {
   public slectedvalue : boolean = false
   public storValues:any
 
+  public replyInput = new FormControl('')
+  public commentId : any
+  public repliesArray: any[]=[]
   /**
    * 
    * @param eventService 
@@ -86,9 +88,6 @@ export class EventDetailsComponent {
     private footerContent: HomepageService,
     private sessionService:AuthenticationService
   ) {
-
-
-    this.rating3 = 2;
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
       rating: ['', Validators.required],
@@ -145,11 +144,11 @@ export class EventDetailsComponent {
   }
 
   ngOnInit() {
-    this.starRatingValue = 5
     if (this.postId) {
       this.getEventDetails()
     }
     this.getReviews()
+    this.getReplies()
   }
 
 
@@ -343,20 +342,58 @@ export class EventDetailsComponent {
  public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-        this.reviewsArray = res.data
+         this.reviewsArray = res.data
+         console.log(this.reviewsArray)
       },
     })
   }
 
   public showReplyField(index: number) {
+
     console.log(index , "INDEX")
     this.isReplyFieldOpen = true;
     this.replyIndex = index;
   }
 
-  // Function to hide the reply field
+
   public hideReplyField() {
     this.isReplyFieldOpen = false;
-    this.replyIndex = -1; // Reset replyIndex when hiding the reply field
+    this.replyIndex = -1; 
+  }
+
+  public handlereply(commentId:any){
+    this.commentId = commentId
+    const body = {
+      comment_post_ID: this.postId,
+      comment_content: this.replyInput.value,
+      comment_parent: this.commentId
+    }
+    const formData = new FormData()
+    Object.entries(body).forEach(([key, value]) => {
+      if (typeof value === 'object' && value !== null) {
+        Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+          formData.append(`${key}[${nestedKey}]`, String(nestedValue))
+        })
+      } else {
+        formData.append(key, String(value))
+      }
+    })
+    this.eventService.setReviewReply(formData).subscribe({
+      next:(res)=>{
+      this.getReplies()
+      }
+    })
+  }
+
+
+  public getReplies(){
+    const params = {}
+    this.eventService.getReviewReply(this.commentId ,this.postId  ).subscribe({
+      next:(res)=>{
+        this.repliesArray = res?.data
+      },error:(err)=>{
+        
+      }
+    })
   }
 }
