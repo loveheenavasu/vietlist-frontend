@@ -141,7 +141,7 @@ export default [
   },
   {
     path: 'add-event',
-    loadComponent: () => AddEventComponent,
+    loadComponent: () => AddEventComponent
   },
   {
     path: 'edit-event/:id',

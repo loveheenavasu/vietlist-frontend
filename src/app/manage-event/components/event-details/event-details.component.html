@@ -129,28 +129,38 @@
     <div class="row mt-5">
 
       <div class="col-12 col-lg-6">
-        @for(key of reviewsArray; track $index){
+        @for(key of reviewsArray; track key.comment_id; let index = $index){
           <div class="card mt-3 shadow-sm">
             <div class="bsui toast-header">
               <div class="profile__">
                 <img src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
               </div>
               <span>
-                {{key.comment_author_email}}
+                {{key.comment_author_email}} {{index}}
               </span>
-              <span class="rating__">
-                <ngx-star-rating [(ngModel)]="key.rating" [ngModelOptions]="{standalone: true}" [disabled]="true"></ngx-star-rating>
-              </span>
+        <div class="rating__">
+          <div class="d-flex">
+            @if(key?.rating >= 1) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 213, 62);font-size:17px"></i>}
+            @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 213, 62);font-size:17px"></i>}
+            @if(key?.rating >= 3) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 213, 62);font-size:17px"></i>}
+            @if(key?.rating >= 4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 213, 62);font-size:17px"></i>}
+            @if(key?.rating >  4) {<i class="fa fa-star" aria-hidden="true" style="color:rgb(255, 213, 62);font-size:17px"></i>}
+          </div>
+        </div>
             </div>
             <div class="comment-content comment card-body my-5">
               <div class="description">
                 <p>{{key.comment_content}}</p>
-                <p style="cursor:pointer" (click)="showReplyField($index)"> <i class="fa fa-reply" aria-hidden="true"></i> Reply </p>
+                   @for(replies of repliesArray ; track $index){
+                <p class="ml-1">{{replies.comment_content}}</p>
+              }
+                <p style="cursor:pointer" (click)="showReplyField(index)"> <i class="fa fa-reply" aria-hidden="true"></i> Reply </p>
               </div>
-              @if(isReplyFieldOpen && replyIndex === $index){
+           
+              @if(isReplyFieldOpen && replyIndex === index){
                 <div class="d-flex">
-                  <div class="flex-grow-1"><input type="text" class="input-control"/></div>
-                  <div class="mx-1"><button class="btn orange-background-btn">Reply</button></div>
+                  <div class="flex-grow-1"><input type="text" class="input-control" [formControl]="replyInput"/></div>
+                  <div class="mx-1"><button class="btn reply-btn" (click)="handlereply(key.comment_id)">Reply</button></div>
                 </div>
                 }
               @else{
@@ -181,35 +191,7 @@
           <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left;"></ngx-star-rating>
         </div>
       </div>
-<!-- <div class="row my-3 px-2">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-sm-2 col-md-12">
-              <label for="" class="listing-form-label mb-2">Images</label>
-            </div>
-            <div class="col-sm-10 col-md-12 upload-instruction">
-            </div>
-          </div>
-          <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-            <ngx-dropzone-label><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop here
-              or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
-              .webp)</ngx-dropzone-label>
-            <div *ngIf="isImageUploading" class="loader"></div>
 
-          </ngx-dropzone>
-          <div class="main_images">
-            @for (preview of levelOneImageArr; track $index) {
-
-            <div class="images__" *ngIf="preview">
-              <div class="removeImage">
-                <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
-              </div>
-              <img [src]="preview" alt="Image Preview" width="150" height="150" />
-            </div>
-            }
-          </div>
-        </div>
-      </div> -->
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
           <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name"/>

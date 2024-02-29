@@ -33,6 +33,11 @@ export class AuthenticationService {
       this.checkSubscriptionStatus(),
     )
     this.isSubscription$ = this.isSubscriptionSubject.asObservable()
+
+    // const token = localstorageservice.getData('accessToken')
+    // if (token) {
+    //   this.isSubscriptionSubject.next(true)
+    // }
   }
 
   public setSubscriptonStatus(status: string) {

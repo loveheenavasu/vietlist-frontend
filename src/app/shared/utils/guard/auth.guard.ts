@@ -4,6 +4,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, UrlTr
 import { Observable, of } from 'rxjs';
 import { switchMap, catchError, tap } from 'rxjs/operators';
 import { Roles } from '../enums';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -30,7 +31,18 @@ export class AuthGuard implements CanActivate {
             switchMap((userRole) => {
               console.log('userRole', userRole)
               if (userRole === Roles.subscriber) {
+                // Swal.fire({
+                //   toast: true,
+                //   text: 'You are not authorized for this feature!',
+                //   animation: false,
+                //   icon: 'warning',
+                //   position: 'top-right',
+                //   showConfirmButton: false,
+                //   timer: 3000,
+                //   timerProgressBar: true,
+                // });
                 return of(true);
+
               } else {
                 this.sessionService.isSubscription$.subscribe(res => console.log(res))
                 return this.sessionService.isSubscription$;
@@ -38,7 +50,7 @@ export class AuthGuard implements CanActivate {
             }),
           );
         } else {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/');
           return of(false);
         }
       }),

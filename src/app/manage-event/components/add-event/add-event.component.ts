@@ -219,23 +219,7 @@ this._activatedRoute.params.subscribe((res) => {
       this.getEventDetails()
     }
 
-    this.sessionService.isAuthenticated$.subscribe((res)=>{
-      if(res == true && this.userInfo.user_role == Roles.businessOwner){
 
-      }else {
-        Swal.fire({
-          toast: true,
-          text: 'Signup as a business owner to add events !',
-          animation: false,
-          icon: 'warning',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.router.navigateByUrl('/register')
-      }
-    })
 
     this.initMap()
   }

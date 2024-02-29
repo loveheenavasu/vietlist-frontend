@@ -61,7 +61,8 @@ export class ManageProfileComponent {
                   tab.label !== 'Invoices' &&
                   tab.label !== 'Transactions' &&
                   tab.label !== 'Settings' &&
-                  tab.label !== 'My Bookings'
+                  tab.label !== 'My Bookings' &&
+                  tab.label !== 'My Events'
                 );
         }else if (roleGet.user_role == 'subscriber') {
           return this.menuItems
