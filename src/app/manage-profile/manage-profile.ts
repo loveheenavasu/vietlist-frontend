@@ -47,37 +47,7 @@ export class ManageProfileComponent {
 
 
     this.activeIndex = this.router.url
-    this.sidebarService.getSidebarLinks().subscribe((res) => {
-      this.sidebarMenu = res
-      const role = this.localStorage.getData('loginInfo')
-      const roleGet = JSON.parse(role)
-      console.log("check id", roleGet.level_id)
-      if (roleGet.user_role == Roles.subscriber) {
-        this.menuItems = this.sidebarMenu.filter(tab =>
-          tab.label !== 'Ads' &&
-          tab.label !== 'My Business' &&
-          tab.label !== 'Subscriptions' &&
-          tab.label !== 'Billing Address' &&
-          tab.label !== 'Privacy' &&
-          tab.label !== 'Notifications' &&
-          tab.label !== 'Invoices' &&
-          tab.label !== 'Transactions' &&
-          tab.label !== 'Settings' &&
-          tab.label !== 'My Bookings'
-        );
-      } else if (roleGet.user_role == Roles.businessOwner && roleGet.level_id == 1) {
-        this.menuItems = this.sidebarMenu.filter(tab =>
-          tab.label !== 'Ads'
-        );
-        return this.menuItems
 
-      } else if (roleGet.user_role == 'subscriber') {
-        return this.menuItems
-      } else {
-        return this.menuItems = this.sidebarMenu
-      }
-
-    })
 
     this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
@@ -87,6 +57,7 @@ export class ManageProfileComponent {
 
   ngOnInit() {
     this.fetchProfileDetail()
+
   }
 
 
@@ -138,10 +109,43 @@ export class ManageProfileComponent {
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
+        console.log("check show profile", res)
         this.userDetail = res.data.user
         this.imgUrl = res.data.user.user_image
         this.localStorage.saveData('level_id', res.data.user.level_id)
         console.log(res)
+        console.log("check id1", this.userDetail.level_id)
+        this.sidebarService.getSidebarLinks().subscribe((res) => {
+          this.sidebarMenu = res
+          const role = this.localStorage.getData('loginInfo')
+          const roleGet = JSON.parse(role)
+          console.log("check id", this.userDetail.level_id)
+          if (roleGet.user_role == Roles.subscriber) {
+            this.menuItems = this.sidebarMenu.filter(tab =>
+              tab.label !== 'Ads' &&
+              tab.label !== 'My Business' &&
+              tab.label !== 'Subscriptions' &&
+              tab.label !== 'Billing Address' &&
+              tab.label !== 'Privacy' &&
+              tab.label !== 'Notifications' &&
+              tab.label !== 'Invoices' &&
+              tab.label !== 'Transactions' &&
+              tab.label !== 'Settings' &&
+              tab.label !== 'My Bookings'
+            );
+          } else if (this.userDetail.user_role == Roles.businessOwner && this.userDetail.level_id == '1') {
+            this.menuItems = this.sidebarMenu.filter(tab =>
+              tab.label !== 'Ads'
+            );
+            return this.menuItems
+
+          } else if (roleGet.user_role == 'subscriber') {
+            return this.menuItems
+          } else {
+            return this.menuItems = this.sidebarMenu
+          }
+
+        })
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
