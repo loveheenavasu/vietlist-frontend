@@ -1,7 +1,7 @@
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, NgZone, ViewChild } from '@angular/core'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, NgZone, ViewChild, ChangeDetectorRef } from '@angular/core'
 import {
   BuisnessCategoryComponent,
   ClaimYourBuisnessComponent,
@@ -75,7 +75,8 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
     private IpService: ProfileService,
-    private zone: NgZone
+    private zone: NgZone,
+    private cdr:ChangeDetectorRef
   ) {
     // this.getHomePageContent()
     // this.subscribeToRouterEvents()
@@ -94,9 +95,7 @@ export class HomepageComponent {
   
   ngOnInit() {
     this.showAdDataFetch()
-    console.log("check compoment")
     this.getHomePageContent()
-
     if (this.showAdInFooter) {
       // Create a timer observable that emits a value every 6 seconds
       const timer$ = interval(6000);
@@ -109,6 +108,7 @@ export class HomepageComponent {
             this.currentIndex = 0;
           } else {
             this.currentIndex++;
+            this.cdr.detectChanges();
           }
         });
       });
@@ -245,7 +245,10 @@ export class HomepageComponent {
   public getHomePageContent() {
     this.homePageContent.homePageContent().subscribe({
       next: (res: any) => {
-        this.homePageData = res.data;
+        if (res.data) {
+          this.homePageData = res.data
+        }
+        // console.log("check home page content", this.homePageData)
       },
     });
   }

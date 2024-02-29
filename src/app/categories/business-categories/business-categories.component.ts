@@ -6,9 +6,10 @@ import { MatIconModule } from '@angular/material/icon'
 import { Subscription } from 'rxjs'
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms'
 import { MatSelectModule } from '@angular/material/select'
-import { LoaderComponent } from 'src/app/common-ui'
+import { LoaderComponent, SearchComponentComponent } from 'src/app/common-ui'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { NavigationExtras, Router } from '@angular/router'
 
 @Component({
   selector: 'app-business-categories',
@@ -21,6 +22,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    SearchComponentComponent
   ],
   templateUrl: './business-categories.component.html',
   styleUrl: './business-categories.component.scss',
@@ -43,10 +45,12 @@ export class BusinessCategories {
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
-  ) {}
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getBusinessCategories()
+    this.getBusinessCat()
   }
 
   public handleLayout(layout: string) {
@@ -64,15 +68,26 @@ export class BusinessCategories {
     })
   }
 
+  onCategorySelected(selectedCategory: any) {
+    if (selectedCategory) {
+      let formattedName = selectedCategory.name.replace(/&/g, ' ');
+      formattedName = formattedName.replace(/\s+/g, '-');
+      const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
+      this.router.navigate(['/find-business', formattedName], queryParams);
+    }
+  }
+
   public getBusinessCat() {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.post_category = res.data
-        console.log(this.post_category)
+        console.log(this.post_category, "check cat---")
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
+
+
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -129,7 +144,7 @@ export class BusinessCategories {
 
         this.businessCategoriesArray = res.data
       },
-      error: (error) => {},
+      error: (error) => { },
     })
   }
   ngOnDestroy() {

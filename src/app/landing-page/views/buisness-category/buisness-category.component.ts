@@ -59,8 +59,9 @@ export class BuisnessCategoryComponent {
 
   ngOnInit() {
     this.getCategroies()
-    // this.businessCategoryContent = this.homePageData
   }
+
+  
   getCategroies() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {

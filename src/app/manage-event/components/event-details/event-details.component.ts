@@ -55,10 +55,26 @@ export class EventDetailsComponent {
   public userDetails: any
   public isGlobal: any
   public isLoader: boolean = false
-  public reviewsArray: any[] = []
-  public slectedvalue:boolean = false
+  public reviewsArray : any[]=[]
+  public isAuthenticationCheck:any
+  public isReplyFieldOpen:boolean = false
+  public replyIndex: number = -1;
   public isAuthentecate!: boolean
+  public slectedvalue : boolean = false
   public storValues:any
+
+  /**
+   * 
+   * @param eventService 
+   * @param _activatedRoute 
+   * @param fullPageLoaderService 
+   * @param router 
+   * @param fb 
+   * @param businessService 
+   * @param profileService 
+   * @param footerContent 
+   * @param sessionService 
+   */
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -68,7 +84,7 @@ export class EventDetailsComponent {
     private businessService: BusinessService,
     private profileService: ProfileService,
     private footerContent: HomepageService,
-    private sessionService: AuthenticationService
+    private sessionService:AuthenticationService
   ) {
 
 
@@ -135,6 +151,8 @@ export class EventDetailsComponent {
     }
     this.getReviews()
   }
+
+
 
   public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
@@ -322,26 +340,23 @@ export class EventDetailsComponent {
     }
   }
 
-  getReviews() {
-    // const body = {
-    //   post_id: this.postId
-    // }
-    // const formData = new FormData();
-    // Object.entries(body).forEach(([key, value]) => {
-    //   if (typeof value === 'object' && value !== null) {
-    //     // Handle nested object properties
-    //     Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-    //       formData.append(`${key}[${nestedKey}]`, String(nestedValue));
-    //     });
-    //   } else {
-    //     formData.append(key, String(value));
-    //   }
-    // });
-    //  console.log(formData, this.postId , 'formDataformDataformDataformData')
+ public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
         this.reviewsArray = res.data
       },
     })
+  }
+
+  public showReplyField(index: number) {
+    console.log(index , "INDEX")
+    this.isReplyFieldOpen = true;
+    this.replyIndex = index;
+  }
+
+  // Function to hide the reply field
+  public hideReplyField() {
+    this.isReplyFieldOpen = false;
+    this.replyIndex = -1; // Reset replyIndex when hiding the reply field
   }
 }
