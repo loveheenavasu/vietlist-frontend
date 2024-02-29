@@ -29,12 +29,13 @@ export class ManageProfileComponent {
   @ViewChild('fileInput', { static: false })
   public fileInput!: ElementRef<HTMLInputElement>
   public sidebarMenu: ProfileMenu[] = []
-  public userDetail:any
+  public userDetail: any
   public imgUrl: any
   public activeIndex: any = 0
   public showFullEmail: boolean = false
   public isUploading: boolean = false
   menuItems: any
+  basedLevelMenuItem: any
   public role = Roles
   constructor(
     private sidebarService: SidebarService,
@@ -48,37 +49,44 @@ export class ManageProfileComponent {
     this.activeIndex = this.router.url
     this.sidebarService.getSidebarLinks().subscribe((res) => {
       this.sidebarMenu = res
-     const role = this.localStorage.getData('loginInfo')
-     const roleGet = JSON.parse(role)
-        if(roleGet.user_role == Roles.subscriber){
-          this.menuItems = this.sidebarMenu.filter(tab =>
-                  tab.label !== 'Ads' &&
-                  tab.label !== 'My Business' &&
-                  tab.label !== 'Subscriptions' &&
-                  tab.label !== 'Billing Address' &&
-                  tab.label !== 'Privacy' &&
-                  tab.label !== 'Notifications' &&
-                  tab.label !== 'Invoices' &&
-                  tab.label !== 'Transactions' &&
-                  tab.label !== 'Settings' &&
-                  tab.label !== 'My Bookings'
-                );
-        }else if (roleGet.user_role == 'subscriber') {
-          return this.menuItems
-        } else {
-          return this.menuItems = this.sidebarMenu
-        }
-   
+      const role = this.localStorage.getData('loginInfo')
+      const roleGet = JSON.parse(role)
+      console.log("check id", roleGet.level_id)
+      if (roleGet.user_role == Roles.subscriber) {
+        this.menuItems = this.sidebarMenu.filter(tab =>
+          tab.label !== 'Ads' &&
+          tab.label !== 'My Business' &&
+          tab.label !== 'Subscriptions' &&
+          tab.label !== 'Billing Address' &&
+          tab.label !== 'Privacy' &&
+          tab.label !== 'Notifications' &&
+          tab.label !== 'Invoices' &&
+          tab.label !== 'Transactions' &&
+          tab.label !== 'Settings' &&
+          tab.label !== 'My Bookings'
+        );
+      } else if (roleGet.user_role == Roles.businessOwner && roleGet.level_id == 1) {
+        this.menuItems = this.sidebarMenu.filter(tab =>
+          tab.label !== 'Ads'
+        );
+        return this.menuItems
+
+      } else if (roleGet.user_role == 'subscriber') {
+        return this.menuItems
+      } else {
+        return this.menuItems = this.sidebarMenu
+      }
+
     })
 
-    this.sessionservice.userDetailResponse.subscribe((res)=>{
+    this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
     })
   }
-  
 
-  ngOnInit(){
-        this.fetchProfileDetail()
+
+  ngOnInit() {
+    this.fetchProfileDetail()
   }
 
 
@@ -137,7 +145,7 @@ export class ManageProfileComponent {
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
-      
+
       },
     })
   }
@@ -147,11 +155,11 @@ export class ManageProfileComponent {
     this.activeIndex = url
   }
 
- public filterTabsByLevelId(levelId:any){
-  if(this.userDetail.level_id == '1'){
-    this.sidebarMenu = this.sidebarMenu.filter((res)=>{
-      res.label !== ''
-    })
+  public filterTabsByLevelId(levelId: any) {
+    if (this.userDetail.level_id == '1') {
+      this.sidebarMenu = this.sidebarMenu.filter((res) => {
+        res.label !== ''
+      })
+    }
   }
- }
 }
