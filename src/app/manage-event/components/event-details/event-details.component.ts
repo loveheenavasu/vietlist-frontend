@@ -56,7 +56,9 @@ export class EventDetailsComponent {
   public isGlobal: any
   public isLoader: boolean = false
   public reviewsArray: any[] = []
+  public slectedvalue:boolean = false
   public isAuthentecate!: boolean
+  public storValues:any
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -116,6 +118,14 @@ export class EventDetailsComponent {
       this.isGlobal = res['isGlobal']
       console.log(this.isGlobal, 'this.isGlobal')
     })
+  
+  }
+   
+  selcetdvalues(){
+    // this.storValues ={
+    //   this.
+    // }
+    console.log(this.slectedvalue,'hhhhhhhhhhhh')
   }
 
   ngOnInit() {
