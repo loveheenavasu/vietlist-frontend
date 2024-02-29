@@ -2,7 +2,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router'
 import { Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { NgxStarsModule } from 'ngx-stars'
@@ -56,6 +56,22 @@ export class EventDetailsComponent {
   public isGlobal: any
   public isLoader: boolean = false
   public reviewsArray : any[]=[]
+  public isAuthenticationCheck:any
+  public isReplyFieldOpen:boolean = false
+  public replyIndex: number = -1;
+
+  /**
+   * 
+   * @param eventService 
+   * @param _activatedRoute 
+   * @param fullPageLoaderService 
+   * @param router 
+   * @param fb 
+   * @param businessService 
+   * @param profileService 
+   * @param footerContent 
+   * @param sessionService 
+   */
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -65,6 +81,7 @@ export class EventDetailsComponent {
     private businessService: BusinessService,
     private profileService: ProfileService,
     private footerContent: HomepageService,
+    private sessionService:AuthenticationService
   ) {
     this.rating3 = 2;
     this.reviewForm = this.fb.group({
@@ -90,6 +107,10 @@ export class EventDetailsComponent {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
       console.log(this.isGlobal, 'this.isGlobal')
+    })
+
+    this.sessionService.isAuthenticated$.subscribe((res)=>{
+      this.isAuthenticationCheck = res
     })
   }
 
@@ -288,26 +309,23 @@ export class EventDetailsComponent {
     }
   }
 
-  getReviews() {
-    // const body = {
-    //   post_id: this.postId
-    // }
-    // const formData = new FormData();
-    // Object.entries(body).forEach(([key, value]) => {
-    //   if (typeof value === 'object' && value !== null) {
-    //     // Handle nested object properties
-    //     Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-    //       formData.append(`${key}[${nestedKey}]`, String(nestedValue));
-    //     });
-    //   } else {
-    //     formData.append(key, String(value));
-    //   }
-    // });
-    //  console.log(formData, this.postId , 'formDataformDataformDataformData')
+ public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
          this.reviewsArray = res.data
       },
     })
+  }
+
+  public showReplyField(index: number) {
+    console.log(index , "INDEX")
+    this.isReplyFieldOpen = true;
+    this.replyIndex = index;
+  }
+
+  // Function to hide the reply field
+  public hideReplyField() {
+    this.isReplyFieldOpen = false;
+    this.replyIndex = -1; // Reset replyIndex when hiding the reply field
   }
 }

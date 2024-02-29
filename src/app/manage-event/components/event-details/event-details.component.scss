@@ -200,6 +200,14 @@ ngx-star-rating .star {
     background-color: var(--bs-btn-disabled-bg);
     border-color: var(--bs-btn-disabled-border-color);
     opacity: var(--bs-btn-disabled-opacity);
-    background: orange!important;
+    background: var(--primary-color-orange)!important;
     border: none!important;
 }
+
+.reply-btn{
+    background-color: var(--primary-color-orange);
+    color:#fff;
+    border-radius: 2px;
+    height:40px;
+}
+
