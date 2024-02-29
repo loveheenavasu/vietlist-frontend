@@ -1,15 +1,27 @@
 <section class="banner">
-  <div class="content" >
+  <div class="content">
     <h1>{{ eventDetails?.post_title | titlecase }}</h1>
     <p>{{ eventDetails?.country }}</p>
     <div class="listing-rating">
       <div class="d-flex">
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
+        @if(eventDetails?.rating_count >= 1) {<i class="fa fa-star" aria-hidden="true"
+          style="color:rgb(155, 155, 155);font-size:17px"></i>}
+        @if(eventDetails?.rating_count >= 2) {<i class="fa fa-star" aria-hidden="true"
+          style="color:rgb(155, 155, 155);font-size:17px"></i>}
+        @if(eventDetails?.rating_count >= 3) {<i class="fa fa-star" aria-hidden="true"
+          style="color:rgb(155, 155, 155);font-size:17px"></i>}
+        @if(eventDetails?.rating_count >= 4) {<i class="fa fa-star" aria-hidden="true"
+          style="color:rgb(155, 155, 155);font-size:17px"></i>}
+        @if(eventDetails?.rating_count > 4) {<i class="fa fa-star" aria-hidden="true"
+          style="color:rgb(155, 155, 155);font-size:17px"></i>}
       </div>
+      <!-- <div class="d-flex">
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </div> -->
     </div>
   </div>
 </section>
@@ -19,11 +31,11 @@
   <div class="breadcrumb mt-4">
     <div class="breadcrumb">
       <span class="manage-business" (click)="goToEvent()">Events</span>
-      <span class="business-details">  > </span>
+      <span class="business-details"> > </span>
       <span class="business-details"> Event Details</span>
     </div>
   </div>
-}
+  }
   <div class="row">
     <div class="col-12 col-md-12 col-lg-8">
 
@@ -81,7 +93,7 @@
               <td class="table-title">City</td>
               <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city || 'NA' }}</td>
             </tr>
-<tr>
+            <tr>
               <td class="table-title">Zip</td>
               <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip || 'NA'}}</td>
             </tr>
@@ -138,10 +150,11 @@
             </div>
             <span>
               {{key.comment_author_email}}
-           
+
             </span>
             <span class="rating__">
-              <ngx-star-rating [(ngModel)]="key.rating" [ngModelOptions]="{standalone: true}" [disabled]="true"></ngx-star-rating>
+              <ngx-star-rating [(ngModel)]="key.rating" [ngModelOptions]="{standalone: true}"
+                [disabled]="true"></ngx-star-rating>
             </span>
           </div>
           <div class="comment-content comment card-body my-5">
@@ -153,13 +166,13 @@
             </div> -->
             <div class="description">
 
-              <p>   {{key.comment_content}}</p>
+              <p> {{key.comment_content}}</p>
             </div>
           </div>
         </div>
         }
       </div>
-        @if(isGlobal == 'true'){
+      @if(isGlobal == 'true'){
       <div class="col-12 mt-4">
         <h3 class="event-page-heading">Leave Review</h3>
       </div>
@@ -173,7 +186,7 @@
           <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left;"></ngx-star-rating>
         </div>
       </div>
-<!-- <div class="row my-3 px-2">
+      <!-- <div class="row my-3 px-2">
         <div class="col-12">
           <div class="row">
             <div class="col-sm-2 col-md-12">
@@ -202,35 +215,40 @@
           </div>
         </div>
       </div> -->
+      @if(isAuthentecate){
+
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name"/>
+          <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name" />
         </div>
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="comment_author_email" class="input-control" placeholder="Enter your email"/>
+          <input type="text" formControlName="comment_author_email" class="input-control"
+            placeholder="Enter your email" />
         </div>
         @if (
-          reviewForm.get('comment_author_email')?.touched &&
-          reviewForm.get('comment_author_email')?.hasError('required')
+        reviewForm.get('comment_author_email')?.touched &&
+        reviewForm.get('comment_author_email')?.hasError('required')
         ) {
-          <span class="error-message">Email is required</span>
+        <span class="error-message">Email is required</span>
         }
         @if (reviewForm.get('comment_author_email')?.hasError('pattern')) {
-          <span class="error-message">Enter valid email</span>
+        <span class="error-message">Enter valid email</span>
         }
       </div>
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
-          <input type="text" formControlName="comment_author_url" class="input-control" placeholder="Enter your website"/>
+          <input type="text" formControlName="comment_author_url" class="input-control"
+            placeholder="Enter your website" />
         </div>
       </div>
+     
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
           <div class="form-group">
             <div class="form-check">
-              <input class="form-check-input" formControlName="save" type="checkbox" value="" id="terms"/>
+              <input class="form-check-input" type="checkbox" value="" id="terms" />
               <label class="form-check-label" for="terms">
                 Save my name, email, and website in this browser for the next time
                 I comment.
@@ -239,6 +257,7 @@
           </div>
         </div>
       </div>
+    }
       <div class="row my-2">
         <div class="col-12 col-md-12 col-lg-6">
           <textarea formControlName="comment_content" name="" id="" cols="30" rows="10" class="textarea"
@@ -251,12 +270,12 @@
             @if(isLoader){
             <app-loader></app-loader>
             }@else {
-              Post Review
+            Post Review
             }
           </button>
         </div>
       </div>
-    }
+      }
     </div>
 
   </form>

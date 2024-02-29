@@ -2,7 +2,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router'
 import { Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { NgxStarsModule } from 'ngx-stars'
@@ -38,8 +38,8 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
   encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
-  starRatingValue!: number ;
-  
+  starRatingValue!: number;
+
   rating3: number;
   public footerPageContent?: any
   public reviewForm!: FormGroup
@@ -55,7 +55,8 @@ export class EventDetailsComponent {
   public userDetails: any
   public isGlobal: any
   public isLoader: boolean = false
-  public reviewsArray : any[]=[]
+  public reviewsArray: any[] = []
+  public isAuthentecate!: boolean
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -65,7 +66,10 @@ export class EventDetailsComponent {
     private businessService: BusinessService,
     private profileService: ProfileService,
     private footerContent: HomepageService,
+    private sessionService: AuthenticationService
   ) {
+
+
     this.rating3 = 2;
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -74,14 +78,35 @@ export class EventDetailsComponent {
       comment_author_email: [
         '',
         [
-          Validators.required,
           Validators.email,
           Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
       comment_author_url: [''],
-      save: [''],
-      starRatingValue:['']
+
+    })
+    this.sessionService.isAuthenticated$.subscribe((res: any) => {
+
+      if (res) {
+        console.log(res, 'resres is Authenticated')
+        this.isAuthentecate = res
+        const controlsToValidate = [
+          "comment_author_email",
+          "comment_author",
+          "comment_author_url"
+        ];
+
+        controlsToValidate.forEach(controlName => {
+          const control = this.reviewForm.get(controlName);
+          if (res) {
+            control?.setValidators(Validators.required);
+          } else {
+            control?.clearValidators();
+
+          }
+          control?.updateValueAndValidity();
+        });
+      }
     })
 
     this._activatedRoute.params.subscribe((res) => {
@@ -111,12 +136,12 @@ export class EventDetailsComponent {
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
         this.eventDetails = res?.data[0] || 'NA'
-        ;(this.latitude = Number(this.eventDetails?.latitude)),
-          (this.longitude = Number(this.eventDetails?.longitude))
+          ; (this.latitude = Number(this.eventDetails?.latitude)),
+            (this.longitude = Number(this.eventDetails?.longitude))
         console.log(res)
         this.initMap()
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -267,6 +292,7 @@ export class EventDetailsComponent {
         next: (res) => {
           this.isLoader = false
           this.getReviews()
+          this.getEventDetails()
           Swal.fire({
             toast: true,
             text: res.message,
@@ -304,7 +330,7 @@ export class EventDetailsComponent {
     //  console.log(formData, this.postId , 'formDataformDataformDataformData')
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-         this.reviewsArray = res.data
+        this.reviewsArray = res.data
       },
     })
   }
