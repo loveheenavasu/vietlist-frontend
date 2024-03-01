@@ -31,8 +31,13 @@
   .breadcrumb a:hover {
     text-decoration: underline;
   }
-.event-page-heading{
-    font-size:24px
+.event-page-heading {
+    /* font-size: 25px; */
+    color: #232F3E!important;
+    -webkit-text-fill-color: #232F3E!important;
+    font-size: 29px;
+    font-weight: bold;
+    padding: 0;
 }
 .headings__ {
     font-size: 17px;
@@ -126,7 +131,11 @@
         padding: 0px;
     }
 }
-
+.media-body {
+    flex: 1;
+    text-align: left;
+    padding-left: 23px;
+}
 ul {
     list-style-type: none;
 
@@ -208,11 +217,19 @@ ngx-star-rating .star {
     background-color: var(--primary-color-orange);
     color:#fff;
     border-radius: 2px;
-    height:39px;
+    height:42px;
+    width:100%;
 }
 
 .btn:hover {
     background-color: var(--primary-color-orange)!important;
     color:#fff!important;
     border-radius: 2px!important;
+}
+.table > :not(caption) > * > *{
+    background: transparent!important;
+}
+
+.input-textarea{
+    height:5rem;
 }

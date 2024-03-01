@@ -188,6 +188,16 @@
               <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
+              <!-- @if(isAuthenticated){
+                <button type=" button" class="btn" (click)="onLogout()">
+                  {{'Logout'}}
+                </button>
+              }@else {
+                <button type=" button" class="btn" routerLink="/login">
+                  {{'Login' }}
+                </button>
+              } -->
+             
             </div>
             <div class="sign-up-btn">
               <button type="button" class="btn" (click)="isAuthenticated ? profile() : signup()">
@@ -200,6 +210,3 @@
     </div>
   </div>
 </nav>
-apps-fileview.texmex_20240222.01_p0
-header.component.html
-Displaying header.component.html.
