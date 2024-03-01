@@ -64,7 +64,7 @@ export class EventDetailsComponent {
   public isAuthentecate!: boolean
   public slectedvalue : boolean = false
   public storValues:any
-
+  public userDetail:any
   public replyInput = new FormControl('')
   public commentId : any
   public repliesArray: any[]=[]
@@ -151,6 +151,7 @@ export class EventDetailsComponent {
       this.getEventDetails()
     }
     this.getReviews()
+    this.fetchProfileDetail()
   }
 
 
@@ -394,6 +395,7 @@ export class EventDetailsComponent {
     })
     this.eventService.setReviewReply(formData).subscribe({
       next:(res)=>{
+        this.replyInput.setValue('')
       this.getReplies(index, this.commentId)
       }
     })
@@ -428,4 +430,18 @@ export class EventDetailsComponent {
       }
     })
   }
+
+
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetail = res.data.user
+      },
+      error: (err: any) => {
+        this.router.navigateByUrl('/login')
+      
+      },
+    })
+  }
+
 }

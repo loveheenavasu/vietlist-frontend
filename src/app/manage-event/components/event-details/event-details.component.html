@@ -208,7 +208,7 @@
             </div>
             <div class="comment-content comment card-body my-3">
               <div class="description">
-                <p>{{key.comment_content}}</p>
+                <p style="font-size:17px;font-weight:500">{{key.comment_content}}</p>
                 @if(isReplycomFieldOpen && replyIndexshow === index){
                 <div class="comments">
                   @for(replies of repliesArray ; track $index){
@@ -221,7 +221,7 @@
 
               </div>
 
-              @if(isReplyFieldOpen && replyIndex === index){
+              @if(isReplyFieldOpen && replyIndex === index &&  userDetail.level_id == '3'){
               <div class="flex-grow-1">
                 <textarea type="text" class="input-control input-textarea" [formControl]="replyInput"
                   placeholder="Enter your reply">
