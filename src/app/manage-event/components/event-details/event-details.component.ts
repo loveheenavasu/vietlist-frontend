@@ -1,7 +1,7 @@
 import { ActivatedRoute, Route, Router } from '@angular/router'
 import { Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
-import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common'
+import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
@@ -33,6 +33,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
     DatePipe,
     CommonModule,
     NgxStarsModule,
+    NgIf
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
@@ -391,6 +392,7 @@ export class EventDetailsComponent {
     this.eventService.getReviewReply(this.commentId ,this.postId  ).subscribe({
       next:(res)=>{
         this.repliesArray = res?.data
+        console.log(this.repliesArray ,"Replies")
       },error:(err)=>{
         
       }

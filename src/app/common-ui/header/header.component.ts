@@ -66,6 +66,12 @@ export class HeaderComponent {
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
+    this.sessionservice.OnLogOut.subscribe((res:any)=>{
+      if(res){
+         console.log('check the value')
+        this.onLogout()
+      }
+    })
     const data = this.sessionservice.getUserdata()
     // console.log("check role1", data)
     if (data) {

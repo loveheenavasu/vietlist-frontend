@@ -137,7 +137,7 @@
                 src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
             </div>
             <span>
-              {{key.comment_author_email}} {{index}}
+              {{key.comment_author_email}}
             </span>
             <div class="rating__">
               <div class="d-flex">
@@ -160,21 +160,26 @@
               @for(replies of repliesArray ; track $index){
               <p class="ml-1">{{replies.comment_content}}</p>
               }
-              <p style="cursor:pointer" (click)="showReplyField(index)"> <i class="fa fa-reply" aria-hidden="true"></i>
+              <p style="cursor:pointer" (click)="showReplyField(index)" *ngIf="isAuthentecate"> <i class="fa fa-reply" aria-hidden="true"></i>
                 Reply </p>
             </div>
 
             @if(isReplyFieldOpen && replyIndex === index){
             <div class="d-flex">
+      
               <div class="flex-grow-1"><input type="text" class="input-control" [formControl]="replyInput" /></div>
               <div class="mx-1"><button class="btn reply-btn" (click)="handlereply(key.comment_id)">Reply</button></div>
+          
             </div>
+          
             }
             @else{
+              @if(isAuthentecate){
             <div class="d-none"> <!-- Hide the reply input by default -->
               <div class="flex-grow-1"><input type="text" class="input-control" /></div>
               <div class="mx-1"><button class="btn reply-btn">Reply</button></div>
             </div>
+            }
             }
 
           </div>

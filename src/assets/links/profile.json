@@ -72,7 +72,7 @@
     {
       "label": "Logout",
       "icon": "fa fa-sign-out",
-      "url": "/"
+      "url": "/logout"
     }
 
   ]

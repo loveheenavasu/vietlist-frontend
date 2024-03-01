@@ -74,7 +74,11 @@ export class ManageProfileComponent {
 
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res
+
     })
+
+ 
+
   }
   
 
@@ -146,6 +150,9 @@ export class ManageProfileComponent {
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
+    if(this.activeIndex == '/logout'){
+      this.sessionservice.OnLogOut.next(true)
+     }
   }
 
  public filterTabsByLevelId(levelId:any){

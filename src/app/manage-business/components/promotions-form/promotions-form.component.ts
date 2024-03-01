@@ -64,6 +64,7 @@ export class PromotionsFormComponent {
       physical_accessibility: [''],
       digital_accessibility: [''],
       choose_layout: [''],
+      event_id:['']
     })
   }
 
