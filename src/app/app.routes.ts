@@ -115,7 +115,15 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business/:categoryName',
+    path: 'find-business/:id',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business/:location',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business',
     loadComponent: () => FindBusinessComponent,
   },
   {

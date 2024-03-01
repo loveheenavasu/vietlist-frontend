@@ -1,7 +1,7 @@
 import { MatMenuModule } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { CommonModule } from '@angular/common'
 import { BusinessService } from '../../service/business.service'
@@ -78,7 +78,9 @@ export class FindBusinessComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public categoryName: any
-  public intervalSubscription?: Subscription;
+  public intervalSubscription?: Subscription
+  public routeAddress: any
+  public routeCategory: any
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -86,7 +88,8 @@ export class FindBusinessComponent {
     private fb: FormBuilder,
     private searchAd: HomepageService,
     private IpService: ProfileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr:ChangeDetectorRef
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -96,39 +99,28 @@ export class FindBusinessComponent {
       price: [''],
       slidervalue: [''],
     })
-
-
+    this.route.params.subscribe((res) => {
+      this.routeAddress = res['location']
+      this.routeCategory = res['id']
+      this.street = this.routeAddress
+      console.log(this.routeCategory , "routeCategoy")
+      if (this.routeAddress) {
+        this.street = this.routeAddress
+      }
+    })
   }
 
   ngOnInit() {
-
     this.getPublishBusinessData()
 
 
-    this.route.params.subscribe((res) => {
-      this.categoryName = res['categoryName']
-      console.log("check", res)
-      if (this.categoryName) {
-        this.route.queryParams.subscribe((params) => {
-          const selectedCategoryId = params['id']
-          if (selectedCategoryId) {
-            this.findBusinessForm.controls['post_category'].setValue(+selectedCategoryId)
-            const postPerPage = 2
-            this.searchBusiness()
-          }
-        })
-
-
-      }
-    })
 
     this.getBusinessCat()
     this.initMap()
     // this.searchBusiness()
-    this.findBusinessForm.controls['slidervalue'].setValue(0);
+    this.findBusinessForm.controls['slidervalue'].setValue(0)
     this.fetchSearchAd()
   }
-
 
   public fetchSearchAd() {
     this.searchAd.showAD().subscribe({
@@ -137,9 +129,9 @@ export class FindBusinessComponent {
           if (data.Page_key == 'Search') {
             this.searchPageAd = data.ads_detail
             this.searchPageAd.forEach((ad: any) => {
-              this.multipleSpaceId.push(ad.space_id);
+              this.multipleSpaceId.push(ad.space_id)
               this.multipleAdId.push(ad.id)
-            });
+            })
             this.setStats()
             // console.log("check search ad", this.searchPageAd)
             if (this.searchPageAd && this.searchPageAd.length > 0) {
@@ -147,15 +139,15 @@ export class FindBusinessComponent {
                 .pipe(take(this.searchPageAd.length), repeat())
                 .subscribe(() => {
                   if (this.currentIndex === this.searchPageAd.length - 1) {
-                    this.currentIndex = 0;
+                    this.currentIndex = 0
                   } else {
-                    this.currentIndex++;
+                    this.currentIndex++
                   }
-                });
+                })
             }
           }
         })
-      }
+      },
     })
   }
 
@@ -166,40 +158,46 @@ export class FindBusinessComponent {
   }
 
   private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = this.padZero(date.getMonth() + 1);
-    const day = this.padZero(date.getDate());
-    const hours = this.padZero(date.getHours());
-    const minutes = this.padZero(date.getMinutes());
-    const seconds = this.padZero(date.getSeconds());
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const year = date.getFullYear()
+    const month = this.padZero(date.getMonth() + 1)
+    const day = this.padZero(date.getDate())
+    const hours = this.padZero(date.getHours())
+    const minutes = this.padZero(date.getMinutes())
+    const seconds = this.padZero(date.getSeconds())
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
   }
 
   private padZero(value: number): string {
-    return value < 10 ? `0${value}` : `${value}`;
+    return value < 10 ? `0${value}` : `${value}`
   }
 
   public myBrowser() {
-    if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
-      return 'Opera';
-    } else if (navigator.userAgent.indexOf("Chrome") != -1) {
-      return 'Chrome';
-    } else if (navigator.userAgent.indexOf("Safari") != -1) {
-      return 'Safari';
-    } else if (navigator.userAgent.indexOf("Firefox") != -1) {
-      return 'Firefox';
-    } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!(document as any).documentMode == true)) {
-      return 'IE';
+    if (
+      (navigator.userAgent.indexOf('Opera') ||
+        navigator.userAgent.indexOf('OPR')) != -1
+    ) {
+      return 'Opera'
+    } else if (navigator.userAgent.indexOf('Chrome') != -1) {
+      return 'Chrome'
+    } else if (navigator.userAgent.indexOf('Safari') != -1) {
+      return 'Safari'
+    } else if (navigator.userAgent.indexOf('Firefox') != -1) {
+      return 'Firefox'
+    } else if (
+      navigator.userAgent.indexOf('MSIE') != -1 ||
+      !!(document as any).documentMode == true
+    ) {
+      return 'IE'
     } else {
-      return 'unknown';
+      return 'unknown'
     }
   }
 
   public setStats(ad_id?: string, space_id?: string) {
     this.getIPAdress()
-    const currentDate = new Date();
-    const actionTime = this.formatDate(currentDate);
-    const currentRoute = window.location.href;
+    const currentDate = new Date()
+    const actionTime = this.formatDate(currentDate)
+    const currentRoute = window.location.href
 
     const body = {
       space_id: space_id ? space_id : this.multipleSpaceId,
@@ -208,12 +206,12 @@ export class FindBusinessComponent {
       action_time: actionTime,
       user_ip: this.ipAddress,
       browser: this.myBrowser(),
-      page_url: currentRoute
+      page_url: currentRoute,
     }
     this.searchAd.setStats(body).subscribe({
       next: (res: any) => {
         // console.log("check stats res", res)
-      }
+      },
     })
   }
 
@@ -237,21 +235,24 @@ export class FindBusinessComponent {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)
             this.longitude.push(obj.longitude)
-            console.log("check lat", this.latitude, this.longitude)
+            console.log('check lat', this.latitude, this.longitude)
           }
         })
         this.initMap()
-
       },
     })
   }
-
   public getBusinessCat() {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
-        this.businessCat = res.data
+        this.businessCat = res.data;
+        console.log(this.businessCat , "businessCat")
+        if (res && this.route.snapshot.paramMap.has('id')) {
+          const categoryId = Number(this.route.snapshot.paramMap.get('id'));
+          this.findBusinessForm.get('post_category')?.setValue(categoryId)
+        }
       },
-    })
+    });
   }
 
   public onCategoryChange() {
@@ -302,7 +303,7 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country
     }
-    console.log("param", params)
+    console.log('param', params)
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
@@ -311,7 +312,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
-        console.log("check findbusiness", this.findBusinessData)
+        console.log('check findbusiness', this.findBusinessData)
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
       },
@@ -333,13 +334,11 @@ export class FindBusinessComponent {
   }
 
   public updatePrice(event: any) {
-
     this.price = event.value
     this.slidervalue = this.slidervalue
   }
 
   public initMap() {
-
     let map: any
     const mapElement = document.getElementById('map')
 
@@ -365,7 +364,6 @@ export class FindBusinessComponent {
         // ];
 
         this.findBusinessData.forEach((data) => {
-
           const marker = new google.maps.Marker({
             position: {
               lat: parseFloat(data.latitude),
@@ -374,11 +372,9 @@ export class FindBusinessComponent {
             map: map,
             title: 'Marker Title',
           })
-
         })
       }
     } else {
-
     }
   }
 
@@ -409,13 +405,13 @@ export class FindBusinessComponent {
     this.longitude = place.geometry.location.lng()
   }
   public getUrl(url: string) {
-    window.open(url, "_blank");
+    window.open(url, '_blank')
   }
 
   ngOnDestroy() {
     // Unsubscribe from the interval subscription if it exists
     if (this.intervalSubscription) {
-      this.intervalSubscription.unsubscribe();
+      this.intervalSubscription.unsubscribe()
     }
   }
 }
