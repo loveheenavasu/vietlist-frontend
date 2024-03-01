@@ -133,12 +133,13 @@
                 src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
                 class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
                 alt="Sourav Ghosh"></a>
-                <div class="media-body">
-                  <h5 class="mt-0">Author: <a href="#" routerLink="/manage-profile"> {{ eventDetails?.user_detail?.display_name }}</a></h5>
-                  
-                  <p></p>
-                </div>
-           
+            <div class="media-body">
+              <h5 class="mt-0">Author: <a href="#" routerLink="/manage-profile"> {{
+                  eventDetails?.user_detail?.display_name }}</a></h5>
+
+              <p></p>
+            </div>
+
           </div>
 
         </div>
@@ -197,15 +198,13 @@
                 </div>
               </div>
             </div>
-            <div class="comment-content comment card-body my-5">
+            <div class="comment-content comment card-body my-3">
               <div class="description">
                 <p>{{key.comment_content}}</p>
                 @for(replies of repliesArray ; track $index){
                 <p class="ml-1">{{replies.comment_content}}</p>
                 }
-                <p style="cursor:pointer" (click)="showReplyField(index)" *ngIf="isAuthentecate"> <i class="fa fa-reply"
-                    aria-hidden="true"></i>
-                  Reply </p>
+
               </div>
 
               @if(isReplyFieldOpen && replyIndex === index){
@@ -214,7 +213,7 @@
                 <div class="flex-grow-1"><input type="text" class="input-control" [formControl]="replyInput" /></div>
                 <div class="mx-1"><button class="btn reply-btn" (click)="handlereply(key.comment_id)">Reply</button>
                 </div>
-
+               
               </div>
 
               }
@@ -227,6 +226,11 @@
               }
               }
 
+            </div>
+            <div class="bottom_reply">
+              <button class="btn reply-btn"style="cursor:pointer" (click)="showReplyField(index)" *ngIf="isAuthentecate"> <i
+                  class="fa fa-reply" aria-hidden="true"></i>
+                Reply </button>
             </div>
           </div>
           }
