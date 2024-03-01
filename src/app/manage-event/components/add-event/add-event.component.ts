@@ -130,6 +130,7 @@ export class AddEventComponent {
   public checkValue: any
   public userInfo:any
   public userDetailsLevel_id:any
+  public minDate = new Date();
   /**
    *
    * @param _formBuilder
@@ -305,7 +306,7 @@ this._activatedRoute.params.subscribe((res) => {
 
 
   public resolved(captchaResponse: string | null) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`)
+    // console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
 
 

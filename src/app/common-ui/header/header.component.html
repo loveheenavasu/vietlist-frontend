@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-xl fixed-top bg-body-tertiary" style="z-index: 1000">
   <div class="container-fluid g-0">
     <div class="logo-container">
@@ -184,7 +185,7 @@
 
           <div class="btn-container">
             <div class="login-btn">
-              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login('login')">
+              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
               <!-- @if(isAuthenticated){

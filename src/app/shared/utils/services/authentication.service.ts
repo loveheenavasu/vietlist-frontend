@@ -9,7 +9,6 @@ export class AuthenticationService {
   private isAuthenticatedSubject: BehaviorSubject<boolean>
   public isAuthenticated$: Observable<boolean>
   private isSubscriptionSubject: BehaviorSubject<boolean>
-  public OnLogOut = new BehaviorSubject<boolean>(false)
   public isSubscription$: Observable<boolean>
   public userRole = new BehaviorSubject<string>('')
   public userDetailResponse = new BehaviorSubject<string>('')
@@ -18,6 +17,7 @@ export class AuthenticationService {
   private subscriptionStatus: string = ''
   private loginInfo: any
   private registerUserInfo: any
+  public OnLogOut = new BehaviorSubject<boolean>(false)
 
   /**
    *
@@ -26,10 +26,10 @@ export class AuthenticationService {
 
   constructor(private localstorageservice: LocalStorageService) {
     if (typeof localStorage !== 'undefined') {
-      const loginInfoString = localStorage.getItem('loginInfo');
+      const loginInfoString = localStorage.getItem('loginInfo')
       if (loginInfoString) {
-        const loginInfo = JSON.parse(loginInfoString);
-       this.userRole.next(loginInfo.user_role)
+        const loginInfo = JSON.parse(loginInfoString)
+        this.userRole.next(loginInfo.user_role)
       }
     }
     this.isAuthenticatedSubject = new BehaviorSubject<boolean>(

@@ -17,9 +17,11 @@
     <label class="listing-form-label">Links Posts: Event</label>
   </div>
   <div class="col-12 col-md-12 col-lg-8">
-    <mat-select class="vietlist-select" placeholder="Choose Event ...">
-      <mat-option value="example">Example</mat-option>
-      <mat-option value="example1">Example 1</mat-option>
+    <mat-select class="vietlist-select" placeholder="Choose Event ..." formControlName="event_id">
+      @for(key of eventsArray;track $index){
+      <mat-option [value]="key.post_id">{{key.post_title}}</mat-option>
+      }
+
     </mat-select>
     <div class="d-flex mt-1 justify-content-between">
       <div class="form-text">

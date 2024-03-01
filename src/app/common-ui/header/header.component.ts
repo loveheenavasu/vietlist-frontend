@@ -68,6 +68,12 @@ export class HeaderComponent {
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
+    this.sessionservice.OnLogOut.subscribe((res:any)=>{
+      if(res){
+         console.log('check the value')
+        this.onLogout()
+      }
+    })
     const data = this.sessionservice.getUserdata()
     // console.log("check role1", data)
     if (data) {
@@ -139,11 +145,10 @@ export class HeaderComponent {
     event.preventDefault()
   }
 
-  public login(url:any) {
+  public login() {
      console.log('test logininnnnnn')
-     if (url == 'login') {
       this.router.navigateByUrl('/login'); // Modify the route to your login page
-    }
+  
   }
 
   public signup() {

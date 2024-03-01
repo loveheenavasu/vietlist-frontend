@@ -80,6 +80,7 @@ export class AuthGuard implements CanActivate {
                 return of(true);
 
               } else {
+                console.log("Check Else Og AUth Guard")
                 // Handle unauthorized access (e.g., show a warning message)
                 Swal.fire({
                   toast: true,
@@ -90,6 +91,7 @@ export class AuthGuard implements CanActivate {
                   showConfirmButton: false,
                   timer: 3000,
                   timerProgressBar: true,
+
                 });
                 this.router.navigateByUrl('/');
                 return of(false);

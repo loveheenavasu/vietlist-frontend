@@ -42,6 +42,7 @@
                 class="input-control"
                 (click)="picker.open()"
                 formControlName="eventStartDate"
+                [min]="minDate"
               />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker></mat-datepicker>
@@ -61,6 +62,7 @@
                 [matDatepicker]="picker2"
                 class="input-control"
                 (click)="picker2.open()"
+                [min]="minDate"
                 formControlName="eventEndDate"
               />
               <i class="fa fa-calendar-o"></i>

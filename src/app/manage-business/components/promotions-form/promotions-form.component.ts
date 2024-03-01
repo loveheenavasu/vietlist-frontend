@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 import { NgIf } from '@angular/common'
 import { Router } from '@angular/router'
 import { LocalStorageService } from '@vietlist/shared'
+import { EventService } from 'src/app/manage-event/service/event.service'
 
 @Component({
   selector: 'app-promotions-form',
@@ -49,22 +50,28 @@ export class PromotionsFormComponent {
   public recaptcha = new FormControl('')
   public isLoader: boolean = false
   public isImageUploading:boolean = false
+  public eventsArray:any[]=[]
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private businessService: BusinessService,
     private router: Router,
     private localstorage: LocalStorageService,
+    private eventService:EventService
   ) {
     this.promotions = this.fb.group({
       faq: [''],
       physical_accessibility: [''],
       digital_accessibility: [''],
       choose_layout: [''],
+      event_id:['']
     })
   }
 
-
+  
+  ngOnInit(){
+    this.getAddedEvents()
+  }
 
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
@@ -103,6 +110,20 @@ export class PromotionsFormComponent {
 
   public resolved(captchaResponse: string | null) {
     console.log(`Resolved captcha with response: ${captchaResponse}`)
+  }
+
+
+  public getAddedEvents(){
+
+    this.eventService.getEventsByUserId().subscribe({
+      next:(res:any)=>{
+        this.eventsArray = res.data
+
+      },
+      error:(err)=>{
+
+      }
+    })
   }
 
   public handleFinalSubmission() {

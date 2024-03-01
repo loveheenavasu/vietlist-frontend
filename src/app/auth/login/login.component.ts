@@ -61,6 +61,7 @@ export class LoginComponent {
     private localStorage: LocalStorageService,
     private authenticationService: AuthenticationService,
   ) {
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
