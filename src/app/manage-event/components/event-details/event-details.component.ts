@@ -151,7 +151,11 @@ export class EventDetailsComponent {
       this.getEventDetails()
     }
     this.getReviews()
-    this.fetchProfileDetail()
+    const Token = localStorage.getItem('accessToken')
+
+    if (Token) {
+      this.fetchProfileDetail()
+    }
   }
 
 
