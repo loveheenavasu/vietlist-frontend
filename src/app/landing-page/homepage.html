@@ -36,8 +36,8 @@
               </p>
               @if (key?.url) {
               <div class="explore-btn-wrapper">
-                <button class="btn explore-more-btn grey-bg-btn">
-                  <a [href]="key?.url" target="_blank">Explore </a>
+                <button class="btn explore-more-btn grey-bg-btn" (click)="getUrl(key?.url)">
+                  Explore
                 </button>
               </div>
               }
@@ -95,8 +95,8 @@
             <p>{{key.description}}</p>
           </div>
           @if(key?.url){
-          <div class="explore-more-btn btn">
-            <a [href]="key?.url" target="_blank">Explore </a>
+          <div class="explore-more-btn btn" (click)="getFooterAdUrl(key?.url)">
+            Explore
           </div>
           }
         </div>

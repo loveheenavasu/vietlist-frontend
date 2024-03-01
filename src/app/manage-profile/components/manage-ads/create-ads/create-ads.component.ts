@@ -159,9 +159,10 @@ export class CreateAdsComponent {
   displayImagePreviews() {
     this.isImageLoading = true;
     this.imagePreviews = [];
-
+    const latestFile = this.files[this.files.length - 1];
     for (let i = 0; i < this.files.length; i++) {
       const file = this.files[i];
+      console.log("check file", file)
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
@@ -173,7 +174,8 @@ export class CreateAdsComponent {
 
       reader.readAsDataURL(file);
     }
-    this.businessService.uploadMedia(this.files[0]).subscribe({
+    console.log("check files", this.files)
+    this.businessService.uploadMedia(latestFile).subscribe({
       next: (res: any) => {
         this.isImageLoading = false;
         this.imageUrl = res.image_url;
@@ -257,6 +259,9 @@ export class CreateAdsComponent {
           timerProgressBar: true,
         }).then(() => this.router.navigate(['/manage-profile/manage-ads']))
 
+      },
+      error: (err: any) => {
+        this.isLoader = false
       }
     })
   }

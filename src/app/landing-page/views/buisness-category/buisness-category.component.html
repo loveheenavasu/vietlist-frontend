@@ -17,7 +17,7 @@
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
         @for (key of businessCat; track $index) {
         <swiper-slide>
-          <div class="main-cnt d-flex flex-column ">
+          <div class="main-cnt d-flex flex-column " (click)="handleCategory(key)">
             <div>
               <div class="img-cnt" *ngIf="key.icon !== null">
                 <!-- <i [class]="key.icon" style="width:100%"></i> -->

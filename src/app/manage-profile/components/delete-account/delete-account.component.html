@@ -1,16 +1,35 @@
-<h3 class="dashboard-heading">Delete account will do the following:</h3>
+<h3 class="dashboard-heading">Delete Account</h3>
 
 <div class="row my-4">
-  <p>
-    <i class="fa fa-ban" aria-hidden="true" style="color: rgb(255, 96, 96)"></i>
-    Log you out on all devices
-  </p>
-  <p>
-    <i class="fa fa-ban" aria-hidden="true" style="color: rgb(255, 96, 96)"></i>
-    Delete all your account Information
-  </p>
+  <span class="mb-3">
+    Are you sure you want to delete your account? This action cannot be undone, and all of your data associated with the
+    account will be permanently removed.
+  </span>
+  <div>
+    <h5>Please note the following consequences:</h5>
+  </div>
+  <div>
+    <ul style=" list-style: none; padding-left: 5px;">
+      <li> <i style=" color: #d62727; padding-right: 5x;" class="fa fa-times" aria-hidden="true"></i> You will lose
+        access
+        to your account and any associated
+        services.</li>
+      <li> <i style=" color: #d62727; padding-right: 5x;" class="fa fa-times" aria-hidden="true"></i> Any saved
+        preferences,
+        settings, or customizations will be
+        lost.</li>
+      <li> <i style=" color: #d62727;  padding-right: 5x;" class="fa fa-times" aria-hidden="true"></i> Your account
+        history,
+        including any transactions, messages, or
+        activity, will be deleted.</li>
+      <li> <i style=" color: #d62727;  padding-right: 5x;" class="fa fa-times" aria-hidden="true"></i> You will no
+        longer
+        receive any notifications or updates from
+        us.</li>
+    </ul>
+  </div>
   <p class="mt-3">
-    <button class="btn orange-background-btn" (click)="handleDeleteAccount()">
+    <button class="btn orange-background-btn" style="background-color: #e32424;" (click)="handleDeleteAccount()">
       Delete Account
     </button>
   </p>

@@ -54,13 +54,10 @@ export class HomepageComponent {
   public adDetails: any;
   public showAdInTop: any
   public showAdInFooter: any
-  currentIndex: number = 0;
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
-  public timerSubscription?: Subscription;
-  timerInterval: any;
-  intervalId: any;
+
 
 
   swiperParams = {
@@ -73,6 +70,7 @@ export class HomepageComponent {
       init() { },
     },
   }
+
   footerSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -281,10 +279,13 @@ export class HomepageComponent {
     this.router.navigateByUrl('/benefits-of-joining');
   }
 
-  ngOnDestroy() {
-    // Clear the interval when the component is destroyed
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
-    }
+  public getUrl(url: string) {
+    window.open(url, "_blank");
   }
+
+  public getFooterAdUrl(url: string) {
+    window.open(url, "_blank");
+  }
+
+
 }

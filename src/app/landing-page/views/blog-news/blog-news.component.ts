@@ -33,15 +33,16 @@ export class BlogNewsComponent {
   public orderValue?: number
   public blogDetail?: any
   public blogAd?: any
-  public currentIndex: number = 0
-  public timerSubscription?: Subscription;
-  timerIntervals: any;
+
 
   blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
       delay: 6000
     },
+    // pagination: {
+    //   clickable: true
+    // },
 
     slidesPreview: 1,
     on: {
@@ -151,11 +152,10 @@ export class BlogNewsComponent {
     this.bannerClick.emit({ adId, spaceId });
   }
 
-  ngOnDestroy() {
-    // Clear the interval when the component is destroyed
-    if (this.timerIntervals) {
-      clearInterval(this.timerIntervals);
-    }
+  public getUrl(url: string) {
+    window.open(url, "_blank");
   }
+
+
 
 }

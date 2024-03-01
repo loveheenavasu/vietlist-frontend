@@ -236,6 +236,7 @@ export class FindBusinessComponent {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)
             this.longitude.push(obj.longitude)
+            console.log("check lat", this.latitude, this.longitude)
           }
         })
         this.initMap()
@@ -268,6 +269,7 @@ export class FindBusinessComponent {
 
   public searchBusiness() {
     this.loader = true
+    this.fullPageLoaderService.showLoader()
     const post_category = this.findBusinessForm.value.post_category
     const price = this.slidervalue
     const postPerPage = 2
@@ -405,6 +407,10 @@ export class FindBusinessComponent {
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
+  public getUrl(url: string) {
+    window.open(url, "_blank");
+  }
+
   ngOnDestroy() {
     // Unsubscribe from the interval subscription if it exists
     if (this.intervalSubscription) {

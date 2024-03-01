@@ -81,6 +81,7 @@
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
+    background-position: center;
 
     .overlay {
       background: rgba(57, 57, 57, 0.5);
@@ -111,6 +112,8 @@
       }
 
       .explore-more-btn {
+        color: var(--primary-color-mustard);
+
         a {
           color: var(--primary-color-mustard);
           text-decoration: none;
@@ -150,6 +153,7 @@
     background-repeat: no-repeat;
     position: relative;
     transition: background-image 0.5s ease;
+    background-position: center;
 
     .wrapper {
       width: 100%;
@@ -185,11 +189,12 @@
       width: 9rem;
       transition: none;
       background-color: #f2f2f2;
+      color: var(--primary-color-mustard);
 
-      a {
-        color: var(--primary-color-mustard) !important;
-        text-decoration: none;
-      }
+      // a {
+      //   color: var(--primary-color-mustard) !important;
+      //   text-decoration: none;
+      // }
 
 
     }
@@ -236,6 +241,12 @@
     .banner-2 {
       .content {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0px;
+        height: 100%;
 
         h1 {
           font-size: 1.6rem;
@@ -258,6 +269,20 @@
 
           .explore-more-btn {
             width: 161px;
+          }
+        }
+      }
+    }
+  }
+
+  .advertising {
+    .ads-container {
+      .wrapper {
+        padding: 20px;
+
+        .ad-desc {
+          p {
+            text-align: center;
           }
         }
       }
