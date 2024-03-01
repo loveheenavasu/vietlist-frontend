@@ -169,7 +169,9 @@ export class EventDetailsComponent {
         console.log(res)
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => { 
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 

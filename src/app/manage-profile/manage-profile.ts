@@ -162,4 +162,11 @@ export class ManageProfileComponent {
     })
   }
  }
+
+
+ public handleLogout(){
+  // this.isAuthenticated = false
+  this.sessionservice.clearAuthentication()
+  this.router.navigateByUrl('/')
+ }
 }
