@@ -236,8 +236,8 @@
             <div class="bottom_reply">
               <button class="btn reply-btn"style="cursor:pointer" (click)="showReplyCommentField(index, key.comment_id)" *ngIf="isAuthentecate"> 
                 <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
-              <span  *ngIf="!loader">Show reply </span>
-              <app-loader *ngIf="loader"></app-loader>
+              <span  *ngIf="!loader || replyIndexshow !== index">Show reply </span>
+              <app-loader *ngIf="loader &&  replyIndexshow === index"></app-loader>
             </button>
               &nbsp;
               &nbsp;
