@@ -40,7 +40,10 @@
               'show-search-Input': isSearchInputVisible
             }">
             <div class="search-input col">
-              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
+              <ng-select [items]="post_category" bindLabel="name" placeholder="Category"
+                [ngModelOptions]="{ standalone: true }" [(ngModel)]="selectedCategory" [searchFn]="customSearch"
+                (change)="onCategoryChange()">
+              </ng-select>
             </div>
             <div class="add-zipcode col">
               <div class="input-group">
@@ -76,13 +79,14 @@
               <span [routerLink]="['/']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Home</span>
             </li>
-            <li class="nav-item" [class.active]="isDropdownActive" (click)="toggleDropdowns();toggleDropdownsreset2()" [matMenuTriggerFor]="menucat">
+            <li class="nav-item" [class.active]="isDropdownActive" (click)="toggleDropdowns();toggleDropdownsreset2()"
+              [matMenuTriggerFor]="menucat">
               <span>Categories <i class="fa fa-caret-down" aria-hidden="true"></i></span>
               <mat-menu #menucat="matMenu">
                 <button mat-menu-item routerLink="/business-categories" (click)="toggleDropdowns()">
                   Business Categories
                 </button>
-                <button mat-menu-item routerLink="/business-listing"  (click)="toggleDropdowns()">
+                <button mat-menu-item routerLink="/business-listing" (click)="toggleDropdowns()">
                   Business Listing
                 </button>
               </mat-menu>
@@ -108,10 +112,11 @@
             <li class="nav-item" (click)="toggleDropdownsreset();toggleDropdownsreset2()">
               <span>Blogs/News</span>
             </li>
-            <li class="nav-item" [class.active]="isDropdownActiveEvent" [matMenuTriggerFor]="menuevent" (click)="toggleDropdownsreset()" (click)="toggleDropdownsEvent()">
+            <li class="nav-item" [class.active]="isDropdownActiveEvent" [matMenuTriggerFor]="menuevent"
+              (click)="toggleDropdownsreset()" (click)="toggleDropdownsEvent()">
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
-              <mat-menu #menuevent="matMenu" >
+              <mat-menu #menuevent="matMenu">
                 <button mat-menu-item>
                   <span [routerLink]="['/events']">All Events</span>
                 </button>
@@ -157,12 +162,15 @@
             <div class="search-icon" (click)="handleSearchFiled()">
               <img src="/assets/icons/search-icon.svg" alt="search-icon" />
             </div>
-            <div  class="search row" [ngClass]="{
+            <div class="search row" [ngClass]="{
                 'hide-search-field': !isSearchInputVisible,
                 'show-search-Input': isSearchInputVisible
               }">
               <div class="search-input col">
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search here" />
+                <ng-select [items]="post_category" bindLabel="name" placeholder="Category"
+                  [ngModelOptions]="{ standalone: true }" [(ngModel)]="selectedCategory" [searchFn]="customSearch"
+                  (change)="onCategoryChange()">
+                </ng-select>
               </div>
               <div class="add-zipcode col">
                 <div class="input-group">
@@ -173,7 +181,7 @@
                     placeholder="Add zipcode" />
                 </div>
               </div>
-              <div class="search-btn col-1 g-0">
+              <div class="search-btn col-1 g-0" (click)="handleSearch()">
                 <img src="/assets/icons/search-btn.svg" alt="search-btn" />
               </div>
             </div>

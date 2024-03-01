@@ -107,6 +107,7 @@ export class FindBusinessComponent {
 
     this.route.params.subscribe((res) => {
       this.categoryName = res['categoryName']
+      console.log("check", res)
       if (this.categoryName) {
         this.route.queryParams.subscribe((params) => {
           const selectedCategoryId = params['id']

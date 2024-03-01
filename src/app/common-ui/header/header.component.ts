@@ -4,6 +4,7 @@ import { Component, HostListener } from '@angular/core'
 import {
   ActivatedRoute,
   NavigationEnd,
+  NavigationExtras,
   Router,
   RouterLink,
   RouterLinkActive,
@@ -15,6 +16,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
 import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
+import { NgSelectModule } from '@ng-select/ng-select'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
 
 
 @Component({
@@ -32,6 +36,9 @@ import Swal from 'sweetalert2'
     MatButtonModule,
     RouterLinkActive,
     RouterModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -47,6 +54,9 @@ export class HeaderComponent {
   public currentRoute: any
   isDropdownActive: boolean = false;
   isDropdownActiveEvent: boolean = false;
+  public selectedCategory: any
+  public post_category: any[] = []
+
   /**
    *
    * @param router
@@ -58,6 +68,7 @@ export class HeaderComponent {
     public dialog: MatDialog,
     private sessionservice: AuthenticationService,
     private activatedRoute: ActivatedRoute,
+    private businessService: BusinessService
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -82,21 +93,25 @@ export class HeaderComponent {
     })
   }
 
+  ngOnInit() {
+    this.getBusinessCat()
+  }
+
   toggleDropdowns() {
     this.isDropdownActive = true;
   }
-  
-  toggleDropdownsEvent(){
+
+  toggleDropdownsEvent() {
     this.isDropdownActiveEvent = true;
   }
-  toggleDropdownsreset(){
+  toggleDropdownsreset() {
     this.isDropdownActive = false;
   }
-  toggleDropdownsreset2(){
+  toggleDropdownsreset2() {
     this.isDropdownActiveEvent = false;
   }
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {}
+  onResize(event: Event) { }
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -142,7 +157,7 @@ export class HeaderComponent {
       this.router.navigateByUrl('/manage-profile')
     }
   }
-  
+
   @HostListener('document:click', ['$event'])
   handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -158,17 +173,45 @@ export class HeaderComponent {
       this.isSearchInputVisible = true
     }
   }
-  offsetFlag!:boolean
+  offsetFlag!: boolean
   public onLogout() {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
     window.location.reload()
   }
-  @HostListener('window:scroll', ['$event']) getScrollHeight(event:any) {
-    if(window.pageYOffset> 0 )
-     this.offsetFlag = false;
+  @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
+    if (window.pageYOffset > 0)
+      this.offsetFlag = false;
     else
       this.offsetFlag = true;
- }
+  }
+  public getBusinessCat() {
+    this.businessService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        this.post_category = res.data
+      },
+      error: (err) => { },
+    })
+  }
+
+  public customSearch(term: string, item: any) {
+    term = term.toLowerCase();
+    return item.name.toLowerCase().indexOf(term) > -1;
+  }
+  public onCategoryChange() {
+
+    if (this.selectedCategory) {
+      let formattedName = this.selectedCategory.name.replace(/&/g, ' ');
+      formattedName = formattedName.replace(/\s+/g, '-');
+      const queryParams: NavigationExtras = { queryParams: { id: this.selectedCategory?.id } };
+      this.router.navigate(['/find-business', formattedName], queryParams);
+      this.selectedCategory = null;
+    }
+  }
+
+  public handleSearch() {
+    this.router.navigateByUrl('/find-business');
+  }
+
 }

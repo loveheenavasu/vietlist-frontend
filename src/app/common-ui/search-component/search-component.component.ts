@@ -6,6 +6,8 @@ import { FindBusinessParams } from 'src/app/manage-business/service/business.int
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NavigationExtras, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-search-component',
@@ -38,7 +40,7 @@ export class SearchComponentComponent {
   public filteredOptions: any[] = [];
   public selectedCategory: any
 
-  constructor(private businessCategoriesService: BusinessService,) { }
+  constructor(private businessCategoriesService: BusinessService, private router: Router) { }
 
   ngOnInit() {
 
@@ -78,39 +80,19 @@ export class SearchComponentComponent {
         }
       })
     })
+    if (this.fullAddress) {
+      // let formattedName = selectedCategory.name.replace(/&/g, ' ');
+      // formattedName = formattedName.replace(/\s+/g, '-');
+      console.log("check full address", this.fullAddress,)
+      const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
+      const location = this.fullAddress
+      this.router.navigate(['/find-business/', location]);
+    }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
   public search() {
-    this.isLoader = true
-    const params: FindBusinessParams = {}
-    if (this.city) {
-      params['city'] = this.city
-    }
-    if (this.state) {
-      params['region'] = this.state
-    }
-    if (this.fullAddress) {
-      params['street'] = this.fullAddress
-    }
-    if (this.zipcode) {
-      params['zip'] = this.zipcode
-    }
-    if (this.country) {
-      params['country'] = this.country
-    }
-    if (this.category.value) {
-      params['post_category'] = this.category.value
-    }
-
-    this.businessCategoriesService.findBusiness(params).subscribe({
-      next: (res) => {
-        this.isLoader = false
-
-        this.businessCategoriesArray = res.data
-      },
-      error: (error) => { },
-    })
+    this.router.navigateByUrl('/find-business');
   }
 
 }
