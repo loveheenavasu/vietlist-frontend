@@ -29,7 +29,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
     FormsModule,
     TitleCasePipe,
     NgxDropzoneModule,
-    
+    NgxStarRatingModule,
     DatePipe,
     CommonModule,
     
@@ -143,7 +143,7 @@ export class EventDetailsComponent {
     // this.storValues ={
     //   this.
     // }
-    console.log(this.slectedvalue,'hhhhhhhhhhhh')
+
   }
 
   ngOnInit() {
@@ -170,7 +170,9 @@ export class EventDetailsComponent {
         console.log(res)
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => { 
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 
@@ -344,7 +346,7 @@ export class EventDetailsComponent {
  public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-         this.reviewsArray = res.data
+         this.reviewsArray = res?.data
          console.log(this.reviewsArray)
       },
     })
@@ -410,7 +412,7 @@ export class EventDetailsComponent {
         if(this.repliesArray.length == 0){
           Swal.fire({
             toast: true,
-            text: 'NO REPLIES!',
+            text: 'REPLIES NO FOUND!',
             animation: false,
             icon: 'warning',
             position: 'top-right',

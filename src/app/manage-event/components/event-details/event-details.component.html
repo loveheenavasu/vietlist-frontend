@@ -185,16 +185,24 @@
               </span>
               <div class="rating__">
                 <div class="d-flex">
-                  @if(key?.rating >= 1) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>}
-                  @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true"
+                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 1 ?'rgb(255, 213, 62)':'black'"
+                    style="font-size:17px"></i>
+                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 2 ?'rgb(255, 213, 62)':'black'"
+                    style="font-size:17px"></i>
+                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 3 ?'rgb(255, 213, 62)':'black'"
+                    style="font-size:17px"></i>
+                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 4 ?'rgb(255, 213, 62)':'black'"
+                    style="font-size:17px"></i>
+                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating > 4 ?'rgb(255, 213, 62)':'black'"
+                    style="font-size:17px"></i>
+                  <!-- @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
                   @if(key?.rating >= 3) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
                   @if(key?.rating >= 4) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
-                  @if(key?.rating > 4) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>}
+                  @if(key?.rating >4) {<i class="fa fa-star" aria-hidden="true"
+                    style="color:rgb(255, 213, 62);font-size:17px"></i>} -->
                 </div>
               </div>
             </div>
@@ -202,24 +210,32 @@
               <div class="description">
                 <p>{{key.comment_content}}</p>
                 @if(isReplycomFieldOpen && replyIndexshow === index){
-                  <div class="comments">
+                <div class="comments">
                   @for(replies of repliesArray ; track $index){
-                      <p class="ml-1">{{replies.comment_content}}</p>
+                  <p class="ml-1">{{replies.comment_content}}</p>
                   }
                 </div>
-                     
+
                 }
-               
+
 
               </div>
 
               @if(isReplyFieldOpen && replyIndex === index){
-              <div class="d-flex">
+              <div class="flex-grow-1">
+                <textarea type="text" class="input-control input-textarea" [formControl]="replyInput"
+                  placeholder="Enter your reply">
+                      </textarea>
+                <!-- <input type="te  xt" class="input-control" [formControl]="replyInput" /> -->
+              </div>
+              <div>
+                <button style="width:100%" class="btn reply-btn" (click)="handlereply(index, key.comment_id)">
+                  Post Reply
+                </button>
 
-                <div class="flex-grow-1"><input type="text" class="input-control" [formControl]="replyInput" /></div>
-                <div class="mx-1"><button class="btn reply-btn" (click)="handlereply(index, key.comment_id)">Reply</button>
-                </div>
-               
+                <!-- <button class="btn reply-btn"
+
+                    (click)="handlereply(index, key.comment_id)">Reply</button> -->
               </div>
 
               }
@@ -234,15 +250,16 @@
 
             </div>
             <div class="bottom_reply">
-              <button class="btn reply-btn"style="cursor:pointer" (click)="showReplyCommentField(index, key.comment_id)" *ngIf="isAuthentecate"> 
+              <button class="btn reply-btn" style="cursor:pointer"
+                (click)="showReplyCommentField(index, key.comment_id)">
                 <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
-              <span  *ngIf="!loader || replyIndexshow !== index">Show reply </span>
-              <app-loader *ngIf="loader &&  replyIndexshow === index"></app-loader>
-            </button>
+                <span *ngIf="!loader || replyIndexshow !== index">Show reply </span>
+                <app-loader *ngIf="loader &&  replyIndexshow === index"></app-loader>
+              </button>
               &nbsp;
               &nbsp;
-              <button class="btn reply-btn"style="cursor:pointer" (click)="showReplyField(index)" *ngIf="isAuthentecate"> <i
-                  class="fa fa-reply" aria-hidden="true"></i>
+              <button class="btn reply-btn" style="cursor:pointer" (click)="showReplyField(index)"
+                *ngIf="isAuthentecate"> <i class="fa fa-reply" aria-hidden="true"></i>
                 Reply </button>
             </div>
           </div>

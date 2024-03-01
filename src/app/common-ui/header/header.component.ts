@@ -50,6 +50,7 @@ export class HeaderComponent {
   // isDropdownActiveEvent!: boolean = false;
 
   public userInfo:any
+  public  offsetFlag!:boolean
   /**
    *
    * @param router
@@ -68,12 +69,7 @@ export class HeaderComponent {
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
-    this.sessionservice.OnLogOut.subscribe((res:any)=>{
-      if(res){
-         console.log('check the value')
-        this.onLogout()
-      }
-    })
+
     const data = this.sessionservice.getUserdata()
     // console.log("check role1", data)
     if (data) {
@@ -146,9 +142,8 @@ export class HeaderComponent {
   }
 
   public login() {
-     console.log('test logininnnnnn')
-      this.router.navigateByUrl('/login'); // Modify the route to your login page
-  
+    console.log("login clicked !")
+    this.router.navigate(['/login'])
   }
 
   public signup() {
@@ -199,7 +194,8 @@ export class HeaderComponent {
       this.isSearchInputVisible = true
     }
   }
-  offsetFlag!:boolean
+ 
+
   public onLogout() {
      console.log('test log')
     this.isAuthenticated = false
