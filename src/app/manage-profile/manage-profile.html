@@ -51,8 +51,11 @@
                 >
                   <span><i [class]="key.icon"></i></span>{{ key.label }}
                 </li>
-              
+
                 }
+                <li style="cursor: pointer" (click)="handleLogout()">
+                  <span><i class="fa fa-sign-out"></i></span>Logout
+                </li>
               </ul>
             </div>
           </div>

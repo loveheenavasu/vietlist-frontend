@@ -130,6 +130,7 @@ export class AddEventComponent {
   public checkValue: any
   public userInfo:any
   public userDetailsLevel_id:any
+  public minDate = new Date();
   /**
    *
    * @param _formBuilder
@@ -219,23 +220,23 @@ this._activatedRoute.params.subscribe((res) => {
       this.getEventDetails()
     }
 
-    this.sessionService.isAuthenticated$.subscribe((res)=>{
-      if(res == true && this.userInfo.user_role == Roles.businessOwner){
+    // this.sessionService.isAuthenticated$.subscribe((res)=>{
+    //   if(res == true && this.userInfo.user_role == Roles.businessOwner){
 
-      }else {
-        Swal.fire({
-          toast: true,
-          text: 'Signup as a business owner to add events !',
-          animation: false,
-          icon: 'warning',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.router.navigateByUrl('/register')
-      }
-    })
+    //   }else {
+    //     Swal.fire({
+    //       toast: true,
+    //       text: 'Signup as a business owner to add events !',
+    //       animation: false,
+    //       icon: 'warning',
+    //       position: 'top-right',
+    //       showConfirmButton: false,
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     })
+    //     // this.router.navigateByUrl('/register')
+    //   }
+    // })
 
     this.initMap()
   }
@@ -305,7 +306,7 @@ this._activatedRoute.params.subscribe((res) => {
 
 
   public resolved(captchaResponse: string | null) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`)
+    // console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
 
 
@@ -463,7 +464,6 @@ this._activatedRoute.params.subscribe((res) => {
 
     formData.append('event_dates', JSON.stringify(eventDates));
     formData.forEach((value, key) => {
-      console.log(key, value);
     });
       if(this.postId){
           formData.append('post_id', this.postId);
@@ -533,7 +533,7 @@ this._activatedRoute.params.subscribe((res) => {
           event_title:this.eventDetails.post_title,
           eventStartDate: this.eventDetails.event_dates.start_date,
           eventEndDate: this.eventDetails.event_dates.end_date,
-          post_category: this.eventDetails.post_category,
+          post_category: this.eventDetails.post_category?.id,
           event_description: this.eventDetails.post_content,
           startTime:this.eventDetails.event_dates.start_time,
           endTime: this.eventDetails.event_dates.end_time,
@@ -541,6 +541,7 @@ this._activatedRoute.params.subscribe((res) => {
           
         })
         this.street = this.eventDetails.street,
+        this.fullAddress = this.eventDetails?.street,
         this.zipcode = this.eventDetails.zip,
         this.city = this.eventDetails.city,
         this.country = this.eventDetails.country,
@@ -552,7 +553,5 @@ this._activatedRoute.params.subscribe((res) => {
   }
 
 
-  public updateEvent(){
 
-  }
 }

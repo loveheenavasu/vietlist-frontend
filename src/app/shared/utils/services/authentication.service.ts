@@ -17,6 +17,7 @@ export class AuthenticationService {
   private subscriptionStatus: string = ''
   private loginInfo: any
   private registerUserInfo: any
+  public OnLogOut = new BehaviorSubject<boolean>(false)
 
   /**
    *
@@ -24,6 +25,13 @@ export class AuthenticationService {
    */
 
   constructor(private localstorageservice: LocalStorageService) {
+    if (typeof localStorage !== 'undefined') {
+      const loginInfoString = localStorage.getItem('loginInfo')
+      if (loginInfoString) {
+        const loginInfo = JSON.parse(loginInfoString)
+        this.userRole.next(loginInfo.user_role)
+      }
+    }
     this.isAuthenticatedSubject = new BehaviorSubject<boolean>(
       this.checkAuthentication(),
     )
@@ -33,6 +41,11 @@ export class AuthenticationService {
       this.checkSubscriptionStatus(),
     )
     this.isSubscription$ = this.isSubscriptionSubject.asObservable()
+
+    // const token = localstorageservice.getData('accessToken')
+    // if (token) {
+    //   this.isSubscriptionSubject.next(true)
+    // }
   }
 
   public setSubscriptonStatus(status: string) {

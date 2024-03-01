@@ -54,8 +54,6 @@ export class HeaderComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
   public currentRoute: any
-  isDropdownActive: boolean = false;
-  isDropdownActiveEvent: boolean = false;
   public selectedCategory: any
   public post_category: any[] = []
   public street: any
@@ -66,7 +64,12 @@ export class HeaderComponent {
   public fullAddress: any
   public longitude: any
   public latitude: any
+  public isDropdownActive: boolean = false;
+  public isDropdownActiveEvent: boolean = false;
+  // isDropdownActiveEvent!: boolean = false;
 
+  public userInfo: any
+  public offsetFlag!: boolean
   /**
    *
    * @param router
@@ -86,6 +89,7 @@ export class HeaderComponent {
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
+
     const data = this.sessionservice.getUserdata()
     // console.log("check role1", data)
     if (data) {
@@ -101,11 +105,39 @@ export class HeaderComponent {
         this.isSearchInputVisible = false
       }
     })
+    this.sessionservice.OnLogOut.subscribe((res: any) => {
+      if (res) {
+        console.log('check the value')
+        this.onLogout()
+      }
+    })
   }
 
   ngOnInit() {
+    this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
   }
+
+  public navigateOnAddEvent() {
+    this.sessionservice.isAuthenticated$.subscribe((res) => {
+      if (res == true && this.userInfo.user_role == Roles.businessOwner) {
+        this.router.navigate(['/add-event'])
+      } else {
+        Swal.fire({
+          toast: true,
+          text: 'Signup as a business owner to add events !',
+          animation: false,
+          icon: 'warning',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        // this.router.navigateByUrl('/manage-profile')
+      }
+    })
+  }
+
 
   toggleDropdowns() {
     this.isDropdownActive = true;
@@ -132,7 +164,8 @@ export class HeaderComponent {
   }
 
   public login() {
-    this.router.navigateByUrl('/login')
+    console.log("login clicked !")
+    this.router.navigate(['/login'])
   }
 
   public signup() {
@@ -183,8 +216,10 @@ export class HeaderComponent {
       this.isSearchInputVisible = true
     }
   }
-  offsetFlag!: boolean
+
+
   public onLogout() {
+    console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
@@ -264,4 +299,9 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
+
+
+  setDropdownActiveEvent(active: boolean): void {
+    this.isDropdownActiveEvent = active;
+  }
 }

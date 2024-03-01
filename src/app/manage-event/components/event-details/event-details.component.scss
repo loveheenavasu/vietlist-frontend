@@ -31,8 +31,13 @@
   .breadcrumb a:hover {
     text-decoration: underline;
   }
-.event-page-heading{
-    font-size:24px
+.event-page-heading {
+    /* font-size: 25px; */
+    color: #232F3E!important;
+    -webkit-text-fill-color: #232F3E!important;
+    font-size: 29px;
+    font-weight: bold;
+    padding: 0;
 }
 .headings__ {
     font-size: 17px;
@@ -117,6 +122,51 @@
     display: flex;
     align-items: start;
 }
+.social-link {
+    padding-top: 1.25rem;
+
+    ul {
+        display: flex;
+        gap: 10px;
+        padding: 0px;
+    }
+}
+.media-body {
+    flex: 1;
+    text-align: left;
+    padding-left: 23px;
+}
+ul {
+    list-style-type: none;
+
+    .flex-row {
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+    }
+
+    li {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: var(--dark-grey);
+        font-weight: var(--font-weight-light);
+        height: auto;
+
+        .info-wrapper {
+            width: 385px;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .links {
+        cursor: pointer;
+
+        &:hover {
+            color: var(--primary-color-orange)
+        }
+    }
+}
 .images__{
     overflow: hidden;
 }
@@ -153,3 +203,42 @@ ngx-star-rating .star {
     color: var(--dark-grey);
     font-size: 15px;
   }
+  .btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    color: var(--bs-btn-disabled-color);
+    pointer-events: none;
+    background-color: var(--bs-btn-disabled-bg);
+    border-color: var(--bs-btn-disabled-border-color);
+    opacity: var(--bs-btn-disabled-opacity);
+    background: var(--primary-color-orange)!important;
+    border: none!important;
+}
+
+.reply-btn{
+    background-color: var(--primary-color-orange);
+    color:#fff;
+    border-radius: 2px;
+    height:42px;
+    // width:100%;
+}
+
+.btn:hover {
+    background-color: var(--primary-color-orange)!important;
+    color:#fff!important;
+    border-radius: 2px!important;
+}
+.table > :not(caption) > * > *{
+    background: transparent!important;
+}
+
+
+.bottom_reply {
+    text-align: end;
+    padding-bottom: 17px;
+    padding-top: 11px;
+    border-top: solid 1px lightgray;
+    padding-right: 20px;
+}
+.comments{
+    max-height: 162px;
+    overflow: scroll;
+}

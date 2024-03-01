@@ -1,78 +1,67 @@
 [
-    {
-      "label": "Edit Profile",
-      "icon": "fa fa-user",
-      "url": "/manage-profile"
-    },
-    {
-      "label": "Change Password",
-      "icon": "fa fa-asterisk",
-      "url": "/manage-profile/change-password"
-    },
-    {
-      "label": "Notifications",
-      "icon": "fa fa-bell",
-      "url": "/services"
-    },
-    {
-      "label": "Privacy",
-      "icon": "fa fa-lock",
-      "url": "/manage-profile/privacy"
-    },
-    {
-      "label": "Ads",
-      "icon": "fa fa-cog",
-      "url": "/manage-profile/manage-ads"
-    },
-    {
-      "label": "Invoices",
-      "icon": "fa fa-file ",
-      "url": "/contact"
-    },
-    {
-      "label": "Subscriptions",
-      "icon": "fa fa-repeat",
-      "url": "/manage-profile/subscription"
-    },
-    {
-      "label": "Transactions",
-      "icon": "fa fa-line-chart",
-      "url": "/contact"
-    },
-    {
-      "label": "Billing Address",
-      "icon": "fa fa-credit-card-alt",
-      "url": "/manage-profile/billing-address"
-    },
-    {
-      "label": "My Bookings",
-      "icon": "fa fa-calendar-o",
-      "url": "/contact"
-    },
-    {
-      "label": "My Business",
-      "icon": "fa fa-briefcase",
-      "url": "/manage-profile/my-business"
-    },
-    {
-      "label": "My Events",
-      "icon": "fa fa-calendar-check-o",
-      "url": "/manage-profile/manage-events"
-    },
-    {
-      "label": "Delete Account",
-      "icon": "fa fa-user-times",
-      "url": "/manage-profile/delete-account"
-    },
-    {
-      "label": "Logout",
-      "icon": "fa fa-sign-out",
-      "url": "/"
-    },
-    {
-      "label": "Settings",
-      "icon": "fa fa-cog",
-      "url": "/manage-profile/setting"
-    }
-  ]
-  
+  {
+    "label": "Edit Profile",
+    "icon": "fa fa-user",
+    "url": "/manage-profile"
+  },
+  {
+    "label": "Change Password",
+    "icon": "fa fa-asterisk",
+    "url": "/manage-profile/change-password"
+  },
+  {
+    "label": "Privacy",
+    "icon": "fa fa-lock",
+    "url": "/manage-profile/privacy"
+  },
+  {
+    "label": "Ads",
+    "icon": "fa fa-cog",
+    "url": "/manage-profile/manage-ads"
+  },
+  {
+    "label": "Invoices",
+    "icon": "fa fa-file ",
+    "url": "/contact"
+  },
+  {
+    "label": "Subscriptions",
+    "icon": "fa fa-repeat",
+    "url": "/manage-profile/subscription"
+  },
+  {
+    "label": "Transactions",
+    "icon": "fa fa-line-chart",
+    "url": "/contact"
+  },
+  {
+    "label": "Billing Address",
+    "icon": "fa fa-credit-card-alt",
+    "url": "/manage-profile/billing-address"
+  },
+  {
+    "label": "My Bookings",
+    "icon": "fa fa-calendar-o",
+    "url": "/contact"
+  },
+  {
+    "label": "My Business",
+    "icon": "fa fa-briefcase",
+    "url": "/manage-profile/my-business"
+  },
+  {
+    "label": "My Events",
+    "icon": "fa fa-calendar-check-o",
+    "url": "/manage-profile/manage-events"
+  },
+  {
+    "label": "Settings",
+    "icon": "fa fa-cog",
+    "url": "/manage-profile/setting"
+  },
+  {
+    "label": "Delete Account",
+    "icon": "fa fa-user-times",
+    "url": "/manage-profile/delete-account"
+  }
+]
