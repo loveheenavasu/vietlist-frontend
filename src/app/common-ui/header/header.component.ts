@@ -47,6 +47,8 @@ export class HeaderComponent {
   public currentRoute: any
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
+  // isDropdownActiveEvent!: boolean = false;
+
   public userInfo:any
   /**
    *
@@ -81,10 +83,16 @@ export class HeaderComponent {
         this.isSearchInputVisible = false
       }
     })
+    this.sessionservice.OnLogOut.subscribe((res:any)=>{
+      if(res){
+         console.log('check the value')
+        this.onLogout()
+      }
+    })
   }
 
   ngOnInit(){
-
+    this.sessionservice.OnLogOut.next(false)
   }
 
   public navigateOnAddEvent() {
@@ -131,8 +139,11 @@ export class HeaderComponent {
     event.preventDefault()
   }
 
-  public login() {
-    this.router.navigateByUrl('/login')
+  public login(url:any) {
+     console.log('test logininnnnnn')
+     if (url == 'login') {
+      this.router.navigateByUrl('/login'); // Modify the route to your login page
+    }
   }
 
   public signup() {
@@ -185,6 +196,7 @@ export class HeaderComponent {
   }
   offsetFlag!:boolean
   public onLogout() {
+     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigateByUrl('/')
@@ -196,4 +208,8 @@ export class HeaderComponent {
     else
       this.offsetFlag = true;
  }
+
+ setDropdownActiveEvent(active: boolean): void {
+  this.isDropdownActiveEvent = active;
+}
 }

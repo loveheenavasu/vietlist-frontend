@@ -9,6 +9,7 @@ export class AuthenticationService {
   private isAuthenticatedSubject: BehaviorSubject<boolean>
   public isAuthenticated$: Observable<boolean>
   private isSubscriptionSubject: BehaviorSubject<boolean>
+  public OnLogOut = new BehaviorSubject<boolean>(false)
   public isSubscription$: Observable<boolean>
   public userRole = new BehaviorSubject<string>('')
   public userDetailResponse = new BehaviorSubject<string>('')

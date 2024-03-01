@@ -146,6 +146,13 @@ export class ManageProfileComponent {
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
+     if(this.activeIndex == '/logout'){
+      this.sessionservice.OnLogOut.next(true)
+      //  console.log(this.activeIndex,'this.activeIndex')
+      // this.router.navigateByUrl('/')
+      // this.sessionservice.clearAuthentication()
+      // this.localStorage.clearData()
+     }
   }
 
  public filterTabsByLevelId(levelId:any){
