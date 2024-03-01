@@ -206,19 +206,18 @@
 
 .ads-section {
     margin-top: 2.5rem;
+    padding: 0px;
 }
 
 .ads-wrapper {
-    background-color: #F897053D;
+    // background-color: #F897053D;
     height: 100%;
     padding: 0.625rem 0rem;
 
     .ads-banner {
         background-repeat: no-repeat;
         background-size: cover;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        width: 100%;
         height: 100%;
         transition: background-image 0.5s ease;
         background-position: center;
@@ -251,9 +250,10 @@
 }
 
 .carrer-professional {
-    max-width: 1140px;
-    margin-left: auto;
-    margin-right: auto;
+    // max-width: 1140px;
+    width: 100%;
+    // margin-left: auto;
+    // margin-right: auto;
     margin-top: 2.5rem;
 
     .carrer-professional-img {
@@ -262,7 +262,7 @@
 
         .img-wrapper {
             width: 100%;
-            height: 90%;
+            height: 97%;
             overflow: hidden;
             position: relative;
 
