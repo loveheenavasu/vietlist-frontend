@@ -18,8 +18,10 @@
   </div>
   <div class="col-12 col-md-12 col-lg-8">
     <mat-select class="vietlist-select" placeholder="Choose Event ...">
-      <mat-option value="example">Example</mat-option>
-      <mat-option value="example1">Example 1</mat-option>
+      @for(key of eventsArray;track $index){
+      <mat-option [value]="key.post_id">{{key.post_title}}</mat-option>
+      }
+
     </mat-select>
     <div class="d-flex mt-1 justify-content-between">
       <div class="form-text">

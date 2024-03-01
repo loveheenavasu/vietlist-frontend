@@ -126,3 +126,11 @@
   height: 200px;
   overflow: auto;
 }
+
+
+@media screen and (max-width:520px){
+  .top-banner{
+    display:none;
+    margin-top:9rem;
+  }
+  }
