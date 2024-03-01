@@ -237,3 +237,7 @@ ngx-star-rating .star {
     border-top: solid 1px lightgray;
     padding-right: 20px;
 }
+.comments{
+    max-height: 162px;
+    overflow: scroll;
+}

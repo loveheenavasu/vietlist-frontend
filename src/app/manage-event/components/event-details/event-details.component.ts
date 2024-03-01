@@ -29,10 +29,10 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
     FormsModule,
     TitleCasePipe,
     NgxDropzoneModule,
-    NgxStarRatingModule,
+    
     DatePipe,
     CommonModule,
-    NgxStarsModule,
+    
     NgIf
   ],
   templateUrl: './event-details.component.html',
@@ -40,7 +40,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
   encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
- 
+  public loader: boolean = false
   public footerPageContent?: any
   public reviewForm!: FormGroup
   public isImageUploading: boolean = false
@@ -58,7 +58,9 @@ export class EventDetailsComponent {
   public reviewsArray : any[]=[]
   public isAuthenticationCheck:any
   public isReplyFieldOpen:boolean = false
+  public isReplycomFieldOpen:boolean = false
   public replyIndex: number = -1;
+  public replyIndexshow :number = -1;
   public isAuthentecate!: boolean
   public slectedvalue : boolean = false
   public storValues:any
@@ -149,7 +151,6 @@ export class EventDetailsComponent {
       this.getEventDetails()
     }
     this.getReviews()
-    this.getReplies()
   }
 
 
@@ -355,14 +356,24 @@ export class EventDetailsComponent {
     this.isReplyFieldOpen = true;
     this.replyIndex = index;
   }
+  public showReplyCommentField(index: number, id:any) {
 
+    console.log(index , "INDEX")
+    this.isReplycomFieldOpen = true;
+    this.replyIndexshow = index;
+     this.getReplies(index, id)
+  }
+  // public hideReplyField() {
+  //   this.isReplyFieldOpen = false;
+  //   this.replyIndexshow = -1; 
+  // }
 
   public hideReplyField() {
-    this.isReplyFieldOpen = false;
+    this.isReplycomFieldOpen = false;
     this.replyIndex = -1; 
   }
 
-  public handlereply(commentId:any){
+  public handlereply(index:any , commentId:any){
     this.commentId = commentId
     const body = {
       comment_post_ID: this.postId,
@@ -381,17 +392,33 @@ export class EventDetailsComponent {
     })
     this.eventService.setReviewReply(formData).subscribe({
       next:(res)=>{
-      this.getReplies()
+      this.getReplies(index, this.commentId)
       }
     })
   }
 
 
-  public getReplies(){
-    const params = {}
-    this.eventService.getReviewReply(this.commentId ,this.postId  ).subscribe({
+  public getReplies(index:any, id:any){
+    this.loader = true
+    this.isReplycomFieldOpen = true;
+    this.replyIndexshow = index;
+    this.eventService.getReviewReply(this.commentId?this.commentId:id ,this.postId).subscribe({
       next:(res)=>{
         this.repliesArray = res?.data
+        this.loader = false
+        if(this.repliesArray.length == 0){
+          Swal.fire({
+            toast: true,
+            text: 'NO REPLIES!',
+            animation: false,
+            icon: 'warning',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+
+          });
+        }
         console.log(this.repliesArray ,"Replies")
       },error:(err)=>{
         
