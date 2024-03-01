@@ -26,6 +26,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
 import { ActivatedRoute } from '@angular/router'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-find-business',
@@ -90,7 +91,8 @@ export class FindBusinessComponent {
     private searchAd: HomepageService,
     private IpService: ProfileService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -100,24 +102,35 @@ export class FindBusinessComponent {
       price: [''],
       slidervalue: [''],
     })
-    this.route.params.subscribe((res) => {
-      this.routeAddress = res['location']
-      this.routeCategory = res['id']
-      this.street = this.routeAddress
-      if (this.routeAddress) {
-        this.street = this.routeAddress
-        this.city = this.routeAddress
 
-        this.searchBusiness()
-      }
-    })
 
+    this.route.queryParams.subscribe(params => {
+      this.country = params['country'];
+      this.street = params['state'];
+      this.city = params['city'];
+      this.street = params['street'];
+      this.zipcode = params['zip'];
+      this.street = this.street
+
+      // Now you can use these parameters as needed
+      // console.log('Country:', country);
+      // console.log('State:', state);
+      // console.log('City:', city);
+      // console.log('Street:', street);
+      // console.log('Zip:', zip);
+
+      // You can also use these parameters to perform any actions or logic in your component
+      // For example, you can call a method to fetch data based on these parameters
+      this.searchBusiness()
+    });
   }
 
   ngOnInit() {
     this.getPublishBusinessData()
 
-
+    if (this.country || this.state || this.city || this.street || this.zipcode) {
+      this.searchBusiness()
+    }
 
     this.getBusinessCat()
     this.initMap()
@@ -154,6 +167,12 @@ export class FindBusinessComponent {
       },
     })
   }
+
+  public getTrustedHTML(htmlString: string): SafeHtml {
+    const convertedString = htmlString.replace(/<em>/g, '<i>').replace(/<\/em>/g, '</i>');
+    return this.sanitizer.bypassSecurityTrustHtml(convertedString);
+  }
+
 
   public getIPAdress() {
     this.IpService.getIPAddress().subscribe((res: any) => {

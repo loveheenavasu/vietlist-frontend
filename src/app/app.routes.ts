@@ -119,7 +119,7 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business-location/:location',
+    path: 'find-business-location',
     loadComponent: () => FindBusinessComponent,
   },
   {

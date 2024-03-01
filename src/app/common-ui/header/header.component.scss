@@ -186,6 +186,7 @@
             right: 7rem;
             // height: 100%;
             background-color: var(--white);
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
             .search-input {
                 width: 100%;
@@ -214,6 +215,10 @@
                     .input-group-text {
                         background-color: var(--light-grey);
                         border: none;
+                    }
+
+                    .address-input {
+                        width: 100%;
                     }
                 }
             }
@@ -295,6 +300,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
             .search {
                 flex-direction: column;
                 padding: 12px;
+                right: 0rem;
 
                 .search-input {
                     margin-bottom: 8px;

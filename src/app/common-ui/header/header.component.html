@@ -47,16 +47,14 @@
             </div>
             <div class="add-zipcode col">
               <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">
-                  <img src="/assets/icons/location-icon.svg" alt="location-icon" />
-                </span>
-                <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
-                  placeholder="Add zipcode" />
+                <AutocompleteComponent class="address-input" (setAddress)="getAddress($event)" adressType="geocode"
+                  [value]="street">
+                </AutocompleteComponent>
               </div>
             </div>
             <div class="search-btn col-1 g-0">
               <img src="/assets/icons/search-btn.svg" alt="search-btn" />
-              <button class="btn search-btn-mobile">Search</button>
+              <button class="btn search-btn-mobile" (click)="handleSearch()">Search</button>
             </div>
           </div>
         </div>
@@ -174,11 +172,12 @@
               </div>
               <div class="add-zipcode col">
                 <div class="input-group">
-                  <span class="input-group-text" id="basic-addon1">
+                  <!-- <span class="input-group-text" id="basic-addon1">
                     <img src="/assets/icons/location-icon.svg" alt="location-icon" />
-                  </span>
-                  <input type="text" class="form-control" aria-describedby="basic-addon1" id="exampleFormControlInput1"
-                    placeholder="Add zipcode" />
+                  </span> -->
+                  <AutocompleteComponent class="address-input" (setAddress)="getAddress($event)" adressType="geocode"
+                    [value]="street">
+                  </AutocompleteComponent>
                 </div>
               </div>
               <div class="search-btn col-1 g-0" (click)="handleSearch()">
