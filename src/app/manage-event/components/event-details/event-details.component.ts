@@ -141,7 +141,7 @@ export class EventDetailsComponent {
     // this.storValues ={
     //   this.
     // }
-    console.log(this.slectedvalue,'hhhhhhhhhhhh')
+
   }
 
   ngOnInit() {
