@@ -399,6 +399,7 @@ export class EventDetailsComponent {
 
 
   public getReplies(index:any, id:any){
+    this.repliesArray = []
     this.loader = true
     this.isReplycomFieldOpen = true;
     this.replyIndexshow = index;
