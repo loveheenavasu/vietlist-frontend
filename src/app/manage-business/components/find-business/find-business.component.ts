@@ -79,6 +79,7 @@ export class FindBusinessComponent {
   public multipleAdId: string[] = []
   public categoryName: any
   public intervalSubscription?: Subscription;
+  public categoryDetails?: any
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -231,6 +232,7 @@ export class FindBusinessComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        this.categoryDetails = res.category_data
         this.maxPrice = res.max_price
         this.totalCount = res.total_count
         this.findBusinessData.forEach((obj) => {
@@ -311,6 +313,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        this.categoryDetails = res.category_data
         console.log("check findbusiness", this.findBusinessData)
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
