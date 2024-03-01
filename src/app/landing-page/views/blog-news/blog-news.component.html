@@ -68,8 +68,8 @@
                 {{key?.description}}
               </p>
               @if (key?.url) {
-              <button class="btn">
-                <a [href]="key?.url" target="_blank">Explore </a>
+              <button class="btn" (click)="getUrl(key?.url)">
+                Explore
               </button>
               }
             </div>

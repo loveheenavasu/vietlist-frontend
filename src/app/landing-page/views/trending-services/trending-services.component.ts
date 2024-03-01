@@ -1,4 +1,4 @@
-import { LoaderComponent } from 'src/app/common-ui'
+import { LoaderComponent, SearchComponentComponent } from 'src/app/common-ui'
 import { FullPageLoaderService } from './../../../shared/utils/services/loader.service'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
@@ -16,7 +16,7 @@ import { BusinessService } from 'src/app/manage-business/service/business.servic
 import { register } from 'swiper/element'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
-import { Router } from '@angular/router'
+import { NavigationExtras, Router } from '@angular/router'
 register()
 
 @Component({
@@ -31,6 +31,7 @@ register()
     ReactiveFormsModule,
     FormsModule,
     LoaderComponent,
+    SearchComponentComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './trending-services.component.html',
@@ -89,8 +90,17 @@ export class TrendingServicesComponent {
 
   ngOnInit() {
     this.getTrendingCategroies()
-    this.trendingHeaderContent = this.homePageData
+    // this.trendingHeaderContent = this.homePageData
     this.getBusinessCat()
+  }
+
+  onCategorySelected(selectedCategory: any) {
+    if (selectedCategory) {
+      let formattedName = selectedCategory.name.replace(/&/g, ' ');
+      formattedName = formattedName.replace(/\s+/g, '-');
+      const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
+      this.router.navigate(['/find-business', formattedName], queryParams);
+    }
   }
 
   getTrendingCategroies() {
@@ -168,9 +178,14 @@ export class TrendingServicesComponent {
       error: (error) => { },
     })
   }
-  onCategorySelectionChange(event: MatSelectChange) {
-    const categoryId = event.value;
-    console.log("check the value of select", categoryId)
 
+  public selectedTrendingCatergory(item: any) {
+    console.log("check id", item)
+    if (item) {
+      let formattedName = item.name.replace(/&/g, ' ');
+      formattedName = formattedName.replace(/\s+/g, '-');
+      const queryParams: NavigationExtras = { queryParams: { id: item?.id } };
+      this.router.navigate(['/find-business', formattedName], queryParams);
+    }
   }
 }

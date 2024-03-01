@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { NavigationExtras, Router } from '@angular/router';
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element/bundle';
 
@@ -49,6 +50,7 @@ export class BuisnessCategoryComponent {
   constructor(
     private businessService: BusinessService,
     private sanitizer: DomSanitizer,
+    private router: Router
   ) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
@@ -61,7 +63,7 @@ export class BuisnessCategoryComponent {
     this.getCategroies()
   }
 
-  
+
   getCategroies() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
@@ -73,5 +75,14 @@ export class BuisnessCategoryComponent {
 
   public getTrustedHTML(htmlString: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(htmlString)
+  }
+
+  public handleCategory(item: any) {
+    if (item) {
+      let formattedName = item.name.replace(/&/g, ' ');
+      formattedName = formattedName.replace(/\s+/g, '-');
+      const queryParams: NavigationExtras = { queryParams: { id: item?.id } };
+      this.router.navigate(['/find-business', formattedName], queryParams);
+    }
   }
 }

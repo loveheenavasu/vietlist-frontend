@@ -6,7 +6,7 @@
     margin-top: 8rem;
 
     .row {
-        // width: 100%;
+        width: 100%;
     }
 }
 
@@ -221,6 +221,7 @@
         margin-right: auto;
         height: 100%;
         transition: background-image 0.5s ease;
+        background-position: center;
     }
 
     .ads-text {
@@ -235,11 +236,7 @@
             width: 9rem;
             transition: none;
             background-color: #f2f2f2;
-
-            a {
-                color: var(--primary-color-mustard) !important;
-                text-decoration: none;
-            }
+            color: var(--primary-color-mustard);
 
 
         }
@@ -446,4 +443,13 @@
         gap: 10px;
         margin-top: 40px !important;
     }
+}
+
+::ng-deep.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after,
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
+    color: var(--primary-color-mustard) !important;
+}
+
+::ng-deep.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+    color: var(--primary-color-mustard) !important;
 }

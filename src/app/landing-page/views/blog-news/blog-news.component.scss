@@ -114,6 +114,7 @@ section {
         .blog-banner {
             // width: 26%;
             position: relative;
+            margin-bottom: 32px;
 
             .cross {
                 position: absolute;
@@ -126,6 +127,7 @@ section {
                 height: 100%;
                 background-repeat: no-repeat;
                 background-size: cover;
+                background-position: center;
                 transition: background-image 0.5s ease;
                 // background-image: url();
                 // background: url("/assets/icons/blog-banner.svg"), lightgray 50% / cover no-repeat;
@@ -203,6 +205,17 @@ section {
 
         .blog-banner {
             height: 300px !important;
+
+            .banner-img {
+
+                .banner-text {
+                    padding-right: 2.125rem;
+
+                    P {
+                        line-height: 30px !important;
+                    }
+                }
+            }
         }
 
         .blog-card {
@@ -245,7 +258,6 @@ section {
 
                 p {
                     font-size: 1.4rem !important;
-                    line-height: 0px !important;
                     padding-top: 1rem !important;
                     width: 100% !important;
                     text-align: center !important;

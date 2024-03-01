@@ -46,6 +46,7 @@
                 <!-- <input type="text" class="input-control" placeholder="category" /> -->
                 <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category"
                   formControlName="post_category">
+                  <mat-option>--Select category--</mat-option>
                   @for (key of businessCat; track $index) {
                   <mat-option [value]="key.id">{{ key.name }}</mat-option>
                   }
@@ -54,6 +55,7 @@
 
               <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Select business type" formControlName="model">
+                  <mat-option>--Select category--</mat-option>
                   <mat-option value="retail">Retail</mat-option>
                   <mat-option value="restaurant">Restaurant</mat-option>
                   <mat-option value="restaurant">Service</mat-option>
@@ -211,8 +213,8 @@
               <p>{{searchPageAd[currentIndex]?.description}}</p>
             </div>
             @if(searchPageAd[currentIndex]?.url){
-            <div class="explore-more-btn btn">
-              <a [href]="searchPageAd[currentIndex]?.url" target="_blank">Explore </a>
+            <div class="explore-more-btn btn" (click)="getUrl(searchPageAd[currentIndex]?.url)">
+              Explore
             </div>
             }
           </div>
