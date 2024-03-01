@@ -51,7 +51,11 @@ export class ManageProfileComponent {
 
     this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
+
     })
+
+
+
   }
 
 
@@ -130,8 +134,9 @@ export class ManageProfileComponent {
               tab.label !== 'Notifications' &&
               tab.label !== 'Invoices' &&
               tab.label !== 'Transactions' &&
-              tab.label !== 'Settings' &&
-              tab.label !== 'My Bookings'
+              tab.label !== 'Notifications Settings' &&
+              tab.label !== 'My Bookings' &&
+              tab.label !== 'My Events'
             );
           } else if (this.userDetail.user_role == Roles.businessOwner && this.userDetail.level_id == '1') {
             this.menuItems = this.sidebarMenu.filter(tab =>
@@ -157,6 +162,9 @@ export class ManageProfileComponent {
   addClass(url: string) {
     // Update the activeIndex when clicking on a menu item
     this.activeIndex = url
+    if (this.activeIndex == '/logout') {
+      this.sessionservice.OnLogOut.next(true)
+    }
   }
 
   public filterTabsByLevelId(levelId: any) {
@@ -165,5 +173,13 @@ export class ManageProfileComponent {
         res.label !== ''
       })
     }
+  }
+
+
+
+  public handleLogout() {
+    // this.isAuthenticated = false
+    this.sessionservice.clearAuthentication()
+    this.router.navigateByUrl('/')
   }
 }

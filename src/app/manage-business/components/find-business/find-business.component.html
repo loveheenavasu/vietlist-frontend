@@ -13,7 +13,12 @@
       <div class="row">
         <div class="d-flex bd-highlight">
           <div class="p-2 flex-grow-1 bd-highlight">
-            <h2>Find Business</h2>
+            <h2>{{categoryDetails?.name || 'Find Business'}}</h2>
+            @if (categoryDetails?.description) {
+            <div class="description">
+              <p>{{categoryDetails?.description}}</p>
+            </div>
+            }
           </div>
           <div class="p-2 bd-highlight">
             <div class="grid-save-btn" [matMenuTriggerFor]="menu">
@@ -136,7 +141,7 @@
               </div>
               <div class="business-title">
                 <h2>{{ item.post_title }}</h2>
-                <span>{{ item.post_content }}</span>
+                <span [innerHtml]="item.post_content"></span>
               </div>
               <div class="business-package">
                 <p>$ Package : Free Business</p>

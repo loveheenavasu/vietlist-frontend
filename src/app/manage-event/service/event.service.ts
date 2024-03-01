@@ -1,13 +1,20 @@
 import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { GenericHelper, Endpoints, AuthenticationService } from '@vietlist/shared'
+import {
+  GenericHelper,
+  Endpoints,
+  AuthenticationService,
+} from '@vietlist/shared'
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  constructor(private http: HttpClient,private sessionService:AuthenticationService) {}
+  constructor(
+    private http: HttpClient,
+    private sessionService: AuthenticationService,
+  ) {}
 
   public getEventTags(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventTags)
@@ -26,13 +33,12 @@ export class EventService {
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-
   public getEventCat(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventCatgeory)
     return this.http.get(endpoint)
   }
 
-  public getPublishEvents(params: { [key: string]: any }):Observable<any>{
+  public getPublishEvents(params: { [key: string]: any }): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetPublishEvent)
     let queryParams = new HttpParams()
     Object.keys(params).forEach((key) => {
@@ -40,13 +46,13 @@ export class EventService {
         queryParams = queryParams.set(key, params[key])
       }
     })
-    return this.http.get(endpoint , { params: queryParams })
+    return this.http.get(endpoint, { params: queryParams })
   }
 
-  public getEventDetailsByPostId(post_id:any):Observable<any>{
+  public getEventDetailsByPostId(post_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventDetailsByPostId)
-    const params = new HttpParams().set('post_id' , post_id)
-    return this.http.get<any>(endpoint, {params: params })
+    const params = new HttpParams().set('post_id', post_id)
+    return this.http.get<any>(endpoint, { params: params })
   }
 
   public findEvents(params: { [key: string]: any }): Observable<any> {
@@ -60,17 +66,34 @@ export class EventService {
     return this.http.get<any>(endpoint, { params: queryParams })
   }
 
-  public getEventsByUserId(){
+  public getEventsByUserId() {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetEventUsingUserId)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get(endpoint , {headers:authToken})
+    return this.http.get(endpoint, { headers: authToken })
   }
 
-  public deleteEvent(id:any){
+  public deleteEvent(id: any) {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteEvent)
     const authToken: any = this.sessionService.getAuthHeaders()
-    let params = new HttpParams().set('post_id', id);
-    return this.http.delete(endpoint , {headers:authToken , params:params})
+    let params = new HttpParams().set('post_id', id)
+    return this.http.delete(endpoint, { headers: authToken, params: params })
   }
 
+  public setReviewReply(body: any) {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetReviewReply)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, body, { headers: authToken })
+  }
+
+  public getReviewReply(
+    comment_parent: any,
+    post_id: any,
+  ): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetReviewReply)
+    let queryParams = new HttpParams()
+      .set('comment_parent', comment_parent)
+      .set('post_id', post_id)
+
+    return this.http.get<any>(endpoint, { params: queryParams })
+  }
 }

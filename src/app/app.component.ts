@@ -39,14 +39,13 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
   }
-
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
   }

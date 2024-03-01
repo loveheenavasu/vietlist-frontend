@@ -30,6 +30,7 @@ import { AllEventComponent } from './manage-event/components/all-event/all-event
 import { EventDetailsComponent } from './manage-event/components/event-details/event-details.component'
 import { LoginGuard } from './shared/utils/guard/login.guard'
 import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
+import { Roles } from './shared'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -92,11 +93,12 @@ export default [
         loadComponent: () => BillingAddressComponent,
       },
       {
-        path:'manage-events',
+        path: 'manage-events',
         loadComponent: () => MyEventsComponent
       }
     ],
     canActivate: [AuthGuard],
+    data: { roles: ['business-owner', 'subscriber'] }
   },
   {
     path: 'preview-business/:id',
@@ -115,13 +117,22 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business/:categoryName',
+    path: 'find-business/:id',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business-location',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business',
     loadComponent: () => FindBusinessComponent,
   },
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
-    canActivate: [AuthGuard] 
+    canActivate: [AuthGuard],
+    data: { roles: [Roles.businessOwner] }
   },
   {
     path: 'benefits-of-joining',
@@ -142,6 +153,8 @@ export default [
   {
     path: 'add-event',
     loadComponent: () => AddEventComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['business-owner'] }
   },
   {
     path: 'edit-event/:id',

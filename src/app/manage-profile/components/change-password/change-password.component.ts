@@ -35,7 +35,7 @@ export class ChangePasswordComponent {
   public email: string //
   public isHidePassword: boolean = false
   public changePassword: FormGroup
-
+  public isHideOldPassword:boolean = true
   /**
    *
    * @param profileDetail
@@ -106,5 +106,9 @@ export class ChangePasswordComponent {
 
   hideConfirmPassword() {
     this.isHideConfirmPassword = !this.isHideConfirmPassword
+  }
+
+  hideOldPassword(){
+    this.isHideOldPassword = !this.isHideOldPassword
   }
 }

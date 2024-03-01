@@ -88,3 +88,10 @@
     width:90% !important;
   }
 }
+
+@media screen and (max-width:520px){
+.top-banner{
+  display:none;
+  margin-top:9rem;
+}
+}
