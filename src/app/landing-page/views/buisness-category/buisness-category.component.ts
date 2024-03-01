@@ -79,10 +79,7 @@ export class BuisnessCategoryComponent {
 
   public handleCategory(item: any) {
     if (item) {
-      let formattedName = item.name.replace(/&/g, ' ');
-      formattedName = formattedName.replace(/\s+/g, '-');
-      const queryParams: NavigationExtras = { queryParams: { id: item?.id } };
-      this.router.navigate(['/find-business', formattedName], queryParams);
+      this.router.navigate(['/find-business/', item?.id])
     }
   }
 }

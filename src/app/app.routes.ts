@@ -92,7 +92,7 @@ export default [
         loadComponent: () => BillingAddressComponent,
       },
       {
-        path:'manage-events',
+        path: 'manage-events',
         loadComponent: () => MyEventsComponent
       }
     ],
@@ -115,13 +115,21 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business/:categoryName',
+    path: 'find-business/:id',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business-location/:location',
+    loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path: 'find-business',
     loadComponent: () => FindBusinessComponent,
   },
   {
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
-    canActivate: [AuthGuard] 
+    canActivate: [AuthGuard]
   },
   {
     path: 'benefits-of-joining',

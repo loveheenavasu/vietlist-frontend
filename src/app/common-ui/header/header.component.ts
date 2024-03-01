@@ -202,10 +202,7 @@ export class HeaderComponent {
   public onCategoryChange() {
 
     if (this.selectedCategory) {
-      let formattedName = this.selectedCategory.name.replace(/&/g, ' ');
-      formattedName = formattedName.replace(/\s+/g, '-');
-      const queryParams: NavigationExtras = { queryParams: { id: this.selectedCategory?.id } };
-      this.router.navigate(['/find-business', formattedName], queryParams);
+      this.router.navigate(['/find-business/', this.selectedCategory?.id])
       this.selectedCategory = null;
     }
   }

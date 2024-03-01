@@ -86,7 +86,7 @@ export class SearchComponentComponent {
       console.log("check full address", this.fullAddress,)
       const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
       const location = this.fullAddress
-      this.router.navigate(['/find-business/', location]);
+      this.router.navigate(['/find-business-location/', location]);
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
