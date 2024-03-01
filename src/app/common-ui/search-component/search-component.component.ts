@@ -84,9 +84,17 @@ export class SearchComponentComponent {
       // let formattedName = selectedCategory.name.replace(/&/g, ' ');
       // formattedName = formattedName.replace(/\s+/g, '-');
       console.log("check full address", this.fullAddress,)
-      const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
+      // const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
       const location = this.fullAddress
-      this.router.navigate(['/find-business/', location]);
+          // Construct query parameters
+    const addressParams = {
+      country: this.country,
+      state: this.state,
+      city: this.city,
+      street: this.fullAddress,
+      zip: this.zipcode
+    }
+    this.router.navigate(['/find-business-location'], {queryParams: addressParams});
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()

@@ -99,21 +99,35 @@ export class FindBusinessComponent {
       price: [''],
       slidervalue: [''],
     })
-    this.route.params.subscribe((res) => {
-      this.routeAddress = res['location']
-      this.routeCategory = res['id']
-      this.street = this.routeAddress
-      console.log(this.routeCategory , "routeCategoy")
-      if (this.routeAddress) {
-        this.street = this.routeAddress
-      }
-    })
+
+    
+    this.route.queryParams.subscribe(params => {
+       this.country = params['country'];
+      this.street = params['state'];
+      this.city = params['city'];
+      this.street = params['street'];
+      this.zipcode = params['zip'];
+      this.street = this.street
+
+      // Now you can use these parameters as needed
+      // console.log('Country:', country);
+      // console.log('State:', state);
+      // console.log('City:', city);
+      // console.log('Street:', street);
+      // console.log('Zip:', zip);
+  
+      // You can also use these parameters to perform any actions or logic in your component
+      // For example, you can call a method to fetch data based on these parameters
+     this.searchBusiness()
+    });
   }
 
   ngOnInit() {
     this.getPublishBusinessData()
 
-
+    if(this.country || this.state || this.city || this.street || this.zipcode ){
+      this.searchBusiness()
+    }
 
     this.getBusinessCat()
     this.initMap()
