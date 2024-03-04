@@ -207,17 +207,17 @@
     }
 }
 
-.ad-section {
+.section {
     margin-top: 2.5rem;
     padding: 0px;
 }
 
-.ad-wrapper {
+.wrapper {
     // background-color: #F897053D;
     height: 100%;
     padding: 0.625rem 0rem;
 
-    .ad-banner {
+    .img-banner {
         background-repeat: no-repeat;
         background-size: cover;
         width: 100%;
@@ -226,7 +226,7 @@
         background-position: center;
     }
 
-    .ad-text {
+    .a-text {
         height: 35vh;
         align-items: center;
         flex-direction: column;

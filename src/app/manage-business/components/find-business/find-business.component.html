@@ -205,18 +205,18 @@
         }
       </div>
     </div>
-    <div class="col-12 ad-section">
+    <div class="col-12 section">
 
-      <div class="ad-wrapper">
+      <div class="wrapper">
         @if(searchPageAd){
-        <div class="ad-banner"
+        <div class="img-banner"
           (click)="CountClickStats(searchPageAd[currentIndex]?.id,searchPageAd[currentIndex]?.space_id)"
           style="background-image: url({{searchPageAd[currentIndex]?.img}})">
-          <div class="ad-text d-flex justify-content-center p-2">
-            <div class="ad-title">
+          <div class="a-text d-flex justify-content-center p-2">
+            <div class="a-title">
               <h1>{{searchPageAd[currentIndex]?.title}}</h1>
             </div>
-            <div class="ad-desc">
+            <div class="a-desc">
               <p>{{searchPageAd[currentIndex]?.description}}</p>
             </div>
             @if(searchPageAd[currentIndex]?.url){
