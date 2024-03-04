@@ -1,6 +1,10 @@
 <section class="banner">
   <div class="content">
     <h1>Preview Your Business</h1>
+    <div class="elementor-divider">
+      <span class="elementor-divider-separator">
+      </span>
+    </div>
   </div>
 </section>
 <!-- 
@@ -273,7 +277,57 @@
 </form> -->
 
 
+<section class="tabs">
+  <div class="section-container">
+    <ul class="list-items">
+      <li (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'"><span> <i class="fa fa-home"
+            aria-hidden="true"></i> </span> Business </li>
+      <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'"><span> <i class="fa fa-picture-o"
+            aria-hidden="true"></i></span> Photos </li>
+      <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'"><span> <i class="fa fa-globe"
+            aria-hidden="true"></i> </span> Map </li>
+      <!-- <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'" ><span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews </li> -->
+    </ul>
+  </div>
+  <!-- <nav class="geodir-tab-head greedy navbar-expand">
+      <ul class="nav list-unstyled nav-tabs mb-3 flex-nowrap mx-0 being-greedy w-100" id="gd-single-tabs"
+        role="tablist">
+        <li class="nav-item list-unstyled mb-0">
+          <a class="nav-link text-nowrap scroll-ignore active" data-tab="post_content" href="#post_content" role="tab"
+            (click)="setActiveTab('Profile')" [class.active]="activeTab === 'Profile'" aria-controls="post_content"
+            aria-selected="true">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            Business</a>
+        </li>
+        <li class="nav-item list-unstyled mb-0">
+          <a class="nav-link text-nowrap scroll-ignore " data-tab="post_images" (click)="setActiveTab('post_content')"
+            [class.active]="activeTab === 'post_content'" role="tab" aria-controls="post_images" aria-selected="false">
 
+            <i class="fa fa-picture-o" aria-hidden="true"></i>
+            Photos</a>
+        </li>
+        <li class="nav-item list-unstyled mb-0"><a class="nav-link text-nowrap scroll-ignore " data-tab="post_map"
+            href="#post_map" role="tab" (click)="setActiveTab('post_map')" [class.active]="activeTab === 'post_map'"
+            aria-controls="post_map" aria-selected="false">
+
+            <i class="fa fa-globe" aria-hidden="true"></i> &nbsp;Map
+          </a>
+
+        </li>
+       <li class="nav-item list-unstyled mb-0">
+          <a class="nav-link text-nowrap scroll-ignore " data-tab="reviews"
+            href="#reviews" (click)="setActiveTab('reviews')" [class.active]="activeTab === 'reviews'"  role="tab" aria-controls="reviews" aria-selected="false">
+            <i class="fa fa-comments" aria-hidden="true"></i>&nbsp; Reviews</a>
+            </li> 
+        <li class="nav-item list-unstyled ml-auto greedy-btn d-none dropdown" style=""><a href="javascript:void(0)"
+            data-toggle="dropdown" class="nav-link"><i class="fas fa-ellipsis-h" aria-hidden="true"></i> <span
+              class="greedy-count badge badge-dark badge-pill">0</span></a>
+          <ul class="greedy-links dropdown-menu  dropdown-menu-right  mt-2 "></ul>
+        </li>
+      </ul>
+    </nav> -->
+
+</section>
 
 <section class="background_section">
 
@@ -287,7 +341,7 @@
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-12 col-md-12 col-lg-8">
+      <div class="col-12 col-md-12 col-lg-8" id="profile">
 
         <div class="row mt-3">
           <h3 class="event-page-heading">Business Details</h3>
@@ -332,8 +386,8 @@
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
                   @for(items of businessFormDetails?.post_category ; track $index){
                   {{items?.name || "NA"}}
-                }
-              </td>
+                  }
+                </td>
 
               </tr>
             </tbody>
@@ -401,12 +455,41 @@
       <div class="col-12 col-md-12 col-lg-4 mt-3">
         <div class="profile-info-div">
           <h3>Contact Info</h3>
-          {{ businessFormDetails?.contact_phone }}
+          <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
-            <ul>
+            <div class="location">
+              <i class="fa fa-map-marker" aria-hidden="true"
+                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
+              businessFormDetails?.street }}
+            </div>
+            <div class="location">
+              <i class="fa fa-link" aria-hidden="true" style="font-size: 20px;margin-right:13px; color:#7A7A7A"></i>
+              <a href="{{businessFormDetails?.website}}" target="_blank" style="color: #38ccff;
+              font-size: 14px;
+              font-weight: 500;text-decoration: none;">{{'Website url'}}</a>
+            </div>
+            <div class="location">
+              <i class="fa fa-facebook-official" aria-hidden="true"
+                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+              <a href="{{businessFormDetails?.facebook}}" target="_blank" style="color: #38ccff;
+              font-size: 14px;
+              font-weight: 500;text-decoration: none;">{{'Facebook'}}</a>
+            </div>
+            <div class="location">
+              <i class="fa fa-twitter" aria-hidden="true" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+              <a href="{{businessFormDetails?.twitter}}" target="_blank" style="color: #38ccff;
+              font-size: 14px;
+              font-weight: 500;text-decoration: none;">{{'Twitter'}}</a>
+            </div>
+            <!-- <ul>
+              <li>
+                <a>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </a>
+              </li>
               <li>
                 <a [href]="businessFormDetails?.facebook" target="_blank">
-                  <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+                  <i class="fa fa-link" aria-hidden="true"></i>
                 </a>
               </li>
               <li>
@@ -429,7 +512,7 @@
                   <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
         <div class="profile-info-div mt-3" style="padding: 9%;">
@@ -450,7 +533,7 @@
         </div>
       </div>
     </div>
-    <div class="row  my-4">
+    <div class="row  my-4" id="photo">
       <div class="col-12">
         <h3 class="event-page-heading">Photo(s)</h3>
 
@@ -462,7 +545,7 @@
         </div>
       </div>
     </div>
-    <div class="row  my-4">
+    <div class="row  my-4" id="mapView">
       <div class="col-12">
         <h3 class="event-page-heading">Map</h3>
       </div>

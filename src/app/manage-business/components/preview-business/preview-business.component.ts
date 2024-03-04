@@ -163,4 +163,17 @@ public longitude !:number
   public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }
+  activeTab: string = 'profile';
+
+  setActiveTab(tab: string) {
+ 
+  }
+
+  public scrollTo(elementId: string): void {
+    this.activeTab = elementId;
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
