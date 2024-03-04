@@ -7,8 +7,9 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
+
 
 @Component({
   selector: 'app-preview-business',
@@ -24,14 +25,17 @@ export class PreviewBusinessComponent {
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public footerPageContent?: any
   public previewForm: FormGroup
-  public  latitude !:number
-public longitude !:number
+  public latitude!: number
+  public longitude!: number
+  public userDetails:any;
+
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     public router: Router,
+    private authService:AuthenticationService
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -90,6 +94,11 @@ public longitude !:number
     if (this.postId) {
       this.getBusinessFormDetails()
     }
+    this.authService.userDetails.subscribe((res: any) => {
+      if (res) {
+        this.userDetails = res
+      }
+    })
   }
   dataget: any
   gettags: any
@@ -101,7 +110,10 @@ public longitude !:number
 
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-         console.log(this.businessFormDetails,'businessFormDetailsbusinessFormDetails')
+        console.log(
+          this.businessFormDetails,
+          'businessFormDetailsbusinessFormDetails',
+        )
         this.previewForm.patchValue(this.businessFormDetails)
         this.logo = res?.data[0]?.logo
         this.latitude = Number(this.businessFormDetails.latitude)

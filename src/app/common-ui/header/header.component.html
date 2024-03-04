@@ -121,6 +121,9 @@
                 <button mat-menu-item>
                   <span [routerLink]="['/add-event']">Add Event</span>
                 </button>
+                <button mat-menu-item *ngIf="userRole == roles.businessOwner">
+                  <span [routerLink]="['/manage-profile/manage-events']">My Events</span>
+                </button>
               </mat-menu>
             </li>
             <li class="nav-item">

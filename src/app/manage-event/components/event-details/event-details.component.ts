@@ -68,6 +68,8 @@ export class EventDetailsComponent {
   public replyInput = new FormControl('')
   public commentId: any
   public repliesArray: any[] = []
+  public overllRating:any
+  public activeTab: string = 'profile';
   /**
    * 
    * @param eventService 
@@ -169,7 +171,8 @@ export class EventDetailsComponent {
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
-        this.eventDetails = res?.data[0] || 'NA'
+        this.eventDetails = res?.data[0] || 'NA',
+        this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
         console.log(res)
@@ -209,7 +212,11 @@ export class EventDetailsComponent {
       console.error('Map element not found.')
     }
   }
-
+  openGoogleMaps() {
+    console.log("chekc click", this.latitude, this.longitude)
+    const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`;
+    window.open(mapUrl, '_blank');
+  }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
     // if (this.levelOneImageArr.length >= 5) {
@@ -460,5 +467,16 @@ export class EventDetailsComponent {
       },
     })
   }
+
+
+  public scrollTo(elementId: string): void {
+    const element = document.getElementById(elementId);
+    this.activeTab = elementId;
+    if (element) {
+      
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  
 
 }

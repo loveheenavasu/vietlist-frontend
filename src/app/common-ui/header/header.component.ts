@@ -1,3 +1,4 @@
+
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { Component, HostListener } from '@angular/core'
@@ -67,7 +68,7 @@ export class HeaderComponent {
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
   // isDropdownActiveEvent!: boolean = false;
-
+  public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
   /**

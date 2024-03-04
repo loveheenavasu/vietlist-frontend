@@ -31,6 +31,7 @@ import { EventDetailsComponent } from './manage-event/components/event-details/e
 import { LoginGuard } from './shared/utils/guard/login.guard'
 import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
 import { Roles } from './shared'
+import { MyBookingsComponent } from './manage-profile/components/my-bookings/my-bookings.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -52,6 +53,10 @@ export default [
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
     children: [
+      {
+        path:'manage-bookings',
+        loadComponent:() => MyBookingsComponent
+      },
       {
         path: '',
         loadComponent: () => EditProfileComponent,

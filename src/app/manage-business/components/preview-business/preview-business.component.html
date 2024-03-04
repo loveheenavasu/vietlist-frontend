@@ -6,18 +6,18 @@
       </span>
     </div>
 
-    <div class="iconDirection">
+    <!-- <div class="iconDirection">
       <span class="elementor-grid-item">
         <a class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
-          <!-- <span class="elementor-screen-only">Phone</span> -->
+         
           <i class="fa fa-envelope" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
       </span>
       <span class="elementor-grid-item" style="background: #0073A4;">
         <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c" href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
-          <!-- <span class="elementor-screen-only">Directions</span> -->
+          
           <i class="fas fa-directions" style="font-size:18px; color:#fff"></i></a>
       </span>
-    </div>
+    </div> -->
   </div>
 </section>
 <!-- 
@@ -536,7 +536,8 @@
                 alt="Sourav Ghosh"></a>
             <div class="media-body">
               <h5 class="mt-0">Author: <a href="#" routerLink="/manage-profile"> {{
-                  businessFormDetails?.owner_name }}</a></h5>
+                businessFormDetails?.user_deatil?.first_name }}  {{
+                  businessFormDetails?.user_deatil?.last_name }}</a></h5>
 
               <p></p>
             </div>
@@ -550,7 +551,7 @@
       <div class="col-12">
         <h3 class="event-page-heading">Photo(s)</h3>
 
-        <div class="featured_image" style="display:flex">
+        <div class="featured_image" style="display:flex;gap:1rem">
           @for (item of businessFormDetails?.image; track $index) {
           <img [src]=" item ? item : '/assets/image/carrer-proffesional.jpeg'" />
           }

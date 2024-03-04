@@ -1,4 +1,4 @@
-import { RouterOutlet, RouterLink, Router } from '@angular/router'
+import { RouterOutlet, RouterLink, Router, RouterLinkActive } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     RouterOutlet,
     RouterLink,
     MatTooltipModule,
+    RouterLinkActive
   ],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
