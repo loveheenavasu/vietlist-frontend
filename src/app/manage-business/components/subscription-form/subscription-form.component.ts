@@ -158,6 +158,7 @@ this.hidefileds = res
       this.businessService.updateBusiness(body).subscribe({
         next: (res) => {
           this.isLoader = false
+          if (res) {
           this.formSubmit.emit()
           // Swal.fire({
           //   toast: true,
@@ -169,6 +170,7 @@ this.hidefileds = res
           //   timer: 3000,
           //   timerProgressBar: true,
           // })
+          }
         },
         error: (err) => {},
       })

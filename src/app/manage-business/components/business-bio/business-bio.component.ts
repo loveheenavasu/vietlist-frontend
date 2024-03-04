@@ -99,6 +99,7 @@ export class BusinessBioComponent {
         next: (res) => {
           if (res) {
             this.isLoader = false
+            
             this.buinessFormSubmit.emit()
             this.businessService.isBusinessBioFormFilled.next(true)
             this.localstorage.saveData('isBusinessBioFormFilled', 'true')

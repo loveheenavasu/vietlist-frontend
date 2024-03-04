@@ -1,14 +1,14 @@
 <form [formGroup]="promotions">
   <div class="row">
    <div class="col-12">
-    <h1 class="listing-form-heading">Events & promotions</h1>
+    <h1 class="listing-form-heading" >Events & promotions</h1>
   </div>
 </div>
 <div class="row my-3 px-2">
   <div class="col-12 col-md-12 col-lg-4"></div>
   <div class="col-12 col-md-12 col-lg-8">
     <mat-checkbox class="event-checkbox"
-      >Click on link if you want to create event. <a>Add Event</a></mat-checkbox
+    formControlName="createEvent" >Click on link if you want to create event. <a>Add Event</a></mat-checkbox
     >
   </div>
 </div>
@@ -41,7 +41,7 @@
     <label class="listing-form-label">Promotions Fields</label>
   </div>
   <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control" />
+    <input class="input-control"  formControlName="promotions_field"/>
   </div>
 </div> 
   <div class="row">
@@ -98,7 +98,7 @@
       <label class="listing-form-label">Physical Accessibility</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" />
+      <input class="input-control"  formControlName="physical_accessibility"/>
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -106,13 +106,13 @@
       <label class="listing-form-label">Digital Accessibility</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" />
+      <input class="input-control" formControlName="digital_accessibility" />
     </div>
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4"></div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-checkbox class="event-checkbox">Business Owner/Associate?</mat-checkbox>
+      <mat-checkbox class="event-checkbox" formControlName="business_ownerassociate">Business Owner/Associate?</mat-checkbox>
       <div class="form-text">
         <span>Mark listing as clamied</span>
       </div>
@@ -123,7 +123,7 @@
       <label class="listing-form-label">Choose Layout</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-select class="vietlist-select" placeholder="Select Choose Layout ...">
+      <mat-select class="vietlist-select" formControlName="choose_layout" placeholder="Select Choose Layout ...">
         <mat-option value="Simple Layout">Simple Layout</mat-option>
         <mat-option value="Standard Layout">Standard Layout </mat-option>
       </mat-select>
