@@ -2,35 +2,52 @@
   <div class="content">
     <h1>{{ eventDetails?.post_title | titlecase }}</h1>
     <p>{{ eventDetails?.country }}</p>
+    <div class="elementor-divider">
+      <span class="elementor-divider-separator">
+                  </span>
+  </div>
     <div class="listing-rating">
       <div class="d-flex">
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
-        <i class="fa fa-star" aria-hidden="true"></i>
+        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 1 ?'rgb(255, 213, 62)':'white'"
+          style="font-size:30px"></i>
+        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 2 ?'rgb(255, 213, 62)':'white'"
+          style="font-size:30px"></i>
+        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 3 ?'rgb(255, 213, 62)':'white'"
+          style="font-size:30px"></i>
+        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 4 ?'rgb(255, 213, 62)':'white'"
+          style="font-size:30px"></i>
+        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating > 4 ?'rgb(255, 213, 62)':'white'"
+          style="font-size:30px"></i>
       </div>
     </div>
   </div>
 </section>
+<div class="section-container">
+  <ul class="list-items">
+    <li  (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'" ><span> <i class="fa fa-home" aria-hidden="true" ></i> </span> Profile </li>
+    <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'"><span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Photos </li>
+    <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'"><span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map </li>
+    <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'" ><span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews </li>
+  </ul>
+</div>
+
+
 <section class="background_section">
-
-
   <div class="container">
-    @if(isGlobal == false){
-    <div class="breadcrumb mt-4">
-      <div class="breadcrumb">
-        <span class="manage-business" (click)="goToEvent()">Events</span>
-        <span class="business-details"> > </span>
-        <span class="business-details"> Event Details</span>
+    @if (isGlobal == false) {
+      <div class="breadcrumb pt-4">
+        <div class="breadcrumb">
+          <span class="manage-business" (click)="goToEvent()">Events</span>
+          <span class="business-details"> > </span>
+          <span class="business-details"> Event Details</span>
+        </div>
       </div>
-    </div>
     }
-    <div class="row mt-4">
+    <div class="row mt-2 pt-4" id="profile">
       <div class="col-12 col-md-12 col-lg-8">
-
         <div class="row mt-3">
-          <h3 class="event-page-heading">Event Details</h3>
+          <h3 class="event-page-heading"><i class="fa fa-home" aria-hidden="true" style="font-size:24px"></i> Profile</h3>
+          <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
               <tr>
@@ -39,33 +56,43 @@
               </tr>
               <tr>
                 <td class="table-title">Start Date</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ eventDetails?.event_dates.start_date | date:
-                  'dd/MM/yyyy' }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{
+                    eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'
+                  }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">End Date</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ eventDetails?.event_dates.end_date | date:
-                  'dd/MM/yyyy' }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.event_dates.end_date | date: 'dd/MM/yyyy' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Start Time</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.start_time || 'NA' }}
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.event_dates.start_time || 'NA' }}
                 </td>
               </tr>
               <tr>
                 <td class="table-title">End Time</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.event_dates.end_time || 'NA'}}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.event_dates.end_time || 'NA' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Category</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.post_category?.name }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.post_category?.name }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div class="row mt-4">
-          <h3 class="event-page-heading">Address</h3>
+          <h3 class="event-page-heading"><i class="fa fa-map-marker" aria-hidden="true" style="font-size:24px"></i> Address</h3>
+          <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
               <tr>
@@ -74,128 +101,196 @@
               </tr>
               <tr>
                 <td class="table-title">Region</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.region || 'NA' }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.region || 'NA' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Country</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.country || 'NA' }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.country || 'NA' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">City</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.city || 'NA' }}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.city || 'NA' }}
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Zip</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ eventDetails?.zip || 'NA'}}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ eventDetails?.zip || 'NA' }}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
         <div class="profile-info-div">
           <h3>Contact Info</h3>
-          {{ eventDetails?.user_detail?.contact_info }}
+          <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
-            <ul>
+            <div class="location">
+              <i class="fa fa-map-marker" aria-hidden="true"
+                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> 
+                {{eventDetails?.street}}
+            </div>
+    
+            <!-- <ul>
               <li>
-                <a [href]="footerPageContent?.social_link?.facebook" target="_blank">
-                  <img src="/assets/icons/Social-Link/FacebookIcon.svg" alt="facbook-logo" />
+                <a>
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
                 </a>
               </li>
               <li>
-                <a [href]="footerPageContent?.social_link?.linkedin" target="_blank">
+                <a [href]="businessFormDetails?.facebook" target="_blank">
+                  <i class="fa fa-link" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li>
+                <a [href]="businessFormDetails?.linkedin" target="_blank">
                   <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
                 </a>
               </li>
               <li>
-                <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
+                <a [href]="businessFormDetails?.twitter" target="_blank">
                   <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
                 </a>
               </li>
               <li>
-                <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
+                <a [href]="businessFormDetails?.youtube" target="_blank">
                   <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
                 </a>
               </li>
               <li>
-                <a [href]="footerPageContent?.social_link?.pinterest" target="_blank">
+                <a [href]="businessFormDetails?.pinterest" target="_blank">
                   <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </div>
         </div>
-        <div class="profile-info-div mt-3" style="padding: 9%;">
+        <div class="profile-info-div mt-3" style="padding: 9%">
           <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
-            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"><img
+            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"
+              ><img
                 src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
-                class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
-                alt="Sourav Ghosh"></a>
+                class="rounded-circle shadow border border-white border-width-4 mr-3"
+                width="60"
+                height="60"
+                alt="Sourav Ghosh"
+            /></a>
             <div class="media-body">
-              <h5 class="mt-0">Author: <a href="#" routerLink="/manage-profile"> {{
-                  eventDetails?.user_detail?.display_name }}</a></h5>
+              <h5 class="mt-0">
+                Author:
+                <a href="#" routerLink="/manage-profile">
+                  {{ eventDetails?.user_detail?.display_name }}</a
+                >
+              </h5>
 
               <p></p>
             </div>
-
           </div>
-
+        </div>
+ 
+      </div>
+    </div>
+    <div class="row my-4" id="photo">
+      <div class="col-12 col-md-12 col-lg-6">
+        <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true" style="font-size:24px"></i> Photo(s)</h3>
+        <hr>
+        <div class="featured_image mt-2">
+          <img
+            [src]="
+              eventDetails?.featured_image
+                ? eventDetails?.featured_image
+                : '/assets/image/carrer-proffesional.jpeg'
+            "
+          />
         </div>
       </div>
     </div>
-    <div class="row  my-4">
-      <div class="col-12">
-        <h3 class="event-page-heading">Photo(s)</h3>
+    <div class="row my-4" id="mapView">
+      <div class="col-12 col-md-12 col-lg-6">
+        <h3 class="event-page-heading"><i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i>Map</h3>
+        <hr>
+      </div>
 
-        <div class="featured_image">
-          <img [src]="
-            eventDetails?.featured_image
-              ? eventDetails?.featured_image
-              : '/assets/image/carrer-proffesional.jpeg'
-          " />
-        </div>
-      </div>
-    </div>
-    <div class="row  my-4">
-      <div class="col-12">
-        <h3 class="event-page-heading">Map</h3>
-      </div>
-      <div class="col-12 col-lg-6">
-        <div id="map" style="height: 300px; width: 100%"></div>
-      </div>
-    </div>
 
+    </div>
+<div class="row mt-3">
+  <div class="col-12 col-lg-6 mt-3">
+    <div id="map" style="height: 300px; width: 100%"></div>
+  </div>
+</div>
+<div class="row my-4" id="review">
+  <div class="col-12 col-md-12 col-lg-6">
+    <h3 class="event-page-heading"> <i class="fa fa-comments" aria-hidden="true" style="font-size:24px"></i> Reviews</h3>
+    <hr>
+  </div>
+
+
+</div>
     <!-- @if(isGlobal == 'true'){ -->
     <form [formGroup]="reviewForm">
-
       <div class="row mt-5">
-
         <div class="col-12 col-lg-6">
-          @for(key of reviewsArray; track key.comment_id; let index = $index){
-          <div class="card mt-3 shadow-sm">
-            <div class="bsui toast-header">
-              <div class="profile__">
-                <img
-                  src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
-              </div>
-              <span>
-                {{key.comment_author_email}}
-              </span>
-              <div class="rating__">
-                <div class="d-flex">
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 1 ?'rgb(255, 213, 62)':'black'"
-                    style="font-size:17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 2 ?'rgb(255, 213, 62)':'black'"
-                    style="font-size:17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 3 ?'rgb(255, 213, 62)':'black'"
-                    style="font-size:17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating >= 4 ?'rgb(255, 213, 62)':'black'"
-                    style="font-size:17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="key?.rating > 4 ?'rgb(255, 213, 62)':'black'"
-                    style="font-size:17px"></i>
-                  <!-- @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true"
+          @for (key of reviewsArray; track key.comment_id; let index = $index) {
+            <div class="card mt-3 shadow-sm">
+              <div class="bsui toast-header">
+                <div class="profile__">
+                  <img
+                    src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg"
+                  />
+                </div>
+                <span>
+                  {{ key.comment_author_email }}
+                </span>
+                <div class="rating__">
+                  <div class="d-flex">
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
+                        key?.rating >= 1 ? 'rgb(255, 213, 62)' : 'black'
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
+                        key?.rating >= 2 ? 'rgb(255, 213, 62)' : 'black'
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
+                        key?.rating >= 3 ? 'rgb(255, 213, 62)' : 'black'
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
+                        key?.rating >= 4 ? 'rgb(255, 213, 62)' : 'black'
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
+                        key?.rating > 4 ? 'rgb(255, 213, 62)' : 'black'
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <!-- @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
                   @if(key?.rating >= 3) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
@@ -203,150 +298,206 @@
                     style="color:rgb(255, 213, 62);font-size:17px"></i>}
                   @if(key?.rating >4) {<i class="fa fa-star" aria-hidden="true"
                     style="color:rgb(255, 213, 62);font-size:17px"></i>} -->
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="comment-content comment card-body my-3">
-              <div class="description">
-                <p style="font-size:17px;font-weight:500">{{key.comment_content}}</p>
-                @if(isReplycomFieldOpen && replyIndexshow === index){
-                <div class="comments">
-                  @for(replies of repliesArray ; track $index){
-                  <p class="ml-1">{{replies.comment_content}}</p>
+              <div class="comment-content comment card-body my-3">
+                <div class="description">
+                  <p style="font-size: 17px; font-weight: 500">
+                    {{ key.comment_content }}
+                  </p>
+                  @if (isReplycomFieldOpen && replyIndexshow === index) {
+                    <div class="comments">
+                      @for (replies of repliesArray; track $index) {
+                        <p class="ml-1">{{ replies.comment_content }}</p>
+                      }
+                    </div>
                   }
                 </div>
 
-                }
+                @if (
+                  isReplyFieldOpen &&
+                  replyIndex === index &&
+                  userDetail.level_id == '3'
+                ) {
+                  <div class="flex-grow-1">
+                    <textarea
+                      type="text"
+                      class="input-control input-textarea"
+                      [formControl]="replyInput"
+                      placeholder="Enter your reply"
+                    >
+                    </textarea>
+                    <!-- <input type="te  xt" class="input-control" [formControl]="replyInput" /> -->
+                  </div>
+                  <div>
+                    <button
+                      style="width: 100%"
+                      class="btn reply-btn"
+                      (click)="handlereply(index, key.comment_id)"
+                    >
+                      Post Reply
+                    </button>
 
-
-              </div>
-
-              @if(isReplyFieldOpen && replyIndex === index &&  userDetail.level_id == '3'){
-              <div class="flex-grow-1">
-                <textarea type="text" class="input-control input-textarea" [formControl]="replyInput"
-                  placeholder="Enter your reply">
-                      </textarea>
-                <!-- <input type="te  xt" class="input-control" [formControl]="replyInput" /> -->
-              </div>
-              <div>
-                <button style="width:100%" class="btn reply-btn" (click)="handlereply(index, key.comment_id)">
-                  Post Reply
-                </button>
-
-                <!-- <button class="btn reply-btn"
+                    <!-- <button class="btn reply-btn"
 
                     (click)="handlereply(index, key.comment_id)">Reply</button> -->
+                  </div>
+                } @else {
+                  @if (isAuthentecate) {
+                    <div class="d-none">
+                      <!-- Hide the reply input by default -->
+                      <div class="flex-grow-1">
+                        <input type="text" class="input-control" />
+                      </div>
+                      <div class="mx-1">
+                        <button class="btn reply-btn">Reply</button>
+                      </div>
+                    </div>
+                  }
+                }
               </div>
-
-              }
-              @else{
-              @if(isAuthentecate){
-              <div class="d-none"> <!-- Hide the reply input by default -->
-                <div class="flex-grow-1"><input type="text" class="input-control" /></div>
-                <div class="mx-1"><button class="btn reply-btn">Reply</button></div>
+              <div class="bottom_reply">
+                <button
+                  class="btn reply-btn"
+                  style="cursor: pointer"
+                  (click)="showReplyCommentField(index, key.comment_id)"
+                >
+                  <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
+                  <span *ngIf="!loader || replyIndexshow !== index"
+                    >Show reply
+                  </span>
+                  <app-loader
+                    *ngIf="loader && replyIndexshow === index"
+                  ></app-loader>
+                </button>
+                &nbsp; &nbsp;
+                <button
+                  class="btn reply-btn"
+                  style="cursor: pointer"
+                  (click)="showReplyField(index)"
+                  *ngIf="isAuthentecate"
+                >
+                  <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                </button>
               </div>
-              }
-              }
-
             </div>
-            <div class="bottom_reply">
-              <button class="btn reply-btn" style="cursor:pointer"
-                (click)="showReplyCommentField(index, key.comment_id)">
-                <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
-                <span *ngIf="!loader || replyIndexshow !== index">Show reply </span>
-                <app-loader *ngIf="loader &&  replyIndexshow === index"></app-loader>
+          }
+        </div>
+
+        @if (isGlobal == 'true') {
+          <div class="col-12 mt-4">
+            <h3 class="event-page-heading">Leave Review</h3>
+          </div>
+          <div class="col-12 col-md-12 col-lg-6">
+            <div class="alert alert-warning" role="alert">
+              Your email address will not be published.
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-6">
+              <ngx-star-rating
+                formControlName="rating"
+                [id]="'rating'"
+                style="float: left"
+              ></ngx-star-rating>
+            </div>
+          </div>
+          @if (isAuthentecate) {
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author"
+                  class="input-control"
+                  placeholder="Enter your name"
+                />
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author_email"
+                  class="input-control"
+                  placeholder="Enter your email"
+                />
+              </div>
+              @if (
+                reviewForm.get('comment_author_email')?.touched &&
+                reviewForm.get('comment_author_email')?.hasError('required')
+              ) {
+                <span class="error-message">Email is required</span>
+              }
+              @if (
+                reviewForm.get('comment_author_email')?.hasError('pattern')
+              ) {
+                <span class="error-message">Enter valid email</span>
+              }
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author_url"
+                  class="input-control"
+                  placeholder="Enter your website"
+                />
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="slectedvalue"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="selcetdvalues()"
+                      type="checkbox"
+                      value=""
+                      id="terms"
+                    />
+                    <label class="form-check-label" for="terms">
+                      Save my name, email, and website in this browser for the
+                      next time I comment.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="row my-2">
+            <div class="col-12 col-md-12 col-lg-6">
+              <textarea
+                formControlName="comment_content"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                class="textarea"
+                placeholder="Enter your comments"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row mt-2 mb-4">
+            <div class="col-12 col-md-12 col-lg-6">
+              <button
+                class="btn orange-background-btn-w-100"
+                [disabled]="!reviewForm.valid"
+                (click)="submit()"
+              >
+                @if (isLoader) {
+                  <app-loader></app-loader>
+                } @else {
+                  Post Review
+                }
               </button>
-              &nbsp;
-              &nbsp;
-              <button class="btn reply-btn" style="cursor:pointer" (click)="showReplyField(index)"
-                *ngIf="isAuthentecate"> <i class="fa fa-reply" aria-hidden="true"></i>
-                Reply </button>
             </div>
           </div>
-          }
-        </div>
-
-
-
-        @if(isGlobal == 'true'){
-        <div class="col-12 mt-4">
-          <h3 class="event-page-heading">Leave Review</h3>
-        </div>
-        <div class="col-12 col-md-12 col-lg-6">
-          <div class="alert alert-warning" role="alert">
-            Your email address will not be published.
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-6">
-            <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left;"></ngx-star-rating>
-          </div>
-        </div>
-        @if(isAuthentecate){
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name" />
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author_email" class="input-control"
-              placeholder="Enter your email" />
-          </div>
-          @if (
-          reviewForm.get('comment_author_email')?.touched &&
-          reviewForm.get('comment_author_email')?.hasError('required')
-          ) {
-          <span class="error-message">Email is required</span>
-          }
-          @if (reviewForm.get('comment_author_email')?.hasError('pattern')) {
-          <span class="error-message">Enter valid email</span>
-          }
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author_url" class="input-control"
-              placeholder="Enter your website" />
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" [(ngModel)]="slectedvalue" [ngModelOptions]="{standalone: true}"
-                  (change)="selcetdvalues()" type="checkbox" value="" id="terms" />
-                <label class="form-check-label" for="terms">
-                  Save my name, email, and website in this browser for the next time
-                  I comment.
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        }
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <textarea formControlName="comment_content" name="" id="" cols="30" rows="10" class="textarea"
-              placeholder="Enter your comments"></textarea>
-          </div>
-        </div>
-        <div class="row mt-2 mb-4">
-          <div class="col-12 col-md-12 col-lg-6">
-            <button class="btn orange-background-btn-w-100" [disabled]="!reviewForm.valid" (click)="submit()">
-              @if(isLoader){
-              <app-loader></app-loader>
-              }@else {
-              Post Review
-              }
-            </button>
-          </div>
-        </div>
         }
       </div>
-
     </form>
     <!-- } -->
   </div>
-
 </section>
