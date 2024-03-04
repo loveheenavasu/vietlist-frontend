@@ -333,13 +333,13 @@
 
 
   <div class="container">
-    <div class="breadcrumb mt-4">
+    <!-- <div class="breadcrumb mt-4">
       <div class="breadcrumb">
         <span class="manage-business" (click)="goToEvent()">Business</span>
         <span class="business-details"> > </span>
         <span class="business-details"> Business Details</span>
       </div>
-    </div>
+    </div> -->
     <div class="row mt-4">
       <div class="col-12 col-md-12 col-lg-8" id="profile">
 
@@ -358,7 +358,7 @@
               </tr>
               <tr>
                 <td class="table-title">Business hours</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ businessFormDetails?.business_hours || "NA"}}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ businessFormDetails?.business_hours == '[[null]]' ? "NA": businessFormDetails?.business_hours}}</td>
               </tr>
               <tr>
                 <td class="table-title">Business ownerassociate</td>
