@@ -42,7 +42,7 @@
   {
     "label": "My Bookings",
     "icon": "fa fa-calendar-o",
-    "url": "/contact"
+    "url": "/manage-profile/manage-bookings"
   },
   {
     "label": "My Business",

@@ -38,4 +38,15 @@ export class PlansService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
+
+
+  
+  public cancelPlan(level_id: string): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CancelMembership);
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const formData = new FormData();
+    formData.append('level_id', level_id);
+    return this.http.post<any>(endpoint, formData, { headers: authToken });
+  }
+
 }

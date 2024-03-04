@@ -500,10 +500,12 @@ export class ConsultationFormComponent {
       this.businessService.updateBusiness(body).subscribe({
         next: (res) => {
           this.isLoader = false
+          if (res) {
           this.consultationFormSubmit.emit()
           this.localstorage.saveData('isConsultationFormFilled', 'true')
           this.businessService.isConsultationFormFilled.next(true)
           this.isFormFilled = true
+           }
         },
         error: (err) => {
           this.isLoader = false

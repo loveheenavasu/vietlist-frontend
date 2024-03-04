@@ -51,6 +51,7 @@ export class PromotionsFormComponent {
   public isLoader: boolean = false
   public isImageUploading:boolean = false
   public eventsArray:any[]=[]
+  public postId:any
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -60,12 +61,18 @@ export class PromotionsFormComponent {
     private eventService:EventService
   ) {
     this.promotions = this.fb.group({
+      createEvent:[''],
       faq: [''],
       physical_accessibility: [''],
       digital_accessibility: [''],
+      upload_certificates:[''],
+      business_ownerassociate:[''],
       choose_layout: [''],
-      event_id:['']
+      event_id:[''],
+      promotions_field:['']
     })
+    const id = localstorage.getData('postId')
+    this.postId = Number(id)
   }
 
   
@@ -129,12 +136,17 @@ export class PromotionsFormComponent {
   public handleFinalSubmission() {
     this.isLoader = true
     const body = {
+      post_id: this.postId,
       faq: this.promotions.value.faq,
+      upload_certificates:this.imagePreviews,
       physical_accessibility: this.promotions.value.physical_accessibility,
       digital_accessibility: this.promotions.value.digital_accessibility,
       choose_layout: this.promotions.value.choose_layout,
       terms_conditions: this.term_and_condition.value,
       final_submission: 1,
+      promotions_field:this.promotions.value.promotions_field,
+      createEvent:this.promotions.value.createEvent ? 1:0,
+      business_ownerassociate:this.promotions.value.business_ownerassociate
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {

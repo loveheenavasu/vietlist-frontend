@@ -48,6 +48,9 @@
                   [ngClass]="{ 'active': activeIndex === key.url }"
                   [routerLink]="key.url"
                   style="cursor: pointer"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact:
+                    true}"
                 >
                   <span><i [class]="key.icon"></i></span>{{ key.label }}
                 </li>

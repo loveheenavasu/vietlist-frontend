@@ -83,6 +83,7 @@ export class FindBusinessComponent {
   public routeAddress: any
   public routeCategory: any
   public categoryDetails: any
+  public map: google.maps.Map | null = null
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -127,13 +128,14 @@ export class FindBusinessComponent {
 
   ngOnInit() {
     this.getPublishBusinessData()
+    this.initMap()
 
     if (this.country || this.state || this.city || this.street || this.zipcode) {
       this.searchBusiness()
     }
 
     this.getBusinessCat()
-    this.initMap()
+
     // this.searchBusiness()
     this.findBusinessForm.controls['slidervalue'].setValue(0)
     this.fetchSearchAd()
@@ -251,6 +253,7 @@ export class FindBusinessComponent {
     this.businessCategoriesService.ListingBusiness().subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
+        console.log("check res", res.data)
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         this.maxPrice = res.max_price
@@ -340,6 +343,14 @@ export class FindBusinessComponent {
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         console.log('check findbusiness', this.findBusinessData)
+        this.findBusinessData.forEach((obj) => {
+          if (obj.latitude && obj.longitude) {
+            this.latitude.push(obj.latitude)
+            this.longitude.push(obj.longitude)
+            console.log('check lat', this.latitude, this.longitude)
+          }
+        })
+        this.initMap()
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
       },
@@ -366,44 +377,34 @@ export class FindBusinessComponent {
   }
 
   public initMap() {
-    let map: any
-    const mapElement = document.getElementById('map')
-
-    // Ensure that the map element is not null
+    const mapElement = document.getElementById('map');
     if (mapElement !== null) {
-      // Create a new Google Map instance
-      map = new google.maps.Map(mapElement, {
+      this.map = new google.maps.Map(mapElement, {
         center: {
-          lat: parseFloat(this.latitude[0]),
-          lng: parseFloat(this.longitude[0]),
-        }, // Use dynamic values
+          lat: parseFloat(this.latitude[0]), // Assuming the first coordinate as center
+          lng: parseFloat(this.longitude[0]) // Assuming the first coordinate as center
+        },
         zoom: 13,
-      })
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
 
-      if (this.latitude && this.longitude) {
-        // Array of marker positions
-        // const markerPositions = [
-        //   { lat: parseFloat(this.latitude[0]), lng: parseFloat(this.longitude[0]) },
-        //   { lat: 51.678, lng: 7.809 },
-        //   { lat: 51.679, lng: 7.808 },
-        //   { lat: 51.680, lng: 7.807 },
-        //   { lat: 51.681, lng: 7.806 },
-        // ];
-
-        this.findBusinessData.forEach((data) => {
-          const marker = new google.maps.Marker({
-            position: {
-              lat: parseFloat(data.latitude),
-              lng: parseFloat(data.longitude),
-            },
-            map: map,
-            title: 'Marker Title',
-          })
-        })
+      // Loop through latitude and longitude arrays to create markers
+      for (let i = 0; i < this.latitude.length; i++) {
+        const marker = new google.maps.Marker({
+          position: {
+            lat: parseFloat(this.latitude[i]),
+            lng: parseFloat(this.longitude[i]),
+          },
+          map: this.map,
+          title: 'Marker Title',
+        });
       }
     } else {
+      console.error('Map element not found.');
     }
   }
+
+
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address

@@ -58,5 +58,6 @@ export enum Endpoints {
   getReview='get_review',
   SetStats = 'set_ad_stats',
   SetReviewReply = 'set_review_reply',
-  GetReviewReply = 'get_review_reply'
+  GetReviewReply = 'get_review_reply',
+  CancelMembership = 'cancel_membership_level'
 }
