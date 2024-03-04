@@ -139,7 +139,7 @@ export class ListBusinessComponent {
    * @param businessService
    * @param localStorageService
    */
-  userDetailsLevel_id:any
+  public userDetailsLevel_id:any
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
@@ -152,19 +152,7 @@ export class ListBusinessComponent {
   ) {
     this.fetchProfileDetail()
 
-    this.authService.userDetails.subscribe((res:any)=>{
-      if(res){
-        this.vediosHide = res
-         this.userDetailsLevel_id = res
-        if(res.level_id == '1'){
-          this.hidemapview = true
-        }else{
-          this.hidemapview = false
-        }
-        
-      }
-      
-    })
+ 
     this.businessInfoForm = this._formBuilder.group({
       post_title: ['', Validators.required],
       contact_phone: ['', Validators.required],
@@ -204,6 +192,22 @@ export class ListBusinessComponent {
   }
 
   ngOnInit() {
+
+       this.authService.userDetails.subscribe((res:any)=>{
+            this.fullPageLoader.showLoader()
+      if(res){
+            this.fullPageLoader.hideLoader()
+        this.vediosHide = res
+         this.userDetailsLevel_id = res
+        if(res.level_id == '1'){
+          this.hidemapview = true
+        }else{
+          this.hidemapview = false
+        }
+        
+      }
+      
+    })
     this.getBusinessCat()
   
     if (this.postId) {
@@ -563,6 +567,7 @@ export class ListBusinessComponent {
         },
         error: (err) => {
           this.isloader = false
+          this.fullPageLoader.hideLoader()
         },
       })
 

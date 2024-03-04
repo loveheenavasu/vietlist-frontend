@@ -7,8 +7,9 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { CommonModule } from '@angular/common'
+
 
 @Component({
   selector: 'app-preview-business',
@@ -21,13 +22,20 @@ export class PreviewBusinessComponent {
   public postId: any
   public businessFormDetails: any
   public logo: any
+  public map: google.maps.Map | null = null // Declare and initialize the map property
+  public footerPageContent?: any
   public previewForm: FormGroup
+  public latitude!: number
+  public longitude!: number
+  public userDetails:any;
+
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     public router: Router,
+    private authService:AuthenticationService
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -86,6 +94,11 @@ export class PreviewBusinessComponent {
     if (this.postId) {
       this.getBusinessFormDetails()
     }
+    this.authService.userDetails.subscribe((res: any) => {
+      if (res) {
+        this.userDetails = res
+      }
+    })
   }
   dataget: any
   gettags: any
@@ -97,8 +110,15 @@ export class PreviewBusinessComponent {
 
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
+        console.log(
+          this.businessFormDetails,
+          'businessFormDetailsbusinessFormDetails',
+        )
         this.previewForm.patchValue(this.businessFormDetails)
         this.logo = res?.data[0]?.logo
+        this.latitude = Number(this.businessFormDetails.latitude)
+        this.longitude = Number(this.businessFormDetails.longitude)
+        this.initMap()
         // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
         // this.post_content = this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',
         // this.business_email=this.businessFormDetails.business_email ? this.businessFormDetails.business_email : 'NA',
@@ -121,7 +141,51 @@ export class PreviewBusinessComponent {
     })
   }
 
+  public initMap() {
+    const mapElement = document.getElementById('map')
+    if (mapElement !== null) {
+      console.log(this.latitude, this.longitude, 'lng ;at')
+      this.map = new google.maps.Map(mapElement, {
+        center: {
+          lat: this.latitude,
+          lng: this.longitude,
+        },
+        zoom: 13,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      })
+
+      if (this.latitude && this.longitude) {
+        // Add a marker to the map
+        const marker = new google.maps.Marker({
+          position: {
+            lat: this.latitude,
+            lng: this.longitude,
+          },
+          map: this.map,
+          title: 'Marker Title',
+        })
+      }
+    } else {
+      console.error('Map element not found.')
+    }
+  }
   public manageBusiness() {
     this.router.navigateByUrl('/manage-profile/my-business')
+  }
+  public goToEvent() {
+    this.router.navigateByUrl('/manage-profile/manage-events')
+  }
+  activeTab: string = 'profile';
+
+  setActiveTab(tab: string) {
+ 
+  }
+
+  public scrollTo(elementId: string): void {
+    this.activeTab = elementId;
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

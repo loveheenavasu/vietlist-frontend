@@ -12,6 +12,8 @@ body {
 }
 .background_section{
   background: #FFFBF5;
+  border-top: solid 1px #100b0b54;
+
 }
 .listing-info {
   overflow: hidden;
@@ -156,4 +158,9 @@ ngx-intl-tel-input input[disabled] {
   body {
     font-size: 10px;
   }
+  .iconDirection {
+    position: absolute;
+    right: -10rem;
+    bottom: -11rem;
+}
 }

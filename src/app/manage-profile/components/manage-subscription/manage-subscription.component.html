@@ -20,25 +20,33 @@
                 <ul>
                   <li>
                     <b>
-                      {{
-                        subscriptionDetails?.user_membership[0]?.level_name
-                      }}
+                      {{ subscriptionDetails?.user_membership[0]?.level_name }}
                     </b>
                   </li>
 
                   <li class="change_cancel" (click)="handleChangePlan()">
                     Change Plan
                   </li>
-                  <li class="change_cancel">Cancel Plan</li>
+                  <li
+                    class="change_cancel"
+                    (click)="
+                      cancelMembership(
+                        subscriptionDetails?.user_membership[0]?.level_id
+                      )
+                    "
+                  >
+                    Cancel Plan
+                  </li>
                 </ul>
               </td>
-              <td>   {{
-                subscriptionDetails?.user_membership[0]?.billing
-              }}</td>
-              <td>   {{ 
-                subscriptionDetails?.user_membership[0]?.level_id == '1' ? '--' :
-                subscriptionDetails?.user_membership[0]?.enddate
-              }}</td>
+              <td>{{ subscriptionDetails?.user_membership[0]?.billing }}</td>
+              <td>
+                {{
+                  subscriptionDetails?.user_membership[0]?.level_id == '1'
+                    ? '--'
+                    : subscriptionDetails?.user_membership[0]?.enddate
+                }}
+              </td>
               <!-- Add more data cells as needed -->
             </tr>
             <!-- Add more rows of data as needed -->
@@ -51,17 +59,37 @@
     <div class="col-12 col-md-12">
       <h5>My Account</h5>
     </div>
-    <div class="col-12 col-lg-6 mt-3">
-      <p class="user-email">Username</p>
+    <div class="col-12 col-lg-12 mt-3">
+      <p class="user-email">Username : <span style="color:#555555;font-size:15px;font-weight:400">{{ subscriptionDetails?.user_name }}</span></p>
     </div>
-    <div class="col-12 col-lg-6 mt-3">
-      <p>{{ subscriptionDetails?.user_name }}</p>
+    <div class="col-12 col-lg-12">
+      <p class="user-email">
+        Email : <span style="color:#555555;font-size:15px;font-weight:400">{{ subscriptionDetails?.email }}</span>
+      </p>
     </div>
-    <div class="col-12 col-lg-6">
-      <p class="user-email">Email</p>
-    </div>
-    <div class="col-12 col-lg-6">
-      <p>{{ subscriptionDetails?.email }}</p>
+    <div class="col-12">
+      <div class="pmpro_actionlinks">
+        <a
+          id="pmpro_actionlink-profile"
+          class="change_cancel"
+          (click)="navigateTo('/manage-profile')"
+          >Edit Profile</a
+        >
+        |
+        <a
+          id="pmpro_actionlink-change-password"
+          class="change_cancel"
+          (click)="navigateTo('/manage-profile/change-password')"
+          >Change Password</a
+        >
+        |
+        <a
+          id="pmpro_actionlink-logout"
+          class="change_cancel"
+          (click)="handleLogout()"
+          >Log Out</a
+        >
+      </div>
     </div>
   </div>
   <div class="row mt-4">
@@ -80,16 +108,16 @@
             </tr>
           </thead>
           <tbody>
-            @for(key of subscriptionDetails?.invoice_detail ; track $index){
-            <tr>
-              <td>{{key.formattedTimeStamp}}</td>
-              <td>{{key.level_name}}</td>
-              <td>{{key.total}}</td>
-              <td>{{key.status}}</td>
-            
-            </tr>
-          }
-            
+            @for (key of subscriptionDetails?.invoice_detail; track $index) {
+              <tr>
+                <td style="color: #144b7c">
+                  {{ key.formattedTimeStamp | date: 'mediumDate' }}
+                </td>
+                <td>{{ key.level_name }}</td>
+                <td>{{ key.total }}</td>
+                <td>{{ key.status }}</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
