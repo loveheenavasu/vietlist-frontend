@@ -7,7 +7,9 @@
 <div class="container-fluid g-0">
   <div class="row">
     <div class="col-12 col-md-12 col-lg-6 mt-4">
-      <div id="map" style="height: 350px; width: 100%"></div>
+      <div style="height: 100vh; width: 100%;">
+        <div id="map" style="height: 100%; width: 100%;"></div>
+      </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6 mt-2">
       <div class="row">
@@ -125,7 +127,7 @@
       </div>
 
       <!---GRID VIEW----->
-      <div class="row mt-5">
+      <div class="row mt-5 category-listing-wrapper">
         @if (selectedLayout == 'grid') {
         <div class="col-12">
           @for (item of findBusinessData; track $index) {
@@ -203,14 +205,14 @@
         }
       </div>
     </div>
-    <div class="col-12 ads-section">
+    <div class="col-12 ad-section">
 
-      <div class="ads-wrapper">
+      <div class="ad-wrapper">
         @if(searchPageAd){
-        <div class="ads-banner"
+        <div class="ad-banner"
           (click)="CountClickStats(searchPageAd[currentIndex]?.id,searchPageAd[currentIndex]?.space_id)"
           style="background-image: url({{searchPageAd[currentIndex]?.img}})">
-          <div class="ads-text d-flex justify-content-center p-2">
+          <div class="ad-text d-flex justify-content-center p-2">
             <div class="ad-title">
               <h1>{{searchPageAd[currentIndex]?.title}}</h1>
             </div>

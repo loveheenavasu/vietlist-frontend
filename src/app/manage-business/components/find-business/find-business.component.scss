@@ -88,7 +88,10 @@
     color: var(--white) !important;
 }
 
-
+.category-listing-wrapper {
+    height: calc(100vh - 380px);
+    overflow: scroll;
+}
 
 .col-12 {
     height: 100%;
@@ -204,17 +207,17 @@
     }
 }
 
-.ads-section {
+.ad-section {
     margin-top: 2.5rem;
     padding: 0px;
 }
 
-.ads-wrapper {
+.ad-wrapper {
     // background-color: #F897053D;
     height: 100%;
     padding: 0.625rem 0rem;
 
-    .ads-banner {
+    .ad-banner {
         background-repeat: no-repeat;
         background-size: cover;
         width: 100%;
@@ -223,7 +226,7 @@
         background-position: center;
     }
 
-    .ads-text {
+    .ad-text {
         height: 35vh;
         align-items: center;
         flex-direction: column;
@@ -442,6 +445,13 @@
         display: flex;
         gap: 10px;
         margin-top: 40px !important;
+    }
+}
+
+@media screen and (min-width:1500px) {
+    .category-listing-wrapper {
+        height: calc(100vh - 380px);
+        overflow: scroll;
     }
 }
 
