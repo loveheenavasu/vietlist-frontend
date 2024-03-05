@@ -21,8 +21,8 @@ span.elementor-grid-item {
   }
   .iconDirection {
     position: absolute;
-    right: 0;
-    bottom: 23px;
+    right: 10%;
+    bottom: 27px;
     z-index: 2;
 }
 .elementor-divider-separator{
@@ -33,7 +33,7 @@ span.elementor-grid-item {
     z-index: 99999999;
     content: '';
     position: absolute;
-    left: 42%;
+    left: 47%;
   }
 
 .images__ {
@@ -167,7 +167,9 @@ span.elementor-grid-item {
     }
 
     .location {
-        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        line-height: 30px;
     }
 }
 
@@ -347,10 +349,9 @@ fieldset:disabled .btn {
 
 .list-items li {
     color: #7A7A7A;
-    margin-right: 5%;
-    /* Adjust the space between items */
+    margin-right: 2%;
     cursor: pointer;
-    font-size: 18px
+    font-size: 16px;
 }
 
 
@@ -383,7 +384,7 @@ fieldset:disabled .btn {
         z-index: 99999999;
         content: "";
         position: absolute;
-        left: 37%!important;
+        left: 44%!important;
     }
     .list-items li {
         color: #7A7A7A;

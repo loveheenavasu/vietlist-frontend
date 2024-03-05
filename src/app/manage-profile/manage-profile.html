@@ -38,10 +38,13 @@
               {{ userEmail.length > 19 ? userEmail.slice(0, 19) + '...' :
               userEmail }}
             </p> -->
-            <p class="user-email">{{userDetail?.first_name}} {{userDetail?.last_name}}</p>
+            <p class="user-email">
+              {{userDetail?.first_name}} {{userDetail?.last_name}}
+            </p>
 
             <div class="tabs_responsive">
               <ul>
+                <ng-container *ngIf="!isMenuLoading; else skeletonLoading">
                 @for(key of menuItems ; track $index){
                 <li
                   (click)="addClass(key.url)"
@@ -54,11 +57,19 @@
                 >
                   <span><i [class]="key.icon"></i></span>{{ key.label }}
                 </li>
-
                 }
+              </ng-container>
+              <ng-template #skeletonLoading>
+                <li  *ngFor="let _ of [1, 2, 3, 4 , 5 ,6 , 7,8 ,9 , 10]">
+                  <app-skeleton-loading
+                  ></app-skeleton-loading>
+                  
+                </li>
+              </ng-template>
                 <li style="cursor: pointer" (click)="handleLogout()">
                   <span><i class="fa fa-sign-out"></i></span>Logout
                 </li>
+
               </ul>
             </div>
           </div>

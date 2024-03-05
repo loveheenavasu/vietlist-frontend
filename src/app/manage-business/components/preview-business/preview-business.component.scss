@@ -338,7 +338,7 @@ ngx-star-rating .star {
   z-index: 99999999;
   content: '';
   position: absolute;
-  left: 39%;
+  left: 47%;
 }
 span.elementor-grid-item {
   background: #ea4335;
@@ -348,15 +348,42 @@ span.elementor-grid-item {
 }
 .iconDirection {
   position: absolute;
-  right: -28rem;
-  bottom: -8rem;
+  right: 10%;
+  bottom: 27px;
+  z-index: 2;
 }
 
 @media(max-width:768px) {
-
+  .table-title{
+    color: #000;
+    opacity: 0.6;
+    width: 11em!important;
+    font-size: 14px!important;
+}
 .event-page-heading{
   font-size: 20px;
   font-weight: bold;
  
+}
+.featured_image {
+  height: 9rem!important;
+  width: 14rem!important;
+  object-fit: cover;
+}
+.size_icon{
+  font-size: 14px!important;
+}
+td.table-subtitle p {
+  width: 49%;
+  word-wrap: break-word;
+}
+.elementor-divider-separator{
+  background: #FF9900;
+  height: 5px;
+  width: 83px;
+  z-index: 99999999;
+  content: "";
+  position: absolute;
+  left: 43%;
 }
 }
