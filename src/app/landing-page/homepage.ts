@@ -223,7 +223,7 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.footerSwiperParams);
               swiperEl.initialize();
             } else {
-              console.error('Swiper or nativeElement is undefined or null.');
+              // console.error('Swiper or nativeElement is undefined or null.');
             }
           }, 0);
         }
@@ -257,7 +257,7 @@ export class HomepageComponent {
         if (res.data) {
           this.homePageData = res.data
         }
-        console.log("check home page content", this.homePageData)
+        // console.log("check home page content", this.homePageData)
       },
     });
   }
