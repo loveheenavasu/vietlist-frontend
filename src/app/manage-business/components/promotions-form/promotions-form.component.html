@@ -74,7 +74,7 @@
       <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
         <ngx-dropzone-label *ngIf="!isImageUploading"
           ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple images)</ngx-dropzone-label
+          Browse a file</ngx-dropzone-label
         >
         <div *ngIf="isImageUploading" class="loader"></div> 
       </ngx-dropzone>
