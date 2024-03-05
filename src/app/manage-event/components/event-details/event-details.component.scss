@@ -21,8 +21,8 @@ span.elementor-grid-item {
   }
   .iconDirection {
     position: absolute;
-    right: 0;
-    bottom: 23px;
+    right: 10%;
+    bottom: 27px;
     z-index: 2;
 }
 .elementor-divider-separator{
@@ -167,7 +167,9 @@ span.elementor-grid-item {
     }
 
     .location {
-        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        line-height: 30px;
     }
 }
 
