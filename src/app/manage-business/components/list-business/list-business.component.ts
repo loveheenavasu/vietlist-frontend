@@ -562,8 +562,9 @@ export class ListBusinessComponent {
           this.businessService.isBusinessFormFilled.next(true)
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
-
-          this.businessService.storePostId.next(post_id)
+          
+          this.localStorageService.removeData('postId')
+          this.localStorageService.removeData('isBusinessFormFilled')
           this.router.navigateByUrl('/manage-profile/my-business')
         },
         error: (err) => {
@@ -670,6 +671,7 @@ export class ListBusinessComponent {
         },
         error: (err: any) => {
           this.isImageUploading = false;
+          this.isImageLoading = false
           // Handle errors if needed
         },
       });
