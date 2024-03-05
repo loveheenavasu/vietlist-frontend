@@ -257,7 +257,7 @@ export class HomepageComponent {
         if (res.data) {
           this.homePageData = res.data
         }
-        console.log("check home page content", this.homePageData)
+        // console.log("check home page content", this.homePageData)
       },
     });
   }
