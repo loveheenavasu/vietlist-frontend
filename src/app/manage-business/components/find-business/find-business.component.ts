@@ -128,7 +128,8 @@ export class FindBusinessComponent {
 
   ngOnInit() {
     this.getPublishBusinessData()
-    this.initMap()
+    this.getIPAdress()
+    // this.initMap()
 
     if (this.country || this.state || this.city || this.street || this.zipcode) {
       this.searchBusiness()
@@ -219,7 +220,7 @@ export class FindBusinessComponent {
   }
 
   public setStats(ad_id?: string, space_id?: string) {
-    this.getIPAdress()
+
     const currentDate = new Date()
     const actionTime = this.formatDate(currentDate)
     const currentRoute = window.location.href
@@ -258,13 +259,15 @@ export class FindBusinessComponent {
         this.categoryDetails = res.category_data
         this.maxPrice = res.max_price
         this.totalCount = res.total_count
+        this.latitude = [];
+        this.longitude = [];
         this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)
             this.longitude.push(obj.longitude)
-            console.log('check lat', this.latitude, this.longitude)
           }
         })
+        console.log('check lat', this.latitude, this.longitude);
         this.initMap()
       },
     })
@@ -342,6 +345,8 @@ export class FindBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
+        this.latitude = [];
+        this.longitude = [];
         console.log('check findbusiness', this.findBusinessData)
         this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
@@ -379,14 +384,16 @@ export class FindBusinessComponent {
   public initMap() {
     const mapElement = document.getElementById('map');
     if (mapElement !== null) {
-      this.map = new google.maps.Map(mapElement, {
-        center: {
-          lat: parseFloat(this.latitude[0]), // Assuming the first coordinate as center
-          lng: parseFloat(this.longitude[0]) // Assuming the first coordinate as center
-        },
-        zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      });
+      for (let i = 0; i < this.latitude.length; i++) {
+        this.map = new google.maps.Map(mapElement, {
+          center: {
+            lat: parseFloat(this.latitude[i]), // Assuming the first coordinate as center
+            lng: parseFloat(this.longitude[i]) // Assuming the first coordinate as center
+          },
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+        });
+      }
 
       // Loop through latitude and longitude arrays to create markers
       for (let i = 0; i < this.latitude.length; i++) {
@@ -395,7 +402,7 @@ export class FindBusinessComponent {
             lat: parseFloat(this.latitude[i]),
             lng: parseFloat(this.longitude[i]),
           },
-          map: this.map,
+          map: this.map || undefined,
           title: 'Marker Title',
         });
       }

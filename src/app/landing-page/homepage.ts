@@ -108,6 +108,7 @@ export class HomepageComponent {
   ngOnInit() {
     this.showAdDataFetch()
     this.getHomePageContent()
+    this.getIPAdress()
   }
 
 
@@ -179,7 +180,6 @@ export class HomepageComponent {
   }
 
   public setStats(ad_id?: string, space_id?: string) {
-    this.getIPAdress()
     const currentDate = new Date();
     const actionTime = this.formatDate(currentDate);
     const currentRoute = window.location.href;
@@ -229,15 +229,17 @@ export class HomepageComponent {
         }
       }
       if (data.Page_key != "Search") {
-        data.ads_detail.forEach((ad: any) => {
-          this.multipleSpaceId.push(ad.space_id);
-          this.multipleAdId.push(ad.id)
+        data.ads_detail.map((ad: any) => {
+          if (!this.multipleAdId.includes(ad.id)) {
+            this.multipleSpaceId.push(ad.space_id);
+            this.multipleAdId.push(ad.id)
+          }
         });
-        this.setStats()
       }
     })
-
-
+    if (this.ipAddress) {
+      this.setStats()
+    }
 
   }
 

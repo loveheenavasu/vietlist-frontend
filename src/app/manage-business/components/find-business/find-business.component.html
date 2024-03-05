@@ -176,7 +176,12 @@
           <div class="list-view-card mb-5">
             <div class="business-list-wrapper d-flex">
               <div class="business-list-img">
-                <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+                @if (item.image.length > 0 || item.image != null) {
+                <img [src]="item.image" alt="business-img" />
+                } @else {
+                <img src="/assets/image/no-image-found.jpeg" alt="business-img-" />
+                }
+
               </div>
               <div class="business-list-info">
                 <div class="business-list-title">
