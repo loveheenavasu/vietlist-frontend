@@ -8,7 +8,7 @@
   <div class="col-12 col-md-12 col-lg-4"></div>
   <div class="col-12 col-md-12 col-lg-8">
     <mat-checkbox class="event-checkbox"
-    formControlName="createEvent" >Click on link if you want to create event. <a>Add Event</a></mat-checkbox
+    formControlName="createEvent" >Click on link if you want to create event. <a (click)="navigateToEvent()" style="color:rgb(5, 137, 238)">Add Event</a></mat-checkbox
     >
   </div>
 </div>
@@ -74,7 +74,7 @@
       <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
         <ngx-dropzone-label *ngIf="!isImageUploading"
           ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple images)</ngx-dropzone-label
+          Browse a file</ngx-dropzone-label
         >
         <div *ngIf="isImageUploading" class="loader"></div> 
       </ngx-dropzone>

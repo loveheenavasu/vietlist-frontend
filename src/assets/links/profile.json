@@ -32,7 +32,7 @@
   {
     "label": "Transactions",
     "icon": "fa fa-line-chart",
-    "url": "/contact"
+    "url": "/manage-profile/my-transactions"
   },
   {
     "label": "Billing Address",
@@ -44,6 +44,11 @@
     "icon": "fa fa-calendar-o",
     "url": "/manage-profile/manage-bookings"
   },
+  {
+  "label": "All Bookings",
+  "icon": "fa fa-calendar-o",
+  "url": "/manage-profile/all-bookings"
+},
   {
     "label": "My Business",
     "icon": "fa fa-briefcase",

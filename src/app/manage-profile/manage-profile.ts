@@ -8,9 +8,11 @@ import {
   SidebarService,
 } from '@vietlist/shared'
 import { EditProfileComponent } from './components'
-import { NgClass, NgIf } from '@angular/common'
+import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
+import { SkeletonLoadingComponent } from '../common-ui/skeleton-loading/skeleton-loading.component'
+
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
@@ -21,7 +23,9 @@ import { MatTooltipModule } from '@angular/material/tooltip'
     RouterOutlet,
     RouterLink,
     MatTooltipModule,
-    RouterLinkActive
+    RouterLinkActive,
+    SkeletonLoadingComponent,
+    NgFor
   ],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
@@ -35,8 +39,9 @@ export class ManageProfileComponent {
   public activeIndex: any = 0
   public showFullEmail: boolean = false
   public isUploading: boolean = false
-  menuItems: any
-  basedLevelMenuItem: any
+  public menuItems: any
+  public basedLevelMenuItem: any
+  public isMenuLoading:boolean = true
   public role = Roles
   constructor(
     private sidebarService: SidebarService,
@@ -112,19 +117,17 @@ export class ManageProfileComponent {
   }
 
   public fetchProfileDetail() {
+    this.isMenuLoading = true
     this.profileService.userDetails().subscribe({
       next: (res) => {
-        console.log("check show profile", res)
+
         this.userDetail = res.data.user
         this.imgUrl = res.data.user.user_image
         this.localStorage.saveData('level_id', res.data.user.level_id)
-        console.log(res)
-        console.log("check id1", this.userDetail.level_id)
         this.sidebarService.getSidebarLinks().subscribe((res) => {
           this.sidebarMenu = res
           const role = this.localStorage.getData('loginInfo')
           const roleGet = JSON.parse(role)
-          console.log("check id", this.userDetail.level_id)
           if (roleGet.user_role == Roles.subscriber) {
             this.menuItems = this.sidebarMenu.filter(tab =>
               tab.label !== 'Ads' &&
@@ -152,6 +155,7 @@ export class ManageProfileComponent {
           }
 
         })
+        this.isMenuLoading = false
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
@@ -176,6 +180,9 @@ export class ManageProfileComponent {
     }
   }
 
+get skeletonItems() {
+  return new Array(this.menuItems.length > 0 ? 0 : 4).fill(null);
+}
 
 
   public handleLogout() {

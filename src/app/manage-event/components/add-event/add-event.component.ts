@@ -520,7 +520,7 @@ this._activatedRoute.params.subscribe((res) => {
       country: this.country,
       zip: this.zipcode,
       post_content: this.addEventForm.value.event_description,
-      featured_image: this.ImageUrl,
+      featured_image: this.levelOneImageArr,
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
       is_bookable_: this.status.value ? 1 : 0,
