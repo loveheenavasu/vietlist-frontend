@@ -470,12 +470,29 @@
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
+                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+              <div *ngIf="isImageUploading" class="loader"></div>
+            
+            </ngx-dropzone>
+            <div class="main_images">
+              @for (preview of levelOneImageArr; track $index) {
+      
+              <div class="images__" *ngIf="preview">
+                <div class="removeImage">
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
+                </div>
+                <img [src]="preview" alt="Image Preview" width="150" height="150" />
+              </div>
+              }
+            </div>
+            <!-- <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+                or
                 Browse a file</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>
             <div class="main_images">
-              <!-- @for (preview of levelOneImageArr; track $index) { -->
       
               <div class="images__" *ngIf="ImageUrl">
                 <div class="removeImage">
@@ -483,8 +500,8 @@
                 </div>
                 <img [src]="ImageUrl" alt="Image Preview" width="150" height="150"  class="imagePriview"/>
               </div>
-              <!-- } -->
-            </div>
+           
+            </div> -->
           </div>
         </div>
         <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
