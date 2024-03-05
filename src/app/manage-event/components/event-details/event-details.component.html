@@ -440,11 +440,11 @@
         </div>
         <div class="row mt-2 mb-4">
           <div class="col-12 col-md-12 col-lg-6">
-            <button class="btn orange-background-btn-w-100" [disabled]="!reviewForm.valid" (click)="submit()">
+            <button class="btn orange-background-btn-w-100" style="color:#fff" [disabled]="!reviewForm.valid" (click)="submit()">
               @if (isLoader) {
               <app-loader></app-loader>
               } @else {
-              Post Review
+                Leave a review
               }
             </button>
           </div>
