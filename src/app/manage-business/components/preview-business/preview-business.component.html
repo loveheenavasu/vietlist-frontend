@@ -9,6 +9,14 @@
     <!-- <div class="iconDirection">
       <span class="elementor-grid-item">
         <a class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
+         <i class="fa-brands fa-facebook-f"  style="font-size:18px;color:#fff"></i></a>
+      </span>
+      <span class="elementor-grid-item">
+        <a class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
+          <i class="fa-brands fa-twitter" style="font-size:18px;color:#fff"></i></a>
+      </span>
+      <span class="elementor-grid-item">
+        <a class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
          
           <i class="fa fa-envelope" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
       </span>
@@ -357,7 +365,9 @@
       <div class="col-12 col-md-12 col-lg-8" id="profile">
 
         <div class="row mt-3">
-          <h3 class="event-page-heading">Business Details</h3>
+         <h3 class="event-page-heading"><span> <i class="fa fa-home"
+          aria-hidden="true"></i> </span> &nbsp;Business Details</h3>
+          <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
               <tr>
@@ -366,12 +376,18 @@
               </tr>
               <tr>
                 <td class="table-title">Business History background</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ businessFormDetails?.business_historybackground ||
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  
+                  {{ businessFormDetails?.business_historybackground ||
                   'NA' }}</td>
               </tr>
               <tr>
                 <td class="table-title">Business hours</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> {{ businessFormDetails?.business_hours == '[[null]]' ? "NA": businessFormDetails?.business_hours}}</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle"> 
+                  {{ businessFormDetails?.business_hours == '[[null]]'
+                  ? "NA": hourFilter}}
+                  
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Business ownerassociate</td>
@@ -383,12 +399,6 @@
                 <td class="table-title">Choose layout</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">{{ businessFormDetails?.choose_layout || 'NA'}}</td>
               </tr>
-              <tr>
-                <td class="table-title">Consultation booking link</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">{{ businessFormDetails?.consultation_booking_link }}
-                </td>
-              </tr>
-
               <tr>
                 <td class="table-title">Owner Name</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">{{ businessFormDetails?.owner_name }}</td>
@@ -403,16 +413,47 @@
                 </td>
 
               </tr>
+              <tr>
+                <td class="table-title">Default Category</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  <!-- @for(items of businessFormDetails?.post_category ; track $index){
+                  {{items?.name || "NA"}}
+                  } -->{{businessFormDetails?.default_category?.name}}
+                </td>
+
+              </tr>
+              <tr>
+                <td class="table-title">Contact Phone</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  <!-- @for(items of businessFormDetails?.post_category ; track $index){
+                  {{items?.name || "NA"}}
+                  } -->{{businessFormDetails?.contact_phone}}
+                </td>
+
+              </tr>
             </tbody>
           </table>
         </div>
         <div class="row mt-4">
-          <h3 class="event-page-heading">Consultation</h3>
+          <h3 class="event-page-heading"><span> <i class="fa-solid fa-comments"></i> </span> &nbsp;Consultation</h3>
+          <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
               <tr>
+                <td class="table-title">Special Offers</td>
+                <td class="table-subtitle">{{ businessFormDetails?.special_offers || 'NA' }}</td>
+              </tr>
+              <tr>
+                <td class="table-title">Services list</td>
+                <td class="table-subtitle">{{ businessFormDetails?.services_list || 'NA' }}</td>
+              </tr>
+              <tr>
+                <td class="table-title">Video url</td>
+                <td class="table-subtitle">{{ businessFormDetails?.video_url || 'NA' }}</td>
+              </tr>
+              <tr> 
                 <td class="table-title">Consultation Booking link</td>
-                <td class="table-subtitle">{{ businessFormDetails?.consultation_booking_link }}</td>
+                <td class="table-subtitle"><a href="{{businessFormDetails?.consultation_booking_link}}" style="text-decoration: none;" target="_blank">{{ businessFormDetails?.consultation_booking_link }}</a></td>
               </tr>
               <tr>
                 <td class="table-title">Consultation Description</td>
@@ -437,7 +478,8 @@
           </table>
         </div>
         <div class="row mt-4">
-          <h3 class="event-page-heading">Address</h3>
+          <h3 class="event-page-heading"><span><i class="fa-solid fa-location-dot"></i></span>&nbsp;Address</h3>
+          <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
               <tr>
@@ -536,7 +578,7 @@
                 alt="Sourav Ghosh"></a>
             <div class="media-body">
               <h5 class="mt-0">Author: <a href="#" routerLink="/manage-profile"> {{
-                businessFormDetails?.user_deatil?.first_name }}  {{
+                  businessFormDetails?.user_deatil?.first_name }} {{
                   businessFormDetails?.user_deatil?.last_name }}</a></h5>
 
               <p></p>
@@ -549,19 +591,44 @@
     </div>
     <div class="row  my-4" id="photo">
       <div class="col-12">
-        <h3 class="event-page-heading">Photo(s)</h3>
+        <h3 class="event-page-heading"><span><i class="fa fa-picture-o"
+          aria-hidden="true"></i></span> &nbsp;Photo(s)</h3>
+        <hr>
+        <div class="main_images">
+          <div class="featured_image" style="display:flex;gap:1rem">
+            @for (item of businessFormDetails?.image; track $index) {
+            <img [src]=" item ? item : '/assets/image/carrer-proffesional.jpeg'" />
+            }
 
-        <div class="featured_image" style="display:flex;gap:1rem">
-          @for (item of businessFormDetails?.image; track $index) {
-          <img [src]=" item ? item : '/assets/image/carrer-proffesional.jpeg'" />
-          }
-
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row  my-4" id="photo">
+      <div class="col-12">
+        <h3 class="event-page-heading"><span><i class="fa fa-picture-o"
+          aria-hidden="true"></i></span> &nbsp;Vedio </h3>
+        <hr>
+        <div class="main_images">
+          <div class="featured_images" style="display:flex;gap:1rem">
+            @if(businessFormDetails?.video_upload){
+              <video width="320" height="240" controls >
+                <source [src]="businessFormDetails?.video_upload" type="video/mp4">
+              </video>
+            }@else {
+              <div> No Vedio Upload...</div>
+            }
+         
+            
+    
+          </div>
         </div>
       </div>
     </div>
     <div class="row  my-4" id="mapView">
       <div class="col-12">
-        <h3 class="event-page-heading">Map</h3>
+        <h3 class="event-page-heading"><span> <i class="fa-solid fa-map-location-dot"></i></span> &nbsp;Map</h3>
+        <hr>
       </div>
       <div class="col-12 col-lg-6">
         <div id="map" style="height: 300px; width: 100%"></div>
