@@ -223,7 +223,7 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.footerSwiperParams);
               swiperEl.initialize();
             } else {
-              console.error('Swiper or nativeElement is undefined or null.');
+              // console.error('Swiper or nativeElement is undefined or null.');
             }
           }, 0);
         }
