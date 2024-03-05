@@ -338,7 +338,7 @@ ngx-star-rating .star {
   z-index: 99999999;
   content: '';
   position: absolute;
-  left: 39%;
+  left: 47%;
 }
 span.elementor-grid-item {
   background: #ea4335;
@@ -376,5 +376,14 @@ span.elementor-grid-item {
 td.table-subtitle p {
   width: 49%;
   word-wrap: break-word;
+}
+.elementor-divider-separator{
+  background: #FF9900;
+  height: 5px;
+  width: 83px;
+  z-index: 99999999;
+  content: "";
+  position: absolute;
+  left: 43%;
 }
 }

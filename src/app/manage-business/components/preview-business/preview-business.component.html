@@ -1,5 +1,5 @@
 <section class="banner" style="position: relative;">
-  <div class="content">
+  <div class="content" style="width:100%">
     <h1>Preview Your Business</h1>
     <div class="elementor-divider">
       <span class="elementor-divider-separator">
@@ -520,8 +520,7 @@
           <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
             <div class="location">
-              <i class="fa fa-map-marker" aria-hidden="true"
-                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
+              <i class="fa-solid fa-location-dot" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
               businessFormDetails?.street }}
             </div>
             <div class="location">
@@ -531,14 +530,14 @@
               font-weight: 500;text-decoration: none;">{{'Website url'}}</a>
             </div>
             <div class="location">
-              <i class="fa fa-facebook-official" aria-hidden="true"
+              <i class="fab fa-facebook-square"
                 style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
               <a href="{{businessFormDetails?.facebook}}" target="_blank" style="color: #38ccff;
               font-size: 14px;
               font-weight: 500;text-decoration: none;">{{'Facebook'}}</a>
             </div>
             <div class="location">
-              <i class="fa fa-twitter" aria-hidden="true" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+              <i class="fa-brands fa-twitter"  style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
               <a href="{{businessFormDetails?.twitter}}" target="_blank" style="color: #38ccff;
               font-size: 14px;
               font-weight: 500;text-decoration: none;">{{'Twitter'}}</a>
@@ -634,7 +633,7 @@
     </div>
     <div class="row  my-4" id="mapView">
       <div class="col-12">
-        <h3 class="event-page-heading"><span> <i class="fa-solid fa-map-location-dot"></i></span> &nbsp;Map</h3>
+        <h3 class="event-page-heading"><span> <i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i></span> &nbsp;Map</h3>
         <hr>
       </div>
       <div class="col-12 col-lg-6">
