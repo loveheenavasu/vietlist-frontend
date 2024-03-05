@@ -1,7 +1,8 @@
-<section class="banner">
-  <div class="content">
+<section class="banner" style="position: relative;">
+  <div class="content" style="width:100%">
     <h1>{{ eventDetails?.post_title | titlecase }}</h1>
-    <p>{{ eventDetails?.country }}</p>
+    <p> 
+      <i class="fa-solid fa-location-dot" style="color:#fff;font-size: 15px;"></i> &nbsp;{{ eventDetails?.country }}</p>
     <div class="elementor-divider">
       <span class="elementor-divider-separator">
       </span>
@@ -20,20 +21,19 @@
           style="font-size:30px"></i>
       </div>
     </div>
-    <div class="iconDirection">
-      <span class="elementor-grid-item">
-        <a class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-          target="_blank">
-          <!-- <span class="elementor-screen-only">Phone</span> -->
-          <i class="fa fa-envelope" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
-      </span>
-      <span class="elementor-grid-item" style="background: #0073A4;" (click)="openGoogleMaps()">
-        <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
-          href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
-          <!-- <span class="elementor-screen-only">Directions</span> -->
-          <i class="fas fa-directions" style="font-size:18px; color:#fff"></i></a>
-      </span>
-    </div>
+   
+  </div>
+  <div class="iconDirection">
+    <span class="elementor-grid-item">
+      <a href="https://mail.google.com" target="_blank" class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
+        <!-- <span class="elementor-screen-only">Phone</span> -->
+        <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size:20px;color:#fff"></i></a>
+    </span>
+    <span class="elementor-grid-item" style="background: #0073A4;" (click)="openGoogleMaps()">
+      <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c" href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
+        <!-- <span class="elementor-screen-only">Directions</span> -->
+        <i class="fas fa-directions size_icon" style="font-size:20px; color:#fff"></i></a>
+    </span>
   </div>
 </section>
 <div class="section-container">
@@ -110,8 +110,8 @@
         </div>
 
         <div class="row mt-4">
-          <h3 class="event-page-heading"><i class="fa fa-map-marker" aria-hidden="true" style="font-size:24px"></i>
-            Address</h3>
+          <h3 class="event-page-heading">
+            <i class="fa-solid fa-location-dot" style="font-size:24px"></i> Address</h3>
           <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
@@ -153,8 +153,7 @@
           <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
             <div class="location">
-              <i class="fa fa-map-marker" aria-hidden="true"
-                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
+                <i class="fa-solid fa-location-dot" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
               eventDetails?.street }}
             </div>
             <div class="location">
@@ -174,7 +173,7 @@
               <a href="https://www.twitter.com" target="_blank" style="color: #38ccff;
               font-size: 14px;
               font-weight: 500;text-decoration: none;">
-                <i class="fa-brands fa-twitter" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+             <i class="fa-brands fa-twitter" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
               </a>
             </div>
             <!-- <ul>
@@ -247,7 +246,7 @@
     </div>
     <div class="row my-4" id="mapView">
       <div class="col-12 col-md-12 col-lg-6">
-        <h3 class="event-page-heading"><i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i>Map</h3>
+        <h3 class="event-page-heading"><i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i> &nbsp;Map</h3>
         <hr>
       </div>
 

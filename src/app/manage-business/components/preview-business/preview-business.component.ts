@@ -28,7 +28,7 @@ export class PreviewBusinessComponent {
   public latitude!: number
   public longitude!: number
   public userDetails:any;
-
+public hourFilter :any
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
@@ -110,10 +110,9 @@ export class PreviewBusinessComponent {
 
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-        console.log(
-          this.businessFormDetails,
-          'businessFormDetailsbusinessFormDetails',
-        )
+         console.log( this.businessFormDetails,' this.businessFormDetails this.businessFormDetails')
+        const business_hours = this.businessFormDetails?.business_hours
+       this.hourFilter =  this.getCleanedBusinessHours(business_hours)
         this.previewForm.patchValue(this.businessFormDetails)
         this.logo = res?.data[0]?.logo
         this.latitude = Number(this.businessFormDetails.latitude)
@@ -141,6 +140,14 @@ export class PreviewBusinessComponent {
     })
   }
 
+  getCleanedBusinessHours(hours:any): string {
+    // Remove array braces and commas
+     
+    return hours
+
+            .replace(/\[|\]/g, '')  // Remove square brackets
+            .replace(/,/g, ' ');     // Replace commas with spaces
+  }
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {

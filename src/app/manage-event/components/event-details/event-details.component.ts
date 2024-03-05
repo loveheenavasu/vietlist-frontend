@@ -115,7 +115,6 @@ export class EventDetailsComponent {
         const controlsToValidate = [
           "comment_author_email",
           "comment_author",
-          "comment_author_url"
         ];
 
         controlsToValidate.forEach(controlName => {
@@ -334,6 +333,7 @@ export class EventDetailsComponent {
       this.profileService.reviewSet(formData).subscribe({
         next: (res) => {
           this.isLoader = false
+          this.reviewForm.reset()
           this.getReviews()
           this.getEventDetails()
           Swal.fire({
