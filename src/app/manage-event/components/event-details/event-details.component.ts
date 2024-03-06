@@ -1,11 +1,12 @@
+import { HttpClient } from '@angular/common/http'
 import { ActivatedRoute, Route, Router } from '@angular/router'
-import { Component, ViewEncapsulation } from '@angular/core'
+import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
-import { NgxStarsModule } from 'ngx-stars'
+
 import {
   FormBuilder,
   FormControl,
@@ -19,6 +20,9 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
+
 // NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
@@ -32,8 +36,9 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
     NgxStarRatingModule,
     DatePipe,
     CommonModule,
-
-    NgIf
+    AutocompleteComponent,
+    NgIf,
+    SkeletonLoadingComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
@@ -59,8 +64,8 @@ export class EventDetailsComponent {
   public isAuthenticationCheck: any
   public isReplyFieldOpen: boolean = false
   public isReplycomFieldOpen: boolean = false
-  public replyIndex: number = -1;
-  public replyIndexshow: number = -1;
+  public replyIndex: number = -1
+  public replyIndexshow: number = -1
   public isAuthentecate!: boolean
   public slectedvalue: boolean = false
   public storValues: any
@@ -68,19 +73,31 @@ export class EventDetailsComponent {
   public replyInput = new FormControl('')
   public commentId: any
   public repliesArray: any[] = []
-  public overllRating:any
-  public activeTab: string = 'profile';
+  public overllRating: any
+  public activeTab: string = 'profile'
+  public state: any
+  public country: any
+  public city: any
+  public zipcode: any
+  public fullAddress: any
+  public street: any
+  public eventLocation: any
+  public directionStreet: any
+  public directionLatitude: any
+  public directionLongitude: any
+  public distanceToEvent: any
+  public isDistanceLoading:boolean = false
   /**
-   * 
-   * @param eventService 
-   * @param _activatedRoute 
-   * @param fullPageLoaderService 
-   * @param router 
-   * @param fb 
-   * @param businessService 
-   * @param profileService 
-   * @param footerContent 
-   * @param sessionService 
+   *
+   * @param eventService
+   * @param _activatedRoute
+   * @param fullPageLoaderService
+   * @param router
+   * @param fb
+   * @param businessService
+   * @param profileService
+   * @param footerContent
+   * @param sessionService
    */
   constructor(
     private eventService: EventService,
@@ -90,8 +107,9 @@ export class EventDetailsComponent {
     private fb: FormBuilder,
     private businessService: BusinessService,
     private profileService: ProfileService,
-    private footerContent: HomepageService,
-    private sessionService: AuthenticationService
+    private sessionService: AuthenticationService,
+    private cd: ChangeDetectorRef,
+    private httpClient: HttpClient,
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -105,28 +123,22 @@ export class EventDetailsComponent {
         ],
       ],
       comment_author_url: [''],
-
     })
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
-
       if (res) {
         console.log(res, 'resres is Authenticated')
         this.isAuthentecate = res
-        const controlsToValidate = [
-          "comment_author_email",
-          "comment_author",
-        ];
+        const controlsToValidate = ['comment_author_email', 'comment_author']
 
-        controlsToValidate.forEach(controlName => {
-          const control = this.reviewForm.get(controlName);
+        controlsToValidate.forEach((controlName) => {
+          const control = this.reviewForm.get(controlName)
           if (res) {
-            control?.setValidators(Validators.required);
+            control?.setValidators(Validators.required)
           } else {
-            control?.clearValidators();
-
+            control?.clearValidators()
           }
-          control?.updateValueAndValidity();
-        });
+          control?.updateValueAndValidity()
+        })
       }
     })
 
@@ -137,14 +149,12 @@ export class EventDetailsComponent {
       this.isGlobal = res['isGlobal']
       console.log(this.isGlobal, 'this.isGlobal')
     })
-
   }
 
   selcetdvalues() {
     // this.storValues ={
     //   this.
     // }
-
   }
 
   ngOnInit() {
@@ -159,7 +169,36 @@ export class EventDetailsComponent {
     }
   }
 
-
+  public getAddress(place: any) {
+    console.log(place)
+    this.directionStreet = place.formatted_address
+    this.state = ''
+    this.country = ''
+    this.city = ''
+    this.zipcode = ''
+    const array = place
+    array.address_components.forEach((element: any) => {
+      element.types.forEach((type: any) => {
+        if (type == 'country') {
+          this.country = element.long_name
+        }
+        if (type == 'administrative_area_level_3') {
+          this.city = element.long_name
+        }
+        if (type == 'postal_code') {
+          this.zipcode = element.long_name
+        }
+        if (type == 'administrative_area_level_1') {
+          this.state = element.long_name
+        }
+      })
+    })
+    this.directionLatitude = place.geometry.location.lat()
+    this.directionLongitude = place.geometry.location.lng()
+    console.log(this.directionLatitude, this.directionLongitude, 'Lat , Long')
+    this.cd.detectChanges()
+    this.initMap()
+  }
 
   public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
@@ -170,10 +209,11 @@ export class EventDetailsComponent {
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
-        this.eventDetails = res?.data[0] || 'NA',
+        ;(this.eventDetails = res?.data[0] || 'NA'),
+          (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)
-          ; (this.latitude = Number(this.eventDetails?.latitude)),
-            (this.longitude = Number(this.eventDetails?.longitude))
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
         console.log(res)
         this.initMap()
       },
@@ -212,9 +252,9 @@ export class EventDetailsComponent {
     }
   }
   openGoogleMaps() {
-    console.log("chekc click", this.latitude, this.longitude)
-    const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`;
-    window.open(mapUrl, '_blank');
+    console.log('chekc click', this.latitude, this.longitude)
+    const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
+    window.open(mapUrl, '_blank')
   }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
@@ -323,12 +363,9 @@ export class EventDetailsComponent {
         formData.append(key, String(value))
       }
     })
-    // formData.append('attachments', JSON.stringify(this.levelOneImageArr));
     formData.forEach((value, key) => {
       console.log(key + ', ' + value)
     })
-    console.log(formData, 'formData')
-
     if (this.reviewForm.valid) {
       this.profileService.reviewSet(formData).subscribe({
         next: (res) => {
@@ -375,29 +412,27 @@ export class EventDetailsComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-
-      });
+      })
     } else {
-      console.log(index, "INDEX")
-      this.isReplyFieldOpen = true;
-      this.replyIndex = index;
+      console.log(index, 'INDEX')
+      this.isReplyFieldOpen = true
+      this.replyIndex = index
     }
   }
   public showReplyCommentField(index: number, id: any) {
-
-    console.log(index, "INDEX")
-    this.isReplycomFieldOpen = true;
-    this.replyIndexshow = index;
+    console.log(index, 'INDEX')
+    this.isReplycomFieldOpen = true
+    this.replyIndexshow = index
     this.getReplies(index, id)
   }
   // public hideReplyField() {
   //   this.isReplyFieldOpen = false;
-  //   this.replyIndexshow = -1; 
+  //   this.replyIndexshow = -1;
   // }
 
   public hideReplyField() {
-    this.isReplycomFieldOpen = false;
-    this.replyIndex = -1;
+    this.isReplycomFieldOpen = false
+    this.replyIndex = -1
   }
 
   public handlereply(index: any, commentId: any) {
@@ -405,7 +440,7 @@ export class EventDetailsComponent {
     const body = {
       comment_post_ID: this.postId,
       comment_content: this.replyInput.value,
-      comment_parent: this.commentId
+      comment_parent: this.commentId,
     }
     const formData = new FormData()
     Object.entries(body).forEach(([key, value]) => {
@@ -421,40 +456,38 @@ export class EventDetailsComponent {
       next: (res) => {
         this.replyInput.setValue('')
         this.getReplies(index, this.commentId)
-      }
+      },
     })
   }
-
 
   public getReplies(index: any, id: any) {
     this.repliesArray = []
     this.loader = true
-    this.isReplycomFieldOpen = true;
-    this.replyIndexshow = index;
-    this.eventService.getReviewReply(this.commentId ? this.commentId : id, this.postId).subscribe({
-      next: (res) => {
-        this.repliesArray = res?.data
-        this.loader = false
-        if (this.repliesArray.length == 0) {
-          Swal.fire({
-            toast: true,
-            text: 'REPLIES NO FOUND!',
-            animation: false,
-            icon: 'warning',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-
-          });
-        }
-        console.log(this.repliesArray, "Replies")
-      }, error: (err) => {
-
-      }
-    })
+    this.isReplycomFieldOpen = true
+    this.replyIndexshow = index
+    this.eventService
+      .getReviewReply(this.commentId ? this.commentId : id, this.postId)
+      .subscribe({
+        next: (res) => {
+          this.repliesArray = res?.data
+          this.loader = false
+          if (this.repliesArray.length == 0) {
+            Swal.fire({
+              toast: true,
+              text: 'REPLIES NO FOUND!',
+              animation: false,
+              icon: 'warning',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+          }
+          console.log(this.repliesArray, 'Replies')
+        },
+        error: (err) => {},
+      })
   }
-
 
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
@@ -463,20 +496,113 @@ export class EventDetailsComponent {
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
-
       },
     })
   }
 
-
   public scrollTo(elementId: string): void {
-    const element = document.getElementById(elementId);
-    this.activeTab = elementId;
+    const element = document.getElementById(elementId)
+    this.activeTab = elementId
     if (element) {
-      
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
-  
 
+  calculateDistance(
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number,
+  ): number {
+    this.isDistanceLoading = true
+    const earthRadius = 6371 // Earth's radius in kilometers
+    const dLat = this.degreesToRadians(lat2 - lat1)
+    const dLon = this.degreesToRadians(lon2 - lon1)
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.degreesToRadians(lat1)) *
+        Math.cos(this.degreesToRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    const distance = earthRadius * c
+    return distance // Distance in kilometers
+  }
+
+  // Helper function to convert degrees to radians
+  degreesToRadians(degrees: number): number {
+    return degrees * (Math.PI / 180)
+  }
+
+  getDistance(): void {
+    // Fetch the distance and draw the line on the map
+    // Call the calculateDistance function
+    const distanceToEvent = this.calculateDistance(
+      this.directionLatitude,
+      this.directionLongitude,
+      this.latitude,
+      this.longitude,
+    )
+
+    this.distanceToEvent = distanceToEvent.toFixed(2)
+
+    // Draw the line on the map
+    const mapElement: any = document.getElementById('map')
+    const map = new google.maps.Map(mapElement, {
+      zoom: 7,
+      center: { lat: this.directionLatitude, lng: this.directionLongitude },
+    })
+
+    const directionsService = new google.maps.DirectionsService()
+    const directionsRenderer = new google.maps.DirectionsRenderer()
+    directionsRenderer.setMap(map)
+
+    const request = {
+      origin: this.directionStreet,
+      destination: this.eventLocation,
+      travelMode: google.maps.TravelMode.DRIVING,
+    }
+
+    directionsService.route(request, function (response: any, status: any) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsRenderer.setDirections(response)
+      } else {
+        console.error('Directions request failed due to ' + status)
+      }
+    })
+
+    // Display markers for the From and To locations
+    const fromMarker = new google.maps.Marker({
+      position: { lat: this.directionLatitude, lng: this.directionLongitude },
+      map: map,
+      title: 'From',
+    })
+
+    const toMarker = new google.maps.Marker({
+      position: { lat: this.latitude, lng: this.longitude },
+      map: map,
+      title: 'To',
+    })
+   
+  }
+
+  // fetchDirections(): void {
+  //   const origin = `${this.directionLatitude},${this.directionLongitude}`;
+  //   const destination = `${this.latitude},${this.longitude}`;
+  //   const apiKey = 'AIzaSyAIL-JygwsY_2iMzSei4pjE7aCjvsn2uns'; // Replace with your own API key
+
+  //   const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
+
+  //   this.httpClient.get(url).subscribe((response: any) => {
+  //     if (response.status === 'OK') {
+  //       const route = response.routes[0];
+  //       const legs = route.legs;
+  //       const steps = legs[0].steps;
+  //       console.log('Route steps:', steps);
+  //       // Process route steps as needed
+  //     } else {
+  //       console.error('Failed to fetch directions:', response.error_message);
+  //     }
+  //   });
+  // }
 }

@@ -330,6 +330,7 @@ export class ListBusinessComponent {
       error: (err) => {},
     })
   }
+  
   public getAddress(place: any) {
     console.log(place)
     this.fullAddress = place.formatted_address

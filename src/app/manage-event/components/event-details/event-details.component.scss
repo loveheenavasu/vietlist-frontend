@@ -366,6 +366,14 @@ fieldset:disabled .btn {
     color: #ff9900!important;
     -webkit-text-fill-color: #ff9900!important;
   }
+
+  .get-direction-btn{
+    background-color: var(--primary-color-orange);
+    height:40px;
+    color:#fff;
+    border-radius: 0px;
+  }
+  
   @media(max-width:768px) {
     ul li .info-wrapper {
         width: 100%!important;
