@@ -16,6 +16,7 @@ import {
 import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
 import { CommonModule, NgFor, NgIf } from '@angular/common'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
   selector: 'app-confirm-payment',
@@ -40,6 +41,7 @@ export class ConfirmPaymentComponent {
   public planId: any
   public paymentIntent: any
   public paymentMethod: any
+  public billingDetails: any
   billingAddressValid: boolean = false; // Add this line
 
   constructor(
@@ -50,8 +52,9 @@ export class ConfirmPaymentComponent {
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
     public router: Router,
+    private profileServie: ProfileService
 
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -61,8 +64,79 @@ export class ConfirmPaymentComponent {
     if (this.authToken) {
       this.getPaymentIntent()
     }
+    this.getBillingDetails()
+  }
+
+
+  getBillingDetails() {
+    // this.fullPageLoader.showLoader()
+    this.profileServie.getBillingAddress().subscribe({
+      next: (res: any) => {
+        // this.fullPageLoader.hideLoader()
+        this.billingDetails = res.data
+         console.log(this.billingDetails,'billingDetailsbillingDetails')
+        if (res) {
+          this.stripeService
+            .setPublishableKey(environment.stripe_publish_key)
+            .then((stripe) => {
+              this.stripe = stripe
+              const appearance = {
+                theme: 'flat',
+                variables: { colorPrimaryText: 'red' },
+              }
+              const elements = stripe.elements({ appearance })
+              this.card = elements.create('card', { hidePostalCode: true })
+              this.card.mount(this.cardInfo.nativeElement)
+              const billingAddressOptions = {
+                classes: {
+                  base: 'stripe-address-element',
+                },
+                placeholder: 'Enter your billing address',
+                mode: 'billing',
+              }
+              // this.billingAddressElements = elements.create(
+              //   'address',
+              //   billingAddressOptions,
+              this.billingAddressElements = elements.create("address", {
+                mode: "shipping",
+
+                defaultValues: {
+                  name: this.billingDetails?.pmpro_bfirstname,
+                  address: {
+                    line1:this.billingDetails?.pmpro_baddress1,
+                    line2:this.billingDetails?.pmpro_baddress2,
+                    city:this.billingDetails?.pmpro_bcity,
+                    state:this.billingDetails?.pmpro_bstate,
+                    country:this.billingDetails?.pmpro_bcountry,
+                    postal_code:this.billingDetails?.pmpro_bzipcode,
+                  },
+                  // address: {
+                  //   line1: this.billingDetails?.pmpro_baddress1,
+                  //   line2: this.billingDetails?.pmpro_baddress2,
+                  //   city: this.billingDetails?.pmpro_bcity,
+                  //   state: this.billingDetails?.pmpro_bstate,
+                  //   postal_code: this.billingAddress?.pmpro_bzipcode,
+                  //   country: this.billingAddress?.pmpro_bcountry,
+                  // },
+                },
+              });
+              this.billingAddressElements.mount('#billing-address-element');
+              this.billingAddressElements.mount(
+                this.billingAddressElement.nativeElement,
+              )
+              this.billingAddressElements.on('change', (event: any) => {
+                this.billingAddress = event.value
+                this.billingAddressValid = !!event.complete;
+              })
+              this.stripe = stripe
+            })
+
+        }
+      }
+    })
 
   }
+
 
   ngAfterViewInit() {
     this.stripeService
@@ -83,10 +157,38 @@ export class ConfirmPaymentComponent {
           placeholder: 'Enter your billing address',
           mode: 'billing',
         }
-        this.billingAddressElements = elements.create(
-          'address',
-          billingAddressOptions,
-        )
+
+        // this.billingAddressElements = elements.create(
+        //   'address',
+
+        //   billingAddressOptions,
+        this.billingAddressElements = elements.create("address", {
+          mode: "shipping",
+
+          defaultValues: {
+            name: this.billingDetails?.pmpro_bfirstname,
+            address: {
+              line1:this.billingDetails?.pmpro_baddress1,
+              line2:this.billingDetails?.pmpro_baddress2,
+              city:this.billingDetails?.pmpro_bcity,
+              state:this.billingDetails?.pmpro_bstate,
+              postal_code:this.billingDetails?.pmpro_bzipcode,
+              country:this.billingDetails?.pmpro_bcountry
+            },
+            // address: {
+            // line1: 'demoggfghf',
+            // line2: 'ytrtyrtyrytryt',
+            // city: this.billingDetails?.pmpro_bcity,
+            // state: this.billingDetails?.pmpro_bstate,
+            // postal_code: this.billingAddress?.pmpro_bzipcode,
+            // country: this.billingAddress?.pmpro_bcountry,
+            // },
+          },
+        });
+
+        this.billingAddressElements.mount('#billing-address-element');
+
+
 
         this.billingAddressElements.mount(
           this.billingAddressElement.nativeElement,
@@ -97,6 +199,8 @@ export class ConfirmPaymentComponent {
         })
         this.stripe = stripe
       })
+
+
   }
   public getPaymentIntent() {
     this.loaderService.showLoader()
@@ -105,7 +209,7 @@ export class ConfirmPaymentComponent {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 

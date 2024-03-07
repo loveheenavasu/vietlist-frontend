@@ -50,7 +50,7 @@
     margin: auto;
 
     .image {
-
+         
         img {
             width: 100%;
             height: 100%;
@@ -84,7 +84,9 @@
         cursor: pointer;
     }
 }
-
+.image{
+    height:100%
+}
 .user-email {
     color: #1E73bE;
     text-align: center;
