@@ -80,7 +80,7 @@ export class AddEventComponent {
   public isImageUploading: boolean = false
   public levelOneImageArr: any[] = []
   public isFirstStepCompleted: boolean = false
-  public status = new FormControl('')
+  public isBookable = new FormControl('')
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
@@ -131,6 +131,7 @@ export class AddEventComponent {
   public userInfo:any
   public userDetailsLevel_id:any
   public minDate = new Date();
+  public isBookableClicked:boolean = false
   /**
    *
    * @param _formBuilder
@@ -148,9 +149,38 @@ export class AddEventComponent {
     private cd:ChangeDetectorRef,
     private sessionService:AuthenticationService,
     private _activatedRoute:ActivatedRoute,
-    private fullPageLoaderService:FullPageLoaderService
+    private fullPageLoaderService:FullPageLoaderService,
+    private profileService: ProfileService,
   ) {
+    this.addEventForm = this._formBuilder.group({
+      event_title: ['', Validators.required],
+      eventStartDate: [''],
+      eventEndDate: [''],
+      post_category: ['', Validators.required],
+      event_description: ['', Validators.required],
+      mapview: [''],
+      startTime: [''],
+      endTime: [''],
+      price:[''],
+      number_of_bookings:['']
+    })
+
+
     const getLevelId = localStorageService.getData('level_id')
+       this.isBookable.valueChanges.subscribe((res: any) => {
+        if (res == true) {
+            this.isBookableClicked = true;
+            this.addEventForm.get('price')?.setValidators(Validators.required);
+            this.addEventForm.get('Number_of_bookings')?.setValidators(Validators.required);
+        } else {
+            this.isBookableClicked = false;
+            this.addEventForm.get('price')?.clearValidators();
+            this.addEventForm.get('Number_of_bookings')?.clearValidators();
+        }
+        this.addEventForm.get('price')?.updateValueAndValidity();
+        this.addEventForm.get('Number_of_bookings')?.updateValueAndValidity();
+    });
+
 
     this.userDetailsLevel_id  = getLevelId
         this.authService.userDetails.subscribe((res:any)=>{
@@ -167,17 +197,7 @@ export class AddEventComponent {
       }
       
     })
-    this.addEventForm = this._formBuilder.group({
-      event_title: ['', Validators.required],
-      eventStartDate: [''],
-      eventEndDate: [''],
-      post_category: ['', Validators.required],
-      event_description: ['', Validators.required],
-      mapview: [''],
-      startTime: [''],
-      endTime: ['']
-    })
-
+ 
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
 
@@ -220,6 +240,8 @@ this._activatedRoute.params.subscribe((res) => {
       this.getEventDetails()
     }
 
+      this.fetchProfileDetail()
+  
     // this.sessionService.isAuthenticated$.subscribe((res)=>{
     //   if(res == true && this.userInfo.user_role == Roles.businessOwner){
 
@@ -239,6 +261,17 @@ this._activatedRoute.params.subscribe((res) => {
     // })
 
     this.initMap()
+  }
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetail = res.data.user
+      },
+      error: (err: any) => {
+        this.router.navigateByUrl('/login')
+
+      },
+    })
   }
 
  
@@ -298,11 +331,14 @@ this._activatedRoute.params.subscribe((res) => {
   public onCategoryChange() {
     this.categoriesValue = this.addEventForm.value.post_category
   }
-
-
-  public removeImageItem() {
-    this.ImageUrl = ''
+  public  removeImageItem(index:any) {
+    this.levelOneImageArr.splice(index, 1);
   }
+ 
+
+  // public removeImageItem() {
+  //   this.ImageUrl = ''
+  // }
 
 
   public resolved(captchaResponse: string | null) {
@@ -386,35 +422,100 @@ this._activatedRoute.params.subscribe((res) => {
 
 
 
+  // public onSelectImages(event: any) {
+  //   this.files = [...event.addedFiles]
+ 
+  //   this.displayLevelOneImages()
+  // }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
- 
+    // if (this.levelOneImageArr.length >= 5) {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
+    //     animation: false,
+    //     icon: 'warning',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //   });
+    //   return;
+    // }
+
+    if (this.userDetail.level_id == '1') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'Max 5 images allowed. Upgrade your plan for more',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
+    if (this.userDetail.level_id == '2') {
+
+      if (this.files.length > 5) {
+        console.log('upload 5 images ')
+        Swal.fire({
+          toast: true,
+          text: 'Max 20 images allowed. Upgrade your plan for more',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
     this.displayLevelOneImages()
   }
 
   public displayLevelOneImages() {
-    let maxImages: any = 5;
-   
+    let maxImages:any = 5;
+    // if (this.files.length > maxImages) {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: `You can only select up to ${maxImages} images at a time.`,
+    //     animation: false,
+    //     icon: 'error',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //     timerProgressBar: true,
+    //   });
+    //   return;
+    // }
+  
     this.isImageUploading = true;
-
+  
 
     const filesToUpload = this.files.slice(0, maxImages);
 
     filesToUpload.forEach((file, index) => {
       const reader = new FileReader();
-
+  
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
-
+  
+      // Upload each file
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isImageUploading = false;
-          this.ImageUrl = res.image_url
           this.levelOneImageArr.push(res.image_url);
           if (this.levelOneImageArr.length >= maxImages) {
-            this.isImageUploading = false;
+            this.isImageUploading = false; 
           }
         },
         error: (err: any) => {
@@ -438,10 +539,12 @@ this._activatedRoute.params.subscribe((res) => {
       country: this.country,
       zip: this.zipcode,
       post_content: this.addEventForm.value.event_description,
-      featured_image: this.ImageUrl,
+      featured_image: this.levelOneImageArr,
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
-      is_bookable_: this.status.value ? 1 : 0,
+      is_bookable_: this.isBookable.value ? 1 : 0,
+      price:this.addEventForm.value.price,
+      number_of_bookings: this.addEventForm.value.number_of_bookings
     };
     console.log(body)
     const formData = new FormData();
@@ -548,7 +651,9 @@ this._activatedRoute.params.subscribe((res) => {
         this.ImageUrl = this.eventDetails.featured_image
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => {
+        this.fullPageLoaderService.hideLoader()
+       },
     })
   }
 

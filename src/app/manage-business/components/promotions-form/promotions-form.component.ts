@@ -180,4 +180,9 @@ export class PromotionsFormComponent {
       },
     })
   }
+
+
+  public navigateToEvent(){
+    this.router.navigate(['/add-event'])
+  }
 }

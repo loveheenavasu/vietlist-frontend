@@ -32,6 +32,8 @@ import { LoginGuard } from './shared/utils/guard/login.guard'
 import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
 import { Roles } from './shared'
 import { MyBookingsComponent } from './manage-profile/components/my-bookings/my-bookings.component'
+import { MyTransactionsComponent } from './manage-profile/components/my-transactions/my-transactions.component'
+import { AllBookingsComponent } from './manage-profile/components/all-bookings/all-bookings.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -100,6 +102,14 @@ export default [
       {
         path: 'manage-events',
         loadComponent: () => MyEventsComponent
+      },
+      {
+        path: 'my-transactions',
+        loadComponent: () => MyTransactionsComponent
+      },
+      {
+        path:'all-bookings',
+        loadComponent: () => AllBookingsComponent
       }
     ],
     canActivate: [AuthGuard],

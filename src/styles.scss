@@ -10,10 +10,11 @@ body {
   height: 100%;
   font-size: 16px;
 }
-.background_section{
+.background_section {
   background: #FFFBF5;
-  border-top: solid 1px #100b0b54;
-
+  border-top: solid 1px rgba(16, 11, 11, 0.3294117647);
+  overflow: hidden;
+  padding: 35px;
 }
 .listing-info {
   overflow: hidden;
@@ -162,5 +163,10 @@ ngx-intl-tel-input input[disabled] {
     position: absolute;
     right: -10rem;
     bottom: -11rem;
+}
+.event-page-heading{
+  font-size: 20px;
+  font-weight: bold;
+ 
 }
 }

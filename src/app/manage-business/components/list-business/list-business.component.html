@@ -390,7 +390,7 @@
 
             <div class="main_images mt-3">
               <div class="images__">
-                @for (preview of imagePreviews; track $index) {
+                @for (preview of businessLogoUrl; track $index) {
                   <div class="removeImage">
                     <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
                   </div>
@@ -452,7 +452,7 @@
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
-                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+                Browse a file (You can upload only 5 images)</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>
@@ -552,6 +552,7 @@
     @if (businessFormDetails && businessFormDetails?.special_offers) {
       <app-promotions-form></app-promotions-form>
     }
+   
     <!-- <app-promotions-form></app-promotions-form> -->
     <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <!-- <section class="my-4">

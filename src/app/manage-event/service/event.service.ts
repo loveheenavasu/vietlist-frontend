@@ -96,4 +96,6 @@ export class EventService {
 
     return this.http.get<any>(endpoint, { params: queryParams })
   }
+
+  
 }

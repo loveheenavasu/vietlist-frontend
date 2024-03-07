@@ -125,7 +125,7 @@ export class ListBusinessComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
-  public imagePreviews: any
+  public businessLogoUrl: any
   public levelOneImageArr: any[]=[]
   public imageUrl: any
   public filess: any
@@ -268,7 +268,8 @@ export class ListBusinessComponent {
         next: (res: any) => {
           this.isImageLoading = false;
           this.imageUrl = res.image_url;
-          this.imagePreviews = [res.image_url]; // Replace old preview with new one
+          this.businessLogoUrl = [res.image_url]; // Replace old preview with new one
+         
         },
         error: (err: any) => {
           // Handle errors
@@ -282,7 +283,7 @@ export class ListBusinessComponent {
   
 
   public removeItem(index:any) {
-    this.imagePreviews.splice(index, 1);
+    this.businessLogoUrl.splice(index, 1);
   }
 
 
@@ -329,6 +330,7 @@ export class ListBusinessComponent {
       error: (err) => {},
     })
   }
+  
   public getAddress(place: any) {
     console.log(place)
     this.fullAddress = place.formatted_address
@@ -502,7 +504,7 @@ export class ListBusinessComponent {
       website: this.businessInfoForm.value.website,
       post_tags: this.selectedTagsString,
       street: this.fullAddress,
-      logo: this.uploadMediaUrl,
+      logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
     }
     if (this.isFormFilled) {
@@ -525,7 +527,7 @@ export class ListBusinessComponent {
         website: this.businessInfoForm.value.website,
         post_tags: this.selectedTagsString,
         street: this.fullAddress,
-        logo: this.uploadMediaUrl,
+        logo: this.businessLogoUrl[0],
         mapview: this.businessInfoForm.value.mapview,
         post_id: this.localStoragePostId
           ? this.localStoragePostId
@@ -561,8 +563,9 @@ export class ListBusinessComponent {
           this.businessService.isBusinessFormFilled.next(true)
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
-
-          this.businessService.storePostId.next(post_id)
+          
+          this.localStorageService.removeData('postId')
+          this.localStorageService.removeData('isBusinessFormFilled')
           this.router.navigateByUrl('/manage-profile/my-business')
         },
         error: (err) => {
@@ -669,6 +672,7 @@ export class ListBusinessComponent {
         },
         error: (err: any) => {
           this.isImageUploading = false;
+          this.isImageLoading = false
           // Handle errors if needed
         },
       });
