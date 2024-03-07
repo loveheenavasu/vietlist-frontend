@@ -19,6 +19,7 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 // NgxStarRatingModule
 @Component({
   selector: 'app-event-details',
@@ -32,7 +33,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
     NgxStarRatingModule,
     DatePipe,
     CommonModule,
-
+    NgbRatingModule,
     NgIf
   ],
   templateUrl: './event-details.component.html',
@@ -68,7 +69,7 @@ export class EventDetailsComponent {
   public replyInput = new FormControl('')
   public commentId: any
   public repliesArray: any[] = []
-  public overllRating:any
+  public overllRating: any
   public activeTab: string = 'profile';
   /**
    * 
@@ -139,6 +140,7 @@ export class EventDetailsComponent {
       console.log(this.isGlobal, 'this.isGlobal')
     })
 
+
   }
 
   selcetdvalues() {
@@ -149,9 +151,18 @@ export class EventDetailsComponent {
   }
 
   ngOnInit() {
-    if (this.postId) {
-      this.getEventDetails()
+    if (this._activatedRoute.snapshot.routeConfig?.path?.includes('business-details')) {
+      console.log("its is business detail")
+      if (this.postId) {
+        this.getBusinessFormDetails()
+      }
+    } else if (this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')) {
+      if (this.postId) {
+        this.getEventDetails()
+      }
     }
+
+
     this.getReviews()
     const Token = localStorage.getItem('accessToken')
 
@@ -166,13 +177,30 @@ export class EventDetailsComponent {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }
 
+  public getBusinessFormDetails() {
+    this.fullPageLoaderService.showLoader()
+    this.businessService.getBusiness(this.postId).subscribe({
+      next: (res) => {
+        this.fullPageLoaderService.hideLoader()
+
+        // this.dataget = res?.data || 'NA'
+        this.eventDetails = res?.data[0];
+        (this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
+        console.log("check-business-lisiting", this.eventDetails)
+        this.initMap()
+      },
+      error: (err) => { },
+    })
+  }
+
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
         this.eventDetails = res?.data[0] || 'NA',
-        this.overllRating = Number(res.data[0].overall_rating)
+          this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
         console.log(res)
@@ -473,10 +501,10 @@ export class EventDetailsComponent {
     const element = document.getElementById(elementId);
     this.activeTab = elementId;
     if (element) {
-      
+
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-  
+
 
 }

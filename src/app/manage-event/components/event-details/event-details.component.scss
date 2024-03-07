@@ -114,10 +114,16 @@ span.elementor-grid-item {
     color: var(--dark-grey)
 }
 
+.no-photos-wrapper {
+    height: 100%;
+}
+
 .featured_image {
     height: 15rem;
     width: 17rem;
     object-fit: cover;
+    display: flex;
+    gap: 15px;
 
     img {
         width: 100%;
@@ -125,12 +131,30 @@ span.elementor-grid-item {
     }
 }
 
+
 .listing-rating {
     color: #fff;
     width: fit-content;
     margin: 0 auto;
     font-size: 30px;
 
+    .star {
+        position: relative;
+        display: inline-block;
+        font-size: 2.5rem;
+        color: #fff;
+    }
+
+    .full {
+        color: var(--primary-color-mustard);
+    }
+
+    .half {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        color: var(--primary-color-mustard);
+    }
 }
 
 .bsui {

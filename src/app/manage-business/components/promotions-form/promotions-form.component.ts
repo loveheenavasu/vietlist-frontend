@@ -16,7 +16,7 @@ import { BusinessService } from '../../service/business.service'
 import Swal from 'sweetalert2'
 import { NgIf } from '@angular/common'
 import { Router } from '@angular/router'
-import { LocalStorageService } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { EventService } from 'src/app/manage-event/service/event.service'
 
 @Component({
@@ -40,7 +40,7 @@ export class PromotionsFormComponent {
   @Output() promotionFormSubmit = new EventEmitter<void>()
   public title = 'dropzone'
   public files: File[] = []
-  public imagePreviews: any [] =[]
+  public imagePreviews: any[] = []
   public imageUrl: any
   public filess: any
   public vediosUrl: any
@@ -49,34 +49,41 @@ export class PromotionsFormComponent {
   public video_upload: any
   public recaptcha = new FormControl('')
   public isLoader: boolean = false
-  public isImageUploading:boolean = false
-  public eventsArray:any[]=[]
-  public postId:any
+  public isImageUploading: boolean = false
+  public eventsArray: any[] = []
+  public postId: any
+  public eliteUserOnly?: any
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private businessService: BusinessService,
     private router: Router,
     private localstorage: LocalStorageService,
-    private eventService:EventService
+    private eventService: EventService,
+    private authService: AuthenticationService
   ) {
     this.promotions = this.fb.group({
-      createEvent:[''],
+      createEvent: [''],
       faq: [''],
       physical_accessibility: [''],
       digital_accessibility: [''],
-      upload_certificates:[''],
-      business_ownerassociate:[''],
+      upload_certificates: [''],
+      business_ownerassociate: [''],
       choose_layout: [''],
-      event_id:[''],
-      promotions_field:['']
+      event_id: [''],
+      promotions_field: ['']
     })
+    this.authService.userDetails.subscribe((res: any) => {
+      this.eliteUserOnly = res
+
+    })
+
     const id = localstorage.getData('postId')
     this.postId = Number(id)
   }
 
-  
-  ngOnInit(){
+
+  ngOnInit() {
     this.getAddedEvents()
   }
 
@@ -120,14 +127,14 @@ export class PromotionsFormComponent {
   }
 
 
-  public getAddedEvents(){
+  public getAddedEvents() {
 
     this.eventService.getEventsByUserId().subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.eventsArray = res.data
 
       },
-      error:(err)=>{
+      error: (err) => {
 
       }
     })
@@ -138,15 +145,15 @@ export class PromotionsFormComponent {
     const body = {
       post_id: this.postId,
       faq: this.promotions.value.faq,
-      upload_certificates:this.imagePreviews,
+      upload_certificates: this.imagePreviews,
       physical_accessibility: this.promotions.value.physical_accessibility,
       digital_accessibility: this.promotions.value.digital_accessibility,
       choose_layout: this.promotions.value.choose_layout,
       terms_conditions: this.term_and_condition.value,
       final_submission: 1,
-      promotions_field:this.promotions.value.promotions_field,
-      createEvent:this.promotions.value.createEvent ? 1:0,
-      business_ownerassociate:this.promotions.value.business_ownerassociate
+      promotions_field: this.promotions.value.promotions_field,
+      createEvent: this.promotions.value.createEvent ? 1 : 0,
+      business_ownerassociate: this.promotions.value.business_ownerassociate
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {

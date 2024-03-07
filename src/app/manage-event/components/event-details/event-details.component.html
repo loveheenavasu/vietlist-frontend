@@ -7,7 +7,13 @@
       </span>
     </div>
     <div class="listing-rating mt-5">
-      <div class="d-flex">
+      <ng-template #t let-fill="fill">
+        <span class="star" [class.full]="fill === 100">
+          <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+        </span>
+      </ng-template>
+      <ngb-rating [rate]="eventDetails?.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+      <!-- <div class="d-flex">
         <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 1 ?'rgb(255, 213, 62)':'white'"
           style="font-size:30px"></i>
         <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 2 ?'rgb(255, 213, 62)':'white'"
@@ -18,7 +24,7 @@
           style="font-size:30px"></i>
         <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating > 4 ?'rgb(255, 213, 62)':'white'"
           style="font-size:30px"></i>
-      </div>
+      </div> -->
     </div>
     <div class="iconDirection">
       <span class="elementor-grid-item">
@@ -77,26 +83,26 @@
                 <td class="table-title">Start Date</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
                   {{
-                  eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'
+                  eventDetails?.event_dates?.start_date | date: 'dd/MM/yyyy'
                   }}
                 </td>
               </tr>
               <tr>
                 <td class="table-title">End Date</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates.end_date | date: 'dd/MM/yyyy' }}
+                  {{ eventDetails?.event_dates?.end_date | date: 'dd/MM/yyyy' }}
                 </td>
               </tr>
               <tr>
                 <td class="table-title">Start Time</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates.start_time || 'NA' }}
+                  {{ eventDetails?.event_dates?.start_time || 'NA' }}
                 </td>
               </tr>
               <tr>
                 <td class="table-title">End Time</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates.end_time || 'NA' }}
+                  {{ eventDetails?.event_dates?.end_time || 'NA' }}
                 </td>
               </tr>
               <tr>
@@ -153,8 +159,7 @@
           <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
             <div class="location">
-              <i class="fa fa-map-marker" aria-hidden="true"
-                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
+              <i class="fa-solid fa-location-dot" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i> {{
               eventDetails?.street }}
             </div>
             <div class="location">
@@ -236,13 +241,29 @@
         <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true" style="font-size:24px"></i>
           Photo(s)</h3>
         <hr>
+
+        @if (eventDetails?.featured_image) {
         <div class="featured_image mt-2">
           <img [src]="
-              eventDetails?.featured_image
-                ? eventDetails?.featured_image
-                : '/assets/image/carrer-proffesional.jpeg'
-            " />
+                eventDetails?.featured_image
+                  ? eventDetails?.featured_image
+                  : '/assets/image/carrer-proffesional.jpeg'
+              " />
         </div>
+        } @else {
+        @if (eventDetails?.image.includes("")) {
+        <div class="no-photos-wrapper">
+          <p class="no-photo">No photos...</p>
+        </div>
+        } @else {
+        <div class="featured_image mt-2">
+          @for (img of eventDetails?.image; track $index) {
+          <img [src]="img" alt="business-img" />
+          }
+        </div>
+        }
+
+        }
       </div>
     </div>
     <div class="row my-4" id="mapView">

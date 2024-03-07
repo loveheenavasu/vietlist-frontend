@@ -133,12 +133,27 @@
           @for (item of findBusinessData; track $index) {
           <div class="grid-view-card">
             <div class="business-img">
-              <img src="/assets/image/grid-image1.jpeg" alt="business-img" />
+              <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
+              @if (item.image.includes("")) {
+              <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
+              } @else {
+              <img [src]="item.image" alt="business-img" />
+              }
+              <div class="linking-icon">
+                <i class="fa fa-link" aria-hidden="true"></i>
+              </div>
+              <div class="category-name">
+                <span [innerHTML]="item.default_category.name"></span>
+              </div>
             </div>
             <div class="business-info">
               <div class="d-flex justify-content-center profile-wrapper">
                 <div class="business-profile-img">
-                  <img src="/assets/image/gridcircleImage.png" alt="business-profile-img" />
+                  @if (item.image.includes("")) {
+                  <img src="/assets/image/no_profile.webp" alt="business-logo" />
+                  } @else {
+                  <img [src]="item.logo" alt="business-logo" />
+                  }
                 </div>
               </div>
               <div class="business-title">
@@ -149,13 +164,19 @@
                 <p>$ Package : Free Business</p>
               </div>
               <div class="business-rating">
-                <div class="d-flex">
+                <ng-template #t let-fill="fill">
+                  <span class="star" [class.full]="fill === 100">
+                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                  </span>
+                </ng-template>
+                <ngb-rating [rate]="item.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+                <!-- <div class="d-flex">
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
                   <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -175,32 +196,43 @@
           ) {
           <div class="list-view-card mb-5">
             <div class="business-list-wrapper d-flex">
-              <div class="business-list-img">
-                @if (item.image.length > 0 || item.image != null) {
-                <img [src]="item.image" alt="business-img" />
+              <div class="business-list-img" (click)="gotToListing(item.post_id, true)">
+                @if (item.image.includes("")) {
+                <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
                 } @else {
-                <img src="/assets/image/no-image-found.jpeg" alt="business-img-" />
+                <img [src]="item.image" alt="business-img" />
                 }
-
+                <div class="linking-icon">
+                  <i class="fa fa-link" aria-hidden="true"></i>
+                </div>
+                <div class="category-name">
+                  <span [innerHTML]="item.default_category.name"></span>
+                </div>
               </div>
               <div class="business-list-info">
                 <div class="business-list-title">
-                  <h2>
+                  <h2 (click)="gotToListing(item.post_id, true)">
                     <a routerLink="#" routerLinkActive="router-link-active">{{ item.post_title }}</a>
                   </h2>
-                  <span>{{ item.post_content }}</span>
+                  <span [innerHTML]="item.post_content"></span>
                 </div>
                 <div class="business-list-package">
                   <p>$ Package : Free Business</p>
                 </div>
                 <div class="business-list-rating">
-                  <div class="d-flex">
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                    </span>
+                  </ng-template>
+                  <ngb-rating [rate]="item.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+                  <!-- <div class="d-flex">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

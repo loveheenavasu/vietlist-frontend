@@ -54,8 +54,8 @@ export default [
     loadComponent: () => ManageProfileComponent,
     children: [
       {
-        path:'manage-bookings',
-        loadComponent:() => MyBookingsComponent
+        path: 'manage-bookings',
+        loadComponent: () => MyBookingsComponent
       },
       {
         path: '',
@@ -171,6 +171,10 @@ export default [
   },
   {
     path: 'event-details/:id',
+    loadComponent: () => EventDetailsComponent,
+  },
+  {
+    path: 'business-details/:id',
     loadComponent: () => EventDetailsComponent,
   },
   {

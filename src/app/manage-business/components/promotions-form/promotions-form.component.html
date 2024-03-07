@@ -1,49 +1,48 @@
 <form [formGroup]="promotions">
   <div class="row">
-   <div class="col-12">
-    <h1 class="listing-form-heading" >Events & promotions</h1>
+    <div class="col-12">
+      <h1 class="listing-form-heading">Events & promotions</h1>
+    </div>
   </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4"></div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <mat-checkbox class="event-checkbox"
-    formControlName="createEvent" >Click on link if you want to create event. <a>Add Event</a></mat-checkbox
-    >
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4"></div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-checkbox class="event-checkbox" formControlName="createEvent">Click on link if you want to create event.
+        <a>Add Event</a></mat-checkbox>
+    </div>
   </div>
-</div>
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Links Posts: Event</label>
-  </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <mat-select class="vietlist-select" placeholder="Choose Event ..." formControlName="event_id">
-      @for(key of eventsArray;track $index){
-      <mat-option [value]="key.post_id">{{key.post_title}}</mat-option>
-      }
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Links Posts: Event</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <mat-select class="vietlist-select" placeholder="Choose Event ..." formControlName="event_id">
+        @for(key of eventsArray;track $index){
+        <mat-option [value]="key.post_id">{{key.post_title}}</mat-option>
+        }
 
-    </mat-select>
-    <div class="d-flex mt-1 justify-content-between">
-      <div class="form-text">
-        <span>Select your Event to link with this Business</span>
-      </div>
-      <div class="refresh-btn-event">
-        <button class="btn">
-          <i class="fa fa-refresh" aria-hidden="true"></i>
-        </button>
+      </mat-select>
+      <div class="d-flex mt-1 justify-content-between">
+        <div class="form-text">
+          <span>Select your Event to link with this Business</span>
+        </div>
+        <div class="refresh-btn-event">
+          <button class="btn">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row my-3 px-2">
-  <div class="col-12 col-md-12 col-lg-4">
-    <label class="listing-form-label">Promotions Fields</label>
+  <div class="row my-3 px-2">
+    <div class="col-12 col-md-12 col-lg-4">
+      <label class="listing-form-label">Promotions Fields</label>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+      <input class="input-control" formControlName="promotions_field" />
+    </div>
   </div>
-  <div class="col-12 col-md-12 col-lg-8">
-    <input class="input-control"  formControlName="promotions_field"/>
-  </div>
-</div> 
   <div class="row">
     <div class="col-12">
       <h1 class="listing-form-heading">FAQ</h1>
@@ -71,14 +70,13 @@
       <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
       <label for="" class="listing-form-label mb-2">Upload certificates</label>
 
-      <ngx-dropzone (change)="onSelectImage($event)"  [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-        <ngx-dropzone-label *ngIf="!isImageUploading"
-          ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here or
-          Browse a file (You can upload multiple images)</ngx-dropzone-label
-        >
-        <div *ngIf="isImageUploading" class="loader"></div> 
+      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+        <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+          or
+          Browse a file (You can upload multiple images)</ngx-dropzone-label>
+        <div *ngIf="isImageUploading" class="loader"></div>
       </ngx-dropzone>
-  
+
       <div class="main_images mt-1">
         @for (preview of imagePreviews; track $index) {
         <div class="images__" *ngIf="preview">
@@ -98,7 +96,7 @@
       <label class="listing-form-label">Physical Accessibility</label>
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control"  formControlName="physical_accessibility"/>
+      <input class="input-control" formControlName="physical_accessibility" />
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -112,7 +110,8 @@
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4"></div>
     <div class="col-12 col-md-12 col-lg-8">
-      <mat-checkbox class="event-checkbox" formControlName="business_ownerassociate">Business Owner/Associate?</mat-checkbox>
+      <mat-checkbox class="event-checkbox" formControlName="business_ownerassociate">Business
+        Owner/Associate?</mat-checkbox>
       <div class="form-text">
         <span>Mark listing as clamied</span>
       </div>
@@ -125,7 +124,7 @@
     <div class="col-12 col-md-12 col-lg-8">
       <mat-select class="vietlist-select" formControlName="choose_layout" placeholder="Select Choose Layout ...">
         <mat-option value="Simple Layout">Simple Layout</mat-option>
-        <mat-option value="Standard Layout">Standard Layout </mat-option>
+        <mat-option value="Standard Layout" *ngIf="eliteUserOnly.level_id == '3' ">Standard Layout </mat-option>
       </mat-select>
       <div class="form-text">
         <span>Available different layout</span>
@@ -158,16 +157,12 @@
       </div>
       </div> -->
     <div style="width: 100%; text-align: end">
-      <button
-        type="button"
-        class="btn orange-background-btn ms-auto"
-        (click)="handleFinalSubmission()"
-        [disabled]="!term_and_condition.value || !recaptcha.value"
-      >
+      <button type="button" class="btn orange-background-btn ms-auto" (click)="handleFinalSubmission()"
+        [disabled]="!term_and_condition.value || !recaptcha.value">
         @if (isLoader) {
-          <app-loader></app-loader>
+        <app-loader></app-loader>
         } @else {
-          <span>Submit</span>
+        <span>Submit</span>
         }
       </button>
     </div>

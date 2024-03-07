@@ -21,12 +21,12 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { MatSliderModule } from '@angular/material/slider'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import { interval, take, repeat, Subscription } from 'rxjs'
+import { interval, take, repeat, Subscription, firstValueFrom } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
-import { ActivatedRoute } from '@angular/router'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { ActivatedRoute, Router } from '@angular/router'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-find-business',
@@ -43,6 +43,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
     MatSliderModule,
     FormsModule,
     AutocompleteComponent,
+    NgbRatingModule
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -84,6 +85,7 @@ export class FindBusinessComponent {
   public routeCategory: any
   public categoryDetails: any
   public map: google.maps.Map | null = null
+  public ratingMax: string = '5'
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -93,7 +95,7 @@ export class FindBusinessComponent {
     private IpService: ProfileService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private sanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -128,7 +130,8 @@ export class FindBusinessComponent {
 
   ngOnInit() {
     this.getPublishBusinessData()
-    this.getIPAdress()
+    // this.getIPAdress()
+    this.getIPAddress()
     // this.initMap()
 
     if (this.country || this.state || this.city || this.street || this.zipcode) {
@@ -139,7 +142,7 @@ export class FindBusinessComponent {
 
     // this.searchBusiness()
     this.findBusinessForm.controls['slidervalue'].setValue(0)
-    this.fetchSearchAd()
+    // this.fetchSearchAd()
   }
 
   public fetchSearchAd() {
@@ -171,16 +174,16 @@ export class FindBusinessComponent {
     })
   }
 
-  public getTrustedHTML(htmlString: string): SafeHtml {
-    const convertedString = htmlString.replace(/<em>/g, '<i>').replace(/<\/em>/g, '</i>');
-    return this.sanitizer.bypassSecurityTrustHtml(convertedString);
-  }
-
-
-  public getIPAdress() {
-    this.IpService.getIPAddress().subscribe((res: any) => {
+  public async getIPAddress(): Promise<string> {
+    try {
+      const res: any = await firstValueFrom(this.IpService.getIPAddress());
+      console.log("RESPONSEEE", res.ip)
       this.ipAddress = res.ip
-    })
+      this.fetchSearchAd()
+      return res.ip;
+    } catch (error) {
+      throw new Error('Error fetching IP address: ' + error);
+    }
   }
 
   private formatDate(date: Date): string {
@@ -387,8 +390,8 @@ export class FindBusinessComponent {
       for (let i = 0; i < this.latitude.length; i++) {
         this.map = new google.maps.Map(mapElement, {
           center: {
-            lat: parseFloat(this.latitude[i]), // Assuming the first coordinate as center
-            lng: parseFloat(this.longitude[i]) // Assuming the first coordinate as center
+            lat: parseFloat(this.latitude[i]),
+            lng: parseFloat(this.longitude[i])
           },
           zoom: 13,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -441,6 +444,11 @@ export class FindBusinessComponent {
   }
   public getUrl(url: string) {
     window.open(url, '_blank')
+  }
+
+  public gotToListing(id: any, isGlobal: any) {
+    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
+
   }
 
   ngOnDestroy() {
