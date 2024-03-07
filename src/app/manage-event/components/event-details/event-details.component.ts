@@ -22,6 +22,8 @@ import Swal from 'sweetalert2'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
 
 // NgxStarRatingModule
 @Component({
@@ -38,7 +40,9 @@ import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/ske
     CommonModule,
     AutocompleteComponent,
     NgIf,
-    SkeletonLoadingComponent
+    SkeletonLoadingComponent,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',

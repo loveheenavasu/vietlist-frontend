@@ -110,7 +110,7 @@
       <ngx-dropzone [accept]="'.mp4,.mov'" (change)="onSelect($event)">
         <ngx-dropzone-label *ngIf="!isVideoUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
           or
-          Browse a file <span >{{vediosHide?.level_id == '2' ? 'Yo can upload only 20 images : 'You can upload multiple images'}}</span></ngx-dropzone-label>
+          Browse a file <span >{{vediosHide?.level_id == '2' ? 'Yo can upload only 20 images' : 'You can upload multiple videos '}}</span></ngx-dropzone-label>
         <div *ngIf="isVideoUploading" class="loader"></div>
       </ngx-dropzone>
     </div>

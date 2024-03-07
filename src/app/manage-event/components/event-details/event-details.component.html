@@ -207,6 +207,25 @@
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
         <div class="profile-info-div">
+          <h3>Book Now</h3>
+          <div class="input-group mt-4">
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              class="input-control"
+              (click)="picker2.open()"
+            />
+            <i class="fa fa-calendar-o"></i>
+            <mat-datepicker #picker2></mat-datepicker>
+          </div>
+          <div class="mt-3">
+            <input type="number" class="input-control" placeholder="Number of bookings"/>
+          </div>
+          <div class="mt-3">
+            <button class="btn orange-background-btn-w-100">Submit</button>
+          </div>
+        </div>
+        <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
@@ -337,15 +356,14 @@
           Photo(s)
         </h3>
         <hr />
-        <div class="featured_image mt-2">
-          <img
-            [src]="
-              eventDetails?.featured_image
-                ? eventDetails?.featured_image
-                : '/assets/image/carrer-proffesional.jpeg'
-            "
-          />
+        <div class="image-container">
+          <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image">
+            <img
+              [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
+            />
+          </div>
         </div>
+        
       </div>
     </div>
     <div class="row my-4" id="mapView">
@@ -590,7 +608,7 @@
               ></ngx-star-rating>
             </div>
           </div>
-          @if (isAuthentecate) {
+          @if (!isAuthentecate) {
             <div class="row my-2">
               <div class="col-12 col-md-12 col-lg-6">
                 <input

@@ -152,14 +152,35 @@ export class AddEventComponent {
     private fullPageLoaderService:FullPageLoaderService,
     private profileService: ProfileService,
   ) {
-    const getLevelId = localStorageService.getData('level_id')
-    this.isBookable.valueChanges.subscribe((res:any)=>{
-      if(res == true){
-        this.isBookableClicked = true
-      } else {
-        this.isBookableClicked = false
-      }
+    this.addEventForm = this._formBuilder.group({
+      event_title: ['', Validators.required],
+      eventStartDate: [''],
+      eventEndDate: [''],
+      post_category: ['', Validators.required],
+      event_description: ['', Validators.required],
+      mapview: [''],
+      startTime: [''],
+      endTime: [''],
+      price:[''],
+      number_of_bookings:['']
     })
+
+
+    const getLevelId = localStorageService.getData('level_id')
+       this.isBookable.valueChanges.subscribe((res: any) => {
+        if (res == true) {
+            this.isBookableClicked = true;
+            this.addEventForm.get('price')?.setValidators(Validators.required);
+            this.addEventForm.get('Number_of_bookings')?.setValidators(Validators.required);
+        } else {
+            this.isBookableClicked = false;
+            this.addEventForm.get('price')?.clearValidators();
+            this.addEventForm.get('Number_of_bookings')?.clearValidators();
+        }
+        this.addEventForm.get('price')?.updateValueAndValidity();
+        this.addEventForm.get('Number_of_bookings')?.updateValueAndValidity();
+    });
+
 
     this.userDetailsLevel_id  = getLevelId
         this.authService.userDetails.subscribe((res:any)=>{
@@ -176,17 +197,7 @@ export class AddEventComponent {
       }
       
     })
-    this.addEventForm = this._formBuilder.group({
-      event_title: ['', Validators.required],
-      eventStartDate: [''],
-      eventEndDate: [''],
-      post_category: ['', Validators.required],
-      event_description: ['', Validators.required],
-      mapview: [''],
-      startTime: [''],
-      endTime: ['']
-    })
-
+ 
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
 
@@ -532,6 +543,8 @@ this._activatedRoute.params.subscribe((res) => {
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
       is_bookable_: this.isBookable.value ? 1 : 0,
+      price:this.addEventForm.value.price,
+      number_of_bookings: this.addEventForm.value.number_of_bookings
     };
     console.log(body)
     const formData = new FormData();
