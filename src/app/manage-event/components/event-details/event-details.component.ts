@@ -87,6 +87,9 @@ export class EventDetailsComponent {
   public directionLongitude: any
   public distanceToEvent: any
   public isDistanceLoading:boolean = false
+  public timeEstimate:any 
+  public currentAddress: string = ''; // Property to store the current address
+
   /**
    *
    * @param eventService
@@ -126,7 +129,6 @@ export class EventDetailsComponent {
     })
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
-        console.log(res, 'resres is Authenticated')
         this.isAuthentecate = res
         const controlsToValidate = ['comment_author_email', 'comment_author']
 
@@ -147,7 +149,6 @@ export class EventDetailsComponent {
     })
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
-      console.log(this.isGlobal, 'this.isGlobal')
     })
   }
 
@@ -170,7 +171,6 @@ export class EventDetailsComponent {
   }
 
   public getAddress(place: any) {
-    console.log(place)
     this.directionStreet = place.formatted_address
     this.state = ''
     this.country = ''
@@ -195,7 +195,6 @@ export class EventDetailsComponent {
     })
     this.directionLatitude = place.geometry.location.lat()
     this.directionLongitude = place.geometry.location.lng()
-    console.log(this.directionLatitude, this.directionLongitude, 'Lat , Long')
     this.cd.detectChanges()
     this.initMap()
   }
@@ -214,7 +213,6 @@ export class EventDetailsComponent {
         this.overllRating = Number(res.data[0].overall_rating)
         ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
-        console.log(res)
         this.initMap()
       },
       error: (err) => {
@@ -226,7 +224,6 @@ export class EventDetailsComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
-      console.log(this.latitude, this.eventDetails?.longitude, 'lng ;at')
       this.map = new google.maps.Map(mapElement, {
         center: {
           lat: this.latitude,
@@ -248,11 +245,10 @@ export class EventDetailsComponent {
         })
       }
     } else {
-      console.error('Map element not found.')
+   
     }
   }
   openGoogleMaps() {
-    console.log('chekc click', this.latitude, this.longitude)
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
   }
@@ -364,7 +360,6 @@ export class EventDetailsComponent {
       }
     })
     formData.forEach((value, key) => {
-      console.log(key + ', ' + value)
     })
     if (this.reviewForm.valid) {
       this.profileService.reviewSet(formData).subscribe({
@@ -396,7 +391,6 @@ export class EventDetailsComponent {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
         this.reviewsArray = res?.data
-        console.log(this.reviewsArray)
       },
     })
   }
@@ -414,13 +408,13 @@ export class EventDetailsComponent {
         timerProgressBar: true,
       })
     } else {
-      console.log(index, 'INDEX')
+
       this.isReplyFieldOpen = true
       this.replyIndex = index
     }
   }
   public showReplyCommentField(index: number, id: any) {
-    console.log(index, 'INDEX')
+
     this.isReplycomFieldOpen = true
     this.replyIndexshow = index
     this.getReplies(index, id)
@@ -483,7 +477,7 @@ export class EventDetailsComponent {
               timerProgressBar: true,
             })
           }
-          console.log(this.repliesArray, 'Replies')
+
         },
         error: (err) => {},
       })
@@ -508,7 +502,47 @@ export class EventDetailsComponent {
     }
   }
 
-  calculateDistance(
+  public getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.directionLatitude= position.coords.latitude;
+        this.directionLongitude = position.coords.longitude;
+        this.getAddressFromCoords(this.directionLatitude , this.directionLongitude);
+
+      }, (error) => {
+
+      
+      });
+    } else {
+
+
+    }
+  }
+
+
+
+
+  public getAddressFromCoords(latitude: number, longitude: number): void {
+    const geocoder = new google.maps.Geocoder();
+    const latlng = new google.maps.LatLng(latitude, longitude);
+    geocoder.geocode({ 'location': latlng }, (results: any, status: any) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.currentAddress = results[0].formatted_address;
+          // Update input field value here
+          this.directionStreet = this.currentAddress;
+          // Optionally, you can also trigger change detection manually
+          // this.cd.detectChanges();
+        } else {
+        
+        }
+      } else {
+
+      }
+    });
+  }
+
+  public calculateDistance(
     lat1: number,
     lon1: number,
     lat2: number,
@@ -530,23 +564,31 @@ export class EventDetailsComponent {
   }
 
   // Helper function to convert degrees to radians
-  degreesToRadians(degrees: number): number {
+  public degreesToRadians(degrees: number): number {
     return degrees * (Math.PI / 180)
   }
 
-  getDistance(): void {
-    // Fetch the distance and draw the line on the map
-    // Call the calculateDistance function
+  public getDistance(): void {
     const distanceToEvent = this.calculateDistance(
       this.directionLatitude,
       this.directionLongitude,
       this.latitude,
       this.longitude,
     )
+    const averageSpeedKmPerHour = 60;
+    const timeInHours = distanceToEvent / averageSpeedKmPerHour;
+  const timeInMinutes = Math.round(timeInHours * 60);
+  let timeEstimate: string;
+  if (timeInMinutes < 60) {
+    timeEstimate = `${timeInMinutes} minutes`;
+  } else {
+    const hours = Math.floor(timeInMinutes / 60);
+    const minutes = timeInMinutes % 60;
+    timeEstimate = `${hours} hours ${minutes} minutes`;
+  }
+    this.distanceToEvent = distanceToEvent.toFixed(2);
+    this.timeEstimate = timeEstimate;
 
-    this.distanceToEvent = distanceToEvent.toFixed(2)
-
-    // Draw the line on the map
     const mapElement: any = document.getElementById('map')
     const map = new google.maps.Map(mapElement, {
       zoom: 7,
@@ -567,11 +609,10 @@ export class EventDetailsComponent {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsRenderer.setDirections(response)
       } else {
-        console.error('Directions request failed due to ' + status)
+
       }
     })
 
-    // Display markers for the From and To locations
     const fromMarker = new google.maps.Marker({
       position: { lat: this.directionLatitude, lng: this.directionLongitude },
       map: map,
@@ -586,23 +627,4 @@ export class EventDetailsComponent {
    
   }
 
-  // fetchDirections(): void {
-  //   const origin = `${this.directionLatitude},${this.directionLongitude}`;
-  //   const destination = `${this.latitude},${this.longitude}`;
-  //   const apiKey = 'AIzaSyAIL-JygwsY_2iMzSei4pjE7aCjvsn2uns'; // Replace with your own API key
-
-  //   const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${apiKey}`;
-
-  //   this.httpClient.get(url).subscribe((response: any) => {
-  //     if (response.status === 'OK') {
-  //       const route = response.routes[0];
-  //       const legs = route.legs;
-  //       const steps = legs[0].steps;
-  //       console.log('Route steps:', steps);
-  //       // Process route steps as needed
-  //     } else {
-  //       console.error('Failed to fetch directions:', response.error_message);
-  //     }
-  //   });
-  // }
 }

@@ -365,12 +365,16 @@
     <div class="row mt-3">
       <div class="col-12 col-lg-6">
         <div class="d-flex">
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 position-relative">
             <AutocompleteComponent
               (setAddress)="getAddress($event)"
               adressType="geocode"
               [value]="directionStreet"
             ></AutocompleteComponent>
+            <div class="location-icon">
+              <!-- Add your location icon here -->
+              <i class="fas fa-map-marker-alt" (click)="getCurrentLocation()" style="cursor:pointer"></i>
+            </div>
           </div>
           <div class="">
             <button class="btn get-direction-btn" (click)="getDistance()">Get Directions</button>
@@ -379,7 +383,7 @@
       </div>
      
     </div>
-    <ng-container *ngIf="directionStreet">
+    <!-- <ng-container *ngIf="directionStreet">
     <div class="row mt-3" >
       <div class="col-12 col-lg-6">
         <label for="">From</label>
@@ -394,12 +398,11 @@
       </div>
      
     </div>
-  </ng-container>
+  </ng-container> -->
     <div class="row mt-3" *ngIf="distanceToEvent">
       <div class="col-12 col-lg-6">
         <label for="">Distance (Km)</label>
-        <p style="font-weight:500">{{distanceToEvent}} Km</p>
-          <!-- <input type="text" class="input-control" readonly [(ngModel)]="distanceToEvent"> -->
+        <p style="font-weight:500;font-size:18px">{{distanceToEvent}} Km  in {{timeEstimate}}</p>
       </div>
      
     </div>

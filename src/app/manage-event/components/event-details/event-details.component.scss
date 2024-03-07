@@ -373,6 +373,21 @@ fieldset:disabled .btn {
     color:#fff;
     border-radius: 0px;
   }
+
+  .position-relative {
+    position: relative;
+  }
+  
+  .location-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px; /* Adjust the distance from the right side */
+  }
+  
+  .location-icon i {
+    color: #555; /* Adjust the color of the icon */
+  }
   
   @media(max-width:768px) {
     ul li .info-wrapper {
