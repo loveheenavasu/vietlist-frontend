@@ -76,7 +76,7 @@
             track $index
           ) {
             <div class="grid-card col-lg-4">
-              <div class="listing-img">
+              <div class="listing-img" style="cursor: pointer;" (click)="gotToEventDetails(key.post_id, true)">
                 <img [src]="key.featured_image" />
               </div>
               <div class="listing-description">
