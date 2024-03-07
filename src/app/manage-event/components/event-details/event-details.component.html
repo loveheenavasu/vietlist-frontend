@@ -301,10 +301,10 @@
       </div>
 
     </div>
-    <ng-container *ngIf="directionStreet">
-      <div class="row mt-3">
-        <div class="col-12 col-lg-6">
-          <label for="">From</label>
+    <!-- <ng-container *ngIf="directionStreet">
+    <div class="row mt-3" >
+      <div class="col-12 col-lg-6">
+        <label for="">From</label>
           <input type="text" class="input-control" readonly [(ngModel)]="directionStreet">
         </div>
 
@@ -316,12 +316,13 @@
         </div>
 
       </div>
-    </ng-container>
+     
+    </div>
+  </ng-container> -->
     <div class="row mt-3" *ngIf="distanceToEvent">
       <div class="col-12 col-lg-6">
         <label for="">Distance (Km)</label>
-        <p style="font-weight:500">{{distanceToEvent}} Km</p>
-        <!-- <input type="text" class="input-control" readonly [(ngModel)]="distanceToEvent"> -->
+        <p style="font-weight:500;font-size:18px">{{distanceToEvent}} Km  in {{timeEstimate}}</p>
       </div>
 
     </div>

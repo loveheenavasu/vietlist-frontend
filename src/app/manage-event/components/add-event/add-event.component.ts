@@ -80,7 +80,7 @@ export class AddEventComponent {
   public isImageUploading: boolean = false
   public levelOneImageArr: any[] = []
   public isFirstStepCompleted: boolean = false
-  public status = new FormControl('')
+  public isBookable = new FormControl('')
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
@@ -131,6 +131,7 @@ export class AddEventComponent {
   public userInfo:any
   public userDetailsLevel_id:any
   public minDate = new Date();
+  public isBookableClicked:boolean = false
   /**
    *
    * @param _formBuilder
@@ -152,6 +153,13 @@ export class AddEventComponent {
     private profileService: ProfileService,
   ) {
     const getLevelId = localStorageService.getData('level_id')
+    this.isBookable.valueChanges.subscribe((res:any)=>{
+      if(res == true){
+        this.isBookableClicked = true
+      } else {
+        this.isBookableClicked = false
+      }
+    })
 
     this.userDetailsLevel_id  = getLevelId
         this.authService.userDetails.subscribe((res:any)=>{
@@ -523,7 +531,7 @@ this._activatedRoute.params.subscribe((res) => {
       featured_image: this.levelOneImageArr,
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
-      is_bookable_: this.status.value ? 1 : 0,
+      is_bookable_: this.isBookable.value ? 1 : 0,
     };
     console.log(body)
     const formData = new FormData();

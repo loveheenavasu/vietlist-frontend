@@ -505,13 +505,29 @@
           </div>
         </div>
         <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
-          <div class="col-12 col-md-12 col-lg-12">
-            <mat-checkbox class="event-checkbox" [formControl]="status">Is Bookable <span
+          <div class="col-12 col-lg-4"></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-checkbox class="event-checkbox" [formControl]="isBookable">Is Bookable <span
                 class="asterik">*</span></mat-checkbox>
           </div>
         </div>
-        <div class="row my-3 px-2">
-          <div class="col-12 col-md-12 col-lg-12">
+        @if(isBookableClicked){
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+             <input type="text" class="input-control" placeholder="Price ($)"/>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+             <input type="text" class="input-control" placeholder="Number of bookings"/>
+            </div>
+          </div>
+      }
+        <div class="row my-4 px-2">
+          <div class="col-12 col-lg-4"></div>
+          <div class="col-12 col-md-12 col-lg-8">
             <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
               [formControl]="recaptcha"></re-captcha>
           </div>
