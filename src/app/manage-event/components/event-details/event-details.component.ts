@@ -6,6 +6,7 @@ import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
+// import { Lightbox } from 'ngx-lightbox';
 
 import {
   FormBuilder,
@@ -44,7 +45,7 @@ import { MatNativeDateModule } from '@angular/material/core'
     NgIf,
     SkeletonLoadingComponent,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
@@ -108,6 +109,9 @@ export class EventDetailsComponent {
    * @param footerContent
    * @param sessionService
    */
+
+
+
   constructor(
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
@@ -119,6 +123,8 @@ export class EventDetailsComponent {
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
+
+
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -658,5 +664,10 @@ export class EventDetailsComponent {
     })
 
   }
+
+  // public openLightBox(index: number) {
+  //   console.log("check click is working", index)
+  //   this._lightbox.open(this.eventDetails.featured_image, index);
+  // }
 
 }

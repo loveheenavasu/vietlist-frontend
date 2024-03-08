@@ -77,55 +77,100 @@
     }
     <div class="row mt-2 pt-4" id="profile">
       <div class="col-12 col-md-12 col-lg-8">
+        <!-- <div class="row mt-3"> -->
+        <h3 class="event-page-heading">
+          <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
+          Description
+        </h3>
+        <hr />
+        <p>{{eventDetails?.post_content}}</p>
+        <!-- </div> -->
+        <div class="row my-4" id="photo">
+          <div class="col-12 col-md-12 col-lg-12">
+            <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true" style="font-size:24px"></i>
+              Photo(s)</h3>
+            <hr>
+
+            @if (eventDetails?.featured_image) {
+            <div class="image-container">
+              <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
+                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'" />
+              </div>
+            </div>
+            } @else {
+            @if (eventDetails?.image.includes("")) {
+            <div class="no-photos-wrapper">
+              <p class="no-photo">No photos...</p>
+            </div>
+            } @else {
+            <div class="featured_image mt-2">
+              @for (img of eventDetails?.image; track $index) {
+
+              <img [src]="img" alt="business-img" />
+              }
+            </div>
+            }
+
+            }
+          </div>
+        </div>
+        <div class="row my-4" id="mapView">
+          <div class="col-12 col-md-12 col-lg-12">
+            <h3 class="event-page-heading">
+              <i class="fa fa-globe" aria-hidden="true" style="font-size: 24px"></i>
+              &nbsp;Map
+            </h3>
+            <hr />
+          </div>
+        </div>
         <div class="row mt-3">
-          <h3 class="event-page-heading">
-            <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
-            Profile
-          </h3>
-          <hr />
-          <table class="table table-responsive table-borderless">
-            <tbody>
-              <tr>
-                <td class="table-title">Description</td>
-                <td class="table-subtitle">{{ eventDetails?.post_content }}</td>
-              </tr>
-              <tr>
-                <td class="table-title">Start Date</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{
-                  eventDetails?.event_dates?.start_date | date: 'dd/MM/yyyy'
-                  }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">End Date</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates?.end_date | date: 'dd/MM/yyyy' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">Start Time</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates?.start_time || 'NA' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">End Time</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.event_dates?.end_time || 'NA' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">Category</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ eventDetails?.post_category?.name }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="col-12 col-lg-12 mt-3">
+            <div id="map" style="height: 300px; width: 100%"></div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12 col-lg-12">
+            <div class="d-flex">
+              <div class="flex-grow-1 position-relative">
+                <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="directionStreet">
+                </AutocompleteComponent>
+                <div class="location-icon">
+                  <!-- Add your location icon here -->
+                  <i class="fas fa-map-marker-alt" (click)="getCurrentLocation()" style="cursor:pointer"></i>
+                </div>
+              </div>
+              <div class="">
+                <button class="btn get-direction-btn" (click)="getDistance()">Get Directions</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- <ng-container *ngIf="directionStreet">
+        <div class="row mt-3" >
+          <div class="col-12 col-lg-6">
+            <label for="">From</label>
+              <input type="text" class="input-control" readonly [(ngModel)]="directionStreet">
+          </div>
+         
+        </div>
+           <div class="row mt-3">
+          <div class="col-12 col-lg-6">
+            <label for="">To</label>
+              <input type="text" class="input-control" readonly [(ngModel)]="eventLocation">
+          </div>
+         
+        </div>
+      </ng-container> -->
+        <div class="row mt-3" *ngIf="distanceToEvent">
+          <div class="col-12 col-lg-12">
+            <label for="">Distance (Km)</label>
+            <p style="font-weight:500;font-size:18px">{{distanceToEvent}} Km in {{timeEstimate}}</p>
+          </div>
+
         </div>
 
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
           <h3 class="event-page-heading">
             <i class="fa-solid fa-location-dot" style="font-size: 24px"></i>
             Address
@@ -163,7 +208,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> -->
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
         <div class="profile-info-div">
@@ -269,89 +314,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row my-4" id="photo">
-      <div class="col-12 col-md-12 col-lg-6">
-        <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true" style="font-size:24px"></i>
-          Photo(s)</h3>
-        <hr>
-
-        @if (eventDetails?.featured_image) {
-        <div class="image-container">
-          <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image">
-            <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'" />
-          </div>
-        </div>
-        } @else {
-        @if (eventDetails?.image.includes("")) {
-        <div class="no-photos-wrapper">
-          <p class="no-photo">No photos...</p>
-        </div>
-        } @else {
-        <div class="featured_image mt-2">
-          @for (img of eventDetails?.image; track $index) {
-          <img [src]="img" alt="business-img" />
-          }
-        </div>
-        }
-
-        }
-      </div>
-    </div>
-    <div class="row my-4" id="mapView">
-      <div class="col-12 col-md-12 col-lg-6">
-        <h3 class="event-page-heading">
-          <i class="fa fa-globe" aria-hidden="true" style="font-size: 24px"></i>
-          &nbsp;Map
-        </h3>
-        <hr />
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-12 col-lg-6 mt-3">
-        <div id="map" style="height: 300px; width: 100%"></div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-12 col-lg-6">
-        <div class="d-flex">
-          <div class="flex-grow-1 position-relative">
-            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="directionStreet">
-            </AutocompleteComponent>
-            <div class="location-icon">
-              <!-- Add your location icon here -->
-              <i class="fas fa-map-marker-alt" (click)="getCurrentLocation()" style="cursor:pointer"></i>
-            </div>
-          </div>
-          <div class="">
-            <button class="btn get-direction-btn" (click)="getDistance()">Get Directions</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!-- <ng-container *ngIf="directionStreet">
-    <div class="row mt-3" >
-      <div class="col-12 col-lg-6">
-        <label for="">From</label>
-          <input type="text" class="input-control" readonly [(ngModel)]="directionStreet">
-      </div>
-     
-    </div>
-       <div class="row mt-3">
-      <div class="col-12 col-lg-6">
-        <label for="">To</label>
-          <input type="text" class="input-control" readonly [(ngModel)]="eventLocation">
-      </div>
-     
-    </div>
-  </ng-container> -->
-    <div class="row mt-3" *ngIf="distanceToEvent">
-      <div class="col-12 col-lg-6">
-        <label for="">Distance (Km)</label>
-        <p style="font-weight:500;font-size:18px">{{distanceToEvent}} Km in {{timeEstimate}}</p>
-      </div>
-
     </div>
 
     <div class="row my-4" id="review">
