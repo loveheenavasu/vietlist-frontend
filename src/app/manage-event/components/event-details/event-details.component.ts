@@ -134,7 +134,7 @@ export class EventDetailsComponent {
 
         controlsToValidate.forEach((controlName) => {
           const control = this.reviewForm.get(controlName)
-          if (res) {
+          if (!res) {
             control?.setValidators(Validators.required)
           } else {
             control?.clearValidators()

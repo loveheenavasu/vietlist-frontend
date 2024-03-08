@@ -219,6 +219,9 @@
 }
 
 @media(max-width:768px) {
+  .example-card{
+    width: 100% !important;
+}
   .container-fluid {
     .banner-1 {
       height: 35rem;

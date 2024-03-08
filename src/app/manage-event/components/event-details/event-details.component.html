@@ -458,7 +458,7 @@
             <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left"></ngx-star-rating>
           </div>
         </div>
-        @if (isAuthentecate) {
+        @if (!isAuthentecate) {
         <div class="row my-2">
           <div class="col-12 col-md-12 col-lg-6">
             <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name" />
