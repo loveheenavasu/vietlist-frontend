@@ -26,6 +26,8 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
 
 // NgxStarRatingModule
 @Component({
@@ -45,7 +47,8 @@ import { MatNativeDateModule } from '@angular/material/core'
     NgIf,
     SkeletonLoadingComponent,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CommonModule
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
@@ -129,8 +132,7 @@ export class EventDetailsComponent {
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
-
-
+    private dialog: MatDialog,
     private localStorageService: LocalStorageService
   ) {
     this.reviewForm = this.fb.group({
@@ -312,8 +314,9 @@ export class EventDetailsComponent {
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         console.log(res, "RESPONSE")
-        const startDate = res.data[0].event_dates?.start_date
-        const endDate = res.data[0].event_dates?.end_date
+        this.fullPageLoaderService.hideLoader()
+        const startDate = res.data[0]?.event_dates?.start_date
+        const endDate = res.data[0]?.event_dates?.end_date
         const startDateNew = this.extractDateFromTimestamp(startDate)
         const endDateNew = this.extractDateFromTimestamp(endDate)
         if (startDateNew == endDateNew) {
@@ -321,9 +324,9 @@ export class EventDetailsComponent {
         } else {
           this.isDateMatched = false
         }
-        this.fullPageLoaderService.hideLoader()
-          ; (this.eventDetails = res?.data[0] || 'NA'),
-            (this.eventLocation = this.eventDetails?.street)
+
+        ; (this.eventDetails = res?.data[0] || 'NA'),
+          (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
@@ -337,7 +340,7 @@ export class EventDetailsComponent {
 
 
   public extractDateFromTimestamp(timestamp: any) {
-    const parts = timestamp.split('T');
+    const parts = timestamp?.split('T');
     const datePart = parts[0];
     return datePart;
   }
@@ -423,6 +426,7 @@ export class EventDetailsComponent {
         comment_post_ID: this.postId,
         rating: this.reviewForm.value.rating,
         comment_content: this.reviewForm.value.comment_content,
+        user_id: this.userDetail?.ID
       }
     } else {
       body = {
@@ -534,6 +538,7 @@ export class EventDetailsComponent {
     this.eventService.setReviewReply(formData).subscribe({
       next: (res) => {
         this.replyInput.setValue('')
+        this.isReplyFieldOpen = false
         this.getReplies(index, this.commentId)
       },
     })
@@ -581,6 +586,21 @@ export class EventDetailsComponent {
       },
     })
   }
+
+
+  public openDialog() {
+    console.log("click os work", this.eventDetails.featured_image)
+    this.dialog.open(ImageModalSwiperComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      panelClass: 'full-screen-modal',
+      data: { images: this.eventDetails.featured_image }
+    });
+
+  }
+
 
   public scrollTo(elementId: string): void {
     const element = document.getElementById(elementId)

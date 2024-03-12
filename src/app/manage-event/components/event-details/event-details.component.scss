@@ -15,11 +15,14 @@
     // margin-bottom: 4rem;
 }
 
-span.elementor-grid-item {
+.elementor-grid-item {
     background: #ea4335;
-    margin: 10px;
-    padding: 14px;
-    border-radius: 107px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .iconDirection {
@@ -27,6 +30,8 @@ span.elementor-grid-item {
     right: 10%;
     bottom: 27px;
     z-index: 2;
+    display: flex;
+    gap: 15px;
 }
 
 .elementor-divider-separator {
@@ -328,6 +333,20 @@ fieldset:disabled .btn {
     overflow: scroll;
 }
 
+.standard-layout-reply {
+    display: flex;
+    gap: 15px;
+
+    p {
+        cursor: pointer;
+        color: var(--primary-color-mustard);
+    }
+
+    p:hover {
+        text-decoration: underline;
+    }
+}
+
 
 .elementor-5037 .elementor-element.elementor-element-3dcdf0a3 {
     border-style: solid;
@@ -396,6 +415,23 @@ fieldset:disabled .btn {
     color: #7A7A7A;
 }
 
+.review-form-container {
+    // display: flex;
+    // justify-content: center;
+    // margin-top: 40px;
+
+    .review-form-wrapper {
+        border: 1px solid #F2F2F2;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 3px 15px #00000012;
+
+        .col-12 {
+            margin-bottom: 14px;
+        }
+    }
+}
 
 
 .section-container {

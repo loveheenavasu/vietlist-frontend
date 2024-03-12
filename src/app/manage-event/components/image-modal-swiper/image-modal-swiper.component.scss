@@ -1,0 +1,32 @@
+section {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+
+    .header {
+        .cross-icon {
+            text-align: right;
+            padding: 15px;
+
+            i {
+                font-size: 24px;
+                color: #f2f2f2;
+            }
+        }
+    }
+
+    .swiper {
+        .main-cnt {
+            .img-cnt {
+                img {
+                    width: 100%;
+                    // height: 100%;
+                }
+            }
+        }
+    }
+}
+
+swiper-container {
+    width: 90% !important;
+}
