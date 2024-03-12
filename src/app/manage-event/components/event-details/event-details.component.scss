@@ -100,6 +100,28 @@ span.elementor-grid-item {
     background-color: #FFFFFF;
     border: solid 1px #146EB4;
     padding-top: 7%;
+
+    .event-heading {
+        margin-bottom: 30px;
+    }
+
+    .event-venue {
+        display: flex;
+        width: 100%;
+        margin-bottom: 15px;
+        gap: 10px;
+
+        .icon {
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info {
+            width: 90%;
+        }
+    }
 }
 
 .location {
@@ -407,12 +429,29 @@ fieldset:disabled .btn {
     border-top: var(--divider-border-style) var(--divider-color);
 }
 
-.active {
-    background: none !important;
-    border: none;
+.list-items li:hover {
     border-bottom: 1px solid #ff9900 !important;
+    color: #ff9900;
+
+}
+
+.actives {
+    background: none !important;
     color: #ff9900 !important;
-    -webkit-text-fill-color: #ff9900 !important;
+    border-bottom: 1px solid #ff9900 !important;
+}
+
+.active:hover {
+    background: none !important;
+    color: #ff9900 !important;
+}
+
+.active {
+    border: none;
+    // border-bottom: 1px solid #ff9900 !important;
+    color: #7A7A7A;
+    // -webkit-text-fill-color: #ff9900!important;
+    background-color: rgb(56 204 255 / 17%);
 }
 
 .get-direction-btn {
@@ -424,6 +463,12 @@ fieldset:disabled .btn {
 
 .position-relative {
     position: relative;
+}
+
+.direction-field {
+    .input-control {
+        border: none !important;
+    }
 }
 
 .location-icon {
@@ -447,6 +492,48 @@ fieldset:disabled .btn {
         position: absolute;
         right: 10px;
         top: 10px;
+    }
+}
+
+.over-all-rating-wrapper {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F2F2F2;
+    padding: 1rem;
+    border-radius: .25rem;
+
+    .rating-container {
+        display: flex;
+        gap: 5px;
+
+        .star {
+            color: var(--primary-color-mustard);
+            font-size: 18px;
+        }
+
+        .color-orange {
+            color: #000;
+        }
+
+
+        .rating-message {
+            border: 1px solid #dee2e6;
+            color: #212529;
+            font-size: 13px;
+            font-family: 'Roboto';
+            font-weight: 700;
+            padding: .25em .4em;
+            background-color: #f8f9fa;
+        }
+    }
+
+    .overall-label {
+        p {
+            margin-bottom: 0px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Roboto';
+        }
     }
 }
 

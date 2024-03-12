@@ -142,6 +142,7 @@ export class BillingAddressComponent {
     this.fullPageLoader.showLoader()
     this.profileServie.getBillingAddress().subscribe({
       next: (res: any) => {
+         console.log(res,'resresresresresresresres')
         this.fullPageLoader.hideLoader()
         this.billingInfo.patchValue({
           pmpro_bfirstname: res.data.pmpro_bfirstname || '', // Assign the value from the response or an empty string if not available

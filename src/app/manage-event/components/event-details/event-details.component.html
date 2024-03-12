@@ -39,6 +39,13 @@
         <!-- <span class="elementor-screen-only">Phone</span> -->
         <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size: 20px; color: #fff"></i></a>
     </span>
+    <span class="elementor-grid-item">
+      <a href="https://mail.google.com" target="_blank"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank">
+        <!-- <span class="elementor-screen-only">Phone</span> -->
+        <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size: 20px; color: #fff"></i></a>
+    </span>
     <span class="elementor-grid-item" style="background: #0073a4" (click)="openGoogleMaps()">
       <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
         href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
@@ -49,7 +56,7 @@
 </section>
 <div class="section-container">
   <ul class="list-items">
-    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'">
+    <li (click)="scrollTo('profile')" [class.actives]="activeTab === 'profile'">
       <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
     </li>
     <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'">
@@ -90,7 +97,6 @@
             <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true" style="font-size:24px"></i>
               Photo(s)</h3>
             <hr>
-
             @if (eventDetails?.featured_image) {
             <div class="image-container">
               <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
@@ -98,7 +104,7 @@
               </div>
             </div>
             } @else {
-            @if (eventDetails?.image.includes("")) {
+            @if (eventDetails?.image?.includes("")) {
             <div class="no-photos-wrapper">
               <p class="no-photo">No photos...</p>
             </div>
@@ -132,11 +138,12 @@
           <div class="col-12 col-lg-12">
             <div class="d-flex">
               <div class="flex-grow-1 position-relative">
-                <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="directionStreet">
+                <AutocompleteComponent class="direction-field" (setAddress)="getAddress($event)" adressType="geocode"
+                  [value]="directionStreet">
                 </AutocompleteComponent>
                 <div class="location-icon">
                   <!-- Add your location icon here -->
-                  <i class="fas fa-map-marker-alt" (click)="getCurrentLocation()" style="cursor:pointer"></i>
+                  <i class="fa-solid fa-location-arrow" (click)="getCurrentLocation()" style="cursor:pointer"></i>
                 </div>
               </div>
               <div class="">
@@ -211,6 +218,7 @@
         </div> -->
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
+        @if (!businessListing) {
         <div class="profile-info-div">
           <h3>Book Now</h3>
           <div class="input-group mt-4">
@@ -225,6 +233,7 @@
             <button class="btn orange-background-btn-w-100">Submit</button>
           </div>
         </div>
+        }
         <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
@@ -243,23 +252,25 @@
                 "></a>
             </div>
             <div class="location">
+              <i class="fab fa-facebook-square" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
               <a href="https://www.facebook.com/" target="_blank" style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                ">
-                <i class="fab fa-facebook-square" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+                color: #38ccff;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+              ">
+                {{eventDetails?.facebook}}
               </a>
             </div>
             <div class="location">
+              <i class="fa-brands fa-twitter" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
               <a href="https://www.twitter.com" target="_blank" style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                ">
-                <i class="fa-brands fa-twitter" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+                color: #38ccff;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+              ">
+                {{eventDetails?.twitter}}
               </a>
             </div>
             <!-- <ul>
@@ -296,28 +307,77 @@
             </ul> -->
           </div>
         </div>
+        @if (!businessListing) {
+        <div class="profile-info-div mt-3" style="padding: 9%">
+          <h3 class="event-heading">Event Detail</h3>
+          <div class="event-venue">
+            <div class="icon">
+              <i class="fa-solid fa-location-dot" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+            </div>
+            <div class="info">
+              {{ eventDetails?.street }}
+            </div>
+          </div>
+          <div class="event-venue">
+            <div class="icon">
+              <i class="fa-solid fa-calendar" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+            </div>
+            <div class="info">
+              {{ formatDate(eventDetails?.event_dates?.start_date)}} &
+              {{formatDate(eventDetails?.event_dates?.end_date)}}
+            </div>
+          </div>
+          <div class="event-venue">
+            <div class="icon">
+              <i class="fa-solid fa-layer-group" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+            </div>
+            <div class="info">
+              {{ eventDetails?.post_category?.name }}
+            </div>
+          </div>
+          <div class="event-venue">
+            <div class="icon">
+              <i class="fa-solid fa-user" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+            </div>
+            <div class="info">
+              {{ eventDetails?.user_detail?.display_name }}
+            </div>
+          </div>
+          @if (eventDetails?.price) {
+          <div class="event-venue">
+            <div class="icon">
+              <i class="fa-solid fa-dollar-sign" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+            </div>
+            <div class="info">
+              {{ eventDetails?.price}}
+            </div>
+          </div>
+          }
+        </div>
+        } @else {
         <div class="profile-info-div mt-3" style="padding: 9%">
           <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
-            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"><img
-                src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
-                class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
-                alt="Sourav Ghosh" /></a>
+            <img
+              src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
+              class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
+              alt="Sourav Ghosh" />
             <div class="media-body">
               <h5 class="mt-0">
                 Author:
-                <a href="#" routerLink="/manage-profile">
-                  {{ eventDetails?.user_detail?.display_name }}</a>
+
+                {{ eventDetails?.owner_name }}
               </h5>
 
               <p></p>
             </div>
           </div>
         </div>
+        }
       </div>
     </div>
 
     <div class="row my-4" id="review">
-      <div class="col-12 col-md-12 col-lg-6">
+      <div class="col-12 col-md-12 col-lg-8">
         <h3 class="event-page-heading">
           <i class="fa fa-comments" aria-hidden="true" style="font-size: 24px"></i>
           Reviews
@@ -328,7 +388,7 @@
     <!-- @if(isGlobal == 'true'){ -->
     <form [formGroup]="reviewForm">
       <div class="row mt-5">
-        <div class="col-12 col-lg-6">
+        <div class="col-12  col-md-12 col-lg-8">
           @for (key of reviewsArray; track key.comment_id; let index = $index) {
           <div class="card mt-3 shadow-sm">
             <div class="bsui toast-header">
@@ -434,27 +494,41 @@
         </div>
 
         @if (isGlobal == 'true') {
-        <div class="col-12 mt-4">
+        <div class="col-12 mt-4 col-md-12 col-lg-8">
           <h3 class="event-page-heading">Leave Review</h3>
         </div>
-        <div class="col-12 col-md-12 col-lg-6">
+        <div class="col-12 col-md-12 col-lg-8">
           <div class="alert alert-warning" role="alert">
             Your email address will not be published.
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 col-md-12 col-lg-6">
-            <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left"></ngx-star-rating>
+
+        <div class="col-12 col-md-12 col-lg-8">
+          <div class="over-all-rating-wrapper">
+            <div class="rating-container">
+              <ngb-rating [(rate)]="rating" formControlName="rating" (hover)="showRatingMessage($event)"
+                (leave)="showRatingMessageLeave()" [max]="5" (rateChange)="updateRatingMessage(rating)">
+                <ng-template let-fill="fill">
+                  <span class="star color" [class.hovered]="fill === hoveredRating" [class.selected]="fill <= rating"
+                    [ngClass]="{'color-orange': fill <= hoveredRating || fill <= rating}">&#9733;</span>
+                </ng-template>
+              </ngb-rating>
+              <div class="rating-message">{{ ratingMessage || 'Select a rating' }}</div>
+            </div>
+            <div class="overall-label">
+              <p>Overall</p>
+            </div>
           </div>
+          <!-- <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left"></ngx-star-rating> -->
         </div>
         @if (!isAuthentecate) {
         <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name" />
           </div>
         </div>
         <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <input type="text" formControlName="comment_author_email" class="input-control"
               placeholder="Enter your email" />
           </div>
@@ -471,13 +545,13 @@
           }
         </div>
         <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <input type="text" formControlName="comment_author_url" class="input-control"
               placeholder="Enter your website" />
           </div>
         </div>
         <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" [(ngModel)]="slectedvalue" [ngModelOptions]="{ standalone: true }"
@@ -492,13 +566,13 @@
         </div>
         }
         <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <textarea formControlName="comment_content" name="" id="" cols="30" rows="10" class="textarea"
               placeholder="Enter your comments"></textarea>
           </div>
         </div>
         <div class="row mt-2 mb-4">
-          <div class="col-12 col-md-12 col-lg-6">
+          <div class="col-12 col-md-12 col-lg-8">
             <button class="btn orange-background-btn-w-100" style="color: #fff" [disabled]="!reviewForm.valid"
               (click)="submit()">
               @if (isLoader) {

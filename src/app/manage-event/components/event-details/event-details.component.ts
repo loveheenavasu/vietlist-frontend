@@ -96,6 +96,9 @@ export class EventDetailsComponent {
   public isDistanceLoading: boolean = false
   public timeEstimate: any
   public currentAddress: string = ''; // Property to store the current address
+  public ratingMessage: string = '';
+  public hoveredRating: number = 0
+  public businessListing: boolean = false;
 
   /**
    *
@@ -146,7 +149,7 @@ export class EventDetailsComponent {
 
         controlsToValidate.forEach((controlName) => {
           const control = this.reviewForm.get(controlName)
-          if (res) {
+          if (!res) {
             control?.setValidators(Validators.required)
           } else {
             control?.clearValidators()
@@ -174,10 +177,12 @@ export class EventDetailsComponent {
     if (this._activatedRoute.snapshot.routeConfig?.path?.includes('business-details')) {
       console.log("its is business detail")
       if (this.postId) {
+        this.businessListing = true
         this.getBusinessFormDetails()
       }
     } else if (this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')) {
       if (this.postId) {
+        this.businessListing = false
         this.getEventDetails()
       }
     }
@@ -188,6 +193,63 @@ export class EventDetailsComponent {
 
     if (Token) {
       this.fetchProfileDetail()
+    }
+  }
+
+  public formatDate(dateString: string): string {
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  public showRatingMessage(event: any): void {
+    this.hoveredRating = event;
+    if (this.hoveredRating >= 4) {
+      this.ratingMessage = 'Excellent';
+    } else if (this.hoveredRating >= 3) {
+      this.ratingMessage = 'Average';
+    } else if (this.hoveredRating >= 2) {
+      this.ratingMessage = 'Poor';
+    } else if (this.hoveredRating >= 1) {
+      this.ratingMessage = 'Terrible';
+    } else {
+      this.ratingMessage = 'Select a rating';
+    }
+
+  }
+
+  public showRatingMessageLeave(): void {
+    this.hoveredRating = 0;
+    if (this.rating >= 4) {
+      this.ratingMessage = 'Excellent';
+    } else if (this.rating >= 3) {
+      this.ratingMessage = 'Average';
+    } else if (this.rating >= 2) {
+      this.ratingMessage = 'Poor';
+    } else if (this.rating >= 1) {
+      this.ratingMessage = 'Terrible';
+    } else {
+      this.ratingMessage = 'Select a rating';
+    }
+  }
+
+  public updateRatingMessage(rating: any): void {
+    console.log("cehck rating", rating)
+    if (rating >= 4) {
+      this.ratingMessage = 'Excellent';
+    } else if (rating >= 3) {
+      this.ratingMessage = 'Average';
+    } else if (rating >= 2) {
+      this.ratingMessage = 'Poor';
+    } else if (rating >= 1) {
+      this.ratingMessage = 'Terrible';
+    } else {
+      this.ratingMessage = 'Select a rating';
     }
   }
 
@@ -245,6 +307,7 @@ export class EventDetailsComponent {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
+        console.log("check event-detail", res.data)
         this.fullPageLoaderService.hideLoader()
           ; (this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
@@ -377,16 +440,26 @@ export class EventDetailsComponent {
 
   public submit() {
     this.isLoader = true
-    const body = {
-      comment_post_ID: this.postId,
-      // user_id: this.eventDetails?.user_detail?.user_id,
-      rating: this.reviewForm.value.rating,
-      comment_author_url: this.reviewForm.value.comment_author_url,
-      comment_author_email: this.reviewForm.value.comment_author_email,
-      comment_author: this.reviewForm.value.comment_author,
-      comment_content: this.reviewForm.value.comment_content,
-      // attachments: this.levelOneImageArr,
+    var body;
+    if (this.userDetail) {
+      body = {
+        comment_post_ID: this.postId,
+        rating: this.reviewForm.value.rating,
+        comment_content: this.reviewForm.value.comment_content,
+      }
+    } else {
+      body = {
+        comment_post_ID: this.postId,
+        // user_id: this.eventDetails?.user_detail?.user_id,
+        rating: this.reviewForm.value.rating,
+        comment_author_url: this.reviewForm.value.comment_author_url,
+        comment_author_email: this.reviewForm.value.comment_author_email,
+        comment_author: this.reviewForm.value.comment_author,
+        comment_content: this.reviewForm.value.comment_content,
+        // attachments: this.levelOneImageArr,
+      }
     }
+
     const formData = new FormData()
     Object.entries(body).forEach(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
@@ -525,6 +598,7 @@ export class EventDetailsComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.userDetail = res.data.user
+        console.log("check userDetails", this.userDetail)
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
