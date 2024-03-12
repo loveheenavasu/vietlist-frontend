@@ -177,6 +177,24 @@ export class ProfileService {
     const params = new HttpParams().set('ad_id', adsId)
     return this.http.delete<any>(endpoint, { headers: authToken, params: params })
   }
+  public cancelpolicy(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.Cancelpolicy)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+  // public getcancelpolicy(): Observable<any> {
+  //   const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetCancelpolicy)
+  //   const authToken: any = this.sessionService.getAuthHeaders()
+  //   return this.http.post<any>(endpoint, { headers: authToken })
+  // }
+
+  public getcancelpolicy(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetCancelpolicy
+    )
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
 
   public getIPAddress() {
 

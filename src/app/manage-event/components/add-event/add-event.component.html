@@ -505,13 +505,65 @@
           </div>
         </div>
         <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
-          <div class="col-12 col-md-12 col-lg-12">
-            <mat-checkbox class="event-checkbox" [formControl]="status">Is Bookable <span
+          <div class="col-12 col-lg-4"></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-checkbox class="event-checkbox" [formControl]="isBookable">Is Bookable <span
                 class="asterik">*</span></mat-checkbox>
           </div>
         </div>
-        <div class="row my-3 px-2">
-          <div class="col-12 col-md-12 col-lg-12">
+        @if(isBookableClicked){
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+             <input type="text" class="input-control" placeholder="Price ($)" formControlName="price"/>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+             <input type="text" class="input-control" placeholder="Number of Bookings can be accepted" formControlName="number_of_bookings"/>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  [matDatepicker]="startdatepicker"
+                  class="input-control"
+                  (click)="startdatepicker.open()"
+                  formControlName="booking_start_date"
+                  [min]="minDate"
+                  placeholder="Booking Start Date"
+                />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #startdatepicker></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  [matDatepicker]="enddatepicker"
+                  class="input-control"
+                  (click)="enddatepicker.open()"
+                  formControlName="booking_end_date"
+                  [min]="minDate"
+                  placeholder="Booking End Date"
+                />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #enddatepicker></mat-datepicker>
+              </div>
+            </div>
+          </div>
+      }
+        <div class="row my-4 px-2">
+          <div class="col-12 col-lg-4"></div>
+          <div class="col-12 col-md-12 col-lg-8">
             <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
               [formControl]="recaptcha"></re-captcha>
           </div>

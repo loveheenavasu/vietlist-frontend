@@ -1,2 +1,18 @@
 @import "../../../../assets/scss/common";
 @import "../../../../assets/scss/table.scss";
+
+.breadcrumb {
+    font-size:16px;
+  }
+  .manage-business{
+    cursor:pointer;
+    color:var(--primary-color-orange);
+   
+  }
+  .business-details{
+    color:rgb(138, 138, 138)
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }

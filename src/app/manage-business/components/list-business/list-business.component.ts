@@ -125,7 +125,8 @@ export class ListBusinessComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
-  public businessLogoUrl: any
+  public businessLogoUrl: any[]=[]
+
   public levelOneImageArr: any[]=[]
   public imageUrl: any
   public filess: any
@@ -330,6 +331,7 @@ export class ListBusinessComponent {
       error: (err) => {},
     })
   }
+  
   public getAddress(place: any) {
     console.log(place)
     this.fullAddress = place.formatted_address

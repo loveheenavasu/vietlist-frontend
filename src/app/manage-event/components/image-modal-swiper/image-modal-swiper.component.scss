@@ -1,0 +1,39 @@
+section {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+
+    .header {
+        .cross-icon {
+            text-align: right;
+            padding: 15px;
+
+            i {
+                font-size: 24px;
+                color: #f2f2f2;
+            }
+        }
+    }
+
+    .swiper {
+        height: 85%;
+
+        .main-cnt {
+            .img-cnt {
+                width: 100%;
+                height: 100%;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                    // height: 100%;
+                }
+            }
+        }
+    }
+}
+
+swiper-container {
+    width: 90% !important;
+    height: 100%;
+}

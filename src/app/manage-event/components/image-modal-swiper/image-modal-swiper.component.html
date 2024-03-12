@@ -1,0 +1,22 @@
+<section>
+    <div class="header">
+        <div class="cross-icon">
+            <i class="fa-solid fa-xmark" (click)="closeDialog()"></i>
+        </div>
+    </div>
+    <div class="swiper">
+        <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+            @for (key of data.images; track $index) {
+            <swiper-slide>
+                <div class="main-cnt d-flex flex-column">
+                    <div>
+                        <div class="img-cnt" style="text-align: center;">
+                            <img [src]="key" />
+                        </div>
+                    </div>
+                </div>
+            </swiper-slide>
+            }
+        </swiper-container>
+    </div>
+</section>
