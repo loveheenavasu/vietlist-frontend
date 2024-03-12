@@ -106,4 +106,15 @@ export class EventService {
     return this.http.get(endpoint, {headers:authToken , params:queryParams})
   }
   
+  public getMyBooking():Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.MyBookingsByUserId)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get(endpoint, {headers:authToken })
+  }
+
+  public cancelEventBooking():Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CancelEventBooking)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, {headers:authToken })
+  }
 }

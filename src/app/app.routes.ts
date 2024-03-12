@@ -129,6 +129,10 @@ export default [
     loadComponent: () => ConfirmPaymentComponent,
   },
   {
+    path: 'confirm-payment/:price',
+    loadComponent: () => ConfirmPaymentComponent,
+  },
+  {
     path: 'subscription-plans',
     loadComponent: () => PlanComponent,
   },

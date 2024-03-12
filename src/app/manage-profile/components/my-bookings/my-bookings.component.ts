@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthenticationService, Roles } from '@vietlist/shared';
+import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService, FullPageLoaderService, Roles } from '@vietlist/shared';
+import { EventService } from 'src/app/manage-event/service/event.service';
 
 @Component({
   selector: 'app-my-bookings',
@@ -9,24 +11,39 @@ import { AuthenticationService, Roles } from '@vietlist/shared';
   styleUrl: './my-bookings.component.scss'
 })
 export class MyBookingsComponent {
-  public role = Roles;
-  public userData:any
-  constructor(private authService:AuthenticationService ){
-    this.userData = this.authService.getUserdata()
+
+  public allBookingsArray : any[]=[]
+  public postId:any
+  
+  /**
+   * 
+   * @param eventService 
+   */
+  constructor(private eventService:EventService,private _activateRoute:ActivatedRoute , private fullpageoaderservice:FullPageLoaderService){
+    this._activateRoute.params.subscribe((res)=>{
+     this.postId =  res['id'] 
+     if(this.postId){
+      this.fetchAllBookings()
+     }
+    })
+  
   }
 
-  // public fetchProfileDetail() {
-  //   this.profileService.userDetails().subscribe({
-  //     next: (res) => {
-  //       this.userDetail = res.data.user
-  //       alert(this.userDetail)
-  //       console.log(this.userDetail , "userDetail")
-  //     },
-  //     error: (err: any) => {
-  //       this.router.navigateByUrl('/login')
-  //     },
-  //   })
-  // }
-
-
+  ngOnInit(){
+    this.fetchAllBookings()
+  }
+  
+  public fetchAllBookings(){
+  this.fullpageoaderservice.showLoader()
+    this.eventService.getMyBooking().subscribe({
+      next:(res:any)=>{
+        this.fullpageoaderservice.hideLoader()
+        this.allBookingsArray = res.data
+        console.log( this.allBookingsArray  , "Response")
+      },
+      error:(err)=>{
+        this.fullpageoaderservice.hideLoader()
+      }
+    })
+  }
 }

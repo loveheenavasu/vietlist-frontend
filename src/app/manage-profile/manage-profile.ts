@@ -139,8 +139,9 @@ export class ManageProfileComponent {
               tab.label !== 'Invoices' &&
               tab.label !== 'Transactions' &&
               tab.label !== 'Notifications Settings' &&
-              tab.label !== 'My Bookings' &&
-              tab.label !== 'My Events'
+              tab.label !== 'Cancellation Policies settings' &&
+              tab.label !== 'Events Management'
+              
             );
           } else if (this.userDetail.user_role == Roles.businessOwner && this.userDetail.level_id == '1') {
             this.menuItems = this.sidebarMenu.filter(tab =>

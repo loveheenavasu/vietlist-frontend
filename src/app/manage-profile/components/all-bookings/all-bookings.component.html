@@ -12,6 +12,7 @@
     <div class="table-responsive mt-5">
       <table>
         <thead>
+      
           <tr>
             <th>Person Name</th>
             <th>Event Name</th>
@@ -21,9 +22,12 @@
             <th>Status</th>
             <th>Action</th>
           </tr>
+
         </thead>
         <tbody>
+          @for(key of allBookingsArray ; track $index){
          <tr></tr>
+        }
           <!-- Add more rows of data as needed -->
         </tbody>
       </table>
