@@ -30,11 +30,6 @@
     "url": "/manage-profile/subscription"
   },
   {
-    "label": "Transactions",
-    "icon": "fa fa-line-chart",
-    "url": "/manage-profile/my-transactions"
-  },
-  {
     "label": "Billing Address",
     "icon": "fa fa-credit-card-alt",
     "url": "/manage-profile/billing-address"
@@ -45,19 +40,19 @@
     "url": "/manage-profile/manage-bookings"
   },
   {
-  "label": "All Bookings",
-  "icon": "fa fa-calendar-o",
-  "url": "/manage-profile/all-bookings"
-},
-  {
     "label": "My Business",
     "icon": "fa fa-briefcase",
     "url": "/manage-profile/my-business"
   },
   {
-    "label": "My Events",
+    "label": "Events Management",
     "icon": "fa fa-calendar-check-o",
     "url": "/manage-profile/manage-events"
+  },
+  {
+    "label": "Cancellation Policies settings",
+    "icon": "fa fa-times-circle",
+    "url": "/manage-profile/cancellaton-policy"
   },
   {
     "label": "Settings",

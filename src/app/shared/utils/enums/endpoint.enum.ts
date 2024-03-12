@@ -59,5 +59,11 @@ export enum Endpoints {
   SetStats = 'set_ad_stats',
   SetReviewReply = 'set_review_reply',
   GetReviewReply = 'get_review_reply',
-  CancelMembership = 'cancel_membership_level'
+  CancelMembership = 'cancel_membership_level',
+  AllBookingsByEventId  = 'get_booking_by_event_id',
+  Cancelpolicy= 'set_or_update_cancellation_policy',
+  GetCancelpolicy= 'get_cancellation_policy',
+  CreateBookingPaymentIntent = 'create_event_booking_initial_intent',
+  StripePaymentForBooking = 'stripe_payment_for_booking',
+  SetEventBooking = 'set_event_booking',
 }

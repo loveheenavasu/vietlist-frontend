@@ -32,8 +32,10 @@
               <i class="fa fa-eye" style="cursor:pointer" (click)="gotToEventDetails(key.post_id, false)"  aria-hidden="true"></i>
               <i class="fa fa-pencil" aria-hidden="true"  style="cursor:pointer" (click)="handleEdit(key.post_id)" ></i>
               <i style="cursor:pointer"  (click)="handleDelete(key.post_id)" class="fa fa-trash" aria-hidden="true"></i>
+              <button class="btn view-booking-btn" (click)="navigateToViewBooking(key.post_id)">View Bookings</button>
             </div>
           </td>
+
           <!-- Add more data cells as needed -->
         </tr>
       }

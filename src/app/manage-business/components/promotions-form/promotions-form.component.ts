@@ -146,7 +146,8 @@ export class PromotionsFormComponent {
       final_submission: 1,
       promotions_field:this.promotions.value.promotions_field,
       createEvent:this.promotions.value.createEvent ? 1:0,
-      business_ownerassociate:this.promotions.value.business_ownerassociate
+      business_ownerassociate:this.promotions.value.business_ownerassociate,
+      event_id:this.promotions.value.event_id
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {

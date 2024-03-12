@@ -16,6 +16,9 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
         timer: 3000,
         timerProgressBar: true,
       })
+      if(error.status ===403){
+
+      }
       return throwError(() => {})
     }),
   )

@@ -515,13 +515,49 @@
           <div class="row my-3 px-2" >
             <div class="col-12 col-lg-4"></div>
             <div class="col-12 col-md-12 col-lg-8">
-             <input type="text" class="input-control" placeholder="Price ($)"/>
+             <input type="text" class="input-control" placeholder="Price ($)" formControlName="price"/>
             </div>
           </div>
           <div class="row my-3 px-2" >
             <div class="col-12 col-lg-4"></div>
             <div class="col-12 col-md-12 col-lg-8">
-             <input type="text" class="input-control" placeholder="Number of bookings"/>
+             <input type="text" class="input-control" placeholder="Number of Bookings can be accepted" formControlName="number_of_bookings"/>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  class="input-control"
+                  (click)="booking_start_date.open()"
+                  formControlName="booking_start_date"
+                  [min]="minDate"
+                  placeholder="Booking Start Date"
+                />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #booking_start_date></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div class="row my-3 px-2" >
+            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <div class="input-group">
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  class="input-control"
+                  (click)="booking_end_date.open()"
+                  formControlName="booking_end_date"
+                  [min]="minDate"
+                  placeholder="Booking End Date"
+                />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #booking_end_date></mat-datepicker>
+              </div>
             </div>
           </div>
       }

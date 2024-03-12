@@ -152,14 +152,43 @@ export class AddEventComponent {
     private fullPageLoaderService:FullPageLoaderService,
     private profileService: ProfileService,
   ) {
-    const getLevelId = localStorageService.getData('level_id')
-    this.isBookable.valueChanges.subscribe((res:any)=>{
-      if(res == true){
-        this.isBookableClicked = true
-      } else {
-        this.isBookableClicked = false
-      }
+    this.addEventForm = this._formBuilder.group({
+      event_title: ['', Validators.required],
+      eventStartDate: [''],
+      eventEndDate: [''],
+      post_category: ['', Validators.required],
+      event_description: ['', Validators.required],
+      mapview: [''],
+      startTime: [''],
+      endTime: [''],
+      price:[''],
+      number_of_bookings:[''],
+      booking_end_date:[''],
+      booking_start_date:['']
     })
+
+
+    const getLevelId = localStorageService.getData('level_id')
+       this.isBookable.valueChanges.subscribe((res: any) => {
+        if (res == true) {
+            this.isBookableClicked = true;
+            this.addEventForm.get('price')?.setValidators(Validators.required);
+            this.addEventForm.get('number_of_bookings')?.setValidators(Validators.required);
+            this.addEventForm.get('booking_end_date')?.setValidators(Validators.required);
+            this.addEventForm.get('booking_start_date')?.setValidators(Validators.required);
+        } else {
+            this.isBookableClicked = false;
+            this.addEventForm.get('price')?.clearValidators();
+            this.addEventForm.get('number_of_bookings')?.clearValidators();
+            this.addEventForm.get('booking_end_date')?.clearValidators();
+            this.addEventForm.get('booking_start_date')?.clearValidators();
+        }
+        this.addEventForm.get('price')?.updateValueAndValidity();
+        this.addEventForm.get('number_of_bookings')?.updateValueAndValidity();
+        this.addEventForm.get('booking_end_date')?.updateValueAndValidity();
+        this.addEventForm.get('booking_start_date')?.updateValueAndValidity();
+    });
+
 
     this.userDetailsLevel_id  = getLevelId
         this.authService.userDetails.subscribe((res:any)=>{
@@ -176,17 +205,7 @@ export class AddEventComponent {
       }
       
     })
-    this.addEventForm = this._formBuilder.group({
-      event_title: ['', Validators.required],
-      eventStartDate: [''],
-      eventEndDate: [''],
-      post_category: ['', Validators.required],
-      event_description: ['', Validators.required],
-      mapview: [''],
-      startTime: [''],
-      endTime: ['']
-    })
-
+ 
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
 
@@ -532,6 +551,10 @@ this._activatedRoute.params.subscribe((res) => {
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
       is_bookable_: this.isBookable.value ? 1 : 0,
+      price:this.addEventForm.value.price,
+      number_of_bookings: this.addEventForm.value.number_of_bookings,
+      booking_start_date:this.addEventForm.value.booking_start_date,
+      booking_end_date:this.addEventForm.value.booking_end_date,
     };
     console.log(body)
     const formData = new FormData();
@@ -628,7 +651,9 @@ this._activatedRoute.params.subscribe((res) => {
           startTime:this.eventDetails.event_dates.start_time,
           endTime: this.eventDetails.event_dates.end_time,
           recurringEvent:this.eventDetails.event_dates.all_day,
-          
+          booking_start_date : this.eventDetails.booking_start_date,
+          booking_end_date:this.eventDetails.booking_end_date,
+          number_of_bookings : this.eventDetails.number_of_bookings
         })
         this.street = this.eventDetails.street,
         this.fullAddress = this.eventDetails?.street,

@@ -4,7 +4,10 @@
       {{ eventDetails?.post_title | titlecase }}
     </h1>
     <p>
-      <i class="fa-solid fa-location-dot" style="color: #fff; font-size: 15px"></i>
+      <i
+        class="fa-solid fa-location-dot"
+        style="color: #fff; font-size: 15px"
+      ></i>
       &nbsp;{{ eventDetails?.country }}
     </p>
     <div class="elementor-divider">
@@ -12,38 +15,77 @@
     </div>
     <div class="listing-rating mt-5">
       <div class="d-flex">
-        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 1 ? 'rgb(255, 213, 62)' : 'white'"
-          style="font-size: 30px"></i>
-        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 2 ? 'rgb(255, 213, 62)' : 'white'"
-          style="font-size: 30px"></i>
-        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 3 ? 'rgb(255, 213, 62)' : 'white'"
-          style="font-size: 30px"></i>
-        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating >= 4 ? 'rgb(255, 213, 62)' : 'white'"
-          style="font-size: 30px"></i>
-        <i class="fa fa-star" aria-hidden="true" [style.color]="overllRating > 4 ? 'rgb(255, 213, 62)' : 'white'"
-          style="font-size: 30px"></i>
+        <i
+          class="fa fa-star"
+          aria-hidden="true"
+          [style.color]="overllRating >= 1 ? 'rgb(255, 213, 62)' : 'white'"
+          style="font-size: 30px"
+        ></i>
+        <i
+          class="fa fa-star"
+          aria-hidden="true"
+          [style.color]="overllRating >= 2 ? 'rgb(255, 213, 62)' : 'white'"
+          style="font-size: 30px"
+        ></i>
+        <i
+          class="fa fa-star"
+          aria-hidden="true"
+          [style.color]="overllRating >= 3 ? 'rgb(255, 213, 62)' : 'white'"
+          style="font-size: 30px"
+        ></i>
+        <i
+          class="fa fa-star"
+          aria-hidden="true"
+          [style.color]="overllRating >= 4 ? 'rgb(255, 213, 62)' : 'white'"
+          style="font-size: 30px"
+        ></i>
+        <i
+          class="fa fa-star"
+          aria-hidden="true"
+          [style.color]="overllRating > 4 ? 'rgb(255, 213, 62)' : 'white'"
+          style="font-size: 30px"
+        ></i>
       </div>
     </div>
   </div>
   <div class="iconDirection">
     <span class="elementor-grid-item">
-      <a href="https://mail.google.com" target="_blank"
+      <a
+        href="https://mail.google.com"
+        target="_blank"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank">
+        target="_blank"
+      >
         <!-- <span class="elementor-screen-only">Phone</span> -->
-        <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size: 20px; color: #fff"></i></a>
+        <i
+          class="fa fa-envelope size_icon"
+          aria-hidden="true"
+          style="font-size: 20px; color: #fff"
+        ></i
+      ></a>
     </span>
-    <span class="elementor-grid-item" style="background: #0073a4" (click)="openGoogleMaps()">
-      <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
-        href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
+    <span
+      class="elementor-grid-item"
+      style="background: #0073a4"
+      (click)="openGoogleMaps()"
+    >
+      <a
+        class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+        href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
+        target="_blank"
+      >
         <!-- <span class="elementor-screen-only">Directions</span> -->
-        <i class="fas fa-directions size_icon" style="font-size: 20px; color: #fff"></i></a>
+        <i
+          class="fas fa-directions size_icon"
+          style="font-size: 20px; color: #fff"
+        ></i
+      ></a>
     </span>
   </div>
 </section>
 <div class="section-container">
   <ul class="list-items">
-    <li (click)="scrollTo('profile')" [class.actives]="activeTab === 'profile'">
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'">
       <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
     </li>
     <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'">
@@ -61,19 +103,23 @@
 <section class="background_section">
   <div class="container">
     @if (isGlobal == false) {
-    <div class="breadcrumb pt-4">
-      <div class="breadcrumb">
-        <span class="manage-business" (click)="goToEvent()">Events</span>
-        <span class="business-details"> > </span>
-        <span class="business-details"> Event Details</span>
+      <div class="breadcrumb pt-4">
+        <div class="breadcrumb">
+          <span class="manage-business" (click)="goToEvent()">Events</span>
+          <span class="business-details"> > </span>
+          <span class="business-details"> Event Details</span>
+        </div>
       </div>
-    </div>
     }
     <div class="row mt-2 pt-4" id="profile">
       <div class="col-12 col-md-12 col-lg-8">
         <div class="row mt-3">
           <h3 class="event-page-heading">
-            <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
+            <i
+              class="fa fa-home"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i>
             Profile
           </h3>
           <hr />
@@ -87,7 +133,7 @@
                 <td class="table-title">Start Date</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
                   {{
-                  eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'
+                    eventDetails?.event_dates.start_date | date: 'dd/MM/yyyy'
                   }}
                 </td>
               </tr>
@@ -160,41 +206,116 @@
         </div>
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div">
+        <div class="profile-info-div" *ngIf="userDetail?.user_role === role.subscriber || !isAuthentecate">
+          <h3>Book Now</h3>
+          @if(!isDateMatched){
+          
+          <div class="input-group mt-4">
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              [matDatepickerFilter]="dateFilter"
+              class="input-control"
+              (click)="picker2.open()"
+              [formControl]="booking_date"
+            />
+            <i class="fa fa-calendar-o"></i>
+            <mat-datepicker #picker2 ></mat-datepicker>
+          </div>
+        } 
+        @if(isDateMatched){
+          <h4 class="event-date">{{eventDetails?.event_dates?.start_date | date:'mediumDate'}}</h4>
+        }
+        
+          <div class="mt-3"> 
+            <input type="number" class="input-control" placeholder="Number of bookings" [formControl]="number_of_booking"/>
+          </div>
+          <div class="mt-3">
+            <div class="form-group">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                  [formControl]="term_and_condition"
+                />
+                <label class="form-check-label" for="terms">
+                  Accept Terms & Conditions
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button class="btn orange-background-btn-w-100" (click)="handleBookingNow(eventDetails.price)">
+              @if(isBookingLoader){
+                <app-loader></app-loader>
+              }@else{
+                Submit
+              }
+            </button>
+          </div>
+        </div>
+        <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
           <div class="social-link">
             <div class="location">
-              <i class="fa-solid fa-location-dot" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+              <i
+                class="fa-solid fa-location-dot"
+                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+              ></i>
               {{ eventDetails?.street }}
             </div>
             <div class="location">
-              <i class="fa fa-link" aria-hidden="true" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
-              <a href="" target="_blank" style="
+              <i
+                class="fa fa-link"
+                aria-hidden="true"
+                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+              ></i>
+              <a
+                href=""
+                target="_blank"
+                style="
                   color: #38ccff;
                   font-size: 14px;
                   font-weight: 500;
                   text-decoration: none;
-                "></a>
+                "
+              ></a>
             </div>
             <div class="location">
-              <a href="https://www.facebook.com/" target="_blank" style="
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                style="
                   color: #38ccff;
                   font-size: 14px;
                   font-weight: 500;
                   text-decoration: none;
-                ">
-                <i class="fab fa-facebook-square" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+                "
+              >
+                <i
+                  class="fab fa-facebook-square"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
               </a>
             </div>
             <div class="location">
-              <a href="https://www.twitter.com" target="_blank" style="
+              <a
+                href="https://www.twitter.com"
+                target="_blank"
+                style="
                   color: #38ccff;
                   font-size: 14px;
                   font-weight: 500;
                   text-decoration: none;
-                ">
-                <i class="fa-brands fa-twitter" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
+                "
+              >
+                <i
+                  class="fa-brands fa-twitter"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
               </a>
             </div>
             <!-- <ul>
@@ -233,15 +354,20 @@
         </div>
         <div class="profile-info-div mt-3" style="padding: 9%">
           <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
-            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"><img
+            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"
+              ><img
                 src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
-                class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
-                alt="Sourav Ghosh" /></a>
+                class="rounded-circle shadow border border-white border-width-4 mr-3"
+                width="60"
+                height="60"
+                alt="Sourav Ghosh"
+            /></a>
             <div class="media-body">
               <h5 class="mt-0">
                 Author:
                 <a href="#" routerLink="/manage-profile">
-                  {{ eventDetails?.user_detail?.display_name }}</a>
+                  {{ eventDetails?.user_detail?.display_name }}</a
+                >
               </h5>
 
               <p></p>
@@ -253,17 +379,22 @@
     <div class="row my-4" id="photo">
       <div class="col-12 col-md-12 col-lg-6">
         <h3 class="event-page-heading">
-          <i class="fa fa-picture-o" aria-hidden="true" style="font-size: 24px"></i>
+          <i
+            class="fa fa-picture-o"
+            aria-hidden="true"
+            style="font-size: 24px"
+          ></i>
           Photo(s)
         </h3>
         <hr />
-        <div class="featured_image mt-2">
-          <img [src]="
-              eventDetails?.featured_image
-                ? eventDetails?.featured_image
-                : '/assets/image/carrer-proffesional.jpeg'
-            " />
+        <div class="image-container">
+          <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image">
+            <img
+              [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
+            />
+          </div>
         </div>
+        
       </div>
     </div>
     <div class="row my-4" id="mapView">
@@ -283,15 +414,15 @@
     <div class="row mt-3">
       <div class="col-12 col-lg-6">
         <div class="d-flex">
-          <div class="flex-grow-1">
-            <div class="locatio_main">
-
-              <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="directionStreet">
-              </AutocompleteComponent>
-              <div class="location___">
-                <i class="fa fa-location-arrow" aria-hidden="true"></i>
-              </div>
-
+          <div class="flex-grow-1 position-relative">
+            <AutocompleteComponent
+              (setAddress)="getAddress($event)"
+              adressType="geocode"
+              [value]="directionStreet"
+            ></AutocompleteComponent>
+            <div class="location-icon">
+              <!-- Add your location icon here -->
+              <i class="fas fa-map-marker-alt" (click)="getCurrentLocation()" style="cursor:pointer"></i>
             </div>
           </div>
           <div class="">
@@ -299,22 +430,20 @@
           </div>
         </div>
       </div>
-
+     
     </div>
     <!-- <ng-container *ngIf="directionStreet">
     <div class="row mt-3" >
       <div class="col-12 col-lg-6">
         <label for="">From</label>
           <input type="text" class="input-control" readonly [(ngModel)]="directionStreet">
-        </div>
-
       </div>
-      <div class="row mt-3">
-        <div class="col-12 col-lg-6">
-          <label for="">To</label>
+     
+    </div>
+       <div class="row mt-3">
+      <div class="col-12 col-lg-6">
+        <label for="">To</label>
           <input type="text" class="input-control" readonly [(ngModel)]="eventLocation">
-        </div>
-
       </div>
      
     </div>
@@ -324,13 +453,17 @@
         <label for="">Distance (Km)</label>
         <p style="font-weight:500;font-size:18px">{{distanceToEvent}} Km  in {{timeEstimate}}</p>
       </div>
-
+     
     </div>
 
     <div class="row my-4" id="review">
       <div class="col-12 col-md-12 col-lg-6">
         <h3 class="event-page-heading">
-          <i class="fa fa-comments" aria-hidden="true" style="font-size: 24px"></i>
+          <i
+            class="fa fa-comments"
+            aria-hidden="true"
+            style="font-size: 24px"
+          ></i>
           Reviews
         </h3>
         <hr />
@@ -341,185 +474,252 @@
       <div class="row mt-5">
         <div class="col-12 col-lg-6">
           @for (key of reviewsArray; track key.comment_id; let index = $index) {
-          <div class="card mt-3 shadow-sm">
-            <div class="bsui toast-header">
-              <div class="profile__">
-                <img
-                  src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
-              </div>
-              <span style="width: 39%">
-                {{ key.comment_author_email }}
-              </span>
-              <div class="rating__">
-                <div class="d-flex">
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="
+            <div class="card mt-3 shadow-sm">
+              <div class="bsui toast-header">
+                <div class="profile__">
+                  <img
+                    src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg"
+                  />
+                </div>
+                <span style="width: 39%">
+                  {{ key.comment_author_email }}
+                </span>
+                <div class="rating__">
+                  <div class="d-flex">
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
                         key?.rating >= 1 ? 'rgb(255, 213, 62)' : 'black'
-                      " style="font-size: 17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
                         key?.rating >= 2 ? 'rgb(255, 213, 62)' : 'black'
-                      " style="font-size: 17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
                         key?.rating >= 3 ? 'rgb(255, 213, 62)' : 'black'
-                      " style="font-size: 17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
                         key?.rating >= 4 ? 'rgb(255, 213, 62)' : 'black'
-                      " style="font-size: 17px"></i>
-                  <i class="fa fa-star" aria-hidden="true" [style.color]="
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                    <i
+                      class="fa fa-star"
+                      aria-hidden="true"
+                      [style.color]="
                         key?.rating > 4 ? 'rgb(255, 213, 62)' : 'black'
-                      " style="font-size: 17px"></i>
-                  <!-- @if(key?.rating >= 2) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>}
-                  @if(key?.rating >= 3) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>}
-                  @if(key?.rating >= 4) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>}
-                  @if(key?.rating >4) {<i class="fa fa-star" aria-hidden="true"
-                    style="color:rgb(255, 213, 62);font-size:17px"></i>} -->
+                      "
+                      style="font-size: 17px"
+                    ></i>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="comment-content comment card-body my-3">
-              <div class="description">
-                <p style="font-size: 17px; font-weight: 500">
-                  {{ key.comment_content }}
-                </p>
-                @if (isReplycomFieldOpen && replyIndexshow === index) {
-                <div class="comments">
-                  @for (replies of repliesArray; track $index) {
-                  <p class="ml-1">{{ replies.comment_content }}</p>
+              <div class="comment-content comment card-body my-3">
+                <div class="description">
+                  <p style="font-size: 17px; font-weight: 500">
+                    {{ key.comment_content }}
+                  </p>
+                  @if (isReplycomFieldOpen && replyIndexshow === index) {
+                    <div class="comments">
+                      @for (replies of repliesArray; track $index) {
+                        <p class="ml-1">{{ replies.comment_content }}</p>
+                        <app-skeleton-loading *ngIf="loader && replyIndexshow === index"></app-skeleton-loading>
+                      }
+                    </div>
                   }
                 </div>
+
+                @if (
+                  isReplyFieldOpen &&
+                  replyIndex === index &&
+                  userDetail.level_id == '3'
+                ) {
+                  <div class="flex-grow-1">
+                    <textarea
+                      type="text"
+                      class="input-control input-textarea"
+                      [formControl]="replyInput"
+                      placeholder="Enter your reply"
+                    >
+                    </textarea>
+                  </div>
+                  <div>
+                    <button
+                      style="width: 100%"
+                      class="btn reply-btn"
+                      (click)="handlereply(index, key.comment_id)"
+                    >
+                      Post Reply
+                    </button>
+                  </div>
+                } @else {
+                  @if (isAuthentecate) {
+                    <div class="d-none">
+                      <!-- Hide the reply input by default -->
+                      <div class="flex-grow-1">
+                        <input type="text" class="input-control" />
+                      </div>
+                      <div class="mx-1">
+                        <button class="btn reply-btn">Reply</button>
+                      </div>
+                    </div>
+                  }
                 }
               </div>
-
-              @if (
-              isReplyFieldOpen &&
-              replyIndex === index &&
-              userDetail.level_id == '3'
-              ) {
-              <div class="flex-grow-1">
-                <textarea type="text" class="input-control input-textarea" [formControl]="replyInput"
-                  placeholder="Enter your reply">
-                    </textarea>
-                <!-- <input type="te  xt" class="input-control" [formControl]="replyInput" /> -->
-              </div>
-              <div>
-                <button style="width: 100%" class="btn reply-btn" (click)="handlereply(index, key.comment_id)">
-                  Post Reply
+              <div class="bottom_reply">
+                <button
+                  class="btn reply-btn"
+                  style="cursor: pointer"
+                  (click)="showReplyCommentField(index, key.comment_id)"
+                >
+                  <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
+                  <span *ngIf="!loader || replyIndexshow !== index"
+                    >Show reply
+                  </span>
+                  <app-loader
+                    *ngIf="loader && replyIndexshow === index"
+                  ></app-loader>
                 </button>
-
-                <!-- <button class="btn reply-btn"
-
-                    (click)="handlereply(index, key.comment_id)">Reply</button> -->
+                &nbsp; &nbsp;
+                <button
+                  class="btn reply-btn"
+                  style="cursor: pointer"
+                  (click)="showReplyField(index)"
+                  *ngIf="isAuthentecate && userDetail?.user_role == role.businessOwner"
+                >
+                  <i class="fa fa-reply" aria-hidden="true"></i> Reply
+                </button>
               </div>
-              } @else {
-              @if (isAuthentecate) {
-              <div class="d-none">
-                <!-- Hide the reply input by default -->
-                <div class="flex-grow-1">
-                  <input type="text" class="input-control" />
-                </div>
-                <div class="mx-1">
-                  <button class="btn reply-btn">Reply</button>
-                </div>
-              </div>
-              }
-              }
             </div>
-            <div class="bottom_reply">
-              <button class="btn reply-btn" style="cursor: pointer"
-                (click)="showReplyCommentField(index, key.comment_id)">
-                <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
-                <span *ngIf="!loader || replyIndexshow !== index">Show reply
-                </span>
-                <app-loader *ngIf="loader && replyIndexshow === index"></app-loader>
-              </button>
-              &nbsp; &nbsp;
-              <button class="btn reply-btn" style="cursor: pointer" (click)="showReplyField(index)"
-                *ngIf="isAuthentecate">
-                <i class="fa fa-reply" aria-hidden="true"></i> Reply
-              </button>
-            </div>
-          </div>
           }
         </div>
 
         @if (isGlobal == 'true') {
-        <div class="col-12 mt-4">
-          <h3 class="event-page-heading">Leave Review</h3>
-        </div>
-        <div class="col-12 col-md-12 col-lg-6">
-          <div class="alert alert-warning" role="alert">
-            Your email address will not be published.
+          <div class="col-12 mt-4">
+            <h3 class="event-page-heading">Leave Review</h3>
           </div>
-        </div>
-        <div class="row">
           <div class="col-12 col-md-12 col-lg-6">
-            <ngx-star-rating formControlName="rating" [id]="'rating'" style="float: left"></ngx-star-rating>
-          </div>
-        </div>
-        @if (!isAuthentecate) {
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author" class="input-control" placeholder="Enter your name" />
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author_email" class="input-control"
-              placeholder="Enter your email" />
-          </div>
-          @if (
-          reviewForm.get('comment_author_email')?.touched &&
-          reviewForm.get('comment_author_email')?.hasError('required')
-          ) {
-          <span class="error-message">Email is required</span>
-          }
-          @if (
-          reviewForm.get('comment_author_email')?.hasError('pattern')
-          ) {
-          <span class="error-message">Enter valid email</span>
-          }
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <input type="text" formControlName="comment_author_url" class="input-control"
-              placeholder="Enter your website" />
-          </div>
-        </div>
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" [(ngModel)]="slectedvalue" [ngModelOptions]="{ standalone: true }"
-                  (change)="selcetdvalues()" type="checkbox" value="" id="terms" />
-                <label class="form-check-label" for="terms">
-                  Save my name, email, and website in this browser for the
-                  next time I comment.
-                </label>
-              </div>
+            <div class="alert alert-warning" role="alert">
+              Your email address will not be published.
             </div>
           </div>
-        </div>
-        }
-        <div class="row my-2">
-          <div class="col-12 col-md-12 col-lg-6">
-            <textarea formControlName="comment_content" name="" id="" cols="30" rows="10" class="textarea"
-              placeholder="Enter your comments"></textarea>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-6">
+              <!-- <ngx-star-rating
+                formControlName="rating"
+                [id]="'rating'"
+                style="float: left"
+              ></ngx-star-rating> -->
+            </div>
           </div>
-        </div>
-        <div class="row mt-2 mb-4">
-          <div class="col-12 col-md-12 col-lg-6">
-            <button class="btn orange-background-btn-w-100" style="color: #fff" [disabled]="!reviewForm.valid"
-              (click)="submit()">
-              @if (isLoader) {
-              <app-loader></app-loader>
-              } @else {
-              Leave a review
+          @if (!isAuthentecate) {
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author"
+                  class="input-control"
+                  placeholder="Enter your name"
+                />
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author_email"
+                  class="input-control"
+                  placeholder="Enter your email"
+                />
+              </div>
+              @if (
+                reviewForm.get('comment_author_email')?.touched &&
+                reviewForm.get('comment_author_email')?.hasError('required')
+              ) {
+                <span class="error-message">Email is required</span>
               }
-            </button>
+              @if (
+                reviewForm.get('comment_author_email')?.hasError('pattern')
+              ) {
+                <span class="error-message">Enter valid email</span>
+              }
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <input
+                  type="text"
+                  formControlName="comment_author_url"
+                  class="input-control"
+                  placeholder="Enter your website"
+                />
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col-12 col-md-12 col-lg-6">
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      [(ngModel)]="slectedvalue"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="saveDetailsInLocal()"
+                      type="checkbox"
+                      value=""
+                      id="terms"
+                    />
+                    <label class="form-check-label" for="terms">
+                      Save my name, email, and website in this browser for the
+                      next time I comment.
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="row my-2">
+            <div class="col-12 col-md-12 col-lg-6">
+              <textarea
+                formControlName="comment_content"
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                class="textarea"
+                placeholder="Enter your comments"
+              ></textarea>
+            </div>
           </div>
-        </div>
+          <div class="row mt-2 mb-4">
+            <div class="col-12 col-md-12 col-lg-6">
+              <button
+                class="btn orange-background-btn-w-100"
+                style="color: #fff"
+                [disabled]="!reviewForm.valid"
+                (click)="submit()"
+              >
+                @if (isLoader) {
+                  <app-loader></app-loader>
+                } @else {
+                  Leave a review
+                }
+              </button>
+            </div>
+          </div>
         }
       </div>
     </form>

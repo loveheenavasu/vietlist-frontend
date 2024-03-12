@@ -77,6 +77,10 @@ export class MyEventsComponent {
 
   public gotToEventDetails(id:any, isGlobal:any){
     this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+    
+  }
 
+  public navigateToViewBooking(id:any){
+    this.router.navigate(['/manage-profile/all-bookings' , id]);
   }
 }
