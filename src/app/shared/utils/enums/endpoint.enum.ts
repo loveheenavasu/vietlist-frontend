@@ -59,5 +59,8 @@ export enum Endpoints {
   SetStats = 'set_ad_stats',
   SetReviewReply = 'set_review_reply',
   GetReviewReply = 'get_review_reply',
-  CancelMembership = 'cancel_membership_level'
+  CancelMembership = 'cancel_membership_level',
+  AllBookingsByEventId  = 'get_booking_by_event_id',
+  MyBookingsByUserId = 'get_event_booking_by_userid',
+  CancelEventBooking = 'cancel_event_booking'
 }

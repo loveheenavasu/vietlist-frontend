@@ -34,6 +34,7 @@ import { Roles } from './shared'
 import { MyBookingsComponent } from './manage-profile/components/my-bookings/my-bookings.component'
 import { MyTransactionsComponent } from './manage-profile/components/my-transactions/my-transactions.component'
 import { AllBookingsComponent } from './manage-profile/components/all-bookings/all-bookings.component'
+import { CancellationPolicyComponent } from './manage-profile/components/cancellation-policy/cancellation-policy.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -58,6 +59,10 @@ export default [
       {
         path: 'manage-bookings',
         loadComponent: () => MyBookingsComponent
+      },
+      {
+        path:'cancellaton-policy',
+        loadComponent:() => CancellationPolicyComponent
       },
       {
         path: '',
@@ -108,7 +113,7 @@ export default [
         loadComponent: () => MyTransactionsComponent
       },
       {
-        path:'all-bookings',
+        path:'all-bookings/:id',
         loadComponent: () => AllBookingsComponent
       }
     ],
@@ -121,6 +126,10 @@ export default [
   },
   {
     path: 'confirm-payment/:id',
+    loadComponent: () => ConfirmPaymentComponent,
+  },
+  {
+    path: 'confirm-payment/:price',
     loadComponent: () => ConfirmPaymentComponent,
   },
   {

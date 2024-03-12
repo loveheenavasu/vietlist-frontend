@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router'
 import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
-import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 // import { Lightbox } from 'ngx-lightbox';
@@ -100,6 +100,9 @@ export class EventDetailsComponent {
   public hoveredRating: number = 0
   public businessListing: boolean = false;
 
+  public isDateMatched: boolean = false
+  public role = Roles
+  public term_and_condition = new FormControl('')
   /**
    *
    * @param eventService
@@ -128,6 +131,7 @@ export class EventDetailsComponent {
     private httpClient: HttpClient,
 
 
+    private localStorageService: LocalStorageService
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -167,11 +171,6 @@ export class EventDetailsComponent {
     })
   }
 
-  selcetdvalues() {
-    // this.storValues ={
-    //   this.
-    // }
-  }
 
   ngOnInit() {
     if (this._activatedRoute.snapshot.routeConfig?.path?.includes('business-details')) {
@@ -192,6 +191,7 @@ export class EventDetailsComponent {
     const Token = localStorage.getItem('accessToken')
 
     if (Token) {
+      console.log("check1")
       this.fetchProfileDetail()
     }
   }
@@ -253,6 +253,10 @@ export class EventDetailsComponent {
     }
   }
 
+  public saveDetailsInLocal() {
+    this.localStorageService.saveData('reviewFormData', JSON.stringify(this.reviewForm.value))
+  }
+
   public getAddress(place: any) {
     this.directionStreet = place.formatted_address
     this.state = ''
@@ -307,7 +311,16 @@ export class EventDetailsComponent {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
-        console.log("check event-detail", res.data)
+        console.log(res, "RESPONSE")
+        const startDate = res.data[0].event_dates?.start_date
+        const endDate = res.data[0].event_dates?.end_date
+        const startDateNew = this.extractDateFromTimestamp(startDate)
+        const endDateNew = this.extractDateFromTimestamp(endDate)
+        if (startDateNew == endDateNew) {
+          this.isDateMatched = true
+        } else {
+          this.isDateMatched = false
+        }
         this.fullPageLoaderService.hideLoader()
           ; (this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
@@ -320,6 +333,13 @@ export class EventDetailsComponent {
         this.fullPageLoaderService.hideLoader()
       },
     })
+  }
+
+
+  public extractDateFromTimestamp(timestamp: any) {
+    const parts = timestamp.split('T');
+    const datePart = parts[0];
+    return datePart;
   }
 
   public initMap() {
@@ -349,62 +369,18 @@ export class EventDetailsComponent {
 
     }
   }
+
   openGoogleMaps() {
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
   }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
-    // if (this.levelOneImageArr.length >= 5) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
-    //     animation: false,
-    //     icon: 'warning',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
-    // if (this.vediosHide.level_id == '1') {
-
-    //   if (this.files.length > 5) {
-    //     console.log('upload 5 images ')
-    //     Swal.fire({
-    //       toast: true,
-    //       text: 'Max 5 images allowed. Upgrade your plan for more',
-    //       animation: false,
-    //       icon: 'error',
-    //       position: 'top-right',
-    //       showConfirmButton: false,
-    //       timer: 3000,
-    //       timerProgressBar: true,
-    //     })
-    //     return
-    //   }
-    // }
     this.displayLevelOneImages()
   }
 
   public displayLevelOneImages() {
     let maxImages: any = 5
-    // if (this.files.length > maxImages) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: `You can only select up to ${maxImages} images at a time.`,
-    //     animation: false,
-    //     icon: 'error',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
     this.isImageUploading = true
 
     const filesToUpload = this.files.slice(0, maxImages)
@@ -433,6 +409,7 @@ export class EventDetailsComponent {
       })
     })
   }
+
 
   public removeImageItem(index: any) {
     this.levelOneImageArr.splice(index, 1)
@@ -530,10 +507,7 @@ export class EventDetailsComponent {
     this.replyIndexshow = index
     this.getReplies(index, id)
   }
-  // public hideReplyField() {
-  //   this.isReplyFieldOpen = false;
-  //   this.replyIndexshow = -1;
-  // }
+
 
   public hideReplyField() {
     this.isReplycomFieldOpen = false
@@ -565,6 +539,7 @@ export class EventDetailsComponent {
     })
   }
 
+
   public getReplies(index: any, id: any) {
     this.repliesArray = []
     this.loader = true
@@ -576,6 +551,7 @@ export class EventDetailsComponent {
         next: (res) => {
           this.repliesArray = res?.data
           this.loader = false
+          console.log(this.repliesArray, "Replies Array")
           if (this.repliesArray.length == 0) {
             Swal.fire({
               toast: true,
@@ -681,62 +657,89 @@ export class EventDetailsComponent {
   }
 
   public getDistance(): void {
-    const distanceToEvent = this.calculateDistance(
-      this.directionLatitude,
-      this.directionLongitude,
-      this.latitude,
-      this.longitude,
-    )
-    const averageSpeedKmPerHour = 60;
-    const timeInHours = distanceToEvent / averageSpeedKmPerHour;
-    const timeInMinutes = Math.round(timeInHours * 60);
-    let timeEstimate: string;
-    if (timeInMinutes < 60) {
-      timeEstimate = `${timeInMinutes} minutes`;
+    if (!this.directionLatitude && !this.directionLongitude) {
+      Swal.fire({
+        toast: true,
+        text: 'Address not found.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
     } else {
-      const hours = Math.floor(timeInMinutes / 60);
-      const minutes = timeInMinutes % 60;
-      timeEstimate = `${hours} hours ${minutes} minutes`;
-    }
-    this.distanceToEvent = distanceToEvent.toFixed(2);
-    this.timeEstimate = timeEstimate;
-
-    const mapElement: any = document.getElementById('map')
-    const map = new google.maps.Map(mapElement, {
-      zoom: 7,
-      center: { lat: this.directionLatitude, lng: this.directionLongitude },
-    })
-
-    const directionsService = new google.maps.DirectionsService()
-    const directionsRenderer = new google.maps.DirectionsRenderer()
-    directionsRenderer.setMap(map)
-
-    const request = {
-      origin: this.directionStreet,
-      destination: this.eventLocation,
-      travelMode: google.maps.TravelMode.DRIVING,
-    }
-
-    directionsService.route(request, function (response: any, status: any) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsRenderer.setDirections(response)
+      const distanceToEvent = this.calculateDistance(
+        this.directionLatitude,
+        this.directionLongitude,
+        this.latitude,
+        this.longitude,
+      )
+      const averageSpeedKmPerHour = 60;
+      const timeInHours = distanceToEvent / averageSpeedKmPerHour;
+      const timeInMinutes = Math.round(timeInHours * 60);
+      let timeEstimate: string;
+      if (timeInMinutes < 60) {
+        timeEstimate = `${timeInMinutes} minutes`;
       } else {
-
+        const hours = Math.floor(timeInMinutes / 60);
+        const minutes = timeInMinutes % 60;
+        timeEstimate = `${hours} hours ${minutes} minutes`;
       }
-    })
+      this.distanceToEvent = distanceToEvent.toFixed(2);
+      this.timeEstimate = timeEstimate;
 
-    const fromMarker = new google.maps.Marker({
-      position: { lat: this.directionLatitude, lng: this.directionLongitude },
-      map: map,
-      title: 'From',
-    })
+      const mapElement: any = document.getElementById('map')
+      const map = new google.maps.Map(mapElement, {
+        zoom: 7,
+        center: { lat: this.directionLatitude, lng: this.directionLongitude },
+      })
 
-    const toMarker = new google.maps.Marker({
-      position: { lat: this.latitude, lng: this.longitude },
-      map: map,
-      title: 'To',
-    })
+      const directionsService = new google.maps.DirectionsService()
+      const directionsRenderer = new google.maps.DirectionsRenderer()
+      directionsRenderer.setMap(map)
 
+      const request = {
+        origin: this.directionStreet,
+        destination: this.eventLocation,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }
+
+      directionsService.route(request, function (response: any, status: any) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsRenderer.setDirections(response)
+        } else {
+
+        }
+      })
+
+      const fromMarker = new google.maps.Marker({
+        position: { lat: this.directionLatitude, lng: this.directionLongitude },
+        map: map,
+        title: 'From',
+      })
+
+      const toMarker = new google.maps.Marker({
+        position: { lat: this.latitude, lng: this.longitude },
+        map: map,
+        title: 'To',
+      })
+    }
+  }
+
+  public handleBookingNow() {
+    if (!this.isAuthentecate) {
+      Swal.fire({
+        toast: true,
+        text: 'To book an event, please log in first.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    }
   }
 
   // public openLightBox(index: number) {

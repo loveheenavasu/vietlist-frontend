@@ -4,7 +4,7 @@
 
 .sidebar-cnt {
     height: 100%;
-    width: 70%;
+    width: 80%;
     margin: auto;
     background-color: #f3f8fd;
     display: flex;
@@ -14,8 +14,7 @@
 .sidebar-items {
     margin: 0 auto;
     width: 80%;
-    padding: 20px 35px;
-
+    padding: 20px;
     ul {
         list-style-type: none;
         margin-top: 2.5rem;
@@ -26,7 +25,7 @@
             margin-bottom: 26px;
             line-height: 20px;
             color: rgba(0, 0, 0, 0.5);
-            font-size: 16px;
+            font-size: 15px;
 
             span {
                 margin-right: 10px;

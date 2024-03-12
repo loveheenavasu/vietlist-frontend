@@ -8,13 +8,14 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgIf } from '@angular/common'
+import { EventService } from 'src/app/manage-event/service/event.service'
 
 
 @Component({
   selector: 'app-preview-business',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink , NgIf],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
 })
@@ -29,13 +30,17 @@ export class PreviewBusinessComponent {
   public longitude!: number
   public userDetails:any;
 public hourFilter :any
+public eventDetails:any
+public eventLocation:any;
+public overllRating:any
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
     private businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     public router: Router,
-    private authService:AuthenticationService
+    private authService:AuthenticationService,
+    private eventService:EventService
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -102,14 +107,15 @@ public hourFilter :any
   }
   dataget: any
   gettags: any
+
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
-
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
+        this.getEventDetails()
          console.log( this.businessFormDetails,' this.businessFormDetails this.businessFormDetails')
         const business_hours = this.businessFormDetails?.business_hours
        this.hourFilter =  this.getCleanedBusinessHours(business_hours)
@@ -139,6 +145,11 @@ public hourFilter :any
       error: (err) => {},
     })
   }
+
+  public gotToEventDetails(id:any, isGlobal:any){
+    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+ 
+   }
 
   getCleanedBusinessHours(hours:any): string {
     // Remove array braces and commas
@@ -186,6 +197,26 @@ public hourFilter :any
 
   setActiveTab(tab: string) {
  
+  }
+
+
+  public getEventDetails() {
+    this.fullPageLoaderService.showLoader()
+    this.eventService.getEventDetailsByPostId(this.businessFormDetails?.event_id).subscribe({
+      next: (res) => {
+        console.log(res , "RESPONSE")
+        this.fullPageLoaderService.hideLoader()
+        ;(this.eventDetails = res?.data[0] || 'NA'),
+          (this.eventLocation = this.eventDetails?.street)
+        this.overllRating = Number(res.data[0].overall_rating)
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
+        this.initMap()
+      },
+      error: (err:any) => {
+        this.fullPageLoaderService.hideLoader()
+      },
+    })
   }
 
   public scrollTo(elementId: string): void {
