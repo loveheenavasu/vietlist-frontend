@@ -943,8 +943,7 @@
           <div class="card mt-3 shadow-sm">
             <div class="bsui toast-header">
               <div class="profile__">
-                <img
-                  src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                <img [src]="userDetail?.user_image ? userDetail?.user_image : '/assets/image/no_profile.webp' " />
               </div>
               <span style="width: 39%">
                 {{ key.comment_author_email }}
