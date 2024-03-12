@@ -337,10 +337,15 @@ export class EventDetailsComponent {
 
 
   public extractDateFromTimestamp(timestamp: any) {
-    const parts = timestamp.split('T');
-    const datePart = parts[0];
-    return datePart;
+    if (timestamp) {
+      const parts = timestamp.split('T');
+      const datePart = parts[0];
+      return datePart;
+    } else {
+      return null; // or handle the case when timestamp is undefined in your specific context
+    }
   }
+  
 
   public initMap() {
     const mapElement = document.getElementById('map')
