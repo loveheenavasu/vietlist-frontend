@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router'
 import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
-import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
 import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 
@@ -93,7 +93,9 @@ export class EventDetailsComponent {
   public isDistanceLoading:boolean = false
   public timeEstimate:any 
   public currentAddress: string = ''; // Property to store the current address
-
+  public isDateMatched:boolean = false
+  public role = Roles
+  public term_and_condition = new FormControl('')
   /**
    *
    * @param eventService
@@ -117,6 +119,7 @@ export class EventDetailsComponent {
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
+    private localStorageService:LocalStorageService
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -156,11 +159,6 @@ export class EventDetailsComponent {
     })
   }
 
-  selcetdvalues() {
-    // this.storValues ={
-    //   this.
-    // }
-  }
 
   ngOnInit() {
     if (this.postId) {
@@ -172,6 +170,11 @@ export class EventDetailsComponent {
     if (Token) {
       this.fetchProfileDetail()
     }
+  }
+
+
+  public saveDetailsInLocal() {
+    this.localStorageService.saveData('reviewFormData' , JSON.stringify(this.reviewForm.value))
   }
 
   public getAddress(place: any) {
@@ -211,6 +214,16 @@ export class EventDetailsComponent {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
+        console.log(res , "RESPONSE")
+        const startDate = res.data[0].event_dates?.start_date
+        const endDate = res.data[0].event_dates?.end_date
+        const startDateNew = this.extractDateFromTimestamp(startDate)
+        const endDateNew = this.extractDateFromTimestamp(endDate)
+        if(startDateNew == endDateNew){
+          this.isDateMatched = true
+        }else{
+          this.isDateMatched = false
+        }
         this.fullPageLoaderService.hideLoader()
         ;(this.eventDetails = res?.data[0] || 'NA'),
           (this.eventLocation = this.eventDetails?.street)
@@ -224,6 +237,13 @@ export class EventDetailsComponent {
       },
     })
   }
+
+
+  public extractDateFromTimestamp(timestamp:any) {
+    const parts = timestamp.split('T');
+    const datePart = parts[0]; 
+    return datePart;
+}
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -252,62 +272,18 @@ export class EventDetailsComponent {
    
     }
   }
+
   openGoogleMaps() {
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
   }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
-    // if (this.levelOneImageArr.length >= 5) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
-    //     animation: false,
-    //     icon: 'warning',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
-    // if (this.vediosHide.level_id == '1') {
-
-    //   if (this.files.length > 5) {
-    //     console.log('upload 5 images ')
-    //     Swal.fire({
-    //       toast: true,
-    //       text: 'Max 5 images allowed. Upgrade your plan for more',
-    //       animation: false,
-    //       icon: 'error',
-    //       position: 'top-right',
-    //       showConfirmButton: false,
-    //       timer: 3000,
-    //       timerProgressBar: true,
-    //     })
-    //     return
-    //   }
-    // }
     this.displayLevelOneImages()
   }
 
   public displayLevelOneImages() {
     let maxImages: any = 5
-    // if (this.files.length > maxImages) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: `You can only select up to ${maxImages} images at a time.`,
-    //     animation: false,
-    //     icon: 'error',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
     this.isImageUploading = true
 
     const filesToUpload = this.files.slice(0, maxImages)
@@ -336,6 +312,7 @@ export class EventDetailsComponent {
       })
     })
   }
+
 
   public removeImageItem(index: any) {
     this.levelOneImageArr.splice(index, 1)
@@ -423,10 +400,7 @@ export class EventDetailsComponent {
     this.replyIndexshow = index
     this.getReplies(index, id)
   }
-  // public hideReplyField() {
-  //   this.isReplyFieldOpen = false;
-  //   this.replyIndexshow = -1;
-  // }
+  
 
   public hideReplyField() {
     this.isReplycomFieldOpen = false
@@ -458,6 +432,7 @@ export class EventDetailsComponent {
     })
   }
 
+
   public getReplies(index: any, id: any) {
     this.repliesArray = []
     this.loader = true
@@ -469,6 +444,7 @@ export class EventDetailsComponent {
         next: (res) => {
           this.repliesArray = res?.data
           this.loader = false
+          console.log(this.repliesArray , "Replies Array")
           if (this.repliesArray.length == 0) {
             Swal.fire({
               toast: true,
@@ -573,6 +549,18 @@ export class EventDetailsComponent {
   }
 
   public getDistance(): void {
+    if(!this.directionLatitude && !this.directionLongitude){
+      Swal.fire({
+        toast: true,
+        text: 'Address not found.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    } else {
     const distanceToEvent = this.calculateDistance(
       this.directionLatitude,
       this.directionLongitude,
@@ -628,7 +616,22 @@ export class EventDetailsComponent {
       map: map,
       title: 'To',
     })
-   
+  }
+  }
+
+  public handleBookingNow(){
+    if(!this.isAuthentecate){
+      Swal.fire({
+        toast: true,
+        text: 'To book an event, please log in first.',
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    }
   }
 
 }

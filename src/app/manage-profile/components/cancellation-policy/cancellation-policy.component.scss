@@ -1,0 +1,11 @@
+@import "../../../../assets/scss/common.scss";
+
+.form-check-input:checked {
+    background-color: var(--primary-color-orange) !important;
+    border-color: var(--primary-color-orange) !important;
+  }
+  
+  .form-check-label {
+    color: var(--dark-grey);
+    font-size: 15px;
+  }

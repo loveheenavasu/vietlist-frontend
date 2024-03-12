@@ -1,5 +1,5 @@
 import { FindEventParams} from './../../../manage-business/service/business.interface';
-import { DatePipe, NgClass } from '@angular/common'
+import { DatePipe, NgClass, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
@@ -26,6 +26,7 @@ import Swal from 'sweetalert2';
     DatePipe,
     MatSelectModule,
     NgxPaginationModule,
+    NgIf
   ],
   templateUrl: './all-event.component.html',
   styleUrl: './all-event.component.scss',

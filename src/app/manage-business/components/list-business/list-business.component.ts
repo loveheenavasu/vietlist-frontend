@@ -125,7 +125,8 @@ export class ListBusinessComponent {
   public street = ''
   public tags: any[] = []
   public verifiedBadge: any
-  public businessLogoUrl: any
+  public businessLogoUrl: any[]=[]
+
   public levelOneImageArr: any[]=[]
   public imageUrl: any
   public filess: any
