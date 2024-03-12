@@ -530,15 +530,15 @@
               <div class="input-group">
                 <input
                   matInput
-                  [matDatepicker]="picker"
+                  [matDatepicker]="startdatepicker"
                   class="input-control"
-                  (click)="booking_start_date.open()"
+                  (click)="startdatepicker.open()"
                   formControlName="booking_start_date"
                   [min]="minDate"
                   placeholder="Booking Start Date"
                 />
                 <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #booking_start_date></mat-datepicker>
+                <mat-datepicker #startdatepicker></mat-datepicker>
               </div>
             </div>
           </div>
@@ -548,15 +548,15 @@
               <div class="input-group">
                 <input
                   matInput
-                  [matDatepicker]="picker"
+                  [matDatepicker]="enddatepicker"
                   class="input-control"
-                  (click)="booking_end_date.open()"
+                  (click)="enddatepicker.open()"
                   formControlName="booking_end_date"
                   [min]="minDate"
                   placeholder="Booking End Date"
                 />
                 <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #booking_end_date></mat-datepicker>
+                <mat-datepicker #enddatepicker></mat-datepicker>
               </div>
             </div>
           </div>

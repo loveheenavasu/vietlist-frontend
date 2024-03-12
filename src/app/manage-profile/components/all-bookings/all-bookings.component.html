@@ -15,8 +15,8 @@
       
           <tr>
             <th>Person Name</th>
-            <th>Event Name</th>
-            <th>End Date</th>
+            <!-- <th>Event Name</th> -->
+            <!-- <th>End Date</th> -->
             <th>Price</th>
             <th>No. of Bookings</th>
             <th>Status</th>
@@ -26,7 +26,19 @@
         </thead>
         <tbody>
           @for(key of allBookingsArray ; track $index){
-         <tr></tr>
+         <tr>
+          <td>{{key.first_name}} {{key.last_name}}</td>
+          <!-- <td>{{key.end_date}}</td> -->
+          <td>{{key.booking_price}}</td>
+          <td>{{key.number_of_booking}}</td>
+          <td>{{key.booking_status}}</td>
+          <td>
+            <div class="d-flex">
+              <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+              <i class="fa fa-times-circle" aria-hidden="true"  style="cursor:pointer;margin-left: 10px;"  ></i>
+            </div>
+          </td>
+         </tr>
         }
           <!-- Add more rows of data as needed -->
         </tbody>

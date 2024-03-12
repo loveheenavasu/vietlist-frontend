@@ -17,6 +17,7 @@ import Swal from 'sweetalert2'
 import { environment } from 'src/environments/environment.development'
 import { CommonModule, NgFor, NgIf } from '@angular/common'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { EventService } from 'src/app/manage-event/service/event.service'
 
 @Component({
   selector: 'app-confirm-payment',
@@ -35,6 +36,7 @@ export class ConfirmPaymentComponent {
   public billingAddressElements: any
   public billingAddress: any
   public card: any
+  public bookingPaymentIntent: any
   cardHandler = this.onChange.bind(this)
   public error: any
   public authToken: any
@@ -42,8 +44,9 @@ export class ConfirmPaymentComponent {
   public paymentIntent: any
   public paymentMethod: any
   public billingDetails: any
-  billingAddressValid: boolean = false; // Add this line
-
+  public billingAddressValid: boolean = false; // Add this line
+  public bookingData: any
+  public eventPrice: any
   constructor(
     private stripeService: AngularStripeService,
     private cd: ChangeDetectorRef,
@@ -52,13 +55,21 @@ export class ConfirmPaymentComponent {
     private subscriptionService: PlansService,
     private loaderService: FullPageLoaderService,
     public router: Router,
-    private profileServie: ProfileService
+    private profileServie: ProfileService,
+    private eventService: EventService,
+    private _activatedRoute: ActivatedRoute
 
-  ) { }
+  ) {
+    this._activatedRoute.params.subscribe((res) => {
+      this.createBookingIntent()
+    })
+
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.planId = params['id']
+      this.eventPrice = params['price']
     })
     this.authToken = this.sessionService.getAuthToken()
     if (this.authToken) {
@@ -74,7 +85,7 @@ export class ConfirmPaymentComponent {
       next: (res: any) => {
         // this.fullPageLoader.hideLoader()
         this.billingDetails = res.data
-         console.log(this.billingDetails,'billingDetailsbillingDetails')
+        console.log(this.billingDetails, 'billingDetailsbillingDetails')
         if (res) {
           this.stripeService
             .setPublishableKey(environment.stripe_publish_key)
@@ -103,12 +114,12 @@ export class ConfirmPaymentComponent {
                 defaultValues: {
                   name: this.billingDetails?.pmpro_bfirstname,
                   address: {
-                    line1:this.billingDetails?.pmpro_baddress1,
-                    line2:this.billingDetails?.pmpro_baddress2,
-                    city:this.billingDetails?.pmpro_bcity,
-                    state:this.billingDetails?.pmpro_bstate,
-                    country:this.billingDetails?.pmpro_bcountry,
-                    postal_code:this.billingDetails?.pmpro_bzipcode,
+                    line1: this.billingDetails?.pmpro_baddress1,
+                    line2: this.billingDetails?.pmpro_baddress2,
+                    city: this.billingDetails?.pmpro_bcity,
+                    state: this.billingDetails?.pmpro_bstate,
+                    country: this.billingDetails?.pmpro_bcountry,
+                    postal_code: this.billingDetails?.pmpro_bzipcode,
                   },
                   // address: {
                   //   line1: this.billingDetails?.pmpro_baddress1,
@@ -168,12 +179,12 @@ export class ConfirmPaymentComponent {
           defaultValues: {
             name: this.billingDetails?.pmpro_bfirstname,
             address: {
-              line1:this.billingDetails?.pmpro_baddress1,
-              line2:this.billingDetails?.pmpro_baddress2,
-              city:this.billingDetails?.pmpro_bcity,
-              state:this.billingDetails?.pmpro_bstate,
-              postal_code:this.billingDetails?.pmpro_bzipcode,
-              country:this.billingDetails?.pmpro_bcountry
+              line1: this.billingDetails?.pmpro_baddress1,
+              line2: this.billingDetails?.pmpro_baddress2,
+              city: this.billingDetails?.pmpro_bcity,
+              state: this.billingDetails?.pmpro_bstate,
+              postal_code: this.billingDetails?.pmpro_bzipcode,
+              country: this.billingDetails?.pmpro_bcountry
             },
             // address: {
             // line1: 'demoggfghf',
@@ -260,7 +271,11 @@ export class ConfirmPaymentComponent {
       })
     } else {
       this.paymentMethod = setupIntent
-      if (this.paymentMethod) {
+      if (this.paymentMethod && this.eventPrice) {
+       console.log('price available')
+        this.confirmBookingPayment()
+      } else if (this.paymentMethod && !this.eventPrice) {
+        console.log('price Not available')
         this.confirmSubscriptionPayment()
       }
     }
@@ -298,5 +313,52 @@ export class ConfirmPaymentComponent {
   }
 
 
+  /************* API FOR BOOKING AN EVENT ************/
 
+  //API TO CREATE BOOKING INTENT//
+  public createBookingIntent() {
+
+    this.eventService.createPaymentIntentForBooking().subscribe({
+      next: (res: any) => {
+
+        if (res) {
+          this.bookingPaymentIntent = res?.client_secret
+        }
+        console.log(res, this.bookingPaymentIntent)
+      },
+      error: (err) => {
+
+      }
+    })
+  }
+
+  public confirmBookingPayment() {
+    this.loaderService.showLoader()
+    const body = {
+      amount: this.eventPrice,
+      pm_data: {
+        id: this.paymentMethod?.payment_method,
+        billing_details: this.billingAddress,
+      },
+    }
+    this.eventService.stripebookingPayment(body).subscribe({
+      next: (res:any) => {
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.router.navigate(['/manage-profile'])
+        this.loaderService.hideLoader()
+      },
+      error: (err) => {
+        this.loaderService.hideLoader()
+      }
+    })
+  }
 }

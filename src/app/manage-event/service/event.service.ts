@@ -105,6 +105,24 @@ export class EventService {
     .set('event_id', event_id)
     return this.http.get(endpoint, {headers:authToken , params:queryParams})
   }
+
+  public createPaymentIntentForBooking(){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CreateBookingPaymentIntent)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, null , { headers: authToken })
+  }
+
+  public stripebookingPayment(body:any){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.StripePaymentForBooking)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, body , { headers: authToken })
+  }
+
+  public addEventBooking(body:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetEventBooking)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, body , { headers: authToken })
+  }
   
   public getMyBooking():Observable<any>{
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.MyBookingsByUserId)

@@ -129,7 +129,7 @@ export default [
     loadComponent: () => ConfirmPaymentComponent,
   },
   {
-    path: 'confirm-payment/:price',
+    path: 'booking-payment/:price',
     loadComponent: () => ConfirmPaymentComponent,
   },
   {

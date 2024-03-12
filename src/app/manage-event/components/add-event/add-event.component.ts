@@ -533,7 +533,12 @@ this._activatedRoute.params.subscribe((res) => {
       });
     });
   }
-
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // Months are zero based
+    const day = date.getDate();
+    return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+  }
   public addEvent(val?: any) {
     this.debounce = true
     this.isloader = true
@@ -553,10 +558,9 @@ this._activatedRoute.params.subscribe((res) => {
       is_bookable_: this.isBookable.value ? 1 : 0,
       price:this.addEventForm.value.price,
       number_of_bookings: this.addEventForm.value.number_of_bookings,
-      booking_start_date:this.addEventForm.value.booking_start_date,
-      booking_end_date:this.addEventForm.value.booking_end_date,
+      booking_start_date: this.formatDate(this.addEventForm.value.booking_start_date),
+      booking_end_date:this.formatDate(this.addEventForm.value.booking_end_date),
     };
-    console.log(body)
     const formData = new FormData();
     Object.entries(body).forEach(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
