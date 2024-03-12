@@ -447,6 +447,7 @@ fieldset:disabled .btn {
 }
 
 .active {
+    background: none !important;
     border: none;
     // border-bottom: 1px solid #ff9900 !important;
     color: #7A7A7A;

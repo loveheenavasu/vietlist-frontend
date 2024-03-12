@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http'
-import { ActivatedRoute, Route, Router } from '@angular/router'
+import { ActivatedRoute,  Router } from '@angular/router'
 import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
-import { NgxStarRatingModule } from 'ngx-star-rating'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 // import { Lightbox } from 'ngx-lightbox';
 
@@ -24,7 +23,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
-import { MatDatepickerModule } from '@angular/material/datepicker'
+import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 
 // NgxStarRatingModule
@@ -37,7 +36,6 @@ import { MatNativeDateModule } from '@angular/material/core'
     FormsModule,
     TitleCasePipe,
     NgxDropzoneModule,
-    NgxStarRatingModule,
     DatePipe,
     CommonModule,
     NgbRatingModule,
@@ -45,13 +43,17 @@ import { MatNativeDateModule } from '@angular/material/core'
     NgIf,
     SkeletonLoadingComponent,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    LoaderComponent
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class EventDetailsComponent {
+  public selectedDates: Date[] = [];
+  public booking_date:any = new FormControl('')
+  public number_of_booking = new FormControl('')
   public loader: boolean = false
   public footerPageContent?: any
   public reviewForm!: FormGroup
@@ -103,6 +105,9 @@ export class EventDetailsComponent {
   public isDateMatched: boolean = false
   public role = Roles
   public term_and_condition = new FormControl('')
+  public convertedBookingDate:any
+  public date = new Date()
+  public isBookingLoader : boolean = false
   /**
    *
    * @param eventService
@@ -129,8 +134,6 @@ export class EventDetailsComponent {
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
-
-
     private localStorageService: LocalStorageService
   ) {
     this.reviewForm = this.fb.group({
@@ -335,6 +338,34 @@ export class EventDetailsComponent {
     })
   }
 
+  public dateFilter: DateFilterFn<Date | null> = (date: Date | null) => {
+    if (date !== null) {
+        const selectedTimestamp = date.getTime(); // Get timestamp of selected date
+        const startDateString = this.eventDetails?.event_dates.start_date;
+        const endDateString = this.eventDetails?.event_dates.end_date;
+        
+        if (startDateString && endDateString) {
+            const startDate = new Date(startDateString);
+            const endDate = new Date(endDateString);
+  
+            const startTime = startDate.getTime(); // Get timestamp of start date
+            const endTime = endDate.getTime(); // Get timestamp of end date
+  
+            if (selectedTimestamp >= startTime && selectedTimestamp <= endTime) {
+                return true; // Date is within the range, enable it
+            } else {
+                console.error('Selected date is not within the range');
+                return false; // Date is not within the range, disable it
+            }
+        } else {
+            console.error('Invalid start or end date');
+            return false; // Either start date or end date is invalid, disable it
+        }
+    } else {
+        console.error('Invalid date');
+        return false; // No date selected, disable it
+    }
+  };
 
   public extractDateFromTimestamp(timestamp: any) {
     if (timestamp) {
@@ -732,7 +763,11 @@ export class EventDetailsComponent {
     }
   }
 
-  public handleBookingNow() {
+
+
+
+  public handleBookingNow(price:any) {
+    this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
         toast: true,
@@ -743,13 +778,33 @@ export class EventDetailsComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
+      });
+    } else {
+      // const dataObj = { eventId: this.eventDetails.post_id , eventPrice:this.eventDetails.price , date:this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date , bookingNumber: this.number_of_booking.value };
+      // console.log(dataObj , "DATAOBJ")
+      const data = {
+        event_id: this.eventDetails.post_id,
+        person_id:this.userDetail.user_id,
+        booking_price: this.eventDetails.price,
+        booking_date : this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date,
+        number_of_booking: this.number_of_booking.value
+      }
+      this.eventService.addEventBooking(data).subscribe({
+        next:(res)=>{
+          this.isBookingLoader = false
+          if(res){
+            this.router.navigate(['/booking-payment/' , price]);
+          }
+        },
+        error:(err)=>{
+          this.isBookingLoader = false
+        }
       })
+     
     }
   }
 
-  // public openLightBox(index: number) {
-  //   console.log("check click is working", index)
-  //   this._lightbox.open(this.eventDetails.featured_image, index);
-  // }
+
+
 
 }
