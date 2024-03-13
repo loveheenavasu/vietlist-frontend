@@ -1,7 +1,6 @@
-@import "../../../../assets/scss/common";
+@import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
-// @import "../../../../assets/scss/image-loader.scss";
-@import "../../../../assets/scss/image-loader";
+@import "../../../../assets/scss/variables/color";
 
 .container {
     max-width: 1140px;
