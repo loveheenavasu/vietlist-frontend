@@ -65,7 +65,7 @@ export class BookingDetailComponent {
     this.fullPageLoaderService.showLoader()
     this.eventService.getBookingDetails(this.bookingId).subscribe({
       next: (res) => {
-        console.log(res, 'RESPONSE')
+       
         this.bookingInfo = res?.data[0]
         this.fullPageLoaderService.hideLoader()
         ;(this.eventDetails = res?.data[0] || 'NA'),
