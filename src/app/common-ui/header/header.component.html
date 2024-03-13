@@ -115,14 +115,14 @@
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
               <mat-menu #menuevent="matMenu">
-                <button mat-menu-item>
-                  <span [routerLink]="['/events']">All Events</span>
+                <button mat-menu-item [routerLink]="['/events']">
+                  <span >All Events</span>
                 </button>
-                <button mat-menu-item>
-                  <span [routerLink]="['/add-event']">Add Event</span>
+                <button mat-menu-item [routerLink]="['/add-event']">
+                  <span >Add Event</span>
                 </button>
-                <button mat-menu-item *ngIf="userRole == roles.businessOwner">
-                  <span [routerLink]="['/manage-profile/manage-events']">My Events</span>
+                <button mat-menu-item *ngIf="userRole == roles.businessOwner" [routerLink]="['/manage-profile/manage-events']">
+                  <span >My Events</span>
                 </button>
               </mat-menu>
             </li>
