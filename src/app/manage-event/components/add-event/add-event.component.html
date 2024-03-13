@@ -30,20 +30,12 @@
         </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Event start date <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Event start date <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <div class="input-group">
-              <input
-                matInput
-                [matDatepicker]="picker"
-                class="input-control"
-                (click)="picker.open()"
-                formControlName="eventStartDate"
-                [min]="minDate"
-              />
+              <input matInput [matDatepicker]="picker" class="input-control" (click)="picker.open()"
+                formControlName="eventStartDate" [min]="minDate" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker></mat-datepicker>
             </div>
@@ -51,20 +43,12 @@
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Event end date <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Event end date <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <div class="input-group">
-              <input
-                matInput
-                [matDatepicker]="picker2"
-                class="input-control"
-                (click)="picker2.open()"
-                [min]="minDate"
-                formControlName="eventEndDate"
-              />
+              <input matInput [matDatepicker]="picker2" class="input-control" (click)="picker2.open()" [min]="minDate"
+                formControlName="eventEndDate" (dateChange)="updateBookingEndDateOptions($event.value)" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker2></mat-datepicker>
             </div>
@@ -172,106 +156,74 @@
             <label class="listing-form-label">Set event for all day </label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input class="form-check-input" type="checkbox"  [formControl]="recurringEvent"/>
+            <input class="form-check-input" type="checkbox" [formControl]="recurringEvent" />
           </div>
         </div>
 
         @if (!checkValue) {
-       
-        
-          <div class="row my-4 px-2 align-items-center">
-            <div class="col-12 col-md-12 col-lg-4">
-              <label class="listing-form-label"
-                > Start Time <span class="asterik">*</span></label
-              >
-            </div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <div class="input-group">
-                <input
-                  matInput
-                  
-                  class="input-control"
-                  type="time"
-                  formControlName="startTime"
-                />
 
-                <!-- <i class="fa fa-calendar-o"></i> -->
-                <!-- <mat-datepicker #picker4></mat-datepicker> -->
-                <div class="error-message" *ngIf="addEventForm.controls['startTime'].invalid && addEventForm.controls['startTime'].touched">
-                  Start Time is required.
-              </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"> Start Time <span class="asterik">*</span></label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <div class="input-group">
+              <input matInput class="input-control" type="time" formControlName="startTime" />
+
+              <!-- <i class="fa fa-calendar-o"></i> -->
+              <!-- <mat-datepicker #picker4></mat-datepicker> -->
+              <div class="error-message"
+                *ngIf="addEventForm.controls['startTime'].invalid && addEventForm.controls['startTime'].touched">
+                Start Time is required.
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="row my-4 px-2 align-items-center">
-            <div class="col-12 col-md-12 col-lg-4">
-              <label class="listing-form-label"
-                > End Time <span class="asterik">*</span></label
-              >
-            </div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <div class="input-group">
-                <input
-                  matInput
-                  type="time"
-                  class="input-control"
-                  formControlName="endTime"
-                />
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"> End Time <span class="asterik">*</span></label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <div class="input-group">
+              <input matInput type="time" class="input-control" formControlName="endTime" />
 
-                <!-- <i class="fa fa-calendar-o"></i> -->
-                <!-- <mat-datepicker #picker3></mat-datepicker> -->
-                <div class="error-message" *ngIf="addEventForm.controls['endTime'].invalid && addEventForm.controls['endTime'].touched">
-                  End Time  is required.
-              </div>
+              <!-- <i class="fa fa-calendar-o"></i> -->
+              <!-- <mat-datepicker #picker3></mat-datepicker> -->
+              <div class="error-message"
+                *ngIf="addEventForm.controls['endTime'].invalid && addEventForm.controls['endTime'].touched">
+                End Time is required.
               </div>
             </div>
           </div>
+        </div>
         }
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label for="name" class="listing-form-label"
-              >Event Title <span class="asterik">*</span></label
-            >
+            <label for="name" class="listing-form-label">Event Title <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              placeholder="Enter Event Title"
-              class="input-control"
-              type="text"
-              formControlName="event_title"
-            />
+            <input placeholder="Enter Event Title" class="input-control" type="text" formControlName="event_title" />
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label for="name" class="listing-form-label"
-              >Event Description <span class="asterik">*</span></label
-            >
+            <label for="name" class="listing-form-label">Event Description <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <textarea
-              style="height:10rem"
-              rows="30"
-              class="input-control"
-              formControlName="event_description"
-            ></textarea>
+            <textarea style="height:10rem" rows="30" class="input-control"
+              formControlName="event_description"></textarea>
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Category <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Category <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select
-              class="vietlist-select"
-              placeholder="Category"
-              formControlName="post_category"   
-            >
+            <mat-select class="vietlist-select" placeholder="Category" formControlName="post_category">
               @for (key of post_categorys; track $index) {
-                <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              <mat-option [value]="key.id">{{ key.name }}</mat-option>
               }
             </mat-select>
           </div>
@@ -304,7 +256,7 @@
               >Tags<span class="asterik">*</span></label
             >
           </div> -->
-          <!-- <div class="col-12 col-md-12 col-lg-8">
+        <!-- <div class="col-12 col-md-12 col-lg-8">
             <ng-select
               class="select2-selection"
               [items]="post_tags"
@@ -325,84 +277,51 @@
         </div> -->
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <AutocompleteComponent
-              (setAddress)="getAddress($event)"
-              adressType="geocode"
-              [value]="street"
-            ></AutocompleteComponent>
+            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+            </AutocompleteComponent>
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Country<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Country<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Choose a country..."
-              [(ngModel)]="country"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Choose a country..." [(ngModel)]="country"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Region<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Region<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Select region or type a new one"
-              [(ngModel)]="state"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Select region or type a new one" [(ngModel)]="state"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >City<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">City<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Select city or type a new one"
-              [(ngModel)]="city"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Select city or type a new one" [(ngModel)]="city"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Zip/Post Code<span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Zip/Post Code<span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Enter zip code"
-              [(ngModel)]="zipcode"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input class="input-control" type="text" placeholder="Enter zip code" [(ngModel)]="zipcode"
+              [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
         <div class="row my-4 px-2">
@@ -411,46 +330,28 @@
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address Latitude <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address Latitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              [(ngModel)]="latitude"
-              [ngModelOptions]="{ standalone: true }"
-              readonly
-            />
+            <input class="input-control" [(ngModel)]="latitude" [ngModelOptions]="{ standalone: true }" readonly />
           </div>
         </div>
 
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
-            <label class="listing-form-label"
-              >Address Longitude <span class="asterik">*</span></label
-            >
+            <label class="listing-form-label">Address Longitude <span class="asterik">*</span></label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input
-              class="input-control"
-              [(ngModel)]="longitude"
-              [ngModelOptions]="{ standalone: true }"
-              readonly
-            />
+            <input class="input-control" [(ngModel)]="longitude" [ngModelOptions]="{ standalone: true }" readonly />
           </div>
         </div>
-        <div class="row my-4 px-2 align-items-center"  *ngIf="vediosHide?.level_id !='1'">
+        <div class="row my-4 px-2 align-items-center" *ngIf="vediosHide?.level_id !='1'">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label">Map View</label>
           </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <mat-select
-              class="vietlist-select"
-              placeholder="Select Map View"
-              formControlName="mapview"
-              (click)="changeMapView()"
-            >
+            <mat-select class="vietlist-select" placeholder="Select Map View" formControlName="mapview"
+              (click)="changeMapView()">
               <mat-option value="default view">Default View</mat-option>
               <mat-option value="satellite view">Satellite Map</mat-option>
               <mat-option value="hybrid view">Hybrid Map</mat-option>
@@ -458,7 +359,7 @@
             </mat-select>
           </div>
         </div>
-        <div class="row my-3 px-2" >
+        <div class="row my-3 px-2">
           <div class="col-12">
             <!--a dropzone-->
             <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
@@ -470,15 +371,16 @@
               </div>
             </div>
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
-              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and
+                Drop here
                 or
                 Browse a file</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
-            
+
             </ngx-dropzone>
             <div class="main_images">
               @for (preview of levelOneImageArr; track $index) {
-      
+
               <div class="images__" *ngIf="preview">
                 <div class="removeImage">
                   <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
@@ -514,59 +416,44 @@
           </div>
         </div>
         @if(isBookableClicked){
-          <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4">Price <span class="asterik">*</span></div>
-            <div class="col-12 col-md-12 col-lg-8">
-             <input type="text" class="input-control" placeholder="Price ($)" formControlName="price"/>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-lg-4">Price <span class="asterik">*</span></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input type="text" class="input-control" placeholder="Price ($)" formControlName="price" />
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-lg-4">Number of Bookings <span class="asterik">*</span></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input type="text" class="input-control" placeholder="Number of Bookings can be accepted"
+              formControlName="number_of_bookings" />
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-lg-4"> <label class="listing-form-label">Booking start date <span
+                class="asterik">*</span></label></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <div class="input-group">
+              <input matInput [matDatepicker]="startdatepicker" class="input-control" (click)="startdatepicker.open()"
+                formControlName="booking_start_date" [min]="minDate" placeholder="Booking Start Date" />
+              <i class="fa fa-calendar-o"></i>
+              <mat-datepicker #startdatepicker></mat-datepicker>
             </div>
           </div>
-          <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4">Number of Bookings <span class="asterik">*</span></div>
-            <div class="col-12 col-md-12 col-lg-8">
-             <input type="text" class="input-control" placeholder="Number of Bookings can be accepted" formControlName="number_of_bookings"/>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-lg-4"> <label class="listing-form-label">Booking end date <span
+                class="asterik">*</span></label></div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <div class="input-group">
+              <input matInput [matDatepicker]="enddatepicker" class="input-control" (click)="enddatepicker.open()"
+                formControlName="booking_end_date" [min]="minDate" [max]="maxDate" placeholder="Booking End Date" />
+              <i class="fa fa-calendar-o"></i>
+              <mat-datepicker #enddatepicker></mat-datepicker>
             </div>
           </div>
-          <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4">   <label class="listing-form-label"
-              >Booking start date <span class="asterik">*</span></label
-            ></div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <div class="input-group">
-                <input
-                  matInput
-                  [matDatepicker]="startdatepicker"
-                  class="input-control"
-                  (click)="startdatepicker.open()"
-                  formControlName="booking_start_date"
-                  [min]="minDate"
-                  placeholder="Booking Start Date"
-                />
-                <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #startdatepicker></mat-datepicker>
-              </div>
-            </div>
-          </div>
-          <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4">   <label class="listing-form-label"
-              >Booking end date <span class="asterik">*</span></label
-            ></div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <div class="input-group">
-                <input
-                  matInput
-                  [matDatepicker]="enddatepicker"
-                  class="input-control"
-                  (click)="enddatepicker.open()"
-                  formControlName="booking_end_date"
-                  [min]="minDate"
-                  placeholder="Booking End Date"
-                />
-                <i class="fa fa-calendar-o"></i>
-                <mat-datepicker #enddatepicker></mat-datepicker>
-              </div>
-            </div>
-          </div>
-      }
+        </div>
+        }
         <div class="row my-4 px-2">
           <div class="col-12 col-lg-4"></div>
           <div class="col-12 col-md-12 col-lg-8">
@@ -575,10 +462,7 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button
-            type="button"
-            class="btn orange-background-btn ms-auto"
-            [disabled]="
+          <button type="button" class="btn orange-background-btn ms-auto" [disabled]="
               !addEventForm.valid ||
               !country ||
               !zipcode ||
@@ -586,11 +470,8 @@
               !city ||
               !recaptcha.value ||
               debounce
-            "
-            (click)="addEvent()"
-          >
-            <app-loader *ngIf="isloader"></app-loader
-            ><span *ngIf="!isloader">Next</span>
+            " (click)="addEvent()">
+            <app-loader *ngIf="isloader"></app-loader><span *ngIf="!isloader">Next</span>
           </button>
         </div>
       </section>
