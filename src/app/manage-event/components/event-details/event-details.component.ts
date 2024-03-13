@@ -101,13 +101,15 @@ export class EventDetailsComponent {
   public ratingMessage: string = '';
   public hoveredRating: number = 0
   public businessListing: boolean = false;
-
+  public eventPrice : any
   public isDateMatched: boolean = false
   public role = Roles
   public term_and_condition = new FormControl('')
   public convertedBookingDate:any
   public date = new Date()
   public isBookingLoader : boolean = false
+  public eventNumberOfBooking: any
+  public numberofBookingPrice:any
   /**
    *
    * @param eventService
@@ -171,6 +173,13 @@ export class EventDetailsComponent {
     })
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
+    })
+
+    this.number_of_booking.valueChanges.subscribe((res)=>{
+      if(res){
+        this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
+      }
+   
     })
   }
 
@@ -330,6 +339,8 @@ export class EventDetailsComponent {
         this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
+            this.eventPrice = this.eventDetails.price
+            this.eventNumberOfBooking = this.eventDetails.number_of_bookings
         this.initMap()
       },
       error: (err) => {
@@ -338,6 +349,9 @@ export class EventDetailsComponent {
     })
   }
 
+  public getnumberOfBooking(){
+    console.log(this.number_of_booking , "nn")
+  }
   public dateFilter: DateFilterFn<Date | null> = (date: Date | null) => {
     if (date !== null) {
         const selectedTimestamp = date.getTime(); // Get timestamp of selected date
