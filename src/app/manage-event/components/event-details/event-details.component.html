@@ -502,11 +502,9 @@
                   {{ key.comment_content }}
                 </p>
                 <div class="standard-layout-reply">
-                  @if (!isReplycomFieldOpen) {
-                  <p (click)="showReplyCommentField(index, key.comment_id)">Show Reply</p>
-                  } @else {
-                  <p (click)="hideReplyField()">Hide Reply</p>
-                  }
+                  <p (click)="toggleReply(index, key.comment_id)">
+                    {{ isReplycomFieldOpen && replyIndexshow === index ? 'Hide Reply' : 'Show Reply' }}
+                  </p>
                   <p (click)="showReplyField(index)">Reply</p>
                 </div>
                 @if (isReplycomFieldOpen && replyIndexshow === index) {
@@ -689,7 +687,11 @@
             @if (eventDetails?.featured_image) {
             <div class="image-container">
               <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
-                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'" (click)="openDialog()" />
+                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
+                  (click)="openDialog(eventDetails?.featured_image,i)" />
+                <div class="linking-icon">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
               </div>
             </div>
             } @else {
@@ -698,12 +700,17 @@
               <p class="no-photo">No photos...</p>
             </div>
             } @else {
-            <div class="featured_image mt-2">
+            <div class="image-container">
               @for (img of eventDetails?.image; track $index) {
-
-              <img [src]="img" alt="business-img" />
+              <div class="featured_image mt-2">
+                <img [src]="img" alt="business-img" (click)="openDialog(eventDetails?.image,$index)" />
+                <div class="linking-icon">
+                  <i class="fa-solid fa-magnifying-glass-plus"></i>
+                </div>
+              </div>
               }
             </div>
+
             }
 
             }

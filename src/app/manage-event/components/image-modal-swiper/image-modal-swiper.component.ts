@@ -26,13 +26,13 @@ export class ImageModalSwiperComponent {
     },
   }
 
-  constructor(public matDialogRef: MatDialogRef<ImageModalSwiperComponent>, @Inject(MAT_DIALOG_DATA) public data: { images: string[] }) {
+  constructor(public matDialogRef: MatDialogRef<ImageModalSwiperComponent>, @Inject(MAT_DIALOG_DATA) public data: { images: string[], index: number }) {
 
-    console.log("check image data", data?.images)
+    console.log("check image data", data?.images, data?.index)
     if (data && data?.images) {
       setTimeout(() => {
         const swiperEl = this.swiper.nativeElement
-        Object.assign(swiperEl, this.swiperParams)
+        Object.assign(swiperEl, { ...this.swiperParams, initialSlide: data?.index })
         swiperEl.initialize()
       })
     }

@@ -538,17 +538,30 @@ export class EventDetailsComponent {
       this.replyIndex = index
     }
   }
-  public showReplyCommentField(index: number, id: any) {
 
-    this.isReplycomFieldOpen = true
+  public toggleReply(index: number, id: any) {
+    if (this.isReplycomFieldOpen && this.replyIndexshow === index) {
+      this.hideReplyField(index);
+    } else {
+      this.showReplyCommentField(index, id);
+    }
+  }
+
+  public showReplyCommentField(index: number, id: any) {
+    // this.replyIndexshow = index
+    console.log("check index", index, this.replyIndexshow)
     this.replyIndexshow = index
+    this.isReplycomFieldOpen = true
     this.getReplies(index, id)
   }
 
 
-  public hideReplyField() {
+  public hideReplyField(index: number) {
+
     this.isReplycomFieldOpen = false
+    this.replyIndexshow = -1
     this.replyIndex = -1
+
   }
 
   public handlereply(index: any, commentId: any) {
@@ -621,15 +634,15 @@ export class EventDetailsComponent {
   }
 
 
-  public openDialog() {
-    console.log("click os work", this.eventDetails.featured_image)
+  public openDialog(imageData: any, index: number) {
+    console.log("click os work", imageData)
     this.dialog.open(ImageModalSwiperComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
       panelClass: 'full-screen-modal',
-      data: { images: this.eventDetails.featured_image }
+      data: { images: imageData, index }
     });
 
   }

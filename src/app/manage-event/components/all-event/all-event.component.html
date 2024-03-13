@@ -64,7 +64,12 @@
         ) {
         <div class="grid-card col-lg-4">
           <div class="listing-img">
-            <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key.featured_image[0]" />
+            @if (key && key.featured_image && key.featured_image.length > 0) {
+            <img [src]="key.featured_image[0]" />
+            } @else {
+            <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+            }
+
           </div>
           <div class="listing-description">
             <div class="listing-heading">
