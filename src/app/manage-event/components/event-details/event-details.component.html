@@ -233,7 +233,8 @@
         </div> -->
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div" *ngIf="userDetail?.user_role === role.subscriber || !isAuthentecate">
+        @if(userDetail?.user_role === role.subscriber || !isAuthentecate){
+        <div class="profile-info-div">
           <h3>Book Now</h3>
           @if(!isDateMatched){
           
@@ -257,6 +258,9 @@
           <div class="mt-3"> 
             <input type="number" class="input-control" placeholder="Number of bookings" [formControl]="number_of_booking"/>
           </div>
+          <div>
+            <h4 class="event-date mt-3" >Total Price: {{numberofBookingPrice}} $</h4>
+          </div>
           <div class="mt-3">
             <div class="form-group">
               <div class="form-check">
@@ -278,7 +282,7 @@
             </button>
           </div>
         </div>
-
+      }
         <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
