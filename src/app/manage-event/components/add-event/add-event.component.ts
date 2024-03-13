@@ -255,7 +255,7 @@ export class AddEventComponent {
 
   }
 
-  public updateBookingEndDateOptions(selectedDate: Date) {
+  public selectedEventEndDate(selectedDate: Date) {
     const maxBookingEndDate = new Date(selectedDate);
     maxBookingEndDate.setDate(maxBookingEndDate.getDate() - 1);
     this.maxDate = maxBookingEndDate

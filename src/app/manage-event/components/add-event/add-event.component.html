@@ -48,7 +48,7 @@
           <div class="col-12 col-md-12 col-lg-8">
             <div class="input-group">
               <input matInput [matDatepicker]="picker2" class="input-control" (click)="picker2.open()" [min]="minDate"
-                formControlName="eventEndDate" (dateChange)="updateBookingEndDateOptions($event.value)" />
+                formControlName="eventEndDate" (dateChange)="selectedEventEndDate($event.value)" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker2></mat-datepicker>
             </div>
