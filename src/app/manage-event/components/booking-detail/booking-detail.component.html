@@ -59,20 +59,24 @@
           <div class="table-responsive">
             <table>
               <thead>
+
                 <tr>
-                  <th>Person Name</th>
-                  <th>Number of Bookings</th>
+                  <th>Booking Id</th>
+                  <th>Event Id</th>
                   <th>Amount</th>
                 </tr>
+
               </thead>
               <tbody>
+                @for(key of bookingInfo?.booking_transection ; track $index){
                 <tr>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-               
+                 <td>{{key.booking_id}}</td>
+                 <td>{{key.event_id}}</td>
+                 <td>{{key.total_amount}}</td>
+                
                   <!-- Add more data cells as needed -->
                 </tr>
+              } 
                 <!-- Add more rows of data as needed -->
               </tbody>
             </table>

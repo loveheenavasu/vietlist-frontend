@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ProfileService } from './../../service/profile.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-my-bookings',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './my-bookings.component.html',
   styleUrl: './my-bookings.component.scss'
 })
@@ -49,16 +50,7 @@ export class MyBookingsComponent {
     })
   }
 
-  // getcancelpolicy() {
-  //   this.profileService.getcancelpolicy().subscribe((res: any) => {
-  //     if (res) {
 
-  //       // this.title = res?.data?.cancellation_policy_title,
-  //       //   this.refund = res?.data?.cancellation_policy
-  //       // this.fullPageLoaderService.hideLoader()
-  //     }
-  //   })
-  // }
 
   public cancelBooking(bookingId:any, eventId:any){
     Swal.fire({
