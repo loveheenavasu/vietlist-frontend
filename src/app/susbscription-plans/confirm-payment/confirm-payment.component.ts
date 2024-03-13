@@ -47,6 +47,7 @@ export class ConfirmPaymentComponent {
   public billingAddressValid: boolean = false; // Add this line
   public bookingData: any
   public eventPrice: any
+  public eventIds :any
   constructor(
     private stripeService: AngularStripeService,
     private cd: ChangeDetectorRef,
@@ -60,6 +61,9 @@ export class ConfirmPaymentComponent {
     private _activatedRoute: ActivatedRoute
 
   ) {
+    this.route.queryParams.subscribe(params => {
+      this.eventIds = params
+    });
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()
     })
@@ -336,6 +340,8 @@ export class ConfirmPaymentComponent {
     this.loaderService.showLoader()
     const body = {
       amount: this.eventPrice,
+      booking_id:this.eventIds?.bookingId,
+      event_id:this.eventIds?.eventId,
       pm_data: {
         id: this.paymentMethod?.payment_method,
         billing_details: this.billingAddress,
@@ -353,7 +359,7 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.router.navigate(['/manage-profile'])
+        this.router.navigate(['/thank-you'])
         this.loaderService.hideLoader()
       },
       error: (err) => {

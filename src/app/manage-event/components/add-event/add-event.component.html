@@ -251,6 +251,8 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <textarea
+              style="height:10rem"
+              rows="30"
               class="input-control"
               formControlName="event_description"
             ></textarea>
@@ -470,7 +472,7 @@
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
-                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+                Browse a file</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>
@@ -504,7 +506,7 @@
             </div> -->
           </div>
         </div>
-        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id !='1'">
+        <div class="row my-3 px-2" *ngIf="userDetail?.level_id !== '1'">
           <div class="col-12 col-lg-4"></div>
           <div class="col-12 col-md-12 col-lg-8">
             <mat-checkbox class="event-checkbox" [formControl]="isBookable">Is Bookable <span
@@ -513,19 +515,21 @@
         </div>
         @if(isBookableClicked){
           <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-lg-4">Price <span class="asterik">*</span></div>
             <div class="col-12 col-md-12 col-lg-8">
              <input type="text" class="input-control" placeholder="Price ($)" formControlName="price"/>
             </div>
           </div>
           <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-lg-4">Number of Bookings <span class="asterik">*</span></div>
             <div class="col-12 col-md-12 col-lg-8">
              <input type="text" class="input-control" placeholder="Number of Bookings can be accepted" formControlName="number_of_bookings"/>
             </div>
           </div>
           <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-lg-4">   <label class="listing-form-label"
+              >Booking start date <span class="asterik">*</span></label
+            ></div>
             <div class="col-12 col-md-12 col-lg-8">
               <div class="input-group">
                 <input
@@ -543,7 +547,9 @@
             </div>
           </div>
           <div class="row my-3 px-2" >
-            <div class="col-12 col-lg-4"></div>
+            <div class="col-12 col-lg-4">   <label class="listing-form-label"
+              >Booking end date <span class="asterik">*</span></label
+            ></div>
             <div class="col-12 col-md-12 col-lg-8">
               <div class="input-group">
                 <input

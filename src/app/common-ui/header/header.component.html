@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="custom-toggle">
           <img src="/assets/icons/menu-toggle.svg" alt="toggle" />
         </span>
@@ -68,7 +68,7 @@
     </div>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <div class="list-item">
@@ -115,14 +115,14 @@
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
               <mat-menu #menuevent="matMenu">
-                <button mat-menu-item>
-                  <span [routerLink]="['/events']">All Events</span>
+                <button mat-menu-item [routerLink]="['/events']">
+                  <span >All Events</span>
                 </button>
-                <button mat-menu-item>
-                  <span [routerLink]="['/add-event']">Add Event</span>
+                <button mat-menu-item [routerLink]="['/add-event']">
+                  <span >Add Event</span>
                 </button>
-                <button mat-menu-item *ngIf="userRole == roles.businessOwner">
-                  <span [routerLink]="['/manage-profile/manage-events']">My Events</span>
+                <button mat-menu-item *ngIf="userRole == roles.businessOwner" [routerLink]="['/manage-profile/manage-events']">
+                  <span >My Events</span>
                 </button>
               </mat-menu>
             </li>
@@ -191,7 +191,8 @@
 
           <div class="btn-container">
             <div class="login-btn">
-              <button type=" button" class="btn" (click)="isAuthenticated ? onLogout() : login()">
+              <button data-bs-dismiss="offcanvas" type=" button" class="btn"
+                (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
               <!-- @if(isAuthenticated){
@@ -206,7 +207,8 @@
 
             </div>
             <div class="sign-up-btn">
-              <button type="button" class="btn" (click)="isAuthenticated ? profile() : signup()">
+              <button data-bs-dismiss="offcanvas" type="button" class="btn"
+                (click)="isAuthenticated ? profile() : signup()">
                 {{ isAuthenticated ? 'Profile' : 'Sign Up' }}
               </button>
             </div>

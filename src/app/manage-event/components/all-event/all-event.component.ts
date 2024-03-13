@@ -132,7 +132,7 @@ export class AllEventComponent {
 
 
   public searchBusiness() {
-    if (!this.category.value && !this.street && !this.postTitle.value) {
+    if (!this.category.value && !this.fullAddress && !this.postTitle.value) {
       Swal.fire({
         toast: true,
         text: 'Please fill either category or address',
@@ -220,10 +220,10 @@ export class AllEventComponent {
     this.zipcode = '';
     this.latitude = '';
     this.longitude = '';
-  
+    this.street = ''
     // Reset category FormControl
     this.category.setValue(null);
-  
+    this.postTitle.setValue(null)
     // Reset pagination and loader
     this.currentPage = 1;
     this.isPaginationVisible = false;

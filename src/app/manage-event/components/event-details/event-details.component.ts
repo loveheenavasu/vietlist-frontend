@@ -25,6 +25,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
+import { MatIconModule } from '@angular/material/icon'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
 
@@ -37,7 +38,6 @@ import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swi
     LoaderComponent,
     FormsModule,
     TitleCasePipe,
-    NgxDropzoneModule,
     DatePipe,
     CommonModule,
     NgbRatingModule,
@@ -46,14 +46,17 @@ import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swi
     SkeletonLoadingComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    CommonModule
+    LoaderComponent,
+    MatIconModule
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
   encapsulation: ViewEncapsulation.None,
+  providers: [DatePipe]
 })
 export class EventDetailsComponent {
   public selectedDates: Date[] = [];
+  public isDesabledform: boolean = false
   public booking_date: any = new FormControl('')
   public number_of_booking = new FormControl('')
   public loader: boolean = false
@@ -103,14 +106,18 @@ export class EventDetailsComponent {
   public ratingMessage: string = '';
   public hoveredRating: number = 0
   public businessListing: boolean = false;
-
+  public eventPrice: any
   public isDateMatched: boolean = false
   public role = Roles
   public term_and_condition = new FormControl('')
   public convertedBookingDate: any
   public date = new Date()
   public isBookingLoader: boolean = false
+  public eventNumberOfBooking: any
+  public numberofBookingPrice: any
+  public eventEndDate: any
   /**
+   *
    *
    * @param eventService
    * @param _activatedRoute
@@ -136,8 +143,9 @@ export class EventDetailsComponent {
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
+    private localStorageService: LocalStorageService,
+    private datePipe: DatePipe,
     private dialog: MatDialog,
-    private localStorageService: LocalStorageService
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -174,6 +182,13 @@ export class EventDetailsComponent {
     })
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
+    })
+
+    this.number_of_booking.valueChanges.subscribe((res) => {
+      if (res) {
+        this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
+      }
+
     })
   }
 
@@ -309,7 +324,9 @@ export class EventDetailsComponent {
         console.log("check-business-lisiting", this.eventDetails)
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => { 
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 
@@ -317,12 +334,18 @@ export class EventDetailsComponent {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
-        console.log(res, "RESPONSE")
-        this.fullPageLoaderService.hideLoader()
-        const startDate = res.data[0]?.event_dates?.start_date
-        const endDate = res.data[0]?.event_dates?.end_date
+        console.log(res, 'resresresresres')
+                this.fullPageLoaderService.hideLoader()
+        const currentDate: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '';
+        const startDate = res.data[0].event_dates?.start_date
+        const endDate = res.data[0].event_dates?.end_date
         const startDateNew = this.extractDateFromTimestamp(startDate)
         const endDateNew = this.extractDateFromTimestamp(endDate)
+        // this.eventEndDate = this.eventDetails.booking
+        if (currentDate > res?.data[0]?.booking_end_date) {
+          this.isDesabledform = true
+
+        }
         if (startDateNew == endDateNew) {
           this.isDateMatched = true
         } else {
@@ -334,6 +357,8 @@ export class EventDetailsComponent {
         this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
+        this.eventPrice = this.eventDetails.price
+        this.eventNumberOfBooking = this.eventDetails.number_of_bookings
         this.initMap()
       },
       error: (err) => {
@@ -342,6 +367,9 @@ export class EventDetailsComponent {
     })
   }
 
+  public getnumberOfBooking() {
+    console.log(this.number_of_booking, "nn")
+  }
   public dateFilter: DateFilterFn<Date | null> = (date: Date | null) => {
     if (date !== null) {
       const selectedTimestamp = date.getTime(); // Get timestamp of selected date
@@ -538,17 +566,30 @@ export class EventDetailsComponent {
       this.replyIndex = index
     }
   }
-  public showReplyCommentField(index: number, id: any) {
 
-    this.isReplycomFieldOpen = true
+  public toggleReply(index: number, id: any) {
+    if (this.isReplycomFieldOpen && this.replyIndexshow === index) {
+      this.hideReplyField(index);
+    } else {
+      this.showReplyCommentField(index, id);
+    }
+  }
+
+  public showReplyCommentField(index: number, id: any) {
+    // this.replyIndexshow = index
+    console.log("check index", index, this.replyIndexshow)
     this.replyIndexshow = index
+    this.isReplycomFieldOpen = true
     this.getReplies(index, id)
   }
 
 
-  public hideReplyField() {
+  public hideReplyField(index: number) {
+
     this.isReplycomFieldOpen = false
+    this.replyIndexshow = -1
     this.replyIndex = -1
+
   }
 
   public handlereply(index: any, commentId: any) {
@@ -621,15 +662,15 @@ export class EventDetailsComponent {
   }
 
 
-  public openDialog() {
-    console.log("click os work", this.eventDetails.featured_image)
+  public openDialog(imageData: any, index: number) {
+    console.log("click os work", imageData)
     this.dialog.open(ImageModalSwiperComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
       panelClass: 'full-screen-modal',
-      data: { images: this.eventDetails.featured_image }
+      data: { images: imageData, index }
     });
 
   }
@@ -783,7 +824,7 @@ export class EventDetailsComponent {
 
 
 
-  public handleBookingNow(price: any) {
+  public handleBookingNow(details: any) {
     this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
@@ -810,7 +851,8 @@ export class EventDetailsComponent {
         next: (res) => {
           this.isBookingLoader = false
           if (res) {
-            this.router.navigate(['/booking-payment/', price]);
+            // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
+            this.router.navigate(['/booking-payment/', details?.price], { queryParams: { eventId: details?.post_id, bookingId: res.booking_detail.booking_id } });
           }
         },
         error: (err) => {

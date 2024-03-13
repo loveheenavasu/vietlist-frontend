@@ -1,7 +1,7 @@
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { Component, HostListener } from '@angular/core'
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core'
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -114,10 +114,14 @@ export class HeaderComponent {
     })
   }
 
+
+
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
   }
+
+
 
   public navigateOnAddEvent() {
     this.sessionservice.isAuthenticated$.subscribe((res) => {

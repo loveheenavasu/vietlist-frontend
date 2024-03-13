@@ -11,6 +11,7 @@ section {
             i {
                 font-size: 24px;
                 color: #f2f2f2;
+                cursor: pointer;
             }
         }
     }
@@ -21,12 +22,13 @@ section {
         .main-cnt {
             .img-cnt {
                 width: 100%;
-                height: 100%;
+                height: 100vh;
 
                 img {
                     width: 100%;
+                    height: 100%;
                     object-fit: cover;
-                    // height: 100%;
+                    object-position: center;
                 }
             }
         }
@@ -34,6 +36,50 @@ section {
 }
 
 swiper-container {
-    width: 90% !important;
-    height: 100%;
+    width: 80% !important;
+}
+
+swiper-container::part(container) {
+    position: initial;
+}
+
+swiper-container::part(button-next) {
+    color: #f2f2f2 !important;
+    right: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
+}
+
+swiper-container::part(button-prev) {
+    color: #f2f2f2 !important;
+    left: -3.4rem !important;
+    width: 35px !important;
+    height: 35px !important;
+}
+
+@media screen and (max-width:768px) {
+    .swiper {
+        display: flex;
+        align-items: center;
+    }
+
+    swiper-container {
+        width: 80% !important;
+    }
+
+    .swiper {
+        height: 85%;
+
+        .main-cnt {
+            .img-cnt {
+                height: 300px !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    swiper-container {
+        height: 100%;
+    }
 }

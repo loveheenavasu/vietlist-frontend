@@ -166,7 +166,7 @@ export class AddEventComponent {
       booking_end_date:[''],
       booking_start_date:['']
     })
-
+    this.fetchProfileDetail()
 
     const getLevelId = localStorageService.getData('level_id')
        this.isBookable.valueChanges.subscribe((res: any) => {
@@ -194,18 +194,31 @@ export class AddEventComponent {
         this.authService.userDetails.subscribe((res:any)=>{
       if(res){
         this.vediosHide = res
-        //  this.userDetailsLevel_id = res
-          console.log( this.vediosHide,' this.vediosHide')
-        // if(res.level_id == '1'){
-        //   this.hidemapview = true
-        // }else{
-        //   this.hidemapview = false
-        // }
+        
         
       }
       
     })
- 
+
+    this.addEventForm.get('number_of_bookings')?.valueChanges.subscribe((res)=>{
+          if(this.userDetail?.level_id == '2'){
+
+      if(res > 20){
+        Swal.fire({
+          toast: true,
+          text: 'You can only add 20 bookings for this plan.',
+          animation: false,
+          icon: 'warning',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.addEventForm.get('number_of_bookings')?.setValue('')
+      }
+    }
+    })
+    
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
 
@@ -248,7 +261,7 @@ this._activatedRoute.params.subscribe((res) => {
       this.getEventDetails()
     }
 
-      this.fetchProfileDetail()
+
   
     // this.sessionService.isAuthenticated$.subscribe((res)=>{
     //   if(res == true && this.userInfo.user_role == Roles.businessOwner){
@@ -270,10 +283,13 @@ this._activatedRoute.params.subscribe((res) => {
 
     this.initMap()
   }
+
+
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.userDetail = res.data.user
+        console.log(this.userDetail )
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')

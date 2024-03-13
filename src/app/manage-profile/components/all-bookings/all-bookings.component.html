@@ -34,8 +34,8 @@
           <td>{{key.booking_status}}</td>
           <td>
             <div class="d-flex">
-              <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
-              <i class="fa fa-times-circle" aria-hidden="true"  style="cursor:pointer;margin-left: 10px;"  ></i>
+              <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true" (click)="goToDetails(key.booking_id)"></i>
+             
             </div>
           </td>
          </tr>
@@ -43,6 +43,11 @@
           <!-- Add more rows of data as needed -->
         </tbody>
       </table>
+      @if(!allBookingsArray.length){
+        <div class="text-center my-5"> <!-- Added text-center class here -->
+           <h4 class="no-records-found-2">No records found !</h4>
+        </div>
+      }
     </div>
   
   </div>

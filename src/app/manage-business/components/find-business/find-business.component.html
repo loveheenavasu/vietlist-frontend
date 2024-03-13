@@ -197,17 +197,19 @@
           <div class="list-view-card mb-5">
             <div class="business-list-wrapper d-flex">
               <div class="business-list-img" (click)="gotToListing(item.post_id, true)">
-                @if (item.image.includes("")) {
+                @if (item?.image?.includes("") || item?.image == null) {
                 <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
                 } @else {
-                <img [src]="item.image" alt="business-img" />
+                <img [src]="item?.image" alt="business-img" />
                 }
                 <div class="linking-icon">
                   <i class="fa fa-link" aria-hidden="true"></i>
                 </div>
+                @if (item.default_category?.name) {
                 <div class="category-name">
-                  <span [innerHTML]="item.default_category.name"></span>
+                  <span [innerHTML]="item.default_category?.name"></span>
                 </div>
+                }
               </div>
               <div class="business-list-info">
                 <div class="business-list-title">

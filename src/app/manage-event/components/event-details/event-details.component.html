@@ -100,7 +100,7 @@
             @if (eventDetails?.featured_image) {
             <div class="image-container">
               <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
-                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'" />
+                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"  (click)="openDialog(eventDetails?.featured_image,i)" />
               </div>
             </div>
             } @else {
@@ -112,7 +112,7 @@
             <div class="featured_image mt-2">
               @for (img of eventDetails?.image; track $index) {
 
-              <img [src]="img" alt="business-img" />
+              <img [src]="img" alt="business-img"   (click)="openDialog(eventDetails?.image,$index)"/>
               }
             </div>
             }
@@ -502,11 +502,9 @@
                   {{ key.comment_content }}
                 </p>
                 <div class="standard-layout-reply">
-                  @if (!isReplycomFieldOpen) {
-                  <p (click)="showReplyCommentField(index, key.comment_id)">Show Reply</p>
-                  } @else {
-                  <p (click)="hideReplyField()">Hide Reply</p>
-                  }
+                  <p (click)="toggleReply(index, key.comment_id)">
+                    {{ isReplycomFieldOpen && replyIndexshow === index ? 'Hide Reply' : 'Show Reply' }}
+                  </p>
                   <p (click)="showReplyField(index)">Reply</p>
                 </div>
                 @if (isReplycomFieldOpen && replyIndexshow === index) {
@@ -575,7 +573,9 @@
     <!-- } -->
   </div>
 </section>
-} @else {
+} 
+
+@else {
 <section class="banner" style="position: relative">
   <div class="content" style="width: 100%">
     <h1 style="text-transform: uppercase">
@@ -689,7 +689,11 @@
             @if (eventDetails?.featured_image) {
             <div class="image-container">
               <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
-                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'" (click)="openDialog()" />
+                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
+                  (click)="openDialog(eventDetails?.featured_image,i)" />
+                <div class="linking-icon">
+                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer" (click)="openDialog(eventDetails?.image,i)"></i>
+                </div>
               </div>
             </div>
             } @else {
@@ -698,12 +702,17 @@
               <p class="no-photo">No photos...</p>
             </div>
             } @else {
-            <div class="featured_image mt-2">
+            <div class="image-container">
               @for (img of eventDetails?.image; track $index) {
-
-              <img [src]="img" alt="business-img" />
+              <div class="featured_image mt-2">
+                <img [src]="img" alt="business-img" (click)="openDialog(eventDetails?.image,$index)" />
+                <div class="linking-icon">
+                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer" (click)="openDialog(eventDetails?.image,$index)"></i>
+                </div>
+              </div>
               }
             </div>
+
             }
 
             }
@@ -752,37 +761,65 @@
 
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div" *ngIf="userDetail?.user_role === role.subscriber || !isAuthentecate">
-          <h3>Book Now</h3>
-          @if(!isDateMatched){
-          <div class="input-group mt-4">
-            <input matInput [matDatepicker]="picker2" class="input-control" (click)="picker2.open()" />
-            <i class="fa fa-calendar-o"></i>
-            <mat-datepicker #picker2></mat-datepicker>
-          </div>
+        <!-- @if(userDetail?.user_role === role.subscriber || !isAuthentecate){ -->
+        <div class="profile-info-div">
+          @if (isDesabledform) {
+            <div class="warning-message">
+              <mat-icon>warning</mat-icon>
+              <span class="message">{{ 'Booking has been closed'}}</span>
+            </div>
           }
-          <h4 class="event-date" *ngIf="isDateMatched">{{eventDetails?.event_dates?.start_date | date:'mediumDate'}}
-          </h4>
-          <div class="mt-3">
-            <input type="number" class="input-control" placeholder="Number of bookings" />
-          </div>
-          <div class="mt-3">
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="terms"
-                  [formControl]="term_and_condition" />
-                <label class="form-check-label" for="terms">
-                  Accept Terms & Conditions
-                </label>
+         
+         
+          <div class="endBooking" [ngClass]="isDesabledform ? 'disabled-div':''" >
+            <h3>Book Now</h3>
+            @if(!isDateMatched){
+            <div class="input-group mt-4">
+              <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" class="input-control"
+                (click)="picker2.open()" [formControl]="booking_date"  [disabled]="isDesabledform"/>
+              <i class="fa fa-calendar-o"></i>
+              <mat-datepicker #picker2></mat-datepicker>
+            </div>
+            }
+            @if(isDateMatched){
+            <h4 class="event-date">{{eventDetails?.event_dates?.start_date | date:'mediumDate'}}</h4>
+            }
+
+            <div class="mt-3">
+              <input type="number" class="input-control" placeholder="Number of bookings"
+                [formControl]="number_of_booking" min="1" />
+            </div>
+            @if(numberofBookingPrice){
+            <div>
+              <h4 class="event-date mt-3">Total Price: $ {{numberofBookingPrice}} for {{number_of_booking.value}}
+                bookings.</h4>
+            </div>
+            }
+            <div class="mt-3">
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="terms"
+                    [formControl]="term_and_condition" />
+                  <label class="form-check-label" for="terms">
+                    Accept Terms & Conditions
+                  </label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="mt-3">
-            <button class="btn orange-background-btn-w-100"
-              (click)="handleBookingNow(eventDetails.price)">Submit</button>
+            <div class="mt-3">
+              <button class="btn orange-background-btn-w-100"
+                [disabled]="!this.booking_date.value || !this.number_of_booking.value || !this.term_and_condition.value"
+                (click)="handleBookingNow(eventDetails)">
+                @if(isBookingLoader){
+                <app-loader></app-loader>
+                }@else{
+                Submit
+                }
+              </button>
+            </div>
           </div>
         </div>
-
+        <!-- } -->
         <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
@@ -794,11 +831,11 @@
             <div class="location">
               <i class="fa fa-link" aria-hidden="true" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
               <a href="" target="_blank" style="
-                    color: #38ccff;
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-decoration: none;
-                  "></a>
+                  color: #38ccff;
+                  font-size: 14px;
+                  font-weight: 500;
+                  text-decoration: none;
+                "></a>
             </div>
             <div class="location">
               <i class="fab fa-facebook-square" style="font-size: 20px; margin-right: 13px; color: #7a7a7a"></i>
