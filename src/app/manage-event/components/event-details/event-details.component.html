@@ -269,7 +269,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <button class="btn orange-background-btn-w-100" (click)="handleBookingNow(eventDetails.price)">
+            <button class="btn orange-background-btn-w-100" [disabled]="!this.booking_date.value || !this.number_of_booking.value || !this.term_and_condition.value" (click)="handleBookingNow(eventDetails)">
               @if(isBookingLoader){
                 <app-loader></app-loader>
               }@else{

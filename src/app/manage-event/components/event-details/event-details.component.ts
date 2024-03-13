@@ -766,7 +766,9 @@ export class EventDetailsComponent {
 
 
 
-  public handleBookingNow(price:any) {
+  public handleBookingNow(details:any) {
+  console.log(details,'pricepricepricepriceprice')
+    // return
     this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
@@ -793,7 +795,8 @@ export class EventDetailsComponent {
         next:(res)=>{
           this.isBookingLoader = false
           if(res){
-            this.router.navigate(['/booking-payment/' , price]);
+            // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
+            this.router.navigate(['/booking-payment/' , details?.price],{queryParams:{eventId:details?.post_id, bookingId:res.booking_detail.booking_id}});
           }
         },
         error:(err)=>{
