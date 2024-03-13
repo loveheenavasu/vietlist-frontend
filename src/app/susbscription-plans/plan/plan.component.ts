@@ -75,35 +75,28 @@ export class PlanComponent {
   }
 
   navigateToConfirmPayment(id: any) {
-    // if(this.userDetails?.role == Roles.businessOwner && this i){
-    this.freePlanId = id
-    if (id == '1') {
-      this.handleFreePlan()
+    this.freePlanId = id;
+    if (id === '1') {
+      this.handleFreePlan();
     } else {
-      if(this.userDetails?.role == Roles.subscriber){
-        this.router.navigate(['/login'])
-      } else if(this.userDetails?.role == Roles.businessOwner){
-        this.router.navigate(['/confirm-payment', id])
-      }
-     
-      if (!this.isAuthenticated) {
-        this.router.navigateByUrl('/login')
+      if (!this.isAuthenticated || this.userDetails?.user_role !== Roles.businessOwner) {
+        Swal.fire({
+          toast: true,
+          text: 'You have to register as a Business Owner to purchase a plan',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        });
+        this.router.navigateByUrl('/login');
+      } else {
+        this.router.navigate(['/confirm-payment', id]);
       }
     }
-    // }
-    // else  {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: 'You have to register as a Business Owner to purchase plan',
-    //     animation: false,
-    //     icon: 'error',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   })
-    // }
   }
+  
 
   handleFreePlan() {
     this.loaderService.showLoader()

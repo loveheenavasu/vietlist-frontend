@@ -347,6 +347,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        console.log("check res data", res.data)
         this.categoryDetails = res.category_data
         this.latitude = [];
         this.longitude = [];

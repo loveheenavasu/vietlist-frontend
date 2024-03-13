@@ -26,6 +26,8 @@ import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/ske
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
+import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
 
 // NgxStarRatingModule
 @Component({
@@ -36,7 +38,6 @@ import { MatIconModule } from '@angular/material/icon'
     LoaderComponent,
     FormsModule,
     TitleCasePipe,
-    NgxDropzoneModule,
     DatePipe,
     CommonModule,
     NgbRatingModule,
@@ -143,7 +144,8 @@ export class EventDetailsComponent {
     private cd: ChangeDetectorRef,
     private httpClient: HttpClient,
     private localStorageService: LocalStorageService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private dialog: MatDialog,
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -322,7 +324,9 @@ export class EventDetailsComponent {
         console.log("check-business-lisiting", this.eventDetails)
         this.initMap()
       },
-      error: (err) => { },
+      error: (err) => { 
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 
@@ -331,6 +335,7 @@ export class EventDetailsComponent {
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         console.log(res, 'resresresresres')
+                this.fullPageLoaderService.hideLoader()
         const currentDate: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '';
         const startDate = res.data[0].event_dates?.start_date
         const endDate = res.data[0].event_dates?.end_date
@@ -346,9 +351,9 @@ export class EventDetailsComponent {
         } else {
           this.isDateMatched = false
         }
-        this.fullPageLoaderService.hideLoader()
-          ; (this.eventDetails = res?.data[0] || 'NA'),
-            (this.eventLocation = this.eventDetails?.street)
+
+        ; (this.eventDetails = res?.data[0] || 'NA'),
+          (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)
           ; (this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
@@ -395,13 +400,9 @@ export class EventDetailsComponent {
   };
 
   public extractDateFromTimestamp(timestamp: any) {
-    if (timestamp) {
-      const parts = timestamp.split('T');
-      const datePart = parts[0];
-      return datePart;
-    } else {
-      return null; // or handle the case when timestamp is undefined in your specific context
-    }
+    const parts = timestamp?.split('T');
+    const datePart = parts[0];
+    return datePart;
   }
 
 
@@ -486,6 +487,7 @@ export class EventDetailsComponent {
         comment_post_ID: this.postId,
         rating: this.reviewForm.value.rating,
         comment_content: this.reviewForm.value.comment_content,
+        user_id: this.userDetail?.ID
       }
     } else {
       body = {
@@ -564,17 +566,30 @@ export class EventDetailsComponent {
       this.replyIndex = index
     }
   }
-  public showReplyCommentField(index: number, id: any) {
 
-    this.isReplycomFieldOpen = true
+  public toggleReply(index: number, id: any) {
+    if (this.isReplycomFieldOpen && this.replyIndexshow === index) {
+      this.hideReplyField(index);
+    } else {
+      this.showReplyCommentField(index, id);
+    }
+  }
+
+  public showReplyCommentField(index: number, id: any) {
+    // this.replyIndexshow = index
+    console.log("check index", index, this.replyIndexshow)
     this.replyIndexshow = index
+    this.isReplycomFieldOpen = true
     this.getReplies(index, id)
   }
 
 
-  public hideReplyField() {
+  public hideReplyField(index: number) {
+
     this.isReplycomFieldOpen = false
+    this.replyIndexshow = -1
     this.replyIndex = -1
+
   }
 
   public handlereply(index: any, commentId: any) {
@@ -597,6 +612,7 @@ export class EventDetailsComponent {
     this.eventService.setReviewReply(formData).subscribe({
       next: (res) => {
         this.replyInput.setValue('')
+        this.isReplyFieldOpen = false
         this.getReplies(index, this.commentId)
       },
     })
@@ -644,6 +660,21 @@ export class EventDetailsComponent {
       },
     })
   }
+
+
+  public openDialog(imageData: any, index: number) {
+    console.log("click os work", imageData)
+    this.dialog.open(ImageModalSwiperComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      panelClass: 'full-screen-modal',
+      data: { images: imageData, index }
+    });
+
+  }
+
 
   public scrollTo(elementId: string): void {
     const element = document.getElementById(elementId)
@@ -794,8 +825,6 @@ export class EventDetailsComponent {
 
 
   public handleBookingNow(details: any) {
-    console.log(details, 'pricepricepricepriceprice')
-    // return
     this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
