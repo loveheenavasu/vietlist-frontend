@@ -589,3 +589,26 @@ fieldset:disabled .btn {
 .btn:disabled{
     color:#ffff!important
 }
+
+
+
+.warning-message {
+    display: flex;
+    align-items: center;
+    background-color: #ffe8e8;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff7b7b;
+    color: #ff7b7b;
+    margin-bottom: 16px;
+  }
+  
+  .warning-message mat-icon {
+    margin-right: 10px;
+  }
+  .disabled-div {
+    /* Apply styles for the disabled state */
+    opacity: 0.5; /* Dim the opacity */
+    pointer-events: none; /* Disable pointer events */
+    /* Add any other styles as needed */
+  }
