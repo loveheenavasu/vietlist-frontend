@@ -80,7 +80,12 @@ export class PlanComponent {
     if (id == '1') {
       this.handleFreePlan()
     } else {
-      this.router.navigate(['/confirm-payment', id])
+      if(this.userDetails?.role == Roles.subscriber){
+        this.router.navigate(['/login'])
+      } else if(this.userDetails?.role == Roles.businessOwner){
+        this.router.navigate(['/confirm-payment', id])
+      }
+     
       if (!this.isAuthenticated) {
         this.router.navigateByUrl('/login')
       }

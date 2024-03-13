@@ -359,7 +359,7 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.router.navigate(['/manage-profile'])
+        this.router.navigate(['/thank-you'])
         this.loaderService.hideLoader()
       },
       error: (err) => {

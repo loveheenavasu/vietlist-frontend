@@ -69,6 +69,9 @@ export class MyBookingsComponent {
         }
         this.eventService.cancelEventBooking(body).subscribe({
           next: (res: any) => {
+            if(res){
+              this.fetchAllBookings()
+            }
             Swal.fire({
               toast: true,
               text: res.message,
@@ -79,7 +82,7 @@ export class MyBookingsComponent {
               timer: 3000,
               timerProgressBar: true,
             })
-            this.fetchAllBookings()
+           
           },
         })
       }

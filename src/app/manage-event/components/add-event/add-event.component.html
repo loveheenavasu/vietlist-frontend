@@ -251,6 +251,7 @@
           </div>
           <div class="col-12 col-md-12 col-lg-8">
             <textarea
+              rows="30"
               class="input-control"
               formControlName="event_description"
             ></textarea>
@@ -470,7 +471,7 @@
             <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
-                Browse a file (You can upload multiple images)</ngx-dropzone-label>
+                Browse a file</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>

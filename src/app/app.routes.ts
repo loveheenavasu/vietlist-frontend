@@ -36,6 +36,7 @@ import { MyTransactionsComponent } from './manage-profile/components/my-transact
 import { AllBookingsComponent } from './manage-profile/components/all-bookings/all-bookings.component'
 import { CancellationPolicyComponent } from './manage-profile/components/cancellation-policy/cancellation-policy.component'
 import { BookingDetailComponent } from './manage-event/components/booking-detail/booking-detail.component'
+import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -200,6 +201,10 @@ export default [
   {
     path: 'business-details/:id',
     loadComponent: () => EventDetailsComponent,
+  },
+  {
+    path:'thank-you',
+    loadComponent:()=>ThankYouPageComponent
   },
   {
     path: '**',

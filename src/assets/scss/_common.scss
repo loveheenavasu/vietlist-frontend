@@ -86,6 +86,20 @@
   font-size: 28px;
 }
 
+  
+.no-records-found {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color:rgb(179, 179, 179)
+}
+
+.no-records-found-2{
+  color:rgb(179, 179, 179);
+  text-align: center;
+  width:100%
+}
 
 .input-control {
   width: 100%;

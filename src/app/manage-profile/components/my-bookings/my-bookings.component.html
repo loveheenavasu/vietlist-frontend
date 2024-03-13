@@ -32,9 +32,14 @@
           </td>
          </tr>
         }
+      
         </tbody>
       </table>
-
+      @if(!allBookingsArray.length){
+        <div class="text-center my-5"> <!-- Added text-center class here -->
+           <h4 class="no-records-found-2">No records found !</h4>
+        </div>
+      }
     </div>
   
   </div>

@@ -637,71 +637,16 @@
       <h3 class="event-page-heading"><span> <i class="fa fa-home"
         aria-hidden="true"></i> </span> &nbsp;Event</h3>
         <hr>
-      <div class="grid-card col-lg-4">
-        <div class="listing-img">
-          <img [src]="eventDetails?.featured_image[0]" />
-        </div>
-        <div class="listing-description">
-          <div class="listing-heading">
-            <h3 (click)="gotToEventDetails(eventDetails.post_id, true)">
-              {{ eventDetails?.post_title }}
-            </h3>
+        <div class="product-card" (click)="gotToEventDetails(eventDetails.post_id, true)">
+          <div class="product-tumb">
+            <img [src]="eventDetails?.featured_image[0]" alt="">
           </div>
-          <div class="listing-info">
-            <li>{{ eventDetails?.post_content }}</li>
-            <li>
-              <i class="fa fa-calendar-o" aria-hidden="true"></i>
-              {{ eventDetails?.event_dates?.start_date | date: 'longDate' }}
-              {{ eventDetails?.event_dates?.start_time }}AM -
-              {{ eventDetails?.event_dates?.end_time }} PM
-            </li>
+          <div class="product-details">
+            <h4>{{ eventDetails?.post_title }}</h4>
+            <p>{{ eventDetails?.post_content }}</p>
+             <p><span><i class="fa fa-calendar-o" aria-hidden="true"></i></span> &nbsp; {{ eventDetails?.event_dates?.start_date | date: 'longDate' }}</p>
           </div>
-          <!-- <div class="lisiting-package">
-              <span>$ Package : Free Business</span>
-            </div> -->
-          @if (eventDetails?.rating_count) {
-            <div class="listing-rating">
-              <div class="d-flex">
-                @if (eventDetails?.rating_count >= 1) {
-                  <i
-                    class="fa fa-star"
-                    aria-hidden="true"
-                    style="color: rgb(155, 155, 155); font-size: 17px"
-                  ></i>
-                }
-                @if (eventDetails?.rating_count >= 2) {
-                  <i
-                    class="fa fa-star"
-                    aria-hidden="true"
-                    style="color: rgb(155, 155, 155); font-size: 17px"
-                  ></i>
-                }
-                @if (eventDetails?.rating_count >= 3) {
-                  <i
-                    class="fa fa-star"
-                    aria-hidden="true"
-                    style="color: rgb(155, 155, 155); font-size: 17px"
-                  ></i>
-                }
-                @if (eventDetails?.rating_count >= 4) {
-                  <i
-                    class="fa fa-star"
-                    aria-hidden="true"
-                    style="color: rgb(155, 155, 155); font-size: 17px"
-                  ></i>
-                }
-                @if (eventDetails?.rating_count > 4) {
-                  <i
-                    class="fa fa-star"
-                    aria-hidden="true"
-                    style="color: rgb(155, 155, 155); font-size: 17px"
-                  ></i>
-                }
-              </div>
-            </div>
-          }
         </div>
-      </div>
     </div>
     <div class="row  my-4" id="mapView">
       <div class="col-12">

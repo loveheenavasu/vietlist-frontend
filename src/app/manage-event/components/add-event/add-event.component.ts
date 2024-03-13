@@ -199,9 +199,10 @@ export class AddEventComponent {
       }
       
     })
-    if(this.userDetail?.level_id == '2'){
 
     this.addEventForm.get('number_of_bookings')?.valueChanges.subscribe((res)=>{
+          if(this.userDetail?.level_id == '2'){
+
       if(res > 20){
         Swal.fire({
           toast: true,
@@ -215,8 +216,9 @@ export class AddEventComponent {
         })
         this.addEventForm.get('number_of_bookings')?.setValue('')
       }
-    })
     }
+    })
+    
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
 
