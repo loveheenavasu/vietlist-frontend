@@ -136,7 +136,7 @@ export class HomepageComponent {
             }
           }, 0);
         }
-        console.log("check ad", this.adDetails)
+        // console.log("check ad", this.adDetails)
         this.showAdHomePage()
       }
     })
