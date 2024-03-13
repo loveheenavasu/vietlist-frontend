@@ -3,7 +3,7 @@ import { ProfileService } from '../../service/profile.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { FullPageLoaderService } from '@vietlist/shared';
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 @Component({
   selector: 'app-cancellation-policy',
   standalone: true,
@@ -14,14 +14,19 @@ import { FullPageLoaderService } from '@vietlist/shared';
 export class CancellationPolicyComponent {
   title: any
   refund: boolean = false;
-  constructor(private profileService: ProfileService, private fullPageLoaderService: FullPageLoaderService,) {
+  public userDetails : any
+  constructor(private profileService: ProfileService, private fullPageLoaderService: FullPageLoaderService,private authService:AuthenticationService) {
+   
+    this.userDetails = this.authService.getUserdata()
+    console.log(this.userDetails.ID)
     this.getcancelpolicy()
   }
 
 
+
   getcancelpolicy() {
     this.fullPageLoaderService.showLoader()
-    this.profileService.getcancelpolicy().subscribe((res: any) => {
+    this.profileService.getcancelpolicy(this.userDetails?.ID).subscribe((res: any) => {
       if (res) {
 
         this.title = res?.data?.cancellation_policy_title,
@@ -30,6 +35,7 @@ export class CancellationPolicyComponent {
       }
     })
   }
+  
   cancelpolicy() {
     this.fullPageLoaderService.showLoader()
     const body = {

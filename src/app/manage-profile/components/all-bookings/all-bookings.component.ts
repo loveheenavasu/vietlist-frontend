@@ -44,39 +44,7 @@ this.fullpageoaderservice.showLoader()
   })
 }
 
-public cancelBooking(bookingId:any, eventId:any){
-  Swal.fire({
-    title: 'Do you really want to cancel this booking ?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#ff9900',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, cancel it!',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const body = {
-        event_id:eventId,
-        booking_id:bookingId
-      }
-      this.eventService.cancelEventBooking(body).subscribe({
-        next: (res: any) => {
-          Swal.fire({
-            toast: true,
-            text: res.message,
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-          this.fetchAllBookings()
-        },
-      })
-    }
-  })
-}
+
 
 public goToDetails(id:any){
   this.router.navigate(['/booking-details/' , id])

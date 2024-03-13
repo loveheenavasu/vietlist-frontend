@@ -75,6 +75,7 @@ export class ProfileService {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.GetNotificationsetting,
     )
+    
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.get<any>(endpoint, { headers: authToken })
   }
@@ -188,12 +189,13 @@ export class ProfileService {
   //   return this.http.post<any>(endpoint, { headers: authToken })
   // }
 
-  public getcancelpolicy(): Observable<any> {
+  public getcancelpolicy(user_id:any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.GetCancelpolicy
     )
-    const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint, { headers: authToken })
+    let queryParams = new HttpParams()
+    .set('user_id', user_id)
+    return this.http.get<any>(endpoint, { params:queryParams})
   }
 
   public getIPAddress() {

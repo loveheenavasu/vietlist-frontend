@@ -110,7 +110,9 @@ export class EventDetailsComponent {
   public isBookingLoader : boolean = false
   public eventNumberOfBooking: any
   public numberofBookingPrice:any
+  public eventEndDate:any
   /**
+   *
    *
    * @param eventService
    * @param _activatedRoute
@@ -328,6 +330,7 @@ export class EventDetailsComponent {
         const endDate = res.data[0].event_dates?.end_date
         const startDateNew = this.extractDateFromTimestamp(startDate)
         const endDateNew = this.extractDateFromTimestamp(endDate)
+        // this.eventEndDate = this.eventDetails.booking
         if (startDateNew == endDateNew) {
           this.isDateMatched = true
         } else {

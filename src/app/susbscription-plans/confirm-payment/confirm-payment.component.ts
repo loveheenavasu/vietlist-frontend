@@ -340,7 +340,7 @@ export class ConfirmPaymentComponent {
     this.loaderService.showLoader()
     const body = {
       amount: this.eventPrice,
-      Booking_id:this.eventIds?.bookingId,
+      booking_id:this.eventIds?.bookingId,
       event_id:this.eventIds?.eventId,
       pm_data: {
         id: this.paymentMethod?.payment_method,

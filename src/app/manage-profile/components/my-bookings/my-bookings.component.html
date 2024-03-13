@@ -15,6 +15,7 @@
           </tr>
         </thead>
         <tbody>
+          @for(key of allBookingsArray ; track $index){
          <tr>
           <td></td>
           <td></td>
@@ -23,11 +24,12 @@
           <td></td>
           <td>
             <div class="d-flex">
-              <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
-              <i class="fa fa-times-circle" aria-hidden="true"  style="cursor:pointer;margin-left: 10px;"  ></i>
+              <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true" (click)="goToDetails(key.booking_id)"></i>
+              <i class="fa fa-times-circle" aria-hidden="true"  style="cursor:pointer;margin-left: 10px;"  (click)="cancelBooking(key.booking_id , key.event_id)"></i>
             </div>
           </td>
          </tr>
+        }
         </tbody>
       </table>
 

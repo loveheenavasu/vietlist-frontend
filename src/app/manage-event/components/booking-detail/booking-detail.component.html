@@ -15,6 +15,9 @@
       <li (click)="scrollTo('photo')" [class.active]="activeTab === 'event-details'">
         <span> <i class="fa fa-home" aria-hidden="true"></i></span> Booking Details
       </li>
+      <li (click)="scrollTo('photo')" [class.active]="activeTab === 'transaction'">
+        <span> <i class="fa fa-dollar" aria-hidden="true"></i></span> Transaction History
+      </li>
     </ul>
   </div>
   
@@ -46,6 +49,36 @@
         </div>
      
       </div>
-
+      <div class="row mt-2 pt-4" id="transaction">
+        <div class="col-12 col-md-12 col-lg-12">
+          <h3 class="event-page-heading">
+            <i class="fa fa-dollar" aria-hidden="true" style="font-size: 24px"></i>
+             Trasaction History
+          </h3>
+          <hr />
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Person Name</th>
+                  <th>Number of Bookings</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+               
+                  <!-- Add more data cells as needed -->
+                </tr>
+                <!-- Add more rows of data as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+     
+      </div>
     </div>
   </section>
