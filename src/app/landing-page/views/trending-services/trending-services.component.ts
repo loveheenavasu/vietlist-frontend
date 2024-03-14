@@ -181,7 +181,6 @@ export class TrendingServicesComponent {
   }
 
   public selectedTrendingCatergory(item: any) {
-    console.log("check id", item)
     if (item) {
       this.router.navigate(['/find-business/', item?.id])
     }

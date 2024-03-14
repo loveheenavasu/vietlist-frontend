@@ -98,7 +98,7 @@ export class HomepageComponent {
     //     Object.assign(swiperEl, this.swiperParams);
     //     swiperEl.initialize();
     //   } else {
-    //     console.error('Swiper or nativeElement is undefined or null.');
+
     //   }
     // }, 0);
     // this.startTimer();
@@ -123,7 +123,7 @@ export class HomepageComponent {
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
-        // console.log("check ad1", res.data)
+
         this.adDetails = res.data
         if (this.adDetails) {
           setTimeout(() => {
@@ -132,11 +132,11 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.swiperParams);
               swiperEl.initialize();
             } else {
-              console.error('Swiper or nativeElement is undefined or null.');
+             
             }
           }, 0);
         }
-        // console.log("check ad", this.adDetails)
+
         this.showAdHomePage()
       }
     })
@@ -195,13 +195,13 @@ export class HomepageComponent {
     }
     this.homePageContent.setStats(body).subscribe({
       next: (res: any) => {
-        // console.log("check stats res", res)
+
       }
     })
   }
 
   public CountClickStats(ad_id: string, space_id: string) {
-    // console.log("check id", space_id, ad_id)
+
     this.setStats(ad_id, space_id)
   }
 
@@ -215,7 +215,7 @@ export class HomepageComponent {
       }
       if (data.Page_key == 'Home Footer') {
         this.showAdInFooter = data.ads_detail
-        console.log("check footer ads", this.showAdInFooter)
+
         if (this.showAdInFooter) {
           setTimeout(() => {
             if (this.swiperFooter && this.swiperFooter.nativeElement) {
@@ -223,7 +223,7 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.footerSwiperParams);
               swiperEl.initialize();
             } else {
-              // console.error('Swiper or nativeElement is undefined or null.');
+            
             }
           }, 0);
         }
@@ -259,7 +259,7 @@ export class HomepageComponent {
         if (res.data) {
           this.homePageData = res.data
         }
-        // console.log("check home page content", this.homePageData)
+
       },
     });
   }

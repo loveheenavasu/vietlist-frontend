@@ -11,14 +11,24 @@ const baseUrl = environment.baseUrl
 export class AuthService {
   isLoggedIn: boolean = false;
   constructor(private http: HttpClient) {
-   const Token =  localStorage.getItem('accessToken')
-   console.log(Token,'Token')
-   if(Token){
-     this.isLoggedIn = true;
-   }
+    let localStorage: any;
+
+    // Check if localStorage is available
+    if (typeof window !== 'undefined') {
+      // Access localStorage only in browser environment
+      localStorage = window.localStorage;
+    }
+
+    if (localStorage) {
+      const Token = localStorage.getItem('accessToken')
+      if (Token) {
+        this.isLoggedIn = true;
+      }
+    }
+
   }
 
-  
+
 
   public register(body: any): Observable<AuthResponse> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Signup)
