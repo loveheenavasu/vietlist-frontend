@@ -557,11 +557,17 @@ export class AddEventComponent {
     });
   }
   formatDate(date: Date): string {
+    if (!(date instanceof Date) || isNaN(date.getTime())) {
+      // Handle invalid or missing date
+      return 'Invalid Date';
+    }
+  
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // Months are zero based
     const day = date.getDate();
     return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
   }
+  
   public addEvent(val?: any) {
     this.debounce = true
     this.isloader = true
@@ -669,7 +675,8 @@ export class AddEventComponent {
         this.eventDetails = res?.data[0] || 'NA'
         this.latitude = Number(this.eventDetails?.latitude),
           this.longitude = Number(this.eventDetails?.longitude)
-        console.log(this.eventDetails)
+        console.log(this.eventDetails, 'check details')
+        this.state = this.eventDetails?.region
         this.addEventForm.patchValue({
           event_title: this.eventDetails.post_title,
           eventStartDate: this.eventDetails.event_dates.start_date,
@@ -681,7 +688,8 @@ export class AddEventComponent {
           recurringEvent: this.eventDetails.event_dates.all_day,
           booking_start_date: this.eventDetails.booking_start_date,
           booking_end_date: this.eventDetails.booking_end_date,
-          number_of_bookings: this.eventDetails.number_of_bookings
+          number_of_bookings: this.eventDetails.number_of_bookings,
+          price:this.eventDetails?.price
         })
         this.street = this.eventDetails.street,
           this.fullAddress = this.eventDetails?.street,
