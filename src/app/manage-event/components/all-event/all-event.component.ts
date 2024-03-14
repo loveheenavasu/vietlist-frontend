@@ -5,9 +5,9 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { Router } from '@angular/router'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { Subscription } from 'rxjs'
+import { BehaviorSubject, Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
@@ -57,6 +57,7 @@ export class AllEventComponent {
     private eventService: EventService,
     private fullPageLoaderService: FullPageLoaderService,
     private router:Router,
+    private Behaviour : AuthenticationService
 
   ) {
 
@@ -212,6 +213,7 @@ export class AllEventComponent {
   }
 
   public clearFilters(): void {
+  this.Behaviour.clearvalue.next(true)
     // Clear local variables
     this.fullAddress = '';
     this.state = '';
