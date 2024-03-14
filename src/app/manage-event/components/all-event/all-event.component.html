@@ -82,8 +82,8 @@
               <li>
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
                 {{ key?.event_dates?.start_date | date: 'longDate' }}
-                {{ key?.event_dates?.start_time }}AM -
-                {{ key?.event_dates?.end_time }} PM
+                {{formatDate(key?.event_dates?.start_time)}} -
+                {{formatDate( key?.event_dates?.end_time)}}
               </li>
             </div>
             <!-- <div class="lisiting-package">
@@ -143,8 +143,8 @@
               <li>
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
                 {{ key?.event_dates?.start_date | date: 'longDate' }}
-                {{ key?.event_dates?.start_time }}AM -
-                {{ key?.event_dates?.end_time }} PM
+                {{formatDate(key?.event_dates?.start_time)}} -
+                {{formatDate( key?.event_dates?.end_time)}}
               </li>
             </div>
             <!-- <div class="lisiting-package">

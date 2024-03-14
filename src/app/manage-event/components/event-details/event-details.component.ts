@@ -207,8 +207,8 @@ export class EventDetailsComponent {
       }
     }
 
-
     this.getReviews()
+
     const Token = localStorage.getItem('accessToken')
 
     if (Token) {
@@ -337,8 +337,8 @@ export class EventDetailsComponent {
         console.log(res, 'resresresresres')
         this.fullPageLoaderService.hideLoader()
         const currentDate: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '';
-        const startDate = res.data[0].event_dates?.start_date
-        const endDate = res.data[0].event_dates?.end_date
+        const startDate = res.data[0]?.event_dates?.start_date
+        const endDate = res.data[0]?.event_dates?.end_date
         const startDateNew = this.extractDateFromTimestamp(startDate)
         const endDateNew = this.extractDateFromTimestamp(endDate)
         // this.eventEndDate = this.eventDetails.booking
@@ -518,8 +518,9 @@ export class EventDetailsComponent {
       this.profileService.reviewSet(formData).subscribe({
         next: (res) => {
           this.isLoader = false
-          this.reviewForm.reset()
           this.getReviews()
+          this.reviewForm.reset()
+          
           this.getEventDetails()
           Swal.fire({
             toast: true,
@@ -549,7 +550,7 @@ export class EventDetailsComponent {
   }
 
   public showReplyField(index: number) {
-    if (this.userDetail.level_id !== '3') {
+    if (this.userDetail.level_id !== '3' && this.userDetail.user_role == Roles.businessOwner) {
       Swal.fire({
         toast: true,
         text: 'Upgrade your plan to Elite!',
