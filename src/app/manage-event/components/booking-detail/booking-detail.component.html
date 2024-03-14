@@ -66,7 +66,9 @@
               <tr>
                 <th>Booking Id</th>
                 <th>Event Id</th>
-                <th>Amount</th>
+                <th>Price</th>
+                <th>Number of Booking</th>
+                <th>Total Amount</th>
               </tr>
 
             </thead>
@@ -75,7 +77,9 @@
               <tr>
                 <td>{{key.booking_id}}</td>
                 <td>{{key.event_id}}</td>
-                <td>$ {{key.total_amount}}</td>
+                <td>$ {{key?.price}}</td>
+                <td>{{bookingInfo?.number_of_booking}}</td>
+                <td>$ {{key?.total_amount}}</td>
 
                 <!-- Add more data cells as needed -->
               </tr>

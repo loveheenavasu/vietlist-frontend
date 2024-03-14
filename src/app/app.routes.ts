@@ -53,7 +53,7 @@ export default [
     path: 'register',
     loadComponent: () => RegisterComponent,
   },
-  
+
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
@@ -63,8 +63,8 @@ export default [
         loadComponent: () => MyBookingsComponent
       },
       {
-        path:'cancellaton-policy',
-        loadComponent:() => CancellationPolicyComponent
+        path: 'cancellaton-policy',
+        loadComponent: () => CancellationPolicyComponent
       },
       {
         path: '',
@@ -115,7 +115,7 @@ export default [
         loadComponent: () => MyTransactionsComponent
       },
       {
-        path:'all-bookings/:id',
+        path: 'all-bookings/:id',
         loadComponent: () => AllBookingsComponent
       }
     ],
@@ -131,7 +131,7 @@ export default [
     loadComponent: () => ConfirmPaymentComponent,
   },
   {
-    path: 'booking-payment/:price',
+    path: 'booking-payment',
     loadComponent: () => ConfirmPaymentComponent,
   },
   {
@@ -203,8 +203,8 @@ export default [
     loadComponent: () => EventDetailsComponent,
   },
   {
-    path:'thank-you',
-    loadComponent:()=>ThankYouPageComponent
+    path: 'thank-you',
+    loadComponent: () => ThankYouPageComponent
   },
   {
     path: '**',
