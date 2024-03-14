@@ -44,16 +44,16 @@ export default [
     path: '',
     loadComponent: () => HomepageComponent,
   },
-
-  {
-    path: 'register',
-    loadComponent: () => RegisterComponent,
-  },
   {
     path: 'login',
     loadComponent: () => LoginComponent,
     canActivate: [LoginGuard]
   },
+  {
+    path: 'register',
+    loadComponent: () => RegisterComponent,
+  },
+  
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
