@@ -129,7 +129,7 @@ export class HeaderComponent {
     // this.router.navigate(['/login'])
     this.router.navigateByUrl('/login')
   }
-  
+
 
   public navigateOnAddEvent() {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
@@ -231,7 +231,7 @@ export class HeaderComponent {
     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
-    this.router.navigate(['/'], { skipLocationChange: true });
+    this.router.navigate(['/']);
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
