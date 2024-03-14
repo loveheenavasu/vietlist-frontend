@@ -68,7 +68,7 @@ export class BuisnessCategoryComponent {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
-        console.log('chekc', res)
+
       },
     })
   }

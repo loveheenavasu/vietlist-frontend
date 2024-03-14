@@ -133,6 +133,7 @@ export class AddEventComponent {
   public minDate = new Date();
   public isBookableClicked: boolean = false
   public maxDate: any
+  public maxTotalImages:any
   /**
    *
    * @param _formBuilder
@@ -458,94 +459,88 @@ export class AddEventComponent {
 
   //   this.displayLevelOneImages()
   // }
+  // public onSelectImages(event: any) {
+  //   this.files = [...event.addedFiles]
+  //   if (this.userDetail.level_id == '1') {
+  //     if (this.files.length > 5) {
+  //       console.log('upload 5 images ')
+  //       Swal.fire({
+  //         toast: true,
+  //         text: 'Max 5 images allowed. Upgrade your plan for more',
+  //         animation: false,
+  //         icon: 'error',
+  //         position: 'top-right',
+  //         showConfirmButton: false,
+  //         timer: 3000,
+  //         timerProgressBar: true,
+  //       })
+  //       return
+  //     }
+  //   }
+  //   if (this.userDetail.level_id == '2') {
+  //     if (this.files.length > 5) {
+  //       console.log('upload 5 images ')
+  //       Swal.fire({
+  //         toast: true,
+  //         text: 'Max 20 images allowed. Upgrade your plan for more',
+  //         animation: false,
+  //         icon: 'error',
+  //         position: 'top-right',
+  //         showConfirmButton: false,
+  //         timer: 3000,
+  //         timerProgressBar: true,
+  //       })
+  //       return
+  //     }
+  //   }
+  //   this.displayLevelOneImages()
+  // }
+
   public onSelectImages(event: any) {
-    this.files = [...event.addedFiles]
-    // if (this.levelOneImageArr.length >= 5) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: 'You have already selected the maximum number of images allowed.Upgrade Plan for more.',
-    //     animation: false,
-    //     icon: 'warning',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
-    if (this.userDetail.level_id == '1') {
-
-      if (this.files.length > 5) {
-        console.log('upload 5 images ')
-        Swal.fire({
-          toast: true,
-          text: 'Max 5 images allowed. Upgrade your plan for more',
-          animation: false,
-          icon: 'error',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        return
-      }
+    const maxImagesPerUpload = 5; // Max images per upload action
+    this.maxTotalImages = this.userDetail.level_id === '1' ? 5 : this.userDetail.level_id === '2' ? 20  : this.userDetail.level_id === '3' ? Infinity  : 0;
+    const totalUploadedImages = this.levelOneImageArr.length;
+    const remainingImagesCapacity = this.maxTotalImages - totalUploadedImages;
+  
+    const selectedFiles = [...event.addedFiles];
+  
+    if (selectedFiles.length > maxImagesPerUpload || selectedFiles.length > remainingImagesCapacity) {
+      Swal.fire({
+        toast: true,
+        text: `Max ${maxImagesPerUpload} images allowed per upload. You can only upload ${this.maxTotalImages} for this plan.`,
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      });
+      return;
     }
-    if (this.userDetail.level_id == '2') {
-
-      if (this.files.length > 5) {
-        console.log('upload 5 images ')
-        Swal.fire({
-          toast: true,
-          text: 'Max 20 images allowed. Upgrade your plan for more',
-          animation: false,
-          icon: 'error',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        return
-      }
-    }
-    this.displayLevelOneImages()
+  
+    this.files = selectedFiles;
+    this.displayLevelOneImages();
   }
-
+  
   public displayLevelOneImages() {
-    let maxImages: any = 5;
-    // if (this.files.length > maxImages) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: `You can only select up to ${maxImages} images at a time.`,
-    //     animation: false,
-    //     icon: 'error',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   });
-    //   return;
-    // }
-
     this.isImageUploading = true;
-
-
-    const filesToUpload = this.files.slice(0, maxImages);
-
+  
+    const maxImagesPerUpload = 5; // Max images per upload action
+    const filesToUpload = this.files.slice(0, maxImagesPerUpload);
+  
     filesToUpload.forEach((file, index) => {
       const reader = new FileReader();
-
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
-
+  
       // Upload each file
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isImageUploading = false;
           this.levelOneImageArr.push(res.image_url);
-          if (this.levelOneImageArr.length >= maxImages) {
+          if (this.levelOneImageArr.length >= this.maxTotalImages) {
             this.isImageUploading = false;
           }
         },
@@ -556,6 +551,8 @@ export class AddEventComponent {
       });
     });
   }
+  
+
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = date.getMonth() + 1; // Months are zero based
