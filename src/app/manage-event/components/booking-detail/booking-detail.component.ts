@@ -35,7 +35,7 @@ export class BookingDetailComponent {
   public dataget: any
   public gettags: any
   public activeTab: string = 'profile'
-  public bookingInfo:any
+  public bookingInfo: any
   constructor(
     private _route: ActivatedRoute,
     private fullPageLoaderService: FullPageLoaderService,
@@ -59,20 +59,21 @@ export class BookingDetailComponent {
     })
   }
 
-  setActiveTab(tab: string) {}
+  setActiveTab(tab: string) { }
 
   public getBookingDetail() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getBookingDetails(this.bookingId).subscribe({
       next: (res) => {
-       
+
         this.bookingInfo = res?.data[0]
+        console.log("res---", this.bookingInfo)
         this.fullPageLoaderService.hideLoader()
-        ;(this.eventDetails = res?.data[0] || 'NA'),
-          (this.eventLocation = this.eventDetails?.street)
+          ; (this.eventDetails = res?.data[0] || 'NA'),
+            (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)
-        ;(this.latitude = Number(this.eventDetails?.latitude)),
-          (this.longitude = Number(this.eventDetails?.longitude))
+          ; (this.latitude = Number(this.eventDetails?.latitude)),
+            (this.longitude = Number(this.eventDetails?.longitude))
       },
       error: (err: any) => {
         this.fullPageLoaderService.hideLoader()
