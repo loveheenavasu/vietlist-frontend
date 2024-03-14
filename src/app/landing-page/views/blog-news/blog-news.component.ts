@@ -56,7 +56,7 @@ export class BlogNewsComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.orderValue = window.innerWidth < 769 ? 2 : 1
-    console.log(this.orderValue)
+
   }
 
   ngOnInit() {
@@ -142,7 +142,7 @@ export class BlogNewsComponent {
             }
           }
           this.cdr.detectChanges()
-          // console.log("check ad on blog page", this.blogAd)
+      
         }
       })
     }

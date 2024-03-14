@@ -48,7 +48,7 @@ export class CancellationPolicyComponent {
         this.getcancelpolicy()
         Swal.fire({
           toast: true,
-          text: res?.data,
+          text: res?.message,
           animation: false,
           icon: 'success',
           position: 'top-right',

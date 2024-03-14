@@ -10,6 +10,7 @@ import {
 import { FormsModule } from '@angular/forms'
 //@ts-ignore
 import {} from '@types/googlemaps'
+import { AuthenticationService } from './services'
 
 @Component({
   selector: 'AutocompleteComponent',
@@ -36,8 +37,13 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
   autocompleteInput!: string
   queryWait!: boolean
 
-  constructor() {}
-
+  constructor(private behavior: AuthenticationService) {
+    this.behavior.clearLocationValue.subscribe((res:any)=>{
+      if(res){
+       this.autocompleteInput = ''
+      }
+    })
+  }
   ngOnInit() {}
 
   ngAfterViewInit() {

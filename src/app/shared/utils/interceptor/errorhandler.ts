@@ -1,11 +1,16 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http'
+import { inject } from '@angular/core'
+import { Router } from '@angular/router'
 import { throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import Swal from 'sweetalert2'
+
+
 export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
+
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      console.log(error, 'error:::')
+      console.log(error , '::error::')
       Swal.fire({
         toast: true,
         text: error.error.message,
@@ -16,8 +21,8 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
         timer: 3000,
         timerProgressBar: true,
       })
-      if(error.status ===403){
-
+      if(error.status === 403){
+        // this.router.navigate('/')
       }
       return throwError(() => {})
     }),

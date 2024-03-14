@@ -21,6 +21,7 @@ import { NgSelectModule } from '@ng-select/ng-select'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { AuthService } from 'src/app/auth/service/auth.service'
 
 
 @Component({
@@ -82,7 +83,8 @@ export class HeaderComponent {
     public dialog: MatDialog,
     private sessionservice: AuthenticationService,
     private activatedRoute: ActivatedRoute,
-    private businessService: BusinessService
+    private businessService: BusinessService,
+    private authService: AuthService
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -121,6 +123,12 @@ export class HeaderComponent {
     this.getBusinessCat()
   }
 
+  public login() {
+    this.authService.isLoggedIn = false
+    console.log("login clicked !")
+    // this.router.navigate(['/login'])
+    this.router.navigateByUrl('/login')
+  }
 
 
   public navigateOnAddEvent() {
@@ -168,10 +176,6 @@ export class HeaderComponent {
     event.preventDefault()
   }
 
-  public login() {
-    console.log("login clicked !")
-    this.router.navigate(['/login'])
-  }
 
   public signup() {
     this.router.navigateByUrl('/register')
@@ -227,9 +231,9 @@ export class HeaderComponent {
     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
-    this.router.navigateByUrl('/')
-    window.location.reload()
+    this.router.navigate(['/']);
   }
+
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
     if (window.pageYOffset > 0)
       this.offsetFlag = false;

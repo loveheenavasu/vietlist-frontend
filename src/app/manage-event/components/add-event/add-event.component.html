@@ -409,10 +409,11 @@
           </div>
         </div>
         <div class="row my-3 px-2" *ngIf="userDetail?.level_id !== '1'">
-          <div class="col-12 col-lg-4"></div>
-          <div class="col-12 col-md-12 col-lg-8">
+          <div class="col-12 col-lg-4">
             <mat-checkbox class="event-checkbox" [formControl]="isBookable">Is Bookable <span
                 class="asterik">*</span></mat-checkbox>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
           </div>
         </div>
         @if(isBookableClicked){
@@ -435,7 +436,8 @@
           <div class="col-12 col-md-12 col-lg-8">
             <div class="input-group">
               <input matInput [matDatepicker]="startdatepicker" class="input-control" (click)="startdatepicker.open()"
-                formControlName="booking_start_date" [min]="minDate" placeholder="Booking Start Date" />
+                formControlName="booking_start_date" [min]="minDate" [max]="maxDate"
+                placeholder=" Booking Start Date" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #startdatepicker></mat-datepicker>
             </div>
