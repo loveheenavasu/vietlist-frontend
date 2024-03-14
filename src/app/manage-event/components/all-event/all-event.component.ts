@@ -32,6 +32,8 @@ import Swal from 'sweetalert2';
   styleUrl: './all-event.component.scss',
 })
 export class AllEventComponent {
+   public datePipe = new DatePipe('en-US');
+
   public selectedLayout: string = 'grid'
   public publishEventsArray: any[] = []
   public subscription!: Subscription
@@ -81,7 +83,12 @@ export class AllEventComponent {
     })
   }
 
-
+  formatDate(time: string): string {
+    // Manually append today's date before formatting
+    const today = new Date();
+    const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`;
+    return this.datePipe.transform(formattedTime, 'shortTime') || '';
+  }
   public getPublishEventData() {
     this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {}

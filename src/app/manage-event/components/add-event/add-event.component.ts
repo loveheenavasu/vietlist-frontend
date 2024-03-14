@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf, JsonPipe } from '@angular/common'
+import { NgClass, NgFor, NgIf, JsonPipe, DatePipe } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import {
   FormsModule,
@@ -35,6 +35,9 @@ import { EventService } from '../../service/event.service'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 // import { Router } from 'express'
+interface FileWithLoading extends File {
+  isLoading: boolean;
+}
 
 @Component({
   selector: 'app-add-event',
@@ -64,9 +67,9 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
     MatCheckboxModule
 
   ],
-
   templateUrl: './add-event.component.html',
   styleUrl: './add-event.component.scss',
+  providers: [DatePipe]
 })
 export class AddEventComponent {
   public isloader: boolean = false
@@ -80,7 +83,7 @@ export class AddEventComponent {
   public isImageUploading: boolean = false
   public levelOneImageArr: any[] = []
   public isFirstStepCompleted: boolean = false
-  public isBookable = new FormControl('')
+  public isBookable = new FormControl()
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
@@ -153,6 +156,7 @@ export class AddEventComponent {
     private _activatedRoute: ActivatedRoute,
     private fullPageLoaderService: FullPageLoaderService,
     private profileService: ProfileService,
+    private datePipe: DatePipe,
   ) {
     this.addEventForm = this._formBuilder.group({
       event_title: ['', Validators.required],
@@ -497,17 +501,16 @@ export class AddEventComponent {
   // }
 
   public onSelectImages(event: any) {
-    const maxImagesPerUpload = 5; // Max images per upload action
-    this.maxTotalImages = this.userDetail.level_id === '1' ? 5 : this.userDetail.level_id === '2' ? 20  : this.userDetail.level_id === '3' ? Infinity  : 0;
+    this.maxTotalImages = this.userDetail.level_id === '1' ? 5 : this.userDetail.level_id === '2' ? 20 : this.userDetail.level_id === '3' ? Infinity : 0;
     const totalUploadedImages = this.levelOneImageArr.length;
     const remainingImagesCapacity = this.maxTotalImages - totalUploadedImages;
   
     const selectedFiles = [...event.addedFiles];
   
-    if (selectedFiles.length > maxImagesPerUpload || selectedFiles.length > remainingImagesCapacity) {
+    if (selectedFiles.length > remainingImagesCapacity) {
       Swal.fire({
         toast: true,
-        text: `Max ${maxImagesPerUpload} images allowed per upload. You can only upload ${this.maxTotalImages} for this plan.`,
+        text: `You can only upload ${this.maxTotalImages} images for this plan.`,
         animation: false,
         icon: 'error',
         position: 'top-right',
@@ -522,48 +525,51 @@ export class AddEventComponent {
     this.displayLevelOneImages();
   }
   
+
   public displayLevelOneImages() {
     this.isImageUploading = true;
   
-    const maxImagesPerUpload = 5; // Max images per upload action
-    const filesToUpload = this.files.slice(0, maxImagesPerUpload);
+    const delayBetweenUploads = 2000; // Adjust as needed, in milliseconds
   
-    filesToUpload.forEach((file, index) => {
+    this.files.forEach((file, index) => {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
   
-      // Upload each file
-      this.businessService.uploadMedia(file).subscribe({
-        next: (res: any) => {
-          this.isImageUploading = false;
-          this.levelOneImageArr.push(res.image_url);
-          if (this.levelOneImageArr.length >= this.maxTotalImages) {
+      // Upload each file with a delay
+      setTimeout(() => {
+        this.isImageUploading = true;
+        this.businessService.uploadMedia(file).subscribe({
+          next: (res: any) => {
             this.isImageUploading = false;
-          }
-        },
-        error: (err: any) => {
-          this.isImageUploading = false;
-          // Handle errors if needed
-        },
-      });
+            this.levelOneImageArr.push(res.image_url);
+            if (this.levelOneImageArr.length >= this.maxTotalImages) {
+              this.isImageUploading = false;
+            }
+          },
+          error: (err: any) => {
+            this.isImageUploading = false;
+            // Handle errors if needed
+          },
+        });
+      }, index * delayBetweenUploads); // Delay increases with each iteration
     });
   }
   
-
-  formatDate(date: Date): string {
-    if (!(date instanceof Date) || isNaN(date.getTime())) {
-      // Handle invalid or missing date
-      return 'Invalid Date';
-    }
   
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1; // Months are zero based
-    const day = date.getDate();
-    return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
-  }
+
+  // formatDate(date: Date): any {
+  //   if (!(date instanceof Date) || isNaN(date.getTime())) {
+     
+  
+  //   const year = date?.getFullYear();
+  //   const month = date?.getMonth() + 1; // Months are zero based
+  //   const day = date?.getDate();
+  //   return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+  //   }
+  // }
   
   public addEvent(val?: any) {
     this.debounce = true
@@ -584,8 +590,9 @@ export class AddEventComponent {
       is_bookable_: this.isBookable.value ? 1 : 0,
       price: this.addEventForm.value.price,
       number_of_bookings: this.addEventForm.value.number_of_bookings,
-      booking_start_date: this.formatDate(this.addEventForm.value.booking_start_date),
-      booking_end_date: this.formatDate(this.addEventForm.value.booking_end_date),
+      booking_start_date: this.datePipe.transform(this.addEventForm.value.booking_start_date, 'yyyy-MM-dd') ?? '',
+
+      booking_end_date: this.datePipe.transform(this.addEventForm.value.booking_end_date, 'yyyy-MM-dd') ?? '',
     };
     const formData = new FormData();
     Object.entries(body).forEach(([key, value]) => {
@@ -674,6 +681,8 @@ export class AddEventComponent {
           this.longitude = Number(this.eventDetails?.longitude)
         console.log(this.eventDetails, 'check details')
         this.state = this.eventDetails?.region
+        this.isBookable.patchValue(this.eventDetails.is_bookable_ == '1' ? true : false);
+         this.levelOneImageArr = this.eventDetails?.featured_image
         this.addEventForm.patchValue({
           event_title: this.eventDetails.post_title,
           eventStartDate: this.eventDetails.event_dates.start_date,
@@ -686,14 +695,15 @@ export class AddEventComponent {
           booking_start_date: this.eventDetails.booking_start_date,
           booking_end_date: this.eventDetails.booking_end_date,
           number_of_bookings: this.eventDetails.number_of_bookings,
-          price:this.eventDetails?.price
+          price:this.eventDetails?.price,
+
         })
         this.street = this.eventDetails.street,
           this.fullAddress = this.eventDetails?.street,
           this.zipcode = this.eventDetails.zip,
           this.city = this.eventDetails.city,
           this.country = this.eventDetails.country,
-          this.ImageUrl = this.eventDetails.featured_image
+          this.ImageUrl = this.eventDetails.featured_image,
         this.initMap()
       },
       error: (err) => {
