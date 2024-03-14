@@ -60,12 +60,7 @@ export class AllEventComponent {
     private authenticationService:AuthenticationService
 
   ) {
-    this.authenticationService.clearLocationValue.subscribe((res:any)=>{
-      if(res){
-
-      //  this.autocompleteInput = ''
-      }
-    })
+  
   }
 
   ngOnInit() {
@@ -219,6 +214,7 @@ export class AllEventComponent {
 
   public clearFilters(): void {
     // Clear local variables
+    this.authenticationService.clearLocationValue.next(true)
     this.fullAddress = '';
     this.state = '';
     this.country = '';
