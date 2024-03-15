@@ -106,10 +106,25 @@
               <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
             </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            [matMenuTriggerFor]="menuevent">
+            <span>Blogs/News <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </span>
+            <mat-menu #menuevent="matMenu">
+              <button mat-menu-item [routerLink]="['/events']">
+                <span >User Blog</span>
+              </button>
+              <button mat-menu-item [routerLink]="['/add-event']">
+                <span >Business Blogs</span>
+              </button>
+            </mat-menu>
+          </li>
 
-            <li class="nav-item">
-              <span>Blogs/News</span>
-            </li>
+
+
+
+
+
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
               [matMenuTriggerFor]="menuevent">
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>

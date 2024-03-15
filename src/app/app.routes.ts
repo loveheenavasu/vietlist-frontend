@@ -12,7 +12,6 @@ import {
   ListBusinessComponent,
   PreviewBusinessComponent,
 } from './manage-business'
-import { BusinessCategories, BusinessListingComponent } from './categories'
 import {
   BillingAddressComponent,
   ChangePasswordComponent,
@@ -37,6 +36,7 @@ import { AllBookingsComponent } from './manage-profile/components/all-bookings/a
 import { CancellationPolicyComponent } from './manage-profile/components/cancellation-policy/cancellation-policy.component'
 import { BookingDetailComponent } from './manage-event/components/booking-detail/booking-detail.component'
 import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
+import { BusinessCategories, BusinessListingComponent } from './categories'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
