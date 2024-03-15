@@ -127,13 +127,13 @@
         track $index
         ) {
         <div class="d-flex small-screen-view">
-          <div class="listing-img-container">
-            <div class="listing-img">
+          <div class="listing-img-container" (click)="gotToEventDetails(key.post_id, true)">
+            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)">
               <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" />
             </div>
           </div>
           <div class="listing-img-info">
-            <div class="listing-heading">
+            <div class="listing-heading" (click)="gotToEventDetails(key.post_id, true)">
               <h3>
                 {{ key.post_title }}
               </h3>

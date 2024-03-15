@@ -12,7 +12,6 @@ import {
   ListBusinessComponent,
   PreviewBusinessComponent,
 } from './manage-business'
-import { BusinessCategories, BusinessListingComponent } from './categories'
 import {
   BillingAddressComponent,
   ChangePasswordComponent,
@@ -37,6 +36,10 @@ import { AllBookingsComponent } from './manage-profile/components/all-bookings/a
 import { CancellationPolicyComponent } from './manage-profile/components/cancellation-policy/cancellation-policy.component'
 import { BookingDetailComponent } from './manage-event/components/booking-detail/booking-detail.component'
 import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
+import { ContactUsComponent } from './landing-page/views/contact-us/contact-us.component'
+import { BusinessCategories, BusinessListingComponent } from './categories'
+import { UserblogComponent } from './blognews/userblog/userblog.component'
+import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -169,6 +172,14 @@ export default [
     loadComponent: () => BusinessCategories,
   },
   {
+    path: 'user-blog',
+    loadComponent: () => UserblogComponent,
+  },
+  {
+    path: 'business-blog',
+    loadComponent: () => BusinessblogsComponent,
+  },
+  {
     path: 'business-listing',
     loadComponent: () => BusinessListingComponent,
   },
@@ -203,8 +214,12 @@ export default [
     loadComponent: () => EventDetailsComponent,
   },
   {
-    path: 'thank-you',
-    loadComponent: () => ThankYouPageComponent
+    path:'contact-us',
+    loadComponent:()=>ContactUsComponent
+  },
+  {
+    path:'thank-you',
+    loadComponent:()=>ThankYouPageComponent
   },
   {
     path: '**',
