@@ -38,6 +38,8 @@ import { BookingDetailComponent } from './manage-event/components/booking-detail
 import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
 import { ContactUsComponent } from './landing-page/views/contact-us/contact-us.component'
 import { BusinessCategories, BusinessListingComponent } from './categories'
+import { UserblogComponent } from './blognews/userblog/userblog.component'
+import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -168,6 +170,14 @@ export default [
   {
     path: 'business-categories',
     loadComponent: () => BusinessCategories,
+  },
+  {
+    path: 'user-blog',
+    loadComponent: () => UserblogComponent,
+  },
+  {
+    path: 'business-blog',
+    loadComponent: () => BusinessblogsComponent,
   },
   {
     path: 'business-listing',

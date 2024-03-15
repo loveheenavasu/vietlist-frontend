@@ -1,1 +1,25 @@
-<p>userblog works!</p>
+<section class="banner">
+    <div class="content">
+      <h1>User Blog</h1>
+    </div>
+  </section>
+
+  <div class="container-fluid">
+    <div class="cta-verfied-image">
+        <div class="image-container">
+          <!-- <div class="d-flex"> -->
+          <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+            @for (item of verifiedImage; track $index) {
+            <swiper-slide>
+              <div class="image">
+                <img [src]="item.image" alt="verfied-image" />
+                <div class="verified-logo">
+                  <img [src]="item.verified_logo" alt="verfied-logo" />
+                </div>
+              </div>
+            </swiper-slide>
+            }
+          </swiper-container>
+        </div>
+      </div>
+</div>
