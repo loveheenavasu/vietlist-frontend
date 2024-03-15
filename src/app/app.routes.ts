@@ -12,7 +12,6 @@ import {
   ListBusinessComponent,
   PreviewBusinessComponent,
 } from './manage-business'
-import { BusinessCategories, BusinessListingComponent } from './categories'
 import {
   BillingAddressComponent,
   ChangePasswordComponent,
@@ -38,6 +37,7 @@ import { CancellationPolicyComponent } from './manage-profile/components/cancell
 import { BookingDetailComponent } from './manage-event/components/booking-detail/booking-detail.component'
 import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
 import { ContactUsComponent } from './landing-page/views/contact-us/contact-us.component'
+import { BusinessCategories, BusinessListingComponent } from './categories'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -54,7 +54,7 @@ export default [
     path: 'register',
     loadComponent: () => RegisterComponent,
   },
-  
+
   {
     path: 'manage-profile',
     loadComponent: () => ManageProfileComponent,
@@ -64,8 +64,8 @@ export default [
         loadComponent: () => MyBookingsComponent
       },
       {
-        path:'cancellaton-policy',
-        loadComponent:() => CancellationPolicyComponent
+        path: 'cancellaton-policy',
+        loadComponent: () => CancellationPolicyComponent
       },
       {
         path: '',
@@ -116,7 +116,7 @@ export default [
         loadComponent: () => MyTransactionsComponent
       },
       {
-        path:'all-bookings/:id',
+        path: 'all-bookings/:id',
         loadComponent: () => AllBookingsComponent
       }
     ],
@@ -132,7 +132,7 @@ export default [
     loadComponent: () => ConfirmPaymentComponent,
   },
   {
-    path: 'booking-payment/:price',
+    path: 'booking-payment',
     loadComponent: () => ConfirmPaymentComponent,
   },
   {

@@ -324,7 +324,7 @@ export class EventDetailsComponent {
         console.log("check-business-lisiting", this.eventDetails)
         this.initMap()
       },
-      error: (err) => { 
+      error: (err) => {
         this.fullPageLoaderService.hideLoader()
       },
     })
@@ -335,7 +335,7 @@ export class EventDetailsComponent {
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         console.log(res, 'resresresresres')
-                this.fullPageLoaderService.hideLoader()
+        this.fullPageLoaderService.hideLoader()
         const currentDate: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '';
         const startDate = res.data[0]?.event_dates?.start_date
         const endDate = res.data[0]?.event_dates?.end_date
@@ -826,6 +826,7 @@ export class EventDetailsComponent {
 
 
   public handleBookingNow(details: any) {
+    console.log("check deatils", details)
     this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
@@ -853,7 +854,7 @@ export class EventDetailsComponent {
           this.isBookingLoader = false
           if (res) {
             // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
-            this.router.navigate(['/booking-payment/', details?.price], { queryParams: { eventId: details?.post_id, bookingId: res.booking_detail.booking_id } });
+            this.router.navigate(['/booking-payment'], { queryParams: { eventId: details?.post_id, bookingId: res.booking_detail.booking_id, numberOfBooking: this.number_of_booking.value } });
           }
         },
         error: (err) => {

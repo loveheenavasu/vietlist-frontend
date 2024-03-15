@@ -416,7 +416,7 @@ fieldset:disabled .btn {
 }
 
 .list-items li {
-    color: #7A7A7A;
+    color: #000;
     margin-right: 2px;
     padding: .8rem 1rem;
     cursor: pointer;
@@ -586,6 +586,6 @@ fieldset:disabled .btn {
     color: #181818
 }
 
-.btn:disabled{
-    color:#ffff!important
+.btn:disabled {
+    color: #ffff !important
 }

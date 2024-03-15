@@ -47,7 +47,9 @@ export class ConfirmPaymentComponent {
   public billingAddressValid: boolean = false; // Add this line
   public bookingData: any
   public eventPrice: any
-  public eventIds :any
+  public eventIds: any
+  public numberOfBooking: any
+
   constructor(
     private stripeService: AngularStripeService,
     private cd: ChangeDetectorRef,
@@ -275,10 +277,10 @@ export class ConfirmPaymentComponent {
       })
     } else {
       this.paymentMethod = setupIntent
-      if (this.paymentMethod && this.eventPrice) {
-       console.log('price available')
+      if (this.paymentMethod && this.eventIds?.numberOfBooking) {
+        console.log('price available')
         this.confirmBookingPayment()
-      } else if (this.paymentMethod && !this.eventPrice) {
+      } else if (this.paymentMethod && !this.eventIds?.numberOfBooking) {
         console.log('price Not available')
         this.confirmSubscriptionPayment()
       }
@@ -339,16 +341,16 @@ export class ConfirmPaymentComponent {
   public confirmBookingPayment() {
     this.loaderService.showLoader()
     const body = {
-      amount: this.eventPrice,
-      booking_id:this.eventIds?.bookingId,
-      event_id:this.eventIds?.eventId,
+      booking_id: this.eventIds?.bookingId,
+      event_id: this.eventIds?.eventId,
+      number_of_booking: parseInt(this.eventIds?.numberOfBooking),
       pm_data: {
         id: this.paymentMethod?.payment_method,
         billing_details: this.billingAddress,
       },
     }
     this.eventService.stripebookingPayment(body).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         Swal.fire({
           toast: true,
           text: res.message,
