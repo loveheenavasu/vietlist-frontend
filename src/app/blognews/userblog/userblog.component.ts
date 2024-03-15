@@ -19,7 +19,10 @@ export class UserblogComponent {
 
   swiperParams = {
     slidesPerView: 1,
-    navigation: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
     spaceBetween: 30,
     disableOnInteraction: false,
     breakpoints: {
@@ -28,8 +31,8 @@ export class UserblogComponent {
         spaceBetween: 20,
       },
       1388: {
-        slidesPerView: 4,
-        spaceBetween: 20,
+        slidesPerView: 5,
+        spaceBetween: 40,
       },
       1920: {
         slidesPerView: 5,
@@ -44,23 +47,37 @@ export class UserblogComponent {
     verified_logo: string
   }[] = [
       {
-        image: '/assets/image/cta-verified-img1.svg',
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
       {
-        image: '/assets/image/cta-verified-img1.svg',
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
       {
-        image: '/assets/image/cta-verified-img1.svg',
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
       {
-        image: '/assets/image/cta-verified-img1.svg',
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
       {
-        image: '/assets/image/cta-verified-img1.svg',
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      }, {
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      }, {
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image: 'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
     ]
