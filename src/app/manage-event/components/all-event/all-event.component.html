@@ -65,7 +65,7 @@
         <div class="grid-card col-lg-4">
           <div class="listing-img">
             @if (key && key.featured_image && key.featured_image.length > 0) {
-            <img [src]="key.featured_image[0]" />
+            <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)"/>
             } @else {
             <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
             }
