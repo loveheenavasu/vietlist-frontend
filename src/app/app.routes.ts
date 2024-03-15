@@ -37,6 +37,7 @@ import { AllBookingsComponent } from './manage-profile/components/all-bookings/a
 import { CancellationPolicyComponent } from './manage-profile/components/cancellation-policy/cancellation-policy.component'
 import { BookingDetailComponent } from './manage-event/components/booking-detail/booking-detail.component'
 import { ThankYouPageComponent } from './common-ui/thank-you-page/thank-you-page.component'
+import { ContactUsComponent } from './landing-page/views/contact-us/contact-us.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -201,6 +202,10 @@ export default [
   {
     path: 'business-details/:id',
     loadComponent: () => EventDetailsComponent,
+  },
+  {
+    path:'contact-us',
+    loadComponent:()=>ContactUsComponent
   },
   {
     path:'thank-you',

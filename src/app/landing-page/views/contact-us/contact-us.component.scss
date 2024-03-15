@@ -1,0 +1,98 @@
+@import "../../../../assets/scss/common";
+@import "../../../../assets/scss/select.scss";
+@import "../../../../assets/scss/banner.scss";
+
+.container {
+  margin: 5rem auto 5rem auto;
+  display: flex;
+  align-items: center;
+}
+
+.form-cnt {
+  margin: auto;
+  height: auto;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07) !important;
+  width: 100%;
+  max-width: 500px;
+  padding: 35px 25px;
+}
+
+.input-group {
+  flex-wrap: nowrap;
+  position: relative;
+
+  .input-control {
+    border-radius: 4px !important;
+  }
+
+  .input-group-text {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    border-left: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+}
+
+.mat-mdc-radio-button~.mat-mdc-radio-button {
+  margin-left: 12px;
+}
+
+.form-heading {
+  font-size: 1.75rem;
+  color: var(--dark-grey)
+}
+
+.forgot_password {
+  color: #1E73bE;
+  cursor: pointer;
+}
+
+
+/* Your component styles.css or styles.scss */
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: var(--primary-color-orange) !important;
+}
+
+
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: var(--primary-color-orange) !important;
+
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color-orange) !important;
+  border-color: var(--primary-color-orange) !important;
+}
+
+.form-check-label {
+  color: var(--dark-grey)
+}
+
+.new-to-vietlist {
+  color: var(--dark-grey);
+  font-size: 15px;
+  margin: 0 auto;
+  width: fit-content
+}
+
+.create-account {
+  color: #1E73bE;
+  cursor: pointer
+}
+
+@media screen and (max-width:720px){
+  .my-custom-panel{
+    width:90% !important;
+  }
+}
+
+@media screen and (max-width:520px){
+.top-banner{
+  display:none;
+  margin-top:9rem;
+}
+}
