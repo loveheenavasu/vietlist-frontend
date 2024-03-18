@@ -27,7 +27,6 @@ export class UserblogComponent {
 
   }
   public loadMore() {
-     console.log('testtstststststststststts')
     this.getUserBlog()
   }
 
@@ -36,8 +35,8 @@ export class UserblogComponent {
     this.homeService.userBlogs('10', '1').subscribe({
       next: (res) => {
         if (res) {
-
           this.userdetails = res?.data
+          console.log(this.userdetails)
           this.loaderService.hideLoader()
         }
       }, error: (err) => {
