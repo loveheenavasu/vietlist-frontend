@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, Renderer2, RendererStyleFlags2, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FullPageLoaderService } from '@vietlist/shared';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 
 @Component({
@@ -16,12 +16,15 @@ export class UserBlogDetailsComponent {
   public blogId: any
   public userdetails: any
   public userBlogDetails: any
-  constructor(private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService) {
+  public blogIdtwo: any
+  constructor(private authentication: AuthenticationService, private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService, private router: Router) {
 
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
     })
-   
+    this.authentication.BlogID.subscribe((res: any) => {
+      this.blogIdtwo = res
+    })
 
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
@@ -134,7 +137,7 @@ export class UserBlogDetailsComponent {
       // Apply line-height to the current p tag
       this.renderer.setStyle(pElement, 'line-height', '30px', RendererStyleFlags2.Important);
 
-   
+
     }
 
 
@@ -142,32 +145,40 @@ export class UserBlogDetailsComponent {
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe( {
-      next:(res)=>{
+    this.homeService.userBlogs().subscribe({
+      next: (res) => {
         if (res) {
           this.loaderService.hideLoader()
           this.userdetails = res?.data
         }
-      },error:(err)=>{
+      }, error: (err) => {
         this.loaderService.hideLoader()
       }
-   
+
     })
   }
   getUserBlogDetail() {
     this.loaderService.showLoader()
-    this.homeService.userBlogsDetail(this.blogId).subscribe({
-      next:(res)=>{
+    this.homeService.userBlogsDetail(this.blogIdtwo ? this.blogIdtwo : this.blogId).subscribe({
+      next: (res) => {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
           console.log(res, 'resresresresresresresresres')
-  
-        } 
-      },error:(err)=>{
+
+        }
+      }, error: (err) => {
         this.loaderService.hideLoader()
       }
-     
+
     })
+  }
+  viewuserdetails(details: any) {
+
+
+    this.router.navigate(['/user-blog-details/', details?.blog_id])
+    this.authentication.BlogID.next(details?.blog_id)
+    this.getUserBlog()
+    this.getUserBlogDetail()
   }
 }

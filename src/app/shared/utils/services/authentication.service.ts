@@ -18,6 +18,7 @@ export class AuthenticationService {
   private loginInfo: any
   private registerUserInfo: any
   public OnLogOut = new BehaviorSubject<boolean>(false)
+  public BlogID = new BehaviorSubject<any>('')
   public clearLocationValue = new BehaviorSubject<boolean>(false)
   /**
    *

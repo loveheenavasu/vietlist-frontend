@@ -42,6 +42,11 @@ export class HomepageService {
       const params = new HttpParams().set('blog_id', blog_id)
       return this.http.get<any>(endpoint, { params: params })
     }
+    public blogCategoery (category_type: any): Observable<any> {
+      const endpoint = GenericHelper.appendBaseUrl(Endpoints.BlogCategory)
+      const params = new HttpParams().set('category_type', category_type)
+      return this.http.get<any>(endpoint, { params: params })
+    }
 
 
  public getAllBusinessBlog(): Observable<any> {

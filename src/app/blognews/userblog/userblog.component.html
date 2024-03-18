@@ -15,7 +15,7 @@
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
                 @for(userData of userdetails; track $index){
-                <swiper-slide>
+                <swiper-slide (click)="viewuserdetails(userData)">
                     <div class="image">
                         <img [src]="userData?.featured_image ? userData?.featured_image : '/assets/image/No-image-found.jpeg'"
                             alt="verfied-image" />
