@@ -146,7 +146,7 @@ export class UserBlogDetailsComponent {
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe({
+    this.homeService.userBlogs('10','1').subscribe({
       next: (res) => {
         if (res) {
           this.loaderService.hideLoader()
