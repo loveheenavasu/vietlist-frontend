@@ -26,7 +26,7 @@ export class UserblogComponent {
     this.getUserBlog()
 
   }
- loadMore() {
+  public loadMore() {
      console.log('testtstststststststststts')
     this.getUserBlog()
   }
