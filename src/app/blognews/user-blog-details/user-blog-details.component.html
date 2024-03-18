@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="cta-verfied-image">
+    <div class="cta-verfied-image" style="margin-top:8rem">
         <div class="elementor-element elementor-element-1b26e33 elementor-widget elementor-widget-text-editor"
             data-id="1b26e33" data-element_type="widget" data-widget_type="text-editor.default">
             <div class="elementor-widget-container">
@@ -9,13 +9,13 @@
         <div class="image-container" style="height:320px">
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-                @for(userData of userdetails; track $index){
-                <swiper-slide>
+                @for(key of userdetails; track $index){
+                <swiper-slide (click)="viewuserdetails(key)">
                     <div class="image">
-                        <img [src]="userData?.featured_image ? userData?.featured_image : '/assets/image/No-image-found.jpeg'"
+                        <img [src]="key?.featured_image ? key?.featured_image : '/assets/image/No-image-found.jpeg'"
                             alt="verfied-image" />
                         <div class="verified-logo">
-                            <a>{{userData?.blog_title}}</a>
+                            <a>{{key?.blog_title}}</a>
                         </div>
                     </div>
                 </swiper-slide>
@@ -53,41 +53,57 @@
                     <div class="main_content__">
                         <div [innerHTML]="userBlogDetails?.blog_desc" class="blog-content"></div>
 
-
+                        @if(userBlogDetails?.author_detail){
                         <div class="uwp_widgets">
                             <div class="content_author text-md-left  bg-light">
                                 <div class="image__">
-                                    <a><img  style="border-width: 4px !important;" loading="lazy" decoding="async"
-                                            src="https://secure.gravatar.com/avatar/ca9a84a9cc4c3d0be6f59d0c804adc46?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
+                                    <a><img style="border-width: 4px !important;" loading="lazy" decoding="async"
+                                            [src]="userBlogDetails?.author_detail?.user_image ? userBlogDetails?.author_detail?.user_image : '/assets/image/No-image-found.jpeg'"
                                             class="rounded-circle shadow border border-white border-width-4 mr-3"
                                             width="60" height="60" alt="BlogBlitz"></a>
                                 </div>
                                 <div class="media-body">
                                     <h5 class="mt-0">Author: <a
-                                            href="https://vietlist.biz/staging_dev/profile-2/blogblitz/">BlogBlitz</a>
+                                            href="https://vietlist.biz/staging_dev/profile-2/blogblitz/">{{userBlogDetails?.author_detail?.first_name
+                                            + ' ' + userBlogDetails?.author_detail?.last_name}}</a>
                                     </h5>
 
-                                    <p>BlogBlitz - The Digital Storyteller Hello, fellow explorers of the digital realm!
-                                        I'm
-                                        BlogBlitz, your guide to the ever-evolving world of online narratives. With a
-                                        passion for weaving words and a keen eye for trends, I delve into topics that
-                                        resonate with the modern netizen. From thought-provoking insights to
-                                        light-hearted
-                                        musings, join me on a journey that promises a blitz of knowledge, creativity,
-                                        and
-                                        inspiration. When I'm not crafting content, you'll find me exploring nature
-                                        trails,
-                                        experimenting with photography, or lost in a gripping novel. Welcome to my
-                                        corner of
-                                        the web, where every post is a story waiting to be told.</p>
+                                    <p>{{userBlogDetails?.author_detail?.user_info}}</p>
                                 </div>
                             </div>
                         </div>
+                        }
+                        <div class="comment__">
+                            <h5 class="block-head">
+                                0 Comments
+                            </h5>
+                            <div class="comment_section">
+                                <div class="profile_comment">
+                                    <img
+                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                                </div>
+                                <div class="auther_email">
+                                    <b class="fn"><a rel="external nofollow" class="email_auther"> <span
+                                                class="email_auther">{{'testing01@yopmail.com'}}</span></a> &nbsp;</b>
+                                    <span class="says">says:</span>
+                                    <br />
+                                    <div class="auther_date">
+                                        <time datetime="2024-03-18T04:09:50-04:00">March 18, 2024 at 4:09 am</time>
+                                    </div>
+                                    <div class="description">
+                                        <p>hgfghfg</p>
+                                    </div>
+                                    <div class="reply_button">
+                                        <a rel="external nofollow" class="email_auther_reply"> <span
+                                                class="email_auther_reply">{{'reply'}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-12">
 
-                </div>
                 <!-- <div class="col-10">
                     <div class="text-center">
                         <button class="__button">Load More</button>

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FullPageLoaderService } from '@vietlist/shared';
+import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 @Component({
   selector: 'app-userblog',
@@ -14,35 +14,37 @@ export class UserblogComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
 
   public userdetails: any
-  constructor( private homeService: HomepageService, private router: Router, private loaderService:FullPageLoaderService) {
+  public categoery: any
+  constructor(private authService: AuthenticationService, private homeService: HomepageService, private router: Router, private loaderService: FullPageLoaderService) {
 
-    this.getUserBlog()
-   
+
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
     })
-   
+    this.getUserBlog()
+
   }
 
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe( {
-      next:(res)=>{
+    this.homeService.userBlogs().subscribe({
+      next: (res) => {
         if (res) {
-          
+
           this.userdetails = res?.data
-           console.log( this.userdetails,' this.userdetails this.userdetails this.userdetails this.userdetails')
           this.loaderService.hideLoader()
         }
-      },error:(err)=>{
+      }, error: (err) => {
         this.loaderService.hideLoader()
       }
-   
+
     })
   }
+
+
   swiperParams = {
     slidesPerView: 1,
     navigation: {
@@ -110,5 +112,6 @@ export class UserblogComponent {
 
 public  viewuserdetails(details: any) {
     this.router.navigate(['/user-blog-details/', details?.blog_id])
+    this.authService.BlogID.next(details?.blog_id)
   }
 }
