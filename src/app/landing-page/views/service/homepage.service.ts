@@ -33,4 +33,13 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetStats)
     return this.http.post<any>(endpoint, body)
   }
+  public userBlogs(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
+    return this.http.get<any>(endpoint)
+  }
+  public userBlogsDetail(blog_id: any): Observable<any> {
+      const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogsDetail)
+      const params = new HttpParams().set('blog_id', blog_id)
+      return this.http.get<any>(endpoint, { params: params })
+    }
 }

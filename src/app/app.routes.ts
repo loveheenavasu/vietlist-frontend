@@ -40,6 +40,7 @@ import { ContactUsComponent } from './landing-page/views/contact-us/contact-us.c
 import { BusinessCategories, BusinessListingComponent } from './categories'
 import { UserblogComponent } from './blognews/userblog/userblog.component'
 import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.component'
+import { UserBlogDetailsComponent } from './blognews/user-blog-details/user-blog-details.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -174,6 +175,10 @@ export default [
   {
     path: 'user-blog',
     loadComponent: () => UserblogComponent,
+  },
+  {
+    path: 'user-blog-details/:id',
+    loadComponent: () => UserBlogDetailsComponent,
   },
   {
     path: 'business-blog',

@@ -68,5 +68,7 @@ export enum Endpoints {
   CreateBookingPaymentIntent = 'create_event_booking_initial_intent',
   StripePaymentForBooking = 'stripe_payment_for_booking',
   SetEventBooking = 'set_event_booking',
-  BookingDetails = 'get_booking_by_booking_id'
+  BookingDetails = 'get_booking_by_booking_id',
+  UserBlogs='get_all_blog_post',
+  UserBlogsDetail='get_blog_by_id'
 }
