@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="cta-verfied-image">
+        <div class="elementor-element elementor-element-1b26e33 elementor-widget elementor-widget-text-editor"
+            data-id="1b26e33" data-element_type="widget" data-widget_type="text-editor.default">
+            <div class="elementor-widget-container">
+                <p><strong>/ USER BLOG /</strong></p>
+            </div>
+        </div>
+        <div class="image-container" style="height:320px">
+            <!-- <div class="d-flex"> -->
+            <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+                @for (item of verifiedImage; track $index) {
+                <swiper-slide>
+                    <div class="image">
+                        <img [src]="item.image" alt="verfied-image" />
+                        <div class="verified-logo">
+                            <a
+                                herf="https://vietlist.biz/staging_dev/keywords-investment-vietnam-property-market-overseas-properties-legal-considerations-return-investment-2/">Investing
+                                abroad? Here’s why Vietnam should be at the top of your list for high returns and legal
+                                ease.</a>
+                        </div>
+                    </div>
+                </swiper-slide>
+                }
+            </swiper-container>
+            <!-- Custom navigation buttons -->
+            <div class="swiper-button-prev"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="swiper-button-next"> <i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+    </div>
+
+    <section>
+
+        <div class="container">
+            <div class="row">
+                <div class="main_content__">
+                    <h2 class="heading-title">{{userBlogDetails?.blog_title}}
+                    </h2>
+                </div>
+                <div class="content___info">
+                    <div class="blog___">
+                        <i class="far fa-user-circle"></i> &nbsp;<span>BlogBlitz &nbsp;</span>
+                    </div>
+                    &nbsp;
+                    <div class="blog___">
+                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date}} &nbsp;</span>
+                    </div>
+                    &nbsp;
+                    <div class="blog___">
+                        <i class="far fa-comment-dots"></i> &nbsp;<span>No Comments</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="main_content__">
+                        <div [innerHTML]="userBlogDetails?.blog_desc" class="blog-content"></div>
+                    </div>
+                </div>
+                <!-- <div class="col-10">
+                    <div class="text-center">
+                        <button class="__button">Load More</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+</div>

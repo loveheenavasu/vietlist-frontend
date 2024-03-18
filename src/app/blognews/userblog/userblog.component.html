@@ -37,255 +37,42 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
+                    @for(userData of userdetails; track $index){
+                        <div class="list-layout-wrapper" (click)="viewuserdetails(userData)">
+                            <div class="main_div">
+                                <div class="images_hover">
+                                    <a href="">
+                                        <img [src]="userData?.featured_image ? userData?.featured_image : '/assets/image/No-image-found.jpeg'"/></a>
                                 </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
+                                <div class="heading___">
+                                    <h3 class=""><a
+                                            
+                                            class="tpg-post-link entry-title" target="_self">{{userData?.blog_title}}</a>
+                                    </h3>
+                                    <div class="post-meta-tags rt-el-post-meta">
+                                        <span class="date">
+                                            <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
+                                                >
+                                               {{userData?.post_date}} &nbsp;</a>
+                                        </span>
+                                        <span class="categories-links date">
+                                            &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
+                                                class="navigating-us-real-estate"
+                                              >Navigating
+                                                U.S. Real Estate &nbsp;</a>
+                                        </span>
+                                    </div>
+                                    <div class="tpg-excerpt tpg-el-excerpt">
+                                        <div class="tpg-excerpt-inner">
+                                            <div [innerHTML]="userData?.blog_desc">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Dublicate content  -->
-
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-layout-wrapper">
-                        <div class="main_div">
-                            <div class="images_hover">
-                                <a href="">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Federal-and-Local-Mortgage-Assistance-Programs-for-Vietnamese-Families-113662687.jpg" />
-                                </a>
-                            </div>
-                            <div class="heading___">
-                                <h3 class=""><a
-                                        href="https://vietlist.biz/staging_dev/federal-local-mortgage-assistance-programs-vietnamese-families/"
-                                        class="tpg-post-link entry-title" target="_self">Federal and Local Mortgage
-                                        Assistance Programs
-                                        for Vietnamese Families</a>
-                                </h3>
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a
-                                            href="https://vietlist.biz/staging_dev/2023/10/03/">
-                                            October 3, 2023 &nbsp;</a>
-                                    </span>
-                                    <span class="categories-links date">
-                                        &nbsp; <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                                            class="navigating-us-real-estate"
-                                            href="https://vietlist.biz/staging_dev/category/navigating-us-real-estate/">Navigating
-                                            U.S. Real Estate &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="tpg-excerpt-inner">
-                                        <p>Are you a <strong>Vietnamese homebuyer</strong> struggling to make sense of
-                                            the
-                                            <strong>complex landscape of mortgages</strong>? The truth is, for many
-                                            people,
-                                            securing an ideal mortgage can feel like navigating through a maze.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+                   
                 </div>
                 <div class="col-10">
                     <div class="text-center">

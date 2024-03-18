@@ -50,6 +50,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
     this.getPlaceAutocomplete()
   }
 
+
   private getPlaceAutocomplete() {
     const autocomplete = new google.maps.places.Autocomplete(
       this.addresstext.nativeElement,

@@ -7,6 +7,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { FullPageLoaderService } from '@vietlist/shared';
 import { register } from 'swiper/element/bundle';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
+import { Router } from '@angular/router';
 
 register()
 @Component({
@@ -36,7 +37,7 @@ export class BusinessblogsComponent {
     },
   }
 
-  constructor(private businessBlog:HomepageService ,    private IpService: ProfileService,private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer , private fullPageLoader:FullPageLoaderService ){
+  constructor(private businessBlog:HomepageService ,  private router:Router,  private IpService: ProfileService,private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer , private fullPageLoader:FullPageLoaderService ){
 
   }
 
@@ -55,7 +56,6 @@ export class BusinessblogsComponent {
   public showAdBlogPage() {
     this.businessBlog.showAD().subscribe({
       next: (res: any) => {
-        console.log(res, "allAds");
         const data = res.data.filter((item: any) => item.Page_key === 'blog ad');
         if(data){
           this.addDetail = data[0]?.ads_detail
@@ -80,7 +80,7 @@ export class BusinessblogsComponent {
       next:(res)=>{
         this.fullPageLoader.hideLoader()
         this.businessBlogArr = res?.data
-        console.log(this.businessBlogArr , "Array")
+       
       },
       error:(err)=>{
         this.fullPageLoader.hideLoader()
@@ -149,14 +149,12 @@ export class BusinessblogsComponent {
     })
   }
 
-
-
-  // public CountClickStats(ad_id: string, space_id: string) {
-  //   this.setStats(ad_id, space_id)
-  // }
-
   public getUrl(url: string) {
     window.open(url, "_blank");
+  }
+
+  public  viewblogdetails(details: any) {
+    this.router.navigate(['/business-blog-details/', details])
   }
 
 }

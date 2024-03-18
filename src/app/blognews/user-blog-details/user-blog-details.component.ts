@@ -1,41 +1,35 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, Renderer2, RendererStyleFlags2, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FullPageLoaderService } from '@vietlist/shared';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
+
 @Component({
-  selector: 'app-userblog',
+  selector: 'app-user-blog-details',
   standalone: true,
   imports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './userblog.component.html',
-  styleUrl: './userblog.component.scss'
+  templateUrl: './user-blog-details.component.html',
+  styleUrl: './user-blog-details.component.scss'
 })
-export class UserblogComponent {
+export class UserBlogDetailsComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
+  public blogId: any
+  public userBlogDetails: any
+  constructor(private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService) {
 
-  public userdetails: any
-  constructor(private homeService: HomepageService, private router: Router, private loaderService:FullPageLoaderService) {
+    this._activatedRoute.params.subscribe((res) => {
+      this.blogId = res['id']
+    })
+    this.getUserBlogDetail()
+
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
     })
-    this.getUserBlog()
+
   }
 
-
-  getUserBlog() {
-    this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe((res: any) => {
-      if (res) {
-        this.loaderService.hideLoader()
-        this.userdetails = res?.data
-        console.log(this.userdetails, 'resresresresresresresresresresres')
-      }else{
-        this.loaderService.hideLoader()
-      }
-    })
-  }
   swiperParams = {
     slidesPerView: 1,
     navigation: {
@@ -100,8 +94,61 @@ export class UserblogComponent {
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
     ]
+    
+  ngAfterViewInit(): void {
+    const divElement = this.elRef.nativeElement.querySelector('.blog-content');
+    const pElements = divElement?.getElementsByTagName('p');
+    const h3Elements = divElement?.getElementsByTagName('h3');
+    const ulElements = divElement?.getElementsByTagName('ul');
+    for (let i = 0; i < pElements?.length; i++) {
+      const pElement = pElements[i];
+      const h3Element = h3Elements[i];
+      const ulElement = ulElements[i];
+      if (ulElement) {
+        const liElements = ulElement?.getElementsByTagName('li');
+        if (liElements) {
 
-public  viewuserdetails(details: any) {
-    this.router.navigate(['/user-blog-details/', details?.blog_id])
+          for (let j = 0; j < liElements.length; j++) {
+            const liElement = liElements[j];
+            this.renderer.setStyle(liElement, 'line-height', '30px', RendererStyleFlags2.Important);
+
+          }
+        }
+      }
+      if (h3Element) {
+        Object.assign(h3Element.style, {
+          fontWeight: '300',
+          margin: '20px 0',
+          color: '#232F3E',
+          fontSize: '27px'
+        });
+      }
+
+      // Apply line-height to the current p tag
+      this.renderer.setStyle(pElement, 'line-height', '30px', RendererStyleFlags2.Important);
+
+      const imgElement = pElements[i].querySelector('img');
+      if (imgElement) {
+        this.renderer.setStyle(imgElement, 'width', '100%', RendererStyleFlags2.Important);
+        this.renderer.setStyle(imgElement, 'height', '100%', RendererStyleFlags2.Important);
+      }
+    }
+  }
+
+  public getUserBlogDetail() {
+    this.loaderService.showLoader()
+    this.homeService.userBlogsDetail(this.blogId).subscribe({
+      next:(res)=>{
+        if (res) {
+          this.userBlogDetails = res?.data
+          this.loaderService.hideLoader()
+          console.log(res, 'resresresresresresresresres')
+  
+        } 
+      },error:(err)=>{
+        this.loaderService.hideLoader()
+      }
+     
+    })
   }
 }

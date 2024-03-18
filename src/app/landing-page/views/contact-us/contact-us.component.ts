@@ -1,3 +1,4 @@
+import { HomepageService } from './../service/homepage.service';
 import { Component, HostListener, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,16 +10,17 @@ import { ForgotPasswordComponent } from '../../../auth';
 import { AuthService } from '../../../auth/service/auth.service';
 import { LocalStorageService, AuthenticationService, Roles, UserStatus } from '../../../shared/utils';
 import { AutocompleteComponent } from '../../../shared/utils/googleaddress';
+import { LoaderComponent } from 'src/app/common-ui';
 
 @Component({
   selector: 'app-contact-us',
   standalone: true,
-  imports: [ReactiveFormsModule , FormsModule ,NgxIntlTelInputModule ,AutocompleteComponent],
+  imports: [ReactiveFormsModule , FormsModule ,NgxIntlTelInputModule ,AutocompleteComponent,LoaderComponent],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss'
 })
 export class ContactUsComponent {
-  public loginForm!: FormGroup
+  public contactus!: FormGroup
   public loader: boolean = false
   public separateDialCode = true
   public SearchCountryField = SearchCountryField
@@ -28,6 +30,7 @@ export class ContactUsComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
+  public street:any
   public state: any
   public country: any
   public city: any
@@ -49,36 +52,25 @@ export class ContactUsComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private localStorage: LocalStorageService,
-    private authenticationService: AuthenticationService,
+    private homepage: HomepageService,
     private cd:ChangeDetectorRef
   ) {
 
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+    this.contactus = this.fb.group({
+      name: ['', Validators.required],
+      phone_number: ['', Validators.required],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      messages:['', Validators.required]
     })
   }
-  screensize: any = '35%'
-  dialogWidth: any
-  height: any
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.screensize = event.target.innerWidth
-  }
-
-  public forgotPassword() {
-    if (this.screensize > 720) {
-      this.dialogWidth = '45%'
-    } else if (this.screensize < 720) {
-      this.dialogWidth = '90%'
-      this.height = '45%'
-    }
-
-    this.dialog.open(ForgotPasswordComponent, {
-      width: this.dialogWidth,
-      height: this.height,
-    })
-  }
+ 
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -109,37 +101,27 @@ export class ContactUsComponent {
 
   }
 
-  public navigateToRegister() {
-    this.router.navigateByUrl('/register')
-  }
 
-  public login() {
-    if (this.loginForm.valid) {
+
+  public submit() {
+    if (this.contactus.valid) {
       this.loader = true
-      this.authService.login(this.loginForm.value).subscribe({
+      const body  = {
+        name:this.contactus.value.name,
+        phone_number:this.contactus.value.name,
+        messages:this.contactus.value.messages,
+        email:this.contactus.value.email,
+        address:this.fullAddress
+      }
+      this.homepage.contactus(body).subscribe({
         next: (res: any) => {
           this.loader = false
-          this.authenticationService.userRole.next(res?.data?.user?.user_role)
-          this.authenticationService.setAuthenticationStatusTrue(res.data.token)
-          this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
-          this.authenticationService.setSubscriptonStatus(res.data.user.status)
-          if (
-            res.data.user.user_role == Roles.businessOwner &&
-            res.data.user.status == 'inactive'
-          ) {
-            this.router.navigateByUrl('/subscription-plans')
-          } else if (
-            res.data.user.user_role == Roles.businessOwner &&
-            res.data.user.status == UserStatus.Active
-          ) {
-            this.router.navigateByUrl('/manage-profile')
-          } else if (res.data.user.user_role == Roles.subscriber) {
-            this.router.navigateByUrl('/manage-profile')
-          }
-
+          this.contactus.reset()
+          this.street = ''
+          this.fullAddress = ''
           Swal.fire({
             toast: true,
-            text: 'Login Successfully',
+            text: res.message,
             animation: false,
             icon: 'success',
             position: 'top-right',

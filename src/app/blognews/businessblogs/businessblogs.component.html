@@ -8,11 +8,11 @@
   <div class="row">
     @for(key of businessBlogArr ; track $index){
     <div class="col-12 col-lg-6 mt-3 mb-4">
-      <div class="card-cnt">
-        <div class="image">
+      <div class="card-cnt" (click)="viewblogdetails(key?.blog_id)">
+        <div class="image" (click)="viewblogdetails(key?.blog_id)">
           <img [src]="key?.featured_image ? key?.featured_image : '/assets/image/No-image-found.jpeg'"/>
         </div>
-        <div class="content">
+        <div class="content" (click)="viewblogdetails(key?.blog_id)">
           <h1 class="card-heading">
              {{key?.blog_title}}
           </h1>
@@ -32,7 +32,7 @@
             <p [innerHTML]="key?.blog_desc | truncateHtml: 120"></p>
           </div>
           <div class="btn-div">
-            <button class="btn read-more-btn">Read More</button>
+            <button class="btn read-more-btn" (click)="viewblogdetails(key?.blog_id)">Read More</button>
           </div>
         </div>
       </div>
