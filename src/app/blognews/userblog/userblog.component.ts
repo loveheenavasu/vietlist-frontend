@@ -26,11 +26,14 @@ export class UserblogComponent {
     this.getUserBlog()
 
   }
-
+ loadMore() {
+     console.log('testtstststststststststts')
+    this.getUserBlog()
+  }
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe({
+    this.homeService.userBlogs('10', '1').subscribe({
       next: (res) => {
         if (res) {
 
@@ -110,8 +113,9 @@ export class UserblogComponent {
       },
     ]
 
-public  viewuserdetails(details: any) {
+  public viewuserdetails(details: any) {
     this.router.navigate(['/user-blog-details/', details?.blog_id])
     this.authService.BlogID.next(details?.blog_id)
   }
+
 }
