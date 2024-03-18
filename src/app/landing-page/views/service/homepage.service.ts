@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
   providedIn: 'root',
 })
 export class HomepageService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -33,41 +33,29 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetStats)
     return this.http.post<any>(endpoint, body)
   }
-<<<<<<< HEAD
-=======
+
+  public blogCategoery(category_type: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BlogCategory)
+    const params = new HttpParams().set('category_type', category_type)
+    return this.http.get<any>(endpoint, { params: params })
+  }
+
+  public getAllBusinessBlog(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessBlog)
+    return this.http.get<any>(endpoint)
+  }
   public userBlogs(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
     return this.http.get<any>(endpoint)
   }
+
   public userBlogsDetail(blog_id: any): Observable<any> {
-      const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogsDetail)
-      const params = new HttpParams().set('blog_id', blog_id)
-      return this.http.get<any>(endpoint, { params: params })
-    }
-    public blogCategoery (category_type: any): Observable<any> {
-      const endpoint = GenericHelper.appendBaseUrl(Endpoints.BlogCategory)
-      const params = new HttpParams().set('category_type', category_type)
-      return this.http.get<any>(endpoint, { params: params })
-    }
->>>>>>> 8c01076ba58bde458e4b2b719faaadde95c938ba
-
-
- public getAllBusinessBlog(): Observable<any> {
-  const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessBlog)
-  return this.http.get<any>(endpoint)
-}
-  public userBlogs(): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
-    return this.http.get<any>(endpoint)
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogsDetail)
+    const params = new HttpParams().set('blog_id', blog_id)
+    return this.http.get<any>(endpoint, { params: params })
   }
-  
-  public userBlogsDetail(blog_id: any): Observable<any> {
-      const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogsDetail)
-      const params = new HttpParams().set('blog_id', blog_id)
-      return this.http.get<any>(endpoint, { params: params })
-    }
 
-  public contactus(body:any): Observable<any>{
+  public contactus(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Contactus)
     return this.http.post<any>(endpoint, body)
   }

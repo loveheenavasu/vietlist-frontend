@@ -54,6 +54,18 @@
       >
       <input type="text" class="input-control mt-1" />
     </div>
+    <div class="col-12 col-md-12 mb-3">
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input"
+             type="checkbox" value="" id="terms" />
+          <label class="form-check-label" for="terms">
+            Save my name, email, and website in this browser for the
+            next time I comment.
+          </label>
+        </div>
+      </div>
+    </div>
     <br />
     <div class="col-12 mb-3">
       <label class="listing-form-label"
@@ -142,40 +154,41 @@
         </div>
       </div>
 }
-  <div class="row mt-5">
-    <div class="cta-verfied-image">
-      <div class="image-container" style="height: 320px">
-        <!-- <div class="d-flex"> -->
-        <swiper-container
-          #busniessCategoriesSwiper
-          class="mySwiper"
-          init="false"
-        >
-          @for (userData of userdetails; track $index) {
-            <swiper-slide>
-              <div class="image">
-                <img
-                  [src]="
-                    userData?.featured_image
-                      ? userData?.featured_image
-                      : '/assets/image/No-image-found.jpeg'
-                  "
-                  alt="verfied-image"
-                />
-                <div class="verified-logo">
-                  <a>{{ userData?.blog_title }}</a>
-                </div>
+
+</div>
+<div class="row mt-5">
+  <div class="cta-verfied-image">
+    <div class="image-container" style="height: 320px">
+      <!-- <div class="d-flex"> -->
+      <swiper-container
+        #busniessCategoriesSwiper
+        class="mySwiper"
+        init="false"
+      >
+        @for (userData of userdetails; track $index) {
+          <swiper-slide>
+            <div class="image">
+              <img
+                [src]="
+                  userData?.featured_image
+                    ? userData?.featured_image
+                    : '/assets/image/No-image-found.jpeg'
+                "
+                alt="verfied-image"
+              />
+              <div class="verified-logo">
+                <a>{{ userData?.blog_title }}</a>
               </div>
-            </swiper-slide>
-          }
-        </swiper-container>
-        <!-- Custom navigation buttons -->
-        <div class="swiper-button-prev">
-          <i class="fa-solid fa-arrow-left"></i>
-        </div>
-        <div class="swiper-button-next">
-          <i class="fa-solid fa-arrow-right"></i>
-        </div>
+            </div>
+          </swiper-slide>
+        }
+      </swiper-container>
+      <!-- Custom navigation buttons -->
+      <div class="swiper-button-prev">
+        <i class="fa-solid fa-arrow-left"></i>
+      </div>
+      <div class="swiper-button-next">
+        <i class="fa-solid fa-arrow-right"></i>
       </div>
     </div>
   </div>
