@@ -1,3 +1,4 @@
+import { BusinessBlogDetailsComponent } from './blognews/business-blog-details/business-blog-details.component';
 
 import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
@@ -178,6 +179,10 @@ export default [
   {
     path: 'business-blog',
     loadComponent: () => BusinessblogsComponent,
+  },
+  {
+    path:'business-blog-details',
+    loadComponent:() => BusinessBlogDetailsComponent
   },
   {
     path: 'business-listing',

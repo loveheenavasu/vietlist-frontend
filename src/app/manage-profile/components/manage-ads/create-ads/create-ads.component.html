@@ -17,7 +17,7 @@
         <mat-select class="vietlist-select" (selectionChange)="onSelectSpace($event.value)" placeholder="Choose Space"
           formControlName="space_id">
           @for(key of allSpaces;track $index){
-          <mat-option [value]="key.id">{{key.name}}</mat-option>
+          <mat-option [value]="key.id">{{key.name | titlecase}}</mat-option>
           }
         </mat-select>
       </div>
