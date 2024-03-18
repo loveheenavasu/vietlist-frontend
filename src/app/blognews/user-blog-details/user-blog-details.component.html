@@ -9,16 +9,13 @@
         <div class="image-container" style="height:320px">
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-                @for (item of verifiedImage; track $index) {
+                @for(userData of userdetails; track $index){
                 <swiper-slide>
                     <div class="image">
-                        <img [src]="item.image" alt="verfied-image" />
+                        <img [src]="userData?.featured_image ? userData?.featured_image : '/assets/image/No-image-found.jpeg'" alt="verfied-image"/>
                         <div class="verified-logo">
-                            <a
-                                herf="https://vietlist.biz/staging_dev/keywords-investment-vietnam-property-market-overseas-properties-legal-considerations-return-investment-2/">Investing
-                                abroad? Here’s why Vietnam should be at the top of your list for high returns and legal
-                                ease.</a>
-                        </div>
+                            <a>{{userData?.blog_title}}</a>
+                        </div>  
                     </div>
                 </swiper-slide>
                 }
@@ -43,7 +40,7 @@
                     </div>
                     &nbsp;
                     <div class="blog___">
-                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date}} &nbsp;</span>
+                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date ? userBlogDetails?.post_date:'No Date'}} &nbsp;</span>
                     </div>
                     &nbsp;
                     <div class="blog___">

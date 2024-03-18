@@ -14,12 +14,14 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 export class UserBlogDetailsComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   public blogId: any
+  public userdetails: any
   public userBlogDetails: any
   constructor(private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService) {
 
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
     })
+    this.getUserBlog()
     this.getUserBlogDetail()
 
     setTimeout(() => {
@@ -132,6 +134,21 @@ export class UserBlogDetailsComponent {
         this.renderer.setStyle(imgElement, 'height', '100%', RendererStyleFlags2.Important);
       }
     }
+  }
+
+  getUserBlog() {
+    this.loaderService.showLoader()
+    this.homeService.userBlogs().subscribe( {
+      next:(res)=>{
+        if (res) {
+          this.loaderService.hideLoader()
+          this.userdetails = res?.data
+        }
+      },error:(err)=>{
+        this.loaderService.hideLoader()
+      }
+   
+    })
   }
   getUserBlogDetail() {
     this.loaderService.showLoader()

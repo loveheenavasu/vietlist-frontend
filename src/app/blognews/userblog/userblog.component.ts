@@ -26,14 +26,16 @@ export class UserblogComponent {
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs().subscribe((res: any) => {
-      if (res) {
-        this.loaderService.hideLoader()
-        this.userdetails = res?.data
-        console.log(this.userdetails, 'resresresresresresresresresresres')
-      }else{
+    this.homeService.userBlogs().subscribe( {
+      next:(res)=>{
+        if (res) {
+          this.loaderService.hideLoader()
+          this.userdetails = res?.data
+        }
+      },error:(err)=>{
         this.loaderService.hideLoader()
       }
+   
     })
   }
   swiperParams = {
