@@ -11,7 +11,7 @@ import { AuthenticationService, LocalStorageService } from '@vietlist/shared';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from 'src/app/common-ui';
 import { COUNTRY_DATA } from '@vietlist/shared';
-import { Location } from '@angular/common';
+import { Location, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-ads',
@@ -21,7 +21,8 @@ import { Location } from '@angular/common';
     MatRadioModule,
     ReactiveFormsModule,
     LoaderComponent,
-    FormsModule],
+    FormsModule,
+  TitleCasePipe],
   templateUrl: './create-ads.component.html',
   styleUrl: './create-ads.component.scss'
 })

@@ -70,5 +70,6 @@ export enum Endpoints {
   SetEventBooking = 'set_event_booking',
   BookingDetails = 'get_booking_by_booking_id',
   UserBlogs='get_all_blog_post',
-  UserBlogsDetail='get_blog_by_id'
+  UserBlogsDetail='get_blog_by_id',
+  BusinessBlog = 'get_all_business_blog_post'
 }

@@ -14,13 +14,16 @@ export class UserblogComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
 
   public userdetails: any
-  constructor(private homeService: HomepageService, private router: Router, private loaderService:FullPageLoaderService) {
+  constructor( private homeService: HomepageService, private router: Router, private loaderService:FullPageLoaderService) {
+
+    this.getUserBlog()
+   
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
     })
-    this.getUserBlog()
+   
   }
 
 
@@ -29,8 +32,10 @@ export class UserblogComponent {
     this.homeService.userBlogs().subscribe( {
       next:(res)=>{
         if (res) {
-          this.loaderService.hideLoader()
+          
           this.userdetails = res?.data
+           console.log( this.userdetails,' this.userdetails this.userdetails this.userdetails this.userdetails')
+          this.loaderService.hideLoader()
         }
       },error:(err)=>{
         this.loaderService.hideLoader()
