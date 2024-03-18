@@ -3,21 +3,19 @@
         <div class="elementor-element elementor-element-1b26e33 elementor-widget elementor-widget-text-editor"
             data-id="1b26e33" data-element_type="widget" data-widget_type="text-editor.default">
             <div class="elementor-widget-container">
-                <p><strong>/ USER BLOG /</strong></p>
+                <p><strong>/ USER BLOG / <span>{{userBlogDetails?.blog_title}}</span></strong></p>
             </div>
         </div>
         <div class="image-container" style="height:320px">
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-                @for (item of verifiedImage; track $index) {
+                @for(userData of userdetails; track $index){
                 <swiper-slide>
                     <div class="image">
-                        <img [src]="item.image" alt="verfied-image" />
+                        <img [src]="userData?.featured_image ? userData?.featured_image : '/assets/image/No-image-found.jpeg'"
+                            alt="verfied-image" />
                         <div class="verified-logo">
-                            <a
-                                herf="https://vietlist.biz/staging_dev/keywords-investment-vietnam-property-market-overseas-properties-legal-considerations-return-investment-2/">Investing
-                                abroad? Here’s why Vietnam should be at the top of your list for high returns and legal
-                                ease.</a>
+                            <a>{{userData?.blog_title}}</a>
                         </div>
                     </div>
                 </swiper-slide>
@@ -43,7 +41,8 @@
                     </div>
                     &nbsp;
                     <div class="blog___">
-                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date}} &nbsp;</span>
+                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date ?
+                            userBlogDetails?.post_date:'No Date'}} &nbsp;</span>
                     </div>
                     &nbsp;
                     <div class="blog___">
@@ -53,7 +52,41 @@
                 <div class="col-12">
                     <div class="main_content__">
                         <div [innerHTML]="userBlogDetails?.blog_desc" class="blog-content"></div>
+
+
+                        <div class="uwp_widgets">
+                            <div class="content_author text-md-left  bg-light">
+                                <div class="image__">
+                                    <a><img  style="border-width: 4px !important;" loading="lazy" decoding="async"
+                                            src="https://secure.gravatar.com/avatar/ca9a84a9cc4c3d0be6f59d0c804adc46?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
+                                            class="rounded-circle shadow border border-white border-width-4 mr-3"
+                                            width="60" height="60" alt="BlogBlitz"></a>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Author: <a
+                                            href="https://vietlist.biz/staging_dev/profile-2/blogblitz/">BlogBlitz</a>
+                                    </h5>
+
+                                    <p>BlogBlitz - The Digital Storyteller Hello, fellow explorers of the digital realm!
+                                        I'm
+                                        BlogBlitz, your guide to the ever-evolving world of online narratives. With a
+                                        passion for weaving words and a keen eye for trends, I delve into topics that
+                                        resonate with the modern netizen. From thought-provoking insights to
+                                        light-hearted
+                                        musings, join me on a journey that promises a blitz of knowledge, creativity,
+                                        and
+                                        inspiration. When I'm not crafting content, you'll find me exploring nature
+                                        trails,
+                                        experimenting with photography, or lost in a gripping novel. Welcome to my
+                                        corner of
+                                        the web, where every post is a story waiting to be told.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="col-12">
+
                 </div>
                 <!-- <div class="col-10">
                     <div class="text-center">

@@ -14,20 +14,22 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 export class UserBlogDetailsComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   public blogId: any
+  public userdetails: any
   public userBlogDetails: any
   constructor(private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService) {
 
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
     })
-    this.getUserBlogDetail()
+   
 
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
       swiperEl.initialize()
     })
-
+    this.getUserBlog()
+    this.getUserBlogDetail()
   }
 
   swiperParams = {
@@ -104,6 +106,12 @@ export class UserBlogDetailsComponent {
       const pElement = pElements[i];
       const h3Element = h3Elements[i];
       const ulElement = ulElements[i];
+
+      // const imgElement = pElements[i].querySelector('img');
+      // if (imgElement) {
+      //   this.renderer.setStyle(imgElement, 'width', '100%', RendererStyleFlags2.Important);
+      //   this.renderer.setStyle(imgElement, 'height', '100%', RendererStyleFlags2.Important);
+      // }
       if (ulElement) {
         const liElements = ulElement?.getElementsByTagName('li');
         if (liElements) {
@@ -127,12 +135,25 @@ export class UserBlogDetailsComponent {
       // Apply line-height to the current p tag
       this.renderer.setStyle(pElement, 'line-height', '30px', RendererStyleFlags2.Important);
 
-      const imgElement = pElements[i].querySelector('img');
-      if (imgElement) {
-        this.renderer.setStyle(imgElement, 'width', '100%', RendererStyleFlags2.Important);
-        this.renderer.setStyle(imgElement, 'height', '100%', RendererStyleFlags2.Important);
-      }
+   
     }
+
+
+  }
+
+  getUserBlog() {
+    this.loaderService.showLoader()
+    this.homeService.userBlogs().subscribe( {
+      next:(res)=>{
+        if (res) {
+          this.loaderService.hideLoader()
+          this.userdetails = res?.data
+        }
+      },error:(err)=>{
+        this.loaderService.hideLoader()
+      }
+   
+    })
   }
 
   public getUserBlogDetail() {

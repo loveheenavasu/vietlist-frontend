@@ -1,41 +1,182 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12 my-3">
-            <div class="img-cnt">
-                <img [src]="userBlogDetails?.featured_image ? userBlogDetails?.featured_image : '/assets/image/No-image-found.jpeg'"/>
-            </div>
-        </div>
-        <div class="col-12 my-2">
-            <h1 class="blog-heading">{{userBlogDetails?.blog_title}}</h1>
-            <p class="description" [innerHtml]="userBlogDetails?.blog_desc">
-               
-            </p>
-        </div>
+  <div class="row">
+    <div class="col-12 my-3">
+      <div class="img-cnt">
+        <img
+          [src]="
+            userBlogDetails?.featured_image
+              ? userBlogDetails?.featured_image
+              : '/assets/image/No-image-found.jpeg'
+          "
+        />
+      </div>
     </div>
+    <div class="col-12 my-2">
+      <h1 class="blog-heading">{{ userBlogDetails?.blog_title }}</h1>
+      <p class="description" [innerHtml]="userBlogDetails?.blog_desc"></p>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col-12">
+      <h5 class="block-head">0 Comments</h5>
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 my-4">
+      <h5 class="block-head">Leave a Reply</h5>
+    </div>
+    <div class="col-12 mt-4">
+      <p class="comment-notes" style="font-size: 16px; color: #555555">
+        <span id="email-notes">Your email address will not be published.</span>
+        <span class="required-field-message"
+          >Required fields are marked <span class="asterik">*</span></span
+        >
+      </p>
+    </div>
+    <div class="col-12 mb-3">
+      <label class="listing-form-label"
+        >Name<span class="asterik">*</span></label
+      >
+      <input type="text" class="input-control mt-1" />
+    </div>
+    <br />
+    <div class="col-12 mb-3">
+      <label class="listing-form-label"
+        >Email<span class="asterik">*</span></label
+      >
+      <input type="text" class="input-control mt-1" />
+    </div>
+    <br />
+    <div class="col-12 mb-3">
+      <label class="listing-form-label"
+        >Website<span class="asterik">*</span></label
+      >
+      <input type="text" class="input-control mt-1" />
+    </div>
+    <br />
+    <div class="col-12 mb-3">
+      <label class="listing-form-label"
+        >Comment<span class="asterik">*</span></label
+      >
+      <textarea
+        type="text"
+        class="input-control mt-1"
+        style="height: 15em"
+      ></textarea>
+    </div>
+    <br />
+    <div class="col-12 mb-3">
+      <button type="button" class="btn orange-background-btn">Submit</button>
+    </div>
+  </div>
+@if(!this.isAuthenticated){
+  <div class="row g-0">
+    <div class="col-12 col-lg-6">
+      <div class="blog-banner">
+        <swiper-container #blogSwiper class="mySwiper" init="false">
+          @for (key of addDetail; track $index) {
+            <swiper-slide>
+              <div
+                class="banner-img"
+                (click)="setStats(key?.id, key?.space_id)"
+                style="background-image: url({{key?.img}})"
+              >
+                <!-- <div class="banner-text ">
+                    <h3>{{key?.title}}</h3>
+                    <p>
+                      {{key?.description}}
+                    </p>
+                  </div> -->
+              </div>
+            </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="signup-cnt">
+        <div class="cta__content">
+          <h2
+            class="Get-started"
+          >
+            Get started
+          </h2>
 
-    <div class="row">
-        <div class="cta-verfied-image">
-            <div class="image-container" style="height:320px">
-                <!-- <div class="d-flex"> -->
-                <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-                    @for (item of verifiedImage; track $index) {
-                    <swiper-slide>
-                        <div class="image">
-                            <img [src]="item.image" alt="verfied-image" />
-                            <div class="verified-logo">
-                                <a
-                                    herf="https://vietlist.biz/staging_dev/keywords-investment-vietnam-property-market-overseas-properties-legal-considerations-return-investment-2/">Investing
-                                    abroad? Here’s why Vietnam should be at the top of your list for high returns and legal
-                                    ease.</a>
-                            </div>
-                        </div>
-                    </swiper-slide>
-                    }
-                </swiper-container>
-                <!-- Custom navigation buttons -->
-                <div class="swiper-button-prev"><i class="fa-solid fa-arrow-left"></i></div>
-                <div class="swiper-button-next"> <i class="fa-solid fa-arrow-right"></i></div>
-            </div>
+          <div
+            class="elementor-cta__description elementor-cta__content-item elementor-content-item"
+          >
+            Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
+          </div>
+
+          <div>
+            <button class="btn sign-up-btn">Sign Up</button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+} @else {
+    <div class="row g-0">
+        <div class="col-12 col-lg-12">
+          <div class="blog-banner">
+            <swiper-container #blogSwiper class="mySwiper" init="false">
+              @for (key of addDetail; track $index) {
+                <swiper-slide>
+                  <div
+                    class="banner-img"
+                    (click)="setStats(key?.id, key?.space_id)"
+                    style="background-image: url({{key?.img}})"
+                  >
+                    <div class="banner-text ">
+                        <h3>{{key?.title}}</h3>
+                        <p>
+                          {{key?.description}}
+                        </p>
+                      </div>
+                  </div>
+                </swiper-slide>
+              }
+            </swiper-container>
+          </div>
+        </div>
+      </div>
+}
+  <div class="row mt-5">
+    <div class="cta-verfied-image">
+      <div class="image-container" style="height: 320px">
+        <!-- <div class="d-flex"> -->
+        <swiper-container
+          #busniessCategoriesSwiper
+          class="mySwiper"
+          init="false"
+        >
+          @for (userData of userdetails; track $index) {
+            <swiper-slide>
+              <div class="image">
+                <img
+                  [src]="
+                    userData?.featured_image
+                      ? userData?.featured_image
+                      : '/assets/image/No-image-found.jpeg'
+                  "
+                  alt="verfied-image"
+                />
+                <div class="verified-logo">
+                  <a>{{ userData?.blog_title }}</a>
+                </div>
+              </div>
+            </swiper-slide>
+          }
+        </swiper-container>
+        <!-- Custom navigation buttons -->
+        <div class="swiper-button-prev">
+          <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div class="swiper-button-next">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

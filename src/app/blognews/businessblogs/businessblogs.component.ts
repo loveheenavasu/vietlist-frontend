@@ -1,8 +1,8 @@
-import { filter } from 'rxjs';
+
 import { TruncateHtmlPipe } from './../../shared/utils/truncate.pipe';
 import { DatePipe, SlicePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { FullPageLoaderService } from '@vietlist/shared';
 import { register } from 'swiper/element/bundle';
@@ -47,7 +47,7 @@ export class BusinessblogsComponent {
     this.getIPAdress()
   }
 
-  ngAfterContentChecked(): void {
+  ngAfterViewInit(): void {
     this.showAdBlogPage()
     this.cdr.detectChanges();
   }
