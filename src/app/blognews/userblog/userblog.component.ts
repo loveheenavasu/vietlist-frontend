@@ -36,7 +36,6 @@ export class UserblogComponent {
       next: (res) => {
         if (res) {
           this.userdetails = res?.data
-          console.log(this.userdetails)
           this.loaderService.hideLoader()
         }
       }, error: (err) => {

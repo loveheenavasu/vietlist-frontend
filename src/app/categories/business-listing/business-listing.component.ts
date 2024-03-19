@@ -60,7 +60,7 @@ export class BusinessListingComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
-        console.log('check listing data', res)
+    
       },
     })
   }

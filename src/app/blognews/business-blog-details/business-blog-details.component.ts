@@ -142,7 +142,7 @@ export class BusinessBlogDetailsComponent {
               }
             }
             this.cdr.detectChanges()
-            console.log( this.addDetail);
+  
           }
         }
       });
@@ -155,8 +155,7 @@ export class BusinessBlogDetailsComponent {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
-          console.log(res, 'resresresresresresresresres')
-  
+         
         } 
       },error:(err)=>{
         this.loaderService.hideLoader()

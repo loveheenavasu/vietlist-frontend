@@ -67,7 +67,7 @@ export class BusinessblogsComponent {
             }
           }
           this.cdr.detectChanges()
-          console.log( this.addDetail);
+         
         }
       }
     });
