@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-user-blog-details',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule,LoaderComponent],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, LoaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './user-blog-details.component.html',
   styleUrl: './user-blog-details.component.scss'
@@ -37,7 +37,7 @@ export class UserBlogDetailsComponent {
   public message = new FormControl()
   public commentArr: any
   public UserId: any
-  public isPostComment:boolean = false
+  public isPostComment: boolean = false
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -205,6 +205,14 @@ export class UserBlogDetailsComponent {
 
   }
 
+  public editProfile() {
+    this.router.navigateByUrl('/manage-profile')
+  }
+
+  public logout() {
+    this.authentication.clearAuthentication()
+  }
+
   public myBrowser() {
     if ((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1) {
       return 'Opera';
@@ -330,7 +338,7 @@ export class UserBlogDetailsComponent {
       }
     });
   }
-  public postCommnet() {  
+  public postCommnet() {
     this.isPostComment = true
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
@@ -354,7 +362,7 @@ export class UserBlogDetailsComponent {
         this.isPostComment = false
         this.cdr.detectChanges()
         this.getComments()
-          this.message.setValue('')
+        this.message.setValue('')
         this.website.setValue('')
         this.name.setValue('')
         this.email.setValue('')

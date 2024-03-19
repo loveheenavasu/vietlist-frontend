@@ -1,7 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { LoaderComponent } from 'src/app/common-ui';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-business-blog-details',
   standalone: true,
-  imports: [FormsModule,ReactiveFormsModule , NgClass , LoaderComponent , NgIf],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, LoaderComponent, NgIf],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './business-blog-details.component.html',
   styleUrl: './business-blog-details.component.scss'
@@ -20,7 +20,7 @@ export class BusinessBlogDetailsComponent {
   public blogId: any
   public userBlogDetails: any
   public userdetails: any
-  public addDetail:any[]=[]
+  public addDetail: any[] = []
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
@@ -30,13 +30,13 @@ export class BusinessBlogDetailsComponent {
   public message = new FormControl()
   public commentArr: any
   public UserId: any
-  public isPostComment:boolean = false
+  public isPostComment: boolean = false
   public showReplyForm: boolean = false;
   public selectedComment: any | null = null;
   public blogIdtwo: any
   public lastElement: any
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
-  
+
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -48,9 +48,9 @@ export class BusinessBlogDetailsComponent {
     },
   }
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
- public isAuthenticated:boolean = false;
+  public isAuthenticated: boolean = false;
 
-  constructor(private homeService: HomepageService,private cdr: ChangeDetectorRef, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService , private IpService:ProfileService,private authService:AuthenticationService ) {
+  constructor(private homeService: HomepageService, private cdr: ChangeDetectorRef, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService, private IpService: ProfileService, private authService: AuthenticationService, private router: Router) {
     this.isAuthenticated = this.authService.isAuthenticated()
     console.log(this.isAuthenticated)
 
@@ -146,69 +146,77 @@ export class BusinessBlogDetailsComponent {
       },
     ]
 
-    ngOnInit(){
-      this.showAdBlogPage()
-      this.getIPAdress()
-      if(this.blogId){
-        this.getComments()
-      }
+  ngOnInit() {
+    this.showAdBlogPage()
+    this.getIPAdress()
+    if (this.blogId) {
+      this.getComments()
     }
-  
-    ngAfterViewInit(){
-      this.showAdBlogPage()
-      this.cdr.detectChanges();
-    }
-  
-  
-    public showAdBlogPage() {
-      this.homeService.showAD().subscribe({
-        next: (res: any) => {
-          const data = res.data.filter((item: any) => item.Page_key === 'blog ad');
-          if(data){
-            this.addDetail = data[0]?.ads_detail
-            if(this.addDetail){
-              if (this.swiperBlog && this.swiperBlog.nativeElement) {
-                const swiperEl = this.swiperBlog.nativeElement;
-                Object.assign(swiperEl, this.blogSwiperParams);
-                swiperEl?.initialize();
-              }
+  }
+
+  ngAfterViewInit() {
+    this.showAdBlogPage()
+    this.cdr.detectChanges();
+  }
+
+  public editProfile() {
+    this.router.navigateByUrl('/manage-profile')
+  }
+
+  public logout() {
+    this.authService.clearAuthentication()
+  }
+
+
+  public showAdBlogPage() {
+    this.homeService.showAD().subscribe({
+      next: (res: any) => {
+        const data = res.data.filter((item: any) => item.Page_key === 'blog ad');
+        if (data) {
+          this.addDetail = data[0]?.ads_detail
+          if (this.addDetail) {
+            if (this.swiperBlog && this.swiperBlog.nativeElement) {
+              const swiperEl = this.swiperBlog.nativeElement;
+              Object.assign(swiperEl, this.blogSwiperParams);
+              swiperEl?.initialize();
             }
-            this.cdr.detectChanges()
-  
           }
+          this.cdr.detectChanges()
+
         }
-      });
-    }
-    
+      }
+    });
+  }
+
   public getUserBlogDetail() {
     this.loaderService.showLoader()
     this.homeService.userBlogsDetail(this.blogId).subscribe({
-      next:(res)=>{
+      next: (res) => {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
-         
-        } 
-      },error:(err)=>{
+
+        }
+      }, error: (err) => {
         this.loaderService.hideLoader()
       }
-     
+
     })
   }
 
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs('10','1').subscribe( {
-      next:(res)=>{
+    this.homeService.userBlogs('10', '1').subscribe({
+      next: (res) => {
         if (res) {
           this.loaderService.hideLoader()
           this.userdetails = res?.data
         }
-      },error:(err)=>{
+      }, error: (err) => {
         this.loaderService.hideLoader()
       }
-   
+
     })
   }
 
@@ -268,7 +276,7 @@ export class BusinessBlogDetailsComponent {
       next: (res: any) => {
 
       },
-      error:(err)=>{
+      error: (err) => {
 
       }
     })
@@ -290,7 +298,7 @@ export class BusinessBlogDetailsComponent {
 
   }
 
-  public postCommnet() {  
+  public postCommnet() {
     this.isPostComment = true
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
@@ -314,7 +322,7 @@ export class BusinessBlogDetailsComponent {
         this.isPostComment = false
         this.cdr.detectChanges()
         this.getComments()
-                this.message.setValue('')
+        this.message.setValue('')
         this.website.setValue('')
         this.name.setValue('')
         this.email.setValue('')
