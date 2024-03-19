@@ -89,9 +89,24 @@ export class AllEventComponent {
     const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`;
     return this.datePipe.transform(formattedTime, 'shortTime') || '';
   }
+
+  private getBrowserTimezone(): string {
+    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return this.convertTimezoneIdentifier(browserTimezone);
+  }
+
+  private convertTimezoneIdentifier(timezone: string): string {
+    switch (timezone) {
+      case 'Asia/Calcutta':
+        return 'Asia/Kolkata';
+      default:
+        return timezone;
+    }
+  }
   public getPublishEventData() {
     this.fullPageLoaderService.showLoader()
-    var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    var browserTimezone = this.getBrowserTimezone();
     const params: FindEventParams = {}
     const postPerPage = this.postPerPage
     if (postPerPage) {
