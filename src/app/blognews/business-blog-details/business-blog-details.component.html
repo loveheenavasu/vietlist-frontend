@@ -26,7 +26,8 @@
       <div class="comment_section">
         <div class="profile_comment">
           <img
-            src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+            [src]="item?.comment_detail?. user_image ? item?.comment_detail?. user_image : '/assets/image/No-image-found.jpeg'"
+            alt="verfied-image" />
         </div>
 
         <div class="auther_email">
@@ -52,8 +53,8 @@
       <div class="clid_reply">
         <div class="comment_section">
           <div class="profile_comment">
-            <img
-              src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+            <img [src]="items?. user_image ? items?. user_image : '/assets/image/No-image-found.jpeg'"
+              alt="verfied-image" />
           </div>
 
           <div class="auther_email">
@@ -79,8 +80,8 @@
         <div class="clid_reply_two">
           <div class="comment_section">
             <div class="profile_comment">
-              <img
-                src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+              <img [src]="key?. user_image ? key?. user_image : '/assets/image/No-image-found.jpeg'"
+                alt="verfied-image" />
             </div>
 
             <div class="auther_email">

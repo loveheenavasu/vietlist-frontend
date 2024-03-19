@@ -1,11 +1,11 @@
-swiper-container {
-    height: 100%;
-}
+// swiper-container {
+//     height: 100%;
+// }
 
 .blog-banner {
     margin-bottom: 32px;
-    height:15em;
-    margin-top:2.5rem;
+    height: 15em;
+    margin-top: 2.5rem;
 
     .banner-img {
         width: 100%;
@@ -14,6 +14,7 @@ swiper-container {
         background-size: cover;
         background-position: center;
         transition: background-image 0.5s ease;
+
         .nyx-img {
             padding-top: 5.125rem;
         }
@@ -58,20 +59,20 @@ swiper-container {
 
 @media screen and (max-width: 768px) {
 
-        .blog-banner {
-            height: 300px !important;
+    .blog-banner {
+        height: 300px !important;
 
-            .banner-img {
+        .banner-img {
 
-                .banner-text {
-                    padding-right: 2.125rem;
+            .banner-text {
+                padding-right: 2.125rem;
 
-                    P {
-                        line-height: 30px !important;
-                    }
+                P {
+                    line-height: 30px !important;
                 }
             }
         }
+    }
 }
 
 @media screen and (max-width: 500px) {
