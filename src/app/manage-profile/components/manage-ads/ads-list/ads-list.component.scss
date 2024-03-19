@@ -9,6 +9,7 @@
         .image-wrapper {
             width: 100px;
             height: 60px;
+            flex-shrink: 0;
 
             img {
                 width: 100%;

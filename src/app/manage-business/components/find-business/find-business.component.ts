@@ -87,6 +87,7 @@ export class FindBusinessComponent {
   public map: google.maps.Map | null = null
   public ratingMax: string = '5'
 
+
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -376,9 +377,11 @@ export class FindBusinessComponent {
     if (this.findBusinessForm.value.post_category) {
       this.searchBusiness()
     } else {
-      this.getPublishBusinessData()
+      this.getPublishBusinessData();
     }
   }
+
+
 
   public updatePrice(event: any) {
     this.price = event.value

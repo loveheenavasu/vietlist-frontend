@@ -20,7 +20,7 @@ export class BusinessService {
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService,
-  ) {}
+  ) { }
 
   public getBusinessCat(): Observable<BusinessCategoryResponse> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessCategory)
@@ -77,18 +77,23 @@ export class BusinessService {
   }
 
   public ListingBusiness(): Observable<any> {
-    
+
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness)
     return this.http.get<any>(endpoint)
   }
-  public GetReviewList(body:any): Observable<any> {
+  public GetReviewList(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.getReview)
     const params = new HttpParams().set('post_id', body)
-    return this.http.get<any>(endpoint, {params: params })
+    return this.http.get<any>(endpoint, { params: params })
   }
 
   public trendingBusiness(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.TrendingBusiness)
+    return this.http.get<any>(endpoint)
+  }
+
+  public benefitJoining(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BenefitsJoining)
     return this.http.get<any>(endpoint)
   }
 }
