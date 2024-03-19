@@ -1,4 +1,4 @@
-import { FindEventParams} from './../../../manage-business/service/business.interface';
+import { FindEventParams } from './../../../manage-business/service/business.interface';
 import { DatePipe, NgClass, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select'
 import { Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
-import {Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-all-event',
   standalone: true,
-  imports: [  
+  imports: [
     MatIconModule,
     NgClass,
     AutocompleteComponent,
@@ -32,7 +32,7 @@ import Swal from 'sweetalert2';
   styleUrl: './all-event.component.scss',
 })
 export class AllEventComponent {
-   public datePipe = new DatePipe('en-US');
+  public datePipe = new DatePipe('en-US');
 
   public selectedLayout: string = 'grid'
   public publishEventsArray: any[] = []
@@ -53,16 +53,16 @@ export class AllEventComponent {
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
-  public totalCount: number = 0 
+  public totalCount: number = 0
 
   constructor(
     private eventService: EventService,
     private fullPageLoaderService: FullPageLoaderService,
-    private router:Router,
-    private authenticationService:AuthenticationService
+    private router: Router,
+    private authenticationService: AuthenticationService
 
   ) {
-  
+
   }
 
   ngOnInit() {
@@ -79,7 +79,7 @@ export class AllEventComponent {
       next: (res: any) => {
         this.event_category = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -91,6 +91,7 @@ export class AllEventComponent {
   }
   public getPublishEventData() {
     this.fullPageLoaderService.showLoader()
+    var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const params: FindEventParams = {}
     const postPerPage = this.postPerPage
     if (postPerPage) {
@@ -98,6 +99,9 @@ export class AllEventComponent {
     }
     if (this.currentPage) {
       params['page_no'] = this.currentPage
+    }
+    if (browserTimezone) {
+      params['timezone'] = browserTimezone
     }
     this.eventService.getPublishEvents(params).subscribe({
       next: (res: any) => {
@@ -109,7 +113,7 @@ export class AllEventComponent {
       },
     })
   }
-  
+
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -160,7 +164,7 @@ export class AllEventComponent {
     if (post_category) {
       params['post_category'] = post_category
     }
-    if(this.postTitle.value){
+    if (this.postTitle.value) {
       params['post_title'] = this.postTitle.value
     }
     if (postPerPage) {
@@ -202,16 +206,16 @@ export class AllEventComponent {
     })
   }
 
- 
-  public gotToEventDetails(id:any, isGlobal:any){
-   this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
+
+  public gotToEventDetails(id: any, isGlobal: any) {
+    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
 
   }
 
   public handlePageChange(event: number): void {
     this.isPaginationClick = true
     this.currentPage = event
-  
+
     if (this.category.value) {
       this.searchBusiness()
     } else {
@@ -237,9 +241,9 @@ export class AllEventComponent {
     this.currentPage = 1;
     this.isPaginationVisible = false;
     this.isLoader = true;
-  
+
     // Retrieve events again
     this.getPublishEventData();
   }
-  
+
 }
