@@ -75,5 +75,6 @@ export enum Endpoints {
   Contactus = 'contact_us',
   BlogCategory='get_blog_category',
   SetBlogComment = 'set_comment',
-  GetBlogComment = 'get_comment'
+  GetBlogComment = 'get_comment',
+  SetReplyBlog = 'set_comment_reply'
 }

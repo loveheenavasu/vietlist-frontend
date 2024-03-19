@@ -26,6 +26,7 @@ export class ContactUsComponent {
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
+  public getstreet:any
   public preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
@@ -71,7 +72,9 @@ export class ContactUsComponent {
     })
   }
  
-
+  onStreetChange(value: any) {
+   this.getstreet = value?.value;
+  }
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''

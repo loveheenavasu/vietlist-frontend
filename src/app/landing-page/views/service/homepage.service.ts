@@ -66,6 +66,10 @@ public setBlogComment(body:any): Observable<any> {
   const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetBlogComment)
   return this.http.post<any>(endpoint, body)
 }
+public setReplyBlog(body:any): Observable<any> {
+  const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetReplyBlog)
+  return this.http.post<any>(endpoint, body)
+}
 
 public getBlogComment(post_id:any): Observable<any> {
   const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBlogComment)

@@ -442,3 +442,56 @@ a:visited {
     font-size: 14px;
     color: #aaa;
 }
+.signup-cnt{
+    background-color: #f9fafa;
+    color:#000;
+    margin-top:20px;
+    height:200px
+}
+.cta__content{
+    width:fit-content;
+    margin:0 auto;
+    padding-top:3rem;
+    text-align: center;
+
+    .Get-started{
+        font-size:24px;
+        font-weight: 600;
+    }
+}
+.blog-heading{
+    font-size: 22px;
+    font-weight: 600;
+
+}
+.banner-text {
+    text-align: left;
+    padding-left: 20px;
+    align-items: center;
+    padding: 6%;
+    color: #ffff;
+}
+.sign-up-btn{
+    color: #000;
+    width: fit-content;
+    padding: 8px 15px;
+    font-weight: 600;
+    font-size: 15px;
+    border: solid 2px #000;
+    border-radius: 2px;
+    margin-top: 10px;
+}
+.add_div {
+    border-bottom: solid 1px #cecece;
+}
+.clid_reply{
+    margin-left: 13%;
+    border-top: solid 1px #cecece;
+}
+.border-bottomHide{
+    border-bottom: 0px!important;
+}
+.clid_reply_two{
+    margin-left: 16%;
+    border-top: solid 1px #cecece;
+}
