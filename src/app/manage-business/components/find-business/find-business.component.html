@@ -132,7 +132,7 @@
         <div class="col-12">
           @for (item of findBusinessData; track $index) {
           <div class="grid-view-card">
-            <div class="business-img">
+            <div class="business-img" (click)="gotToListing(item.post_id, true)">
               <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
               @if (item.image.includes("")) {
               <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
@@ -157,7 +157,7 @@
                 </div>
               </div>
               <div class="business-title">
-                <h2>{{ item.post_title }}</h2>
+                <h2 (click)="gotToListing(item.post_id, true)">{{ item.post_title }}</h2>
                 <span [innerHtml]="item.post_content"></span>
               </div>
               <div class="business-package">

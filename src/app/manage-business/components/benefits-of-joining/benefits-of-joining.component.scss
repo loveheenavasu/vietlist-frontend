@@ -2,19 +2,303 @@
 @import "../../../../assets/scss/banner";
 
 
-.container{
-    max-width:1140px;
-    width:100%;
-}
-.main-heading{
-    font-size: 32px;
-    font-weight: var(--font-weight-semibold);
-    color:var(--dark-grey);
-    text-align: center  ;
+.container {
+    max-width: 1140px;
+    width: 100%;
 }
 
-.heading-left{
+.main-heading {
+    font-size: 2.3rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--dark-grey);
+    text-align: center;
+    font-family: 'Roboto';
+}
+
+:host ::ng-deep .benefits {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 32px;
+
+    }
+
+    p,
+    ol {
+        font-size: 16px;
+        line-height: 30px;
+        text-align: justify
+    }
+
+}
+
+:host ::ng-deep .start-new-business-section {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+}
+
+:host ::ng-deep .existing {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+:host ::ng-deep .claim-listing {
+    p {
+        font-size: 16px;
+    }
+}
+
+:host ::ng-deep .claim-text {
+    p {
+        font-size: 16px;
+    }
+}
+
+.heading-left {
     font-size: 32px;
     font-weight: var(--font-weight-semibold);
-    color:var(--dark-grey)
+    color: var(--dark-grey)
+}
+
+.existing-heading {
+    h2 {
+        margin-bottom: 20px;
+    }
+}
+
+.login {
+    font-size: 16px;
+    font-family: 'Roboto';
+}
+
+.add-new-business {
+    font-size: 16px;
+    font-family: 'Roboto';
+}
+
+
+.container-fluid {
+    padding: 0px;
+
+    .media-container {
+        width: 100%;
+        height: 400px;
+
+        .ads-container {
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            transition: background-image 0.5s ease;
+            background-position: center;
+
+            .wrapper {
+                background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                .content-wrapper {
+                    width: 50%;
+                    text-align: center;
+
+                    .ad-title {
+                        color: #fff;
+                    }
+
+                    .ad-desc {
+                        color: #fff
+                    }
+
+                    .explore-more-btn {
+                        background-color: #fff;
+                        color: var(--primary-color-mustard);
+                        width: 110px;
+                    }
+
+                    .explore-more-btn:hover {
+                        border: 1px solid var(--primary-color-mustard);
+                        color: var(--primary-color-mustard);
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+}
+
+swiper-container {
+    height: 100%;
+
+}
+
+@media screen and (max-width:768px) {
+
+    :host ::ng-deep .benefits {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        p,
+        ol {
+            font-size: 15px;
+        }
+
+    }
+
+    :host ::ng-deep .start-new-business-section {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    :host ::ng-deep .existing {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    :host ::ng-deep .claim-listing {
+        p {
+            font-size: 15px;
+        }
+    }
+
+    :host ::ng-deep .claim-text {
+        p {
+            font-size: 15px;
+        }
+    }
+
+    .banner {
+        height: 417px;
+
+        .content {
+            h1 {
+                font-size: 3.2rem;
+                font-family: 'Roboto';
+            }
+
+        }
+    }
+
+    .container {
+        section {
+            padding: 10px;
+        }
+
+        .main-heading {
+            font-size: 2.3rem !important;
+            font-family: 'Roboto';
+        }
+
+        .heading-left {
+            font-size: 2.3rem;
+            font-family: 'Roboto';
+            margin-bottom: 20px;
+        }
+
+        .add-new-business {
+            font-size: 15px;
+        }
+
+        .login {
+            font-size: 15px;
+        }
+
+        .existing-heading {
+            h2 {
+                font-size: 2.3rem;
+                font-family: 'Roboto';
+                margin-bottom: 20px;
+            }
+        }
+
+        .existing {
+            p {
+                font-size: 1.4rem;
+                font-family: 'Roboto';
+            }
+        }
+
+        .claim-listing {
+            p {
+                font-size: 1.4rem;
+                font-family: 'Roboto';
+            }
+        }
+    }
+
+    .media-container {
+        height: 200px !important;
+
+        .ads-container {
+            .wrapper {
+                .content-wrapper {
+                    width: 90% !important;
+                }
+            }
+        }
+    }
 }

@@ -1,13 +1,17 @@
+import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
+import { LoaderComponent } from 'src/app/common-ui';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-business-blog-details',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,ReactiveFormsModule , NgClass , LoaderComponent , NgIf],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './business-blog-details.component.html',
   styleUrl: './business-blog-details.component.scss'
@@ -20,6 +24,17 @@ export class BusinessBlogDetailsComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
+  public name = new FormControl()
+  public email = new FormControl()
+  public website = new FormControl()
+  public message = new FormControl()
+  public commentArr: any
+  public UserId: any
+  public isPostComment:boolean = false
+  public showReplyForm: boolean = false;
+  public selectedComment: any | null = null;
+  public blogIdtwo: any
+  public lastElement: any
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
   
   public blogSwiperParams = {
@@ -37,6 +52,20 @@ export class BusinessBlogDetailsComponent {
 
   constructor(private homeService: HomepageService,private cdr: ChangeDetectorRef, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService , private IpService:ProfileService,private authService:AuthenticationService ) {
     this.isAuthenticated = this.authService.isAuthenticated()
+    console.log(this.isAuthenticated)
+
+    let localStorage: any;
+
+    // Check if localStorage is available
+    if (typeof window !== 'undefined') {
+      // Access localStorage only in browser environment
+      localStorage = window.localStorage;
+    }
+
+    if (localStorage) {
+      this.UserId = localStorage.getItem('loginInfo')
+
+    }
     console.log(this.isAuthenticated)
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
@@ -120,6 +149,9 @@ export class BusinessBlogDetailsComponent {
     ngOnInit(){
       this.showAdBlogPage()
       this.getIPAdress()
+      if(this.blogId){
+        this.getComments()
+      }
     }
   
     ngAfterViewInit(){
@@ -244,6 +276,131 @@ export class BusinessBlogDetailsComponent {
 
   public getUrl(url: string) {
     window.open(url, "_blank");
+  }
+
+  toggleReplyForm(comment: any) {
+    if (this.selectedComment === comment) {
+      // If the same comment is clicked again, toggle the form visibility
+      this.showReplyForm = !this.showReplyForm;
+    } else {
+      // If a different comment is clicked, hide any previously shown form and display the new one
+      this.selectedComment = comment;
+      this.showReplyForm = true;
+    }
+
+  }
+
+  public postCommnet() {  
+    this.isPostComment = true
+    const userID = JSON.parse(this.UserId)
+    const formData: any = new FormData()
+    formData.append('comment_author', this.name.value);
+    formData.append('comment_author_url', this.website.value);
+    formData.append('comment_author_email', this.email.value);
+    formData.append('comment_content', this.message.value);
+    formData.append('comment_post_ID', this.blogId);
+
+    const formData2: any = new FormData()
+    formData2.append('user_id', userID?.ID);
+    formData2.append('comment_author', this.name.value);
+    formData2.append('comment_author_url', this.website.value);
+    formData2.append('comment_author_email', this.email.value);
+    formData2.append('comment_content', this.message.value);
+    formData2.append('comment_post_ID', this.blogId);
+
+    const data = !this.isAuthenticated ? formData : formData2
+    this.homeService.setBlogComment(data).subscribe({
+      next: (res) => {
+        this.isPostComment = false
+        this.cdr.detectChanges()
+        this.getComments()
+                this.message.setValue('')
+        this.website.setValue('')
+        this.name.setValue('')
+        this.email.setValue('')
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+
+      },
+      error: (err) => {
+        this.isPostComment = false
+      }
+    })
+  }
+
+
+  public postReply() {
+
+    const userID = JSON.parse(this.UserId)
+    const formData: any = new FormData()
+    formData.append('comment_author', this.name.value);
+    formData.append('comment_author_url', this.website.value);
+    formData.append('comment_author_email', this.email.value);
+    formData.append('comment_content', this.message.value);
+    formData.append('comment_post_ID', this.blogId);
+    formData.append('comment_parent', this.selectedComment);
+
+    const formData2: any = new FormData()
+    formData2.append('user_id', userID?.ID);
+    formData2.append('comment_author', this.name.value);
+    formData2.append('comment_author_url', this.website.value);
+    formData2.append('comment_author_email', this.email.value);
+    formData2.append('comment_content', this.message.value);
+    formData2.append('comment_post_ID', this.blogId);
+    formData2.append('comment_parent', this.selectedComment);
+
+
+    const data = !this.isAuthenticated ? formData : formData2
+
+    this.homeService.setReplyBlog(data).subscribe({
+
+      next: (res) => {
+
+        this.cdr.detectChanges()
+        this.getComments()
+        this.message.setValue('')
+        this.website.setValue('')
+        this.name.setValue('')
+        this.email.setValue('')
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+
+      },
+      error: (err) => {
+
+      }
+    })
+  }
+
+  getComments() {
+    this.cdr.detectChanges()
+    this.homeService.getBlogComment(this.blogId).subscribe({
+      next: (res) => {
+        this.commentArr = res?.data
+        const lastIndex = this.commentArr.length - 1;
+        this.lastElement = this.commentArr[lastIndex];
+        console.log(res)
+      }
+      , error: (err) => {
+
+      }
+    })
   }
 
 }
