@@ -130,7 +130,7 @@
                                                     <p>{{items?.comment_content}}</p>
                                                 </div>
                                                 <div class="reply_button">
-                                                    @if(items?.length == 3){
+                                                    @if(item.comment_replies?.length < 3){
                                                         
                                                     <a rel="external nofollow" class="email_auther_reply"> <span
                                                             class="email_auther_reply"
@@ -162,7 +162,7 @@
                                                           <p>{{key?.comment_content}}</p>
                                                       </div>
                                                       <div class="reply_button">
-                                                        @if(key?.length == 3){
+                                                        @if(items.comment_replies?.length < 3){
                                                           <a rel="external nofollow" class="email_auther_reply"> <span
                                                                   class="email_auther_reply"
                                                                   (click)="toggleReplyForm(key?.comment_ID)">{{'reply'}}</span></a>
@@ -399,8 +399,13 @@
 
                                 <div class="col-12 mb-3">
                                     <button type="button" class="btn orange-background-btn" (click)="postCommnet()"
-                                        [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
-                                        Comment</button>
+                                        [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">
+                                        @if(isPostComment){
+                                            <app-loader></app-loader>
+                                        }@else {
+                                            Post Comment
+                                        }
+                                        </button>
                                 </div>
                             </div>
 
@@ -416,11 +421,6 @@
                         <button class="__button">Load More</button>
                     </div>
                 </div> -->
-
-
-
-
-
                 @if(!this.isAuthenticated){
                 <div class="row g-0">
                     <div class="col-12 col-lg-6">

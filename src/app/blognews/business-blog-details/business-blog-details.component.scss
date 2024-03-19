@@ -56,12 +56,13 @@
     font-size: 15px;
   }
 
-.block-head{
-    color: #000; 
-    font-weight: 600;
-    font-size: 18px;
+  h5.block-head {
+    font-size: 22px;
+    font-weight: 200;
+    margin-top: 3rem;
+    border-bottom: solid 1px #cecece;
+    padding-bottom: 22px;
 }
-
 .cta-verfied-image {
     .image-container {
         margin-left: auto;
@@ -152,6 +153,39 @@ swiper-container::part(bullet) {
     height: 100%;
 }
 
+.comment_section{
+    display: flex;
+    padding: 30px 0;
+    line-height: 30px;
+}
+
+.profile_comment {
+    border: medium none;
+    border-radius: 50%;
+    float: left;
+    height: 84px;
+    margin-bottom: 30px;
+    margin-right: 25px;
+    position: relative;
+    width: 84px;
+    overflow: hidden;
+}
+.email_auther{
+    color: #38ccff;
+    text-decoration: none;
+    font-size: 18px;
+}
+.email_auther_reply{
+    color: #38ccff;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+.auther_date{
+    font-size: 14px;
+    color: #aaa;
+}
+
 @media (max-width:1500px) {
 
     swiper-container {
@@ -168,7 +202,20 @@ swiper-container::part(bullet) {
 
     }
 }
-
+.add_div {
+    border-bottom: solid 1px #cecece;
+}
+.clid_reply{
+    margin-left: 13%;
+    border-top: solid 1px #cecece;
+}
+.border-bottomHide{
+    border-bottom: 0px!important;
+}
+.clid_reply_two{
+    margin-left: 16%;
+    border-top: solid 1px #cecece;
+}
 @media (max-width:820px){
     .signup-cnt{
         background-color: #f9fafa;

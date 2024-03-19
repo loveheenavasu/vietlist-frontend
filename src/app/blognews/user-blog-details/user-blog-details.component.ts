@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Component, ElementRef, Rende
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
+import { LoaderComponent } from 'src/app/common-ui';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
 import Swal from 'sweetalert2';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-user-blog-details',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule,LoaderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './user-blog-details.component.html',
   styleUrl: './user-blog-details.component.scss'
@@ -25,7 +26,7 @@ export class UserBlogDetailsComponent {
   public selectedComment: any | null = null;
   public blogIdtwo: any
   public addDetail: any[] = []
-  public lastElement:any
+  public lastElement: any
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
@@ -36,6 +37,7 @@ export class UserBlogDetailsComponent {
   public message = new FormControl()
   public commentArr: any
   public UserId: any
+  public isPostComment:boolean = false
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -51,7 +53,7 @@ export class UserBlogDetailsComponent {
     console.log(this.isAuthenticated)
 
     let localStorage: any;
-  
+
     // Check if localStorage is available
     if (typeof window !== 'undefined') {
       // Access localStorage only in browser environment
@@ -143,35 +145,20 @@ export class UserBlogDetailsComponent {
       },
     ]
   ngOnInit() {
-   
-    
     this.showAdBlogPage()
     this.getIPAdress()
     if (this.blogId) {
       this.getComments()
     }
   }
- getComments() {
-  console.log('test2222222222')
-  this.cdr.detectChanges()
-    this.homeService.getBlogComment(this.blogId).subscribe({
-      next: (res) => {
-        this.commentArr = res?.data
-        const lastIndex = this.commentArr.length - 1;
-        this.lastElement = this.commentArr[lastIndex];
-        console.log(res)
-      }
-      , error: (err) => {
 
-      }
-    })
-  }
 
   public getIPAdress() {
     this.IpService.getIPAddress().subscribe((res: any) => {
       this.ipAddress = res.ip
     })
   }
+
   ngAfterViewInit(): void {
     this.showAdBlogPage()
     this.cdr.detectChanges();
@@ -307,17 +294,17 @@ export class UserBlogDetailsComponent {
     this.getUserBlog()
     this.getUserBlogDetail()
   }
- 
+
   toggleReplyForm(comment: any) {
-      if (this.selectedComment === comment) {
-        // If the same comment is clicked again, toggle the form visibility
-        this.showReplyForm = !this.showReplyForm;
-      } else {
-        // If a different comment is clicked, hide any previously shown form and display the new one
-        this.selectedComment = comment;
-        this.showReplyForm = true;
-      }
-    
+    if (this.selectedComment === comment) {
+      // If the same comment is clicked again, toggle the form visibility
+      this.showReplyForm = !this.showReplyForm;
+    } else {
+      // If a different comment is clicked, hide any previously shown form and display the new one
+      this.selectedComment = comment;
+      this.showReplyForm = true;
+    }
+
   }
 
   goSignup() {
@@ -343,19 +330,34 @@ export class UserBlogDetailsComponent {
       }
     });
   }
-  public postCommnet() {
+  public postCommnet() {  
+    this.isPostComment = true
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
-    formData.append('user_id', userID.ID);
     formData.append('comment_author', this.name.value);
     formData.append('comment_author_url', this.website.value);
     formData.append('comment_author_email', this.email.value);
     formData.append('comment_content', this.message.value);
     formData.append('comment_post_ID', this.blogId);
 
+    const formData2: any = new FormData()
+    formData2.append('user_id', userID?.ID);
+    formData2.append('comment_author', this.name.value);
+    formData2.append('comment_author_url', this.website.value);
+    formData2.append('comment_author_email', this.email.value);
+    formData2.append('comment_content', this.message.value);
+    formData2.append('comment_post_ID', this.blogId);
 
-    this.homeService.setBlogComment(formData).subscribe({
+    const data = !this.isAuthenticated ? formData : formData2
+    this.homeService.setBlogComment(data).subscribe({
       next: (res) => {
+        this.isPostComment = false
+        this.cdr.detectChanges()
+        this.getComments()
+          this.message.setValue('')
+        this.website.setValue('')
+        this.name.setValue('')
+        this.email.setValue('')
         Swal.fire({
           toast: true,
           text: res.message,
@@ -366,28 +368,48 @@ export class UserBlogDetailsComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.cdr.detectChanges()
-        this.getComments()
+
       },
       error: (err) => {
-
+        this.isPostComment = false
       }
     })
   }
+
+
   public postReply() {
+
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
-    formData.append('user_id', userID.ID);
     formData.append('comment_author', this.name.value);
     formData.append('comment_author_url', this.website.value);
     formData.append('comment_author_email', this.email.value);
     formData.append('comment_content', this.message.value);
     formData.append('comment_post_ID', this.blogId);
-    formData.append('comment_parent',  this.selectedComment);
-    
+    formData.append('comment_parent', this.selectedComment);
 
-    this.homeService.setReplyBlog(formData).subscribe({
+    const formData2: any = new FormData()
+    formData2.append('user_id', userID?.ID);
+    formData2.append('comment_author', this.name.value);
+    formData2.append('comment_author_url', this.website.value);
+    formData2.append('comment_author_email', this.email.value);
+    formData2.append('comment_content', this.message.value);
+    formData2.append('comment_post_ID', this.blogId);
+    formData2.append('comment_parent', this.selectedComment);
+
+
+    const data = !this.isAuthenticated ? formData : formData2
+
+    this.homeService.setReplyBlog(data).subscribe({
+
       next: (res) => {
+
+        this.cdr.detectChanges()
+        this.getComments()
+        this.message.setValue('')
+        this.website.setValue('')
+        this.name.setValue('')
+        this.email.setValue('')
         Swal.fire({
           toast: true,
           text: res.message,
@@ -398,8 +420,7 @@ export class UserBlogDetailsComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.cdr.detectChanges()
-        this.getComments()
+
       },
       error: (err) => {
 
@@ -407,5 +428,18 @@ export class UserBlogDetailsComponent {
     })
   }
 
+  getComments() {
+    this.cdr.detectChanges()
+    this.homeService.getBlogComment(this.blogId).subscribe({
+      next: (res) => {
+        this.commentArr = res?.data
+        const lastIndex = this.commentArr.length - 1;
+        this.lastElement = this.commentArr[lastIndex];
+        console.log(res)
+      }
+      , error: (err) => {
 
+      }
+    })
+  }
 }
