@@ -18,7 +18,7 @@
   </div>
   <div class="row my-3">
     <div class="col-12">
-      <h5 class="block-head">0 Comments</h5>
+      <h5 class="block-head">No Comments</h5>
       <hr />
     </div>
   </div>
@@ -34,25 +34,26 @@
         >
       </p>
     </div>
+    @if(!isAuthenticated){
     <div class="col-12 mb-3">
       <label class="listing-form-label"
         >Name<span class="asterik">*</span></label
       >
-      <input type="text" class="input-control mt-1" />
+      <input type="text" class="input-control mt-1" [formControl]="name"/>
     </div>
     <br />
     <div class="col-12 mb-3">
       <label class="listing-form-label"
         >Email<span class="asterik">*</span></label
       >
-      <input type="text" class="input-control mt-1" />
+      <input type="text" class="input-control mt-1" [formControl]="email"/>
     </div>
     <br />
     <div class="col-12 mb-3">
       <label class="listing-form-label"
-        >Website<span class="asterik">*</span></label
+        >Website</label
       >
-      <input type="text" class="input-control mt-1" />
+      <input type="text" class="input-control mt-1" [formControl]="website"/>
     </div>
     <div class="col-12 col-md-12 mb-3">
       <div class="form-group">
@@ -75,11 +76,13 @@
         type="text"
         class="input-control mt-1"
         style="height: 15em"
+        [formControl]="message"
       ></textarea>
     </div>
     <br />
+  }
     <div class="col-12 mb-3">
-      <button type="button" class="btn orange-background-btn">Submit</button>
+      <button type="button" class="btn orange-background-btn" (click)="postCommnet()" [disabled]="!name.value || !email.value || !message.value">Post Comment</button>
     </div>
   </div>
 @if(!this.isAuthenticated){

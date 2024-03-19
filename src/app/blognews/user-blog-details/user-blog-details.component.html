@@ -63,8 +63,7 @@
                                             width="60" height="60" alt="BlogBlitz"></a>
                                 </div>
                                 <div class="media-body">
-                                    <h5 class="mt-0">Author: <a
-                                            >{{userBlogDetails?.author_detail?.first_name
+                                    <h5 class="mt-0">Author: <a>{{userBlogDetails?.author_detail?.first_name
                                             + ' ' + userBlogDetails?.author_detail?.last_name}}</a>
                                     </h5>
 
@@ -73,34 +72,342 @@
                             </div>
                         </div>
                         }
+                        <!-- leave reply section  -->
                         <div class="comment__">
-                            <h5 class="block-head">
-                                0 Comments
-                            </h5>
-                            <div class="comment_section">
-                                <div class="profile_comment">
-                                    <img
-                                        src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                            <div class="row my-3">
+                                <div class="col-12">
+                                    <h5 class="block-head">{{ commentArr?.length? commentArr.length + ' '+ 'Comments':'No Comments'}}</h5>
                                 </div>
-                                <div class="auther_email">
-                                    <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                class="email_auther">{{'testing01@yopmail.com'}}</span></a> &nbsp;</b>
-                                    <span class="says">says:</span>
+                            </div>
+                            @for (item of commentArr; track $index) {
+                            <div class="add_div" [ngClass]="{'border-bottomHide': lastElement?.comment_detail?.comment_ID == item?.comment_detail?.comment_ID}">
+                                <div class="comment_section">
+                                    <div class="profile_comment">
+                                        <img
+                                            src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                                    </div>
+
+                                    <div class="auther_email">
+                                        <b class="fn"><a rel="external nofollow" class="email_auther"> <span
+                                                    class="email_auther">{{item?.comment_detail?.
+                                                    comment_author_email}}</span></a> &nbsp;</b>
+                                        <span class="says">says:</span>
+                                        <br />
+                                        <div class="auther_date">
+                                            <time
+                                                datetime="2024-03-18T04:09:50-04:00">{{item?.comment_detail?.comment_date}}</time>
+                                        </div>
+                                        <div class="description">
+                                            <p>{{item?.comment_detail?.comment_content}}</p>
+                                        </div>
+                                        <div class="reply_button">
+                                            <a rel="external nofollow" class="email_auther_reply"> <span
+                                                    class="email_auther_reply"
+                                                    (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'reply'}}</span></a>
+                                          
+                                                </div>
+                                    </div>
+                                </div>
+                                @for (items of item.comment_replies; track $index) {
+                                      <div class="clid_reply">
+                                        <div class="comment_section">
+                                            <div class="profile_comment">
+                                                <img
+                                                    src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                                            </div>
+        
+                                            <div class="auther_email">
+                                                <b class="fn"><a rel="external nofollow" class="email_auther"> <span
+                                                            class="email_auther">{{items?.
+                                                            comment_author_email}}</span></a> &nbsp;</b>
+                                                <span class="says">says:</span>
+                                                <br />
+                                                <div class="auther_date">
+                                                    <time
+                                                        datetime="2024-03-18T04:09:50-04:00">{{items?.comment_date}}</time>
+                                                </div>
+                                                <div class="description">
+                                                    <p>{{items?.comment_content}}</p>
+                                                </div>
+                                                <div class="reply_button">
+                                                    @if(items?.length == 3){
+                                                        
+                                                    <a rel="external nofollow" class="email_auther_reply"> <span
+                                                            class="email_auther_reply"
+                                                            (click)="toggleReplyForm(items?.comment_ID)">{{'reply'}}</span></a>
+                                            
+                                                        }
+                                                        </div>
+                                            </div>
+                                        </div>
+                                        @for (key of items.comment_replies; track $index) {
+                                            <div class="clid_reply_two">
+                                              <div class="comment_section">
+                                                  <div class="profile_comment">
+                                                      <img
+                                                          src="https://vietlist.biz/staging_dev/wp-content/uploads/2024/01/1_ITy1iE0UHDJlhJU3XZBkf2TlIajHPpz@20070588@3-1-1_uwp_avatar_thumb.jpg" />
+                                                  </div>
+              
+                                                  <div class="auther_email">
+                                                      <b class="fn"><a rel="external nofollow" class="email_auther"> <span
+                                                                  class="email_auther">{{key?.
+                                                                  comment_author_email}}</span></a> &nbsp;</b>
+                                                      <span class="says">says:</span>
+                                                      <br />
+                                                      <div class="auther_date">
+                                                          <time
+                                                              datetime="2024-03-18T04:09:50-04:00">{{key?.comment_date}}</time>
+                                                      </div>
+                                                      <div class="description">
+                                                          <p>{{key?.comment_content}}</p>
+                                                      </div>
+                                                      <div class="reply_button">
+                                                        @if(key?.length == 3){
+                                                          <a rel="external nofollow" class="email_auther_reply"> <span
+                                                                  class="email_auther_reply"
+                                                                  (click)="toggleReplyForm(key?.comment_ID)">{{'reply'}}</span></a>
+                                                     
+                                                                }
+                                                                </div>
+                                                  </div>
+                                              </div>
+      
+                                              <div class="row"
+                                              *ngIf="showReplyForm && selectedComment == key?.comment_ID">
+                                              <div class="col-12">
+                                                  <h5 class="block-head" style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important"> Reply to {{item?.comment_detail?.
+                                                      comment_author_email}} &nbsp;<span
+                                                              class="email_auther_reply"
+                                                              (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel reply'}}</span></h5>
+                                              </div>
+                                              <div class="col-12 mt-4">
+                                                  <p class="comment-notes" style="font-size: 16px; color: #555555">
+                                                      <span id="email-notes">Logged in as {{key?.
+                                                          comment_author_email}}.</span> <span
+                                                              class="email_auther_reply">Edit your profile.</span>  <span
+                                                              class="email_auther_reply">Log out?</span>
+                                                      <span class="required-field-message">Required fields are marked <span
+                                                              class="asterik">*</span></span>
+                                                  </p>
+                                              </div>
+                                              @if(!isAuthenticated){
+                                              <div class="col-12 mb-3">
+                                                  <label class="listing-form-label">Name<span class="asterik">*</span></label>
+                                                  <input type="text" class="input-control mt-1" [formControl]="name" />
+                                              </div>
+                                              <br />
+                                              <div class="col-12 mb-3">
+                                                  <label class="listing-form-label">Email<span class="asterik">*</span></label>
+                                                  <input type="text" class="input-control mt-1" [formControl]="email" />
+                                              </div>
+                                              <br />
+                                              <div class="col-12 mb-3">
+                                                  <label class="listing-form-label">Website</label>
+                                                  <input type="text" class="input-control mt-1" [formControl]="website" />
+                                              </div>
+                                              <div class="col-12 col-md-12 mb-3">
+                                                  <div class="form-group">
+                                                      <div class="form-check">
+                                                          <input class="form-check-input" type="checkbox" value="" id="terms" />
+                                                          <label class="form-check-label" for="terms">
+                                                              Save my name, email, and website in this browser for the
+                                                              next time I comment.
+                                                          </label>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <br />
+                                              }
+                                              <div class="col-12 mb-3">
+                                                  <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1" style="height: 15em"
+                                                      [formControl]="message"></textarea>
+                                              </div>
+                                              <br />
+          
+                                              <div class="col-12 mb-3">
+                                                  <button type="button" class="btn orange-background-btn" (click)="postReply()"
+                                                      [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post Reply</button>
+                                              </div>
+                                          </div>
+                                            </div>
+                                          }
+                                        <div class="row"
+                                        *ngIf="showReplyForm && selectedComment == items?.comment_ID">
+                                        <div class="col-12">
+                                            <h5 class="block-head" style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important"> Reply to {{items?.
+                                                comment_author_email}} &nbsp;<span
+                                                        class="email_auther_reply"
+                                                        (click)="toggleReplyForm(items?.comment_ID)">{{'Cancel reply'}}</span></h5>
+                                        </div>
+                                        <div class="col-12 mt-4">
+                                            <p class="comment-notes" style="font-size: 16px; color: #555555">
+                                                <span id="email-notes">Logged in as {{items?.
+                                                    comment_author_email}}.</span> <span
+                                                        class="email_auther_reply">Edit your profile.</span>  <span
+                                                        class="email_auther_reply">Log out?</span>
+                                                <span class="required-field-message">Required fields are marked <span
+                                                        class="asterik">*</span></span>
+                                            </p>
+                                        </div>
+                                        @if(!isAuthenticated){
+                                        <div class="col-12 mb-3">
+                                            <label class="listing-form-label">Name<span class="asterik">*</span></label>
+                                            <input type="text" class="input-control mt-1" [formControl]="name" />
+                                        </div>
+                                        <br />
+                                        <div class="col-12 mb-3">
+                                            <label class="listing-form-label">Email<span class="asterik">*</span></label>
+                                            <input type="text" class="input-control mt-1" [formControl]="email" />
+                                        </div>
+                                        <br />
+                                        <div class="col-12 mb-3">
+                                            <label class="listing-form-label">Website</label>
+                                            <input type="text" class="input-control mt-1" [formControl]="website" />
+                                        </div>
+                                        <div class="col-12 col-md-12 mb-3">
+                                            <div class="form-group">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="" id="terms" />
+                                                    <label class="form-check-label" for="terms">
+                                                        Save my name, email, and website in this browser for the
+                                                        next time I comment.
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        }
+                                        <div class="col-12 mb-3">
+                                            <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1" style="height: 15em"
+                                                [formControl]="message"></textarea>
+                                        </div>
+                                        <br />
+    
+                                        <div class="col-12 mb-3">
+                                            <button type="button" class="btn orange-background-btn" (click)="postReply()"
+                                                [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post Reply</button>
+                                        </div>
+                                    </div>
+                                      </div>
+                                   
+                                    }
+                                <div class="row"
+                                    *ngIf="showReplyForm && selectedComment == item?.comment_detail?.comment_ID">
+                                    <div class="col-12">
+                                        <h5 class="block-head" style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important"> Reply to {{item?.comment_detail?.
+                                            comment_author_email}} &nbsp;<span
+                                                    class="email_auther_reply"
+                                                    (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Cancel reply'}}</span></h5>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <p class="comment-notes" style="font-size: 16px; color: #555555">
+                                            <span id="email-notes">Logged in as {{item?.comment_detail?.
+                                                comment_author_email}}.</span> <span
+                                                    class="email_auther_reply">Edit your profile.</span>  <span
+                                                    class="email_auther_reply">Log out?</span>
+                                            <span class="required-field-message">Required fields are marked <span
+                                                    class="asterik">*</span></span>
+                                        </p>
+                                    </div>
+                                    @if(!isAuthenticated){
+                                    <div class="col-12 mb-3">
+                                        <label class="listing-form-label">Name<span class="asterik">*</span></label>
+                                        <input type="text" class="input-control mt-1" [formControl]="name" />
+                                    </div>
                                     <br />
-                                    <div class="auther_date">
-                                        <time datetime="2024-03-18T04:09:50-04:00">March 18, 2024 at 4:09 am</time>
+                                    <div class="col-12 mb-3">
+                                        <label class="listing-form-label">Email<span class="asterik">*</span></label>
+                                        <input type="text" class="input-control mt-1" [formControl]="email" />
                                     </div>
-                                    <div class="description">
-                                        <p>hgfghfg</p>
+                                    <br />
+                                    <div class="col-12 mb-3">
+                                        <label class="listing-form-label">Website</label>
+                                        <input type="text" class="input-control mt-1" [formControl]="website" />
                                     </div>
-                                    <div class="reply_button">
-                                        <a rel="external nofollow" class="email_auther_reply"> <span
-                                                class="email_auther_reply">{{'reply'}}</span></a>
+                                    <div class="col-12 col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="terms" />
+                                                <label class="form-check-label" for="terms">
+                                                    Save my name, email, and website in this browser for the
+                                                    next time I comment.
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    }
+                                    <div class="col-12 mb-3">
+                                        <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1" style="height: 15em"
+                                            [formControl]="message"></textarea>
+                                    </div>
+                                    <br />
+
+                                    <div class="col-12 mb-3">
+                                        <button type="button" class="btn orange-background-btn" (click)="postReply()"
+                                            [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post Reply</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            }
 
+                            <div class="row"  *ngIf="!showReplyForm">
+                                <div class="col-12 my-4">
+                                    <h5 class="block-head">Leave a Reply</h5>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <p class="comment-notes" style="font-size: 16px; color: #555555">
+                                        <span id="email-notes">Your email address will not be published.</span>
+                                        <span class="required-field-message">Required fields are marked <span
+                                                class="asterik">*</span></span>
+                                    </p>
+                                </div>
+                                @if(!isAuthenticated){
+                                <div class="col-12 mb-3">
+                                    <label class="listing-form-label">Name<span class="asterik">*</span></label>
+                                    <input type="text" class="input-control mt-1" [formControl]="name" />
+                                </div>
+                                <br />
+                                <div class="col-12 mb-3">
+                                    <label class="listing-form-label">Email<span class="asterik">*</span></label>
+                                    <input type="text" class="input-control mt-1" [formControl]="email" />
+                                </div>
+                                <br />
+                                <div class="col-12 mb-3">
+                                    <label class="listing-form-label">Website</label>
+                                    <input type="text" class="input-control mt-1" [formControl]="website" />
+                                </div>
+                                <div class="col-12 col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="terms" />
+                                            <label class="form-check-label" for="terms">
+                                                Save my name, email, and website in this browser for the
+                                                next time I comment.
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                }
+                                <div class="col-12 mb-3">
+                                    <label class="listing-form-label">Comment<span class="asterik">*</span></label>
+                                    <textarea type="text" class="input-control mt-1" style="height: 15em"
+                                        [formControl]="message"></textarea>
+                                </div>
+                                <br />
+
+                                <div class="col-12 mb-3">
+                                    <button type="button" class="btn orange-background-btn" (click)="postCommnet()"
+                                        [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
+                                        Comment</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+<!-- close leave reply serction -->
                     </div>
                 </div>
 
@@ -148,7 +455,7 @@
                                 </div>
 
                                 <div>
-                                    <button class="btn sign-up-btn"  (click)="goSignup()">Sign Up</button>
+                                    <button class="btn sign-up-btn" (click)="goSignup()">Sign Up</button>
                                 </div>
                             </div>
                         </div>
@@ -178,6 +485,7 @@
                 </div>
                 }
             </div>
+
         </div>
     </section>
 </div>
