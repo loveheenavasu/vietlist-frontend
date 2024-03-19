@@ -24,8 +24,11 @@ import { AuthenticationService } from './shared'
   template: `
     <app-header></app-header>
       <app-fullpage-loader *ngIf="loaderVisible == true"></app-fullpage-loader>
-    <router-outlet></router-outlet>
+    <router-outlet>
+
+    </router-outlet>
     <app-footer></app-footer>
+
   `,
   styleUrl: './app.component.scss',
 })
