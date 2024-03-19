@@ -463,6 +463,15 @@ li.mat-mdc-menu-trigger.nav-item.active {
                 width: 21%;
                 margin-left: 02.625rem;
             }
+
+            .search-box {
+                position: relative;
+
+                .search-icon {
+                    width: 45px;
+                    height: 45px;
+                }
+            }
         }
 
         .country-dropdown {

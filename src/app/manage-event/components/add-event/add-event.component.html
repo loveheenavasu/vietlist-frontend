@@ -418,18 +418,19 @@
         </div>
         @if(isBookableClicked){
         <div class="row my-3 px-2">
-          <div class="col-12 col-lg-4"><label class="listing-form-label"> Price <span
-            class="asterik">*</span></label></div>
+          <div class="col-12 col-lg-4"><label class="listing-form-label"> Price <span class="asterik">*</span></label>
+          </div>
           <div class="col-12 col-md-12 col-lg-8">
-            <input type="text" class="input-control" placeholder="Price ($)" formControlName="price" />
+            <input type="text" class="input-control" placeholder="Price ($)" formControlName="price"
+              (input)="onInputChange($event)" />
           </div>
         </div>
         <div class="row my-3 px-2">
           <div class="col-12 col-lg-4"><label class="listing-form-label">Number of Bookings <span
-            class="asterik">*</span></label> </div>
+                class="asterik">*</span></label> </div>
           <div class="col-12 col-md-12 col-lg-8">
             <input type="text" class="input-control" placeholder="Number of Bookings can be accepted"
-              formControlName="number_of_bookings" />
+              formControlName="number_of_bookings" (input)="numberBookingInput($event)" />
           </div>
         </div>
         <div class="row my-3 px-2">

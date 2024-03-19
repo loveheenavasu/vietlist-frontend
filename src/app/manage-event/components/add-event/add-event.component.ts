@@ -136,7 +136,7 @@ export class AddEventComponent {
   public minDate = new Date();
   public isBookableClicked: boolean = false
   public maxDate: any
-  public maxTotalImages:any
+  public maxTotalImages: any
   /**
    *
    * @param _formBuilder
@@ -167,7 +167,7 @@ export class AddEventComponent {
       mapview: [''],
       startTime: [''],
       endTime: [''],
-      price: [''],
+      price: ['', [Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
       number_of_bookings: [''],
       booking_end_date: [''],
       booking_start_date: ['']
@@ -266,6 +266,8 @@ export class AddEventComponent {
     this.maxDate = maxBookingEndDate
   }
 
+
+
   ngOnInit() {
     this.getBusinessCat()
 
@@ -296,6 +298,17 @@ export class AddEventComponent {
     this.initMap()
   }
 
+  public onInputChange(event: any) {
+    let inputValue: string = event.target.value;
+    inputValue = inputValue.replace(/[^0-9.]/g, '');
+    event.target.value = inputValue;
+  }
+
+  public numberBookingInput(event: any) {
+    let inputValue: string = event.target.value;
+    inputValue = inputValue.replace(/\D/g, '');
+    event.target.value = inputValue;
+  }
 
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
@@ -504,9 +517,9 @@ export class AddEventComponent {
     this.maxTotalImages = this.userDetail.level_id === '1' ? 5 : this.userDetail.level_id === '2' ? 20 : this.userDetail.level_id === '3' ? Infinity : 0;
     const totalUploadedImages = this.levelOneImageArr.length;
     const remainingImagesCapacity = this.maxTotalImages - totalUploadedImages;
-  
+
     const selectedFiles = [...event.addedFiles];
-  
+
     if (selectedFiles.length > remainingImagesCapacity) {
       Swal.fire({
         toast: true,
@@ -520,24 +533,24 @@ export class AddEventComponent {
       });
       return;
     }
-  
+
     this.files = selectedFiles;
     this.displayLevelOneImages();
   }
-  
+
 
   public displayLevelOneImages() {
     this.isImageUploading = true;
-  
+
     const delayBetweenUploads = 2000; // Adjust as needed, in milliseconds
-  
+
     this.files.forEach((file, index) => {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
-  
+
       // Upload each file with a delay
       setTimeout(() => {
         this.isImageUploading = true;
@@ -557,20 +570,20 @@ export class AddEventComponent {
       }, index * delayBetweenUploads); // Delay increases with each iteration
     });
   }
-  
-  
+
+
 
   // formatDate(date: Date): any {
   //   if (!(date instanceof Date) || isNaN(date.getTime())) {
-     
-  
+
+
   //   const year = date?.getFullYear();
   //   const month = date?.getMonth() + 1; // Months are zero based
   //   const day = date?.getDate();
   //   return `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
   //   }
   // }
-  
+
   public addEvent(val?: any) {
     this.debounce = true
     this.isloader = true
@@ -682,7 +695,7 @@ export class AddEventComponent {
         console.log(this.eventDetails, 'check details')
         this.state = this.eventDetails?.region
         this.isBookable.patchValue(this.eventDetails.is_bookable_ == '1' ? true : false);
-         this.levelOneImageArr = this.eventDetails?.featured_image
+        this.levelOneImageArr = this.eventDetails?.featured_image
         this.addEventForm.patchValue({
           event_title: this.eventDetails.post_title,
           eventStartDate: this.eventDetails.event_dates.start_date,
@@ -695,7 +708,7 @@ export class AddEventComponent {
           booking_start_date: this.eventDetails.booking_start_date,
           booking_end_date: this.eventDetails.booking_end_date,
           number_of_bookings: this.eventDetails.number_of_bookings,
-          price:this.eventDetails?.price,
+          price: this.eventDetails?.price,
 
         })
         this.street = this.eventDetails.street,
@@ -704,7 +717,7 @@ export class AddEventComponent {
           this.city = this.eventDetails.city,
           this.country = this.eventDetails.country,
           this.ImageUrl = this.eventDetails.featured_image,
-        this.initMap()
+          this.initMap()
       },
       error: (err) => {
         this.fullPageLoaderService.hideLoader()
