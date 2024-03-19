@@ -1,13 +1,15 @@
 import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-business-blog-details',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,ReactiveFormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './business-blog-details.component.html',
   styleUrl: './business-blog-details.component.scss'
@@ -20,6 +22,11 @@ export class BusinessBlogDetailsComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
+  public name = new FormControl()
+  public email = new FormControl()
+  public website = new FormControl()
+  public message = new FormControl()
+  public commentArr:any[]=[]
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
   
   public blogSwiperParams = {
@@ -120,6 +127,9 @@ export class BusinessBlogDetailsComponent {
     ngOnInit(){
       this.showAdBlogPage()
       this.getIPAdress()
+      if(this.blogId){
+        this.getComments()
+      }
     }
   
     ngAfterViewInit(){
@@ -245,6 +255,45 @@ export class BusinessBlogDetailsComponent {
 
   public getUrl(url: string) {
     window.open(url, "_blank");
+  }
+
+  public postCommnet(){
+    const formData:any = new FormData()
+    formData.append('comment_author' , this.name.value);
+    formData.append('comment_author_url' , this.website.value);
+    formData.append('comment_author_email' , this.email.value);
+    formData.append('comment_content' , this.message.value);
+    formData.append('comment_post_ID' , this.blogId);
+    this.homeService.setBlogComment(formData).subscribe({
+      next:(res)=>{
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.getComments()
+      },
+      error:(err)=>{
+
+      }
+    })
+  }
+
+  public getComments(){
+    this.homeService.getBlogComment(this.blogId).subscribe({
+      next:(res)=>{
+        this.commentArr = res?.data
+        console.log(res)
+      }
+      ,error:(err)=>{
+
+      }
+    })
   }
 
 }

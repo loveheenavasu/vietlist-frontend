@@ -61,4 +61,16 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.Contactus)
     return this.http.post<any>(endpoint, body)
   }
+
+public setBlogComment(body:any): Observable<any> {
+  const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetBlogComment)
+  return this.http.post<any>(endpoint, body)
+}
+
+public getBlogComment(post_id:any): Observable<any> {
+  const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBlogComment)
+  const params = new HttpParams().set('post_id', post_id)
+  return this.http.get<any>(endpoint, { params: params })
+}
+
 }
