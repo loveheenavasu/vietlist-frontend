@@ -544,6 +544,7 @@ export class EventDetailsComponent {
   public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
+        console.log("check review", res)
         this.reviewsArray = res?.data
       },
     })
