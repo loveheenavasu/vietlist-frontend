@@ -9,7 +9,8 @@ import {
 } from './common-ui'
 import { FullPageLoaderService } from './shared/utils/services/loader.service'
 import { AuthenticationService } from './shared'
-
+import { OneSignal } from 'onesignal-ngx';
+import { PushNotificationService } from './shared/utils/services/pushnotification.service'
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -19,7 +20,7 @@ import { AuthenticationService } from './shared'
     FooterComponent,
     FullPageLoader,
     NgIf,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   template: `
     <app-header></app-header>
@@ -41,13 +42,21 @@ export class AppComponent {
     private loaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private changeDetector: ChangeDetectorRef
-  ) { }
+    private changeDetector: ChangeDetectorRef,
+    private oneSignal: OneSignal,
+    private pushService: PushNotificationService
+  ) {
+    // this.oneSignal.init({
+    //   appId: "18528e71-bbe6-4933-b43a-0a4903923181",
+    // });
+   }
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
+    this.pushService.initOneSignal();
+    this.pushService.subscribeToNotifications();  
   }
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
