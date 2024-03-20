@@ -65,7 +65,7 @@
         <div class="grid-card col-lg-4">
           <div class="listing-img">
             @if (key && key.featured_image && key.featured_image.length > 0) {
-            <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)"/>
+            <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
             } @else {
             <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
             }
@@ -129,7 +129,12 @@
         <div class="d-flex small-screen-view">
           <div class="listing-img-container" (click)="gotToEventDetails(key.post_id, true)">
             <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)">
-              <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" />
+              <!-- <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" /> -->
+              @if (key && key.featured_image && key.featured_image.length > 0) {
+              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
+              } @else {
+              <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+              }
             </div>
           </div>
           <div class="listing-img-info">
