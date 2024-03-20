@@ -98,8 +98,8 @@
         }
     }
 
-    .listing-heading{
-        color:#2374be;
+    .listing-heading {
+        color: #2374be;
         text-transform: uppercase;
         cursor: pointer;
     }
@@ -107,8 +107,11 @@
     .listing-info {
         color: #54595F;
 
-        li{
+        li {
             list-style-type: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     }
 
@@ -170,6 +173,7 @@
 
                     .listing-info {
                         font-size: 1rem;
+
                     }
 
                     .listing-rating {

@@ -520,7 +520,7 @@ export class EventDetailsComponent {
           this.isLoader = false
           this.getReviews()
           this.reviewForm.reset()
-          
+
           this.getEventDetails()
           Swal.fire({
             toast: true,
