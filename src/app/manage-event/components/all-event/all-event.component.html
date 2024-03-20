@@ -81,7 +81,13 @@
               <li>{{ key.post_content }}</li>
               <li>
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                {{ key?.event_dates?.start_date | date: 'longDate' }}
+                {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
+                'longDate'}}
+                <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                {{formatDate( key?.event_dates?.end_time)}} -->
+              </li>
+              <li>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
                 {{formatDate(key?.event_dates?.start_time)}} -
                 {{formatDate( key?.event_dates?.end_time)}}
               </li>
@@ -147,7 +153,13 @@
               <li>{{ key.post_content }}</li>
               <li>
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                {{ key?.event_dates?.start_date | date: 'longDate' }}
+                {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
+                'longDate'}}
+                <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                {{formatDate( key?.event_dates?.end_time)}} -->
+              </li>
+              <li>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
                 {{formatDate(key?.event_dates?.start_time)}} -
                 {{formatDate( key?.event_dates?.end_time)}}
               </li>
