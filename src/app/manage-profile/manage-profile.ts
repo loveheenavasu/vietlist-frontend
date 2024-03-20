@@ -1,4 +1,4 @@
-import { RouterOutlet, RouterLink, Router, RouterLinkActive } from '@angular/router'
+import { RouterOutlet, RouterLink, Router, RouterLinkActive, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
@@ -43,33 +43,107 @@ export class ManageProfileComponent {
   public basedLevelMenuItem: any
   public isMenuLoading:boolean = true
   public role = Roles
+  public currentPath:any
+public  pageTitle: string = '';
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
-    private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private route: ActivatedRoute
   ) {
-
-
     this.activeIndex = this.router.url
-
-
     this.sessionservice.userDetailResponse.subscribe((res) => {
-      this.userDetail = res
-
+    this.userDetail = res
     })
-
-
-
   }
 
 
   ngOnInit() {
     this.fetchProfileDetail()
+    this.route.url.subscribe((segments) => {
+      this.currentPath = this.router.url;
+      this.setTitle()
+      console.log('Current Path:::', this.currentPath);
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentPath = this.router.url;
+        this.setTitle()
+      }
+    });
+  
 
   }
 
+ 
+
+  ngAfterViewInit(){
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentPath = this.router.url;
+        this.setTitle()
+      }
+    });
+  
+  }
+
+  public setTitle() {
+    switch (true) {
+      case this.currentPath === '/manage-profile':
+        this.pageTitle = 'My Account';
+        break;
+      case this.currentPath === '/manage-profile/change-password':
+        this.pageTitle = 'Change Password';
+        break;
+      case this.currentPath === '/manage-profile/privacy':
+        this.pageTitle = 'Privacy';
+        break;
+      case this.currentPath === '/manage-profile/manage-ads':
+        this.pageTitle = 'Manage Ads';
+        break;
+      case this.currentPath === '/manage-profile/subscription':
+        this.pageTitle = 'Manage Subscriptions';
+        break;
+      case this.currentPath === '/manage-profile/billing-address':
+        this.pageTitle = 'Manage Billing Address';
+        break;
+      case this.currentPath === '/manage-profile/manage-bookings':
+        this.pageTitle = 'My Bookings';
+        break;
+      case this.currentPath === '/manage-profile/my-business':
+        this.pageTitle = 'My Business';
+        break;
+      case this.currentPath === '/manage-profile/manage-events':
+        this.pageTitle = 'Events Management';
+        break;
+      case this.currentPath === '/manage-profile/cancellation-policy':
+        this.pageTitle = 'Cancellation Policy';
+        break;
+      case this.currentPath === '/manage-profile/setting':
+        this.pageTitle = 'Settings';
+        break;
+      case this.currentPath === '/manage-profile/delete-account':
+        this.pageTitle = 'Delete Account';
+        break;
+      case this.currentPath.startsWith('/manage-profile/all-bookings/'):
+        const segments = this.currentPath.split('/');
+        if (segments.length === 4) {
+          // Assuming the dynamic ID is in the 3rd segment
+          const bookingId = segments[3];
+          this.pageTitle = `All Bookings`;
+        } else {
+          this.pageTitle = 'All Bookings';
+        }
+        break;
+      default:
+        this.pageTitle = '';
+        break;
+    }
+  }
+  
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)

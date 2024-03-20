@@ -1,8 +1,53 @@
 <div class="container-fluid g-0">
   <section class="banner">
     <div class="content">
-      <h1>My Account</h1>
+      <h1>{{pageTitle}}</h1>
     </div>
+    <!-- <div class="content">
+      @if(currentPath === '/manage-profile'){
+      <h1>My Account</h1>
+      }@else if(currentPath === '/manage-profile/change-password'){
+      <h1>Change Password</h1>
+      }@else if(currentPath === '/manage-profile/privacy'){
+      <h1>Privacy</h1>
+      }@else if(currentPath === '/manage-profile/manage-ads'){
+        <h1>Manage Ads</h1>
+      }
+      @else if(currentPath === '/manage-profile/subscription'){
+        <h1>Manage Subscriptions</h1>
+      }
+      @else if(currentPath === '/manage-profile/billing-address'){
+        <h1>Manage Billing Address</h1>
+      }
+      @else if(currentPath === '/manage-profile/manage-bookings'){
+        <h1>My Bookings</h1>
+      }
+      @else if(currentPath === '/manage-profile/my-business'){
+        <h1>My Business</h1>
+      }
+      @else if(currentPath === '/manage-profile/manage-events'){
+        <h1>Events Management</h1>
+      }
+      @else if(currentPath === '/manage-profile/cancellaton-policy'){
+        <h1>Cancellation Policy</h1>
+      }
+      @else if(currentPath === '/manage-profile/setting'){
+        <h1>Settings</h1>
+      }
+      @else if(currentPath === '/manage-profile/cancellaton-policy'){
+        <h1>Cancellation Policy</h1>
+      }
+      @else if(currentPath === '/manage-profile/delete-account'){
+        <h1>Delete Account</h1>
+      }
+      @else if(currentPath === '/manage-profile/cancellaton-policy'){
+        <h1>Cancellation Policy</h1>
+      }
+      @else if(currentPath.startsWith === '/manage-profile/all-bookings'){
+        <h1>All Bookings</h1>
+      }
+
+    </div> -->
   </section>
 
   <div class="container">
@@ -45,31 +90,28 @@
             <div class="tabs_responsive">
               <ul>
                 <ng-container *ngIf="!isMenuLoading; else skeletonLoading">
-                @for(key of menuItems ; track $index){
-                <li
-                  (click)="addClass(key.url)"
-                  [ngClass]="{ 'active': activeIndex === key.url }"
-                  [routerLink]="key.url"
-                  style="cursor: pointer"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{exact:
+                  @for(key of menuItems ; track $index){
+                  <li
+                    (click)="addClass(key.url)"
+                    [ngClass]="{ 'active': activeIndex === key.url }"
+                    [routerLink]="key.url"
+                    style="cursor: pointer"
+                    routerLinkActive="active"
+                    [routerLinkActiveOptions]="{exact:
                     true}"
-                >
-                  <span><i [class]="key.icon"></i></span>{{ key.label }}
-                </li>
-                }
-              </ng-container>
-              <ng-template #skeletonLoading>
-                <li  *ngFor="let _ of [1, 2, 3, 4 , 5 ,6 , 7,8 ,9 , 10]">
-                  <app-skeleton-loading
-                  ></app-skeleton-loading>
-                  
-                </li>
-              </ng-template>
+                  >
+                    <span><i [class]="key.icon"></i></span>{{ key.label }}
+                  </li>
+                  }
+                </ng-container>
+                <ng-template #skeletonLoading>
+                  <li *ngFor="let _ of [1, 2, 3, 4 , 5 ,6 , 7,8 ,9 , 10]">
+                    <app-skeleton-loading></app-skeleton-loading>
+                  </li>
+                </ng-template>
                 <li style="cursor: pointer" (click)="handleLogout()">
                   <span><i class="fa fa-sign-out"></i></span>Logout
                 </li>
-
               </ul>
             </div>
           </div>
