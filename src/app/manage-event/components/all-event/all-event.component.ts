@@ -173,6 +173,7 @@ export class AllEventComponent {
       return
     }
     this.fullPageLoaderService.showLoader()
+    var browserTimezone = this.getBrowserTimezone();
     const post_category = this.category.value
     const postPerPage = this.postPerPage
     const params: FindEventParams = {}
@@ -202,6 +203,9 @@ export class AllEventComponent {
     }
     if (this.country) {
       params['country'] = this.country
+    }
+    if (browserTimezone) {
+      params['timezone'] = browserTimezone
     }
 
     this.eventService.findEvents(params).subscribe({
