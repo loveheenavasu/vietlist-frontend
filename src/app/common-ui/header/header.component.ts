@@ -22,7 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
-
+import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 
 @Component({
   selector: 'app-header',
@@ -107,6 +107,11 @@ export class HeaderComponent {
       if (event instanceof NavigationEnd) {
         this.isSearchInputVisible = false
       }
+    })
+    errorMessageSubject.subscribe((res:any)=>{
+        if(res){
+          this.onLogout()
+        }
     })
     this.sessionservice.OnLogOut.subscribe((res: any) => {
       if (res) {
