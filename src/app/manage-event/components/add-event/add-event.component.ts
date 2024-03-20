@@ -618,8 +618,8 @@ export class AddEventComponent {
       }
     });
     const eventDates = {
-      start_date: this.addEventForm.value.eventStartDate,
-      end_date: this.addEventForm.value.eventEndDate,
+      start_date: this.datePipe.transform(this.addEventForm.value.eventStartDate, 'yyyy-MM-dd') ?? '',
+      end_date: this.datePipe.transform(this.addEventForm.value.eventEndDate, 'yyyy-MM-dd') ?? '',
       all_day: this.checkValue,
       start_time: this.addEventForm.value.startTime,
       end_time: this.addEventForm.value.endTime,
