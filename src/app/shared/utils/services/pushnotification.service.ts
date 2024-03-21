@@ -15,7 +15,7 @@ export class PushNotificationService {
     // Initialize OneSignal
     OneSignal.push(() => {
       OneSignal.init({
-        appId: "YOUR_ONESIGNAL_APP_ID",
+        appId: "e4cbb8a1-9b08-44ec-8dde-ef914308e98f",
       });
     });
   }
