@@ -85,13 +85,13 @@
     margin-top: 38px;
 }
 
-.image:before {
-    background: linear-gradient(180deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .4) 59%, rgba(0, 0, 0, .8));
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+// .image:before {
+//     background: linear-gradient(180deg, rgba(0, 0, 0, .2), rgba(0, 0, 0, .4) 59%, rgba(0, 0, 0, .8));
+//     content: "";
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+// }
 
 
 swiper-container {
@@ -268,9 +268,18 @@ swiper-container::part(container) {
 }
 
 .main_div {
-    display: flex
+    display: block
 }
+.image {
+    height: 230px;
+    object-fit: cover;
+    cursor: pointer;
 
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
 .entry-title {
     font-size: 22px;
     font-weight: 600;
@@ -287,11 +296,29 @@ swiper-container::part(container) {
     overflow: hidden;
 }
 
-.images_hover a img:hover {
-    -webkit-transform: scale(1.08);
-    transform: scale(1.08);
+.content {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    padding: 10px 15px;
+}
+
+.card-heading {
+    font-size: 18px;
+    color: #232F3E;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-top: 0rem;
+    text-align: justify;
+    // height:2.5em;
+    cursor: pointer;
 
 }
+
+// .images_hover a img:hover {
+//     -webkit-transform: scale(1.08);
+//     transform: scale(1.08);
+
+// }
 
 .images_hover a img {
     width: 100%;
@@ -299,13 +326,12 @@ swiper-container::part(container) {
     -webkit-transition: 0.4s ease;
     transition: 0.4s ease;
 }
-.image:hover:before {
-    background: rgba(0, 0, 0, .7);
-    transition: .4s ease-in-out;
-}
+// .image:hover:before {
+//     background: rgba(0, 0, 0, .7);
+//     transition: .4s ease-in-out;
+// }
 .heading___ {
     padding-left: 20px;
-    width: 50%;
     cursor: pointer;
 }
 
@@ -334,12 +360,18 @@ a:visited {
 }
 
 .list-layout-wrapper {
-    width: 65%;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 30px;
-    margin-bottom: 15px;
-    margin-left: 9%;
+    // width: 65%;
+    // border-bottom: 1px solid #ddd;
+    // padding-bottom: 30px;
+    // margin-bottom: 15px;
+    // margin-left: 9%;
+    // cursor: pointer;
+    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07);
+    width: 100%;
+    background: none;
+    height: 36em;
     cursor: pointer;
+    position: relative;
 }
 
 .tpg-excerpt-inner div {
