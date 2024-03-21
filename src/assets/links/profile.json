@@ -22,7 +22,7 @@
   {
     "label": "Invoices",
     "icon": "fa fa-file ",
-    "url": "/contact"
+    "url": "/invoices"
   },
   {
     "label": "Subscriptions",

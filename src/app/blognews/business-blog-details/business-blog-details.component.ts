@@ -320,9 +320,9 @@ export class BusinessBlogDetailsComponent {
     const data = !this.isAuthenticated ? formData : formData2
     this.homeService.setBlogComment(data).subscribe({
       next: (res) => {
+        this.getComments()
         this.isPostComment = false
         this.cdr.detectChanges()
-        this.getComments()
         this.message.setValue('')
         this.website.setValue('')
         this.name.setValue('')
