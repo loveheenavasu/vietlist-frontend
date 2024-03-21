@@ -1,73 +1,127 @@
 @import "../../../assets/scss/banner.scss";
 @import "../../../assets/scss/ads.scss";
 
-.container{
-    width:1140px;
-    margin-top:5rem;
-    margin-bottom:6rem
+.container {
+    width: 1280px;
+    margin-top: 3rem;
+    margin-bottom: 6rem;
+    padding: 0 5rem;
 }
 
-.card-cnt{
+.card-cnt {
     box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07);
-    width:100%;
+    width: 100%;
     background: none;
-    height:38em;
+    height: 34em;
     cursor: pointer;
+    position: relative;
 }
 
-.image{
-    height:230px;
-    object-fit:cover;
+.image {
+    height: 230px;
+    object-fit: cover;
     cursor: pointer;
 
-    img{
-    width:100%;
-    height:100%;
+    img {
+        width: 100%;
+        height: 100%;
     }
 }
 
-.content{
-    margin-top:1rem;
-    margin-bottom:5rem;
+.content {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
     padding: 10px 15px;
 }
 
-.card-heading{
-    font-size: 21px;
+.card-heading {
+    font-size: 20px;
     color: #232F3E;
-    font-weight:600;
+    font-weight: 600;
     text-transform: capitalize;
-    margin-top:0.75rem;
-    // height:3.5em;
+    margin-top: 0rem;
+    // height:2.5em;
+    cursor: pointer;
 
 }
 
-.post-tags{
-    margin-top:1.5rem;
+.post-tags {
+    margin-top: 16px;
 
-    .byAdmin{
-        font-size:14px;
-        color:#232F3E
+    .byAdmin {
+        font-size: 14px;
+        color: #232F3E
     }
 }
 
 
-.blog-des{
+.blog-des {
     margin-top:1rem;
-    p{
+    // height:5em;
+    p {
         text-align: justify;
         font-size: 16px;
-    color: #555555;
-    font-weight:400;
+        color: #555555;
+        font-weight: 400;
     }
 }
 
 
-.btn-div{
-    margin-top:2rem;
-    .read-more-btn{
+.btn-div {
+    margin-top: auto;
+    margin-bottom: 15px;
+    position: absolute;
+    bottom: 15px;
+    .read-more-btn {
         background-color: var(--primary-color-orange);
-        color:#fff;
-        padding:7px;
+        color: #fff;
+        padding: 7px 15px;
     }
+}
+
+@media (max-width:820px) {
+    .container {
+        width: 100%;
+        padding:0px;
+        margin-bottom: 0px;
+    }
+
+    .card-cnt {
+        box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07);
+        width: 95%;
+        background: none;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .btn-div {
+        margin-top: auto;
+        margin-bottom: 15px;
+        position: absolute;
+        bottom: 0px;
+    }
+
+}
+
+@media (max-width:425px) {
+    .container {
+        width: 100%;
+        padding:0 2rem;
+    }
+
+    .card-cnt {
+        box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07);
+        width: 95%;
+        background: none;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .btn-div {
+        margin-top: auto;
+        margin-bottom: 15px;
+        position: absolute;
+        bottom: 0px;
+    }
+
 }
