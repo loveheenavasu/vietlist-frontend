@@ -4,9 +4,11 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatCardModule } from '@angular/material/card'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { NgClass, NgFor } from '@angular/common'
-import { blogItem } from '@vietlist/shared'
+import { AuthenticationService, blogItem } from '@vietlist/shared'
 import { interval, repeat, Subscription, take } from 'rxjs'
 import { register } from 'swiper/element/bundle';
+import { HomepageService } from '../service/homepage.service'
+import { Router } from '@angular/router'
 
 register()
 
@@ -33,7 +35,7 @@ export class BlogNewsComponent {
   public orderValue?: number
   public blogDetail?: any
   public blogAd?: any
-
+  public blogData?: any
 
   blogSwiperParams = {
     slidesPerView: 1,
@@ -50,7 +52,7 @@ export class BlogNewsComponent {
     },
   }
 
-  constructor(private zone: NgZone, private cdr: ChangeDetectorRef) {
+  constructor(private zone: NgZone, private cdr: ChangeDetectorRef, private homeService: HomepageService, private router: Router, private authService: AuthenticationService) {
     // this.startTimer();
   }
   @HostListener('window:resize', ['$event'])
@@ -62,6 +64,7 @@ export class BlogNewsComponent {
   ngOnInit() {
     // this.blogDetail = this.homePageData
     this.showAdBlogPage()
+    this.getUserBlog()
     // if (this.blogAd) {
     //   // Create an interval that updates content every 6 seconds
     //   this.timerIntervals = setInterval(() => {
@@ -142,7 +145,7 @@ export class BlogNewsComponent {
             }
           }
           this.cdr.detectChanges()
-      
+
         }
       })
     }
@@ -156,6 +159,23 @@ export class BlogNewsComponent {
     window.open(url, "_blank");
   }
 
+  public getUserBlog() {
+    const blog_page = 'home'
+    this.homeService.userBlogs('4', '1', blog_page).subscribe({
+      next: (res) => {
+        if (res) {
+          this.blogData = res?.data
+          console.log("home page user blog", this.blogData)
+        }
+      }, error: (err) => {
 
+      }
+    })
+  }
+
+  public viewBlogDetail(details: any) {
+    this.router.navigate(['/user-blog-details/', details?.blog_id])
+    this.authService.BlogID.next(details?.blog_id)
+  }
 
 }
