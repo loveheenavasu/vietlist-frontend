@@ -52,7 +52,7 @@ export class BusinessBlogDetailsComponent {
 
   constructor(private homeService: HomepageService, private cdr: ChangeDetectorRef, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService, private IpService: ProfileService, private authService: AuthenticationService, private router: Router) {
     this.isAuthenticated = this.authService.isAuthenticated()
-    console.log(this.isAuthenticated)
+    console.log(this.isAuthenticated , "isAuhthen")
 
     let localStorage: any;
 
@@ -147,6 +147,7 @@ export class BusinessBlogDetailsComponent {
     ]
 
   ngOnInit() {
+    this.isAuthenticated = this.authService.isAuthenticated()
     this.showAdBlogPage()
     this.getIPAdress()
     if (this.blogId) {
@@ -396,7 +397,7 @@ export class BusinessBlogDetailsComponent {
     })
   }
 
-  getComments() {
+  public getComments() {
     this.cdr.detectChanges()
     this.homeService.getBlogComment(this.blogId).subscribe({
       next: (res) => {
@@ -409,6 +410,10 @@ export class BusinessBlogDetailsComponent {
 
       }
     })
+  }
+
+  public goSignup() {
+    this.router.navigate(['/register'])
   }
 
 }

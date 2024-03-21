@@ -7,14 +7,14 @@
 <div class="container">
   <div class="row">
     @for(key of businessBlogArr ; track $index){
-    <div class="col-12 col-lg-6 mt-3 mb-4">
+    <div class="col-12 col-md-6 col-lg-6 mt-3 mb-4">
       <div class="card-cnt" (click)="viewblogdetails(key?.blog_id)">
         <div class="image" (click)="viewblogdetails(key?.blog_id)">
           <img [src]="key?.featured_image ? key?.featured_image : '/assets/image/No-image-found.jpeg'"/>
         </div>
         <div class="content" (click)="viewblogdetails(key?.blog_id)">
-          <h1 class="card-heading">
-             {{key?.blog_title}}
+          <h1 class="card-heading" [innerHtml]="key?.blog_title | truncateHtml: 85">
+             <!-- {{key?.blog_title | truncateHtml: 85}} -->
           </h1>
           <div class="post-tags">
             <div class="d-flex">
@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="blog-des">
-            <p [innerHTML]="key?.blog_desc | truncateHtml: 120"></p>
+            <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p>
           </div>
           <div class="btn-div">
             <button class="btn read-more-btn" (click)="viewblogdetails(key?.blog_id)">Read More</button>
@@ -41,8 +41,8 @@
 
   </div>
   <div class="row">
-   <div class="blog-banner">
-    <swiper-container #blogSwiper class="mySwiper" init="false">
+   <div class="blog-banner" >
+    <swiper-container #blogSwiper class="mySwiper" init="false" style="height:16em">
 
       @for (key of addDetail; track $index) {
       <swiper-slide>
