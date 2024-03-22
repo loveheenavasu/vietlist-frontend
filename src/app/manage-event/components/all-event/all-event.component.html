@@ -20,12 +20,12 @@
         <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
         </AutocompleteComponent>
       </div>
-      <div class="mx-1">
+      <div class="mx-1 btn-wrapper">
         <div class="search-btn" (click)="searchBusiness()">
           <i class="fa fa-search" aria-hidden="true"></i>
         </div>
       </div>
-      <div class="mx-1">
+      <div class="mx-1 btn-wrapper">
         <button class="btn search-btn" (click)="clearFilters()">
           Clear Filters
         </button>
@@ -62,40 +62,42 @@
         };
         track $index
         ) {
-        <div class="grid-card col-lg-4">
-          <div class="listing-img">
-            @if (key && key.featured_image && key.featured_image.length > 0) {
-            <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
-            } @else {
-            <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
-            }
+        <div class="grid-card col-12 col-md-6 col-lg-4  ">
+          <div class="event-wrapper">
+            <div class="listing-img"
+              [style.background-image]="'url(' + (key.featured_image ? key.featured_image : 'https://www.its.ac.id/tmesin/wp-content/uploads/sites/22/2022/07/no-image.png') + ')'">
+              <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
+              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
+              } @else {
+              <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+              } -->
 
-          </div>
-          <div class="listing-description">
-            <div class="listing-heading">
-              <h3 (click)="gotToEventDetails(key.post_id, true)">
-                {{ key.post_title }}
-              </h3>
             </div>
-            <div class="listing-info">
-              <li>{{ key.post_content }}</li>
-              <li>
-                <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
-                'longDate'}}
-                <!-- {{formatDate(key?.event_dates?.start_time)}} -
+            <div class="listing-description">
+              <div class="listing-heading">
+                <h3 (click)="gotToEventDetails(key.post_id, true)">
+                  {{ key.post_title }}
+                </h3>
+              </div>
+              <div class="listing-info">
+                <li class="post-content">{{ key.post_content }}</li>
+                <li style="padding-bottom: 5px;">
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                  {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
+                  'longDate'}}
+                  <!-- {{formatDate(key?.event_dates?.start_time)}} -
                 {{formatDate( key?.event_dates?.end_time)}} -->
-              </li>
-              <li>
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                Starts From: {{formatDate(key?.event_dates?.start_time)}} -
-                Ends: {{formatDate( key?.event_dates?.end_time)}}
-              </li>
-            </div>
-            <!-- <div class="lisiting-package">
+                </li>
+                <li>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  Starts From: {{formatDate(key?.event_dates?.start_time)}} -
+                  Ends: {{formatDate( key?.event_dates?.end_time)}}
+                </li>
+              </div>
+              <!-- <div class="lisiting-package">
                     <span>$ Package : Free Business</span>
                   </div> -->
-            @if (key?.rating_count) {
+              <!-- @if (key?.rating_count) {
             <div class="listing-rating">
               <div class="d-flex">
                 @if (key?.rating_count >= 1) {
@@ -115,7 +117,8 @@
                 }
               </div>
             </div>
-            }
+            } -->
+            </div>
           </div>
         </div>
         }
