@@ -18,10 +18,11 @@
     <div class="row my-3">
       <div class="col-12">
         <h5 class="block-head" style="border-bottom: solid 1px #cecece;">
-          {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No Comments') }}
+          {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No
+          Comments') }}
         </h5>
       </div>
-      
+
     </div>
     @for (item of commentArr; track $index) {
     <div class="add_div"
@@ -477,8 +478,8 @@
   }
 
 </div>
-<div class="row mt-5">
-  <div class="cta-verfied-image">
+<div class="row mt-5" style="width:100%; ">
+  <div class="cta-verfied-image" style="padding:0px">
     <div class="image-container" style="height: 320px">
       <!-- <div class="d-flex"> -->
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">

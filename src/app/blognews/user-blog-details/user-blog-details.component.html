@@ -82,8 +82,9 @@
                             <div class="row my-3">
                                 <div class="col-12">
                                     <h5 class="block-head" style="border-bottom: solid 1px #cecece;">
-                                        {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No Comments') }}
-                                      </h5>
+                                        {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ?
+                                        commentArr.length + ' Comments' : 'No Comments') }}
+                                    </h5>
                                 </div>
                             </div>
                             @for (item of commentArr; track $index) {
