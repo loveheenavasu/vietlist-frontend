@@ -453,7 +453,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 60%;
+                    width: 62%;
                     margin-right: 3.188rem;
                 }
 
@@ -553,7 +553,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
 
         .offcanvas-body {
             .list-item {
-                width: 50% !important;
+                width: 52% !important;
                 margin-right: auto !important;
             }
 
@@ -568,6 +568,12 @@ li.mat-mdc-menu-trigger.nav-item.active {
     .container-fluid {
         margin-left: 6.313rem;
         margin-right: 6.313rem;
+    }
+
+    .offcanvas-body {
+        .list-item {
+            width: 50%;
+        }
     }
 }
 
