@@ -74,25 +74,26 @@
                         <!-- {{key?.blog_title | truncateHtml: 85}} -->
                      </h1>
                
-                  <div class="post-meta-tags rt-el-post-meta">
-                    <span class="date">
-                      <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a>
-                        {{ userData?.post_date }} &nbsp;</a
-                      >
-                    </span>
-                    <span class="categories-links date">
-                      &nbsp;
-                      <i class="fa-regular fa-folder icon-size"></i> &nbsp;<a
-                        class="navigating-us-real-estate"
-                        >Navigating U.S. Real Estate &nbsp;</a
-                      >
-                    </span>
-                  </div>
+                     <div class="post-meta-tags rt-el-post-meta">
+                        <span class="date">
+                          <i class="fa-regular fa-user-circle icon-size"></i> &nbsp;<a>
+                           By Admin &nbsp;</a
+                          >
+                        </span>
+                        <span class="date">
+                          <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a>
+                            {{userData?.post_date }} &nbsp;</a
+                          >
+                        </span>
+                      </div>
                   <div class="tpg-excerpt tpg-el-excerpt">
                         <div class="blog-des">
                             <p [innerHTML]="userData?.blog_desc"></p>
                             <!-- <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p> -->
                           </div>
+                  </div>
+                  <div class="btn-div">
+                    <button class="btn read-more-btn" (click)="viewuserdetails(userData)">Read More</button>
                   </div>
                 </div>
               </div>

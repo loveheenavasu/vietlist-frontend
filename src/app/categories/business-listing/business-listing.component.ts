@@ -9,6 +9,8 @@ import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { Subscription } from 'rxjs'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
+import { Router } from '@angular/router'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
   selector: 'app-business-listing',
@@ -21,6 +23,7 @@ import { FindBusinessParams } from 'src/app/manage-business/service/business.int
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    NgbRatingModule
   ],
   templateUrl: './business-listing.component.html',
   styleUrl: './business-listing.component.scss',
@@ -43,7 +46,8 @@ export class BusinessListingComponent {
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
-  ) {}
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getPublishBusinessData()
@@ -60,7 +64,8 @@ export class BusinessListingComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
-    
+        console.log("check data", this.businessCategoriesArray)
+
       },
     })
   }
@@ -71,7 +76,7 @@ export class BusinessListingComponent {
         this.post_category = res.data
         console.log(this.post_category)
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -130,7 +135,13 @@ export class BusinessListingComponent {
 
         this.businessCategoriesArray = res.data
       },
-      error: (error) => {},
+      error: (error) => { },
     })
   }
+
+  public gotToListing(id: any, isGlobal: any) {
+    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
+
+  }
+
 }

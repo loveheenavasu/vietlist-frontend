@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
   providedIn: 'root',
 })
 export class HomepageService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -44,10 +44,13 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessBlog)
     return this.http.get<any>(endpoint)
   }
-  
-  public userBlogs(posts_per_page:any, page_no:any): Observable<any> {
+
+  public userBlogs(posts_per_page: any, page_no: any, blog_page?: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
-    const params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no',page_no)
+    let params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no', page_no)
+    if (blog_page !== undefined) {
+      params = params.set('blog_page', blog_page);
+    }
     return this.http.get<any>(endpoint, { params: params })
   }
 
@@ -62,19 +65,19 @@ export class HomepageService {
     return this.http.post<any>(endpoint, body)
   }
 
-public setBlogComment(body:any): Observable<any> {
-  const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetBlogComment)
-  return this.http.post<any>(endpoint, body)
-}
-public setReplyBlog(body:any): Observable<any> {
-  const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetReplyBlog)
-  return this.http.post<any>(endpoint, body)
-}
+  public setBlogComment(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetBlogComment)
+    return this.http.post<any>(endpoint, body)
+  }
+  public setReplyBlog(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetReplyBlog)
+    return this.http.post<any>(endpoint, body)
+  }
 
-public getBlogComment(post_id:any): Observable<any> {
-  const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBlogComment)
-  const params = new HttpParams().set('post_id', post_id)
-  return this.http.get<any>(endpoint, { params: params })
-}
+  public getBlogComment(post_id: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBlogComment)
+    const params = new HttpParams().set('post_id', post_id)
+    return this.http.get<any>(endpoint, { params: params })
+  }
 
 }
