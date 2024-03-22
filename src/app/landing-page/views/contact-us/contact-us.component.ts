@@ -1,5 +1,5 @@
 import { HomepageService } from './../service/homepage.service';
-import { Component, HostListener, ChangeDetectorRef } from '@angular/core';
+import { Component, HostListener, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -72,6 +72,15 @@ export class ContactUsComponent {
     })
   }
  
+
+  @ViewChild('countryList', { static: true }) countryListRef!: ElementRef;
+
+  ngAfterViewInit() {
+    const countryListElement = this.countryListRef.nativeElement;
+    countryListElement.style.maxHeight = '200px'; // Adjust the height as needed
+    countryListElement.style.overflowY = 'auto'; // Enable vertical scrolling if necessary
+  }
+  
   onStreetChange(value: any) {
    this.getstreet = value?.value;
   }

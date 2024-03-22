@@ -303,7 +303,7 @@ export class UserBlogDetailsComponent {
     this.getUserBlogDetail()
   }
 
-  toggleReplyForm(comment: any) {
+ public toggleReplyForm(comment: any) {
     if (this.selectedComment === comment) {
       // If the same comment is clicked again, toggle the form visibility
       this.showReplyForm = !this.showReplyForm;
@@ -315,10 +315,10 @@ export class UserBlogDetailsComponent {
 
   }
 
-  goSignup() {
-    console.log('test signup')
+ public goSignup() {
     this.router.navigate(['/register'])
   }
+
   public showAdBlogPage() {
     this.homeService.showAD().subscribe({
       next: (res: any) => {
