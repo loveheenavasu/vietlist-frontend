@@ -163,14 +163,7 @@ export class AllEventComponent {
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
-  public valueChange(){
-   
-    if (!this.postTitle.value) {
-       console.log('test vauehejkhehek')
-      this.postTitle.setValue(''); // No error should occur here
-    }
-    
-  }
+
 
   // public searchBusiness() {
   //   this.currentPage = 1;
