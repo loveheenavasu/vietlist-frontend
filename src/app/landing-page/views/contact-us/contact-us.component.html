@@ -1,93 +1,77 @@
 <div class="container-fluid g-0">
-    <section class="banner top-banner">
-      <div class="content">
-        <h1>Contact Us</h1>
-      </div>
-    </section>
-  
-    <div class="container justify-content-center">
-      <form [formGroup]="contactus">
-        <div class="form-cnt">
-          <div class="row">
-            <div class="col-12">
-              <h1 class="text-center form-heading">Contact Us</h1>
-            </div>
-          </div>
-          <div class="row mt-4">
-            <div class="col-12">
-              <div class="form-group">
-                <input type="text" class="input-control" placeholder="Enter your Name" formControlName="name" 
-                 />
-              </div>
-            </div>
-            <!-- <div class="col-12"> -->
-              <!-- <div class="form-group"> -->
-                <ngx-intl-tel-input
-                #countryList
-                [cssClass]="'input-control'"
-                [preferredCountries]="preferredCountries"
-                [enableAutoCountrySelect]="true"
-                [enablePlaceholder]="true"
-                [searchCountryFlag]="true"
-                [searchCountryField]="[
-                  SearchCountryField.Iso2,
-                  SearchCountryField.Name
-                ]"
-                [selectFirstCountry]="false"
-                [selectedCountryISO]="CountryISO.India"
-                [phoneValidation]="true"
-                [separateDialCode]="true"
-                [numberFormat]="PhoneNumberFormat.National"
-                name="phone"
-                formControlName="phone_number" 
-              
-              >
-              </ngx-intl-tel-input>
-              <!-- </div> -->
-            <!-- </div> -->
+  <section class="banner top-banner">
+    <div class="content">
+      <h1>Contact Us</h1>
+    </div>
+  </section>
 
-            <div class="col-12 mt-3">
-              <div class="form-group">
-                <input
-                  class="input-control"
-                  type="email"
-                  formControlName="email"
-                  placeholder="Email"
-                />
-                @if (
-                  contactus.get('email')?.touched &&
-                  contactus.get('email')?.hasError('required')
-                ) {
-                  <span class="error-message">Email is required</span>
-                }
-                @if (contactus.get('email')?.hasError('pattern')) {
-                  <span class="error-message">Enter valid email</span>
-                }
-              </div>
-            </div>
-              <div class="col-12">
-               <div class="form-group">
-                <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street" (input)="onStreetChange($event.target)">
-                </AutocompleteComponent>
-               </div>
-            </div>
-            <div class="col-12">
-                <div class="form-group">
-                    <textarea class="input-control" style="height:8rem" placeholder="Enter your message" formControlName="messages"></textarea>
-                </div>
-            </div>
-            <div class="col-12 mt-3">
-              <button class="btn orange-background-btn-w-100" (click)="submit()" [disabled]="!contactus.valid || !this.getstreet">
-                @if(loader){
-                <app-loader></app-loader>
-                }@else{
-                  <span >Submit</span>
-                }
-              </button>
-            </div>
-        
+  <div class="container justify-content-center">
+    <form [formGroup]="contactus">
+      <div class="form-cnt">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="text-center form-heading">Contact Us</h1>
           </div>
         </div>
-      </form>
-    </div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="form-group">
+              <input type="text" class="input-control" placeholder="Enter your Name" formControlName="name" />
+            </div>
+          </div>
+          <!-- <div class="col-12"> -->
+          <!-- <div class="form-group"> -->
+          <ngx-intl-tel-input #countryList [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true"
+            [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone"
+            formControlName="phone_number">
+          </ngx-intl-tel-input>
+          <!-- </div> -->
+          <!-- </div> -->
+
+          <div class="col-12 mt-3">
+            <div class="form-group">
+              <input class="input-control" type="email" formControlName="email" placeholder="Email" />
+              @if (
+              contactus.get('email')?.touched &&
+              contactus.get('email')?.hasError('required')
+              ) {
+              <span class="error-message">Email is required</span>
+              }
+              @if (contactus.get('email')?.hasError('pattern')) {
+              <span class="error-message">Enter valid email</span>
+              }
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street"
+                (input)="onStreetChange($event.target)">
+              </AutocompleteComponent>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <textarea class="input-control" style="height:8rem" placeholder="Enter your message"
+                formControlName="messages"></textarea>
+            </div>
+          </div>
+          <div class="col-12 mt-3">
+            <button class="btn orange-background-btn-w-100" (click)="submit()"
+              [disabled]="!contactus.valid || !this.getstreet">
+              @if(loader){
+              <app-loader></app-loader>
+              }@else{
+              <span>Submit</span>
+              }
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </form>
   </div>
+</div>

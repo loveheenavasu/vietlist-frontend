@@ -285,7 +285,7 @@ swiper-container::part(container) {
     text-align: justify;
     cursor: pointer;
     display: -webkit-box;
-    width: 27rem;
+    width: 100%;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -298,7 +298,7 @@ swiper-container::part(container) {
     // height:5em;
     cursor: pointer;
     display: -webkit-box;
-    width: 28rem;
+    width: 100%;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -641,6 +641,7 @@ a:visited {
         margin-right: 20px !important;
     }
    }
+
 
 //    @media(max-width:1024px){
 //     .list-layout-wrapper {

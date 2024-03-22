@@ -217,3 +217,40 @@ swiper-container{
   margin: 0px !important;
 }
 }
+@media (min-width: 1025px) and (max-width: 1388px) {
+  .mySwiper {
+      .image {
+          position: relative;
+          width: 100% !important;
+      }
+  }
+}
+@media (min-width: 1501px) and (max-width: 2560px) {
+  .mySwiper {
+      .image {
+          position: relative;
+          width: 100% !important;
+      }
+  }
+
+  .large_screen {
+      max-width: 100% !important
+  }
+
+  .card-heading {
+      width: 100%;
+      width: 100%;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+  .blog-des {
+      width: 100%;
+  }
+
+  .col-12.col-md-6.col-lg-6.col-xl-4.mt-3.mb-4.onlarge_screen {
+      width: calc(100% - 75%)!important;
+  }
+}
