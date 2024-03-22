@@ -64,8 +64,8 @@
         ) {
         <div class="grid-card col-12 col-md-6 col-lg-4  ">
           <div class="event-wrapper">
-            <div class="listing-img"
-              [style.background-image]="'url(' + (key.featured_image ? key.featured_image : 'https://www.its.ac.id/tmesin/wp-content/uploads/sites/22/2022/07/no-image.png') + ')'">
+            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)"
+              [style.background-image]="'url(' + (key.featured_image ? key.featured_image : '/assets/image/no-image.webp') + ')'">
               <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
               <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
               } @else {
@@ -142,7 +142,7 @@
               @if (key && key.featured_image && key.featured_image.length > 0) {
               <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
               } @else {
-              <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+              <img src="/assets/image/no-image.webp" alt="no-image" />
               }
             </div>
           </div>
