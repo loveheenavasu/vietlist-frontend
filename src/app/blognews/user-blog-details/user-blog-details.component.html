@@ -6,7 +6,7 @@
                 <p><strong>/ USER BLOG / <span>{{userBlogDetails?.blog_title}}</span></strong></p>
             </div>
         </div>
-        <div class="image-container" style="height:320px">
+        <div class="image-container" style="height:250px">
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
                 @for(key of userdetails; track $index){
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         }
-                        <!-- leave reply section  -->
+                        <!-- leave Reply section  -->
                         <div class="comment__">
                             <div class="row my-3">
                                 <div class="col-12">
@@ -112,7 +112,7 @@
                                         <div class="reply_button">
                                             <a rel="external nofollow" class="email_auther_reply"> <span
                                                     class="email_auther_reply"
-                                                    (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'reply'}}</span></a>
+                                                    (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Reply'}}</span></a>
 
                                         </div>
                                     </div>
@@ -141,7 +141,7 @@
                                             <div class="reply_button">
                                                 @if(item.comment_replies?.length < 3){ <a rel="external nofollow"
                                                     class="email_auther_reply"> <span class="email_auther_reply"
-                                                        (click)="toggleReplyForm(items?.comment_ID)">{{'reply'}}</span></a>
+                                                        (click)="toggleReplyForm(items?.comment_ID)">{{'Reply'}}</span></a>
 
                                                     }
                                             </div>
@@ -171,7 +171,7 @@
                                                 <div class="reply_button">
                                                     @if(items.comment_replies?.length < 3){ <a rel="external nofollow"
                                                         class="email_auther_reply"> <span class="email_auther_reply"
-                                                            (click)="toggleReplyForm(key?.comment_ID)">{{'reply'}}</span></a>
+                                                            (click)="toggleReplyForm(key?.comment_ID)">{{'Reply'}}</span></a>
 
                                                         }
                                                 </div>
@@ -185,7 +185,7 @@
                                                     Reply to {{item?.comment_detail?.
                                                     comment_author_email}} &nbsp;<span class="email_auther_reply"
                                                         (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel
-                                                        reply'}}</span></h5>
+                                                        Reply'}}</span></h5>
                                             </div>
                                             <div class="col-12 mt-4">
                                                 <p class="comment-notes" style="font-size: 16px; color: #555555">
@@ -253,7 +253,7 @@
                                                 Reply to {{items?.
                                                 comment_author_email}} &nbsp;<span class="email_auther_reply"
                                                     (click)="toggleReplyForm(items?.comment_ID)">{{'Cancel
-                                                    reply'}}</span></h5>
+                                                    Reply'}}</span></h5>
                                         </div>
                                         <div class="col-12 mt-4">
                                             <p class="comment-notes" style="font-size: 16px; color: #555555">
@@ -322,7 +322,7 @@
                                             Reply to {{item?.comment_detail?.
                                             comment_author_email}} &nbsp;<span class="email_auther_reply"
                                                 (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Cancel
-                                                reply'}}</span></h5>
+                                                Reply'}}</span></h5>
                                     </div>
                                     <div class="col-12 mt-4">
                                         <p class="comment-notes" style="font-size: 16px; color: #555555">
@@ -440,7 +440,7 @@
 
 
                         </div>
-                        <!-- close leave reply serction -->
+                        <!-- close leave Reply serction -->
                     </div>
                 </div>
 

@@ -51,6 +51,10 @@ html {
   overflow: hidden;
 }
 
+textarea{
+  resize: none !important;
+}
+
 body {
   margin: 0;
   padding: 0px;

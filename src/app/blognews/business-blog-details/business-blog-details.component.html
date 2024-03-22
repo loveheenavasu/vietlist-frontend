@@ -48,7 +48,7 @@
           </div>
           <div class="reply_button">
             <a rel="external nofollow" class="email_auther_reply"> <span class="email_auther_reply"
-                (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'reply'}}</span></a>
+                (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Reply'}}</span></a>
 
           </div>
         </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="reply_button">
               @if(item.comment_replies?.length < 3){ <a rel="external nofollow" class="email_auther_reply"> <span
-                  class="email_auther_reply" (click)="toggleReplyForm(items?.comment_ID)">{{'reply'}}</span></a>
+                  class="email_auther_reply" (click)="toggleReplyForm(items?.comment_ID)">{{'Reply'}}</span></a>
 
                 }
             </div>
@@ -101,7 +101,7 @@
               </div>
               <div class="reply_button">
                 @if(items.comment_replies?.length < 3){ <a rel="external nofollow" class="email_auther_reply"> <span
-                    class="email_auther_reply" (click)="toggleReplyForm(key?.comment_ID)">{{'reply'}}</span></a>
+                    class="email_auther_reply" (click)="toggleReplyForm(key?.comment_ID)">{{'Reply'}}</span></a>
 
                   }
               </div>
@@ -114,7 +114,7 @@
                 style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
                 Reply to {{item?.comment_detail?.
                 comment_author_email}} &nbsp;<span class="email_auther_reply"
-                  (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel reply'}}</span></h5>
+                  (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel Reply'}}</span></h5>
             </div>
             <div class="col-12 mt-4">
               <p class="comment-notes" style="font-size: 16px; color: #555555">
@@ -172,7 +172,7 @@
               style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
               Reply to {{items?.
               comment_author_email}} &nbsp;<span class="email_auther_reply"
-                (click)="toggleReplyForm(items?.comment_ID)">{{'Cancel reply'}}</span></h5>
+                (click)="toggleReplyForm(items?.comment_ID)">{{'Cancel Reply'}}</span></h5>
           </div>
           <div class="col-12 mt-4">
             <p class="comment-notes" style="font-size: 16px; color: #555555">
@@ -231,7 +231,7 @@
             style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
             Reply to {{item?.comment_detail?.
             comment_author_email}} &nbsp;<span class="email_auther_reply"
-              (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Cancel reply'}}</span></h5>
+              (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Cancel Reply'}}</span></h5>
         </div>
         <div class="col-12 mt-4">
           <p class="comment-notes" style="font-size: 16px; color: #555555">
