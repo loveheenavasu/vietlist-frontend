@@ -73,10 +73,14 @@ export class BusinessblogsComponent {
     });
   }
   
-
+  public count = 1
+  public loadMore() {
+    this.count++
+    this.getBusinessBlogsPost()
+  }
   public getBusinessBlogsPost(){
   this.fullPageLoader.showLoader()
-    this.businessBlog.getAllBusinessBlog().subscribe({
+    this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
       next:(res)=>{
         this.fullPageLoader.hideLoader()
         this.businessBlogArr = res?.data
