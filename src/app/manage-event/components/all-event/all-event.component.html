@@ -201,8 +201,20 @@
 
   <div class="row">
     <div class="col-md-12 mt-5">
-      <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-        (pageChange)="handlePageChange($event)"></pagination-controls>
+      <pagination-controls 
+      previousLabel="Prev" 
+      nextLabel="Next" 
+      [responsive]="true" 
+      [maxSize]="5" 
+      (pageChange)="handlePageChange($event)">
+  </pagination-controls>
+      <!-- <pagination-controls *ngIf="totalPages > 1"
+        previousLabel="Prev"
+        nextLabel="Next"
+        [responsive]="true"
+        (pageChange)="handlePageChange($event)"></pagination-controls> -->
+      <!-- <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+        (pageChange)="handlePageChange($event)"></pagination-controls> -->
     </div>
   </div>
 </div>
