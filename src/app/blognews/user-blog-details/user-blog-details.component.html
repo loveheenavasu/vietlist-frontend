@@ -46,7 +46,8 @@
                     </div>
                     &nbsp;
                     <div class="blog___">
-                        <i class="far fa-comment-dots"></i> &nbsp;<span>No Comments</span>
+                        <i class="far fa-comment-dots"></i> &nbsp;<span>{{ commentArr?.length? commentArr.length + ' '+
+                            'Comments':'No Comments'}}</span>
                     </div>
                 </div>
                 <div class="col-12">
@@ -76,8 +77,9 @@
                         <div class="comment__">
                             <div class="row my-3">
                                 <div class="col-12">
-                                    <h5 class="block-head">{{ commentArr?.length? commentArr.length + ' '+
-                                        'Comments':'No Comments'}}</h5>
+                                    <h5 class="block-head">
+                                        {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No Comments') }}
+                                      </h5>
                                 </div>
                             </div>
                             @for (item of commentArr; track $index) {

@@ -13,6 +13,7 @@
   }
 }
 
+
 %section-heading-main-cnt {
   @at-root {
     %shm-styles {
@@ -49,7 +50,9 @@
 
 //Common Classes//
 
-
+.cards-border{
+  border:solid 1px #fbf8f8
+}
 
 .orange-background-btn {
   background: var(--primary-color-orange);

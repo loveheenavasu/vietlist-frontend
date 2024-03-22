@@ -520,7 +520,7 @@ export class EventDetailsComponent {
           this.isLoader = false
           this.getReviews()
           this.reviewForm.reset()
-          
+
           this.getEventDetails()
           Swal.fire({
             toast: true,
@@ -544,6 +544,7 @@ export class EventDetailsComponent {
   public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
+        console.log("check review", res)
         this.reviewsArray = res?.data
       },
     })

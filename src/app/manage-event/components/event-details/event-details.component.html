@@ -100,7 +100,8 @@
             @if (eventDetails?.featured_image) {
             <div class="image-container">
               <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
-                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"  (click)="openDialog(eventDetails?.featured_image,i)" />
+                <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
+                  (click)="openDialog(eventDetails?.featured_image,i)" />
               </div>
             </div>
             } @else {
@@ -112,7 +113,7 @@
             <div class="featured_image mt-2">
               @for (img of eventDetails?.image; track $index) {
 
-              <img [src]="img" alt="business-img"   (click)="openDialog(eventDetails?.image,$index)"/>
+              <img [src]="img" alt="business-img" (click)="openDialog(eventDetails?.image,$index)" />
               }
             </div>
             }
@@ -573,7 +574,7 @@
     <!-- } -->
   </div>
 </section>
-} 
+}
 
 @else {
 <section class="banner" style="position: relative">
@@ -692,7 +693,8 @@
                 <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
                   (click)="openDialog(eventDetails?.featured_image,i)" />
                 <div class="linking-icon">
-                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer" (click)="openDialog(eventDetails?.featured_image,i)"></i>
+                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer"
+                    (click)="openDialog(eventDetails?.featured_image,i)"></i>
                 </div>
               </div>
             </div>
@@ -707,7 +709,8 @@
               <div class="featured_image mt-2">
                 <img [src]="img" alt="business-img" (click)="openDialog(eventDetails?.image,$index)" />
                 <div class="linking-icon">
-                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer" (click)="openDialog(eventDetails?.image,$index)"></i>
+                  <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer"
+                    (click)="openDialog(eventDetails?.image,$index)"></i>
                 </div>
               </div>
               }
@@ -762,21 +765,21 @@
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
         <!-- @if(userDetail?.user_role === role.subscriber || !isAuthentecate){ -->
-        <div class="profile-info-div">
+        <div *ngIf="!businessListing" class="profile-info-div">
           @if (isDesabledform) {
-            <div class="warning-message">
-              <mat-icon>warning</mat-icon>
-              <span class="message">{{ 'Booking has been closed'}}</span>
-            </div>
+          <div class="warning-message">
+            <mat-icon>warning</mat-icon>
+            <span class="message">{{ 'Booking has been closed'}}</span>
+          </div>
           }
-         
-         
-          <div class="endBooking" [ngClass]="isDesabledform ? 'disabled-div':''" >
+
+
+          <div class="endBooking" [ngClass]="isDesabledform ? 'disabled-div':''">
             <h3>Book Now</h3>
             @if(!isDateMatched){
             <div class="input-group mt-4">
               <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" class="input-control"
-                (click)="picker2.open()" [formControl]="booking_date"  [disabled]="isDesabledform"/>
+                (click)="picker2.open()" [formControl]="booking_date" [disabled]="isDesabledform" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker2></mat-datepicker>
             </div>
@@ -820,6 +823,7 @@
           </div>
         </div>
         <!-- } -->
+        @if (businessListing) {
         <div class="profile-info-div mt-3">
           <h3>Contact Info</h3>
           <!-- {{ businessFormDetails?.contact_phone }} -->
@@ -893,8 +897,9 @@
               </ul> -->
           </div>
         </div>
+        }
         @if (!businessListing) {
-        <div class="profile-info-div mt-3" style="padding: 9%">
+        <div class="profile-info-div mt-4" style="padding: 9%">
           <h3 class="event-heading">Event Detail</h3>
           <div class="event-venue">
             <div class="icon">
@@ -1063,7 +1068,7 @@
               }
             </div>
             <div class="bottom_reply">
-              <button class="btn reply-btn" style="cursor: pointer"
+              <button *ngIf="key?.review_reply" class="btn reply-btn" style="cursor: pointer"
                 (click)="showReplyCommentField(index, key.comment_id)">
                 <!-- <i class="fa fa-reply" aria-hidden="true"></i> -->
                 <span *ngIf="!loader || replyIndexshow !== index">Show reply
