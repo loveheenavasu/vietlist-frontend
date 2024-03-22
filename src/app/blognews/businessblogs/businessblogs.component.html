@@ -4,60 +4,89 @@
   </div>
 </section>
 
-<div class="container">
-  <div class="row">
-    @for(key of businessBlogArr ; track $index){
-    <div class="col-12 col-md-6 col-lg-6 mt-3 mb-4">
-      <div class="card-cnt" (click)="viewblogdetails(key?.blog_id)">
-        <div class="image" (click)="viewblogdetails(key?.blog_id)">
-          <img [src]="key?.featured_image ? key?.featured_image : '/assets/image/No-image-found.jpeg'"/>
-        </div>
-        <div class="content" (click)="viewblogdetails(key?.blog_id)">
-          <h1 class="card-heading" [innerHtml]="key?.blog_title | truncateHtml: 85">
-             <!-- {{key?.blog_title | truncateHtml: 85}} -->
-          </h1>
-          <div class="post-tags">
-            <div class="d-flex">
-              <div>
-                <i class="fa fa-user-circle-o" aria-hidden="true" style="color:rgb(116, 116, 116)"></i>
-                <span class="ml-2 byAdmin"> By admin</span>
+<div class="container-fluid mt-5">
+  <section>
+    <div class="container">
+      <div class="row">
+        @for (key of businessBlogArr ; track $index) {
+          <div class="col-12 col-md-6 col-lg-6 col-xl-4 mt-3 mb-4">
+            <div
+              class="list-layout-wrapper"
+            (click)="viewblogdetails(key.blog_id)"
+            >
+              <div class="image"  (click)="viewblogdetails(key.blog_id)">
+                <a>
+                  <img
+                    [src]="
+                    key?.featured_image
+                        ? key?.featured_image
+                        : '/assets/image/No-image-found.jpeg'
+                    "
+                /></a>
               </div>
-              <div class="ms-2">
-                <i class="fa fa-calendar-o" aria-hidden="true" style="color:grey"></i>
-                <span class="ml-2 byAdmin"> {{key?.post_date | date:'longDate'}}</span>
+              <div class="main_div">
+                <div class="heading___ content"  (click)="viewblogdetails(key.blog_id)">
+                     <h1 class="card-heading" [innerHtml]="key?.blog_title">
+                        <!-- {{key?.blog_title | truncateHtml: 85}} -->
+                     </h1>
+               
+                  <div class="post-meta-tags rt-el-post-meta">
+                    <span class="date">
+                      <i class="fa-regular fa-user-circle icon-size"></i> &nbsp;<a>
+                       By Admin &nbsp;</a
+                      >
+                    </span>
+                    <span class="date">
+                      <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a>
+                        {{ key?.post_date }} &nbsp;</a
+                      >
+                    </span>
+                  </div>
+                  <div class="tpg-excerpt tpg-el-excerpt">
+                        <div class="blog-des">
+                            <p [innerHTML]="key?.blog_desc"></p>
+                            <!-- <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p> -->
+                          </div>
+                  </div>
+
+                  <div class="btn-div">
+                    <button class="btn read-more-btn" (click)="viewblogdetails(key?.blog_id)">Read More</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="blog-des">
-            <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p>
+        }
+      
+          <div class="col-12">
+            <div class="text-center">
+              <!-- <button class="__button" (click)="loadMore()">Load More</button> -->
+            </div>
           </div>
-          <div class="btn-div">
-            <button class="btn read-more-btn" (click)="viewblogdetails(key?.blog_id)">Read More</button>
-          </div>
-        </div>
+        
       </div>
+      <div class="row">
+        <div class="blog-banner" >
+         <swiper-container #blogSwiper class="mySwiper" init="false" style="height:16em">
+     
+           @for (key of addDetail; track $index) {
+           <swiper-slide>
+             <div class="banner-img" (click)="setStats(key?.id,key?.space_id)"
+               style="background-image: url({{key?.img}})">
+               <div class="banner-text ">
+                 <h3>{{key?.title}}</h3>
+                 <p>
+                   {{key?.description}}
+                 </p>
+               </div>
+             </div>
+           </swiper-slide>
+           }
+         </swiper-container>
+       </div>
+       </div>
     </div>
-  }
-
-  </div>
-  <div class="row">
-   <div class="blog-banner" >
-    <swiper-container #blogSwiper class="mySwiper" init="false" style="height:16em">
-
-      @for (key of addDetail; track $index) {
-      <swiper-slide>
-        <div class="banner-img" (click)="setStats(key?.id,key?.space_id)"
-          style="background-image: url({{key?.img}})">
-          <div class="banner-text ">
-            <h3>{{key?.title}}</h3>
-            <p>
-              {{key?.description}}
-            </p>
-          </div>
-        </div>
-      </swiper-slide>
-      }
-    </swiper-container>
-  </div>
-  </div>
+  </section>
 </div>
+
+

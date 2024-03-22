@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { count } from 'console';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 @Component({
   selector: 'app-userblog',
   standalone: true,
-  imports: [],
+  imports: [TruncateHtmlPipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './userblog.component.html',
   styleUrl: './userblog.component.scss'
@@ -30,7 +31,6 @@ export class UserblogComponent {
   public count = 1
   public loadMore() {
     this.count++
-      console.log(this.count,'increaseincreaseincrease')
     this.getUserBlog()
   }
 
