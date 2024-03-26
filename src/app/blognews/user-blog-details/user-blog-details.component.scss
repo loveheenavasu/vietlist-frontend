@@ -16,11 +16,16 @@
 
 .image__ img {
     border-width: 4px !important;
-    border-radius: 50%; /* This ensures the image remains a circle */
-    width: 100%; /* Ensures the image takes the full width of its container */
-    height: auto; /* Allows the height to adjust proportionally based on the width */
-    max-width: 60px; /* Sets a maximum width for the image */
-    max-height: 60px; /* Sets a maximum height for the image */
+    border-radius: 50%;
+    /* This ensures the image remains a circle */
+    width: 100%;
+    /* Ensures the image takes the full width of its container */
+    height: auto;
+    /* Allows the height to adjust proportionally based on the width */
+    max-width: 60px;
+    /* Sets a maximum width for the image */
+    max-height: 60px;
+    /* Sets a maximum height for the image */
 }
 
 
@@ -126,19 +131,19 @@ img {
 
                     .verified-logo {
                         position: absolute;
-                        bottom: 0;
+                        bottom: 3px;
                         right: 0;
                         text-align: left;
                         font-size: 12px;
                         color: #ffff;
-                        padding: 30px 24px 15px;
-                        transition: 1.2s;
+                        padding: 0px 10px;
+                        width: 100%;
                         line-height: normal;
-                        font-weight: bold;
-                        text-overflow: ellipsis;
+                        margin-top: auto !important;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
                         overflow: hidden;
-                        word-wrap: break-word;
-                        height: 62px;
                     }
 
                 }
@@ -299,7 +304,7 @@ swiper-container::part(container) {
 
 .swiper-button-prev {
     position: absolute;
-    bottom: 67%;
+    bottom: 45%;
     left: 4px;
     color: #FFFFFF;
     background-color: #F89705;
@@ -317,7 +322,7 @@ swiper-container::part(container) {
 
 .swiper-button-next {
     position: absolute;
-    bottom: 67%;
+    bottom: 45%;
     right: 4px;
     color: #FFFFFF;
     background-color: #F89705;
@@ -464,8 +469,8 @@ a:visited {
     font-size: 18px;
 }
 
-.email_auther_reply{
-    color:var(--primary-color-orange);
+.email_auther_reply {
+    color: var(--primary-color-orange);
     text-decoration: none;
     font-size: 14px;
     cursor: pointer;
@@ -549,20 +554,22 @@ a:visited {
                 width: 500px !important;
                 height: 200px;
                 overflow: hidden;
+
                 .verified-logo {
                     position: absolute;
-                    bottom: 0;
+                    bottom: 3px;
                     right: 0;
                     text-align: left;
                     font-size: 12px;
                     color: #ffff;
-                    padding: 30px 24px 15px;
-                    transition: 1.2s;
+                    padding: 0px 10px;
+                    width: 100%;
                     line-height: normal;
-                    font-weight: bold;
-                    text-overflow: ellipsis;
+                    margin-top: auto !important;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 2;
                     overflow: hidden;
-                    word-wrap: break-word;
                 }
 
             }
@@ -598,23 +605,25 @@ a:visited {
 
             .verified-logo {
                 position: absolute;
-                bottom: 0;
+                bottom: 3px;
                 right: 0;
                 text-align: left;
                 font-size: 12px;
                 color: #ffff;
-                padding: 30px 24px 15px;
-                transition: 1.2s;
+                padding: 0px 10px;
+                width: 100%;
                 line-height: normal;
-                font-weight: bold;
-                text-overflow: ellipsis;
+                margin-top: auto !important;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
                 overflow: hidden;
-                word-wrap: break-word;
             }
 
         }
     }
 }
+
 // @media (max-width:540px){
 //     .image__ {
 //         height: 47px;

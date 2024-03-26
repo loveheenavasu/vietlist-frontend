@@ -119,10 +119,12 @@
             <div class="col-12 mt-4">
               <p class="comment-notes" style="font-size: 16px; color: #555555">
                 <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{key?.
-                  comment_author}}.</span> <span  id="email-notes" *ngIf="!isAuthenticated">Your email address will not be published</span> <span *ngIf="isAuthenticated" (click)="editProfile()"
+                  comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not
+                  be published</span> <span *ngIf="isAuthenticated" (click)="editProfile()"
                   class="email_auther_reply">Edit your profile.</span> <span *ngIf="isAuthenticated" (click)="logout()"
                   class="email_auther_reply">Log out?</span>
-                <span class="required-field-message">&nbsp; Required fields are marked <span class="asterik">*</span></span>
+                <span class="required-field-message">&nbsp; Required fields are marked <span
+                    class="asterik">*</span></span>
               </p>
             </div>
             @if(!isAuthenticated){
@@ -131,12 +133,12 @@
               <input type="text" class="input-control mt-1" [formControl]="name" />
             </div>
             <br />
-            <div class="col-12 mb-3">
+            <div class="col-12 col-lg-5 mb-3">
               <label class="listing-form-label">Email<span class="asterik">*</span></label>
               <input type="text" class="input-control mt-1" [formControl]="email" />
             </div>
             <br />
-            <div class="col-12 mb-3">
+            <div class="col-12 col-lg-5 mb-3">
               <label class="listing-form-label">Website</label>
               <input type="text" class="input-control mt-1" [formControl]="website" />
             </div>
@@ -153,13 +155,13 @@
             </div> -->
             <br />
             }
-            <div class="col-12 mb-3">
+            <div class="col-12 col-lg-5 mb-3">
               <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
                 style="height: 15em" [formControl]="message"></textarea>
             </div>
             <br />
 
-            <div class="col-12 mb-3">
+            <div class="col-12 col-lg-5 mb-3">
               <button type="button" class="btn orange-background-btn" (click)="postReply()"
                 [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post Reply</button>
             </div>
@@ -177,10 +179,12 @@
           <div class="col-12 mt-4">
             <p class="comment-notes" style="font-size: 16px; color: #555555">
               <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{items?.
-                comment_author}}.</span> <span  id="email-notes" *ngIf="!isAuthenticated">Your email address will not be published</span> <span *ngIf="isAuthenticated" class="email_auther_reply"
-                (click)="editProfile()">Edit your profile.</span> <span *ngIf="isAuthenticated"
-                class="email_auther_reply" (click)="logout()">Log out?</span>
-              <span class="required-field-message">&nbsp; Required fields are marked <span class="asterik">*</span></span>
+                comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not be
+                published</span> <span *ngIf="isAuthenticated" class="email_auther_reply" (click)="editProfile()">Edit
+                your profile.</span> <span *ngIf="isAuthenticated" class="email_auther_reply" (click)="logout()">Log
+                out?</span>
+              <span class="required-field-message">&nbsp; Required fields are marked <span
+                  class="asterik">*</span></span>
             </p>
           </div>
           @if(!isAuthenticated){
@@ -189,12 +193,12 @@
             <input type="text" class="input-control mt-1" [formControl]="name" />
           </div>
           <br />
-          <div class="col-12 mb-3">
+          <div class="col-12 col-lg-5 mb-3">
             <label class="listing-form-label">Email<span class="asterik">*</span></label>
             <input type="text" class="input-control mt-1" [formControl]="email" />
           </div>
           <br />
-          <div class="col-12 mb-3">
+          <div class="col-12 col-lg-5 mb-3">
             <label class="listing-form-label">Website</label>
             <input type="text" class="input-control mt-1" [formControl]="website" />
           </div>
@@ -211,7 +215,7 @@
           </div> -->
           <br />
           }
-          <div class="col-12 mb-3">
+          <div class="col-12 col-lg-5 mb-3">
             <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
               style="height: 15em" [formControl]="message"></textarea>
           </div>
@@ -236,9 +240,10 @@
         <div class="col-12 mt-4">
           <p class="comment-notes" style="font-size: 16px; color: #555555">
             <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{item?.comment_detail?.
-              comment_author}}.</span> <span  id="email-notes" *ngIf="!isAuthenticated">Your email address will not be published</span><span *ngIf="isAuthenticated" (click)="editProfile()"
-              class="email_auther_reply">Edit your profile.</span> <span *ngIf="isAuthenticated" (click)="logout()"
-              class="email_auther_reply">Log out?</span>
+              comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not be
+              published</span><span *ngIf="isAuthenticated" (click)="editProfile()" class="email_auther_reply">Edit your
+              profile.</span> <span *ngIf="isAuthenticated" (click)="logout()" class="email_auther_reply">Log
+              out?</span>
             <span class="required-field-message">&nbsp;Required fields are marked <span class="asterik">*</span></span>
           </p>
         </div>
