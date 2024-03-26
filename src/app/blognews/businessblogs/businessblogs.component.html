@@ -6,10 +6,10 @@
 
 <div class="container-fluid mt-5">
   <section>
-    <div class="container">
+    <div class="container large_screen">
       <div class="row">
         @for (key of businessBlogArr ; track $index) {
-          <div class="col-12 col-md-6 col-lg-6 col-xl-4 mt-3 mb-4">
+          <div class="col-12 col-md-6 col-lg-6 col-xl-4 mt-3 mb-4 onlarge_screen">
             <div
               class="list-layout-wrapper"
             (click)="viewblogdetails(key.blog_id)"
@@ -58,11 +58,11 @@
           </div>
         }
       
-          <div class="col-12">
-            <div class="text-center">
-              <!-- <button class="__button" (click)="loadMore()">Load More</button> -->
-            </div>
+        <div class="col-12">
+          <div class="text-center">
+              <button class="__button" (click)="loadMore()">Load More</button>
           </div>
+      </div>
         
       </div>
       <div class="row">

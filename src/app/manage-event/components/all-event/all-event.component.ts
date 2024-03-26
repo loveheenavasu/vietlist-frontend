@@ -54,7 +54,12 @@ export class AllEventComponent {
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
   public totalCount: number = 0
+  public totalPages: number = 0;
+ 
 
+ 
+
+  isSearching: boolean = false;
   constructor(
     private eventService: EventService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -103,31 +108,33 @@ export class AllEventComponent {
         return timezone;
     }
   }
-  public getPublishEventData() {
-    this.fullPageLoaderService.showLoader()
-    // var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    var browserTimezone = this.getBrowserTimezone();
-    const params: FindEventParams = {}
-    const postPerPage = this.postPerPage
-    if (postPerPage) {
-      params['posts_per_page'] = postPerPage
-    }
-    if (this.currentPage) {
-      params['page_no'] = this.currentPage
-    }
-    if (browserTimezone) {
-      params['timezone'] = browserTimezone
-    }
-    this.eventService.getPublishEvents(params).subscribe({
-      next: (res: any) => {
-        this.fullPageLoaderService.hideLoader()
-        this.publishEventsArray = res.data
-        this.totalCount = res.total_count
-        console.log(res)
-        console.log(this.publishEventsArray)
-      },
-    })
-  }
+  
+  // public getPublishEventData() {
+  //   this.fullPageLoaderService.showLoader()
+  //   // var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  //   var browserTimezone = this.getBrowserTimezone();
+  //   const params: FindEventParams = {}
+  //   const postPerPage = this.postPerPage
+  //   if (postPerPage) {
+  //     params['posts_per_page'] = postPerPage
+  //   }
+  //   if (this.currentPage) {
+  //     params['page_no'] = this.currentPage
+  //   }
+  //   if (browserTimezone) {
+  //     params['timezone'] = browserTimezone
+  //   }
+  //   this.eventService.getPublishEvents(params).subscribe({
+  //     next: (res: any) => {
+  //       this.fullPageLoaderService.hideLoader()
+  //       this.publishEventsArray = res.data
+  //       this.totalCount = res.total_count
+  //       this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
+  //       console.log(res)
+  //       console.log(this.publishEventsArray)
+  //     },
+  //   })
+  // }
 
 
   public getAddress(place: any) {
@@ -158,72 +165,74 @@ export class AllEventComponent {
   }
 
 
-  public searchBusiness() {
-    if (!this.category.value && !this.fullAddress && !this.postTitle.value) {
-      Swal.fire({
-        toast: true,
-        text: 'Please fill either category or address',
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      })
-      return
-    }
-    this.fullPageLoaderService.showLoader()
-    var browserTimezone = this.getBrowserTimezone();
-    const post_category = this.category.value
-    const postPerPage = this.postPerPage
-    const params: FindEventParams = {}
-    if (post_category) {
-      params['post_category'] = post_category
-    }
-    if (this.postTitle.value) {
-      params['post_title'] = this.postTitle.value
-    }
-    if (postPerPage) {
-      params['posts_per_page'] = postPerPage
-    }
-    if (this.currentPage) {
-      params['page_no'] = this.currentPage
-    }
-    if (this.city) {
-      params['city'] = this.city
-    }
-    if (this.state) {
-      params['region'] = this.state
-    }
-    if (this.fullAddress) {
-      params['street'] = this.fullAddress
-    }
-    if (this.zipcode) {
-      params['zip'] = this.zipcode
-    }
-    if (this.country) {
-      params['country'] = this.country
-    }
-    if (browserTimezone) {
-      params['timezone'] = browserTimezone
-    }
+  // public searchBusiness() {
+  //   this.currentPage = 1;
+  //   if (!this.category.value && !this.fullAddress && !this.postTitle.value) {
+  //     Swal.fire({
+  //       toast: true,
+  //       text: 'Please fill either category or address',
+  //       animation: false,
+  //       icon: 'error',
+  //       position: 'top-right',
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //       timerProgressBar: true,
+  //     })
+  //     return
+  //   }
+  //   this.fullPageLoaderService.showLoader()
+  //   var browserTimezone = this.getBrowserTimezone();
+  //   const post_category = this.category.value
+  //   const postPerPage = this.postPerPage
+  //   const params: FindEventParams = {}
+  //   if (post_category) {
+  //     params['post_category'] = post_category
+  //   }
+  //   if (this.postTitle.value) {
+  //     params['post_title'] = this.postTitle.value
+  //   }
+  //   if (postPerPage) {
+  //     params['posts_per_page'] = postPerPage
+  //   }
+  //   if (this.currentPage) {
+  //     params['page_no'] = this.currentPage
+  //   }
+  //   if (this.city) {
+  //     params['city'] = this.city
+  //   }
+  //   if (this.state) {
+  //     params['region'] = this.state
+  //   }
+  //   if (this.fullAddress) {
+  //     params['street'] = this.fullAddress
+  //   }
+  //   if (this.zipcode) {
+  //     params['zip'] = this.zipcode
+  //   }
+  //   if (this.country) {
+  //     params['country'] = this.country
+  //   }
+  //   if (browserTimezone) {
+  //     params['timezone'] = browserTimezone
+  //   }
 
-    this.eventService.findEvents(params).subscribe({
-      next: (res: any) => {
-        this.isLoader = false
-        this.isPaginationClick = false
-        this.isPaginationVisible = true
-        this.fullPageLoaderService.hideLoader()
-        this.publishEventsArray = res.data
-        this.totalCount = res.total_count
+  //   this.eventService.findEvents(params).subscribe({
+  //     next: (res: any) => {
+  //       this.isLoader = false
+  //       this.isPaginationClick = false
+  //       this.isPaginationVisible = true
+  //       this.fullPageLoaderService.hideLoader()
+  //       this.publishEventsArray = res.data
+  //       this.totalCount = res.total_count
+  //       this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
 
-        console.log(res)
-      },
-      error: (err: any) => {
-        this.isLoader = false
-      },
-    })
-  }
+  //       console.log(res)
+  //     },
+  //     error: (err: any) => {
+  //       this.isLoader = false
+  //     },
+  //   })
+  // }
 
 
   public gotToEventDetails(id: any, isGlobal: any) {
@@ -231,16 +240,17 @@ export class AllEventComponent {
 
   }
 
-  public handlePageChange(event: number): void {
-    this.isPaginationClick = true
-    this.currentPage = event
+  // public handlePageChange(event: number): void {
+  //   this.isPaginationClick = true
+  //   this.currentPage = event
 
-    if (this.category.value) {
-      this.searchBusiness()
-    } else {
-      this.getPublishEventData()
-    }
-  }
+  //   if (this.category.value) {
+  //     this.searchBusiness()
+  //   } else {
+  //     this.getPublishEventData()
+  //   }
+  // }
+  
 
   public clearFilters(): void {
     // Clear local variables
@@ -264,5 +274,93 @@ export class AllEventComponent {
     // Retrieve events again
     this.getPublishEventData();
   }
+  getPublishEventData(): void {
+    this.isSearching = false; // Reset search flag
+    this.fullPageLoaderService.showLoader();
+    const params: FindEventParams = {
+      posts_per_page: this.postPerPage,
+      page_no: this.currentPage,
+      timezone: this.getBrowserTimezone()
+    };
 
+    this.eventService.getPublishEvents(params).subscribe({
+      next: (res: any) => {
+        this.fullPageLoaderService.hideLoader();
+        this.publishEventsArray = res.data;
+        this.totalCount = res.total_count;
+        this.calculateTotalPages();
+      },
+      error: (err: any) => {
+        // Handle error
+        this.fullPageLoaderService.hideLoader();
+      }
+    });
+  }
+
+  searchBusiness(): void {
+    this.isSearching = true; // Set search flag
+    this.fullPageLoaderService.showLoader();
+    const post_category = this.category.value
+      const postPerPage = this.postPerPage
+      var browserTimezone = this.getBrowserTimezone();
+    const params: FindEventParams = {}
+      if (post_category) {
+        params['post_category'] = post_category
+      }
+      if (this.postTitle.value) {
+        params['post_title'] = this.postTitle.value
+      }
+      if (postPerPage) {
+        params['posts_per_page'] = postPerPage
+      }
+      if (this.currentPage) {
+        params['page_no'] = this.currentPage
+      }
+      if (this.city) {
+        params['city'] = this.city
+      }
+      if (this.state) {
+        params['region'] = this.state
+      }
+      if (this.fullAddress) {
+        params['street'] = this.fullAddress
+      }
+      if (this.zipcode) {
+        params['zip'] = this.zipcode
+      }
+      if (this.country) {
+        params['country'] = this.country
+      }
+      if (browserTimezone) {
+        params['timezone'] = browserTimezone
+      }
+
+    this.eventService.findEvents(params).subscribe({
+      next: (res: any) => {
+        this.fullPageLoaderService.hideLoader();
+        this.publishEventsArray = res.data;
+        this.totalCount = res.total_count;
+        this.calculateTotalPages();
+      },
+      error: (err: any) => {
+        // Handle error
+        this.fullPageLoaderService.hideLoader();
+      }
+    });
+  }
+
+  calculateTotalPages(): void {
+    this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
+  }
+
+  handlePageChange(event: number): void {
+    this.currentPage = event;
+     console.log(this.isSearching,'isSearching')
+
+    if (this.isSearching) {
+      this.searchBusiness();
+    } else {
+      this.getPublishEventData();
+    }
+  }
 }

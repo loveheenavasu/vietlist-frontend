@@ -112,7 +112,7 @@
             </span>
             <mat-menu #menublog="matMenu">
               <button mat-menu-item [routerLink]="['/user-blog']">
-                <span >User Blog</span>
+                <span >User Blogs</span>
               </button>
               <button mat-menu-item [routerLink]="['/business-blog']">
                 <span >Business Blogs</span>
@@ -141,7 +141,7 @@
                 </button>
               </mat-menu>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
               <span [routerLink]="['/contact-us']">Contact Us</span>
               <!-- <span >Contact Us</span> -->
             </li>

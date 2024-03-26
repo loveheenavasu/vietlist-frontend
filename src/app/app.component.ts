@@ -55,8 +55,8 @@ export class AppComponent {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
-    this.pushService.initOneSignal();
-    this.pushService.subscribeToNotifications();  
+    // this.pushService.initOneSignal();
+    // this.pushService.subscribeToNotifications();  
   }
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();

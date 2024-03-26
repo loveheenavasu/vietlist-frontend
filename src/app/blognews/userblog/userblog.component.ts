@@ -36,7 +36,7 @@ export class UserblogComponent {
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs('10', this.count).subscribe({
+    this.homeService.userBlogs('12', this.count).subscribe({
       next: (res) => {
         if (res && res.data) {
           if (Array.isArray(res.data)) {

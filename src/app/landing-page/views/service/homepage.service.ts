@@ -40,9 +40,11 @@ export class HomepageService {
     return this.http.get<any>(endpoint, { params: params })
   }
 
-  public getAllBusinessBlog(): Observable<any> {
+  public getAllBusinessBlog(posts_per_page: any, page_no: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessBlog)
-    return this.http.get<any>(endpoint)
+    let params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no', page_no)
+
+    return this.http.get<any>(endpoint, { params: params })
   }
   
   public userBlogs(posts_per_page:any, page_no:any): Observable<any> {
