@@ -43,21 +43,27 @@ section {
                 // gap: 2.5rem;
                 font-size: 16px;
 
-                .example-card {
+                .blog-wrapper {
                     width: 32.5rem;
                     margin-bottom: 32px;
                     margin-right: 42px;
                     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1490196078);
+                    border-radius: 5px;
 
                     .mat-mdc-card-header {
                         padding: 0px;
 
                         .img {
                             width: 100%;
+                            height: 270px;
+                            cursor: pointer;
 
                             img {
-                                object-fit: contain;
                                 width: 100%;
+                                height: 100%;
+                                border-radius: 5px;
+                                object-fit: cover;
+                                object-position: 50% 0;
                             }
                         }
                     }
@@ -75,11 +81,32 @@ section {
 
                     .title {
                         padding-top: 19.91px;
-
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        // margin-top: 20px;
+                        margin-bottom: 10px;
 
                         h2 {
                             font-size: 24px;
+                            min-height: 54px;
+                            text-transform: capitalize;
                             color: var(--dark-grey);
+                            cursor: pointer;
+                        }
+                    }
+
+                    .description {
+
+                        min-height: 120px;
+
+                        p {
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 4;
+                            overflow: hidden;
+                            font-size: 14px;
                         }
                     }
 
@@ -88,6 +115,16 @@ section {
 
                         .footer {
                             padding-bottom: 22px;
+
+                            .profile-image {
+                                img {
+                                    border-radius: 50%;
+                                    height: 80px;
+                                    width: 80px;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                            }
 
                             .user-detail {
                                 margin-left: 32px;
@@ -219,7 +256,7 @@ section {
         }
 
         .blog-card {
-            .example-card {
+            .blog-wrapper {
                 margin-right: 0rem !important;
                 width: 100% !important;
             }
@@ -282,11 +319,22 @@ section {
 }
 
 @media screen and (max-width: 1500px) {
-    .example-card {
+    .blog-wrapper {
         width: 28rem !important;
     }
 }
 
 swiper-container {
     height: 100%;
+}
+
+@media screen and (min-width:1024px) and (max-width:1332px) {
+
+    .blog-card {
+        justify-content: center !important;
+
+        .blog-wrapper {
+            width: 38rem !important;
+        }
+    }
 }

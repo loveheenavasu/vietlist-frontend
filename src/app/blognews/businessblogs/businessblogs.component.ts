@@ -107,7 +107,7 @@ export class BusinessblogsComponent {
         }
         this.fullPageLoader.hideLoader()
       },
-      error: (err) => {
+      error: (err:any) => {
         this.fullPageLoader.hideLoader()
       }
     })

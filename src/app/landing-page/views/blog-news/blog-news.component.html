@@ -18,8 +18,8 @@
         <button class="btn orange-background-btn">{{ homePageData?.blog_section?.view_all_articles }}</button>
       </div>
       <div class="blog-card">
-        @for (item of blogItem; track $index) {
-        <mat-card class="example-card">
+        @for (item of blogData; track $index) {
+        <mat-card class="blog-wrapper">
           <mat-card-header>
             <div class="img" (click)="viewBlogDetail(item)">
               @if (item.featured_image) {
@@ -31,12 +31,13 @@
             </div>
           </mat-card-header>
           <mat-card-content>
-            <span class="date">{{ item.date }}</span>
+            <span class="date">{{ item.post_date }}</span>
             <div class="title">
-              <h2>{{ item.title }}</h2>
+
+              <h2 (click)="viewBlogDetail(item)">{{ item.blog_title }}</h2>
             </div>
             <div class="description">
-              <p class="blog-description">{{ item.description }}</p>
+              <p class="blog-description" [innerHTML]=" item.blog_desc"></p>
             </div>
             <mat-divider></mat-divider>
           </mat-card-content>
@@ -44,11 +45,15 @@
           <mat-card-footer>
             <div class="footer d-flex">
               <div class="profile-image">
-                <img [src]="item.profileImage" alt="profile-image" />
+                @if (item.author_detail?.user_image) {
+                <img [src]="item.author_detail?.user_image" alt="profile-image" />
+                } @else {
+                <img src="/assets/image/no_profile.webp" alt="profile-image" />
+                }
               </div>
               <div class="user-detail">
-                <h5>{{ item.userName }}</h5>
-                <p>{{ item.designation }}</p>
+                <h5>{{ item.author_detail?.first_name}} {{item.author_detail?.last_name}}</h5>
+                <p>{{ item.author_detail?.user_info }}</p>
               </div>
             </div>
           </mat-card-footer>

@@ -196,13 +196,13 @@ export class BusinessBlogDetailsComponent {
   public getUserBlogDetail() {
     this.loaderService.showLoader()
     this.homeService.userBlogsDetail(this.blogId).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
 
         }
-      }, error: (err) => {
+      }, error: (err:any) => {
         this.loaderService.hideLoader()
       }
 
@@ -213,12 +213,12 @@ export class BusinessBlogDetailsComponent {
   getUserBlog() {
     this.loaderService.showLoader()
     this.homeService.userBlogs('10', '1').subscribe({
-      next: (res) => {
+      next: (res:any) => {
         if (res) {
           this.loaderService.hideLoader()
           this.userdetails = res?.data
         }
-      }, error: (err) => {
+      }, error: (err:any) => {
         this.loaderService.hideLoader()
       }
 
