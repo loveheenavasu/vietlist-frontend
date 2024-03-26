@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
-import { count } from 'console';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 
@@ -18,6 +17,15 @@ export class UserblogComponent {
   publicIpAddr!: string;
   public userdetails: any = []
   public categoery: any
+  public totalCount:any
+
+  /**
+   * 
+   * @param authService 
+   * @param homeService 
+   * @param router 
+   * @param loaderService 
+   */
   constructor(private authService: AuthenticationService, private homeService: HomepageService, private router: Router, private loaderService: FullPageLoaderService) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
@@ -37,6 +45,7 @@ export class UserblogComponent {
     this.loaderService.showLoader()
     this.homeService.userBlogs('12', this.count).subscribe({
       next: (res:any) => {
+        this.totalCount = res
         if (res && res.data) {
           if (Array.isArray(res.data)) {
             Array.prototype.push.apply(this.userdetails, res.data);

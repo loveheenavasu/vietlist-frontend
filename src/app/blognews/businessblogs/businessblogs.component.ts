@@ -25,6 +25,8 @@ export class BusinessblogsComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
+  public totalCount:any
+  
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -96,7 +98,8 @@ export class BusinessblogsComponent {
   public getBusinessBlogsPost(){
   this.fullPageLoader.showLoader()
     this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
-      next:(res)=>{
+      next:(res:any)=>{
+        this.totalCount = res
         if (res && res.data) {
           if (Array.isArray(res.data)) {
             Array.prototype.push.apply(this.businessBlogArr, res.data);
