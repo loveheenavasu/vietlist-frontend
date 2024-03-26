@@ -73,7 +73,7 @@ export class UserblogComponent {
       },
       1920: {
         slidesPerView: 5,
-      },
+      }
     },
     on: {
       init() { },

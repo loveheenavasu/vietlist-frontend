@@ -101,6 +101,10 @@ export class BusinessBlogDetailsComponent {
       1920: {
         slidesPerView: 5,
       },
+      3840:{
+        slidesPerView: 6,
+        spaceBetween: 20,
+      }
     },
     on: {
       init() { },
