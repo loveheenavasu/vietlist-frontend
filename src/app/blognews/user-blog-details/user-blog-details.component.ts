@@ -54,7 +54,6 @@ export class UserBlogDetailsComponent {
     console.log(this.isAuthenticated)
 
     let localStorage: any;
-    // let i = geoip
     // Check if local Storage is available
     if (typeof window !== 'undefined') {
       // Access localStorage only in browser environment
@@ -299,7 +298,7 @@ export class UserBlogDetailsComponent {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
-          console.log(res, 'resresresresresresresresres')
+        
 
         }
       }, error: (err) => {
@@ -345,7 +344,7 @@ export class UserBlogDetailsComponent {
             }
           }
           this.cdr.detectChanges()
-          console.log(this.addDetail);
+
         }
       }
     });
