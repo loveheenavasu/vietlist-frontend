@@ -82,9 +82,17 @@ export class BusinessblogsComponent {
   this.fullPageLoader.showLoader()
     this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
       next:(res)=>{
-        this.fullPageLoader.hideLoader()
+        
         this.businessBlogArr = res?.data
-       
+        // if (res && res.data) {
+        //   if (Array.isArray(res.data)) {
+        //     Array.prototype.push.apply(this.businessBlogArr, res.data);
+        //   } else {
+        //     this.businessBlogArr.push(res.data);
+        //   }
+        
+        // }
+        this.fullPageLoader.hideLoader()
       },
       error:(err)=>{
         this.fullPageLoader.hideLoader()

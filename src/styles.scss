@@ -225,7 +225,7 @@ swiper-container{
       }
   }
 }
-@media (min-width: 1501px) and (max-width: 2560px) {
+@media (min-width: 1501px) and (max-width: 3000px) {
   .mySwiper {
       .image {
           position: relative;
@@ -253,4 +253,45 @@ swiper-container{
   .col-12.col-md-6.col-lg-6.col-xl-4.mt-3.mb-4.onlarge_screen {
       width: calc(100% - 75%)!important;
   }
+}
+
+@media (min-width: 3001px) and (max-width: 3840px) {
+  .image {
+    height: 381px !important;
+}
+  .mySwiper {
+    .image {
+        position: relative;
+        width: 100% !important;
+        height:382px!important
+    }
+}
+.list-layout-wrapper{
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.07);
+  border: solid 1px #ebeaea;
+  width: 100%;
+  background: none;
+  height: 45em!important;
+  cursor: pointer;
+  position: relative;
+}
+.large_screen {
+    max-width: 100% !important
+}
+
+.card-heading {
+    width: 100%;
+    width: 100%;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blog-des {
+    width: 100%;
+}
+.col-12.col-md-6.col-lg-6.col-xl-4.mt-3.mb-4.onlarge_screen {
+  width: calc(100% - 80%)!important;
+}
 }
