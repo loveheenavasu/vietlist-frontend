@@ -8,24 +8,25 @@ import { FullPageLoaderService } from '@vietlist/shared';
 import { register } from 'swiper/element/bundle';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 register()
 @Component({
   selector: 'app-businessblogs',
   standalone: true,
-  imports: [DatePipe , SlicePipe , TruncateHtmlPipe],
+  imports: [DatePipe, SlicePipe, TruncateHtmlPipe],
   templateUrl: './businessblogs.component.html',
   styleUrl: './businessblogs.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class BusinessblogsComponent {
-  public businessBlogArr:any[]=[]
-  public addDetail:any[]=[]
+  public businessBlogArr: any[] = []
+  public addDetail: any[] = []
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
-  
+
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -37,19 +38,31 @@ export class BusinessblogsComponent {
     },
   }
 
-  constructor(private businessBlog:HomepageService ,  private router:Router,  private IpService: ProfileService,private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer , private fullPageLoader:FullPageLoaderService ){
+  constructor(private businessBlog: HomepageService, private router: Router, private IpService: ProfileService, private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer, private fullPageLoader: FullPageLoaderService) {
 
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getBusinessBlogsPost()
-    this.showAdBlogPage()
-    this.getIPAdress()
+    // this.showAdBlogPage()
+    this.getIPAddress()
   }
 
   ngAfterViewInit(): void {
-    this.showAdBlogPage()
+    // this.showAdBlogPage()
     this.cdr.detectChanges();
+  }
+
+  public async getIPAddress(): Promise<string> {
+    try {
+      const res: any = await firstValueFrom(this.IpService.getIPAddress());
+      console.log("RESPONSEEE", res.ip)
+      this.ipAddress = res.ip
+      this.showAdBlogPage()
+      return res.ip;
+    } catch (error) {
+      throw new Error('Error fetching IP address: ' + error);
+    }
   }
 
 
@@ -57,9 +70,9 @@ export class BusinessblogsComponent {
     this.businessBlog.showAD().subscribe({
       next: (res: any) => {
         const data = res.data.filter((item: any) => item.Page_key === 'blog ad');
-        if(data){
+        if (data) {
           this.addDetail = data[0]?.ads_detail
-          if(this.addDetail){
+          if (this.addDetail) {
             if (this.swiperBlog && this.swiperBlog.nativeElement) {
               const swiperEl = this.swiperBlog.nativeElement;
               Object.assign(swiperEl, this.blogSwiperParams);
@@ -67,12 +80,12 @@ export class BusinessblogsComponent {
             }
           }
           this.cdr.detectChanges()
-         
+
         }
       }
     });
   }
-  
+
   public count = 1
 
   public loadMore() {
@@ -94,7 +107,7 @@ export class BusinessblogsComponent {
         }
         this.fullPageLoader.hideLoader()
       },
-      error:(err)=>{
+      error: (err) => {
         this.fullPageLoader.hideLoader()
       }
     })
@@ -131,11 +144,11 @@ export class BusinessblogsComponent {
   }
 
 
-  public getIPAdress() {
-    this.IpService.getIPAddress().subscribe((res: any) => {
-      this.ipAddress = res.ip
-    })
-  }
+  // public getIPAdress() {
+  //   this.IpService.getIPAddress().subscribe((res: any) => {
+  //     this.ipAddress = res.ip
+  //   })
+  // }
 
 
   public setStats(ad_id?: string, space_id?: string) {
@@ -156,7 +169,7 @@ export class BusinessblogsComponent {
       next: (res: any) => {
         console.log(res)
       },
-      error:(err)=>{
+      error: (err) => {
 
       }
     })
@@ -167,7 +180,7 @@ export class BusinessblogsComponent {
     window.open(url, "_blank");
   }
 
-  public  viewblogdetails(details: any) {
+  public viewblogdetails(details: any) {
     this.router.navigate(['/business-blog-details/', details])
   }
 

@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Component, ElementRef, Rende
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
+import { firstValueFrom } from 'rxjs';
 import { LoaderComponent } from 'src/app/common-ui';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
@@ -53,8 +54,8 @@ export class UserBlogDetailsComponent {
     console.log(this.isAuthenticated)
 
     let localStorage: any;
-
-    // Check if localStorage is available
+    // let i = geoip
+    // Check if local Storage is available
     if (typeof window !== 'undefined') {
       // Access localStorage only in browser environment
       localStorage = window.localStorage;
@@ -145,22 +146,33 @@ export class UserBlogDetailsComponent {
       },
     ]
   ngOnInit() {
-    this.showAdBlogPage()
-    this.getIPAdress()
+    // this.showAdBlogPage()
+    this.getIPAddress()
     if (this.blogId) {
       this.getComments()
     }
   }
 
 
-  public getIPAdress() {
-    this.IpService.getIPAddress().subscribe((res: any) => {
+  // public getIPAdress() {
+  //   this.IpService.getIPAddress().subscribe((res: any) => {
+  //     this.ipAddress = res.ip
+  //   })
+  // }
+  public async getIPAddress(): Promise<string> {
+    try {
+      const res: any = await firstValueFrom(this.IpService.getIPAddress());
+      console.log("RESPONSEEE", res.ip)
       this.ipAddress = res.ip
-    })
+      this.showAdBlogPage()
+      return res.ip;
+    } catch (error) {
+      throw new Error('Error fetching IP address: ' + error);
+    }
   }
 
   ngAfterViewInit(): void {
-    this.showAdBlogPage()
+    // this.showAdBlogPage()
     this.cdr.detectChanges();
     const divElement = this.elRef.nativeElement.querySelector('.blog-content');
     const pElements = divElement?.getElementsByTagName('p');
@@ -303,7 +315,7 @@ export class UserBlogDetailsComponent {
     this.getUserBlogDetail()
   }
 
- public toggleReplyForm(comment: any) {
+  public toggleReplyForm(comment: any) {
     if (this.selectedComment === comment) {
       // If the same comment is clicked again, toggle the form visibility
       this.showReplyForm = !this.showReplyForm;
@@ -315,7 +327,7 @@ export class UserBlogDetailsComponent {
 
   }
 
- public goSignup() {
+  public goSignup() {
     this.router.navigate(['/register'])
   }
 
