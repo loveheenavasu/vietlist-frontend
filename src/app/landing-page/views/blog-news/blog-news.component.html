@@ -21,8 +21,13 @@
         @for (item of blogItem; track $index) {
         <mat-card class="example-card">
           <mat-card-header>
-            <div class="img">
-              <img [src]="item.img" />
+            <div class="img" (click)="viewBlogDetail(item)">
+              @if (item.featured_image) {
+              <img [src]="item.featured_image" />
+              } @else {
+              <img src="/assets/image/no-image.webp" alt="blog-image" />
+              }
+
             </div>
           </mat-card-header>
           <mat-card-content>
