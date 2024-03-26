@@ -128,19 +128,25 @@
               </p>
             </div>
             @if(!isAuthenticated){
-            <div class="col-12 col-12 col-lg-5 mb-3">
+            <div class="col-12  mb-3">
               <label class="listing-form-label">Name<span class="asterik">*</span></label>
-              <input type="text" class="input-control mt-1" [formControl]="name" />
+              <div class="col-12 col-lg-5">
+                <input type="text" class="input-control mt-1" [formControl]="name" />
+              </div>
             </div>
             <br />
-            <div class="col-12 col-lg-5 mb-3">
+            <div class="col-12 mb-3">
               <label class="listing-form-label">Email<span class="asterik">*</span></label>
-              <input type="text" class="input-control mt-1" [formControl]="email" />
+              <div class="col-12 col-lg-5">
+                <input type="text" class="input-control mt-1" [formControl]="email" />
+              </div>
             </div>
             <br />
-            <div class="col-12 col-lg-5 mb-3">
+            <div class="col-12  mb-3">
               <label class="listing-form-label">Website</label>
-              <input type="text" class="input-control mt-1" [formControl]="website" />
+              <div class="col-12 col-lg-5">
+                <input type="text" class="input-control mt-1" [formControl]="website" />
+              </div>
             </div>
             <!-- <div class="col-12 col-md-12 mb-3">
               <div class="form-group">
@@ -156,8 +162,10 @@
             <br />
             }
             <div class="col-12 col-lg-5 mb-3">
-              <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
-                style="height: 15em" [formControl]="message"></textarea>
+              <div class="col-12 col-lg-5">
+                <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
+                  style="height: 15em" [formControl]="message"></textarea>
+              </div>
             </div>
             <br />
 
@@ -188,19 +196,25 @@
             </p>
           </div>
           @if(!isAuthenticated){
-          <div class="col-12 col-12 col-lg-5 mb-3">
+          <div class="col-12 mb-3">
             <label class="listing-form-label">Name<span class="asterik">*</span></label>
-            <input type="text" class="input-control mt-1" [formControl]="name" />
+            <div class="col-12 col-lg-5">
+              <input type="text" class="input-control mt-1" [formControl]="name" />
+            </div>
           </div>
           <br />
-          <div class="col-12 col-lg-5 mb-3">
+          <div class="col-12 mb-3">
             <label class="listing-form-label">Email<span class="asterik">*</span></label>
-            <input type="text" class="input-control mt-1" [formControl]="email" />
+            <div class="col-12 col-lg-5">
+              <input type="text" class="input-control mt-1" [formControl]="email" />
+            </div>
           </div>
           <br />
-          <div class="col-12 col-lg-5 mb-3">
+          <div class="col-12 mb-3">
             <label class="listing-form-label">Website</label>
-            <input type="text" class="input-control mt-1" [formControl]="website" />
+            <div class="col-12 col-lg-5">
+              <input type="text" class="input-control mt-1" [formControl]="website" />
+            </div>
           </div>
           <!-- <div class="col-12 col-md-12 mb-3">
             <div class="form-group">
@@ -216,8 +230,10 @@
           <br />
           }
           <div class="col-12 col-lg-5 mb-3">
-            <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
-              style="height: 15em" [formControl]="message"></textarea>
+            <div class="col-12 col-lg-5">
+              <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
+                style="height: 15em" [formControl]="message"></textarea>
+            </div>
           </div>
           <br />
 
@@ -248,19 +264,25 @@
           </p>
         </div>
         @if(!isAuthenticated){
-        <div class="col-12 col-12 col-lg-5  mb-3">
+        <div class="col-12  mb-3">
           <label class="listing-form-label">Name<span class="asterik">*</span></label>
-          <input type="text" class="input-control mt-1" [formControl]="name" />
+          <div class="col-12 col-lg-5">
+            <input type="text" class="input-control mt-1" [formControl]="name" />
+          </div>
         </div>
         <br />
         <div class="col-12 mb-3">
           <label class="listing-form-label">Email<span class="asterik">*</span></label>
-          <input type="text" class="input-control mt-1" [formControl]="email" />
+          <div class="col-12 col-lg-5">
+            <input type="text" class="input-control mt-1" [formControl]="email" />
+          </div>
         </div>
         <br />
         <div class="col-12 mb-3">
           <label class="listing-form-label">Website</label>
-          <input type="text" class="input-control mt-1" [formControl]="website" />
+          <div class="col-12 col-lg-5">
+            <input type="text" class="input-control mt-1" [formControl]="website" />
+          </div>
         </div>
         <!-- <div class="col-12 col-md-12 mb-3">
           <div class="form-group">
@@ -276,8 +298,10 @@
         <br />
         }
         <div class="col-12 mb-3">
-          <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
-            style="height: 15em" [formControl]="message"></textarea>
+          <div class="col-12 col-lg-5">
+            <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
+              style="height: 15em" [formControl]="message"></textarea>
+          </div>
         </div>
         <br />
 
@@ -302,17 +326,23 @@
       @if(!isAuthenticated){
       <div class="col-12 mb-3">
         <label class="listing-form-label">Name<span class="asterik">*</span></label>
-        <input type="text" class="input-control mt-1" [formControl]="name" />
+        <div class="col-12 col-lg-5">
+          <input type="text" class="input-control mt-1" [formControl]="name" />
+        </div>
       </div>
       <br />
       <div class="col-12 mb-3">
         <label class="listing-form-label">Email<span class="asterik">*</span></label>
-        <input type="text" class="input-control mt-1" [formControl]="email" />
+        <div class="col-12 col-lg-5">
+          <input type="text" class="input-control mt-1" [formControl]="email" />
+        </div>
       </div>
       <br />
       <div class="col-12 mb-3">
         <label class="listing-form-label">Website</label>
-        <input type="text" class="input-control mt-1" [formControl]="website" />
+        <div class="col-12 col-lg-5">
+          <input type="text" class="input-control mt-1" [formControl]="website" />
+        </div>
       </div>
       <!-- <div class="col-12 col-md-12 mb-3">
         <div class="form-group">
@@ -329,7 +359,9 @@
       }
       <div class="col-12 mb-3">
         <label class="listing-form-label">Comment<span class="asterik">*</span></label>
-        <textarea type="text" class="input-control mt-1" style="height: 15em" [formControl]="message"></textarea>
+        <div class="col-12 col-lg-5">
+          <textarea type="text" class="input-control mt-1" style="height: 15em" [formControl]="message"></textarea>
+        </div>
       </div>
       <br />
 
@@ -371,21 +403,27 @@
       <label class="listing-form-label"
         >Name<span class="asterik">*</span></label
       >
+      <div class="col-12 col-lg-5">
       <input type="text" class="input-control mt-1" [formControl]="name"/>
+      </div>
     </div>
     <br />
     <div class="col-12 mb-3">
       <label class="listing-form-label"
         >Email<span class="asterik">*</span></label
       >
+      <div class="col-12 col-lg-5">
       <input type="text" class="input-control mt-1" [formControl]="email"/>
+      </div>
     </div>
     <br />
     <div class="col-12 mb-3">
       <label class="listing-form-label"
         >Website</label
       >
+      <div class="col-12 col-lg-5">
       <input type="text" class="input-control mt-1" [formControl]="website"/>
+      </div>
     </div>
     <div class="col-12 col-md-12 mb-3">
       <div class="form-group">
@@ -404,12 +442,14 @@
       <label class="listing-form-label"
         >Comment<span class="asterik">*</span></label
       >
+      <div class="col-12 col-lg-5">
       <textarea
         type="text"
         class="input-control mt-1"
         style="height: 15em"
         [formControl]="message"
       ></textarea>
+      </div>
     </div>
     <br />
   }
