@@ -26,7 +26,7 @@
               </div>
               <div class="main_div">
                 <div class="heading___ content"  (click)="viewblogdetails(key.blog_id)">
-                  <div style="height: 4.5rem;">                    
+                  <div>                    
                      <h1 class="card-heading" [innerHtml]="key?.blog_title">
                         <!-- {{key?.blog_title | truncateHtml: 85}} -->
                      </h1>
@@ -58,13 +58,13 @@
             </div>
           </div>
         }
-      
+        @if(totalCount?.total_count > 12 && businessBlogArr.length < totalCount?.total_count){
         <div class="col-12">
           <div class="text-center">
               <button class="__button" (click)="loadMore()">Load More</button>
           </div>
       </div>
-        
+    }
       </div>
       <div class="row">
         <div class="blog-banner" >

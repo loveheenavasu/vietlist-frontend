@@ -44,55 +44,63 @@
     <section>
         <div class="container large_screen">
             <div class="row">
-                @for (userData of userdetails; track $index) {
+              @for (userData of userdetails; track $index) {
                 <div class="col-12 col-md-6 col-lg-6 col-xl-4 mt-3 mb-4 onlarge_screen">
-                    <div class="list-layout-wrapper" (click)="viewuserdetails(userData)">
-                        <div class="image" (click)="viewuserdetails(userData)">
-                            <a>
-                                <img [src]="
-                      userData?.featured_image
-                        ? userData?.featured_image
-                        : '/assets/image/No-image-found.jpeg'
-                    " /></a>
-                        </div>
-                        <div class="main_div">
-                            <div class="heading___ content">
-                                <h1 class="card-heading" [innerHtml]="userData?.blog_title ">
-                                    <!-- {{key?.blog_title | truncateHtml: 85}} -->
-                                </h1>
-
-                                <div class="post-meta-tags rt-el-post-meta">
-                                    <span class="date">
-                                        <i class="fa-regular fa-user-circle icon-size"></i> &nbsp;<a>
-                                            By Admin &nbsp;</a>
-                                    </span>
-                                    <span class="date">
-                                        <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a>
-                                            {{userData?.post_date }} &nbsp;</a>
-                                    </span>
-                                </div>
-                                <div class="tpg-excerpt tpg-el-excerpt">
-                                    <div class="blog-des">
-                                        <p [innerHTML]="userData?.blog_desc"></p>
-                                        <!-- <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p> -->
-                                    </div>
-                                </div>
-                                <div class="btn-div">
-                                    <button class="btn read-more-btn" (click)="viewuserdetails(userData)">Read
-                                        More</button>
-                                </div>
-                            </div>
-                        </div>
+                  <div
+                    class="list-layout-wrapper"
+                    (click)="viewuserdetails(userData)"
+                  >
+                    <div class="image"  (click)="viewuserdetails(userData)">
+                      <a>
+                        <img
+                          [src]="
+                          userData?.featured_image
+                              ? userData?.featured_image
+                              : '/assets/image/No-image-found.jpeg'
+                          "
+                      /></a>
                     </div>
-                </div>
-                }
-
-                <div class="col-12">
-                    <div class="text-center">
-                        <button class="__button" (click)="loadMore()">Load More</button>
+                    <div class="main_div">
+                      <div class="heading___ content"  (click)="viewuserdetails(userData)">
+                        <div>                    
+                           <h1 class="card-heading" [innerHtml]="userData?.blog_title">
+                              <!-- {{key?.blog_title | truncateHtml: 85}} -->
+                           </h1>
+                     </div>
+                        <div class="post-meta-tags rt-el-post-meta">
+                          <span class="date">
+                            <i class="fa-regular fa-user-circle icon-size"></i> &nbsp;<a>
+                             By Admin &nbsp;</a
+                            >
+                          </span>
+                          <span class="date">
+                            <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<a>
+                              {{ userData?.post_date }} &nbsp;</a
+                            >
+                          </span>
+                        </div>
+                        <div class="tpg-excerpt tpg-el-excerpt">
+                              <div class="blog-des">
+                                  <p [innerHTML]="userData?.blog_desc"></p>
+                                  <!-- <p [innerHTML]="key?.blog_desc | truncateHtml: 85"></p> -->
+                                </div>
+                        </div>
+      
+                        <div class="btn-div">
+                          <button class="btn read-more-btn" (click)="viewuserdetails(userData)">Read More</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-
+              }
+              @if(totalCount?.total_count > 12 && userdetails.length < totalCount?.total_count){
+              <div class="col-12">
+                <div class="text-center">
+                    <button class="__button" (click)="loadMore()">Load More</button>
+                </div>
+            </div>
+          }
             </div>
         </div>
     </section>

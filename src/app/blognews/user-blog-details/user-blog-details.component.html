@@ -99,7 +99,7 @@
                                     <div class="auther_email">
                                         <b class="fn"><a rel="external nofollow" class="email_auther"> <span
                                                     class="email_auther">{{item?.comment_detail?.
-                                                    comment_author_email}}</span></a> &nbsp;</b>
+                                                    comment_author}}</span></a> &nbsp;</b>
                                         <span class="says">says:</span>
                                         <br />
                                         <div class="auther_date">
@@ -128,7 +128,7 @@
                                         <div class="auther_email">
                                             <b class="fn"><a rel="external nofollow" class="email_auther"> <span
                                                         class="email_auther">{{items?.
-                                                        comment_author_email}}</span></a> &nbsp;</b>
+                                                        comment_author}}</span></a> &nbsp;</b>
                                             <span class="says">says:</span>
                                             <br />
                                             <div class="auther_date">
@@ -189,34 +189,37 @@
                                             </div>
                                             <div class="col-12 mt-4">
                                                 <p class="comment-notes" style="font-size: 16px; color: #555555">
-                                                    <span id="email-notes">Logged in as {{key?.
-                                                        comment_author_email}}.</span> <span *ngIf="isAuthenticated"
+                                                    <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{key?.
+                                                        comment_author}}.</span> <span id="email-notes"
+                                                        *ngIf="!isAuthenticated">Your email address will not be
+                                                        published.</span> <span *ngIf="isAuthenticated"
                                                         class="email_auther_reply" (click)="editProfile()">Edit your
                                                         profile.</span> <span *ngIf="isAuthenticated"
                                                         class="email_auther_reply" (click)="logout()">Log
                                                         out?</span>
-                                                    <span class="required-field-message">Required fields are marked
+                                                    <span class="required-field-message">&nbsp;Required fields are
+                                                        marked
                                                         <span class="asterik">*</span></span>
                                                 </p>
                                             </div>
                                             @if(!isAuthenticated){
-                                            <div class="col-12  mb-3">
+                                            <div class="col-12 col-12 col-lg-5 mb-3">
                                                 <label class="listing-form-label">Name<span
                                                         class="asterik">*</span></label>
                                                 <input type="text" class="input-control mt-1" [formControl]="name" />
                                             </div>
                                             <br />
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12 col-lg-5 mb-3">
                                                 <label class="listing-form-label">Email<span
                                                         class="asterik">*</span></label>
                                                 <input type="text" class="input-control mt-1" [formControl]="email" />
                                             </div>
                                             <br />
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12 col-lg-5 mb-3">
                                                 <label class="listing-form-label">Website</label>
                                                 <input type="text" class="input-control mt-1" [formControl]="website" />
                                             </div>
-                                            <div class="col-12 col-md-12 mb-3">
+                                            <!-- <div class="col-12 col-md-12 mb-3">
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
@@ -227,17 +230,17 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <br />
                                             }
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12 col-lg-5 mb-3">
                                                 <textarea placeholder="Write Your comment here...." type="text"
                                                     class="input-control mt-1" style="height: 15em"
                                                     [formControl]="message"></textarea>
                                             </div>
                                             <br />
 
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12 col-lg-5 mb-3">
                                                 <button type="button" class="btn orange-background-btn"
                                                     (click)="postReply()"
                                                     [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
@@ -257,8 +260,10 @@
                                         </div>
                                         <div class="col-12 mt-4">
                                             <p class="comment-notes" style="font-size: 16px; color: #555555">
-                                                <span id="email-notes">Logged in as {{items?.
-                                                    comment_author_email}}.</span> <span class="email_auther_reply"
+                                                <span id="email-notes" *ngIf="isAuthenticated">Logged in as
+                                                    {{items?.comment_author}}.</span> <span id="email-notes"
+                                                    *ngIf="!isAuthenticated">Your email address will not be
+                                                    published.</span> <span class="email_auther_reply"
                                                     *ngIf="isAuthenticated" (click)="editProfile()">Edit
                                                     your profile.</span> <span class="email_auther_reply"
                                                     *ngIf="isAuthenticated" (click)="logout()">Log
@@ -268,22 +273,22 @@
                                             </p>
                                         </div>
                                         @if(!isAuthenticated){
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12 col-12 col-lg-5 mb-3">
                                             <label class="listing-form-label">Name<span class="asterik">*</span></label>
                                             <input type="text" class="input-control mt-1" [formControl]="name" />
                                         </div>
                                         <br />
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12 col-lg-5 mb-3">
                                             <label class="listing-form-label">Email<span
                                                     class="asterik">*</span></label>
                                             <input type="text" class="input-control mt-1" [formControl]="email" />
                                         </div>
                                         <br />
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12 col-lg-5 mb-3">
                                             <label class="listing-form-label">Website</label>
                                             <input type="text" class="input-control mt-1" [formControl]="website" />
                                         </div>
-                                        <div class="col-12 col-md-12 mb-3">
+                                        <!-- <div class="col-12 col-md-12 mb-3">
                                             <div class="form-group">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value=""
@@ -294,17 +299,17 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <br />
                                         }
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12 col-lg-5 mb-3">
                                             <textarea placeholder="Write Your comment here...." type="text"
                                                 class="input-control mt-1" style="height: 15em"
                                                 [formControl]="message"></textarea>
                                         </div>
                                         <br />
 
-                                        <div class="col-12 mb-3">
+                                        <div class="col-12 col-lg-5 mb-3">
                                             <button type="button" class="btn orange-background-btn"
                                                 (click)="postReply()"
                                                 [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
@@ -319,16 +324,18 @@
                                     <div class="col-12">
                                         <h5 class="block-head"
                                             style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
-                                            Reply to {{item?.comment_detail?.
-                                            comment_author_email}} &nbsp;<span class="email_auther_reply"
+                                            Reply to {{item?.comment_detail?.comment_author}} &nbsp;<span
+                                                class="email_auther_reply"
                                                 (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Cancel
                                                 Reply'}}</span></h5>
                                     </div>
                                     <div class="col-12 mt-4">
                                         <p class="comment-notes" style="font-size: 16px; color: #555555">
-                                            <span id="email-notes">Logged in as {{item?.comment_detail?.
-                                                comment_author_email}}.</span> <span *ngIf="isAuthenticated"
-                                                (click)="editProfile()" class="email_auther_reply">Edit
+                                            <span id="email-notes" *ngIf="isAuthenticated">Logged in as
+                                                {{item?.comment_author}}.</span> <span id="email-notes"
+                                                *ngIf="!isAuthenticated">Your email address will not be
+                                                published.</span> <span *ngIf="isAuthenticated" (click)="editProfile()"
+                                                class="email_auther_reply">Edit
                                                 your profile.</span> <span class="email_auther_reply"
                                                 *ngIf="isAuthenticated" (click)="logout()">Log out?</span>
                                             <span class="required-field-message">Required fields are marked <span
@@ -336,21 +343,21 @@
                                         </p>
                                     </div>
                                     @if(!isAuthenticated){
-                                    <div class="col-12  mb-3">
+                                    <div class="col-12 col-lg-5 mb-3">
                                         <label class="listing-form-label">Name<span class="asterik">*</span></label>
                                         <input type="text" class="input-control mt-1" [formControl]="name" />
                                     </div>
                                     <br />
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 col-lg-5 mb-3">
                                         <label class="listing-form-label">Email<span class="asterik">*</span></label>
                                         <input type="text" class="input-control mt-1" [formControl]="email" />
                                     </div>
                                     <br />
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 col-lg-5 mb-3">
                                         <label class="listing-form-label">Website</label>
                                         <input type="text" class="input-control mt-1" [formControl]="website" />
                                     </div>
-                                    <div class="col-12 col-md-12 mb-3">
+                                    <!-- <div class="col-12 col-md-12 mb-3">
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" value="" id="terms" />
@@ -360,17 +367,17 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <br />
                                     }
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 col-lg-5 mb-3">
                                         <textarea placeholder="Write Your comment here...." type="text"
                                             class="input-control mt-1" style="height: 15em"
                                             [formControl]="message"></textarea>
                                     </div>
                                     <br />
 
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12 col-lg-5 mb-3">
                                         <button type="button" class="btn orange-background-btn" (click)="postReply()"
                                             [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
                                             Reply</button>
@@ -391,21 +398,21 @@
                                     </p>
                                 </div>
                                 @if(!isAuthenticated){
-                                <div class="col-12 col-lg-5 mb-3">
+                                <div class="col-12 mb-3">
                                     <label class="listing-form-label">Name<span class="asterik">*</span></label>
                                     <input type="text" class="input-control mt-1" [formControl]="name" />
                                 </div>
                                 <br />
-                                <div class="col-12 mb-3">
+                                <div class="col-12  mb-3">
                                     <label class="listing-form-label">Email<span class="asterik">*</span></label>
                                     <input type="text" class="input-control mt-1" [formControl]="email" />
                                 </div>
                                 <br />
-                                <div class="col-12 mb-3">
+                                <div class="col-12  mb-3">
                                     <label class="listing-form-label">Website</label>
                                     <input type="text" class="input-control mt-1" [formControl]="website" />
                                 </div>
-                                <div class="col-12 col-md-12 mb-3">
+                                <!-- <div class="col-12 col-md-5  mb-3">
                                     <div class="form-group">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="terms" />
@@ -415,7 +422,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <br />
                                 }
                                 <div class="col-12 mb-3">

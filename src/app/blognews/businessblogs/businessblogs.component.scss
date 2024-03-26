@@ -160,7 +160,7 @@ swiper-container::part(button-next) {
     margin-top: auto;
     margin-bottom: 15px;
     position: absolute;
-    bottom: 4px;
+    bottom: 20px;
     .read-more-btn {
         background-color: var(--primary-color-orange);
         color: #fff;
@@ -279,14 +279,14 @@ swiper-container::part(container) {
     text-transform: capitalize;
     margin-top: 0rem;
     text-align: left;
-    // height:2.5em;
+    height:3rem;
     
     // letter-spacing: 1px;
     text-align: justify;
     cursor: pointer;
     display: -webkit-box;
     width: 100%;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
