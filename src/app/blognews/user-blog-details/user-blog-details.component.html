@@ -6,7 +6,7 @@
                 <p><strong>/ USER BLOG / <span style="text-transform: uppercase;">{{userBlogDetails?.blog_title}}</span></strong></p>
             </div> -->
         </div>
-        <div class="image-container" style="height:250px">
+        <div class="image-container">
             <!-- <div class="d-flex"> -->
             <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
                 @for(key of userdetails; track $index){
@@ -200,7 +200,7 @@
                                                 </p>
                                             </div>
                                             @if(!isAuthenticated){
-                                            <div class="col-12 mb-3">
+                                            <div class="col-12  mb-3">
                                                 <label class="listing-form-label">Name<span
                                                         class="asterik">*</span></label>
                                                 <input type="text" class="input-control mt-1" [formControl]="name" />
@@ -336,7 +336,7 @@
                                         </p>
                                     </div>
                                     @if(!isAuthenticated){
-                                    <div class="col-12 mb-3">
+                                    <div class="col-12  mb-3">
                                         <label class="listing-form-label">Name<span class="asterik">*</span></label>
                                         <input type="text" class="input-control mt-1" [formControl]="name" />
                                     </div>
@@ -391,7 +391,7 @@
                                     </p>
                                 </div>
                                 @if(!isAuthenticated){
-                                <div class="col-12 mb-3">
+                                <div class="col-12 col-lg-5 mb-3">
                                     <label class="listing-form-label">Name<span class="asterik">*</span></label>
                                     <input type="text" class="input-control mt-1" [formControl]="name" />
                                 </div>
