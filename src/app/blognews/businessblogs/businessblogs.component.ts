@@ -87,17 +87,25 @@ export class BusinessblogsComponent {
   }
 
   public count = 1
+
   public loadMore() {
     this.count++
     this.getBusinessBlogsPost()
   }
-  public getBusinessBlogsPost() {
-    this.fullPageLoader.showLoader()
-    this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
-      next: (res) => {
-        this.fullPageLoader.hideLoader()
-        this.businessBlogArr = res?.data
 
+  public getBusinessBlogsPost(){
+  this.fullPageLoader.showLoader()
+    this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
+      next:(res)=>{
+        if (res && res.data) {
+          if (Array.isArray(res.data)) {
+            Array.prototype.push.apply(this.businessBlogArr, res.data);
+          } else {
+            this.businessBlogArr.push(res.data);
+          }
+          this.fullPageLoader.hideLoader()
+        }
+        this.fullPageLoader.hideLoader()
       },
       error: (err) => {
         this.fullPageLoader.hideLoader()
@@ -142,6 +150,7 @@ export class BusinessblogsComponent {
   //   })
   // }
 
+
   public setStats(ad_id?: string, space_id?: string) {
     const currentDate = new Date();
     const actionTime = this.formatDate(currentDate);
@@ -158,12 +167,13 @@ export class BusinessblogsComponent {
     }
     this.businessBlog.setStats(body).subscribe({
       next: (res: any) => {
-
+        console.log(res)
       },
       error: (err) => {
 
       }
     })
+ 
   }
 
   public getUrl(url: string) {

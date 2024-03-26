@@ -3,17 +3,26 @@
 
 .heading-title {
     color: #232F3E;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 600;
     line-height: 44px;
+    text-align: justify;
 }
 
 .image__ {
-    height: 43px;
-    width: 10%;
     margin-right: 25px;
     margin-left: 26px;
 }
+
+.image__ img {
+    border-width: 4px !important;
+    border-radius: 50%; /* This ensures the image remains a circle */
+    width: 100%; /* Ensures the image takes the full width of its container */
+    height: auto; /* Allows the height to adjust proportionally based on the width */
+    max-width: 60px; /* Sets a maximum width for the image */
+    max-height: 60px; /* Sets a maximum height for the image */
+}
+
 
 h5.block-head {
     font-size: 22px;
@@ -539,7 +548,7 @@ a:visited {
                 position: relative;
                 width: 500px !important;
                 height: 200px;
-
+                overflow: hidden;
                 .verified-logo {
                     position: absolute;
                     bottom: 0;
@@ -606,3 +615,27 @@ a:visited {
         }
     }
 }
+// @media (max-width:540px){
+//     .image__ {
+//         height: 47px;
+//         width: 10%;
+//         margin-right: 25px;
+//         margin-left: 26px;
+//     }
+// }
+// @media (max-width:420px){
+//     .image__ {
+//         height: 50px;
+//         width: 14%;
+//         margin-right: 25px;
+//         margin-left: 26px;
+//     }
+// }
+// @media (max-width:390px){
+//     .image__ {
+//         height: 50px;
+//         width: 16%;
+//         margin-right: 25px;
+//         margin-left: 26px;
+//     }
+// }

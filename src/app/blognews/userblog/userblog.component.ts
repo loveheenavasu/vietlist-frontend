@@ -4,6 +4,7 @@ import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import { count } from 'console';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service';
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
+
 @Component({
   selector: 'app-userblog',
   standalone: true,
@@ -14,12 +15,10 @@ import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 })
 export class UserblogComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
-
+  publicIpAddr!: string;
   public userdetails: any = []
   public categoery: any
   constructor(private authService: AuthenticationService, private homeService: HomepageService, private router: Router, private loaderService: FullPageLoaderService) {
-
-
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -73,7 +72,7 @@ export class UserblogComponent {
       },
       1920: {
         slidesPerView: 5,
-      },
+      }
     },
     on: {
       init() { },

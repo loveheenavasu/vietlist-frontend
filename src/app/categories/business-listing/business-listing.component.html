@@ -7,22 +7,29 @@
   <div class="row search-fields mt-4">
     <div class="d-flex">
       <div class="flex-grow-1">
-        <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
+        <mat-select
+          class="vietlist-select"
+          placeholder="Category"
+          [formControl]="category"
+        >
           @for (key of post_category; track $index) {
-          <mat-option [value]="key.id">{{ key.name }}</mat-option>
+            <mat-option [value]="key.id">{{ key.name }}</mat-option>
           }
         </mat-select>
       </div>
       <div class="mx-1 flex-grow-1">
-        <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
-        </AutocompleteComponent>
+        <AutocompleteComponent
+          (setAddress)="getAddress($event)"
+          adressType="geocode"
+          [value]="street"
+        ></AutocompleteComponent>
       </div>
       <div class="mx-1">
         <div class="search-btn" (click)="search()">
           @if (isLoader) {
-          <app-loader></app-loader>
+            <app-loader></app-loader>
           } @else {
-          <i class="fa fa-search" aria-hidden="true"></i>
+            <i class="fa fa-search" aria-hidden="true"></i>
           }
         </div>
       </div>
@@ -30,49 +37,44 @@
   </div>
   <div class="lisiting-container mt-4">
     <div class="layout-icon d-flex align-items-center">
-      <div class="grid-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-        (click)="handleLayout('grid')">
+      <div
+        class="grid-layout-icon d-flex align-items-center"
+        [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+        (click)="handleLayout('grid')"
+      >
         <mat-icon>grid_on</mat-icon>
       </div>
-      <div class="list-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
-        (click)="handleLayout('list')">
+      <div
+        class="list-layout-icon d-flex align-items-center"
+        [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
+        (click)="handleLayout('list')"
+      >
         <mat-icon>view_list</mat-icon>
       </div>
     </div>
     <div class="view-container">
       @if (selectedLayout == 'grid') {
-      <div class="grid-view-container row">
-        @for (key of businessCategoriesArray; track $index) {
-        <div class="grid-card col-lg-4">
-          <div class="listing-img" (click)="gotToListing(key.post_id, true)">
-            @if (key.image) {
-            <img [src]="key.image" alt="business-listing" />
-            }@else {
-            <img src="/assets/image/No-image-found.jpeg" alt="business-listing" />
-            }
-            <div class="linking-icon">
-              <i class="fa fa-link" aria-hidden="true"></i>
-            </div>
-            @if (key.default_category?.name) {
-            <div class="category-name">
-              <span [innerHTML]="key.default_category?.name"></span>
-            </div>
-            }
-          </div>
-          <div class="listing-description">
-            <div class="listing-heading">
-              <h3 (click)="gotToListing(key.post_id, true)">
-                {{ key.post_title }}
-              </h3>
-            </div>
-            <div class="listing-info">
-              <p [innerHTML]=" key.post_content">
-              </p>
-            </div>
-            <!-- <div class="lisiting-package">
+        <div class="grid-view-container row">
+          @for (key of businessCategoriesArray; track $index) {
+            <div class="grid-card col-lg-4">
+              <div class="listing-img">
+                <img [src]="key.image" />
+              </div>
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3>
+                    {{ key.post_title }}
+                  </h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{ key.description }}
+                  </p>
+                </div>
+                <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>
                 </div> -->
-            <!-- <div class="listing-rating">
+                <!-- <div class="listing-rating">
                   <div class="d-flex">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -81,51 +83,32 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                   </div>
                 </div> -->
-            <div class="listing-rating">
-              <ng-template #t let-fill="fill">
-                <span class="star" [class.full]="fill === 100">
-                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-                </span>
-              </ng-template>
-              <ngb-rating [rate]="key.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+              </div>
             </div>
-          </div>
+          }
         </div>
-        }
-      </div>
       } @else {
-      <div class="list-view-container">
-        @for (key of businessCategoriesArray; track $index) {
-        <div class="d-flex small-screen-view">
-          <div class="listing-img-container">
-            <div class="listing-img" (click)="gotToListing(key.post_id, true)">
-              @if (key.image) {
-              <img [src]="key.image" alt="business-listing" />
-              }@else {
-              <img src="/assets/image/No-image-found.jpeg" alt="business-listing" />
-              }
-              <div class="linking-icon">
-                <i class="fa fa-link" aria-hidden="true"></i>
+        <div class="list-view-container">
+          @for (key of businessCategoriesArray; track $index) {
+            <div class="d-flex small-screen-view">
+              <div class="listing-img-container">
+                <div class="listing-img">
+                  <img [src]="key.image" />
+                </div>
               </div>
-              @if (key.default_category?.name) {
-              <div class="category-name">
-                <span [innerHTML]="key.default_category?.name"></span>
-              </div>
-              }
-            </div>
-          </div>
-          <div class="listing-img-info">
-            <div class="listing-heading">
-              <h3 (click)="gotToListing(key.post_id, true)">{{ key.post_title }}</h3>
-            </div>
-            <div class="listing-info">
-              <p [innerHTML]=" key.post_content">
-              </p>
-            </div>
-            <!-- <div class="lisiting-package">
+              <div class="listing-img-info">
+                <div class="listing-heading">
+                  <h3>{{ key.post_title }}</h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{ key.description }}
+                  </p>
+                </div>
+                <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>
                 </div> -->
-            <!-- <div class="listing-rating">
+                <!-- <div class="listing-rating">
                   <div class="d-flex">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -134,18 +117,10 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                   </div>
                 </div> -->
-            <div class="listing-rating">
-              <ng-template #t let-fill="fill">
-                <span class="star" [class.full]="fill === 100">
-                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-                </span>
-              </ng-template>
-              <ngb-rating [rate]="key.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+              </div>
             </div>
-          </div>
+          }
         </div>
-        }
-      </div>
       }
     </div>
   </div>

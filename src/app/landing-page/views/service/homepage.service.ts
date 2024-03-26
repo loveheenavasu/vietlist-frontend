@@ -47,6 +47,7 @@ export class HomepageService {
     return this.http.get<any>(endpoint, { params: params })
   }
 
+
   public userBlogs(posts_per_page: any, page_no: any, blog_page?: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
     let params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no', page_no)

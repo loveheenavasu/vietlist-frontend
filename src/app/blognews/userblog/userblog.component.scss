@@ -63,6 +63,7 @@
                     position: relative;
                     width: 256px;
                     height: 200px;
+                    overflow: hidden;
 
                     .slider_overlay {
                         width: 100%;
@@ -680,7 +681,7 @@ a:visited {
     }
 }
 
-@media (min-width: 1501px) and (max-width: 2560px) {
+@media (min-width: 1501px) and (max-width: 3000px) {
     .mySwiper {
         .image {
             position: relative;
@@ -693,7 +694,6 @@ a:visited {
     }
 
     .card-heading {
-        width: 100%;
         width: 100%;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
