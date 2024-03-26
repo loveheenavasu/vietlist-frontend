@@ -14,7 +14,7 @@ import {
 import { TrendingServicesComponent } from './views/trending-services/trending-services.component'
 import { HomepageService } from './views/service/homepage.service'
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common'
-import { Subscription, interval, repeat, take } from 'rxjs'
+import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle';
 import { ProfileService } from '../manage-profile/service/profile.service'
 
@@ -106,17 +106,17 @@ export class HomepageComponent {
 
 
   ngOnInit() {
-    this.showAdDataFetch()
+    // this.showAdDataFetch()
     this.getHomePageContent()
-    this.getIPAdress()
+    this.getIPAddress()
   }
 
 
 
-  ngAfterViewInit() {
-    this.showAdDataFetch()
+  // ngAfterViewInit() {
+  // this.showAdDataFetch()
 
-  }
+  // }
 
 
 
@@ -132,7 +132,7 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.swiperParams);
               swiperEl.initialize();
             } else {
-             
+
             }
           }, 0);
         }
@@ -143,10 +143,21 @@ export class HomepageComponent {
   }
 
 
-  public getIPAdress() {
-    this.IpService.getIPAddress().subscribe((res: any) => {
+  // public getIPAdress() {
+  //   this.IpService.getIPAddress().subscribe((res: any) => {
+  //     this.ipAddress = res.ip
+  //   })
+  // }
+  public async getIPAddress(): Promise<string> {
+    try {
+      const res: any = await firstValueFrom(this.IpService.getIPAddress());
+      console.log("RESPONSEEE", res.ip)
       this.ipAddress = res.ip
-    })
+      this.showAdDataFetch()
+      return res.ip;
+    } catch (error) {
+      throw new Error('Error fetching IP address: ' + error);
+    }
   }
 
   private formatDate(date: Date): string {
@@ -223,7 +234,7 @@ export class HomepageComponent {
               Object.assign(swiperEl, this.footerSwiperParams);
               swiperEl.initialize();
             } else {
-            
+
             }
           }, 0);
         }

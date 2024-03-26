@@ -80,7 +80,8 @@ swiper-container {
         border-radius: 10px;
         border: 1px solid #EBEBEB;
         background: #FFF;
-        width: 522px;
+        // width: 522px;
+        width: 100%;
 
 
         .card-body {
@@ -180,6 +181,10 @@ swiper-container::part(bullet) {
 
     .swiper-testimonial {
         padding-bottom: 2.625rem;
+
+        .mySwiper {
+            padding: 20px 10px;
+        }
     }
 
     .card-body {
@@ -189,20 +194,20 @@ swiper-container::part(bullet) {
     }
 
     swiper-container {
-        width: 90% !important;
+        width: 100% !important;
         height: 100% !important;
     }
 
     swiper-container::part(button-next) {
         color: #F89705 !important;
-        right: -3.4rem !important;
+        right: -2.4rem !important;
         width: 35px !important;
         height: 35px !important;
     }
 
     swiper-container::part(button-prev) {
         color: #F89705 !important;
-        left: -3.4rem !important;
+        left: -2.4rem !important;
         width: 35px !important;
         height: 35px !important;
     }
@@ -230,3 +235,11 @@ swiper-container::part(button-prev) {
 swiper-container::part(container) {
     position: initial;
 }
+
+// @media (min-width:2560px) {
+//     swiper-container {
+//         .card {
+//             width: 700px;
+//         }
+//     }
+// }
