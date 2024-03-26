@@ -65,19 +65,7 @@ export class BlogNewsComponent {
     // this.blogDetail = this.homePageData
     this.showAdBlogPage()
     this.getUserBlog()
-    // if (this.blogAd) {
-    //   // Create an interval that updates content every 6 seconds
-    //   this.timerIntervals = setInterval(() => {
 
-    //     if (this.currentIndex === (this.blogAd.length - 1)) {
-    //       this.currentIndex = 0;
-    //     } else {
-    //       this.currentIndex++;
-    //     }
-    //     // Ensure Angular runs change detection after updating content
-    //     this.cdr.detectChanges();
-    //   }, 6000);
-    // }
 
   }
 
