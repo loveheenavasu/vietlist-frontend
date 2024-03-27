@@ -350,17 +350,21 @@
           <input type="text" class="input-control mt-1" [formControl]="website" />
         </div>
       </div>
-      <!-- <div class="col-12 col-md-12 mb-3">
+      <!-- <div class="col-12 col-md-5  mb-3">
         <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="terms" />
-            <label class="form-check-label" for="terms">
-              Save my name, email, and website in this browser for the
-              next time I comment.
-            </label>
-          </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [checked]="CheckValues"
+                    (change)="valueChange($event)" value="" id="terms" />
+                <label style="display: flex;font-size: 13px;" class="form-check-label" for="terms">
+                    Save my name, email, and website in this browser for the
+                    next time I comment.
+                    @if(CheckValues){
+                    <span><i style="color:orange" class="fa-solid fa-check"></i></span>
+                    }
+                </label>
+            </div>
         </div>
-      </div> -->
+    </div> -->
       <br />
       }
       <div class="col-12 mb-3">

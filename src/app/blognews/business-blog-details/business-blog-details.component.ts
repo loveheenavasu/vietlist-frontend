@@ -43,7 +43,8 @@ export class BusinessBlogDetailsComponent {
   public selectedComment: any | null = null
   public blogIdtwo: any
   public lastElement: any
-
+  public CheckValues :any
+  public userDetailscomment: any
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -83,6 +84,13 @@ export class BusinessBlogDetailsComponent {
 
     if (localStorage) {
       this.UserId = localStorage.getItem('loginInfo')
+
+      this.userDetailscomment = localStorage.getItem('userDetailscomment');
+      const data = JSON.parse(this.userDetailscomment);
+      this.CheckValues = data?.checkedValue,
+      this.name.setValue(data?.comment_name)
+      this.email.setValue(data?.comment_email)
+      this.website.setValue(data?.comment_website)
     }
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
@@ -336,6 +344,16 @@ export class BusinessBlogDetailsComponent {
   }
  
   public postCommnet() {
+    if (this.CheckValues) {
+      const userDetailscomment = {
+        checkedValue : this.CheckValues,
+        comment_name: this.name.value,
+        comment_website: this.website.value,
+        comment_email: this.email.value
+      }
+      const userDetailscommentString = JSON.stringify(userDetailscomment);
+      localStorage.setItem('userDetailscomment', userDetailscommentString)
+    }
     this.isPostComment = true
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
@@ -431,7 +449,10 @@ export class BusinessBlogDetailsComponent {
       error: (err: any) => {},
     })
   }
-
+  public valueChange(detailsUser: any) {
+    this.CheckValues = detailsUser.target.checked
+   
+  }
   public getComments() {
       console.log('check function')
       setTimeout(()=>{
