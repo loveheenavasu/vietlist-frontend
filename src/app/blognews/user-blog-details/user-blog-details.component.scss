@@ -575,6 +575,21 @@ a:visited {
             }
         }
     }
+    swiper-container {
+        height: 281px;
+        margin: 0px !important;
+      }
+      .swiper-button-prev{
+        position: absolute;
+        bottom: 58%;
+      }
+      .swiper-button-next {
+        position: absolute;
+        bottom: 58%;
+      }
+      .blog-banner {
+        height: 194px!important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {

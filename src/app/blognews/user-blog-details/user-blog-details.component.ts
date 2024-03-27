@@ -24,6 +24,7 @@ export class UserBlogDetailsComponent {
   public userdetails: any
   public userBlogDetails: any
   public showReplyForm: boolean = false;
+  public showReplyFormMore :boolean = false
   public selectedComment: any | null = null;
   public blogIdtwo: any
   public addDetail: any[] = []
@@ -51,8 +52,6 @@ export class UserBlogDetailsComponent {
   }
   constructor(private IpService: ProfileService, private authentication: AuthenticationService, private cdr: ChangeDetectorRef, private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService, private router: Router) {
     this.isAuthenticated = this.authentication.isAuthenticated()
-    console.log(this.isAuthenticated)
-
     let localStorage: any;
     // Check if local Storage is available
     if (typeof window !== 'undefined') {
@@ -325,6 +324,15 @@ export class UserBlogDetailsComponent {
     }
 
   }
+  public toggleReplyFormShowMore(comment: any){
+    if (this.selectedComment === comment) {
+      this.showReplyFormMore = !this.showReplyFormMore;
+    }else {
+      // If a different comment is clicked, hide any previously shown form and display the new one
+      this.selectedComment = comment;
+      this.showReplyFormMore = true;
+    }
+  }
 
   public goSignup() {
     this.router.navigate(['/register'])
@@ -370,9 +378,12 @@ export class UserBlogDetailsComponent {
     const data = !this.isAuthenticated ? formData : formData2
     this.homeService.setBlogComment(data).subscribe({
       next: (res) => {
+        this.authentication.responseApi.next(true)
+        this.getComments()
         this.isPostComment = false
         this.cdr.detectChanges()
-        this.getComments()
+       
+       
         this.message.setValue('')
         this.website.setValue('')
         this.name.setValue('')

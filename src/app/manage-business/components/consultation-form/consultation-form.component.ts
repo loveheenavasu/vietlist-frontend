@@ -24,9 +24,11 @@ import { BusinessService } from '../../service/business.service'
 import { AuthenticationService, LocalStorageService } from '@vietlist/shared'
 import { LoaderComponent } from 'src/app/common-ui'
 import { CommonModule } from '@angular/common'
-import * as moment from 'moment-timezone'
+// import * as moment from 'moment-timezone'
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select'
 import { Router } from '@angular/router'
+// import moment from 'moment';
+import moment from 'moment-timezone';
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
@@ -164,18 +166,21 @@ export class ConsultationFormComponent {
     private authService: AuthenticationService
 
   ) {
-    const timeZoneNames = moment.tz.names()
+
+
+    // Now, you can use timezone-related functions safely
+    const timeZoneNames = moment?.tz?.names();
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
         this.vediosHide = res
       }
     })
-    timeZoneNames.forEach((timeZone) => {
-      const country = timeZone.split('/')[0]
-      const region = timeZone.split('/')[0].replace(/_/g, ' ')
-      const utcOffset = moment.tz(timeZone).utcOffset()
+    timeZoneNames?.forEach((timeZone) => {
+      const country = timeZone?.split('/')[0]
+      const region = timeZone?.split('/')[0].replace(/_/g, ' ')
+      const utcOffset = moment?.tz(timeZone).utcOffset()
 
-      let regionObject = this.Timezone.find((item) => item.region === region)
+      let regionObject = this.Timezone?.find((item) => item.region === region)
       if (!regionObject) {
         regionObject = { region: region, timeZones: [] }
         this.Timezone.push(regionObject)
@@ -360,7 +365,7 @@ export class ConsultationFormComponent {
         maxImages = Infinity;
         break;
     }
-  
+
     if (this.files.length > maxImages) {
       Swal.fire({
         toast: true,
@@ -374,21 +379,21 @@ export class ConsultationFormComponent {
       });
       return;
     }
-  
+
     this.isImageUploading = true;
     const filesToUpload = this.files.slice(0, maxImages);
     filesToUpload.forEach((file, index) => {
-      const reader = new FileReader(); 
+      const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
       };
       reader.readAsDataURL(file);
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false; 
+          this.isImageUploading = false;
           this.imagePreviews.push(res.image_url);
           if (this.imagePreviews.length >= maxImages && this.vediosHide.level_id !== '3') {
-            this.isImageUploading = false; 
+            this.isImageUploading = false;
           }
         },
         error: (err: any) => {
@@ -397,7 +402,7 @@ export class ConsultationFormComponent {
       });
     });
   }
-  
+
   public removeItem(index: any) {
     this.imagePreviews.splice(index, 1);
   }
@@ -501,11 +506,11 @@ export class ConsultationFormComponent {
         next: (res) => {
           this.isLoader = false
           if (res) {
-          this.consultationFormSubmit.emit()
-          this.localstorage.saveData('isConsultationFormFilled', 'true')
-          this.businessService.isConsultationFormFilled.next(true)
-          this.isFormFilled = true
-           }
+            this.consultationFormSubmit.emit()
+            this.localstorage.saveData('isConsultationFormFilled', 'true')
+            this.businessService.isConsultationFormFilled.next(true)
+            this.isFormFilled = true
+          }
         },
         error: (err) => {
           this.isLoader = false

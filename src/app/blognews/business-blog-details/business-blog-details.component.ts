@@ -39,9 +39,11 @@ export class BusinessBlogDetailsComponent {
   public UserId: any
   public isPostComment: boolean = false
   public showReplyForm: boolean = false
+  public showReplyFormMore: boolean = false
   public selectedComment: any | null = null
   public blogIdtwo: any
   public lastElement: any
+
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -68,9 +70,9 @@ export class BusinessBlogDetailsComponent {
     private authService: AuthenticationService,
     private router: Router,
   ) {
+  
     this.isAuthenticated = this.authService.isAuthenticated()
-    console.log(this.isAuthenticated, 'isAuhthen')
-
+  
     let localStorage: any
 
     // Check if localStorage is available
@@ -82,7 +84,6 @@ export class BusinessBlogDetailsComponent {
     if (localStorage) {
       this.UserId = localStorage.getItem('loginInfo')
     }
-    console.log(this.isAuthenticated)
     this._activatedRoute.params.subscribe((res) => {
       this.blogId = res['id']
     })
@@ -186,8 +187,10 @@ export class BusinessBlogDetailsComponent {
   }
 
   ngAfterViewInit() {
-    this.showAdBlogPage()
+
     this.cdr.detectChanges()
+    this.showAdBlogPage()
+   
   }
 
   public editProfile() {
@@ -323,7 +326,15 @@ export class BusinessBlogDetailsComponent {
       this.showReplyForm = true
     }
   }
-
+  public toggleReplyFormShowMore(comment: any){
+    if (this.selectedComment === comment) {
+      this.showReplyFormMore = !this.showReplyFormMore;
+    }else {
+      this.selectedComment = comment;
+      this.showReplyFormMore = true;
+    }
+  }
+ 
   public postCommnet() {
     this.isPostComment = true
     const userID = JSON.parse(this.UserId)
@@ -345,10 +356,11 @@ export class BusinessBlogDetailsComponent {
     const data = !this.isAuthenticated ? formData : formData2
     this.homeService.setBlogComment(data).subscribe({
       next: (res: any) => {
+        this.authService.responseApi.next(true)
         if (res) {
-          this.getComments()
-          this.cdr.detectChanges()
+          this.getComments();
         }
+       
 
         this.isPostComment = false
 
@@ -396,8 +408,10 @@ export class BusinessBlogDetailsComponent {
 
     this.homeService.setReplyBlog(data).subscribe({
       next: (res: any) => {
-        this.getComments()
-        this.cdr.detectChanges()
+        if (res) {
+          this.getComments();
+        }
+       
 
         this.message.setValue('')
         this.website.setValue('')
@@ -419,17 +433,34 @@ export class BusinessBlogDetailsComponent {
   }
 
   public getComments() {
-    this.cdr.detectChanges()
-    this.homeService.getBlogComment(this.blogId).subscribe({
-      next: (res: any) => {
-        this.commentArr = res?.data
-        const lastIndex = this.commentArr.length - 1
-        this.lastElement = this.commentArr[lastIndex]
-        console.log(res)
-      },
-      error: (err: any) => {},
-    })
+      console.log('check function')
+      setTimeout(()=>{
+        this.homeService.getBlogComment(this.blogId).subscribe({
+          next: (res: any) => {
+            this.loaderService.hideLoader()
+            this.commentArr = res?.data;
+            const lastIndex = this.commentArr.length - 1;
+            this.lastElement = this.commentArr[lastIndex];
+            console.log(res, 'getComments API response');
+          },
+          error: (err: any) => {
+            console.error('Error fetching comments:', err);
+          },
+        });
+      },2000)
+    
+    // this.homeService.getBlogComment(this.blogId).subscribe({
+    //   next: (res: any) => {
+    //     this.commentArr = res?.data
+    //     const lastIndex = this.commentArr.length - 1
+    //     this.lastElement = this.commentArr[lastIndex]
+    //     console.log(res,'  this.cdr.detectChanges()')
+    //   },
+    //   error: (err: any) => {},
+    // })
   }
+
+
 
   public goSignup() {
     this.router.navigate(['/register'])

@@ -20,6 +20,7 @@ export class AuthenticationService {
   public OnLogOut = new BehaviorSubject<boolean>(false)
   public BlogID = new BehaviorSubject<any>('')
   public clearLocationValue = new BehaviorSubject<boolean>(false)
+  public responseApi = new BehaviorSubject<boolean>(false)
   /**
    *
    * @param localstorageservice

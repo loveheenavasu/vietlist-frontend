@@ -598,7 +598,13 @@ a:visited {
     }
   }
 
-  @media (min-width: 768px) and (max-width: 1024px) { 
+  @media (min-width: 769px) and (max-width: 1024px) { 
+    .btn-div{
+        margin-top: auto;
+        margin-bottom: 15px;
+        position: absolute;
+        bottom: -4px;
+    }
     .list-layout-wrapper{
         width: 100%;
         margin-left: 0%;

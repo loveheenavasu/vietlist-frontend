@@ -113,11 +113,21 @@
                                             <a rel="external nofollow" class="email_auther_reply"> <span
                                                     class="email_auther_reply"
                                                     (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Reply'}}</span></a>
+                                            &nbsp;
+                                            @if(item?.comment_replies?.length > 0){
+
+                                         
+                                            <a rel="external nofollow" class="email_auther_reply"> <span
+                                                    class="email_auther_reply"
+                                                    (click)="toggleReplyFormShowMore(item?.comment_detail?.comment_ID)">{{'View
+                                                    Replies'}}</span></a> 
+                                                  }
 
                                         </div>
                                     </div>
                                 </div>
                                 @for (items of item.comment_replies; track $index) {
+                                @if(showReplyFormMore && selectedComment == item?.comment_detail?.comment_ID){
                                 <div class="clid_reply">
                                     <div class="comment_section">
                                         <div class="profile_comment">
@@ -182,18 +192,19 @@
                                             <div class="col-12">
                                                 <h5 class="block-head"
                                                     style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
-                                                    Reply to {{item?.comment_detail?.
-                                                    comment_author_email}} &nbsp;<span class="email_auther_reply"
+                                                    Reply to {{item?.comment_detail?.comment_author_email}}
+                                                    &nbsp;<span class="email_auther_reply"
                                                         (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel
                                                         Reply'}}</span></h5>
                                             </div>
                                             <div class="col-12 mt-4">
                                                 <p class="comment-notes" style="font-size: 16px; color: #555555">
-                                                    <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{key?.
-                                                        comment_author}}.</span> <span id="email-notes"
-                                                        *ngIf="!isAuthenticated">Your email address will not be
-                                                        published.</span> <span *ngIf="isAuthenticated"
-                                                        class="email_auther_reply" (click)="editProfile()">Edit your
+                                                    <span id="email-notes" *ngIf="isAuthenticated">Logged in as
+                                                        {{key?.comment_author}}.</span>
+                                                    <span id="email-notes" *ngIf="!isAuthenticated">Your email address
+                                                        will not be published.</span>
+                                                    <span *ngIf="isAuthenticated" class="email_auther_reply"
+                                                        (click)="editProfile()">Edit your
                                                         profile.</span> <span *ngIf="isAuthenticated"
                                                         class="email_auther_reply" (click)="logout()">Log
                                                         out?</span>
@@ -242,7 +253,7 @@
                                             </div> -->
                                             <br />
                                             }
-                                            <div class="col-12 col-lg-5 mb-3">
+                                            <div class="col-12  mb-3">
                                                 <div class="col-12 col-lg-5">
                                                     <textarea placeholder="Write Your comment here...." type="text"
                                                         class="input-control mt-1" style="height: 15em"
@@ -272,10 +283,11 @@
                                         <div class="col-12 mt-4">
                                             <p class="comment-notes" style="font-size: 16px; color: #555555">
                                                 <span id="email-notes" *ngIf="isAuthenticated">Logged in as
-                                                    {{items?.comment_author}}.</span> <span id="email-notes"
-                                                    *ngIf="!isAuthenticated">Your email address will not be
-                                                    published.</span> <span class="email_auther_reply"
-                                                    *ngIf="isAuthenticated" (click)="editProfile()">Edit
+                                                    {{items?.comment_author}}.</span>
+                                                <span id="email-notes" *ngIf="!isAuthenticated">Your email address will
+                                                    not bepublished.</span>
+                                                <span class="email_auther_reply" *ngIf="isAuthenticated"
+                                                    (click)="editProfile()">Edit
                                                     your profile.</span> <span class="email_auther_reply"
                                                     *ngIf="isAuthenticated" (click)="logout()">Log
                                                     out?</span>
@@ -328,7 +340,7 @@
                                         </div>
                                         <br />
 
-                                        <div class="col-12 col-lg-5 mb-3">
+                                        <div class="col-12  mb-3">
                                             <button type="button" class="btn orange-background-btn"
                                                 (click)="postReply()"
                                                 [disabled]="(!isAuthenticated && (!name.value || !email.value )) || !message.value">Post
@@ -336,7 +348,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                }
                                 }
                                 <div class="row"
                                     *ngIf="showReplyForm && selectedComment == item?.comment_detail?.comment_ID">
@@ -351,9 +363,10 @@
                                     <div class="col-12 mt-4">
                                         <p class="comment-notes" style="font-size: 16px; color: #555555">
                                             <span id="email-notes" *ngIf="isAuthenticated">Logged in as
-                                                {{item?.comment_author}}.</span> <span id="email-notes"
-                                                *ngIf="!isAuthenticated">Your email address will not be
-                                                published.</span> <span *ngIf="isAuthenticated" (click)="editProfile()"
+                                                {{item?.comment_author}}.</span>
+                                            <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not
+                                                be published.</span>
+                                            <span *ngIf="isAuthenticated" (click)="editProfile()"
                                                 class="email_auther_reply">Edit
                                                 your profile.</span> <span class="email_auther_reply"
                                                 *ngIf="isAuthenticated" (click)="logout()">Log out?</span>
@@ -493,7 +506,7 @@
                 </div> -->
                 @if(!this.isAuthenticated){
                 <div class="row g-0">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-12">
                         <div class="blog-banner">
                             <swiper-container #blogSwiper class="mySwiper" init="false">
                                 @for (key of addDetail; track $index) {
@@ -512,24 +525,7 @@
                             </swiper-container>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="signup-cnt">
-                            <div class="cta__content">
-                                <h2 class="Get-started">
-                                    Get started
-                                </h2>
-
-                                <div
-                                    class="elementor-cta__description elementor-cta__content-item elementor-content-item">
-                                    Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
-                                </div>
-
-                                <div>
-                                    <button class="btn sign-up-btn" (click)="goSignup()">Sign Up</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
                 } @else {
                 <div class="row g-0">

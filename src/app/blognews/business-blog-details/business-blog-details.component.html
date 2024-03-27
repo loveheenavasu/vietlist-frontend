@@ -18,8 +18,7 @@
     <div class="row my-3">
       <div class="col-12">
         <h5 class="block-head" style="border-bottom: solid 1px #cecece;">
-          {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No
-          Comments') }}
+          {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No Comments') }}
         </h5>
       </div>
 
@@ -36,8 +35,7 @@
 
         <div class="auther_email">
           <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                class="email_auther">{{item?.comment_detail?.
-                comment_author}}</span></a> &nbsp;</b>
+                class="email_auther">{{item?.comment_detail?. comment_author}}</span></a> &nbsp;</b>
           <span class="says">says:</span>
           <br />
           <div class="auther_date">
@@ -49,11 +47,18 @@
           <div class="reply_button">
             <a rel="external nofollow" class="email_auther_reply"> <span class="email_auther_reply"
                 (click)="toggleReplyForm(item?.comment_detail?.comment_ID)">{{'Reply'}}</span></a>
+            &nbsp;
+            @if(item?.comment_replies?.length > 0){
 
+
+            <a rel="external nofollow" class="email_auther_reply"> <span class="email_auther_reply"
+                (click)="toggleReplyFormShowMore(item?.comment_detail?.comment_ID)">{{'View Replies'}}</span></a>
+            }
           </div>
         </div>
       </div>
       @for (items of item.comment_replies; track $index) {
+        @if(showReplyFormMore && selectedComment == item?.comment_detail?.comment_ID){
       <div class="clid_reply">
         <div class="comment_section">
           <div class="profile_comment">
@@ -243,6 +248,7 @@
           </div>
         </div>
       </div>
+    }
 
       }
       <div class="row" *ngIf="showReplyForm && selectedComment == item?.comment_detail?.comment_ID">
@@ -461,7 +467,7 @@
 
   @if(!this.isAuthenticated){
   <div class="row g-0">
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-lg-12">
       <div class="blog-banner">
         <swiper-container #blogSwiper class="mySwiper" init="false">
           @for (key of addDetail; track $index) {
@@ -480,7 +486,7 @@
         </swiper-container>
       </div>
     </div>
-    <div class="col-12 col-lg-6">
+    <!-- <div class="col-12 col-lg-6">
       <div class="signup-cnt">
         <div class="cta__content">
           <h2 class="Get-started">
@@ -496,7 +502,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   } @else {
   <div class="row g-0">
