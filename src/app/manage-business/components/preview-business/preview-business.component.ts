@@ -108,6 +108,10 @@ public overllRating:any
   dataget: any
   gettags: any
 
+  public claimlisting(){
+    this.router.navigateByUrl('/claim-business')
+  }
+
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({

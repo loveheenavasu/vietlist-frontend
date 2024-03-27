@@ -156,7 +156,7 @@
     }
 
     .right-nav {
-        width: 16%;
+        width: 24%;
         display: flex;
         justify-content: end;
         align-items: center;
@@ -494,6 +494,12 @@ li.mat-mdc-menu-trigger.nav-item.active {
     }
 }
 
+// @media (max-width:1024px){
+//     .bell-icon-div{
+//         display: none;
+//     }
+// }
+
 @media(max-width:1500px) {
 
     .container-fluid {
@@ -509,7 +515,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
             }
 
             .right-nav {
-                width: 21%;
+                width: 24%;
                 margin-left: 02.625rem;
             }
 

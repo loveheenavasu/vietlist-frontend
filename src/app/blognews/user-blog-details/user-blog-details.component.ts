@@ -20,10 +20,12 @@ import Swal from 'sweetalert2';
 export class UserBlogDetailsComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
+  public selectedCommentReply: any | null = null;
   public blogId: any
   public userdetails: any
   public userBlogDetails: any
   public showReplyForm: boolean = false;
+  public showReplyFormMore: boolean = false
   public selectedComment: any | null = null;
   public blogIdtwo: any
   public addDetail: any[] = []
@@ -39,6 +41,8 @@ export class UserBlogDetailsComponent {
   public commentArr: any
   public UserId: any
   public isPostComment: boolean = false
+  public userDetailscomment: any
+  public CheckValues :any
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -51,17 +55,27 @@ export class UserBlogDetailsComponent {
   }
   constructor(private IpService: ProfileService, private authentication: AuthenticationService, private cdr: ChangeDetectorRef, private homeService: HomepageService, private _activatedRoute: ActivatedRoute, private elRef: ElementRef, private renderer: Renderer2, private loaderService: FullPageLoaderService, private router: Router) {
     this.isAuthenticated = this.authentication.isAuthenticated()
-    console.log(this.isAuthenticated)
+
 
     let localStorage: any;
+
+
+
     // Check if local Storage is available
     if (typeof window !== 'undefined') {
+
       // Access localStorage only in browser environment
       localStorage = window.localStorage;
     }
 
     if (localStorage) {
       this.UserId = localStorage.getItem('loginInfo')
+      this.userDetailscomment = localStorage.getItem('userDetailscomment');
+      const data = JSON.parse(this.userDetailscomment);
+      this.CheckValues = data?.checkedValue,
+      this.name.setValue(data?.comment_name)
+      this.email.setValue(data?.comment_email)
+      this.website.setValue(data?.comment_website)
 
     }
     this._activatedRoute.params.subscribe((res) => {
@@ -290,6 +304,11 @@ export class UserBlogDetailsComponent {
 
     })
   }
+  public valueChange(detailsUser: any) {
+    this.CheckValues = detailsUser.target.checked
+   
+  }
+
 
   public getUserBlogDetail() {
     this.loaderService.showLoader()
@@ -298,7 +317,7 @@ export class UserBlogDetailsComponent {
         if (res) {
           this.userBlogDetails = res?.data
           this.loaderService.hideLoader()
-        
+
 
         }
       }, error: (err) => {
@@ -325,6 +344,15 @@ export class UserBlogDetailsComponent {
     }
 
   }
+  public toggleReplyFormShowMore(comment: any) {
+    if (this.selectedCommentReply === comment) {
+      this.showReplyFormMore = !this.showReplyFormMore;
+    } else {
+      // If a different comment is clicked, hide any previously shown form and display the new one
+      this.selectedCommentReply = comment;
+      this.showReplyFormMore = true;
+    }
+  }
 
   public goSignup() {
     this.router.navigate(['/register'])
@@ -350,6 +378,16 @@ export class UserBlogDetailsComponent {
     });
   }
   public postCommnet() {
+    if (this.CheckValues) {
+      const userDetailscomment = {
+        checkedValue : this.CheckValues,
+        comment_name: this.name.value,
+        comment_website: this.website.value,
+        comment_email: this.email.value
+      }
+      const userDetailscommentString = JSON.stringify(userDetailscomment);
+      localStorage.setItem('userDetailscomment', userDetailscommentString)
+    }
     this.isPostComment = true
     const userID = JSON.parse(this.UserId)
     const formData: any = new FormData()
@@ -370,9 +408,12 @@ export class UserBlogDetailsComponent {
     const data = !this.isAuthenticated ? formData : formData2
     this.homeService.setBlogComment(data).subscribe({
       next: (res) => {
+        this.authentication.responseApi.next(true)
+        this.getComments()
         this.isPostComment = false
         this.cdr.detectChanges()
-        this.getComments()
+
+
         this.message.setValue('')
         this.website.setValue('')
         this.name.setValue('')
