@@ -28,8 +28,11 @@
         us.</li>
     </ul>
   </div>
+  <div class="col-12">
+    <textarea placeholder="Enter your reason" class="input-control" style="height: 10rem;" [formControl]="delete_reason"></textarea>
+  </div>
   <p class="mt-3">
-    <button class="btn orange-background-btn" style="background-color: #e32424;" (click)="handleDeleteAccount()">
+    <button class="btn orange-background-btn" style="background-color: #e32424;" [disabled]="!delete_reason.value" (click)="handleDeleteAccount()">
       Delete Account
     </button>
   </p>

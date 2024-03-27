@@ -107,7 +107,7 @@
                 [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-            [matMenuTriggerFor]="menublog">
+            [matMenuTriggerFor]="menublog" >
             <span>Blogs/News <i class="fa fa-caret-down" aria-hidden="true"></i>
             </span>
             <mat-menu #menublog="matMenu">
@@ -145,6 +145,7 @@
               <span [routerLink]="['/contact-us']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contact Us</span>
               <!-- <span >Contact Us</span> -->
             </li>
+           
           </ul>
         </div>
 
@@ -204,7 +205,95 @@
               </div>
             </div>
           </div>
-
+          
+            <div class="bell-icon-div">
+              <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+            </div>
+            <mat-menu #notification="matMenu">
+              <div class="notification-list">
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">1 hr ago</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">1 hr ago</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <div class="notification-item">
+                  <ul>
+                    <li class="notification-description">
+                      <b>Mark</b> has viewed your profile.
+                    </li>
+                    <li class="notification-time">Now</li>
+                  </ul>
+                </div>
+                <button class="btn orange-background-btn-w-100" (click)="navigatetoNotifications()">View More</button>
+              </div>
+            </mat-menu>
           <div class="btn-container">
             <div class="login-btn">
               <button data-bs-dismiss="offcanvas" type=" button" class="btn"

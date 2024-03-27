@@ -12,7 +12,7 @@ import {
   RouterModule,
 } from '@angular/router'
 import { NgClass, NgFor, NgIf } from '@angular/common'
-import { MatMenuModule } from '@angular/material/menu'
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
 import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
@@ -270,6 +270,13 @@ export class HeaderComponent {
     this.router.navigateByUrl('/find-business');
   }
 
+  public navigatetoNotifications(){
+    this.router.navigateByUrl('/notifications')
+  }
+
+  public  openMenu(menu: MatMenuTrigger) {
+    menu.openMenu();
+  }
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''

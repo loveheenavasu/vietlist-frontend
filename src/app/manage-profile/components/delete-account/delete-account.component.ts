@@ -1,3 +1,4 @@
+import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
@@ -7,7 +8,7 @@ import { ProfileService } from '../../service/profile.service'
 @Component({
   selector: 'app-delete-account',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule,FormsModule],
   templateUrl: './delete-account.component.html',
   styles: `
     p {
@@ -23,6 +24,7 @@ import { ProfileService } from '../../service/profile.service'
   `,
 })
 export class DeleteAccountComponent {
+  public delete_reason = new FormControl('' ,Validators.required)
   constructor(
     private profileService: ProfileService,
     private router: Router,
@@ -40,7 +42,7 @@ export class DeleteAccountComponent {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.profileService.deleteAccount().subscribe({
+        this.profileService.deleteAccount(this.delete_reason.value).subscribe({
           next: (res: any) => {
             Swal.fire({
               toast: true,

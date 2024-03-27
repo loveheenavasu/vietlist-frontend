@@ -1,4 +1,11 @@
 @import "../../../assets/scss/variables/color";
+@import "../../../assets/scss/common";
+
+.bell-icon-div{
+    margin-left:15px;
+    color:#232F3E;
+    cursor: pointer;
+}
 
 .container-fluid {
 
@@ -271,6 +278,48 @@ li.mat-mdc-menu-trigger.nav-item.active {
     /* Add additional styling as needed */
 }
 
+/* Notification list styling */
+.notification-list {
+    padding: 1em;
+}
+
+.notification-item {
+    margin-bottom: 0.5em;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    padding: 4px;
+
+    ul{
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px 8px;
+
+        li{
+            margin: 0px;
+            padding:0px;
+        }
+    }
+}
+
+.notification-title {
+    margin: 0 0 0.5em;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notification-description {
+    margin: 0 0 1em;
+    color: #666;
+    font-size: 16px;
+}
+
+.notification-time {
+    margin-top: 2px;
+    color: #999;
+    font-size: 14px;
+    font-style: italic;
+}
 @media(min-width:1200px) {
     .sm-navbar {
         .search-container-sm {

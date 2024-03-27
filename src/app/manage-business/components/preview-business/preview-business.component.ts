@@ -115,7 +115,9 @@ public overllRating:any
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
+        if(this.businessFormDetails.event_id){
         this.getEventDetails()
+        }
          console.log( this.businessFormDetails,' this.businessFormDetails this.businessFormDetails')
         const business_hours = this.businessFormDetails?.business_hours
        this.hourFilter =  this.getCleanedBusinessHours(business_hours)
@@ -159,6 +161,7 @@ public overllRating:any
             .replace(/\[|\]/g, '')  // Remove square brackets
             .replace(/,/g, ' ');     // Replace commas with spaces
   }
+
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {

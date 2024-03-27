@@ -56,10 +56,16 @@ export class ProfileService {
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-  public deleteAccount(): Observable<any> {
+  public deleteAccount(delete_reason:any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteAccount)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.delete<any>(endpoint, { headers: authToken })
+    const params = new HttpParams().set('delete_reason' ,  delete_reason)
+    const options = {
+      headers: authToken,
+      params: params
+    };
+  
+    return this.http.delete<any>(endpoint, options)
   }
 
   public allowNotificationSetting(notification: any): Observable<any> {

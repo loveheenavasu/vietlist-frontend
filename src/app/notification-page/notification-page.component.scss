@@ -1,0 +1,99 @@
+@import "../../assets/scss/common";
+.container {
+    margin: 8em auto;
+    // height: 80vh;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    width: 70%;
+    max-width: 100%;
+   
+}
+
+.header {
+    padding:12px 15px;
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 40px; 
+    justify-content: center;
+    align-self: center;
+    border-bottom: solid 1px rgb(222, 222, 222);
+}
+
+
+
+
+.notification-heading{
+    color:rgb(31, 31, 31);
+    font-size:24px;
+    font-weight:600;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased; /* For Chrome, Safari, and newer versions of Opera */
+    -moz-osx-font-smoothing: grayscale; /* For Firefox */
+    font-smooth: always; 
+}
+.mark-as-read{
+    color:rgb(123, 123, 123);
+    font-size:16px;
+    font-weight:500;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased; /* For Chrome, Safari, and newer versions of Opera */
+    -moz-osx-font-smoothing: grayscale; /* For Firefox */
+    font-smooth: always; 
+}
+.mdc-switch:enabled .mdc-switch__track::after {
+    background: #545353;
+}
+
+::ng-deep.mdc-switch-selected-handle-color{
+    background-color: var(--primary-color-orange) !important;
+}
+
+::ng-deep.mdc-switch:enabled .mdc-switch__track::after {
+    background: var(--primary-color-orange) !important;
+}
+::ng-deep.mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
+    background: var(--primary-color-orange) !important;
+}
+
+/* Notification list styling */
+.notification-list {
+    padding: 1em;
+}
+
+.notification-item {
+    margin-bottom: 1.5em;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+
+    ul{
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px 8px;
+
+        li{
+            margin: 0px;
+            padding:0px;
+        }
+    }
+}
+
+.notification-title {
+    margin: 0 0 0.5em;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notification-description {
+    margin: 0 0 1em;
+    color: #666;
+    font-size: 16px;
+}
+
+.notification-time {
+    margin-top: 2px;
+    color: #999;
+    font-size: 14px;
+    font-style: italic;
+}

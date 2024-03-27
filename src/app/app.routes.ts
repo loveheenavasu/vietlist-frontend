@@ -42,6 +42,8 @@ import { BusinessCategories, BusinessListingComponent } from './categories'
 import { UserblogComponent } from './blognews/userblog/userblog.component'
 import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.component'
 import { UserBlogDetailsComponent } from './blognews/user-blog-details/user-blog-details.component'
+import { NotificationPageComponent } from './notification-page/notification-page.component';
+import { ClaimListingComponent } from './claim-listing/claim-listing.component';
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -230,6 +232,14 @@ export default [
   {
     path:'thank-you',
     loadComponent:()=>ThankYouPageComponent
+  },
+  {
+    path:'notifications',
+    loadComponent:()=>NotificationPageComponent
+  },
+  {
+    path:'claim-business',
+    loadComponent:()=>ClaimListingComponent
   },
   {
     path: '**',

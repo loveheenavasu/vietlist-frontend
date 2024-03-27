@@ -1,0 +1,84 @@
+<div class="container-fluid g-0">
+  <section class="banner top-banner">
+    <div class="content">
+      <h1>Claim Business</h1>
+    </div>
+  </section>
+
+  <form>
+    <div class="container">
+      <div class="form-cnt">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="text-center form-heading">Claim Business</h1>
+          </div>
+        </div>
+        <div class="col-12 mt-4">
+          <div class="form-group">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Listing Title"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <input class="input-control" type="text" placeholder="Full name" />
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group">
+            <input class="input-control" type="email" placeholder="Email" />
+          </div>
+        </div>
+
+        <ngx-intl-tel-input
+          [cssClass]="'input-control'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [selectFirstCountry]="false"
+          [selectedCountryISO]="CountryISO.India"
+          [phoneValidation]="true"
+          [separateDialCode]="true"
+          [numberFormat]="PhoneNumberFormat.National"
+          name="phone"
+        >
+        </ngx-intl-tel-input>
+
+        <div class="col-12 mt-3">
+          <div class="form-group">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Position in Business"
+            />
+          </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+              <mat-select
+                class="vietlist-select"
+                placeholder="GD Claim Package"
+              >
+                <mat-option value="Free Business: number of publish days are unlimited (Free)">Free Business: number of publish days are unlimited (Free)</mat-option>
+                <mat-option value="Paid">Paid</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        <div class="col-12">
+          <button class="btn orange-background-btn-w-100" type="submit">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

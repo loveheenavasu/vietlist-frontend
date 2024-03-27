@@ -312,7 +312,7 @@
             aria-hidden="true"></i></span> Photos </li>
       <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'"><span> <i class="fa fa-globe"
             aria-hidden="true"></i> </span> Map </li>
-            <li *ngIf="businessFormDetails?.event_id !== null" (click)="scrollTo('mapView')" [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-calendar-o"
+            <li *ngIf="businessFormDetails?.event_id !== ''" (click)="scrollTo('mapView')" [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-calendar-o"
               aria-hidden="true"></i> </span> Events </li>
       <!-- <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'" ><span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews </li> -->
     </ul>
@@ -633,6 +633,7 @@
         </div>
       </div>
     </div>
+    @if(this.businessFormDetails?.event_id){
     <div class="row my-4" id="eventView">
       <h3 class="event-page-heading"><span> <i class="fa fa-home"
         aria-hidden="true"></i> </span> &nbsp;Event</h3>
@@ -648,6 +649,7 @@
           </div>
         </div>
     </div>
+  }
     <div class="row  my-4" id="mapView">
       <div class="col-12">
         <h3 class="event-page-heading"><span> <i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i></span> &nbsp;Map</h3>
