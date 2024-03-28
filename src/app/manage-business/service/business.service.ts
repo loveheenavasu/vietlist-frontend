@@ -53,9 +53,9 @@ export class BusinessService {
 
   public getBusiness(post_id: string): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinesssGet)
-    const authToken = this.authService.getAuthHeaders()
+    // const authToken = this.authService.getAuthHeaders()
     const params = new HttpParams().set('post_id', post_id)
-    return this.http.get<any>(endpoint, { headers: authToken, params: params })
+    return this.http.get<any>(endpoint, { params: params })
   }
 
   public uploadMedia(image: any) {
