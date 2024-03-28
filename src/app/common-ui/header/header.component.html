@@ -211,93 +211,33 @@
             </div>
           </div>
 
-          <div class="bell-icon-div ">
+          <div class="bell-icon-div">
             <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+            <div class="badge"></div>
           </div>
           <mat-menu #notification="matMenu">
+           
             <div class="notification-list">
+              @for(key of notificationsArr ; track $index){
               <div class="notification-item">
                 <ul>
                   <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
+                    <b>{{key?.message}}</b>
                   </li>
-                  <li class="notification-time">1 hr ago</li>
+                  <!-- <li class="notification-time">1 hr ago</li> -->
                 </ul>
               </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">1 hr ago</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <div class="notification-item">
-                <ul>
-                  <li class="notification-description">
-                    <b>Mark</b> has viewed your profile.
-                  </li>
-                  <li class="notification-time">Now</li>
-                </ul>
-              </div>
-              <button class="btn orange-background-btn-w-100" (click)="navigatetoNotifications()">View More</button>
+            }
+            @if(notificationsArr.length > 10){
+              <button class="btn" style="background-color: orange;color:#fff;border-radius:2px;width:100%;" (click)="navigatetoNotifications()">View More</button>
+              }
+              @if(!notificationsArr.length){
+                <p style="font-size: 15px;text-align: center;">  You don't have any notifications!</p>
+              }
             </div>
+
+         
+         
           </mat-menu>
           <div class="btn-container">
             <div class="login-btn">

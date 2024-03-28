@@ -80,7 +80,15 @@
 
     .blog-banner {
         height: 0px !important;
-        margin-bottom: 25rem;
+        margin-bottom: 16.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .blog-banner {
+        height: 0px !important;
+        margin-bottom: 23.5rem;
     }
 }
 
@@ -88,7 +96,7 @@
 
     .blog-banner {
         height: 0px !important;
-        margin-bottom: 18rem;
+        margin-bottom: 23rem;
 
         .banner-img {
             .banner-text {
@@ -122,5 +130,13 @@
                 inset: 0;
             }
         }
+    }
+}
+
+@media screen and (max-width: 430px) {
+
+    .blog-banner {
+        height: 0px !important;
+        margin-bottom: 22.5rem;
     }
 }

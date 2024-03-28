@@ -6,6 +6,15 @@
     color: #232F3E;
     cursor: pointer;
     font-size: 18px;
+    position: relative;
+}
+
+.badge{
+    position: absolute;
+    background-color: rgba(255, 69, 69, 0.972);
+    width:35px;
+    height: 35px;
+    border-radius:50%;
 }
 
 .container-fluid {
@@ -315,7 +324,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
 .notification-description {
     margin: 0 0 1em;
     color: #666;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .notification-time {
