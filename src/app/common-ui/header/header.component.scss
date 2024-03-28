@@ -1,10 +1,11 @@
 @import "../../../assets/scss/variables/color";
 @import "../../../assets/scss/common";
 
-.bell-icon-div{
-    margin-left:15px;
-    color:#232F3E;
+.bell-icon-div {
+    margin-left: 15px;
+    color: #232F3E;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .container-fluid {
@@ -161,6 +162,7 @@
         justify-content: end;
         align-items: center;
         margin-left: 2.625rem;
+        gap: 10px;
     }
 
     .search-box {
@@ -281,6 +283,8 @@ li.mat-mdc-menu-trigger.nav-item.active {
 /* Notification list styling */
 .notification-list {
     padding: 1em;
+    height:25em;
+    overflow:auto
 }
 
 .notification-item {
@@ -289,14 +293,14 @@ li.mat-mdc-menu-trigger.nav-item.active {
     background-color: #f7f7f7;
     padding: 4px;
 
-    ul{
+    ul {
         list-style-type: none;
         margin: 0px;
         padding: 0px 8px;
 
-        li{
+        li {
             margin: 0px;
-            padding:0px;
+            padding: 0px;
         }
     }
 }
@@ -320,6 +324,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     font-size: 14px;
     font-style: italic;
 }
+
 @media(min-width:1200px) {
     .sm-navbar {
         .search-container-sm {
@@ -415,6 +420,9 @@ li.mat-mdc-menu-trigger.nav-item.active {
                     display: none;
                 }
 
+                .bell-icon-div {
+                    display: none;
+                }
 
             }
 
@@ -508,14 +516,14 @@ li.mat-mdc-menu-trigger.nav-item.active {
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 62%;
-                    margin-right: 3.188rem;
+                    width: 65%;
+                    margin-right: 0.188rem;
                 }
 
             }
 
             .right-nav {
-                width: 24%;
+                width: 25%;
                 margin-left: 02.625rem;
             }
 
@@ -578,7 +586,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
         }
 
         .right-nav {
-            width: 35% !important;
+            width: 48% !important;
         }
     }
 }

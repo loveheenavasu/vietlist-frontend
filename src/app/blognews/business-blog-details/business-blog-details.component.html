@@ -127,7 +127,7 @@
                   comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not
                   be published</span> <span *ngIf="isAuthenticated" (click)="editProfile()"
                   class="email_auther_reply">Edit your profile.</span> <span *ngIf="isAuthenticated" (click)="logout()"
-                  class="email_auther_reply">Log out?</span>
+                  class="email_auther_reply">&nbsp;Log out?</span>
                 <span class="required-field-message">&nbsp; Required fields are marked <span
                     class="asterik">*</span></span>
               </p>
@@ -264,7 +264,7 @@
             <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{item?.comment_detail?.
               comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not be
               published</span><span *ngIf="isAuthenticated" (click)="editProfile()" class="email_auther_reply">Edit your
-              profile.</span> <span *ngIf="isAuthenticated" (click)="logout()" class="email_auther_reply">Log
+              profile.</span> <span *ngIf="isAuthenticated" (click)="logout()" class="email_auther_reply">&nbsp;Log
               out?</span>
             <span class="required-field-message">&nbsp;Required fields are marked <span class="asterik">*</span></span>
           </p>
