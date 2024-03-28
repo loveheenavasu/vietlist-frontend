@@ -193,7 +193,7 @@
             <p class="comment-notes" style="font-size: 16px; color: #555555">
               <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{items?.
                 comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not be
-                published</span> <span *ngIf="isAuthenticated" class="email_auther_reply" (click)="editProfile()">Edit
+                published</span> <span *ngIf="isAuthenticated" class="email_auther_reply mx-1" (click)="editProfile()">Edit
                 your profile.</span> <span *ngIf="isAuthenticated" class="email_auther_reply" (click)="logout()">Log
                 out?</span>
               <span class="required-field-message">&nbsp; Required fields are marked <span
@@ -235,10 +235,10 @@
           <br />
           }
           <div class="col-12 col-lg-5 mb-3">
-            <div class="col-12 col-lg-5">
+            <!-- <div class="col-12 col-lg-5"> -->
               <textarea placeholder="Write Your comment here...." type="text" class="input-control mt-1"
                 style="height: 15em" [formControl]="message"></textarea>
-            </div>
+            <!-- </div> -->
           </div>
           <br />
 
@@ -262,9 +262,9 @@
         <div class="col-12 mt-4">
           <p class="comment-notes" style="font-size: 16px; color: #555555">
             <span id="email-notes" *ngIf="isAuthenticated">Logged in as {{item?.comment_detail?.
-              comment_author}}.</span> <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not be
-              published</span><span *ngIf="isAuthenticated" (click)="editProfile()" class="email_auther_reply">Edit your
-              profile.</span> <span *ngIf="isAuthenticated" (click)="logout()" class="email_auther_reply">&nbsp;Log
+              comment_author}}.</span> <span id="email-notes mx-1" *ngIf="!isAuthenticated">Your email address will not be
+              published</span><span *ngIf="isAuthenticated" (click)="editProfile()" class="email_auther_reply mx-1">Edit your
+              profile.</span> <span *ngIf="isAuthenticated" (click)="logout()" class="email_auther_reply mx-1">Log
               out?</span>
             <span class="required-field-message">&nbsp;Required fields are marked <span class="asterik">*</span></span>
           </p>
