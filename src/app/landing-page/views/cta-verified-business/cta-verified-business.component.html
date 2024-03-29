@@ -7,7 +7,7 @@
       <p>{{ homePageData?.verified_business?.description }}</p>
     </div>
     <div class="verified-business-btn">
-      <button class="btn orange-background-btn">
+      <button class="btn orange-background-btn" (click)="handleVerfiedBusiness(true)">
         {{ homePageData?.verified_business?.verified_business }}
       </button>
     </div>
@@ -16,14 +16,25 @@
     <div class="image-container">
       <!-- <div class="d-flex"> -->
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
-        @for (item of verifiedImage; track $index) {
+        @for (item of verfiedBusiness; track $index) {
         <swiper-slide>
-          <div class="image">
-            <img [src]="item.image" alt="verfied-image" />
+          <div class="image" (click)="gotToListing(item.post_id, true)">
+            @if (item.image?.length > 0) {
+            <img [src]="item.image[0]" alt="verfied-image" />
+            } @else {
+            <img src="/assets/image/no-image.webp" alt="verfied-logo" />
+            }
+
             <div class="verified-logo">
-              <img [src]="item.verified_logo" alt="verfied-logo" />
+              <img src="/assets/image/cta-verfied-img2.svg" alt="verfied-logo" />
             </div>
+            @if (item.default_category?.name) {
+            <div class="category-name">
+              <span [innerHTML]="item.default_category?.name"></span>
+            </div>
+            }
           </div>
+
         </swiper-slide>
         }
       </swiper-container>

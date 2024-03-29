@@ -195,6 +195,14 @@ swiper-container::part(bullet) {
     color: #aaa;
 }
 
+@media(max-width:768px) {
+    .mySwiper {
+        .image {
+            width: 100% !important;
+        }
+    }
+}
+
 @media (max-width:3480px) {
     .cta-verfied-image {
         .image-container {
@@ -375,10 +383,16 @@ swiper-container::part(container) {
 }
 
 @media (max-width: 768px) {
-  
+
     swiper-slide {
 
         margin-right: 30px !important;
+    }
+
+    .blog-banner {
+        height: 100% !important;
+        margin-bottom: 0px !important;
+        margin-top: 4rem !important;
     }
 }
 

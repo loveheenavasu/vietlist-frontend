@@ -37,4 +37,5 @@ export interface FindEventParams {
   page_no?: any
   post_title?: any
   timezone?: any
+  verified_data?: any
 }

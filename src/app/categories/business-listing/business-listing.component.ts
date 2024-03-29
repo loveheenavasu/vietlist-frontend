@@ -8,7 +8,10 @@ import { NgClass } from '@angular/common'
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { Subscription } from 'rxjs'
-import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
+import { FindBusinessParams, FindEventParams } from 'src/app/manage-business/service/business.interface'
+import { ActivatedRoute, Router } from '@angular/router'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgxPaginationModule } from 'ngx-pagination'
 
 @Component({
   selector: 'app-business-listing',
@@ -21,6 +24,8 @@ import { FindBusinessParams } from 'src/app/manage-business/service/business.int
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    NgbRatingModule,
+    NgxPaginationModule
   ],
   templateUrl: './business-listing.component.html',
   styleUrl: './business-listing.component.scss',
@@ -40,10 +45,23 @@ export class BusinessListingComponent {
   public isLoader: boolean = false
   public post_category: any[] = []
   public category = new FormControl('')
+  public totalCount: number = 0
+  public postPerPage: number = 12
+  public currentPage: number = 1
+  public isSearchingActive: boolean = false
+  public isGlobal: any
+
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
-  ) {}
+    private router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this._activatedRoute.queryParams.subscribe((res) => {
+      this.isGlobal = res['isGlobal']
+      console.log("check global", this.isGlobal)
+    })
+  }
 
   ngOnInit() {
     this.getPublishBusinessData()
@@ -56,11 +74,16 @@ export class BusinessListingComponent {
 
   getPublishBusinessData() {
     this.fullPageLoaderService.showLoader()
-    this.businessCategoriesService.ListingBusiness().subscribe({
+    this.isSearchingActive = false
+    const params: FindEventParams = {
+      posts_per_page: this.postPerPage,
+      page_no: this.currentPage,
+    }
+    this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
-    
+        this.totalCount = res.total_count
       },
     })
   }
@@ -71,7 +94,7 @@ export class BusinessListingComponent {
         this.post_category = res.data
         console.log(this.post_category)
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -104,6 +127,8 @@ export class BusinessListingComponent {
 
   public search() {
     this.isLoader = true
+    this.isSearchingActive = true
+    const postPerPage = this.postPerPage
     const params: FindBusinessParams = {}
     if (this.city) {
       params['city'] = this.city
@@ -123,14 +148,37 @@ export class BusinessListingComponent {
     if (this.category.value) {
       params['post_category'] = this.category.value
     }
+    if (postPerPage) {
+      params['posts_per_page'] = postPerPage
+    }
+    if (this.currentPage) {
+      params['page_no'] = this.currentPage
+    }
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res) => {
         this.isLoader = false
 
         this.businessCategoriesArray = res.data
+        this.totalCount = res.total_count;
       },
-      error: (error) => {},
+      error: (error) => { },
     })
   }
+
+  public gotToListing(id: any, isGlobal: any) {
+    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
+
+  }
+
+  public handlePageChange(event: number) {
+    this.currentPage = event
+    console.log("check the pagination", this.isSearchingActive)
+    if (this.isSearchingActive) {
+      this.search()
+    } else {
+      this.getPublishBusinessData()
+    }
+  }
+
 }
