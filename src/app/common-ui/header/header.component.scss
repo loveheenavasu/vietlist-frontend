@@ -94,7 +94,7 @@
                     }
                 }
 
-                .nav-bar-items {
+                .nav-item {
                     .dot {
                         display: flex;
                         align-items: center;
@@ -110,7 +110,7 @@
                     }
                 }
 
-                .nav-bar-items:hover {
+                .nav-item:hover {
                     color: var(--primary-color-orange);
 
                     .dot {
@@ -276,6 +276,27 @@
             }
         }
     }
+}
+
+
+
+.nav-item {
+    position: relative;
+}
+.nav-item:hover{
+    color:var(--primary-color-orange);
+}
+.nav-item:hover::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+
+    background-color: var(--primary-color-orange);
+    border-radius: 50%;
 }
 
 li.mat-mdc-menu-trigger.nav-item.active {
