@@ -25,8 +25,8 @@ export class BusinessblogsComponent {
   public multipleSpaceId: string[] = []
   public multipleAdId: string[] = []
   public ipAddress: any
-  public totalCount:any
-  
+  public totalCount: any
+
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -34,7 +34,12 @@ export class BusinessblogsComponent {
     autoplay: {
       delay: 6000
     },
-    slidesPreview: 1,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      }
+    },
     on: {
       init() { },
     },
@@ -95,10 +100,10 @@ export class BusinessblogsComponent {
     this.getBusinessBlogsPost()
   }
 
-  public getBusinessBlogsPost(){
-  this.fullPageLoader.showLoader()
+  public getBusinessBlogsPost() {
+    this.fullPageLoader.showLoader()
     this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
-      next:(res:any)=>{
+      next: (res: any) => {
         this.totalCount = res
         if (res && res.data) {
           if (Array.isArray(res.data)) {
@@ -110,7 +115,7 @@ export class BusinessblogsComponent {
         }
         this.fullPageLoader.hideLoader()
       },
-      error: (err:any) => {
+      error: (err: any) => {
         this.fullPageLoader.hideLoader()
       }
     })
@@ -176,7 +181,7 @@ export class BusinessblogsComponent {
 
       }
     })
- 
+
   }
 
   public getUrl(url: string) {

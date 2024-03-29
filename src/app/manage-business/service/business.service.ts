@@ -76,10 +76,16 @@ export class BusinessService {
     return this.http.get<any>(endpoint, { params: queryParams })
   }
 
-  public ListingBusiness(): Observable<any> {
-
+  public ListingBusiness(params: { [key: string]: any }): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness)
-    return this.http.get<any>(endpoint)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+
+    return this.http.get<any>(endpoint, { params: queryParams })
   }
   public GetReviewList(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.getReview)
