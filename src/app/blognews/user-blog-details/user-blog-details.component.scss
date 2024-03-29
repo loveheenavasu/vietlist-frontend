@@ -1,6 +1,7 @@
 @import "../../../assets/scss/common.scss";
 @import "../../../assets/scss/banner";
 
+
 .heading-title {
     color: #232F3E;
     font-size: 24px;
@@ -77,7 +78,7 @@ img {
 }
 
 .container-fluid {
-    padding-bottom: 6rem;
+    padding-bottom: 2rem;
 
     .cta-description {
         width: 55%;
@@ -184,7 +185,7 @@ swiper-slide {
     justify-content: center;
     align-items: center;
     height: 200px;
-    margin-right: 17px !important;
+    // margin-right: 17px !important;
 }
 
 swiper-container::part(bullet-active) {
@@ -219,7 +220,7 @@ swiper-container::part(bullet) {
 
 @media (max-width:768px) {
     swiper-slide {
-        margin-right: 30px !important;
+        // margin-right: 30px !important;
     }
 
     .container-fluid {
@@ -588,14 +589,14 @@ a:visited {
         bottom: 58%;
       }
       .blog-banner {
-        height: 194px!important;
+        height: 232px!important;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
     swiper-slide {
 
-        margin-right: 20px !important;
+        // margin-right: 20px !important;
     }
 
     .list-layout-wrapper {
