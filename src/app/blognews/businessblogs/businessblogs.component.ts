@@ -46,7 +46,12 @@ export class BusinessblogsComponent {
   }
 
   constructor(private businessBlog: HomepageService, private router: Router, private IpService: ProfileService, private cdr: ChangeDetectorRef, private sanitizer: DomSanitizer, private fullPageLoader: FullPageLoaderService) {
-
+    // setTimeout(() => {
+    //   const swiperEl = this.swiperBlog.nativeElement
+    //   Object.assign(swiperEl, this.blogSwiperParams)
+    //   swiperEl.initialize()
+    // })
+    this.getIPAddress()
   }
 
   ngOnInit() {
