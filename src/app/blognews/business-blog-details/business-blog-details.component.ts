@@ -43,7 +43,7 @@ export class BusinessBlogDetailsComponent {
   public selectedComment: any | null = null
   public blogIdtwo: any
   public lastElement: any
-  public CheckValues :any
+  public CheckValues: any
   public userDetailscomment: any
   public selectedCommentReply: any | null = null;
 
@@ -54,9 +54,9 @@ export class BusinessBlogDetailsComponent {
     autoplay: {
       delay: 6000,
     },
-    slidesPreview: 1,
+
     on: {
-      init() {},
+      init() { },
     },
   }
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
@@ -73,9 +73,9 @@ export class BusinessBlogDetailsComponent {
     private authService: AuthenticationService,
     private router: Router,
   ) {
-  
+
     this.isAuthenticated = this.authService.isAuthenticated()
-  
+
     let localStorage: any
 
     // Check if localStorage is available
@@ -90,7 +90,7 @@ export class BusinessBlogDetailsComponent {
       this.userDetailscomment = localStorage.getItem('userDetailscomment');
       const data = JSON.parse(this.userDetailscomment);
       this.CheckValues = data?.checkedValue,
-      this.name.setValue(data?.comment_name)
+        this.name.setValue(data?.comment_name)
       this.email.setValue(data?.comment_email)
       this.website.setValue(data?.comment_website)
     }
@@ -122,70 +122,71 @@ export class BusinessBlogDetailsComponent {
       },
       1388: {
         slidesPerView: 5,
-        spaceBetween: 40,
+        spaceBetween: 15,
       },
       1920: {
         slidesPerView: 5,
+        spaceBetween: 15,
       },
       3840: {
         slidesPerView: 6,
-        spaceBetween: 20,
+        spaceBetween: 15,
       },
     },
     on: {
-      init() {},
+      init() { },
     },
   }
   public verifiedImage: {
     image: string
     verified_logo: string
   }[] = [
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-    {
-      image:
-        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-      verified_logo: '/assets/image/cta-verfied-img2.svg',
-    },
-  ]
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+      {
+        image:
+          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+        verified_logo: '/assets/image/cta-verfied-img2.svg',
+      },
+    ]
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated()
@@ -200,7 +201,7 @@ export class BusinessBlogDetailsComponent {
 
     this.cdr.detectChanges()
     this.showAdBlogPage()
-   
+
   }
 
   public editProfile() {
@@ -317,8 +318,8 @@ export class BusinessBlogDetailsComponent {
       page_url: currentRoute,
     }
     this.homeService.setStats(body).subscribe({
-      next: (res: any) => {},
-      error: (err) => {},
+      next: (res: any) => { },
+      error: (err) => { },
     })
   }
 
@@ -336,19 +337,19 @@ export class BusinessBlogDetailsComponent {
       this.showReplyForm = true
     }
   }
-  public toggleReplyFormShowMore(comment: any){
+  public toggleReplyFormShowMore(comment: any) {
     if (this.selectedCommentReply === comment) {
       this.showReplyFormMore = !this.showReplyFormMore;
-    }else {
+    } else {
       this.selectedCommentReply = comment;
       this.showReplyFormMore = true;
     }
   }
- 
+
   public postCommnet() {
     if (this.CheckValues) {
       const userDetailscomment = {
-        checkedValue : this.CheckValues,
+        checkedValue: this.CheckValues,
         comment_name: this.name.value,
         comment_website: this.website.value,
         comment_email: this.email.value
@@ -380,7 +381,7 @@ export class BusinessBlogDetailsComponent {
         if (res) {
           this.getComments();
         }
-       
+
 
         this.isPostComment = false
 
@@ -431,7 +432,7 @@ export class BusinessBlogDetailsComponent {
         if (res) {
           this.getComments();
         }
-       
+
 
         this.message.setValue('')
         this.website.setValue('')
@@ -448,30 +449,30 @@ export class BusinessBlogDetailsComponent {
           timerProgressBar: true,
         })
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
   public valueChange(detailsUser: any) {
     this.CheckValues = detailsUser.target.checked
-   
+
   }
   public getComments() {
-      console.log('check function')
-      setTimeout(()=>{
-        this.homeService.getBlogComment(this.blogId).subscribe({
-          next: (res: any) => {
-            this.loaderService.hideLoader()
-            this.commentArr = res?.data;
-            const lastIndex = this.commentArr.length - 1;
-            this.lastElement = this.commentArr[lastIndex];
-            console.log(res, 'getComments API response');
-          },
-          error: (err: any) => {
-            console.error('Error fetching comments:', err);
-          },
-        });
-      },2000)
-    
+    console.log('check function')
+    setTimeout(() => {
+      this.homeService.getBlogComment(this.blogId).subscribe({
+        next: (res: any) => {
+          this.loaderService.hideLoader()
+          this.commentArr = res?.data;
+          const lastIndex = this.commentArr.length - 1;
+          this.lastElement = this.commentArr[lastIndex];
+          console.log(res, 'getComments API response');
+        },
+        error: (err: any) => {
+          console.error('Error fetching comments:', err);
+        },
+      });
+    }, 2000)
+
     // this.homeService.getBlogComment(this.blogId).subscribe({
     //   next: (res: any) => {
     //     this.commentArr = res?.data

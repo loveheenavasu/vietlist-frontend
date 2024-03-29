@@ -128,7 +128,8 @@ img {
             .mySwiper {
                 .image {
                     position: relative;
-                    width: 256px;
+                    // width: 256px;
+                    width: 100%;
                     height: 200px;
 
                     .verified-logo {
@@ -577,20 +578,24 @@ a:visited {
             }
         }
     }
+
     swiper-container {
         height: 281px;
         margin: 0px !important;
-      }
-      .swiper-button-prev{
+    }
+
+    .swiper-button-prev {
         position: absolute;
         bottom: 58%;
-      }
-      .swiper-button-next {
+    }
+
+    .swiper-button-next {
         position: absolute;
         bottom: 58%;
-      }
-      .blog-banner {
-        height: 232px!important;
+    }
+
+    .blog-banner {
+        height: 232px !important;
     }
 }
 
