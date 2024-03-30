@@ -220,9 +220,43 @@ swiper-container::part(bullet) {
     }
 }
 
+@media (max-width:319px) {
+    .comment_section {
+        flex-direction: column;
+
+        .profile_comment {
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .verfied-image {
+            width: 100%;
+        }
+    }
+}
+
 @media (max-width:768px) {
     swiper-slide {
         // margin-right: 30px !important;
+    }
+
+    .cta-verfied-image {
+        margin-top: 7rem !important;
+    }
+
+    .content___info {
+        font-size: 12px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .mains_content__ {
+        .blog-content {
+            font-size: 12px !important;
+            line-height: 25px !important;
+        }
     }
 
     .container-fluid {
@@ -506,7 +540,7 @@ a:visited {
 .blog-heading {
     font-size: 22px;
     font-weight: 600;
-
+    text-transform: capitalize;
 }
 
 .banner-text {
@@ -547,9 +581,34 @@ a:visited {
 }
 
 @media (max-width: 768px) {
+
+    .user-blog-detail-cnt {
+        margin-bottom: 30px;
+    }
+
     .main_content__ {
         width: 100%;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        margin-top: 25px;
+
+        .heading-title {
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        .mains_content__ {
+            .blog-content {
+                font-size: 12px !important;
+
+                p {
+                    line-height: 20px !important;
+                }
+            }
+        }
+
+        .mains_content__ {
+            margin-top: 10px;
+        }
 
         .mySwiper {
             .image {
@@ -580,18 +639,18 @@ a:visited {
     }
 
     swiper-container {
-        height: 281px;
+        height: 100%;
         margin: 0px !important;
     }
 
     .swiper-button-prev {
         position: absolute;
-        bottom: 58%;
+        bottom: 45%;
     }
 
     .swiper-button-next {
         position: absolute;
-        bottom: 58%;
+        bottom: 45%;
     }
 
     .blog-banner {
@@ -645,6 +704,7 @@ a:visited {
         }
     }
 }
+
 
 // @media (max-width:540px){
 //     .image__ {

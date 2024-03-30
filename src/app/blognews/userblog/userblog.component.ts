@@ -87,6 +87,8 @@ export class UserblogComponent {
       init() { },
     },
   }
+
+  
   public verifiedImage: {
     image: string
     verified_logo: string

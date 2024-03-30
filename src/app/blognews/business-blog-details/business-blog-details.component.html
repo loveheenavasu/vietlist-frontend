@@ -47,7 +47,8 @@
     </div>
     <div class="col-12 my-2">
       <h1 class="blog-heading">{{ userBlogDetails?.blog_title }}</h1>
-      <p class="description" [innerHtml]="userBlogDetails?.blog_desc"></p>
+      <div class="description" [innerHtml]="userBlogDetails?.blog_desc">
+      </div>
     </div>
   </div>
   <div class="comment__">
@@ -366,7 +367,7 @@
       <div class="col-12 mt-4">
         <p class="comment-notes" style="font-size: 16px; color: #555555">
           <span id="email-notes">Your email address will not be published.</span>
-          <span class="required-field-message">Required fields are marked <span class="asterik">*</span></span>
+          <span class="required-field-message"> Required fields are marked <span class="asterik">*</span></span>
         </p>
       </div>
       @if(!isAuthenticated){
@@ -444,7 +445,7 @@
       <p class="comment-notes" style="font-size: 16px; color: #555555">
         <span id="email-notes">Your email address will not be published.</span>
         <span class="required-field-message"
-          >Required fields are marked <span class="asterik">*</span></span
+          > Required fields are marked <span class="asterik">*</span></span
         >
       </p>
     </div>

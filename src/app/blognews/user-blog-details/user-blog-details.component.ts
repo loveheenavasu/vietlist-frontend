@@ -49,6 +49,19 @@ export class UserBlogDetailsComponent {
       delay: 6000
     },
     slidesPreview: 1,
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1388: {
+        slidesPerView: 5,
+        spaceBetween: 40,
+      },
+      1920: {
+        slidesPerView: 5,
+      }
+    },
     on: {
       init() { },
     },

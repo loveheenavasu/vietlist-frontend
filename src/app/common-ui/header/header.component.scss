@@ -9,12 +9,12 @@
     position: relative;
 }
 
-.badge{
+.badge {
     position: absolute;
     background-color: rgba(255, 69, 69, 0.972);
-    width:35px;
+    width: 35px;
     height: 35px;
-    border-radius:50%;
+    border-radius: 50%;
 }
 
 .container-fluid {
@@ -283,9 +283,11 @@
 .nav-item {
     position: relative;
 }
-.nav-item:hover{
-    color:var(--primary-color-orange);
+
+.nav-item:hover {
+    color: var(--primary-color-orange);
 }
+
 .nav-item:hover::after {
     content: "";
     position: absolute;
@@ -313,8 +315,8 @@ li.mat-mdc-menu-trigger.nav-item.active {
 /* Notification list styling */
 .notification-list {
     padding: 1em;
-    height:25em;
-    overflow:auto
+    height: 25em;
+    overflow: auto
 }
 
 .notification-item {
@@ -362,6 +364,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
         }
     }
 }
+
 @media(max-width:540px) {
     .container-fluid {
         padding: 0px 20px !important;
@@ -382,8 +385,9 @@ li.mat-mdc-menu-trigger.nav-item.active {
 
     }
 
-  
+
 }
+
 @media(max-width:500px) {
     .container-fluid {
         padding: 0px 20px !important;
@@ -438,10 +442,34 @@ li.mat-mdc-menu-trigger.nav-item.active {
 
     ::ng-deep.navbar-toggler {
         padding: 13px 0px 13px 13px;
+        width: 40px;
     }
 }
 
-@media(max-width:1200px) {
+@media (max-width:768px) {
+
+    .container-fluid {
+        .search-container-sm {
+            width: 50% !important;
+            justify-content: space-around !important;
+        }
+    }
+
+    .nav-item:hover::after {
+        display: none;
+    }
+}
+
+@media (min-width:769px) and (max-width:1200px) {
+    .container-fluid {
+        .search-container-sm {
+            width: 30% !important;
+            justify-content: space-around !important;
+        }
+    }
+}
+
+@media (max-width:1200px) {
     .container-fluid {
         .offcanvas {
             .offcanvas-body {
@@ -498,10 +526,10 @@ li.mat-mdc-menu-trigger.nav-item.active {
             }
         }
 
-        .search-container-sm {
-            width: 30% !important;
-            justify-content: space-around !important;
-        }
+        // .search-container-sm {
+        //     width: 30% !important;
+        //     justify-content: space-around !important;
+        // }
 
         .country-wrapper {
             padding: 10px !important;

@@ -48,7 +48,7 @@
 .blog-heading {
     font-size: 22px;
     font-weight: 600;
-
+    text-transform: capitalize;
 }
 
 
@@ -199,11 +199,53 @@ swiper-container::part(bullet) {
     color: #aaa;
 }
 
+@media (max-width:319px) {
+    .comment_section {
+        flex-direction: column;
+
+        .profile_comment {
+            width: 100%;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .verfied-image {
+            width: 100%;
+        }
+    }
+}
+
 @media(max-width:768px) {
     .mySwiper {
         .image {
             width: 100% !important;
         }
+    }
+
+    .blog-heading {
+        font-size: 18px !important;
+    }
+
+    .description {
+        font-size: 12px !important;
+
+        p {
+            font-size: 12px !important;
+            width: 70%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .my-3 {
+        margin-top: 0px !important;
+    }
+
+    .block-head {
+        margin-top: 0px !important;
     }
 }
 
@@ -388,6 +430,13 @@ swiper-container::part(container) {
 }
 
 @media (max-width: 768px) {
+    .user-blog-detail-cnt {
+        margin-top: 30px;
+    }
+
+    .swiper-wrapper {
+        margin-top: 9.5rem;
+    }
 
     .mySwiper {
         .image {
@@ -453,5 +502,17 @@ swiper-container::part(container) {
             }
 
         }
+    }
+}
+
+@media (min-width:600px) and (max-width:767px) {
+    .user-blog-detail-cnt {
+        max-width: 92%;
+    }
+}
+
+@media (min-width:768px) and (max-width:1199px) {
+    .container {
+        max-width: 92%;
     }
 }

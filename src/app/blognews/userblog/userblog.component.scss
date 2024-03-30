@@ -125,7 +125,7 @@ swiper-slide {
     justify-content: center;
     align-items: center;
     height: 200px;
-    margin-right: 17px !important;
+    // margin-right: 17px !important;
 }
 
 swiper-container::part(bullet-active) {
@@ -423,9 +423,12 @@ a:visited {
 
 
 @media (max-width: 768px) {
-    swiper-slide {
+    // swiper-slide {
 
-        margin-right: 30px !important;
+    //     margin-right: 20px !important;
+    // }
+    .banner {
+        height: 425px;
     }
 
     .list-layout-wrapper {
@@ -433,7 +436,7 @@ a:visited {
         border: solid 1px #ebeaea;
         width: 100%;
         background: none;
-        height: auto;
+        height: 43rem;
         cursor: pointer;
         position: relative;
     }
@@ -446,13 +449,13 @@ a:visited {
         margin-top: 0rem;
         text-align: left;
         // height:2.5em;
-        height: 5.5rem;
+        height: 3.5rem;
         // letter-spacing: 1px;
         text-align: justify;
         cursor: pointer;
         display: -webkit-box;
         width: 100%;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -605,7 +608,7 @@ a:visited {
     .mySwiper {
         .image {
             position: relative;
-            width: 500px !important;
+            width: 100% !important;
             height: 200px;
             overflow: hidden;
 
@@ -637,18 +640,22 @@ a:visited {
     }
 
     swiper-container {
-        height: 281px;
+        height: 100%;
         margin: 0px !important;
     }
 
     .swiper-button-prev {
         position: absolute;
-        bottom: 58%;
+        bottom: 45%;
     }
 
     .swiper-button-next {
         position: absolute;
-        bottom: 58%;
+        bottom: 45%;
+    }
+
+    .large_screen {
+        margin-top: 20px;
     }
 }
 
@@ -707,6 +714,27 @@ a:visited {
     }
 }
 
+@media (min-width: 1500px) {
+    .list-layout-wrapper {
+        height: 33rem;
+    }
+}
+
+@media (min-width:768px) and (max-width:1199px) {
+    .container {
+        max-width: 92%;
+    }
+}
+
+@media (min-width:600px) and (max-width:767px) {
+    .container {
+        max-width: 92%;
+
+        .onlarge_screen {
+            width: 50%;
+        }
+    }
+}
 
 //    @media(max-width:1024px){
 //     .list-layout-wrapper {
