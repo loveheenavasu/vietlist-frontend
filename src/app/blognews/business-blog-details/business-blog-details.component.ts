@@ -204,6 +204,13 @@ export class BusinessBlogDetailsComponent {
 
   }
 
+  viewuserdetails(details: any) {
+    this.router.navigate(['/user-blog-details/', details?.blog_id])
+    this.authService.BlogID.next(details?.blog_id)
+    this.getUserBlog()
+    this.getUserBlogDetail()
+  }
+
   public editProfile() {
     this.router.navigateByUrl('/manage-profile')
   }
