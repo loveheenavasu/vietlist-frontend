@@ -204,6 +204,8 @@ export class BusinessBlogDetailsComponent {
 
   }
 
+
+
   public editProfile() {
     this.router.navigateByUrl('/manage-profile')
   }
@@ -229,6 +231,15 @@ export class BusinessBlogDetailsComponent {
         }
       },
     })
+  }
+
+  public viewuserdetails(details: any) {
+    this.blogId = details.blog_id
+    this.router.navigate(['/business-blog-details/', this.blogId])
+    this.authService.BlogID.next(details?.blog_id)
+    this.getUserBlog()
+    this.getUserBlogDetail()
+    this.cdr.detectChanges()
   }
 
   public getUserBlogDetail() {
@@ -260,6 +271,8 @@ export class BusinessBlogDetailsComponent {
       },
     })
   }
+
+
 
   public myBrowser() {
     if (
