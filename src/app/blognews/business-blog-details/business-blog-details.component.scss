@@ -21,9 +21,16 @@
     }
 }
 
+.content___info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 .description {
-    font-size: 16px;
-    color: #7a7a7a
+    font-size: 14px;
+    color: #000
 }
 
 .signup-cnt {
@@ -83,6 +90,7 @@ h5.block-head {
                 width: 256px;
                 height: 200px;
                 overflow: hidden;
+                cursor: pointer;
 
                 .verified-logo {
                     position: absolute;
@@ -226,6 +234,12 @@ swiper-container::part(bullet) {
 
     .blog-heading {
         font-size: 18px !important;
+    }
+
+    .content___info {
+        font-size: 12px !important;
+        margin-bottom: 10px !important;
+        margin-top: 10px !important;
     }
 
     .description {

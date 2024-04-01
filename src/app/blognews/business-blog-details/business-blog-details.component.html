@@ -47,6 +47,22 @@
     </div>
     <div class="col-12 my-2">
       <h1 class="blog-heading">{{ userBlogDetails?.blog_title }}</h1>
+      <div class="content___info">
+        <div class="blog___">
+          <i class="far fa-user-circle"></i> &nbsp;<span>BlogBlitz &nbsp;</span>
+        </div>
+        &nbsp;
+        <div class="blog___">
+          <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{userBlogDetails?.post_date ?
+            userBlogDetails?.post_date:'No Date'}} &nbsp;</span>
+        </div>
+        &nbsp;
+        <div class="blog___">
+          <i class="far fa-comment-dots"></i> &nbsp;<span style="cursor:pointer" (click)="scrollTo('commentsLength')">{{
+            commentArr?.length? commentArr.length + ' '+
+            'Comments':'No Comments'}}</span>
+        </div>
+      </div>
       <div class="description" [innerHtml]="userBlogDetails?.blog_desc">
       </div>
     </div>
@@ -62,7 +78,7 @@
 
     </div>
     @for (item of commentArr; track $index) {
-    <div class="add_div"
+    <div class="add_div" id="commentsLength"
       [ngClass]="{'border-bottomHide': lastElement?.comment_detail?.comment_ID == item?.comment_detail?.comment_ID}">
       <div class="comment_section">
         <div class="profile_comment">

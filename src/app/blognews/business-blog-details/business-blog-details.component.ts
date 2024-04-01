@@ -489,4 +489,11 @@ export class BusinessBlogDetailsComponent {
   public goSignup() {
     this.router.navigate(['/register'])
   }
+
+  public scrollTo(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }

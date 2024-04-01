@@ -17,7 +17,7 @@ export class UserblogComponent {
   publicIpAddr!: string;
   public userdetails: any = []
   public categoery: any
-  public totalCount:any
+  public totalCount: any
 
   /**
    * 
@@ -44,7 +44,7 @@ export class UserblogComponent {
   getUserBlog() {
     this.loaderService.showLoader()
     this.homeService.userBlogs('12', this.count).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.totalCount = res
         if (res && res.data) {
           if (Array.isArray(res.data)) {
@@ -54,7 +54,7 @@ export class UserblogComponent {
           }
           this.loaderService.hideLoader();
         }
-      }, error: (err:any) => {
+      }, error: (err: any) => {
         this.loaderService.hideLoader()
       }
 
@@ -77,7 +77,7 @@ export class UserblogComponent {
       },
       1388: {
         slidesPerView: 5,
-        spaceBetween: 40,
+        spaceBetween: 15,
       },
       1920: {
         slidesPerView: 5,
@@ -88,7 +88,7 @@ export class UserblogComponent {
     },
   }
 
-  
+
   public verifiedImage: {
     image: string
     verified_logo: string
