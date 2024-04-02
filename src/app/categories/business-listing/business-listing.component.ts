@@ -64,7 +64,11 @@ export class BusinessListingComponent {
   }
 
   ngOnInit() {
-    this.getPublishBusinessData()
+    if (this.isGlobal) {
+      this.getVerfiedBusiness()
+    } else {
+      this.getPublishBusinessData()
+    }
     this.getBusinessCat()
   }
 
@@ -78,6 +82,23 @@ export class BusinessListingComponent {
     const params: FindEventParams = {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
+    }
+    this.businessCategoriesService.ListingBusiness(params).subscribe({
+      next: (res: any) => {
+        this.fullPageLoaderService.hideLoader()
+        this.businessCategoriesArray = res.data
+        this.totalCount = res.total_count
+      },
+    })
+  }
+
+  public getVerfiedBusiness() {
+    this.fullPageLoaderService.showLoader()
+    this.isSearchingActive = false
+    const params: FindEventParams = {
+      posts_per_page: this.postPerPage,
+      page_no: this.currentPage,
+      verified_data: '1'
     }
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {

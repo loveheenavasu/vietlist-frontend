@@ -189,8 +189,8 @@ export default [
     loadComponent: () => BusinessblogsComponent,
   },
   {
-    path:'business-blog-details/:id',
-    loadComponent:() => BusinessBlogDetailsComponent
+    path: 'business-blog-details/:id',
+    loadComponent: () => BusinessBlogDetailsComponent
   },
   {
     path: 'business-listing',
@@ -227,24 +227,24 @@ export default [
     loadComponent: () => EventDetailsComponent,
   },
   {
-    path:'contact-us',
-    loadComponent:()=>ContactUsComponent
+    path: 'contact-us',
+    loadComponent: () => ContactUsComponent
   },
   {
-    path:'thank-you',
-    loadComponent:()=>ThankYouPageComponent
+    path: 'thank-you',
+    loadComponent: () => ThankYouPageComponent
   },
   {
-    path:'notifications',
-    loadComponent:()=>NotificationPageComponent
+    path: 'notifications',
+    loadComponent: () => NotificationPageComponent
   },
   {
-    path:'claim-business',
-    loadComponent:()=>ClaimListingComponent
+    path: 'claim-business/:id',
+    loadComponent: () => ClaimListingComponent
   },
   {
-    path:'faq',
-    loadComponent:()=>FaqComponent
+    path: 'faq',
+    loadComponent: () => FaqComponent
   },
   {
     path: '**',

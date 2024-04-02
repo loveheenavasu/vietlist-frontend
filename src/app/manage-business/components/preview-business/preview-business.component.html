@@ -6,32 +6,43 @@
       </span>
     </div>
 
- 
+
   </div>
+  @if (businessFormDetails?.business_ownerassociate == '1') {
   <div class="iconDirection__">
     <button class="cliam__" (click)="claimlisting()">Claim Listing</button>
-    </div>
+  </div>
+  }
   <div class="iconDirection">
     <span class="elementor-grid-item" style="background: #3b5998;">
-      <a href="{{businessFormDetails?.facebook}}" style="padding: 3px;"class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
-       <i class="fa-brands fa-facebook-f size_icon"  style="font-size:18px;color:#fff"></i></a>
+      <a href="{{businessFormDetails?.facebook}}" style="padding: 3px;"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank">
+        <i class="fa-brands fa-facebook-f size_icon" style="font-size:18px;color:#fff"></i></a>
     </span>
     <span class="elementor-grid-item" style="background: #1DA1F2;">
-      <a href="{{businessFormDetails?.twitter}}" class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
+      <a href="{{businessFormDetails?.twitter}}"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank">
         <i class="fa-brands fa-twitter size_icon" style="font-size:18px;color:#fff"></i></a>
     </span>
     <span class="elementor-grid-item size_icon" style="background: #818a91;">
-      <a href="{{businessFormDetails?.website}}" class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
+      <a href="{{businessFormDetails?.website}}"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank">
         <i class="fa fa-link" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
     </span>
-    <span class="elementor-grid-item" >
-      <a  href="https://mail.google.com" class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f" target="_blank">
-       
+    <span class="elementor-grid-item">
+      <a href="https://mail.google.com"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank">
+
         <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
     </span>
     <span class="elementor-grid-item" style="background: #0073A4;">
-      <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c" href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
-        
+      <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+        href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
+
         <i class="fas fa-directions size_icon" style="font-size:18px; color:#fff"></i></a>
     </span>
   </div>
@@ -315,8 +326,9 @@
             aria-hidden="true"></i></span> Photos </li>
       <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'"><span> <i class="fa fa-globe"
             aria-hidden="true"></i> </span> Map </li>
-            <li *ngIf="businessFormDetails?.event_id !== ''" (click)="scrollTo('mapView')" [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-calendar-o"
-              aria-hidden="true"></i> </span> Events </li>
+      <li *ngIf="businessFormDetails?.event_id !== ''" (click)="scrollTo('mapView')"
+        [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-calendar-o" aria-hidden="true"></i> </span>
+        Events </li>
       <!-- <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'" ><span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews </li> -->
     </ul>
   </div>
@@ -375,8 +387,8 @@
       <div class="col-12 col-md-12 col-lg-8" id="profile">
 
         <div class="row mt-3">
-         <h3 class="event-page-heading"><span> <i class="fa fa-home"
-          aria-hidden="true"></i> </span> &nbsp;Business Details</h3>
+          <h3 class="event-page-heading"><span> <i class="fa fa-home" aria-hidden="true"></i> </span> &nbsp;Business
+            Details</h3>
           <hr>
           <table class="table table-responsive table-borderless">
             <tbody>
@@ -387,29 +399,31 @@
               <tr>
                 <td class="table-title">Business History background</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-               <p>   
-                  {{ businessFormDetails?.business_historybackground ||
-                  'NA' }}</p></td>
+                  <p>
+                    {{ businessFormDetails?.business_historybackground ||
+                    'NA' }}</p>
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Business hours</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> 
-                  <p>    {{ businessFormDetails?.business_hours == '[[null]]'
-                  ? "NA": hourFilter}}</p>
-                  
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  <p> {{ businessFormDetails?.business_hours == '[[null]]'
+                    ? "NA": hourFilter}}</p>
+
                 </td>
               </tr>
               <tr>
                 <td class="table-title">Business ownerassociate</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  <p>   {{ businessFormDetails?.business_ownerassociate ||
-                  'NA' }}</p>
+                  <p> {{ businessFormDetails?.business_ownerassociate ||
+                    'NA' }}</p>
                 </td>
               </tr>
               <tr>
                 <td class="table-title">Choose layout</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  <p> {{ businessFormDetails?.choose_layout || 'NA'}}</p></td>
+                  <p> {{ businessFormDetails?.choose_layout || 'NA'}}</p>
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Owner Name</td>
@@ -420,7 +434,7 @@
                 <td class="table-title">Post Category</td>
                 <td _ngcontent-tkn-c107="" class="table-subtitle">
                   @for(items of businessFormDetails?.post_category ; track $index){
-                 <p> {{items?.name || "NA"}}</p>
+                  <p> {{items?.name || "NA"}}</p>
                   }
                 </td>
 
@@ -463,14 +477,18 @@
                 <td class="table-title">Video url</td>
                 <td class="table-subtitle">{{ businessFormDetails?.video_url || 'NA' }}</td>
               </tr>
-              <tr> 
+              <tr>
                 <td class="table-title">Consultation Booking link</td>
-                <td class="table-subtitle"><a href="{{businessFormDetails?.consultation_booking_link}}" style="text-decoration: none;" target="_blank">{{ businessFormDetails?.consultation_booking_link }}</a></td>
+                <td class="table-subtitle"><a href="{{businessFormDetails?.consultation_booking_link}}"
+                    style="text-decoration: none;" target="_blank">{{ businessFormDetails?.consultation_booking_link
+                    }}</a></td>
               </tr>
               <tr>
                 <td class="table-title">Consultation Description</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> <p> {{ businessFormDetails?.consultation_description ||
-                  'NA' }}</p></td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  <p> {{ businessFormDetails?.consultation_description ||
+                    'NA' }}</p>
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Consultation Mode</td>
@@ -479,8 +497,10 @@
               </tr>
               <tr>
                 <td class="table-title">Digital Accessibility</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle"> <p> {{ businessFormDetails?.digital_accessibility || 'NA'
-                  }}</p></td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  <p> {{ businessFormDetails?.digital_accessibility || 'NA'
+                    }}</p>
+                </td>
               </tr>
               <tr>
                 <td class="table-title">Mission Vision</td>
@@ -535,14 +555,13 @@
               font-weight: 500;text-decoration: none;">{{'Website url'}}</a>
             </div>
             <div class="location">
-              <i class="fab fa-facebook-square"
-                style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+              <i class="fab fa-facebook-square" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
               <a href="{{businessFormDetails?.facebook}}" target="_blank" style="color: #38ccff;
               font-size: 14px;
               font-weight: 500;text-decoration: none;">{{'Facebook'}}</a>
             </div>
             <div class="location">
-              <i class="fa-brands fa-twitter"  style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
+              <i class="fa-brands fa-twitter" style="font-size: 20px;margin-right:13px;color:#7A7A7A"></i>
               <a href="{{businessFormDetails?.twitter}}" target="_blank" style="color: #38ccff;
               font-size: 14px;
               font-weight: 500;text-decoration: none;">{{'Twitter'}}</a>
@@ -602,8 +621,8 @@
     </div>
     <div class="row  my-4" id="photo">
       <div class="col-12">
-        <h3 class="event-page-heading"><span><i class="fa fa-picture-o"
-          aria-hidden="true"></i></span> &nbsp;Photo(s)</h3>
+        <h3 class="event-page-heading"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Photo(s)
+        </h3>
         <hr>
         <div class="main_images">
           <div class="featured_image" style="display:flex;gap:1rem">
@@ -617,45 +636,45 @@
     </div>
     <div class="row  my-4" id="photo">
       <div class="col-12">
-        <h3 class="event-page-heading"><span><i class="fa fa-picture-o"
-          aria-hidden="true"></i></span> &nbsp;Video </h3>
+        <h3 class="event-page-heading"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Video </h3>
         <hr>
         <div class="main_images">
           <div class="featured_images" style="display:flex;gap:1rem">
             @if(businessFormDetails?.video_upload){
-              <video width="320" height="240" controls >
-                <source [src]="businessFormDetails?.video_upload" type="video/mp4">
-              </video>
+            <video width="320" height="240" controls>
+              <source [src]="businessFormDetails?.video_upload" type="video/mp4">
+            </video>
             }@else {
-              <div> No Vedio Upload...</div>
+            <div> No Vedio Upload...</div>
             }
-         
-            
-    
+
+
+
           </div>
         </div>
       </div>
     </div>
     @if(this.businessFormDetails?.event_id){
     <div class="row my-4" id="eventView">
-      <h3 class="event-page-heading"><span> <i class="fa fa-home"
-        aria-hidden="true"></i> </span> &nbsp;Event</h3>
-        <hr>
-        <div class="product-card" (click)="gotToEventDetails(eventDetails.post_id, true)">
-          <div class="product-tumb">
-            <img [src]="eventDetails?.featured_image[0]" alt="">
-          </div>
-          <div class="product-details">
-            <h4>{{ eventDetails?.post_title }}</h4>
-            <p>{{ eventDetails?.post_content }}</p>
-             <p><span><i class="fa fa-calendar-o" aria-hidden="true"></i></span> &nbsp; {{ eventDetails?.event_dates?.start_date | date: 'longDate' }}</p>
-          </div>
+      <h3 class="event-page-heading"><span> <i class="fa fa-home" aria-hidden="true"></i> </span> &nbsp;Event</h3>
+      <hr>
+      <div class="product-card" (click)="gotToEventDetails(eventDetails.post_id, true)">
+        <div class="product-tumb">
+          <img [src]="eventDetails?.featured_image[0]" alt="">
         </div>
+        <div class="product-details">
+          <h4>{{ eventDetails?.post_title }}</h4>
+          <p>{{ eventDetails?.post_content }}</p>
+          <p><span><i class="fa fa-calendar-o" aria-hidden="true"></i></span> &nbsp; {{
+            eventDetails?.event_dates?.start_date | date: 'longDate' }}</p>
+        </div>
+      </div>
     </div>
-  }
+    }
     <div class="row  my-4" id="mapView">
       <div class="col-12">
-        <h3 class="event-page-heading"><span> <i class="fa fa-globe" aria-hidden="true" style="font-size:24px"></i></span> &nbsp;Map</h3>
+        <h3 class="event-page-heading"><span> <i class="fa fa-globe" aria-hidden="true"
+              style="font-size:24px"></i></span> &nbsp;Map</h3>
         <hr>
       </div>
       <div class="col-12 col-lg-6">

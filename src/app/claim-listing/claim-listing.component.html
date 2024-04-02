@@ -5,8 +5,9 @@
     </div>
   </section>
 
-  <form>
+  <form [formGroup]="claimBusinessForm">
     <div class="container">
+      @if (!claimedStatus || claimedStatus == 'rejected') {
       <div class="form-cnt">
         <div class="row">
           <div class="col-12">
@@ -15,70 +16,85 @@
         </div>
         <div class="col-12 mt-4">
           <div class="form-group">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Listing Title"
-            />
+            <input class="input-control" formControlName="listing_title" type="text" placeholder="Listing Title"
+              appFormControlValidation [validationMsgId]="'list-name-msg'" />
           </div>
         </div>
         <div class="col-12">
           <div class="form-group">
-            <input class="input-control" type="text" placeholder="Full name" />
+            <input class="input-control" formControlName="full_name" type="text" placeholder="Full name"
+              appFormControlValidation [validationMsgId]="'full-name-msg'" />
           </div>
         </div>
 
         <div class="col-12">
           <div class="form-group">
-            <input class="input-control" type="email" placeholder="Email" />
+            <input class="input-control" type="email" formControlName="email" placeholder="Email" />
+            @if (
+            claimBusinessForm.get('email')?.touched &&
+            claimBusinessForm.get('email')?.hasError('required')
+            ) {
+            <span class="error-message">Email is required</span>
+            }
+            @if (claimBusinessForm.get('email')?.hasError('pattern')) {
+            <span class="error-message">Enter valid email</span>
+            }
           </div>
         </div>
 
-        <ngx-intl-tel-input
-          [cssClass]="'input-control'"
-          [preferredCountries]="preferredCountries"
-          [enableAutoCountrySelect]="true"
-          [enablePlaceholder]="true"
-          [searchCountryFlag]="true"
-          [searchCountryField]="[
+        <ngx-intl-tel-input [cssClass]="'input-control'" formControlName="phone_number"
+          [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
+          [searchCountryFlag]="true" [searchCountryField]="[
             SearchCountryField.Iso2,
             SearchCountryField.Name
-          ]"
-          [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.India"
-          [phoneValidation]="true"
-          [separateDialCode]="true"
-          [numberFormat]="PhoneNumberFormat.National"
-          name="phone"
-        >
+          ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [phoneValidation]="true"
+          [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone">
+
         </ngx-intl-tel-input>
 
         <div class="col-12 mt-3">
           <div class="form-group">
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Position in Business"
-            />
+            <input class="input-control" type="text" [formControl]="position_business"
+              placeholder="Position in Business" />
           </div>
         </div>
         <div class="col-12">
-            <div class="form-group">
-              <mat-select
-                class="vietlist-select"
-                placeholder="GD Claim Package"
-              >
-                <mat-option value="Free Business: number of publish days are unlimited (Free)">Free Business: number of publish days are unlimited (Free)</mat-option>
-                <mat-option value="Paid">Paid</mat-option>
-              </mat-select>
-            </div>
+          <label style="padding-bottom: 5px;">Upload verification documents <span class="asterik">*</span></label>
+          <div class="form-group">
+            <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.pdf,.doc,.docx'">
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and
+                Drop here
+                or Browse a file (Allowed .pdf , .docx, .doc)</ngx-dropzone-label>
+              <div *ngIf="isImageUploading" class="loader"></div>
+            </ngx-dropzone>
           </div>
+          <div>
+            @if ( this.imageUrl) {
+            <p>{{ this.imageUrl }}</p>
+            }
+          </div>
+        </div>
         <div class="col-12">
-          <button class="btn orange-background-btn-w-100" type="submit">
+          <button class="btn orange-background-btn-w-100" type="submit"
+            [disabled]="!claimBusinessForm.valid || !this.imageUrl" (click)="handleClaimBusiness()">
             Submit
           </button>
         </div>
       </div>
+      } @else {
+      <div class="claim-successful">
+        <div class="heading">
+          <h2>Thank You!</h2>
+        </div>
+        <div class="description">
+          <p>Thank you for successfully claiming the business! Your efforts are greatly appreciated. We'll keep you
+            updated via email.</p>
+        </div>
+        <div class="button-wrapper">
+          <button class=" btn back-btn" (click)="goToLisiting()">Back To Lisiting Page</button>
+        </div>
+      </div>
+      }
     </div>
   </form>
 </div>

@@ -70,13 +70,15 @@ export enum Endpoints {
   SetEventBooking = 'set_event_booking',
   BookingDetails = 'get_booking_by_booking_id',
   BusinessBlog = 'get_all_business_blog_post',
-  UserBlogs='get_all_blog_post',
-  UserBlogsDetail='get_blog_by_id',
+  UserBlogs = 'get_all_blog_post',
+  UserBlogsDetail = 'get_blog_by_id',
   Contactus = 'contact_us',
-  BlogCategory='get_blog_category',
+  BlogCategory = 'get_blog_category',
   SetBlogComment = 'set_comment',
   GetBlogComment = 'get_comment',
   SetReplyBlog = 'set_comment_reply',
   BenefitsJoining = 'get_benifit_of_vietlist',
-  BusinessNotification = 'get_business_listing_notification'
+  BusinessNotification = 'get_business_listing_notification',
+  ClaimBusiness = 'set_business_listing_claim',
+  GetBusinessLisitingClaim = 'get_business_listing_claim_status'
 }
