@@ -89,4 +89,8 @@ export class HomepageService {
     return this.http.get<any>(endpoint, {headers:authToken})
   }
 
+  public faqs():Observable<any>{
+  const endpoint = GenericHelper.appendBaseUrl(Endpoints.Faqs)
+  return this.http.get<any>(endpoint) 
+}
 }

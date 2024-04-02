@@ -7,7 +7,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms'
-import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
+import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
 import { CommonModule, NgIf } from '@angular/common'
 import { EventService } from 'src/app/manage-event/service/event.service'
 
@@ -40,6 +40,7 @@ public overllRating:any
     private fullPageLoaderService: FullPageLoaderService,
     public router: Router,
     private authService:AuthenticationService,
+    private localStorageService:LocalStorageService,
     private eventService:EventService
   ) {
     this._route.params.subscribe((res) => {
@@ -105,6 +106,7 @@ public overllRating:any
       }
     })
   }
+  
   dataget: any
   gettags: any
 
@@ -157,7 +159,7 @@ public overllRating:any
  
    }
 
-  getCleanedBusinessHours(hours:any): string {
+  public getCleanedBusinessHours(hours:any): string {
     // Remove array braces and commas
      
     return hours
@@ -165,6 +167,7 @@ public overllRating:any
             .replace(/\[|\]/g, '')  // Remove square brackets
             .replace(/,/g, ' ');     // Replace commas with spaces
   }
+
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -194,15 +197,17 @@ public overllRating:any
       console.error('Map element not found.')
     }
   }
+
   public manageBusiness() {
     this.router.navigateByUrl('/manage-profile/my-business')
   }
   public goToEvent() {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }
+
   activeTab: string = 'profile';
 
-  setActiveTab(tab: string) {
+  public setActiveTab(tab: string) {
  
   }
 
@@ -233,4 +238,46 @@ public overllRating:any
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
+  public editBusiness(){
+    this.localStorageService.saveData('postId', this.postId)
+    this.router.navigate(['/list-business'])
+  }
+
+  public addBusiness(val?: any) {
+    // this.isloader = true
+    const body: any = {
+      post_title: this.businessFormDetails?.post_title,
+      contact_phone: this.businessFormDetails?.conatact_phone,
+      business_email: this.businessFormDetails?.business_email,
+      post_category: this.businessFormDetails?.post_category,
+      default_category:this.businessFormDetails?.default_category,
+      latitude: this.businessFormDetails?.latitude,
+      longitude: this.businessFormDetails?.longitude,
+      city: this.businessFormDetails?.city,
+      region: this.businessFormDetails?.region,
+      country: this.businessFormDetails?.country,
+      zip: this.businessFormDetails.zip,
+      post_content: this.businessFormDetails.post_content,
+      website: this.businessFormDetails.website,
+      post_tags: this.businessFormDetails.post_tags,
+      street: this.businessFormDetails.post_tags,
+      logo: this.businessFormDetails.logo,
+      mapview: this.businessFormDetails.mapView,
+      post_id: this.postId,
+      final_submission:1
+    }
+    this.businessService.addBusiness(body).subscribe({
+      next:(res)=>{
+        this.router.navigate(['/manage-profile/my-business'])
+      },
+      error:(err)=>{
+
+      }
+    })
+  }
+  
+  
 }
+
+

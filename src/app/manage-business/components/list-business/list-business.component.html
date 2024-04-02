@@ -486,22 +486,40 @@
         <div style="width: 100%; text-align: end" *ngIf="vediosHide?.level_id == '1'" >
           <button
             type="button"
-            class="btn orange-background-btn ms-auto"
+            class="btn orange-background-btn ms-auto mx-2"
             [disabled]="
-              !businessInfoForm.valid ||
-              !country ||
-              !zipcode ||
-              !state ||
-              !city ||
-              !tags ||
-              !term_and_condition.value ||
-              !recaptcha.value
-            "
-            (click)="addBusiness()"
+            !businessInfoForm.valid ||
+            !country ||
+            !zipcode ||
+            !state ||
+            !city ||
+            !tags ||
+            !term_and_condition.value ||
+            !recaptcha.value
+          "
+          (click)="previewBusiness()"
           >
-            <app-loader *ngIf="isloader"></app-loader
-            ><span *ngIf="!isloader">Submit</span>
+            
+            <span >Preview</span>
           </button>
+          <button
+          type="button"
+          class="btn orange-background-btn ms-auto"
+          [disabled]="
+            !businessInfoForm.valid ||
+            !country ||
+            !zipcode ||
+            !state ||
+            !city ||
+            !tags ||
+            !term_and_condition.value ||
+            !recaptcha.value
+          "
+          (click)="addBusiness()"
+        >
+          <app-loader *ngIf="isloader"></app-loader
+          ><span *ngIf="!isloader">Submit</span>
+        </button>
         </div>
         <div style="width: 100%; text-align: end" *ngIf="vediosHide?.level_id !== '1'" >
           <button
@@ -524,7 +542,7 @@
       </section>
     </form>
 
-    @if (businessFormDetails?.business_email) {
+    @if (businessFormDetails?.business_email && vediosHide?.level_id !== '1') {
       <section>
         <app-subscription-form
           (formSubmit)="getBusinessFormDetails(postId)"

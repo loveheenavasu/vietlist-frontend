@@ -78,5 +78,6 @@ export enum Endpoints {
   GetBlogComment = 'get_comment',
   SetReplyBlog = 'set_comment_reply',
   BenefitsJoining = 'get_benifit_of_vietlist',
-  BusinessNotification = 'get_business_listing_notification'
+  BusinessNotification = 'get_business_listing_notification',
+  Faqs = 'faq_content_data'
 }

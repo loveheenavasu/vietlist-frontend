@@ -60,6 +60,7 @@
         </div>
         <div class="bell-icon-div mobile">
           <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+          <div class="badge" [matMenuTriggerFor]="notification">1</div>
         </div>
       </div>
       <div class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -107,7 +108,7 @@
             </li> -->
             <li class="nav-item">
               <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
+                [routerLinkActiveOptions]="{ exact: true }">Join Our Directory</span>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
               [matMenuTriggerFor]="menublog">
@@ -213,7 +214,7 @@
 
           <div class="bell-icon-div">
             <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
-            <!-- <div class="badge"></div> -->
+            <div class="badge">{{notificationsDetails?.total_count}}</div>
           </div>
           <mat-menu #notification="matMenu">
            
@@ -222,7 +223,7 @@
               <div class="notification-item">
                 <ul>
                   <li class="notification-description">
-                    <b>{{key?.message}}</b>
+                    <b>{{key?.post_title}}{{key?.message}}</b>
                   </li>
                   <!-- <li class="notification-time">1 hr ago</li> -->
                 </ul>

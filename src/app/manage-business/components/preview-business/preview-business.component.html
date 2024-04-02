@@ -1,6 +1,6 @@
 <section class="banner" style="position: relative;">
   <div class="content" style="width:100%">
-    <h1 style="text-transform: uppercase;">Preview Your Business</h1>
+    <h1 style="text-transform: uppercase;">{{businessFormDetails?.post_title}}</h1>
     <div class="elementor-divider">
       <span class="elementor-divider-separator">
       </span>
@@ -662,7 +662,16 @@
         <div id="map" style="height: 300px; width: 100%"></div>
       </div>
     </div>
+    <!-- {{businessFormDetails?.final_submission}} -->
+    @if(businessFormDetails?.final_submission == '0'){
+    <div class="row">
+        <button class="mx-2 btn orange-background-btn"  (click)="editBusiness()">
+          Edit
+        </button> 
+      <button class="mx-2 btn orange-background-btn" (click)="addBusiness()">Submit</button>
 
+    </div>
+  }
     <!-- @if(isGlobal == 'true'){ -->
     <!-- <form [formGroup]="reviewForm">
 
