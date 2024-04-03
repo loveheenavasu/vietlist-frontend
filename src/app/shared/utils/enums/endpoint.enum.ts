@@ -80,5 +80,6 @@ export enum Endpoints {
   BenefitsJoining = 'get_benifit_of_vietlist',
   BusinessNotification = 'get_business_listing_notification',
   ClaimBusiness = 'set_business_listing_claim',
-  GetBusinessLisitingClaim = 'get_business_listing_claim_status'
+  GetBusinessLisitingClaim = 'get_business_listing_claim_status',
+  Faqs = 'faq_content_data'
 }

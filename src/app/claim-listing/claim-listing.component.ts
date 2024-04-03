@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
 import { EventService } from '../manage-event/service/event.service';
-
+import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 @Component({
   selector: 'app-claim-listing',
   standalone: true,
@@ -150,6 +150,7 @@ export class ClaimListingComponent {
     const postId = this.postId
     this.eventService.getClaimBusinessLisiting(postId).subscribe({
       next: (res) => {
+        scrollToTop()
         console.log("check claimed lsiiting", res)
         this.claimedStatus = res.data
       },

@@ -12,7 +12,7 @@ import { FindBusinessParams, FindEventParams } from 'src/app/manage-business/ser
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxPaginationModule } from 'ngx-pagination'
-
+import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 @Component({
   selector: 'app-business-listing',
   standalone: true,
@@ -25,7 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination'
     ReactiveFormsModule,
     MatSelectModule,
     NgbRatingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   templateUrl: './business-listing.component.html',
   styleUrl: './business-listing.component.scss',
@@ -85,6 +85,7 @@ export class BusinessListingComponent {
     }
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
+        scrollToTop()
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
         this.totalCount = res.total_count

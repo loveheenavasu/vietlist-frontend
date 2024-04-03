@@ -409,6 +409,15 @@ span.elementor-grid-item {
   z-index: 2;
 }
 
+.login-btn {
+  .btn {
+      font-size: 16px;
+      border-radius: 4px;
+      color: #232F3E;
+      border: 1px solid #146EB4
+  }
+}
+
 @media(max-width:768px) {
   .iconDirection {
     display: none;

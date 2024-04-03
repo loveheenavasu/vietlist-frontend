@@ -237,7 +237,7 @@ export class EventDetailsComponent {
     const isBusinessOwner = userDetail?.user_role === this.role.businessOwner;
     const isLevel = userDetail?.level_id === '3' || userDetail?.level_id === '2';
     // console.log(isBusinessOwner, isBusinessOwner, isLevel, this.isAuthentecate)
-    if (this.claimedBusinessStatus == 'pending' || this.claimedBusinessStatus == 'approved') {
+    if (this.claimedBusinessStatus == 'pending' || this.claimedBusinessStatus == 'approved' || eventDetails?.user_deatil?.user_id == userDetail?.ID) {
       return false
     }
     return isOwnerAssociate && this.isAuthentecate && isBusinessOwner && isLevel;

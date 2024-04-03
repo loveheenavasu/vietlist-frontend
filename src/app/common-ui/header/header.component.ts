@@ -24,6 +24,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import { interval, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-header',
@@ -70,7 +71,7 @@ export class HeaderComponent {
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
   public notificationsArr :any[]=[]
-  // isDropdownActiveEvent!: boolean = false;
+  private notificationIntervalSubscription: Subscription | undefined;
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
@@ -131,6 +132,7 @@ export class HeaderComponent {
     this.getBusinessCat()
     if(this.isAuthenticated){
       this.getNotifications()
+      this.startNotificationInterval()
     }
   }
 
@@ -327,11 +329,21 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
+  private startNotificationInterval() {
+    // Start interval for fetching notifications every minute
+    this.notificationIntervalSubscription = interval(60000) // 60000 ms = 1 minute
+      .subscribe(() => {
+        this.getNotifications();
+      });
+  }
+
+  notificationsDetails:any;
 public getNotifications(){
   this.homeService.getNotification().subscribe({
     next:(res:any)=>{
+      this.notificationsDetails = res
       this.notificationsArr = res.data
-      console.log(res , "Response")
+  
     },
     error:(err)=>{
       

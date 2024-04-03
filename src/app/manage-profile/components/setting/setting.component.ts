@@ -20,10 +20,10 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrls: ['./setting.component.scss'],
 })
 export class SettingComponent {
-  public profileViews!: boolean
-  public realTime!: boolean
-  public periodicNotify!: boolean
-  public blogsView!: boolean
+  public Login!: boolean
+  public Subscription!: boolean
+  public delete_account!: boolean
+  public business_listing!: boolean
   public profileView = new FormControl()
   public isLoader: boolean = false
 
@@ -37,24 +37,24 @@ export class SettingComponent {
   }
 
   valueChange(event: any) {
-    if (event == 'profileViews') {
-      this.profileViews
-    } else if (event == 'realTime') {
-      this.realTime
-    } else if (event == 'periodicNotify') {
-      this.periodicNotify
-    } else if (event == 'blogsView') {
-      this.blogsView
+    if (event == 'Login') {
+      this.Login
+    } else if (event == 'Subscription') {
+      this.Subscription
+    } else if (event == 'delete_account') {
+      this.delete_account
+    } else if (event == 'business_listing') {
+      this.business_listing
     }
   }
 
   public allowNotification() {
     this.isLoader = true
     const body = {
-      profile_views: this.profileViews ? 1 : 0,
-      real_time_notification: this.realTime ? 1 : 0,
-      periodic_notification: this.periodicNotify ? 1 : 0,
-      blog_views: this.blogsView ? 1 : 0,
+      Login: this.Login ? 1 : 0,
+      Subscription: this.Subscription ? 1 : 0,
+      delete_account: this.delete_account ? 1 : 0,
+      business_listing: this.business_listing ? 1 : 0,
     }
 
     this.profileService.allowNotificationSetting(body).subscribe({
@@ -80,10 +80,10 @@ export class SettingComponent {
     this.profileService.getAllowedSetting().subscribe({
       next: (res) => {
         this.fullPageLoader.hideLoader()
-        this.profileViews = res.data.profile_views === 1
-        this.realTime = res.data.real_time_notification  === 1
-        this.periodicNotify = res.data.periodic_notification === 1
-        this.blogsView = res.data.blog_views === 1
+        this.Login = res.data.Login === 1
+        this.Subscription = res.data.Subscription  === 1
+        this.delete_account = res.data.delete_account === 1
+        this.business_listing = res.data.business_listing === 1
       },
     })
   }

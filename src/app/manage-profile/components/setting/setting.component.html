@@ -2,49 +2,48 @@
 <div class="container-fluid g-0">
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
-      <h5>Enable Notifications for Profile Views</h5>
+      <h5>Manage Login Notification</h5>
     </div>
     <div class="col-12 col-md-12 col-lg-6">
       <mat-slide-toggle
-        [formContol]="profileView"
-        [(ngModel)]="profileViews"
-        (change)="valueChange('profileViews')"
+        [(ngModel)]="Login"
+        (change)="valueChange('Login')"
         >On</mat-slide-toggle
       >
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
-      <h5>Enable Real Time Notifications</h5>
+      <h5>Manage Subscription Notification</h5>
     </div>
     <div class="col-12 col-md-12 col-lg-6">
       <mat-slide-toggle
-        (change)="valueChange('realTime')"
-        [(ngModel)]="realTime"
+        (change)="valueChange('Subscription')"
+        [(ngModel)]="Subscription"
         >On</mat-slide-toggle
       >
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
-      <h5>Enable Periodic Notifications</h5>
+      <h5>Manage Delete Account Notification</h5>
     </div>
     <div class="col-12 col-md-12 col-lg-6">
       <mat-slide-toggle
-        (change)="valueChange('periodicNotify')"
-        [(ngModel)]="periodicNotify"
+        (change)="valueChange('delete_account')"
+        [(ngModel)]="delete_account"
         >On</mat-slide-toggle
       >
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
-      <h5>Enable Notifications for Blogs Views</h5>
+      <h5>Manage Business Notification</h5>
     </div>
     <div class="col-12 col-md-12 col-lg-6">
       <mat-slide-toggle
-        (change)="valueChange('blogsView')"
-        [(ngModel)]="blogsView"
+        (change)="valueChange('business_listing')"
+        [(ngModel)]="business_listing"
         >On</mat-slide-toggle
       >
     </div>

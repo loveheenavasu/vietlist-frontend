@@ -485,6 +485,7 @@ export class ListBusinessComponent {
     
   }
 
+  
   public addBusiness(val?: any) {
     this.isloader = true
     const body: any = {
@@ -508,7 +509,7 @@ export class ListBusinessComponent {
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
     }
-    if (this.isFormFilled) {
+    if (this.isFormFilled || this.postId) {
       this.isloader = true
       const updatebody: any = {
         post_title: this.businessInfoForm.value.post_title,
@@ -596,6 +597,99 @@ export class ListBusinessComponent {
       })
     }
   }
+
+
+  public previewBusiness(val?: any) {
+    console.log("click on preview button")
+    console.log(this.isFormFilled , this.postId , "Preview button")
+    const body: any = {
+      post_title: this.businessInfoForm.value.post_title,
+      contact_phone: parseInt(
+        this.businessInfoForm.value.contact_phone?.e164Number,
+      ),
+      business_email: this.businessInfoForm.value.business_email,
+      post_category: this.businessInfoForm.value.post_category.join(', '),
+      default_category: this.businessInfoForm.value.default_category,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      city: this.city,
+      region: this.state,
+      country: this.country,
+      zip: this.zipcode,
+      post_content: this.businessInfoForm.value.post_content,
+      website: this.businessInfoForm.value.website,
+      post_tags: this.selectedTagsString,
+      street: this.fullAddress,
+      logo: this.businessLogoUrl[0],
+      mapview: this.businessInfoForm.value.mapview,
+    }
+    if (this.isFormFilled || this.postId) {
+      console.log(this.isFormFilled , this.postId , "postId + formFilled")
+      const updatebody: any = {
+        post_title: this.businessInfoForm.value.post_title,
+        contact_phone: parseInt(
+          this.businessInfoForm.value.contact_phone?.e164Number,
+        ),
+        business_email: this.businessInfoForm.value.business_email,
+        post_category: this.businessInfoForm.value.post_category.join(', '),
+        default_category: this.businessInfoForm.value.default_category,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        city: this.city,
+        region: this.state,
+        country: this.country,
+        zip: this.zipcode,
+        post_content: this.businessInfoForm.value.post_content,
+        website: this.businessInfoForm.value.website,
+        post_tags: this.selectedTagsString,
+        street: this.fullAddress,
+        logo: this.businessLogoUrl[0],
+        mapview: this.businessInfoForm.value.mapview,
+        post_id: this.localStoragePostId
+          ? this.localStoragePostId
+          : this.postId,
+      }
+      this.businessService.updateBusiness(updatebody).subscribe({
+        next: (res) => {
+          this.addBusinessFormData = res
+          this.isFormFilled = true
+          this.isSubscriptionStepper = true
+           if(res){
+          const post_id = this.localStoragePostId ? this.localStoragePostId : this.postId
+          this.businessService.storePostId.next(post_id)
+          this.router.navigate(['preview-business' , post_id])
+          }
+          this.getBusinessFormDetails(
+            this.localStoragePostId ? this.localStoragePostId : this.postId,
+          )
+         
+        },
+        error: (err) => {
+          this.isloader = false
+        },
+      })
+    } else if(!this.postId) {
+      this.businessService.addBusiness(body).subscribe({
+        next: (res) => {
+          this.addBusinessFormData = res
+          this.isFormFilled = true
+          this.postId = res.post_id
+          this.isSubscriptionStepper = true
+          this.getBusinessFormDetails(this.postId)
+          this.localStorageService.saveData('postId', this.postId)
+          this.businessService.isBusinessFormFilled.next(true)
+          this.localStorageService.saveData('isBusinessFormFilled', 'true')
+          const post_id = res.post_id
+          this.businessService.storePostId.next(post_id)
+          this.router.navigate(['/preview-business' , post_id])
+        },
+        error: (err) => {
+          this.isloader = false
+        },
+      })
+    }
+  }
+
 
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]

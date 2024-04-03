@@ -85,13 +85,14 @@
                   
                
                 </div>
-
+                @if(key.final_submission == '1'){
                 <button
                 class="btn orange-background-btn"
                 (click)="deleteBusiness(key.post_id)"
               >
                 Delete
               </button>
+            }
               <button
                 class="btn orange-background-btn mx-1"
                 (click)="viewBusiness(key.post_id)"
@@ -142,13 +143,14 @@
                   </p>
                   
                     
-                  
+                  @if(key.final_submission == '1'){
                   <button
                     class="btn orange-background-btn"
                     (click)="deleteBusiness(key.post_id)"
                   >
                     Delete
                   </button>
+                }
                   <button
                     class="btn orange-background-btn mx-1"
                     (click)="viewBusiness(key.post_id)"

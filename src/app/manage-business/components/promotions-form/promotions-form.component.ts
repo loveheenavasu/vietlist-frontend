@@ -183,6 +183,65 @@ export class PromotionsFormComponent {
   }
 
 
+  public previewBusiness(){
+    const body = {
+      faq: this.promotions.value.faq,
+      upload_certificates: this.imagePreviews,
+      physical_accessibility: this.promotions.value.physical_accessibility,
+      digital_accessibility: this.promotions.value.digital_accessibility,
+      choose_layout: this.promotions.value.choose_layout,
+      terms_conditions: this.term_and_condition.value,
+      final_submission: 0,
+      promotions_field: this.promotions.value.promotions_field,
+      createEvent: this.promotions.value.createEvent ? 1 : 0,
+      business_ownerassociate: this.promotions.value.business_ownerassociate,
+      event_id: this.promotions.value.event_id
+    }
+    if(!this.postId){
+    this.businessService.addBusiness(body).subscribe({
+      next: (res) => {
+        console.log(res ,"Response")
+          if(res){
+            console.log(res)
+            const data = res?.post_id
+            console.log(data , "Data")
+            this.router.navigate(['/preview-business' , data])
+          }
+          
+    
+      },
+    })
+  }else if(this.postId){
+    const updatebody = {
+      post_id: this.postId,
+      faq: this.promotions.value.faq,
+      upload_certificates: this.imagePreviews,
+      physical_accessibility: this.promotions.value.physical_accessibility,
+      digital_accessibility: this.promotions.value.digital_accessibility,
+      choose_layout: this.promotions.value.choose_layout,
+      terms_conditions: this.term_and_condition.value,
+      final_submission: 1,
+      promotions_field: this.promotions.value.promotions_field,
+      createEvent: this.promotions.value.createEvent ? 1 : 0,
+      business_ownerassociate: this.promotions.value.business_ownerassociate,
+      event_id: this.promotions.value.event_id,
+    }
+    this.businessService.updateBusiness(updatebody).subscribe({
+      next:(res)=>{
+          console.log(res ,"Response")
+            if(res){
+              this.router.navigate(['/preview-business' , this.postId])
+            }
+            
+      
+        
+      },error:(err)=>{
+
+      }
+    })
+  }
+  }
+
   public navigateToEvent() {
     this.router.navigate(['/add-event'])
   }
