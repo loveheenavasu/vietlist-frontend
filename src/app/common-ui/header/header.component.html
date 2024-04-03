@@ -214,7 +214,7 @@
 
           <div class="bell-icon-div">
             <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
-            <div class="badge">{{notificationsDetails?.total_count}}</div>
+            <div class="badge">{{notificationsDetails}}</div>
           </div>
           <mat-menu #notification="matMenu">
            
@@ -223,7 +223,7 @@
               <div class="notification-item">
                 <ul>
                   <li class="notification-description">
-                    <b>{{key?.post_title}}{{key?.message}}</b>
+                   {{key?.post_title}}{{key?.message}}
                   </li>
                   <!-- <li class="notification-time">1 hr ago</li> -->
                 </ul>

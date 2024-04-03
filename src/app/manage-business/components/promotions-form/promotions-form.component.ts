@@ -184,20 +184,21 @@ export class PromotionsFormComponent {
 
 
   public previewBusiness(){
-    const body = {
-      faq: this.promotions.value.faq,
-      upload_certificates: this.imagePreviews,
-      physical_accessibility: this.promotions.value.physical_accessibility,
-      digital_accessibility: this.promotions.value.digital_accessibility,
-      choose_layout: this.promotions.value.choose_layout,
-      terms_conditions: this.term_and_condition.value,
-      final_submission: 0,
-      promotions_field: this.promotions.value.promotions_field,
-      createEvent: this.promotions.value.createEvent ? 1 : 0,
-      business_ownerassociate: this.promotions.value.business_ownerassociate,
-      event_id: this.promotions.value.event_id
-    }
+console.log(this.postId , "postid" )
     if(!this.postId){
+      const body = {
+        faq: this.promotions.value.faq,
+        upload_certificates: this.imagePreviews,
+        physical_accessibility: this.promotions.value.physical_accessibility,
+        digital_accessibility: this.promotions.value.digital_accessibility,
+        choose_layout: this.promotions.value.choose_layout,
+        terms_conditions: this.term_and_condition.value,
+        final_submission: 0,
+        promotions_field: this.promotions.value.promotions_field,
+        createEvent: this.promotions.value.createEvent ? 1 : 0,
+        business_ownerassociate: this.promotions.value.business_ownerassociate,
+        event_id: this.promotions.value.event_id
+      }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         console.log(res ,"Response")

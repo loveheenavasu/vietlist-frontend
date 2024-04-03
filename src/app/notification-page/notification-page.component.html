@@ -26,10 +26,10 @@
         <div class="row">
           <div class="tabs">
             <p>All</p>
-            <p>Business</p>
-            <p>Login</p>
-            <p>Subscription</p>
-            <p>Archive</p>
+            <p  (click)="onTabClick('business_listing')">Business</p>
+            <p (click)="onTabClick('event_booking')">Event Booking</p>
+            <p (click)="onTabClick('event_booking')">Subscription</p>
+            <p (click)="onTabClick('event_booking')">Archive</p>
          </div>
         </div>
       </div>
@@ -37,15 +37,16 @@
 
   <div class="row">
     <div class="notification-list">
+      @for(key of notificationArr ; track $index){
       <div class="notification-item">
         <div class="d-flex">
           <div>
             <ul>
 
               <li class="notification-description">
-                <b>Mark</b> has viewed your profile.
+                <b>{{key?.title}}</b> {{key?.message}}
               </li>
-              <li class="notification-time">1 hr ago</li>
+              <!-- <li class="notification-time">1 hr ago</li> -->
             </ul>
           </div>
           <div class="ms-auto">
@@ -55,60 +56,8 @@
         </div>
 
       </div>
-      <div class="notification-item">
-        <div class="d-flex">
-          <div>
-            <ul>
-
-              <li class="notification-description">
-                <b>Mark</b> has viewed your profile.
-              </li>
-              <li class="notification-time">1 hr ago</li>
-            </ul>
-          </div>
-          <div class="ms-auto">
-            <i class="fa fa-archive" aria-hidden="true" style="color:grey;cursor:pointer;margin-top:1rem" mat-raised-button
-            matTooltip="Mark as archive"></i>
-          </div>
-        </div>
-
-      </div>
-      <div class="notification-item">
-        <div class="d-flex">
-          <div>
-            <ul>
-
-              <li class="notification-description">
-                <b>Mark</b> has viewed your profile.
-              </li>
-              <li class="notification-time">1 hr ago</li>
-            </ul>
-          </div>
-          <div class="ms-auto">
-            <i class="fa fa-archive" aria-hidden="true" style="color:grey;cursor:pointer;margin-top:1rem" mat-raised-button
-            matTooltip="Mark as archive"></i>
-          </div>
-        </div>
-
-      </div>
-      <div class="notification-item">
-        <div class="d-flex">
-          <div>
-            <ul>
-
-              <li class="notification-description">
-                <b>Mark</b> has viewed your profile.
-              </li>
-              <li class="notification-time">1 hr ago</li>
-            </ul>
-          </div>
-          <div class="ms-auto">
-            <i class="fa fa-archive" aria-hidden="true" style="color:grey;cursor:pointer;margin-top:1rem" mat-raised-button
-            matTooltip="Mark as archive"></i>
-          </div>
-        </div>
-
-      </div>
+    }
+  
 
     </div>
   </div>
