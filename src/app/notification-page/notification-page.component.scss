@@ -1,80 +1,94 @@
 @import "../../assets/scss/common";
+
 .container {
     width: 80%;
     max-width: 100%;
-    margin: 8em auto;  
+    margin: 8em auto;
 }
 
-.content{
-    padding:10px;
+.content {
+    padding: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    
+
 }
 
-.tabs{
+.tabs {
     display: flex;
-    gap:1rem;
+    gap: 1rem;
     cursor: pointer;
-    margin-top:1rem;
-    p{
-        font-size:16px;
-        color:#333;
-        font-weight:500;
+    margin-top: 1rem;
+
+    p {
+        font-size: 16px;
+        color: #333;
+        font-weight: 500;
         background-color: #f3f1f1;
         border-radius: 5px;
         padding: 0px 1em;
         margin-top: 1.5rem;
-       
+
+    }
+
+    .active-tab {
+        background-color: var(--primary-color-orange);
+        color: #fff;
     }
 }
 
-.tabs p:active{
-    border:solid 1px grey
+.tabs p:active {
+    border: solid 1px grey
 }
 
 .header {
-    padding:12px 15px;
+    padding: 12px 15px;
     display: table-cell;
     vertical-align: middle;
-    line-height: 40px; 
+    line-height: 40px;
     justify-content: center;
     align-self: center;
-    width:100%;
+    width: 100%;
     border-bottom: solid 1px rgb(222, 222, 222);
 }
 
 
 
 
-.notification-heading{
-    color:rgb(31, 31, 31);
-    font-size:24px;
-    font-weight:600;
+.notification-heading {
+    color: rgb(31, 31, 31);
+    font-size: 24px;
+    font-weight: 600;
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased; /* For Chrome, Safari, and newer versions of Opera */
-    -moz-osx-font-smoothing: grayscale; /* For Firefox */
-    font-smooth: always; 
+    -webkit-font-smoothing: antialiased;
+    /* For Chrome, Safari, and newer versions of Opera */
+    -moz-osx-font-smoothing: grayscale;
+    /* For Firefox */
+    font-smooth: always;
 }
-.mark-as-read{
-    color:rgb(123, 123, 123);
-    font-size:16px;
-    font-weight:500;
+
+.mark-as-read {
+    color: rgb(123, 123, 123);
+    font-size: 16px;
+    font-weight: 500;
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased; /* For Chrome, Safari, and newer versions of Opera */
-    -moz-osx-font-smoothing: grayscale; /* For Firefox */
-    font-smooth: always; 
+    -webkit-font-smoothing: antialiased;
+    /* For Chrome, Safari, and newer versions of Opera */
+    -moz-osx-font-smoothing: grayscale;
+    /* For Firefox */
+    font-smooth: always;
 }
+
 .mdc-switch:enabled .mdc-switch__track::after {
     background: #545353;
 }
 
-::ng-deep.mdc-switch-selected-handle-color{
+::ng-deep.mdc-switch-selected-handle-color {
     background-color: var(--primary-color-orange) !important;
 }
 
 ::ng-deep.mdc-switch:enabled .mdc-switch__track::after {
     background: var(--primary-color-orange) !important;
 }
+
 ::ng-deep.mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
     background: var(--primary-color-orange) !important;
 }
@@ -91,17 +105,18 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 1em;
 
-    ul{
+    ul {
         list-style-type: none;
         margin: 0px;
         padding: 0px 8px;
 
-        li{
+        li {
             margin: 0px;
-            padding:0px;
+            padding: 0px;
         }
     }
 }
+
 
 .notification-title {
     margin: 0 0 0.5em;
@@ -121,4 +136,22 @@
     color: #999;
     font-size: 14px;
     font-style: italic;
+}
+
+.no-data {
+    padding: 1em;
+
+    .no-data-text {
+        margin: 20px 0px;
+        border-radius: 8px;
+        background-color: #f7f7f7;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1em;
+
+        // padding: 1em;
+        p {
+            text-align: center;
+            color: #666
+        }
+    }
 }

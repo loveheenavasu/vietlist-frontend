@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core'
-import { AuthenticationService, Endpoints, GenericHelper } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  Endpoints,
+  GenericHelper,
+} from '@vietlist/shared'
 import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 
@@ -7,7 +11,10 @@ import { HttpClient, HttpParams } from '@angular/common/http'
   providedIn: 'root',
 })
 export class HomepageService {
-  constructor(private http: HttpClient , private sessionService:AuthenticationService) { }
+  constructor(
+    private http: HttpClient,
+    private sessionService: AuthenticationService,
+  ) { }
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -40,19 +47,29 @@ export class HomepageService {
     return this.http.get<any>(endpoint, { params: params })
   }
 
-  public getAllBusinessBlog(posts_per_page: any, page_no: any): Observable<any> {
+  public getAllBusinessBlog(
+    posts_per_page: any,
+    page_no: any,
+  ): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessBlog)
-    let params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no', page_no)
+    let params = new HttpParams()
+      .set('posts_per_page', posts_per_page)
+      .set('page_no', page_no)
 
     return this.http.get<any>(endpoint, { params: params })
   }
 
-
-  public userBlogs(posts_per_page: any, page_no: any, blog_page?: any): Observable<any> {
+  public userBlogs(
+    posts_per_page: any,
+    page_no: any,
+    blog_page?: any,
+  ): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UserBlogs)
-    let params = new HttpParams().set('posts_per_page', posts_per_page).set('page_no', page_no)
+    let params = new HttpParams()
+      .set('posts_per_page', posts_per_page)
+      .set('page_no', page_no)
     if (blog_page !== undefined) {
-      params = params.set('blog_page', blog_page);
+      params = params.set('blog_page', blog_page)
     }
     return this.http.get<any>(endpoint, { params: params })
   }
@@ -83,14 +100,56 @@ export class HomepageService {
     return this.http.get<any>(endpoint, { params: params })
   }
 
-  public getNotification():Observable<any>{
+  public getNotification(optionalParams?: {
+    limit?: number
+    notification_type?: string
+    page_no?: number
+    archive?: number
+  }): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessNotification)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint, {headers:authToken})
+
+    // Constructing query parameters
+    let queryParams = new HttpParams()
+
+    if (optionalParams?.limit) {
+      queryParams = queryParams.append('limit', optionalParams?.limit)
+    }
+
+    if (optionalParams?.notification_type) {
+      queryParams = queryParams.append(
+        'notification_type',
+        optionalParams?.notification_type,
+      )
+    }
+
+    if (optionalParams?.page_no) {
+      queryParams = queryParams.append(
+        'notification_type',
+        optionalParams?.page_no,
+      )
+    }
+    if (optionalParams?.archive) {
+      queryParams = queryParams.append(
+        'archive',
+        optionalParams?.archive,
+      )
+    }
+
+    return this.http.get<any>(endpoint, {
+      headers: authToken,
+      params: queryParams,
+    })
   }
 
-  public faqs():Observable<any>{
-  const endpoint = GenericHelper.appendBaseUrl(Endpoints.Faqs)
-  return this.http.get<any>(endpoint) 
-}
+  public faqs(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.Faqs)
+    return this.http.get<any>(endpoint)
+  }
+
+  public notificationStatus(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.NotificationStatus)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, body, { headers: authToken })
+  }
 }

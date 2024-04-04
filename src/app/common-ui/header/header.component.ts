@@ -331,7 +331,7 @@ export class HeaderComponent {
 
   private startNotificationInterval() {
     // Start interval for fetching notifications every minute
-    this.notificationIntervalSubscription = interval(60000) // 60000 ms = 1 minute
+    this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
       .subscribe(() => {
         this.getNotifications();
       });
@@ -341,7 +341,8 @@ export class HeaderComponent {
 public getNotifications(){
   this.homeService.getNotification().subscribe({
     next:(res:any)=>{
-      this.notificationsDetails = res
+      this.notificationsDetails = res.total_count
+      console.log(this.notificationsDetails ,"TOTALCOUNT")
       this.notificationsArr = res.data
   
     },
