@@ -346,6 +346,16 @@ export class HeaderComponent {
       });
   }
 
+  goToPage(item: any) {
+    console.log("check", item)
+    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
+      this.router.navigate(['/business-details', item.id]);
+    } else if (item.notification_type == 'event_booking') {
+      this.router.navigate(['/event-details', item.id]);
+    }
+  }
+
+
   private stopNotificationInterval(): void {
     if (this.notificationIntervalSubscription) {
       this.notificationIntervalSubscription.unsubscribe();
@@ -357,7 +367,10 @@ export class HeaderComponent {
 
   notificationsDetails: any;
   public getNotifications() {
-    this.homeService.getNotification().subscribe({
+    const body = {
+      "limit": 10
+    }
+    this.homeService.getNotification(body).subscribe({
       next: (res: any) => {
         this.notificationsDetails = res.total_count
         console.log(this.notificationsDetails, "TOTALCOUNT")

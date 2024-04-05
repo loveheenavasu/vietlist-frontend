@@ -1,8 +1,9 @@
 @import "../../../assets/scss/common";
 @import "../../../assets/scss/select.scss";
+@import "../../../assets/scss/banner.scss";
 
 .banner {
-  height: 450px;
+  height: 365px;
   width: 100%;
   position: relative;
   background-image: url('/assets/resgister-banner-img.jpeg');
@@ -26,7 +27,7 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    margin-top: 22px;
+    // margin-top: 22px;
 
     h1 {
       font-weight: var(--font-weight-medium);
@@ -128,9 +129,9 @@
 }
 
 
-@media screen and (max-width:520px){
-  .top-banner{
-    display:none;
-    margin-top:9rem;
+@media screen and (max-width:520px) {
+  .top-banner {
+    display: none;
+    margin-top: 9rem;
   }
-  }
+}

@@ -219,19 +219,24 @@
           <mat-menu #notification="matMenu">
 
             <div class="notification-list">
+              <div class="notification-heading">
+                <h4>Notifications</h4>
+              </div>
               @for(key of notificationsArr ; track $index){
               <div class="notification-item">
                 <ul>
-                  <li class="notification-description">
-                    {{key?.post_title}}{{key?.message}}
+                  <li class="notification-description"
+                    [ngClass]=" {'read-notification': key.notification_status == 'unread'} ">
+                    {{key?.message}}
+                    <span (click)="goToPage(key)">{{key?.post_title}}</span>
                   </li>
                   <!-- <li class="notification-time">1 hr ago</li> -->
                 </ul>
               </div>
               }
-              @if(notificationsArr.length > 10){
+              @if(notificationsArr.length > 0){
               <button class="btn" style="background-color: orange;color:#fff;border-radius:2px;width:100%;"
-                (click)="navigatetoNotifications()">View More</button>
+                (click)="navigatetoNotifications()">View All</button>
               }
               @if(!notificationsArr.length){
               <p style="font-size: 15px;text-align: center;"> You don't have any notifications!</p>
