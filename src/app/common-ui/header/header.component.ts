@@ -75,6 +75,7 @@ export class HeaderComponent {
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
+
   /**
    *
    * @param router
@@ -92,6 +93,11 @@ export class HeaderComponent {
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
+      console.log("check auth1", this.isAuthenticated)
+      if (this.isAuthenticated) {
+        this.getNotifications()
+        this.startNotificationInterval()
+      }
     })
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
@@ -130,7 +136,9 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
+    console.log("isAuth", this.isAuthenticated)
     if (this.isAuthenticated) {
+      console.log("isAuth", this.isAuthenticated)
       this.getNotifications()
       this.startNotificationInterval()
     }
@@ -245,6 +253,7 @@ export class HeaderComponent {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigate(['/']);
+    this.stopNotificationInterval()
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
@@ -335,6 +344,15 @@ export class HeaderComponent {
       .subscribe(() => {
         this.getNotifications();
       });
+  }
+
+  private stopNotificationInterval(): void {
+    if (this.notificationIntervalSubscription) {
+      this.notificationIntervalSubscription.unsubscribe();
+      this.notificationIntervalSubscription = undefined;
+      this.notificationsArr = []
+      this.notificationsDetails = ''
+    }
   }
 
   notificationsDetails: any;
