@@ -116,6 +116,8 @@ export class EventDetailsComponent {
   public eventNumberOfBooking: any
   public numberofBookingPrice: any
   public eventEndDate: any
+  public claimedBusinessStatus: any
+
   /**
    *
    *
@@ -163,6 +165,7 @@ export class EventDetailsComponent {
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
+        console.log("check auth", this.isAuthentecate)
         const controlsToValidate = ['comment_author_email', 'comment_author']
 
         controlsToValidate.forEach((controlName) => {
@@ -214,6 +217,7 @@ export class EventDetailsComponent {
     if (Token) {
       console.log("check1")
       this.fetchProfileDetail()
+      this.fetchClamiedBusinessStatus()
     }
   }
 
@@ -226,6 +230,30 @@ export class EventDetailsComponent {
     const day = date.getDate().toString().padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+  }
+
+  public checkIsClaimButtonVisible(eventDetails: any, userDetail: any): boolean {
+    const isOwnerAssociate = eventDetails?.business_ownerassociate == '0';
+    const isBusinessOwner = userDetail?.user_role === this.role.businessOwner;
+    const isLevel = userDetail?.level_id === '3' || userDetail?.level_id === '2';
+    // console.log(isBusinessOwner, isBusinessOwner, isLevel, this.isAuthentecate)
+    if (this.claimedBusinessStatus == 'pending' || this.claimedBusinessStatus == 'approved' || eventDetails?.user_deatil?.user_id == userDetail?.ID) {
+      return false
+    }
+    return isOwnerAssociate && this.isAuthentecate && isBusinessOwner && isLevel;
+  }
+
+  public fetchClamiedBusinessStatus() {
+    const postId = this.postId
+    this.eventService.getClaimBusinessLisiting(postId).subscribe({
+      next: (res) => {
+        console.log("check claimed lsiiting", res)
+        this.claimedBusinessStatus = res.data
+      },
+      error: (err) => {
+
+      }
+    })
   }
 
   public showRatingMessage(event: any): void {
@@ -652,13 +680,16 @@ export class EventDetailsComponent {
   }
 
   public fetchProfileDetail() {
+    this.fullPageLoaderService.showLoader()
     this.profileService.userDetails().subscribe({
       next: (res) => {
+        this.fullPageLoaderService.hideLoader()
         this.userDetail = res.data.user
         console.log("check userDetails", this.userDetail)
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
+        this.fullPageLoaderService.hideLoader()
       },
     })
   }
@@ -866,7 +897,9 @@ export class EventDetailsComponent {
     }
   }
 
-
+  public claimlisting(item: any) {
+    this.router.navigate(['/claim-business', item.post_id], { queryParams: { listingTitle: item.post_title } })
+  }
 
 
 }

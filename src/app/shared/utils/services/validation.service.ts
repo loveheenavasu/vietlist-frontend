@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
   providedIn: 'root',
 })
 export class ValidationService {
-  constructor() {}
+  constructor() { }
 
   public getValidationMessage(validationId: any): any {
     return this.errorMessage[validationId]
@@ -23,5 +23,7 @@ export class ValidationService {
     'first-name-msg': 'First name is required',
     'last-name-msg': 'Last name is required',
     'contact-required-msg': 'Contact number is required',
+    'list-name-msg': 'Lisiting Tiltle is required',
+    'full-name-msg': 'Full Name is required',
   }
 }

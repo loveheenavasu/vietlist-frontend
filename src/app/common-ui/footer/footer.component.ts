@@ -6,12 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { Router } from '@angular/router'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -22,6 +23,7 @@ export class FooterComponent {
   constructor(
     private footerContent: HomepageService,
     private fb: FormBuilder,
+    private router:Router
   ) {
     this.newsLetterSubscribeForm = this.fb.group({
       email: [
@@ -59,5 +61,9 @@ export class FooterComponent {
         console.log('error in subscribe email', err)
       },
     })
+  }
+
+  public navigateTo(url:any){
+    this.router.navigateByUrl(url)
   }
 }

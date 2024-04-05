@@ -33,14 +33,14 @@ import { LoaderComponent } from 'src/app/common-ui'
 })
 export class SubscriptionFormComponent {
   public verified_badge: any
-  public verification_upload: any=[]
+  public verification_upload: any = []
   public lastPart!: string
   public check!: boolean
   public imagePreviews: any
   public imageUrl: any
   public filess: any
   public businessFormDetails: any
-  public isImageUploading:boolean = false
+  public isImageUploading: boolean = false
 
   @Output() formSubmit = new EventEmitter<void>()
   @Input() set subscriptionData(value: any) {
@@ -72,24 +72,25 @@ export class SubscriptionFormComponent {
   public subscriptionForm: FormGroup
   public filesString: any
   public postId: any
-  changeBadgetext!:boolean
-  hidefileds:any
+  changeBadgetext!: boolean
+  hidefileds: any
   constructor(
     private fb: FormBuilder,
     private businessService: BusinessService,
     private localstorage: LocalStorageService,
     private cdr: ChangeDetectorRef,
-    private authService : AuthenticationService
+    private authService: AuthenticationService
   ) {
     this.subscriptionForm = this.fb.group({
       facebook: ['', Validators.required],
       twitter: ['', Validators.required],
       instagram: ['', Validators.required],
+
     })
-this.authService.userDetails.subscribe((res:any)=>{
-this.hidefileds = res
-   
-})
+    this.authService.userDetails.subscribe((res: any) => {
+      this.hidefileds = res
+
+    })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 
@@ -101,7 +102,7 @@ this.hidefileds = res
     this.isFormFilled = Boolean(isFormFIlled)
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
@@ -127,7 +128,7 @@ this.hidefileds = res
         const result = reader.result as string
       }
     }
-  
+
     this.businessService.uploadMedia(this.files[0]).subscribe({
       next: (res: any) => {
         this.isImageUploading = false
@@ -159,20 +160,20 @@ this.hidefileds = res
         next: (res) => {
           this.isLoader = false
           if (res) {
-          this.formSubmit.emit()
-          // Swal.fire({
-          //   toast: true,
-          //   text: 'Successfully updated subscription details.',
-          //   animation: false,
-          //   icon: 'success',
-          //   position: 'top-right',
-          //   showConfirmButton: false,
-          //   timer: 3000,
-          //   timerProgressBar: true,
-          // })
+            this.formSubmit.emit()
+            // Swal.fire({
+            //   toast: true,
+            //   text: 'Successfully updated subscription details.',
+            //   animation: false,
+            //   icon: 'success',
+            //   position: 'top-right',
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            //   timerProgressBar: true,
+            // })
           }
         },
-        error: (err) => {},
+        error: (err) => { },
       })
     } else {
       this.businessService.addBusiness(body).subscribe({
@@ -195,7 +196,7 @@ this.hidefileds = res
             // })
           }
         },
-        error: (err) => {},
+        error: (err) => { },
       })
     }
   }

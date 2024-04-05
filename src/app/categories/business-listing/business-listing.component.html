@@ -59,6 +59,11 @@
               <div class="linking-icon">
                 <i class="fa fa-link" aria-hidden="true"></i>
               </div>
+              @if (isGlobal) {
+              <div class="verified-logo">
+                <img src="/assets/image/cta-verfied-img2.svg" alt="verfied-logo" />
+              </div>
+              }
               @if (key.default_category?.name) {
               <div class="category-name">
                 <span [innerHTML]="key.default_category?.name"></span>
@@ -123,6 +128,11 @@
               @if (key.default_category?.name) {
               <div class="category-name">
                 <span [innerHTML]="key.default_category?.name"></span>
+              </div>
+              }
+              @if (isGlobal) {
+              <div class="verified-logo">
+                <img src="/assets/image/cta-verfied-img2.svg" alt="verfied-logo" />
               </div>
               }
             </div>

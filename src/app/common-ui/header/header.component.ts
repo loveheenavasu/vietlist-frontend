@@ -24,6 +24,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import { interval, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-header',
@@ -69,8 +70,8 @@ export class HeaderComponent {
   public latitude: any
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
-  public notificationsArr :any[]=[]
-  // isDropdownActiveEvent!: boolean = false;
+  public notificationsArr: any[] = []
+  private notificationIntervalSubscription: Subscription | undefined;
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
@@ -87,7 +88,7 @@ export class HeaderComponent {
     private activatedRoute: ActivatedRoute,
     private businessService: BusinessService,
     private authService: AuthService,
-    private homeService:HomepageService
+    private homeService: HomepageService
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -111,10 +112,10 @@ export class HeaderComponent {
         this.isSearchInputVisible = false
       }
     })
-    errorMessageSubject.subscribe((res:any)=>{
-        if(res){
-          this.onLogout()
-        }
+    errorMessageSubject.subscribe((res: any) => {
+      if (res) {
+        this.onLogout()
+      }
     })
     this.sessionservice.OnLogOut.subscribe((res: any) => {
       if (res) {
@@ -129,8 +130,9 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
-    if(this.isAuthenticated){
+    if (this.isAuthenticated) {
       this.getNotifications()
+      this.startNotificationInterval()
     }
   }
 
@@ -276,11 +278,11 @@ export class HeaderComponent {
     this.router.navigateByUrl('/find-business');
   }
 
-  public navigatetoNotifications(){
+  public navigatetoNotifications() {
     this.router.navigateByUrl('/notifications')
   }
 
-  public  openMenu(menu: MatMenuTrigger) {
+  public openMenu(menu: MatMenuTrigger) {
     menu.openMenu();
   }
 
@@ -327,17 +329,28 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
-public getNotifications(){
-  this.homeService.getNotification().subscribe({
-    next:(res:any)=>{
-      this.notificationsArr = res.data
-      console.log(res , "Response")
-    },
-    error:(err)=>{
-      
-    }
-  })
-}
+  private startNotificationInterval() {
+    // Start interval for fetching notifications every minute
+    this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
+      .subscribe(() => {
+        this.getNotifications();
+      });
+  }
+
+  notificationsDetails: any;
+  public getNotifications() {
+    this.homeService.getNotification().subscribe({
+      next: (res: any) => {
+        this.notificationsDetails = res.total_count
+        console.log(this.notificationsDetails, "TOTALCOUNT")
+        this.notificationsArr = res.data
+
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 
 
   setDropdownActiveEvent(active: boolean): void {
