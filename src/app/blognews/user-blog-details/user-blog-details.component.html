@@ -50,12 +50,13 @@
                     </div>
                     &nbsp;
                     <div class="blog___">
-                        <i class="far fa-comment-dots"></i> &nbsp;<span style="cursor:pointer" (click)="scrollTo('commentsLength')" >{{ commentArr?.length? commentArr.length + ' '+
+                        <i class="far fa-comment-dots"></i> &nbsp;<span style="cursor:pointer"
+                            (click)="scrollTo('commentsLength')">{{ commentArr?.length? commentArr.length + ' '+
                             'Comments':'No Comments'}}</span>
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="main_content__">
+                    <div class="mains_content__">
                         <div [innerHTML]="userBlogDetails?.blog_desc" class="blog-content"></div>
 
                         @if(userBlogDetails?.author_detail){
@@ -98,7 +99,8 @@
 
                                     <div class="auther_email">
                                         <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                    class="email_auther">{{item?.comment_detail?.comment_author}}</span></a> &nbsp;</b>
+                                                    class="email_auther">{{item?.comment_detail?.comment_author}}</span></a>
+                                            &nbsp;</b>
                                         <span class="says">says:</span>
                                         <br />
                                         <div class="auther_date">
@@ -136,7 +138,8 @@
 
                                         <div class="auther_email">
                                             <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                        class="email_auther">{{items?.comment_author}}</span></a> &nbsp;</b>
+                                                        class="email_auther">{{items?.comment_author}}</span></a>
+                                                &nbsp;</b>
                                             <span class="says">says:</span>
                                             <br />
                                             <div class="auther_date">
@@ -156,7 +159,7 @@
                                         </div>
                                     </div>
                                     @for (key of items.comment_replies; track $index) {
-                                    <div class="clid_reply_two" >
+                                    <div class="clid_reply_two">
                                         <div class="comment_section">
                                             <div class="profile_comment">
                                                 <img [src]="key?. user_image ? key?. user_image : '/assets/image/No-image-found.jpeg'"
@@ -165,7 +168,8 @@
 
                                             <div class="auther_email">
                                                 <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                            class="email_auther">{{key?.comment_author}}</span></a> &nbsp;</b>
+                                                            class="email_auther">{{key?.comment_author}}</span></a>
+                                                    &nbsp;</b>
                                                 <span class="says">says:</span>
                                                 <br />
                                                 <div class="auther_date">
@@ -236,7 +240,7 @@
                                                         [formControl]="website" />
                                                 </div>
                                             </div>
-                                           <!--- <div class="col-12 col-md-12 mb-3">
+                                            <!--- <div class="col-12 col-md-12 mb-3">
                                                 <div class="form-group">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" value=""
@@ -288,7 +292,7 @@
                                                     your profile.</span> <span class="email_auther_reply"
                                                     *ngIf="isAuthenticated" (click)="logout()">Log
                                                     out?</span>
-                                                <span class="required-field-message">Required fields are marked <span
+                                                <span class="required-field-message"> Required fields are marked <span
                                                         class="asterik">*</span></span>
                                             </p>
                                         </div>
@@ -314,7 +318,7 @@
                                                 <input type="text" class="input-control mt-1" [formControl]="website" />
                                             </div>
                                         </div>
-                                      
+
                                         <br />
                                         }
                                         <div class="col-12  mb-3">
@@ -356,7 +360,7 @@
                                                 class="email_auther_reply mx-1">Edit
                                                 your profile.</span> <span class="email_auther_reply"
                                                 *ngIf="isAuthenticated" (click)="logout()">Log out?</span>
-                                            <span class="required-field-message mx-1">Required fields are marked <span
+                                            <span class="required-field-message mx-1"> Required fields are marked <span
                                                     class="asterik">*</span></span>
                                         </p>
                                     </div>
@@ -419,7 +423,7 @@
                                 <div class="col-12 mt-4">
                                     <p class="comment-notes" style="font-size: 16px; color: #555555">
                                         <span id="email-notes">Your email address will not be published.</span>
-                                        <span class="required-field-message">Required fields are marked <span
+                                        <span class="required-field-message"> Required fields are marked <span
                                                 class="asterik">*</span></span>
                                     </p>
                                 </div>
@@ -444,7 +448,7 @@
                                         <input type="text" class="input-control mt-1" [formControl]="website" />
                                     </div>
                                 </div>
-                               <!--- <div class="col-12 col-md-5  mb-3">
+                                <!--- <div class="col-12 col-md-5  mb-3">
                                     <div class="form-group">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" [checked]="CheckValues"
@@ -517,7 +521,7 @@
                     </div>
 
                 </div>
-                } 
+                }
             </div>
 
         </div>

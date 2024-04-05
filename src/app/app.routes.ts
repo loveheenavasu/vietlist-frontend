@@ -44,6 +44,7 @@ import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.c
 import { UserBlogDetailsComponent } from './blognews/user-blog-details/user-blog-details.component'
 import { NotificationPageComponent } from './notification-page/notification-page.component';
 import { ClaimListingComponent } from './claim-listing/claim-listing.component';
+import { FaqComponent } from './landing-page/views/faq/faq.component';
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -240,6 +241,10 @@ export default [
   {
     path:'claim-business',
     loadComponent:()=>ClaimListingComponent
+  },
+  {
+    path:'faq',
+    loadComponent:()=>FaqComponent
   },
   {
     path: '**',
