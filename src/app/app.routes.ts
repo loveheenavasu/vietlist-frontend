@@ -45,6 +45,7 @@ import { UserBlogDetailsComponent } from './blognews/user-blog-details/user-blog
 import { NotificationPageComponent } from './notification-page/notification-page.component';
 import { ClaimListingComponent } from './claim-listing/claim-listing.component';
 import { FaqComponent } from './landing-page/views/faq/faq.component';
+import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component';
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -189,8 +190,8 @@ export default [
     loadComponent: () => BusinessblogsComponent,
   },
   {
-    path:'business-blog-details/:id',
-    loadComponent:() => BusinessBlogDetailsComponent
+    path: 'business-blog-details/:id',
+    loadComponent: () => BusinessBlogDetailsComponent
   },
   {
     path: 'business-listing',
@@ -227,24 +228,28 @@ export default [
     loadComponent: () => EventDetailsComponent,
   },
   {
-    path:'contact-us',
-    loadComponent:()=>ContactUsComponent
+    path: 'contact-us',
+    loadComponent: () => ContactUsComponent
   },
   {
-    path:'thank-you',
-    loadComponent:()=>ThankYouPageComponent
+    path: 'thank-you',
+    loadComponent: () => ThankYouPageComponent
   },
   {
-    path:'notifications',
-    loadComponent:()=>NotificationPageComponent
+    path: 'notifications',
+    loadComponent: () => NotificationPageComponent
   },
   {
-    path:'claim-business',
-    loadComponent:()=>ClaimListingComponent
+    path: 'claim-business/:id',
+    loadComponent: () => ClaimListingComponent
   },
   {
-    path:'faq',
-    loadComponent:()=>FaqComponent
+    path: 'faq',
+    loadComponent: () => FaqComponent
+  },
+  {
+    path:'for-business',
+    loadComponent:()=>ForBusinessComponent
   },
   {
     path: '**',

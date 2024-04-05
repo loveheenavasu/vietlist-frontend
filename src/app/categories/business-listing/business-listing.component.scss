@@ -132,6 +132,14 @@
                         padding: .25em .4em;
                         font-size: 12px;
                     }
+
+                    .verified-logo {
+                        position: absolute;
+                        top: -13px;
+                        right: -10px;
+                        width: 15%;
+                        // height: 18%;
+                    }
                 }
 
                 .listing-img:hover {
@@ -243,6 +251,14 @@
                             color: #fff;
                             padding: .25em .4em;
                             font-size: 12px;
+                        }
+
+                        .verified-logo {
+                            position: absolute;
+                            top: -13px;
+                            right: -10px;
+                            width: 15%;
+                            // height: 18%;
                         }
                     }
 

@@ -1,91 +1,79 @@
-<p>notification-page works!</p>
 <div class="container">
-  <div class="row">
-    <div class="header d-flex">
-        <div class="flex-grow-1 mt-2">
-          <h1 class="notification-heading">Notifcations</h1>
-        </div>
-        <div class="ms-auto mt-3">
-          <h1 class="mark-as-read">
-            Mark as all read <span> <mat-slide-toggle></mat-slide-toggle></span>
-          </h1>
-        </div>
-    </div>
+  <!-- 
+<div class="row">
+  <div class="tabs">
+     <p>All</p>
+     <p>Business</p>
+     <p>Archive</p>
   </div>
-  <div class="row">
-    <div class="notification-list">
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">1 hr ago</li>
-        </ul>
+</div> -->
+  <div class="content">
+    <div class="row">
+      <div class="header">
+        <div class="row">
+          <div class="d-flex mobile-notification-heading ">
+            <div class="flex-grow-1 mt-2">
+              <h1 class="notification-heading">Notifcations</h1>
+            </div>
+            <div class="ms-auto mt-3">
+              <h1 class="mark-as-read">
+                Mark All as Read <span> <mat-slide-toggle [(ngModel)]="toggleState"
+                    (change)="onAllMarkRead()"></mat-slide-toggle></span>
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div class="row tabs-wrapper ">
+          <div class="tabs">
+            <p [ngClass]="{'active-tab': activeTab == 'all'}" (click)="onTabClick('all')">All</p>
+            <p [ngClass]="{'active-tab': activeTab == 'business_listing'}" (click)="onTabClick('business_listing')">
+              Business</p>
+            <p [ngClass]="{'active-tab': activeTab == 'event_booking'}" (click)="onTabClick('event_booking')">Event
+              Booking</p>
+            <p [ngClass]="{'active-tab': activeTab == 'claim_business'}" (click)="onTabClick('claim_business')">Claim
+              Business</p>
+            <p [ngClass]="{'active-tab': activeTab == 'archive'}" (click)="onTabClick('archive')">Archive</p>
+          </div>
+        </div>
       </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">1 hr ago</li>
-        </ul>
+    </div>
+
+    <div class="row">
+      @if (notificationArr.length > 0) {
+      <div class="notification-list">
+        @for(key of notificationArr ; track $index){
+        <div class="notification-item" [ngClass]=" {'read-notification': key.notification_status == 'unread'} "
+          *ngIf="!loader">
+          <div class="d-flex">
+            <div>
+              <ul>
+
+                <li class="notification-description">
+                  {{key?.message}} <span (click)="goToPage(key)">{{key?.post_title}}</span>
+                </li>
+                <!-- <li class="notification-time">1 hr ago</li> -->
+              </ul>
+            </div>
+            <div class="ms-auto">
+              <i *ngIf="activeTab != 'archive' " class="fa fa-archive" aria-hidden="true" (click)="markAsArchive(key)"
+                style="color:grey;cursor:pointer;margin-top:1rem" mat-raised-button matTooltip="Mark as archive"></i>
+              <i *ngIf="activeTab == 'archive' " class="fa fa-archive" aria-hidden="true" (click)="markAsUnarchive(key)"
+                style="color:grey;cursor:pointer;margin-top:1rem" mat-raised-button matTooltip="Unarchive"></i>
+              <!-- <img class="unarchive-icon" src="/assets/icons/unarchive.svg" alt="unarchive" /> -->
+            </div>
+          </div>
+        </div>
+        }
+        <app-loader *ngIf="loader" style="color: orange;"></app-loader>
+
       </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">1 hr ago</li>
-        </ul>
+      } @else {
+      <div class="no-data">
+        <div class="no-data-text">
+          <p>No notifications</p>
+        </div>
       </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">1 hr ago</li>
-        </ul>
-      </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">1 hr ago</li>
-        </ul>
-      </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">Now</li>
-        </ul>
-      </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">Now</li>
-        </ul>
-      </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">Now</li>
-        </ul>
-      </div>
-      <div class="notification-item">
-        <ul>
-          <li class="notification-description">
-            <b>Mark</b> has viewed your profile.
-          </li>
-          <li class="notification-time">Now</li>
-        </ul>
-      </div>
+      }
     </div>
   </div>
 </div>

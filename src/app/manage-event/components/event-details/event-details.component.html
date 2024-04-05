@@ -610,6 +610,11 @@
         </div> -->
     </div>
   </div>
+  @if (checkIsClaimButtonVisible(eventDetails,userDetail)) {
+  <div class="iconDirection__">
+    <button class="cliam__" (click)="claimlisting(eventDetails)">Claim Business</button>
+  </div>
+  }
   <div class="iconDirection">
     @if (eventDetails?.facebook){
     <div class="elementor-grid-item" style="background: #3b5998">

@@ -15,15 +15,15 @@ import { ProfileService } from '../../service/profile.service'
 })
 export class ManageSubscriptionComponent {
   public userDetails: any
-  public subscriptionDetails:any
-  public formattedTimeStamp:any
+  public subscriptionDetails: any
+  public formattedTimeStamp: any
   constructor(
     private profileDetail: ProfileService,
     private loaderService: FullPageLoaderService,
-    private planService:PlansService,
+    private planService: PlansService,
     private router: Router,
-    private authenticationService:AuthenticationService
-  ) {}
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit() {
     this.fetchProfileDetail()
@@ -39,30 +39,30 @@ export class ManageSubscriptionComponent {
           this.userDetails = res?.data?.user
         }
       },
-      error: (err: any) => {},
+      error: (err: any) => { },
     })
   }
 
-  public getUserSubscriptionDetails(){
+  public getUserSubscriptionDetails() {
     this.loaderService.showLoader()
     this.profileDetail.subscriptionDetails().subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.loaderService.hideLoader()
         this.subscriptionDetails = res.data
-        this.subscriptionDetails.invoice_detail.forEach((element:any) => {
-         element.formattedTimeStamp  = element.timestamp.split(' ')[0]
+        this.subscriptionDetails.invoice_detail.forEach((element: any) => {
+          element.formattedTimeStamp = element.timestamp.split(' ')[0]
         });
-      },error:(err)=>{
+      }, error: (err) => {
 
       }
     })
   }
 
   public handleChangePlan() {
-    this.router.navigateByUrl('//subscription-plans')
+    this.router.navigateByUrl('/subscription-plans')
   }
 
-  public cancelMembership(levelId:any){
+  public cancelMembership(levelId: any) {
     Swal.fire({
       title: 'Do you really want to cancel your membership?',
       text: "You won't be able to revert this!",
@@ -74,7 +74,7 @@ export class ManageSubscriptionComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.planService.cancelPlan(levelId).subscribe({
-          next:(res)=>{
+          next: (res) => {
             Swal.fire({
               toast: true,
               text: res.message,
@@ -94,13 +94,13 @@ export class ManageSubscriptionComponent {
 
   }
 
-  public handleLogout(){
+  public handleLogout() {
     this.authenticationService.clearAuthentication()
     this.router.navigateByUrl('/')
     window.location.reload()
   }
 
-  public navigateTo(url:any){
+  public navigateTo(url: any) {
     this.router.navigate([url])
   }
 }

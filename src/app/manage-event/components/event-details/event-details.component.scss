@@ -159,6 +159,26 @@
     height: 100%;
 }
 
+.iconDirection__ {
+    position: absolute;
+    left: 10%;
+    bottom: 17px;
+    z-index: 2;
+}
+
+.cliam__ {
+    width: 140px;
+    padding: 12px;
+    background: #f89705 !important;
+    border: 1px solid #f89705 !important;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+}
+
 .featured_image {
     height: 15rem;
     width: 17rem;
@@ -648,8 +668,8 @@ fieldset:disabled .btn {
     color: #181818
 }
 
-.btn:disabled{
-    color:#ffff!important
+.btn:disabled {
+    color: #ffff !important
 }
 
 
@@ -663,14 +683,17 @@ fieldset:disabled .btn {
     border: 1px solid #ff7b7b;
     color: #ff7b7b;
     margin-bottom: 16px;
-  }
-  
-  .warning-message mat-icon {
+}
+
+.warning-message mat-icon {
     margin-right: 10px;
-  }
-  .disabled-div {
+}
+
+.disabled-div {
     /* Apply styles for the disabled state */
-    opacity: 0.5; /* Dim the opacity */
-    pointer-events: none; /* Disable pointer events */
+    opacity: 0.5;
+    /* Dim the opacity */
+    pointer-events: none;
+    /* Disable pointer events */
     /* Add any other styles as needed */
-  }
+}

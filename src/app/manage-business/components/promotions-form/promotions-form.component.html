@@ -156,7 +156,16 @@
       </div>
       </div> -->
       <div style="width: 100%; text-align: end">
-        <button type="button" class="btn orange-background-btn ms-auto" (click)="handleFinalSubmission()"
+        <button
+        type="button"
+        class="btn orange-background-btn mx-3"
+        [disabled]="!term_and_condition.value || !recaptcha.value"
+      (click)="previewBusiness()"
+      >
+        
+        <span >Preview</span>
+      </button>
+        <button type="button" class="btn orange-background-btn ms-auto" style="margin-left:2rem" (click)="handleFinalSubmission()"
           [disabled]="!term_and_condition.value || !recaptcha.value">
           @if (isLoader) {
           <app-loader></app-loader>
@@ -164,6 +173,7 @@
           <span>Submit</span>
           }
         </button>
+
       </div>
     </div>
   </div>
