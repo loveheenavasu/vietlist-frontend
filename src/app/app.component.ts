@@ -13,6 +13,7 @@ import { OneSignal } from 'onesignal-ngx';
 import { PushNotificationService } from './shared/utils/services/pushnotification.service'
 
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
 import { environment } from 'src/environments/environment.development'
 
 import { Observable } from 'rxjs'
@@ -27,7 +28,8 @@ initializeApp(environment.firebaseConfig);
     FooterComponent,
     FullPageLoader,
     NgIf,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    
   ],
   template: `
     <app-header></app-header>
@@ -59,21 +61,25 @@ export class AppComponent {
     //   appId: "18528e71-bbe6-4933-b43a-0a4903923181",
     // });
    
+    
+  
    }
    ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
+
+
     this.requestPermission();
     this.listen();
   }
 
 
-   requestPermission() {
+  requestPermission() {
     const messaging = getMessaging();
     getToken(messaging, 
      { vapidKey: environment.firebaseConfig.vapidKey}).then(
-       (currentToken:any) => {
+       (currentToken) => {
          if (currentToken) {
            console.log("Hurraaa!!! we got the token.....");
            console.log(currentToken);

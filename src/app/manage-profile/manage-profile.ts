@@ -12,6 +12,10 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { SkeletonLoadingComponent } from '../common-ui/skeleton-loading/skeleton-loading.component'
+import { getMessaging, getToken } from "firebase/messaging";
+import { environment } from 'src/environments/environment.development'
+
+
 
 @Component({
   selector: 'app-manage-profile',
@@ -81,6 +85,22 @@ public  pageTitle: string = '';
  
 
   ngAfterViewInit(){
+    const messaging = getMessaging();
+    getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey }).then((currentToken) => {
+      if (currentToken) {
+
+         console.log(currentToken,'currentTokencurrentTokencurrentTokencurrentToken')
+        // Send the token to your server and update the UI if necessary
+        // ...
+      } else {
+        // Show permission request UI
+        console.log('No registration token available. Request permission to generate one.');
+        // ...
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+      // ...
+    });
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.router.url;
