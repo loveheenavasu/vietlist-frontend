@@ -74,6 +74,13 @@
         </div>
       </div>
       }
+
     </div>
+    @if(totalCount > 10 && notificationArr.length <totalCount){ <div class="col-12">
+      <div class="text-center">
+        <button class="__button" (click)="loadMore()">Load More</button>
+      </div>
   </div>
+  }
+</div>
 </div>
