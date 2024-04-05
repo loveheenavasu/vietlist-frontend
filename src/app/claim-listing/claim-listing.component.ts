@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DndModule } from 'ngx-drag-drop';
-import { NgIf } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { BusinessService } from '../manage-business/service/business.service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormControlValidationDirective } from '../shared/utils';
@@ -49,7 +49,9 @@ export class ClaimListingComponent {
   public claimedStatus: any
 
   constructor(private businessService: BusinessService, private fb: FormBuilder,
-    private claimService: ClaimService, private _activatedRoute: ActivatedRoute, private eventService: EventService, private router: Router) {
+    private claimService: ClaimService, private _activatedRoute: ActivatedRoute,
+    private eventService: EventService, private router: Router,
+    private location: Location) {
 
     this.claimBusinessForm = this.fb.group({
       listing_title: ['', Validators.required],
@@ -126,16 +128,30 @@ export class ClaimListingComponent {
       next: (res) => {
         console.log("form data", res)
         this.loader = false
-        Swal.fire({
-          toast: true,
-          text: res.message,
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
+        if (!res.status) {
+          Swal.fire({
+            toast: true,
+            text: res.message,
+            animation: false,
+            icon: 'error',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+          this.location.back();
+        } else {
+          Swal.fire({
+            toast: true,
+            text: res.message,
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+        }
         this.fetchClamiedBusinessStatus()
       },
       error: (err) => {

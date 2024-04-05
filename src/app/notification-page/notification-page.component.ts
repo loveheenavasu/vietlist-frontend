@@ -7,6 +7,7 @@ import { NgClass, NgIf } from '@angular/common';
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
 import { FullPageLoaderService } from '../shared/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notification-page',
@@ -22,7 +23,9 @@ export class NotificationPageComponent {
   public toggleState: boolean = false
   public loader: boolean = false
 
-  constructor(private notification: HomepageService, private fullPageLoaderService: FullPageLoaderService) { }
+  constructor(private notification: HomepageService,
+    private fullPageLoaderService: FullPageLoaderService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getNotifications()
@@ -85,6 +88,37 @@ export class NotificationPageComponent {
       })
     }
   }
+
+  markAsUnarchive(item: any) {
+    this.fullPageLoaderService.showLoader()
+    if (item.id) {
+      const body = {
+        read_type: 'unarchive',
+        id: item.id
+      }
+      this.notification.notificationStatus(body).subscribe({
+        next: (res) => {
+          console.log("check res", res)
+          this.getNotifications();
+          this.fullPageLoaderService.hideLoader()
+          Swal.fire({
+            toast: true,
+            text: 'Unarchive successfully',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+
+        },
+        error: (res) => {
+
+        }
+      })
+    }
+  }
   getNotifications(notificationType?: string) {
     // console.log("check the archieve", notificationType)
     this.loader = true
@@ -123,5 +157,13 @@ export class NotificationPageComponent {
     }
   }
 
+  goToPage(item: any) {
+    console.log("check", item)
+    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
+      this.router.navigate(['/business-details', item.id]);
+    } else if (item.notification_type == 'event_booking') {
+      this.router.navigate(['/event-details', item.id]);
+    }
+  }
 
 }

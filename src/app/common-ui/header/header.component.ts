@@ -70,7 +70,7 @@ export class HeaderComponent {
   public latitude: any
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
-  public notificationsArr :any[]=[]
+  public notificationsArr: any[] = []
   private notificationIntervalSubscription: Subscription | undefined;
   public roles = Roles
   public userInfo: any
@@ -88,7 +88,7 @@ export class HeaderComponent {
     private activatedRoute: ActivatedRoute,
     private businessService: BusinessService,
     private authService: AuthService,
-    private homeService:HomepageService
+    private homeService: HomepageService
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -112,10 +112,10 @@ export class HeaderComponent {
         this.isSearchInputVisible = false
       }
     })
-    errorMessageSubject.subscribe((res:any)=>{
-        if(res){
-          this.onLogout()
-        }
+    errorMessageSubject.subscribe((res: any) => {
+      if (res) {
+        this.onLogout()
+      }
     })
     this.sessionservice.OnLogOut.subscribe((res: any) => {
       if (res) {
@@ -130,7 +130,7 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
-    if(this.isAuthenticated){
+    if (this.isAuthenticated) {
       this.getNotifications()
       this.startNotificationInterval()
     }
@@ -278,11 +278,11 @@ export class HeaderComponent {
     this.router.navigateByUrl('/find-business');
   }
 
-  public navigatetoNotifications(){
+  public navigatetoNotifications() {
     this.router.navigateByUrl('/notifications')
   }
 
-  public  openMenu(menu: MatMenuTrigger) {
+  public openMenu(menu: MatMenuTrigger) {
     menu.openMenu();
   }
 
@@ -337,20 +337,20 @@ export class HeaderComponent {
       });
   }
 
-  notificationsDetails:any;
-public getNotifications(){
-  this.homeService.getNotification().subscribe({
-    next:(res:any)=>{
-      this.notificationsDetails = res.total_count
-      console.log(this.notificationsDetails ,"TOTALCOUNT")
-      this.notificationsArr = res.data
-  
-    },
-    error:(err)=>{
-      
-    }
-  })
-}
+  notificationsDetails: any;
+  public getNotifications() {
+    this.homeService.getNotification().subscribe({
+      next: (res: any) => {
+        this.notificationsDetails = res.total_count
+        console.log(this.notificationsDetails, "TOTALCOUNT")
+        this.notificationsArr = res.data
+
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 
 
   setDropdownActiveEvent(active: boolean): void {

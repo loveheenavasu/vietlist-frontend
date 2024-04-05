@@ -12,6 +12,11 @@
 
 }
 
+.tabs-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 .tabs {
     display: flex;
     gap: 1rem;
@@ -26,7 +31,8 @@
         border-radius: 5px;
         padding: 0px 1em;
         margin-top: 1.5rem;
-
+        white-space: nowrap;
+        // width: 100%;
     }
 
     .active-tab {
@@ -98,6 +104,21 @@
     padding: 1em;
 }
 
+.read-notification {
+    background-color: #fee8b2 !important;
+
+    .notification-description {
+        // color: #fff;
+
+        span {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+
+}
+
 .notification-item {
     margin-bottom: 1.5em;
     border-radius: 8px;
@@ -115,6 +136,13 @@
             padding: 0px;
         }
     }
+
+    .unarchive-icon {
+        width: 18px;
+        height: 18px;
+        color: grey;
+        cursor: pointer;
+    }
 }
 
 
@@ -129,6 +157,12 @@
     margin: 0 0 1em;
     color: #666;
     font-size: 16px;
+
+    span {
+        text-decoration: underline;
+        cursor: pointer;
+        text-transform: capitalize;
+    }
 }
 
 .notification-time {
@@ -153,5 +187,12 @@
             text-align: center;
             color: #666
         }
+    }
+}
+
+@media (max-width:450px) {
+    .mobile-notification-heading {
+        justify-content: space-between;
+        gap: 10px;
     }
 }
