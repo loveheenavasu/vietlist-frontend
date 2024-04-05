@@ -1,3 +1,5 @@
+
+import { environment } from 'src/environments/environment';
 import { NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
@@ -10,7 +12,11 @@ import {
 import { FullPageLoaderService } from './shared/utils/services/loader.service'
 import { AuthenticationService } from './shared'
 import { OneSignal } from 'onesignal-ngx';
-import { PushNotificationService } from './shared/utils/services/pushnotification.service'
+import { initializeApp } from "firebase/app";
+initializeApp(environment.firebaseConfig);
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -20,7 +26,8 @@ import { PushNotificationService } from './shared/utils/services/pushnotificatio
     FooterComponent,
     FullPageLoader,
     NgIf,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    
   ],
   template: `
     <app-header></app-header>
@@ -37,27 +44,56 @@ export class AppComponent {
   title = 'vietlist-frontend'
   public loaderVisible: boolean = false
   public isNotFoundPage: boolean = false
+  message:any = null;
 
   constructor(
     private loaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
     private changeDetector: ChangeDetectorRef,
-    private oneSignal: OneSignal,
-    private pushService: PushNotificationService
+    private oneSignal: OneSignal
+
+
   ) {
-    // this.oneSignal.init({
-    //   appId: "18528e71-bbe6-4933-b43a-0a4903923181",
-    // });
-   }
+    // this.afauth.authState.subscribe((res)=>{
+    //   console.log(res , 'RSPONSEAFAUTH')
+    // })
+}
+  
 
   ngOnInit() {
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })
+    this.requestPermission();
+    this.listen();
     // this.pushService.initOneSignal();
     // this.pushService.subscribeToNotifications();  
   }
+
+  requestPermission() {
+    const messaging = getMessaging();
+    getToken(messaging, 
+     { vapidKey: environment.firebaseConfig.vapidKey}).then(
+       (currentToken:any) => {
+         if (currentToken) {
+           console.log("Hurraaa!!! we got the token.....");
+           console.log(currentToken);
+         } else {
+           console.log('No registration token available. Request permission to generate one.');
+         }
+     }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+    });
+  }
+  listen() {
+    const messaging = getMessaging();
+    onMessage(messaging, (payload) => {
+      console.log('Message received. ', payload);
+      this.message=payload;
+    });
+  }
+
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
   }

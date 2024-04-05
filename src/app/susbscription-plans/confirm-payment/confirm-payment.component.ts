@@ -65,6 +65,7 @@ export class ConfirmPaymentComponent {
   ) {
     this.route.queryParams.subscribe(params => {
       this.eventIds = params
+      console.log(this.eventIds , "eventIds")
     });
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()
@@ -75,6 +76,7 @@ export class ConfirmPaymentComponent {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.planId = params['id']
+      console.log(this.planId , "PlanIdd")
       this.eventPrice = params['price']
     })
     this.authToken = this.sessionService.getAuthToken()
@@ -83,6 +85,7 @@ export class ConfirmPaymentComponent {
     }
     this.getBillingDetails()
   }
+  
 
 
   getBillingDetails() {
