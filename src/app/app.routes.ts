@@ -1,3 +1,4 @@
+import { ResourceDetailComponent } from './landing-page/views/resource-detail/resource-detail.component';
 import { BusinessBlogDetailsComponent } from './blognews/business-blog-details/business-blog-details.component';
 
 import { ManageProfileComponent } from './manage-profile/manage-profile'
@@ -46,6 +47,7 @@ import { NotificationPageComponent } from './notification-page/notification-page
 import { ClaimListingComponent } from './claim-listing/claim-listing.component';
 import { FaqComponent } from './landing-page/views/faq/faq.component';
 import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component';
+import { ResourcesComponent } from './landing-page/views/resources/resources.component';
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -250,6 +252,14 @@ export default [
   {
     path:'for-business',
     loadComponent:()=>ForBusinessComponent
+  },
+  {
+    path:'resources',
+    loadComponent:()=>ResourcesComponent
+  },
+  {
+    path:'resource-details',
+    loadComponent:()=>ResourceDetailComponent
   },
   {
     path: '**',
