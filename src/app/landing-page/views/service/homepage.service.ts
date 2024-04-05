@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Endpoints, GenericHelper } from '@vietlist/shared'
+import { AuthenticationService, Endpoints, GenericHelper } from '@vietlist/shared'
 import { Observable } from 'rxjs'
 import { HttpClient, HttpParams } from '@angular/common/http'
 
@@ -7,7 +7,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
   providedIn: 'root',
 })
 export class HomepageService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private sessionService:AuthenticationService) { }
 
   public homePageContent(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.HomePage)
@@ -81,6 +81,12 @@ export class HomepageService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBlogComment)
     const params = new HttpParams().set('post_id', post_id)
     return this.http.get<any>(endpoint, { params: params })
+  }
+
+  public getNotification():Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessNotification)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.get<any>(endpoint, {headers:authToken})
   }
 
 }

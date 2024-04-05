@@ -36,8 +36,8 @@
 
               <h2 (click)="viewBlogDetail(item)">{{ item.blog_title }}</h2>
             </div>
-            <div class="description">
-              <p class="blog-description" [innerHTML]=" item.blog_desc"></p>
+            <div class="description" [innerHTML]=" item.blog_desc">
+
             </div>
             <mat-divider></mat-divider>
           </mat-card-content>

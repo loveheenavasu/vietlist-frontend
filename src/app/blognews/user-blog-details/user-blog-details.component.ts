@@ -42,7 +42,7 @@ export class UserBlogDetailsComponent {
   public UserId: any
   public isPostComment: boolean = false
   public userDetailscomment: any
-  public CheckValues :any
+  public CheckValues: any
   public blogSwiperParams = {
     slidesPerView: 1,
     autoplay: {
@@ -73,7 +73,7 @@ export class UserBlogDetailsComponent {
       this.userDetailscomment = localStorage.getItem('userDetailscomment');
       const data = JSON.parse(this.userDetailscomment);
       this.CheckValues = data?.checkedValue,
-      this.name.setValue(data?.comment_name)
+        this.name.setValue(data?.comment_name)
       this.email.setValue(data?.comment_email)
       this.website.setValue(data?.comment_website)
 
@@ -109,10 +109,11 @@ export class UserBlogDetailsComponent {
       },
       1388: {
         slidesPerView: 5,
-        spaceBetween: 40,
+        spaceBetween: 15,
       },
       1920: {
         slidesPerView: 5,
+        spaceBetween: 15,
       },
     },
     on: {
@@ -306,7 +307,7 @@ export class UserBlogDetailsComponent {
   }
   public valueChange(detailsUser: any) {
     this.CheckValues = detailsUser.target.checked
-   
+
   }
 
 
@@ -380,7 +381,7 @@ export class UserBlogDetailsComponent {
   public postCommnet() {
     if (this.CheckValues) {
       const userDetailscomment = {
-        checkedValue : this.CheckValues,
+        checkedValue: this.CheckValues,
         comment_name: this.name.value,
         comment_website: this.website.value,
         comment_email: this.email.value
@@ -501,5 +502,12 @@ export class UserBlogDetailsComponent {
 
       }
     })
+  }
+
+  public scrollTo(elementId: string): void {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

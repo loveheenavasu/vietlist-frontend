@@ -53,9 +53,9 @@ export class BusinessService {
 
   public getBusiness(post_id: string): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinesssGet)
-    const authToken = this.authService.getAuthHeaders()
+    // const authToken = this.authService.getAuthHeaders()
     const params = new HttpParams().set('post_id', post_id)
-    return this.http.get<any>(endpoint, { headers: authToken, params: params })
+    return this.http.get<any>(endpoint, { params: params })
   }
 
   public uploadMedia(image: any) {
@@ -76,10 +76,16 @@ export class BusinessService {
     return this.http.get<any>(endpoint, { params: queryParams })
   }
 
-  public ListingBusiness(): Observable<any> {
-
+  public ListingBusiness(params: { [key: string]: any }): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ListingBusiness)
-    return this.http.get<any>(endpoint)
+    let queryParams = new HttpParams()
+    Object.keys(params).forEach((key) => {
+      if (params[key] !== undefined) {
+        queryParams = queryParams.set(key, params[key])
+      }
+    })
+
+    return this.http.get<any>(endpoint, { params: queryParams })
   }
   public GetReviewList(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.getReview)

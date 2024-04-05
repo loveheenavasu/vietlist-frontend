@@ -50,7 +50,7 @@
                     </div>
                     &nbsp;
                     <div class="blog___">
-                        <i class="far fa-comment-dots"></i> &nbsp;<span>{{ commentArr?.length? commentArr.length + ' '+
+                        <i class="far fa-comment-dots"></i> &nbsp;<span style="cursor:pointer" (click)="scrollTo('commentsLength')" >{{ commentArr?.length? commentArr.length + ' '+
                             'Comments':'No Comments'}}</span>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                             @for (item of commentArr; track $index) {
-                            <div class="add_div"
+                            <div class="add_div" id="commentsLength"
                                 [ngClass]="{'border-bottomHide': lastElement?.comment_detail?.comment_ID == item?.comment_detail?.comment_ID}">
                                 <div class="comment_section">
                                     <div class="profile_comment">
@@ -98,8 +98,7 @@
 
                                     <div class="auther_email">
                                         <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                    class="email_auther">{{item?.comment_detail?.
-                                                    comment_author}}</span></a> &nbsp;</b>
+                                                    class="email_auther">{{item?.comment_detail?.comment_author}}</span></a> &nbsp;</b>
                                         <span class="says">says:</span>
                                         <br />
                                         <div class="auther_date">
@@ -137,8 +136,7 @@
 
                                         <div class="auther_email">
                                             <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                        class="email_auther">{{items?.
-                                                        comment_author}}</span></a> &nbsp;</b>
+                                                        class="email_auther">{{items?.comment_author}}</span></a> &nbsp;</b>
                                             <span class="says">says:</span>
                                             <br />
                                             <div class="auther_date">
@@ -158,7 +156,7 @@
                                         </div>
                                     </div>
                                     @for (key of items.comment_replies; track $index) {
-                                    <div class="clid_reply_two">
+                                    <div class="clid_reply_two" >
                                         <div class="comment_section">
                                             <div class="profile_comment">
                                                 <img [src]="key?. user_image ? key?. user_image : '/assets/image/No-image-found.jpeg'"
@@ -167,8 +165,7 @@
 
                                             <div class="auther_email">
                                                 <b class="fn"><a rel="external nofollow" class="email_auther"> <span
-                                                            class="email_auther">{{key?.
-                                                            comment_author_email}}</span></a> &nbsp;</b>
+                                                            class="email_auther">{{key?.comment_author}}</span></a> &nbsp;</b>
                                                 <span class="says">says:</span>
                                                 <br />
                                                 <div class="auther_date">
@@ -192,7 +189,7 @@
                                             <div class="col-12">
                                                 <h5 class="block-head"
                                                     style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
-                                                    Reply to {{item?.comment_detail?.comment_author_email}}
+                                                    Reply to{{key?.comment_author}}
                                                     &nbsp;<span class="email_auther_reply"
                                                         (click)="toggleReplyForm(key?.comment_ID)">{{'Cancel
                                                         Reply'}}</span></h5>
@@ -203,7 +200,7 @@
                                                         {{key?.comment_author}}.</span>
                                                     <span id="email-notes" *ngIf="!isAuthenticated">Your email address
                                                         will not be published.</span>
-                                                    <span *ngIf="isAuthenticated" class="email_auther_reply"
+                                                    <span *ngIf="isAuthenticated" class="email_auther_reply mx-1"
                                                         (click)="editProfile()">Edit your
                                                         profile.</span> <span *ngIf="isAuthenticated"
                                                         class="email_auther_reply" (click)="logout()">Log
@@ -275,7 +272,7 @@
                                         <div class="col-12">
                                             <h5 class="block-head"
                                                 style="margin-top:0px!important;border-bottom:0px!important;margin-bottom: 0px!important;padding-bottom:0px!important">
-                                                Reply to {{items?. comment_author_email}} &nbsp;<span
+                                                Reply to {{items?.comment_detail?.comment_author}} &nbsp;<span
                                                     class="email_auther_reply"
                                                     (click)="toggleReplyForm(items?.comment_ID)">{{'Cancel
                                                     Reply'}}</span></h5>
@@ -286,7 +283,7 @@
                                                     {{items?.comment_author}}.</span>
                                                 <span id="email-notes" *ngIf="!isAuthenticated">Your email address will
                                                     not bepublished.</span>
-                                                <span class="email_auther_reply" *ngIf="isAuthenticated"
+                                                <span class="email_auther_reply mx-1" *ngIf="isAuthenticated"
                                                     (click)="editProfile()">Edit
                                                     your profile.</span> <span class="email_auther_reply"
                                                     *ngIf="isAuthenticated" (click)="logout()">Log
@@ -352,14 +349,14 @@
                                     <div class="col-12 mt-4">
                                         <p class="comment-notes" style="font-size: 16px; color: #555555">
                                             <span id="email-notes" *ngIf="isAuthenticated">Logged in as
-                                                {{item?.comment_author}}.</span>
+                                                {{item?.comment_detail?.comment_author}}.</span>
                                             <span id="email-notes" *ngIf="!isAuthenticated">Your email address will not
                                                 be published.</span>
                                             <span *ngIf="isAuthenticated" (click)="editProfile()"
-                                                class="email_auther_reply">Edit
+                                                class="email_auther_reply mx-1">Edit
                                                 your profile.</span> <span class="email_auther_reply"
                                                 *ngIf="isAuthenticated" (click)="logout()">Log out?</span>
-                                            <span class="required-field-message">Required fields are marked <span
+                                            <span class="required-field-message mx-1">Required fields are marked <span
                                                     class="asterik">*</span></span>
                                         </p>
                                     </div>
@@ -520,29 +517,7 @@
                     </div>
 
                 </div>
-                } @else {
-                <div class="row g-0">
-                    <div class="col-12 col-lg-12">
-                        <div class="blog-banner">
-                            <swiper-container #blogSwiper class="mySwiper" init="false">
-                                @for (key of addDetail; track $index) {
-                                <swiper-slide>
-                                    <div class="banner-img" (click)="setStats(key?.id, key?.space_id)" style="background-image: url({{key?.img}}); width: 100%;
-                                        height: 100%;">
-                                        <div class="banner-text ">
-                                            <h3>{{key?.title}}</h3>
-                                            <p>
-                                                {{key?.description}}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </swiper-slide>
-                                }
-                            </swiper-container>
-                        </div>
-                    </div>
-                </div>
-                }
+                } 
             </div>
 
         </div>

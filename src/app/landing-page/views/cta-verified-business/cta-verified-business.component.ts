@@ -5,6 +5,10 @@ import {
   Input,
   ViewChild,
 } from '@angular/core'
+import { Router } from '@angular/router'
+import { FullPageLoaderService } from '@vietlist/shared'
+import { FindEventParams } from 'src/app/manage-business/service/business.interface'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -19,9 +23,11 @@ register()
 export class CtaVerifiedBusinessComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   @Input() homePageData?: any
+  public verfiedBusiness?: any
 
 
-  constructor() {
+  constructor(private businessCategoriesService: BusinessService,
+    private fullPageLoaderService: FullPageLoaderService, private router: Router) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -53,6 +59,7 @@ export class CtaVerifiedBusinessComponent {
   }
 
   ngOnInit() {
+    this.getPublishBusinessData()
   }
 
   public verifiedImage: {
@@ -80,4 +87,30 @@ export class CtaVerifiedBusinessComponent {
         verified_logo: '/assets/image/cta-verfied-img2.svg',
       },
     ]
+
+  public getPublishBusinessData() {
+    this.fullPageLoaderService.showLoader()
+    const params: FindEventParams = {
+      posts_per_page: 10,
+      page_no: 1,
+      verified_data: '1'
+    }
+    this.businessCategoriesService.ListingBusiness(params).subscribe({
+      next: (res: any) => {
+        this.fullPageLoaderService.hideLoader()
+        console.log("check verfied data", res)
+        this.verfiedBusiness = res.data
+      },
+    })
+  }
+
+  public gotToListing(id: any, isGlobal: any) {
+    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
+
+  }
+
+  public handleVerfiedBusiness(isGlobal: any) {
+    this.router.navigate(['/business-listing'], { queryParams: { isGlobal: isGlobal } });
+  }
+
 }

@@ -58,6 +58,9 @@
             </div>
           </div>
         </div>
+        <div class="bell-icon-div mobile">
+          <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+        </div>
       </div>
       <div class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -107,45 +110,47 @@
                 [routerLinkActiveOptions]="{ exact: true }">Add a Business</span>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-            [matMenuTriggerFor]="menublog" >
-            <span>Blogs/News <i class="fa fa-caret-down" aria-hidden="true"></i>
-            </span>
-            <mat-menu #menublog="matMenu">
-              <button mat-menu-item [routerLink]="['/user-blog']">
-                <span >User Blogs</span>
-              </button>
-              <button mat-menu-item [routerLink]="['/business-blog']">
-                <span >Business Blogs</span>
-              </button>
-              <!-- <button mat-menu-item >
+              [matMenuTriggerFor]="menublog">
+              <span>Blogs/News <i class="fa fa-caret-down" aria-hidden="true"></i>
+              </span>
+              <mat-menu #menublog="matMenu">
+                <button mat-menu-item [routerLink]="['/user-blog']">
+                  <span>User Blogs</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/business-blog']">
+                  <span>Business Blogs</span>
+                </button>
+                <!-- <button mat-menu-item >
                 <span >User Blog</span>
               </button>
               <button mat-menu-item >
                 <span >Business Blogs</span>
               </button> -->
-            </mat-menu>
-          </li>
+              </mat-menu>
+            </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
               [matMenuTriggerFor]="menuevent">
               <span>Events <i class="fa fa-caret-down" aria-hidden="true"></i>
               </span>
               <mat-menu #menuevent="matMenu">
                 <button mat-menu-item [routerLink]="['/events']">
-                  <span >All Events</span>
+                  <span>All Events</span>
                 </button>
                 <button mat-menu-item [routerLink]="['/add-event']">
-                  <span >Add Event</span>
+                  <span>Add Event</span>
                 </button>
-                <button mat-menu-item *ngIf="userRole == roles.businessOwner" [routerLink]="['/manage-profile/manage-events']">
-                  <span >My Events</span>
+                <button mat-menu-item *ngIf="userRole == roles.businessOwner"
+                  [routerLink]="['/manage-profile/manage-events']">
+                  <span>My Events</span>
                 </button>
               </mat-menu>
             </li>
-            <li class="nav-item" >
-              <span [routerLink]="['/contact-us']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contact Us</span>
+            <li class="nav-item">
+              <span [routerLink]="['/contact-us']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">Contact Us</span>
               <!-- <span >Contact Us</span> -->
             </li>
-           
+
           </ul>
         </div>
 
@@ -205,95 +210,35 @@
               </div>
             </div>
           </div>
-          
-            <div class="bell-icon-div">
-              <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
-            </div>
-            <mat-menu #notification="matMenu">
-              <div class="notification-list">
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">1 hr ago</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">1 hr ago</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <div class="notification-item">
-                  <ul>
-                    <li class="notification-description">
-                      <b>Mark</b> has viewed your profile.
-                    </li>
-                    <li class="notification-time">Now</li>
-                  </ul>
-                </div>
-                <button class="btn orange-background-btn-w-100" (click)="navigatetoNotifications()">View More</button>
+
+          <div class="bell-icon-div">
+            <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+            <!-- <div class="badge"></div> -->
+          </div>
+          <mat-menu #notification="matMenu">
+           
+            <div class="notification-list">
+              @for(key of notificationsArr ; track $index){
+              <div class="notification-item">
+                <ul>
+                  <li class="notification-description">
+                    <b>{{key?.message}}</b>
+                  </li>
+                  <!-- <li class="notification-time">1 hr ago</li> -->
+                </ul>
               </div>
-            </mat-menu>
+            }
+            @if(notificationsArr.length > 10){
+              <button class="btn" style="background-color: orange;color:#fff;border-radius:2px;width:100%;" (click)="navigatetoNotifications()">View More</button>
+              }
+              @if(!notificationsArr.length){
+                <p style="font-size: 15px;text-align: center;">  You don't have any notifications!</p>
+              }
+            </div>
+
+         
+         
+          </mat-menu>
           <div class="btn-container">
             <div class="login-btn">
               <button data-bs-dismiss="offcanvas" type=" button" class="btn"

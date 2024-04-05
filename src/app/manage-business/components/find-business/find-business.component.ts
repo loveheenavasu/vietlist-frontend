@@ -16,6 +16,7 @@ import {
 import {
   BusinessCategoryResponse,
   FindBusinessParams,
+  FindEventParams,
 } from '../../service/business.interface'
 import { LoaderComponent } from 'src/app/common-ui'
 import { NgxPaginationModule } from 'ngx-pagination'
@@ -255,7 +256,12 @@ export class FindBusinessComponent {
 
   getPublishBusinessData() {
     this.fullPageLoaderService.showLoader()
-    this.businessCategoriesService.ListingBusiness().subscribe({
+    const params: FindEventParams = {
+      posts_per_page: 4,
+      page_no: this.currentPage
+    }
+
+    this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         console.log("check res", res.data)

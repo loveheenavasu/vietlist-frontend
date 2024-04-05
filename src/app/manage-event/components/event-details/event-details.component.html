@@ -55,7 +55,31 @@
   </div>
 </section>
 <div class="section-container">
-  <ul class="list-items">
+  <ul class="list-items" *ngIf="businessListing">
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'"><span> <i class="fa fa-home"
+          aria-hidden="true"></i> </span> Business Information </li>
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'bio'"><span>
+        <i class="fa fa-user" aria-hidden="true"></i></span> Business Bio </li>
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'consultation'"><span> <i class="fa fa-calendar"
+          aria-hidden="true"></i> </span> Booking & Consultation</li>
+    <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'"><span> <i class="fa fa-picture-o"
+          aria-hidden="true"></i></span> Photos </li>
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'video'"><span> <i class="fa fa-video-camera" aria-hidden="true"></i></span> Video</li>
+    <li (click)="scrollTo('profile')" [class.active]="activeTab === 'video'"><span> <i class="fa fa-microphone" aria-hidden="true"></i> </span> Event & promotions</li>
+    <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'"><span> <i class="fa fa-globe"
+          aria-hidden="true"></i> </span> Map </li>
+    <li *ngIf="eventDetails?.event_id !== ''" (click)="scrollTo('mapView')"
+      [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-question-circle" aria-hidden="true"></i></span>
+      Faq </li>
+    <li *ngIf="eventDetails?.event_id !== ''" (click)="scrollTo('mapView')"
+      [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-certificate" aria-hidden="true"></i> </span>
+      Certifications </li>
+    <li *ngIf="eventDetails?.event_id !== ''" (click)="scrollTo('mapView')"
+      [class.active]="activeTab === 'eventsView'"><span> <i class="fa fa-comments" aria-hidden="true"></i> </span>
+      Review</li>
+    <!-- <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'" ><span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews </li> -->
+  </ul>
+  <ul class="list-items" *ngIf="!businessListing">
     <li (click)="scrollTo('profile')" [class.active]="activeTab === 'profile'">
       <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
     </li>
@@ -90,7 +114,12 @@
           Description
         </h3>
         <hr />
-        <p>{{eventDetails?.post_content}}</p>
+        <div class="business_details">
+          <div class="contant_business">
+          <span class="contentMain">Description</span> <p> {{eventDetails?.post_content}}</p>
+        </div>
+        </div>
+       
         <!-- </div> -->
         <div class="row my-4" id="photo">
           <div class="col-12 col-md-12 col-lg-12">

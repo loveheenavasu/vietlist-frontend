@@ -23,6 +23,7 @@ import { BusinessService } from 'src/app/manage-business/service/business.servic
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
+import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 
 @Component({
   selector: 'app-header',
@@ -68,6 +69,7 @@ export class HeaderComponent {
   public latitude: any
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
+  public notificationsArr :any[]=[]
   // isDropdownActiveEvent!: boolean = false;
   public roles = Roles
   public userInfo: any
@@ -84,7 +86,8 @@ export class HeaderComponent {
     private sessionservice: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private businessService: BusinessService,
-    private authService: AuthService
+    private authService: AuthService,
+    private homeService:HomepageService
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
@@ -126,6 +129,9 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
+    if(this.isAuthenticated){
+      this.getNotifications()
+    }
   }
 
   public login() {
@@ -277,6 +283,7 @@ export class HeaderComponent {
   public  openMenu(menu: MatMenuTrigger) {
     menu.openMenu();
   }
+
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -320,6 +327,17 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
+public getNotifications(){
+  this.homeService.getNotification().subscribe({
+    next:(res:any)=>{
+      this.notificationsArr = res.data
+      console.log(res , "Response")
+    },
+    error:(err)=>{
+      
+    }
+  })
+}
 
 
   setDropdownActiveEvent(active: boolean): void {
