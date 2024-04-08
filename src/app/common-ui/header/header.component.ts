@@ -100,7 +100,6 @@ export class HeaderComponent {
   
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
-      console.log("check auth1", this.isAuthenticated)
       if (this.isAuthenticated) {
         this.getNotifications()
         this.startNotificationInterval()
@@ -397,7 +396,6 @@ export class HeaderComponent {
     this.homeService.getNotification(body).subscribe({
       next: (res: any) => {
         this.notificationsDetails = res.total_count
-        console.log(this.notificationsDetails, "TOTALCOUNT")
         this.notificationsArr = res.data
 
       },
