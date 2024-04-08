@@ -9,6 +9,7 @@ import { FullPageLoaderService, AuthenticationService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 
 @Component({
@@ -43,12 +44,14 @@ export class ResourcesComponent {
   public totalPages: number = 0
   public resource_category = new FormControl('')
   public activeTab: any = 'articles'
+  public userDetails: any
   constructor(
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private authenticationService: AuthenticationService,
     private homeservice: HomepageService,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private profileService: ProfileService,
   ) {
     this.getResourcesData(this.activeTab)
   }
@@ -58,7 +61,7 @@ export class ResourcesComponent {
     this.cdr.detectChanges()
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.getResourcesData(this.activeTab)
   }
 
@@ -67,46 +70,52 @@ export class ResourcesComponent {
   }
 
   public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
-    })
+    // level id 3 is elite
+    if (this.activeTab !== 'e-books' || this.userDetails?.level_id === '3') {
+      this.router.navigate(['resource-details', id], {
+        queryParams: { isGlobal: isGlobal },
+      })
+    }
   }
 
- public onTabClick(tab: any) {
+  public onTabClick(tab: any) {
     this.activeTab = tab
     this.getResourcesData(this.activeTab)
   }
 
- public getResourcesData(tab:any): void {
+  public getResourcesData(tab: any): void {
     this.fullPageLoaderService.showLoader()
     this.homeservice
-      .getResources(
-        this.postPerPage,
-        this.currentPage,
-       tab
-      )
+      .getResources(this.postPerPage, this.currentPage, tab)
       .subscribe({
         next: (res: any) => {
           this.fullPageLoaderService.hideLoader()
           this.resourceArr = res.data
-          console.log(this.resourceArr , "ResourceArr")
           this.totalCount = res.total_count
-          console.log(this.totalCount , "+")
         },
         error: (err: any) => {
           this.fullPageLoaderService.hideLoader()
         },
       })
-      }
-
-
-      public handlePageChange(event: number): void {
-        this.currentPage = event;    
-        if (this.isPaginationClick) {
-          this.getResourcesData(event);
-        } 
-      }
-
-
   }
 
+  public handlePageChange(event: number): void {
+    this.currentPage = event
+    if (this.isPaginationClick) {
+      this.getResourcesData(event)
+    }
+  }
+
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetails = res.data?.user
+        // this.sessionService.userDetails.next(this.userDetails)
+        // this.sessionService.userDetailResponse.next(this.userDetails)
+      },
+      error: (err: any) => {
+        // this.loaderService.hideLoader()
+      },
+    })
+  }
+}

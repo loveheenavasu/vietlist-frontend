@@ -84,5 +84,6 @@ export enum Endpoints {
   BusinessNotification = 'get_notification',
   Faqs = 'faq_content_data',
   NotificationStatus = 'notification_status_update',
-  ResourcesList = 'get_all_resources'
+  ResourcesList = 'get_all_resources',
+  ResourceDetail = 'get_resource_by_id',
 }

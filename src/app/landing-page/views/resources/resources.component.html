@@ -47,7 +47,7 @@
               <div class="event-wrapper">
                 <div
                   class="listing-img"
-                  (click)="gotToEventDetails(key.post_id, true)"
+                  (click)="gotToEventDetails(key.resource_id, true)"
                   [style.background-image]="
                     'url(' +
                     (key.resource_featured_image
@@ -60,7 +60,7 @@
                 @if(activeTab !== 'e-books') {
                 <div class="listing-description">
                   <div class="listing-heading">
-                    <h3 (click)="gotToEventDetails(key.post_id, true)">
+                    <h3 (click)="gotToEventDetails(key.resource_id, true)">
                       {{ key.resource_title }}
                     </h3>
                   </div>
@@ -93,11 +93,11 @@
             <div class="d-flex small-screen-view">
               <div
                 class="listing-img-container"
-                (click)="gotToEventDetails(key.post_id, true)"
+                (click)="gotToEventDetails(key.resource_id, true)"
               >
                 <div
                   class="listing-img"
-                  (click)="gotToEventDetails(key.post_id, true)"
+                  (click)="gotToEventDetails(key.resource_id, true)"
                 >
 
                   @if (
@@ -105,7 +105,7 @@
                   ) {
                     <img
                       [src]="key.resource_featured_image"
-                      (click)="gotToEventDetails(key.post_id, true)"
+                      (click)="gotToEventDetails(key.resource_id, true)"
                     />
                   } @else {
                     <img src="/assets/image/no-image.webp" alt="no-image" />
@@ -116,7 +116,7 @@
               <div class="listing-img-info">
                 <div
                   class="listing-heading"
-                  (click)="gotToEventDetails(key.post_id, true)"
+                  (click)="gotToEventDetails(key.resource_id, true)"
                 >
                   <h3>
                     {{ key.resource_title }}
