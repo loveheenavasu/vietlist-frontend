@@ -159,6 +159,7 @@ export class ClaimListingComponent {
       }
     })
     this.claimBusinessForm.reset();
+    this.imageUrl = ''
   }
 
 
