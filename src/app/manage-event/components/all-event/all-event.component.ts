@@ -274,6 +274,7 @@ export class AllEventComponent {
     // Retrieve events again
     this.getPublishEventData();
   }
+  
   getPublishEventData(): void {
     this.isSearching = false; // Reset search flag
     this.fullPageLoaderService.showLoader();
@@ -288,6 +289,7 @@ export class AllEventComponent {
         this.fullPageLoaderService.hideLoader();
         this.publishEventsArray = res.data;
         this.totalCount = res.total_count;
+        console.log(this.totalCount , "total_count")
         this.calculateTotalPages();
       },
       error: (err: any) => {

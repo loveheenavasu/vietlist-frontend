@@ -6,9 +6,9 @@
 <div class="container-fluid g-0">
   <div class="row tabs-wrapper">
     <div class="tabs">
-      <p>Articles</p>
-      <p>E-Books</p>
-      <p>Guides</p>
+      <p [ngClass]="{'active-tab': activeTab == 'articles'}" (click)="onTabClick('articles')">Articles</p>
+      <p [ngClass]="{'active-tab': activeTab == 'e-books'}" (click)="onTabClick('e-books')">E-Books</p>
+      <p [ngClass]="{'active-tab': activeTab == 'guides'}" (click)="onTabClick('guides')">Guides</p>
     </div>
   </div>
   <div class="lisiting-container mt-4">
@@ -20,6 +20,7 @@
       >
         <mat-icon>grid_on</mat-icon>
       </div>
+      @if(activeTab !== 'e-books'){ 
       <div
         class="list-layout-icon d-flex align-items-center"
         [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
@@ -27,17 +28,13 @@
       >
         <mat-icon>view_list</mat-icon>
       </div>
-      <!-- <div class="mx-1">
-              <mat-select>
-                  <mat-option></mat-option>
-              </mat-select>
-          </div> -->
+    }
     </div>
     <div class="view-container">
       @if (selectedLayout == 'grid') {
         <div class="grid-view-container row">
           @for (
-            key of publishEventsArray
+            key of resourceArr
               | paginate
                 : {
                     itemsPerPage: postPerPage,
@@ -53,52 +50,30 @@
                   (click)="gotToEventDetails(key.post_id, true)"
                   [style.background-image]="
                     'url(' +
-                    (key.featured_image
-                      ? key.featured_image
+                    (key.resource_featured_image
+                      ? key.resource_featured_image
                       : '/assets/image/no-image.webp') +
                     ')'
                   "
                 >
-                  <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
-                <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
-                } @else {
-                <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
-                } -->
                 </div>
+                @if(activeTab !== 'e-books') {
                 <div class="listing-description">
                   <div class="listing-heading">
                     <h3 (click)="gotToEventDetails(key.post_id, true)">
-                      {{ key.post_title }}
+                      {{ key.resource_title }}
                     </h3>
                   </div>
                   <div class="listing-info">
-                    <li class="post-content">{{ key.post_content }}</li>
+                    <li class="post-content" [innerHtml]="key?.resource_desc"></li>
                   </div>
-                  <!-- <div class="lisiting-package">
-                      <span>$ Package : Free Business</span>
-                    </div> -->
-                  <!-- @if (key?.rating_count) {
-              <div class="listing-rating">
-                <div class="d-flex">
-                  @if (key?.rating_count >= 1) {
-                  <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                  }
-                  @if (key?.rating_count >= 2) {
-                  <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                  }
-                  @if (key?.rating_count >= 3) {
-                  <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                  }
-                  @if (key?.rating_count >= 4) {
-                  <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                  }
-                  @if (key?.rating_count > 4) {
-                  <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                  }
+        
                 </div>
-              </div>
-              } -->
-                </div>
+              }@else if(activeTab == 'e-books'){
+               <div style="text-align:center">
+                <button class="btn read-btn">READ</button>
+               </div>
+              }
               </div>
             </div>
           }
@@ -106,7 +81,7 @@
       } @else {
         <div class="list-view-container">
           @for (
-            key of publishEventsArray
+            key of resourceArr
               | paginate
                 : {
                     itemsPerPage: postPerPage,
@@ -124,12 +99,12 @@
                   class="listing-img"
                   (click)="gotToEventDetails(key.post_id, true)"
                 >
-                  <!-- <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" /> -->
+
                   @if (
-                    key && key.featured_image && key.featured_image.length > 0
+                    key && key.resource_featured_image && key.resource_featured_image.length > 0
                   ) {
                     <img
-                      [src]="key.featured_image[0]"
+                      [src]="key.resource_featured_image"
                       (click)="gotToEventDetails(key.post_id, true)"
                     />
                   } @else {
@@ -137,63 +112,26 @@
                   }
                 </div>
               </div>
+               @if(activeTab !== 'e-books') {
               <div class="listing-img-info">
                 <div
                   class="listing-heading"
                   (click)="gotToEventDetails(key.post_id, true)"
                 >
                   <h3>
-                    {{ key.post_title }}
+                    {{ key.resource_title }}
                   </h3>
                 </div>
                 <div class="listing-info">
-                  <li>{{ key.post_content }}</li>
+                  <li class="post-content" [innerHtml]="key?.resource_desc"></li>
                 </div>
-                <!-- <div class="lisiting-package">
-                      <span>$ Package : Free Business</span>
-                    </div> -->
-                @if (key?.rating_count) {
-                  <div class="listing-rating">
-                    <div class="d-flex">
-                      @if (key?.rating_count >= 1) {
-                        <i
-                          class="fa fa-star"
-                          aria-hidden="true"
-                          style="color: rgb(155, 155, 155); font-size: 17px"
-                        ></i>
-                      }
-                      @if (key?.rating_count >= 2) {
-                        <i
-                          class="fa fa-star"
-                          aria-hidden="true"
-                          style="color: rgb(155, 155, 155); font-size: 17px"
-                        ></i>
-                      }
-                      @if (key?.rating_count >= 3) {
-                        <i
-                          class="fa fa-star"
-                          aria-hidden="true"
-                          style="color: rgb(155, 155, 155); font-size: 17px"
-                        ></i>
-                      }
-                      @if (key?.rating_count >= 4) {
-                        <i
-                          class="fa fa-star"
-                          aria-hidden="true"
-                          style="color: rgb(155, 155, 155); font-size: 17px"
-                        ></i>
-                      }
-                      @if (key?.rating_count > 4) {
-                        <i
-                          class="fa fa-star"
-                          aria-hidden="true"
-                          style="color: rgb(155, 155, 155); font-size: 17px"
-                        ></i>
-                      }
-                    </div>
-                  </div>
-                }
+            
               </div>
+            }@else if(activeTab == 'e-books'){
+              <div style="text-align:center" class="mx-3">
+                <button class="btn read-btn">READ</button>
+               </div>
+            }
             </div>
           }
         </div>
@@ -201,5 +139,16 @@
     </div>
   </div>
 
-  <!-- Pagintion -->
+  <div class="row">
+    <div class="col-md-12 mt-5">
+      <pagination-controls 
+      previousLabel="Prev" 
+      nextLabel="Next" 
+      [responsive]="true" 
+      [maxSize]="5" 
+      (pageChange)="handlePageChange($event)"
+      >
+  </pagination-controls>
+    </div>
+  </div>
 </div>

@@ -60,8 +60,8 @@ export class ConfirmPaymentComponent {
     public router: Router,
     private profileServie: ProfileService,
     private eventService: EventService,
-    private _activatedRoute: ActivatedRoute
-
+    private _activatedRoute: ActivatedRoute,
+    private authService:AuthenticationService
   ) {
     this.route.queryParams.subscribe(params => {
       this.eventIds = params
@@ -299,6 +299,7 @@ export class ConfirmPaymentComponent {
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
+        this.fetchProfileDetail()
         Swal.fire({
           toast: true,
           text: res.message,
@@ -367,6 +368,18 @@ export class ConfirmPaymentComponent {
       error: (err) => {
         this.loaderService.hideLoader()
       }
+    })
+  }
+
+  public fetchProfileDetail() {
+    this.profileServie.userDetails().subscribe({
+      next: (res) => {
+        this.authService.userDetailResponse.next(res?.data?.user)
+        console.log(res , "ResponseAppComponent")
+      },
+      error: (err: any) => {
+        this.router.navigateByUrl('/login')
+      },
     })
   }
 }

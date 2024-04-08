@@ -135,7 +135,6 @@ export class HomepageService {
         optionalParams?.archive,
       )
     }
-
     return this.http.get<any>(endpoint, {
       headers: authToken,
       params: queryParams,
@@ -152,4 +151,17 @@ export class HomepageService {
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post(endpoint, body, { headers: authToken })
   }
+
+  public getResources(posts_per_page: any,page_no: any,resource_category: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResourcesList)
+    let params = new HttpParams()
+      .set('posts_per_page', posts_per_page)
+      .set('page_no', page_no)
+      .set('resource_category', resource_category)
+    
+    return this.http.get<any>(endpoint, { params: params })
+  }
+
+
+
 }

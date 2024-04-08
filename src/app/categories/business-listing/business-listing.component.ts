@@ -195,7 +195,6 @@ export class BusinessListingComponent {
 
   public handlePageChange(event: number) {
     this.currentPage = event
-    console.log("check the pagination", this.isSearchingActive)
     if (this.isSearchingActive) {
       this.search()
     } else {

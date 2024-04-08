@@ -140,7 +140,7 @@ export class PlanComponent {
       next: (res) => {
         this.userDetails = res.data?.user
         this.sessionService.userDetails.next(this.userDetails)
-        console.log(this.userDetails, "userDetails")
+        this.sessionService.userDetailResponse.next(this.userDetails)
       },
       error: (err: any) => {
         this.loaderService.hideLoader()

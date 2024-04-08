@@ -83,5 +83,6 @@ export enum Endpoints {
   GetBusinessLisitingClaim = 'get_business_listing_claim_status',
   BusinessNotification = 'get_notification',
   Faqs = 'faq_content_data',
-  NotificationStatus = 'notification_status_update'
+  NotificationStatus = 'notification_status_update',
+  ResourcesList = 'get_all_resources'
 }
