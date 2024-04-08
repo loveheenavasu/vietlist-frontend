@@ -190,6 +190,22 @@
     }
 }
 
+.__button {
+    border-radius: 4px;
+    background-color: #F89705 !important;
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: .1em;
+    margin-top: 15px;
+    padding: 9px 20px;
+    border: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out;
+    -webkit-transition: color .2s ease-in-out, background-color .2s ease-in-out;
+}
+
 @media (max-width:450px) {
     .mobile-notification-heading {
         justify-content: space-between;

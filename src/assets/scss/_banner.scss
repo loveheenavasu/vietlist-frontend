@@ -1,7 +1,7 @@
 @import "../scss/common.scss";
 
 .banner {
-  height: 542px;
+  height: 365px;
   width: 100%;
   position: relative;
   background-image: url('/assets/resgister-banner-img.jpeg');
@@ -25,12 +25,12 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    margin-top: 22px;
+    margin-top: 92px;
 
     h1 {
       font-weight: var(--font-weight-medium);
       color: var(--light-grey);
-      font-size: 55px;
+      font-size: 3rem;
 
     }
 
@@ -38,6 +38,16 @@
       font-weight: var(--font-weight-normal);
       color: var(--light-grey);
       font-size: 20px;
+    }
+  }
+}
+
+@media (max-width:768px) {
+  .banner {
+    height: 350px !important;
+
+    .content {
+      margin-top: 60px !important;
     }
   }
 }

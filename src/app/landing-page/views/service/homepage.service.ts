@@ -125,7 +125,7 @@ export class HomepageService {
 
     if (optionalParams?.page_no) {
       queryParams = queryParams.append(
-        'notification_type',
+        'page_no',
         optionalParams?.page_no,
       )
     }

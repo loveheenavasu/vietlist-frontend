@@ -19,7 +19,7 @@
     text-align: center;
     top: -4px;
     left: 8px;
-
+    padding: 3px;
 }
 
 .container-fluid {
@@ -269,6 +269,10 @@
                 color: #232F3E;
                 border: 1px solid #146EB4
             }
+
+            .btn:hover {
+                background-color: none;
+            }
         }
 
         .sign-up-btn {
@@ -328,6 +332,13 @@ li.mat-mdc-menu-trigger.nav-item.active {
     }
 }
 
+.notification-heading {
+    color: #666;
+    text-align: center;
+    border-bottom: 1px solid #f2f2f2;
+    margin-bottom: 20px;
+}
+
 .notification-item {
     margin-bottom: 0.5em;
     border-radius: 5px;
@@ -342,6 +353,8 @@ li.mat-mdc-menu-trigger.nav-item.active {
         li {
             margin: 0px;
             padding: 0px;
+            line-height: 17px;
+            padding-bottom: 5px;
         }
     }
 }
@@ -357,6 +370,17 @@ li.mat-mdc-menu-trigger.nav-item.active {
     margin: 0 0 1em;
     color: #666;
     font-size: 13px;
+    text-transform: capitalize;
+    border-bottom: 1px solid #f2f2f2;
+
+    span {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.read-notification {
+    font-weight: bold;
 }
 
 .notification-time {

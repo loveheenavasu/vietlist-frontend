@@ -22,10 +22,12 @@ export class NotificationPageComponent {
   public activeTab: string = 'all'
   public toggleState: boolean = false
   public loader: boolean = false
+  public totalCount?: any
+  public count = 1
 
   constructor(private notification: HomepageService,
     private fullPageLoaderService: FullPageLoaderService,
-    private router: Router) { }
+    private router: Router,) { }
 
   ngOnInit() {
     this.getNotifications()
@@ -119,25 +121,57 @@ export class NotificationPageComponent {
       })
     }
   }
+  public loadMore() {
+    this.count++
+    this.fullPageLoaderService.showLoader()
+    let notificationType;
+    if (this.activeTab != 'all') {
+      notificationType = this.activeTab
+    }
+    this.notification.getNotification({ limit: 10, page_no: this.count, notification_type: notificationType }).subscribe({
+      next: (res: any) => {
+        console.log("check data", res)
+        if (res && res.data) {
+          if (Array.isArray(res.data)) {
+            Array.prototype.push.apply(this.notificationArr, res.data);
+          } else {
+            this.notificationArr.push(res.data);
+          }
+          this.fullPageLoaderService.hideLoader();
+        }
+      },
+      error: (res: any) => {
+        this.loader = false
+        this.fullPageLoaderService.hideLoader();
+      }
+    });
+  }
+
   getNotifications(notificationType?: string) {
     // console.log("check the archieve", notificationType)
+
     this.loader = true
     if (notificationType == 'archive') {
-      this.notification.getNotification({ archive: 1 }).subscribe({
+      this.notification.getNotification({ archive: 1, limit: 10 }).subscribe({
         next: (res: any) => {
+
           this.loader = false
           console.log("check data", res)
           this.notificationArr = res?.data;
+          this.totalCount = +res?.total_count
         },
         error: (res: any) => {
           this.loader = false
+
         }
       });
     } else {
-      this.notification.getNotification({ notification_type: notificationType }).subscribe({
+      this.notification.getNotification({ notification_type: notificationType, limit: 10 }).subscribe({
         next: (res: any) => {
           this.loader = false
           this.notificationArr = res?.data
+          this.totalCount = +res?.total_count
+          console.log("chgeck ", this.totalCount)
         },
         error: (err: any) => {
           this.loader = false
