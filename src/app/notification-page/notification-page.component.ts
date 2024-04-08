@@ -51,6 +51,7 @@ export class NotificationPageComponent {
             timer: 3000,
             timerProgressBar: true,
           })
+          this.getNotifications();
         },
         error: (res) => {
 

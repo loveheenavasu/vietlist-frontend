@@ -71,7 +71,8 @@ export class HeaderComponent {
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
   public notificationsArr: any[] = []
-  private notificationIntervalSubscription: Subscription | undefined;
+  private notificationIntervalSubscription!: Subscription;
+
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
@@ -252,8 +253,8 @@ export class HeaderComponent {
     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
-    this.router.navigate(['/']);
     this.stopNotificationInterval()
+    this.router.navigate(['/']);
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
@@ -338,7 +339,7 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
-  private startNotificationInterval() {
+  private startNotificationInterval(): void {
     // Start interval for fetching notifications every minute
     this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
       .subscribe(() => {
@@ -357,9 +358,9 @@ export class HeaderComponent {
 
 
   private stopNotificationInterval(): void {
-    if (this.notificationIntervalSubscription) {
+    if (this.notificationIntervalSubscription && !this.notificationIntervalSubscription.closed) {
       this.notificationIntervalSubscription.unsubscribe();
-      this.notificationIntervalSubscription = undefined;
+      console.log('Notification interval stopped.');
       this.notificationsArr = []
       this.notificationsDetails = ''
     }
@@ -387,4 +388,13 @@ export class HeaderComponent {
   setDropdownActiveEvent(active: boolean): void {
     this.isDropdownActiveEvent = active;
   }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the interval subscription to avoid memory leaks
+    if (this.notificationIntervalSubscription) {
+      this.notificationIntervalSubscription.unsubscribe();
+    }
+    this.stopNotificationInterval();
+  }
+
 }
