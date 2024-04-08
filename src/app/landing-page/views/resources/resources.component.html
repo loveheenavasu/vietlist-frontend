@@ -9,8 +9,10 @@
       <p [ngClass]="{'active-tab': activeTab == 'articles'}" (click)="onTabClick('articles')">Articles</p>
       <p [ngClass]="{'active-tab': activeTab == 'e-books'}" (click)="onTabClick('e-books')">E-Books</p>
       <p [ngClass]="{'active-tab': activeTab == 'guides'}" (click)="onTabClick('guides')">Guides</p>
+      <p [ngClass]="{'active-tab': activeTab == 'webinar-links'}" (click)="onTabClick('webinar-links')">Webinar Links</p>
     </div>
   </div>
+  @if(!isWebinarView){
   <div class="lisiting-container mt-4">
     <div class="layout-icon d-flex align-items-center">
       <div
@@ -138,6 +140,36 @@
       }
     </div>
   </div>
+}@else {
+  <div class="table-responsive mt-3">
+    <table>
+      <thead>
+        <tr style="text-align: center;">
+          <th>Webinar Topic</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+          <tr>
+            <td style="color: #144b7c">
+          
+            </td>
+            <td style="color: #144b7c">
+          
+            </td>   <td style="color: #144b7c">
+          
+            </td>   <td style="color: #144b7c">
+          
+            </td>
+          </tr>
+   
+      </tbody>
+    </table>
+  </div>
+}
 
   <div class="row">
     <div class="col-md-12 mt-5">
