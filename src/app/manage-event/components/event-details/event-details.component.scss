@@ -635,7 +635,7 @@ fieldset:disabled .btn {
     .banner .content h1 {
         font-weight: var(--font-weight-medium);
         color: var(--light-grey);
-        font-size: 35px !important;
+        font-size: 30px !important;
     }
 
     .elementor-divider-separator {
@@ -665,6 +665,14 @@ fieldset:disabled .btn {
         width: 6em !important;
         font-size: 15.5px;
     }
+
+    .iconDirection {
+
+        bottom: 12px;
+
+    }
+
+
 }
 
 

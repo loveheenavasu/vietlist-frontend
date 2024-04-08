@@ -75,6 +75,7 @@ export class HeaderComponent {
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
+
   /**
    *
    * @param router
@@ -92,6 +93,11 @@ export class HeaderComponent {
   ) {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
+      console.log("check auth1", this.isAuthenticated)
+      if (this.isAuthenticated) {
+        this.getNotifications()
+        this.startNotificationInterval()
+      }
     })
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
@@ -130,7 +136,9 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
+    console.log("isAuth", this.isAuthenticated)
     if (this.isAuthenticated) {
+      console.log("isAuth", this.isAuthenticated)
       this.getNotifications()
       this.startNotificationInterval()
     }
@@ -245,6 +253,7 @@ export class HeaderComponent {
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigate(['/']);
+    this.stopNotificationInterval()
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
@@ -337,9 +346,31 @@ export class HeaderComponent {
       });
   }
 
+  goToPage(item: any) {
+    console.log("check", item)
+    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
+      this.router.navigate(['/business-details', item.id]);
+    } else if (item.notification_type == 'event_booking') {
+      this.router.navigate(['/event-details', item.id]);
+    }
+  }
+
+
+  private stopNotificationInterval(): void {
+    if (this.notificationIntervalSubscription) {
+      this.notificationIntervalSubscription.unsubscribe();
+      this.notificationIntervalSubscription = undefined;
+      this.notificationsArr = []
+      this.notificationsDetails = ''
+    }
+  }
+
   notificationsDetails: any;
   public getNotifications() {
-    this.homeService.getNotification().subscribe({
+    const body = {
+      "limit": 10
+    }
+    this.homeService.getNotification(body).subscribe({
       next: (res: any) => {
         this.notificationsDetails = res.total_count
         console.log(this.notificationsDetails, "TOTALCOUNT")
