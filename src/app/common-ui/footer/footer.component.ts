@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { Router } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule ],
+  imports: [FormsModule, ReactiveFormsModule,RouterLink ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })

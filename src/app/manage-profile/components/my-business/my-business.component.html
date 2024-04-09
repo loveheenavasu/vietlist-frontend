@@ -73,6 +73,7 @@
                 {{ key.post_title }}
               </h3>
             </div>
+<<<<<<< Updated upstream
             <div class="listing-info">
               <p>
                 {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
@@ -89,6 +90,48 @@
               View
             </button>
             <!-- <div class="lisiting-package">
+=======
+          }
+        </div>
+      } @else {
+        <div class="list-view-container">
+          @for (key of businessArray; track $index) {
+            <div class="d-flex small-screen-view">
+              <div class="listing-img-container">
+                <div class="listing-img" *ngIf="key.image">
+                  <img [src]="key.image[0]" />
+                </div>
+                <div class="listing-img" *ngIf="key.image == []">
+                  <img src="../../../../assets/image/No-image-found.jpeg" />
+                </div>
+              </div>
+              <div class="listing-img-info">
+                <div class="listing-heading">
+                  <h3>{{ key.post_title }}</h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{ key.post_content.length > 40 ? (key.post_content.slice(0, 37) + '...') : key.post_content }}
+                  </p>
+                  
+                    
+                  @if(key.final_submission == '1'){
+                  <button
+                    class="btn orange-background-btn"
+                    (click)="deleteBusiness(key.post_id)"
+                  >
+                    Delete
+                  </button>
+                }
+                  <button
+                    class="btn orange-background-btn mx-1"
+                    (click)="viewBusiness(key.post_id)"
+                  >
+                    View
+                  </button>
+                </div>
+                <!-- <div class="lisiting-package">
+>>>>>>> Stashed changes
                   <span>$ Package : Free Business</span>
                 </div> -->
             <!-- <div class="listing-rating">
@@ -115,12 +158,15 @@
         @for (key of businessArray; track $index) {
         <div class="d-flex small-screen-view">
           <div class="listing-img-container">
-            <div class="listing-img" *ngIf="key.image">
-              <img [src]="key.image[0]" />
-            </div>
-            <div class="listing-img" *ngIf="key.image == []">
-              <img src="/assets/image/No-image-found.jpeg" />
-            </div>
+               @if(key?.image?.includes("") || key?.image == null){
+                <div class="listing-img">
+                  <img src="../../../../assets/image/No-image-found.jpeg" />
+                </div>
+                }@else{
+                  <div class="listing-img" >
+                    <img [src]="key.image[0]" />
+                  </div>
+                }
           </div>
           <div class="listing-img-info">
             <div class="listing-heading">

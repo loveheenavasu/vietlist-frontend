@@ -5,7 +5,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { Router } from '@angular/router'
-import { FullPageLoaderService, AuthenticationService } from '@vietlist/shared'
+import { FullPageLoaderService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
@@ -36,7 +36,7 @@ export class ResourcesComponent {
   public resourceArr: any[] = []
   public subscription!: Subscription
   public isLoader: boolean = false
-  public postPerPage: number = 2
+  public postPerPage: number = 6
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
@@ -45,10 +45,10 @@ export class ResourcesComponent {
   public resource_category = new FormControl('')
   public activeTab: any = 'articles'
   public userDetails: any
+  public isWebinarView: boolean = false
   constructor(
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private homeservice: HomepageService,
     private cdr: ChangeDetectorRef,
     private profileService: ProfileService,
@@ -80,7 +80,16 @@ export class ResourcesComponent {
 
   public onTabClick(tab: any) {
     this.activeTab = tab
-    this.getResourcesData(this.activeTab)
+    this.isPaginationClick = false
+    this.currentPage = 1
+    this.selectedLayout = 'grid'
+    this.cdr.detectChanges()
+    if (this.activeTab == 'webinar') {
+      this.isWebinarView = true
+    } else {
+      this.isWebinarView = false
+      this.getResourcesData(this.activeTab)
+    }
   }
 
   public getResourcesData(tab: any): void {
@@ -100,9 +109,11 @@ export class ResourcesComponent {
   }
 
   public handlePageChange(event: number): void {
+    this.isPaginationClick = true
     this.currentPage = event
     if (this.isPaginationClick) {
-      this.getResourcesData(event)
+      this.getResourcesData(this.activeTab)
+      this.cdr.detectChanges()
     }
   }
 
