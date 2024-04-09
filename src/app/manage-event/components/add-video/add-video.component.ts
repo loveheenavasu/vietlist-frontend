@@ -36,9 +36,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 export class AddVideoComponent {
   public forgotPasswordForm!: FormGroup
   public isVideoUploading: boolean = false
+  public isImageUploading: boolean = false
   public video_upload: any = [];
   public filess: any
   public vediosUrl: any[] = [];
+  public imagePreviews: any[] = []
+  public imageUrl: any
+  public files: File[] = []
 
   /**
    * 
@@ -89,7 +93,7 @@ export class AddVideoComponent {
 
 
   public updateSize(){
-    this.matDialogRef.updateSize('800px' , '500px')
+    this.matDialogRef.updateSize('900px' , '100%')
   }
 
   public onSelect(event: any) {
@@ -152,4 +156,55 @@ export class AddVideoComponent {
       videoElement.parentNode.removeChild(videoElement)
     }
   }
+
+  onSelectImage(event: any) {
+    if (this.imagePreviews.length >= 1) {
+      Swal.fire({
+        toast: true,
+        text: 'You can upload only one image',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+  
+    const file = event.addedFiles[0]; // Only consider the first added file
+    this.files = [file];
+  
+    this.displayImagePreviews();
+  }
+  
+
+  displayImagePreviews() {
+    this.isImageUploading = true;
+    const filesToUpload = this.files.slice(0, 5);
+    filesToUpload.forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+      this.businessService.uploadMedia(file).subscribe({
+        next: (res: any) => {
+          this.isImageUploading = false;
+          this.imagePreviews.push(res.image_url);
+          if (this.imagePreviews.length >= 5) {
+            this.isImageUploading = false;
+          }
+        },
+        error: (err: any) => {
+          this.isImageUploading = false;
+        },
+      });
+    });
+  }
+
+  public removeItem(index: any) {
+    this.imagePreviews.splice(index, 1);
+  }
+
 }

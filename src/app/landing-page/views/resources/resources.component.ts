@@ -33,6 +33,7 @@ export class ResourcesComponent {
   public datePipe = new DatePipe('en-US')
   public selectedLayout: string = 'grid'
   public resourceArr: any[] = []
+  public resourceArr2:any[]=[]
   public subscription!: Subscription
   public isLoader: boolean = false
   public postPerPage: number = 6
@@ -80,6 +81,7 @@ export class ResourcesComponent {
     this.cdr.detectChanges()
     if(this.activeTab == 'webinar'){
       this.isWebinarView = true
+      this.getWebinarData()
     } else {
       this.isWebinarView = false
       this.getResourcesData(this.activeTab)
@@ -116,6 +118,27 @@ export class ResourcesComponent {
         } 
       }
 
+
+      public getWebinarData(){
+        this.fullPageLoaderService.showLoader()
+        this.homeservice
+          .getResources(
+            this.postPerPage,
+            this.currentPage,
+            this.activeTab
+          )
+          .subscribe({
+            next: (res: any) => {
+              this.fullPageLoaderService.hideLoader()
+              this.resourceArr2 = res.data
+              console.log(this.resourceArr , "resourceArr")
+              this.totalCount = res.total_count
+            },
+            error: (err: any) => {
+              this.fullPageLoaderService.hideLoader()
+            },
+          })
+      }
 
   }
 

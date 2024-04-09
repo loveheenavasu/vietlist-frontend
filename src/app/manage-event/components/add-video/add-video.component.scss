@@ -9,6 +9,23 @@ h1 {
     padding: 20px 35px 25px 35px;
   }
   
+  .images__{
+    position: relative;
+  }
+  .vedio____{
+    position: relative;
+  }
+  div#video-preview-container{
+      // text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      overflow: scroll;
+  }
+  video{
+      margin: 13px!important;
+      text-align: center;
+  }
   ::ng-deep.mat-mdc-unelevated-button:not(:disabled) {
     background-color: var(--primary-color-orange) !important;
     color: #fff !important;

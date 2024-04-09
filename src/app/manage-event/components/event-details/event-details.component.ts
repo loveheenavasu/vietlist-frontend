@@ -346,9 +346,8 @@ export class EventDetailsComponent {
     this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
+        this.eventDetails = res?.data[0]
 
-        // this.dataget = res?.data || 'NA'
-        this.eventDetails = res?.data[0];
         (this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
         console.log("check-business-lisiting", this.eventDetails)
@@ -468,6 +467,7 @@ export class EventDetailsComponent {
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
   }
+
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
     this.displayLevelOneImages()
@@ -617,7 +617,6 @@ export class EventDetailsComponent {
 
 
   public hideReplyField(index: number) {
-
     this.isReplycomFieldOpen = false
     this.replyIndexshow = -1
     this.replyIndex = -1
@@ -887,7 +886,6 @@ export class EventDetailsComponent {
         next: (res) => {
           this.isBookingLoader = false
           if (res) {
-            // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
             this.router.navigate(['/booking-payment'], { queryParams: { eventId: details?.post_id, bookingId: res.booking_detail.booking_id, numberOfBooking: this.number_of_booking.value } });
           }
         },
@@ -913,10 +911,10 @@ export class EventDetailsComponent {
 
   public addVideo() {
     if (this.screensize > 720) {
-      this.dialogWidth = '55%'
+      this.dialogWidth = '65%'
     } else if (this.screensize < 720) {
       this.dialogWidth = '90%'
-      this.height = '55%'
+      this.height = '80%'
     }
 
     this.dialog.open(AddVideoComponent, {
