@@ -88,9 +88,10 @@ export class BusinessListingComponent {
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        scrollToTop()
         this.businessCategoriesArray = res.data
         this.totalCount = res.total_count
+        console.log(res, "business---", this.businessCategoriesArray)
+        scrollToTop()
       },
       error: (err) => {
         console.error('API error:', err);
