@@ -357,6 +357,22 @@
         }
     }
 
+    .search-fields {
+        .d-flex {
+            flex-direction: column;
+            gap: 10px;
+
+            .btn-wrapper {
+                display: flex;
+                justify-content: center;
+
+                .search-btn {
+                    width: 50% !important;
+                }
+            }
+        }
+    }
+
     .view-container {
         .list-view-container {
             .small-screen-view {
@@ -410,4 +426,13 @@
             width: 25%;
         }
     }
+}
+
+::ng-deep.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after,
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
+    color: var(--primary-color-mustard) !important;
+}
+
+::ng-deep.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+    color: var(--primary-color-mustard) !important;
 }

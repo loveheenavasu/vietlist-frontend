@@ -150,6 +150,7 @@ export class RegisterComponent {
     const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
       this.contact_details?.value?.dialCode,
     )
+
     const body = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
@@ -169,12 +170,11 @@ export class RegisterComponent {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
         body['contact_details'] = parseInt(
-          this.contact_details.value?.e164Number,
+          formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
         )
-       body['country_code'] =  this.contact_details.value.dialCode
-            }
+        body['country_code'] = this.contact_details.value.dialCode
+      }
       this.loader = true
-      
       this.authService.register(body).subscribe({
         next: (res) => {
           this.loader = false
@@ -212,14 +212,14 @@ export class RegisterComponent {
               this.router.navigateByUrl('/manage-profile')
             }
           }
-          
+
         },
         error: (err) => {
           this.loader = false
-          
+
         },
       })
-      
+
     } else {
       Swal.fire({
         toast: true,
@@ -232,7 +232,7 @@ export class RegisterComponent {
         timerProgressBar: true,
       })
     }
-  
+
   }
 
   public changeSignupType() {
