@@ -253,8 +253,8 @@ export class HeaderComponent {
     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
-    this.stopNotificationInterval()
     this.router.navigate(['/']);
+    this.stopNotificationInterval()
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
@@ -358,7 +358,7 @@ export class HeaderComponent {
 
 
   private stopNotificationInterval(): void {
-    if (this.notificationIntervalSubscription && !this.notificationIntervalSubscription.closed) {
+    if (this.notificationIntervalSubscription) {
       this.notificationIntervalSubscription.unsubscribe();
       console.log('Notification interval stopped.');
       this.notificationsArr = []
