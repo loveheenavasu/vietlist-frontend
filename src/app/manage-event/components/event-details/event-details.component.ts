@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core'
+import { ChangeDetectorRef, Component, HostListener, ViewEncapsulation } from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
@@ -28,6 +28,8 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
+import { AddVideoComponent } from '../add-video/add-video.component'
+import { ForgotPasswordComponent } from 'src/app/auth'
 
 // NgxStarRatingModule
 @Component({
@@ -901,5 +903,27 @@ export class EventDetailsComponent {
     this.router.navigate(['/claim-business', item.post_id], { queryParams: { listingTitle: item.post_title } })
   }
 
+  screensize: any = '35%'
+  dialogWidth: any
+  height: any
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screensize = event.target.innerWidth
+  }
+
+  public addVideo() {
+    if (this.screensize > 720) {
+      this.dialogWidth = '55%'
+    } else if (this.screensize < 720) {
+      this.dialogWidth = '90%'
+      this.height = '55%'
+    }
+
+    this.dialog.open(AddVideoComponent, {
+      width: this.dialogWidth,
+      height: this.height,
+    })
+  }
+ 
 
 }

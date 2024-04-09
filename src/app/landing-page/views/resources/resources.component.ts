@@ -78,7 +78,7 @@ export class ResourcesComponent {
     this.currentPage = 1
     this.selectedLayout = 'grid'
     this.cdr.detectChanges()
-    if(this.activeTab == 'webinar-links'){
+    if(this.activeTab == 'webinar'){
       this.isWebinarView = true
     } else {
       this.isWebinarView = false

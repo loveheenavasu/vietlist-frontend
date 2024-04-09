@@ -65,6 +65,7 @@ export class ConfirmPaymentComponent {
   ) {
     this.route.queryParams.subscribe(params => {
       this.eventIds = params
+
     });
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()

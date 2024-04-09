@@ -58,8 +58,8 @@
             </div>
           </div>
         </div>
-        <div class="bell-icon-div mobile">
-          <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+        <div class="bell-icon-div mobile" [matMenuTriggerFor]="notification">
+          <i class="fa fa-bell" aria-hidden="true"></i>
           <div class="badge" [matMenuTriggerFor]="notification">{{notificationsDetails}}</div>
         </div>
       </div>
@@ -219,8 +219,8 @@
             </div>
           </div>
 
-          <div class="bell-icon-div">
-            <i class="fa fa-bell" aria-hidden="true" [matMenuTriggerFor]="notification"></i>
+          <div class="bell-icon-div" [matMenuTriggerFor]="notification">
+            <i class="fa fa-bell" aria-hidden="true"></i>
             <div class="badge">{{notificationsDetails}}</div>
           </div>
           <mat-menu #notification="matMenu">

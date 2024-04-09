@@ -35,90 +35,62 @@
     </div> -->
   <div class="heading_____">
     <h3 class="dashboard-heading">Business Listing</h3>
-    <button
-      class="btn orange-background-btn mx-1"
-      routerLink="/list-business"
-      (click)="removeLocalstoagekey()"
-    >
+    <button class="btn orange-background-btn mx-1" routerLink="/list-business" (click)="removeLocalstoagekey()">
       Add New Business
     </button>
   </div>
 
   <div class="lisiting-container mt-3">
     <div class="layout-icon d-flex align-items-center">
-      <div
-        class="grid-layout-icon d-flex align-items-center"
-        [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-        (click)="handleLayout('grid')"
-      >
+      <div class="grid-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+        (click)="handleLayout('grid')">
         <mat-icon>grid_on</mat-icon>
       </div>
-      <div
-        class="list-layout-icon d-flex align-items-center"
-        [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
-        (click)="handleLayout('list')"
-      >
+      <div class="list-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
+        (click)="handleLayout('list')">
         <mat-icon>view_list</mat-icon>
       </div>
     </div>
     <div class="view-container">
       @if (selectedLayout == 'grid') {
-        <div class="grid-view-container row">
-          @for (key of businessArray; track $index) {
-            <div class="grid-card col-lg-5">
-              <div class="listing-img" *ngIf="key.image !== null">
-                <img [src]="key.image[0]" />
-              </div>
-              <div class="listing-img" *ngIf="key.image == null">
-                <img src="../../../../assets/image/No-image-found.jpeg" />
-              </div>
-              <div class="listing-description">
-                <div class="listing-heading">
-                  <h3>
-                    {{ key.post_title }}
-                  </h3>
-                </div>
-                <div class="listing-info">
-                  <p >
-                    {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
-                  </p>
-                  
-               
-                </div>
-                @if(key.final_submission == '1'){
-                <button
-                class="btn orange-background-btn"
-                (click)="deleteBusiness(key.post_id)"
-              >
-                Delete
-              </button>
-            }
-              <button
-                class="btn orange-background-btn mx-1"
-                (click)="viewBusiness(key.post_id)"
-              >
-                View
-              </button>
-                <!-- <div class="lisiting-package">
-                  <span>$ Package : Free Business</span>
-                </div> -->
-                <!-- <div class="listing-rating">
-                  <div class="d-flex">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>
-                </div> -->
-              </div>
-            </div>
+      <div class="grid-view-container row">
+        @for (key of businessArray; track $index) {
+        <div class="grid-card col-lg-5">
+          @if (key?.image?.includes("") || key?.image == null) {
+          <div class="listing-img">
+            <img src="../../../../assets/image/no-image.webp" />
+          </div>
+          } @else {
+          <div class="listing-img">
+            <img [src]="key.image[0]" />
+          </div>
           }
 
-          @if (!businessArray.length) {
-            <div class="grid-view-container row mt-5">
-              <h4 class="no-records-found text-center">No records found</h4>
+
+          <div class="listing-description">
+            <div class="listing-heading">
+              <h3>
+                {{ key.post_title }}
+              </h3>
             </div>
+<<<<<<< Updated upstream
+            <div class="listing-info">
+              <p>
+                {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
+              </p>
+
+
+            </div>
+            @if(key.final_submission == '1'){
+            <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
+              Delete
+            </button>
+            }
+            <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
+              View
+            </button>
+            <!-- <div class="lisiting-package">
+=======
           }
         </div>
       } @else {
@@ -130,7 +102,7 @@
                   <img [src]="key.image[0]" />
                 </div>
                 <div class="listing-img" *ngIf="key.image == []">
-                  <img src="/assets/image/No-image-found.jpeg" />
+                  <img src="../../../../assets/image/No-image-found.jpeg" />
                 </div>
               </div>
               <div class="listing-img-info">
@@ -159,9 +131,10 @@
                   </button>
                 </div>
                 <!-- <div class="lisiting-package">
+>>>>>>> Stashed changes
                   <span>$ Package : Free Business</span>
                 </div> -->
-                <!-- <div class="listing-rating">
+            <!-- <div class="listing-rating">
                   <div class="d-flex">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -170,10 +143,66 @@
                     <i class="fa fa-star" aria-hidden="true"></i>
                   </div>
                 </div> -->
-              </div>
-            </div>
-          }
+          </div>
         </div>
+        }
+
+        @if (!businessArray.length) {
+        <div class="grid-view-container row mt-5">
+          <h4 class="no-records-found text-center">No records found</h4>
+        </div>
+        }
+      </div>
+      } @else {
+      <div class="list-view-container">
+        @for (key of businessArray; track $index) {
+        <div class="d-flex small-screen-view">
+          <div class="listing-img-container">
+               @if(key?.image?.includes("") || key?.image == null){
+                <div class="listing-img">
+                  <img src="../../../../assets/image/No-image-found.jpeg" />
+                </div>
+                }@else{
+                  <div class="listing-img" >
+                    <img [src]="key.image[0]" />
+                  </div>
+                }
+          </div>
+          <div class="listing-img-info">
+            <div class="listing-heading">
+              <h3>{{ key.post_title }}</h3>
+            </div>
+            <div class="listing-info">
+              <p>
+                {{ key.post_content.length > 40 ? (key.post_content.slice(0, 37) + '...') : key.post_content }}
+              </p>
+
+
+              @if(key.final_submission == '1'){
+              <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
+                Delete
+              </button>
+              }
+              <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
+                View
+              </button>
+            </div>
+            <!-- <div class="lisiting-package">
+                  <span>$ Package : Free Business</span>
+                </div> -->
+            <!-- <div class="listing-rating">
+                  <div class="d-flex">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div>
+                </div> -->
+          </div>
+        </div>
+        }
+      </div>
       }
     </div>
   </div>
