@@ -20,20 +20,21 @@ import { LoaderComponent } from 'src/app/common-ui'
   styleUrls: ['./setting.component.scss'],
 })
 export class SettingComponent {
-  public Login!: boolean
-  public Subscription!: boolean
-  public delete_account!: boolean
-  public business_listing!: boolean
+  public Login: boolean = true
+  public Subscription: boolean = true
+  public delete_account: boolean = true
+  public business_listing: boolean = true
   public profileView = new FormControl()
   public isLoader: boolean = false
 
   constructor(
     private profileService: ProfileService,
     private fullPageLoader: FullPageLoaderService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllowedNotification()
+    this.allowNotification()
   }
 
   valueChange(event: any) {
@@ -81,7 +82,7 @@ export class SettingComponent {
       next: (res) => {
         this.fullPageLoader.hideLoader()
         this.Login = res.data.Login === 1
-        this.Subscription = res.data.Subscription  === 1
+        this.Subscription = res.data.Subscription === 1
         this.delete_account = res.data.delete_account === 1
         this.business_listing = res.data.business_listing === 1
       },
