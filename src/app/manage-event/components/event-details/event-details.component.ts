@@ -1,9 +1,19 @@
 import { HttpClient } from '@angular/common/http'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ChangeDetectorRef, Component, HostListener, ViewEncapsulation } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  ViewEncapsulation,
+} from '@angular/core'
 import { EventService } from '../../service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
-import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  FullPageLoaderService,
+  LocalStorageService,
+  Roles,
+} from '@vietlist/shared'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 // import { Lightbox } from 'ngx-lightbox';
 
@@ -30,6 +40,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
 import { AddVideoComponent } from '../add-video/add-video.component'
 import { ForgotPasswordComponent } from 'src/app/auth'
+import { TabsModule } from 'ngx-bootstrap/tabs'
 
 // NgxStarRatingModule
 @Component({
@@ -49,15 +60,16 @@ import { ForgotPasswordComponent } from 'src/app/auth'
     MatDatepickerModule,
     MatNativeDateModule,
     LoaderComponent,
-    MatIconModule
+    MatIconModule,
+    TabsModule,
   ],
   templateUrl: './event-details.component.html',
   styleUrl: './event-details.component.scss',
   encapsulation: ViewEncapsulation.None,
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class EventDetailsComponent {
-  public selectedDates: Date[] = [];
+  public selectedDates: Date[] = []
   public isDesabledform: boolean = false
   public booking_date: any = new FormControl('')
   public number_of_booking = new FormControl('')
@@ -90,7 +102,7 @@ export class EventDetailsComponent {
   public commentId: any
   public repliesArray: any[] = []
   public overllRating: any
-  public activeTab: string = 'profile';
+  public activeTab: string = 'profile'
   public state: any
   public country: any
   public city: any
@@ -104,10 +116,10 @@ export class EventDetailsComponent {
   public distanceToEvent: any
   public isDistanceLoading: boolean = false
   public timeEstimate: any
-  public currentAddress: string = ''; // Property to store the current address
-  public ratingMessage: string = '';
+  public currentAddress: string = '' // Property to store the current address
+  public ratingMessage: string = ''
   public hoveredRating: number = 0
-  public businessListing: boolean = false;
+  public businessListing: boolean = false
   public eventPrice: any
   public isDateMatched: boolean = false
   public role = Roles
@@ -119,6 +131,7 @@ export class EventDetailsComponent {
   public numberofBookingPrice: any
   public eventEndDate: any
   public claimedBusinessStatus: any
+  public post_category: any = {}
 
   /**
    *
@@ -133,8 +146,6 @@ export class EventDetailsComponent {
    * @param footerContent
    * @param sessionService
    */
-
-
 
   constructor(
     private eventService: EventService,
@@ -167,7 +178,7 @@ export class EventDetailsComponent {
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
-        console.log("check auth", this.isAuthentecate)
+        console.log('check auth', this.isAuthentecate)
         const controlsToValidate = ['comment_author_email', 'comment_author']
 
         controlsToValidate.forEach((controlName) => {
@@ -193,19 +204,24 @@ export class EventDetailsComponent {
       if (res) {
         this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
       }
-
     })
   }
 
-
   ngOnInit() {
-    if (this._activatedRoute.snapshot.routeConfig?.path?.includes('business-details')) {
-      console.log("its is business detail")
+    // this.getBusinessCat()
+    if (
+      this._activatedRoute.snapshot.routeConfig?.path?.includes(
+        'business-details',
+      )
+    ) {
+      console.log('its is business detail')
       if (this.postId) {
         this.businessListing = true
         this.getBusinessFormDetails()
       }
-    } else if (this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')) {
+    } else if (
+      this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')
+    ) {
       if (this.postId) {
         this.businessListing = false
         this.getEventDetails()
@@ -217,95 +233,102 @@ export class EventDetailsComponent {
     const Token = localStorage.getItem('accessToken')
 
     if (Token) {
-      console.log("check1")
+      console.log('check1')
       this.fetchProfileDetail()
       this.fetchClamiedBusinessStatus()
     }
   }
 
   public formatDate(dateString: string): string {
-    if (!dateString) return '';
+    if (!dateString) return ''
 
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+    const date = new Date(dateString)
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
 
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`
   }
 
-  public checkIsClaimButtonVisible(eventDetails: any, userDetail: any): boolean {
-    const isOwnerAssociate = eventDetails?.business_ownerassociate == '0';
-    const isBusinessOwner = userDetail?.user_role === this.role.businessOwner;
-    const isLevel = userDetail?.level_id === '3' || userDetail?.level_id === '2';
+  public checkIsClaimButtonVisible(
+    eventDetails: any,
+    userDetail: any,
+  ): boolean {
+    const isOwnerAssociate = eventDetails?.business_ownerassociate == '0'
+    const isBusinessOwner = userDetail?.user_role === this.role.businessOwner
+    const isLevel = userDetail?.level_id === '3' || userDetail?.level_id === '2'
     // console.log(isBusinessOwner, isBusinessOwner, isLevel, this.isAuthentecate)
-    if (this.claimedBusinessStatus == 'pending' || this.claimedBusinessStatus == 'approved' || eventDetails?.user_deatil?.user_id == userDetail?.ID) {
+    if (
+      this.claimedBusinessStatus == 'pending' ||
+      this.claimedBusinessStatus == 'approved' ||
+      eventDetails?.user_deatil?.user_id == userDetail?.ID
+    ) {
       return false
     }
-    return isOwnerAssociate && this.isAuthentecate && isBusinessOwner && isLevel;
+    return isOwnerAssociate && this.isAuthentecate && isBusinessOwner && isLevel
   }
 
   public fetchClamiedBusinessStatus() {
     const postId = this.postId
     this.eventService.getClaimBusinessLisiting(postId).subscribe({
       next: (res) => {
-        console.log("check claimed lsiiting", res)
+        console.log('check claimed lsiiting', res)
         this.claimedBusinessStatus = res.data
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
 
   public showRatingMessage(event: any): void {
-    this.hoveredRating = event;
+    this.hoveredRating = event
     if (this.hoveredRating >= 4) {
-      this.ratingMessage = 'Excellent';
+      this.ratingMessage = 'Excellent'
     } else if (this.hoveredRating >= 3) {
-      this.ratingMessage = 'Average';
+      this.ratingMessage = 'Average'
     } else if (this.hoveredRating >= 2) {
-      this.ratingMessage = 'Poor';
+      this.ratingMessage = 'Poor'
     } else if (this.hoveredRating >= 1) {
-      this.ratingMessage = 'Terrible';
+      this.ratingMessage = 'Terrible'
     } else {
-      this.ratingMessage = 'Select a rating';
+      this.ratingMessage = 'Select a rating'
     }
-
   }
 
   public showRatingMessageLeave(): void {
-    this.hoveredRating = 0;
+    this.hoveredRating = 0
     if (this.rating >= 4) {
-      this.ratingMessage = 'Excellent';
+      this.ratingMessage = 'Excellent'
     } else if (this.rating >= 3) {
-      this.ratingMessage = 'Average';
+      this.ratingMessage = 'Average'
     } else if (this.rating >= 2) {
-      this.ratingMessage = 'Poor';
+      this.ratingMessage = 'Poor'
     } else if (this.rating >= 1) {
-      this.ratingMessage = 'Terrible';
+      this.ratingMessage = 'Terrible'
     } else {
-      this.ratingMessage = 'Select a rating';
+      this.ratingMessage = 'Select a rating'
     }
   }
 
   public updateRatingMessage(rating: any): void {
-    console.log("cehck rating", rating)
+    console.log('cehck rating', rating)
     if (rating >= 4) {
-      this.ratingMessage = 'Excellent';
+      this.ratingMessage = 'Excellent'
     } else if (rating >= 3) {
-      this.ratingMessage = 'Average';
+      this.ratingMessage = 'Average'
     } else if (rating >= 2) {
-      this.ratingMessage = 'Poor';
+      this.ratingMessage = 'Poor'
     } else if (rating >= 1) {
-      this.ratingMessage = 'Terrible';
+      this.ratingMessage = 'Terrible'
     } else {
-      this.ratingMessage = 'Select a rating';
+      this.ratingMessage = 'Select a rating'
     }
   }
 
   public saveDetailsInLocal() {
-    this.localStorageService.saveData('reviewFormData', JSON.stringify(this.reviewForm.value))
+    this.localStorageService.saveData(
+      'reviewFormData',
+      JSON.stringify(this.reviewForm.value),
+    )
   }
 
   public getAddress(place: any) {
@@ -348,10 +371,11 @@ export class EventDetailsComponent {
         this.fullPageLoaderService.hideLoader()
 
         // this.dataget = res?.data || 'NA'
-        this.eventDetails = res?.data[0];
-        (this.latitude = Number(this.eventDetails?.latitude)),
+        console.log(res?.data[0], 'res?.data[0]')
+        this.eventDetails = res?.data[0]
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
-        console.log("check-business-lisiting", this.eventDetails)
+        console.log('check-business-lisiting', this.eventDetails)
         this.initMap()
       },
       error: (err) => {
@@ -366,7 +390,8 @@ export class EventDetailsComponent {
       next: (res) => {
         console.log(res, 'resresresresres')
         this.fullPageLoaderService.hideLoader()
-        const currentDate: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? '';
+        const currentDate: string =
+          this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
         const startDate = res.data[0]?.event_dates?.start_date
         const endDate = res.data[0]?.event_dates?.end_date
         const startDateNew = this.extractDateFromTimestamp(startDate)
@@ -374,7 +399,6 @@ export class EventDetailsComponent {
         // this.eventEndDate = this.eventDetails.booking
         if (currentDate > res?.data[0]?.booking_end_date) {
           this.isDesabledform = true
-
         }
         if (startDateNew == endDateNew) {
           this.isDateMatched = true
@@ -382,11 +406,11 @@ export class EventDetailsComponent {
           this.isDateMatched = false
         }
 
-        ; (this.eventDetails = res?.data[0] || 'NA'),
+        ;(this.eventDetails = res?.data[0] || 'NA'),
           (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)
-          ; (this.latitude = Number(this.eventDetails?.latitude)),
-            (this.longitude = Number(this.eventDetails?.longitude))
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
         this.eventPrice = this.eventDetails.price
         this.eventNumberOfBooking = this.eventDetails.number_of_bookings
         this.initMap()
@@ -398,43 +422,42 @@ export class EventDetailsComponent {
   }
 
   public getnumberOfBooking() {
-    console.log(this.number_of_booking, "nn")
+    console.log(this.number_of_booking, 'nn')
   }
   public dateFilter: DateFilterFn<Date | null> = (date: Date | null) => {
     if (date !== null) {
-      const selectedTimestamp = date.getTime(); // Get timestamp of selected date
-      const startDateString = this.eventDetails?.event_dates.start_date;
-      const endDateString = this.eventDetails?.event_dates.end_date;
+      const selectedTimestamp = date.getTime() // Get timestamp of selected date
+      const startDateString = this.eventDetails?.event_dates.start_date
+      const endDateString = this.eventDetails?.event_dates.end_date
 
       if (startDateString && endDateString) {
-        const startDate = new Date(startDateString);
-        const endDate = new Date(endDateString);
+        const startDate = new Date(startDateString)
+        const endDate = new Date(endDateString)
 
-        const startTime = startDate.getTime(); // Get timestamp of start date
-        const endTime = endDate.getTime(); // Get timestamp of end date
+        const startTime = startDate.getTime() // Get timestamp of start date
+        const endTime = endDate.getTime() // Get timestamp of end date
 
         if (selectedTimestamp >= startTime && selectedTimestamp <= endTime) {
-          return true; // Date is within the range, enable it
+          return true // Date is within the range, enable it
         } else {
-          console.error('Selected date is not within the range');
-          return false; // Date is not within the range, disable it
+          console.error('Selected date is not within the range')
+          return false // Date is not within the range, disable it
         }
       } else {
-        console.error('Invalid start or end date');
-        return false; // Either start date or end date is invalid, disable it
+        console.error('Invalid start or end date')
+        return false // Either start date or end date is invalid, disable it
       }
     } else {
-      console.error('Invalid date');
-      return false; // No date selected, disable it
+      console.error('Invalid date')
+      return false // No date selected, disable it
     }
-  };
-
-  public extractDateFromTimestamp(timestamp: any) {
-    const parts = timestamp?.split('T');
-    const datePart = parts[0];
-    return datePart;
   }
 
+  public extractDateFromTimestamp(timestamp: any) {
+    const parts = timestamp?.split('T')
+    const datePart = parts[0]
+    return datePart
+  }
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -460,7 +483,6 @@ export class EventDetailsComponent {
         })
       }
     } else {
-
     }
   }
 
@@ -504,20 +526,19 @@ export class EventDetailsComponent {
     })
   }
 
-
   public removeImageItem(index: any) {
     this.levelOneImageArr.splice(index, 1)
   }
 
   public submit() {
     this.isLoader = true
-    var body;
+    var body
     if (this.userDetail) {
       body = {
         comment_post_ID: this.postId,
         rating: this.reviewForm.value.rating,
         comment_content: this.reviewForm.value.comment_content,
-        user_id: this.userDetail?.ID
+        user_id: this.userDetail?.ID,
       }
     } else {
       body = {
@@ -542,8 +563,7 @@ export class EventDetailsComponent {
         formData.append(key, String(value))
       }
     })
-    formData.forEach((value, key) => {
-    })
+    formData.forEach((value, key) => {})
     if (this.reviewForm.valid) {
       this.profileService.reviewSet(formData).subscribe({
         next: (res) => {
@@ -574,14 +594,17 @@ export class EventDetailsComponent {
   public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-        console.log("check review", res)
+        console.log('check review', res)
         this.reviewsArray = res?.data
       },
     })
   }
 
   public showReplyField(index: number) {
-    if (this.userDetail.level_id !== '3' && this.userDetail.user_role == Roles.businessOwner) {
+    if (
+      this.userDetail.level_id !== '3' &&
+      this.userDetail.user_role == Roles.businessOwner
+    ) {
       Swal.fire({
         toast: true,
         text: 'Upgrade your plan to Elite!',
@@ -593,7 +616,6 @@ export class EventDetailsComponent {
         timerProgressBar: true,
       })
     } else {
-
       this.isReplyFieldOpen = true
       this.replyIndex = index
     }
@@ -601,27 +623,24 @@ export class EventDetailsComponent {
 
   public toggleReply(index: number, id: any) {
     if (this.isReplycomFieldOpen && this.replyIndexshow === index) {
-      this.hideReplyField(index);
+      this.hideReplyField(index)
     } else {
-      this.showReplyCommentField(index, id);
+      this.showReplyCommentField(index, id)
     }
   }
 
   public showReplyCommentField(index: number, id: any) {
     // this.replyIndexshow = index
-    console.log("check index", index, this.replyIndexshow)
+    console.log('check index', index, this.replyIndexshow)
     this.replyIndexshow = index
     this.isReplycomFieldOpen = true
     this.getReplies(index, id)
   }
 
-
   public hideReplyField(index: number) {
-
     this.isReplycomFieldOpen = false
     this.replyIndexshow = -1
     this.replyIndex = -1
-
   }
 
   public handlereply(index: any, commentId: any) {
@@ -650,7 +669,6 @@ export class EventDetailsComponent {
     })
   }
 
-
   public getReplies(index: any, id: any) {
     this.repliesArray = []
     this.loader = true
@@ -662,7 +680,7 @@ export class EventDetailsComponent {
         next: (res) => {
           this.repliesArray = res?.data
           this.loader = false
-          console.log(this.repliesArray, "Replies Array")
+          console.log(this.repliesArray, 'Replies Array')
           if (this.repliesArray.length == 0) {
             Swal.fire({
               toast: true,
@@ -675,9 +693,8 @@ export class EventDetailsComponent {
               timerProgressBar: true,
             })
           }
-
         },
-        error: (err) => { },
+        error: (err) => {},
       })
   }
 
@@ -687,7 +704,7 @@ export class EventDetailsComponent {
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
         this.userDetail = res.data.user
-        console.log("check userDetails", this.userDetail)
+        console.log('check userDetails', this.userDetail)
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
@@ -696,20 +713,17 @@ export class EventDetailsComponent {
     })
   }
 
-
   public openDialog(imageData: any, index: number) {
-    console.log("click os work", imageData)
+    console.log('click os work', imageData)
     this.dialog.open(ImageModalSwiperComponent, {
       maxWidth: '100vw',
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
       panelClass: 'full-screen-modal',
-      data: { images: imageData, index }
-    });
-
+      data: { images: imageData, index },
+    })
   }
-
 
   public scrollTo(elementId: string): void {
     const element = document.getElementById(elementId)
@@ -721,42 +735,37 @@ export class EventDetailsComponent {
 
   public getCurrentLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.directionLatitude = position.coords.latitude;
-        this.directionLongitude = position.coords.longitude;
-        this.getAddressFromCoords(this.directionLatitude, this.directionLongitude);
-
-      }, (error) => {
-
-
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.directionLatitude = position.coords.latitude
+          this.directionLongitude = position.coords.longitude
+          this.getAddressFromCoords(
+            this.directionLatitude,
+            this.directionLongitude,
+          )
+        },
+        (error) => {},
+      )
     } else {
-
-
     }
   }
 
-
-
-
   public getAddressFromCoords(latitude: number, longitude: number): void {
-    const geocoder = new google.maps.Geocoder();
-    const latlng = new google.maps.LatLng(latitude, longitude);
-    geocoder.geocode({ 'location': latlng }, (results: any, status: any) => {
+    const geocoder = new google.maps.Geocoder()
+    const latlng = new google.maps.LatLng(latitude, longitude)
+    geocoder.geocode({ location: latlng }, (results: any, status: any) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.currentAddress = results[0].formatted_address;
+          this.currentAddress = results[0].formatted_address
           // Update input field value here
-          this.directionStreet = this.currentAddress;
+          this.directionStreet = this.currentAddress
           // Optionally, you can also trigger change detection manually
           // this.cd.detectChanges();
         } else {
-
         }
       } else {
-
       }
-    });
+    })
   }
 
   public calculateDistance(
@@ -772,9 +781,9 @@ export class EventDetailsComponent {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(this.degreesToRadians(lat1)) *
-      Math.cos(this.degreesToRadians(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
+        Math.cos(this.degreesToRadians(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2)
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     const distance = earthRadius * c
     return distance // Distance in kilometers
@@ -804,19 +813,19 @@ export class EventDetailsComponent {
         this.latitude,
         this.longitude,
       )
-      const averageSpeedKmPerHour = 60;
-      const timeInHours = distanceToEvent / averageSpeedKmPerHour;
-      const timeInMinutes = Math.round(timeInHours * 60);
-      let timeEstimate: string;
+      const averageSpeedKmPerHour = 60
+      const timeInHours = distanceToEvent / averageSpeedKmPerHour
+      const timeInMinutes = Math.round(timeInHours * 60)
+      let timeEstimate: string
       if (timeInMinutes < 60) {
-        timeEstimate = `${timeInMinutes} minutes`;
+        timeEstimate = `${timeInMinutes} minutes`
       } else {
-        const hours = Math.floor(timeInMinutes / 60);
-        const minutes = timeInMinutes % 60;
-        timeEstimate = `${hours} hours ${minutes} minutes`;
+        const hours = Math.floor(timeInMinutes / 60)
+        const minutes = timeInMinutes % 60
+        timeEstimate = `${hours} hours ${minutes} minutes`
       }
-      this.distanceToEvent = distanceToEvent.toFixed(2);
-      this.timeEstimate = timeEstimate;
+      this.distanceToEvent = distanceToEvent.toFixed(2)
+      this.timeEstimate = timeEstimate
 
       const mapElement: any = document.getElementById('map')
       const map = new google.maps.Map(mapElement, {
@@ -838,7 +847,6 @@ export class EventDetailsComponent {
         if (status == google.maps.DirectionsStatus.OK) {
           directionsRenderer.setDirections(response)
         } else {
-
         }
       })
 
@@ -856,11 +864,8 @@ export class EventDetailsComponent {
     }
   }
 
-
-
-
   public handleBookingNow(details: any) {
-    console.log("check deatils", details)
+    console.log('check deatils', details)
     this.isBookingLoader = true
     if (!this.isAuthentecate) {
       Swal.fire({
@@ -872,7 +877,7 @@ export class EventDetailsComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      });
+      })
     } else {
       // const dataObj = { eventId: this.eventDetails.post_id , eventPrice:this.eventDetails.price , date:this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date , bookingNumber: this.number_of_booking.value };
       // console.log(dataObj , "DATAOBJ")
@@ -880,27 +885,36 @@ export class EventDetailsComponent {
         event_id: this.eventDetails.post_id,
         person_id: this.userDetail.user_id,
         booking_price: this.eventDetails.price,
-        booking_date: this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date,
-        number_of_booking: this.number_of_booking.value
+        booking_date: this.booking_date.value
+          ? this.booking_date.value
+          : this.eventDetails?.event_dates?.start_date,
+        number_of_booking: this.number_of_booking.value,
       }
       this.eventService.addEventBooking(data).subscribe({
         next: (res) => {
           this.isBookingLoader = false
           if (res) {
             // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
-            this.router.navigate(['/booking-payment'], { queryParams: { eventId: details?.post_id, bookingId: res.booking_detail.booking_id, numberOfBooking: this.number_of_booking.value } });
+            this.router.navigate(['/booking-payment'], {
+              queryParams: {
+                eventId: details?.post_id,
+                bookingId: res.booking_detail.booking_id,
+                numberOfBooking: this.number_of_booking.value,
+              },
+            })
           }
         },
         error: (err) => {
           this.isBookingLoader = false
-        }
+        },
       })
-
     }
   }
 
   public claimlisting(item: any) {
-    this.router.navigate(['/claim-business', item.post_id], { queryParams: { listingTitle: item.post_title } })
+    this.router.navigate(['/claim-business', item.post_id], {
+      queryParams: { listingTitle: item.post_title },
+    })
   }
 
   screensize: any = '35%'
@@ -924,6 +938,17 @@ export class EventDetailsComponent {
       height: this.height,
     })
   }
- 
+  // public getBusinessCat() {
+  //   this.businessService.getBusinessCat().subscribe({
+  //     next: (res: any) => {
+  //       console.log(res.data, 'res.data')
+  //       this.post_category = res.data
 
+  //       for (let i = 0; i < res.data; i++) {
+  //         this.post_category[res.data[i].id] = res.data[i].name
+  //       }
+  //     },
+  //     error: (err) => {},
+  //   })
+  // }
 }
