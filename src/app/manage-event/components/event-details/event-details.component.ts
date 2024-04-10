@@ -344,13 +344,15 @@ export class EventDetailsComponent {
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         this.fullPageLoaderService.hideLoader()
+        console.log(res , "RESPON")
         this.eventDetails = res?.data[0]
+        this.latitude = Number(res?.data.latitude),
+          this.longitude = Number(res?.data.longitude)
+        console.log("check-business-lisiting-data-console", this.eventDetails)
+        console.log(this.eventDetails);
 
-        (this.latitude = Number(this.eventDetails?.latitude)),
-          (this.longitude = Number(this.eventDetails?.longitude))
-        console.log("check-business-lisiting", this.eventDetails)
         this.initMap()
       },
       error: (err) => {
@@ -920,6 +922,9 @@ export class EventDetailsComponent {
     this.dialog.open(AddVideoComponent, {
       width: this.dialogWidth,
       height: this.height,
+      data: {
+        postId: this.eventDetails.post_id
+      }
     })
   }
  

@@ -187,14 +187,14 @@
               <td style="color: #144b7c">
                 {{ key.webinar_time }}
               </td>
-              <td style="color: #144b7c">---</td>
+              <td style="color: #144b7c" (click)="registrationForm(key.resource_id)">---</td>
             </tr>
           }
         </tbody>
       </table>
     </div>
   }
-
+@if(activeTab !== 'webinar'){
   <div class="row">
     <div class="col-md-12 mt-5">
       <pagination-controls
@@ -207,4 +207,5 @@
       </pagination-controls>
     </div>
   </div>
+}
 </div>

@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material/dialog';
 import { HomepageService } from './../service/homepage.service'
 import { DatePipe, NgClass, NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
@@ -10,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { WebinarRegistrationComponent } from '../webinar-registration/webinar-registration.component';
 
 @Component({
   selector: 'app-resources',
@@ -49,7 +51,8 @@ export class ResourcesComponent {
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private homeservice: HomepageService,
-    private cdr:ChangeDetectorRef
+    private cdr:ChangeDetectorRef,
+    private dialog:MatDialog
   ) {
     this.getResourcesData(this.activeTab)
   }
@@ -140,5 +143,12 @@ export class ResourcesComponent {
           })
       }
 
+      public registrationForm(id:any){
+        this.dialog.open(WebinarRegistrationComponent , {
+          data: {
+            resourceId: id
+          }
+        })
+      }
   }
 

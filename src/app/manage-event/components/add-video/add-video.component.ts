@@ -1,11 +1,11 @@
 import { BusinessService } from './../../../manage-business/service/business.service';
 import { MatSelectModule } from '@angular/material/select';
 import { NgIf, CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { FormControlValidationDirective } from '@vietlist/shared';
@@ -43,7 +43,9 @@ export class AddVideoComponent {
   public imagePreviews: any[] = []
   public imageUrl: any
   public files: File[] = []
-
+  public name = new FormControl('' , Validators.required)
+  public video_type = new FormControl('' , Validators.required)
+ public postId:any
   /**
    * 
    * @param matDialogRef 
@@ -58,9 +60,10 @@ export class AddVideoComponent {
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder,
-    private businessService:BusinessService
+    private businessService:BusinessService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    
+    this.postId = data.postId
     this.forgotPasswordForm = this.fb.group({
       email: [
         '',
@@ -205,6 +208,32 @@ export class AddVideoComponent {
 
   public removeItem(index: any) {
     this.imagePreviews.splice(index, 1);
+  }
+
+  public addVideo(){
+    const body = {
+      name:this.name.value,
+      post_id:this.postId,
+      video_type: this.video_type.value,
+      thumbnail_image:this.imagePreviews[0],
+      video_url:this.vediosUrl
+    }
+
+    this.businessService.videoIntegration(body).subscribe({
+      next:(res)=>{
+        Swal.fire({
+          toast: true,
+          text:res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.close()
+      }
+    })
   }
 
 }

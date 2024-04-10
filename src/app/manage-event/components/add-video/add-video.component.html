@@ -17,6 +17,7 @@
           <div class="col-12">
             <div class="form-group">
               <input type="text" class="input-control" placeholder="Name" required
+              [formControl]="name"
                 />
             </div>
           </div>
@@ -25,11 +26,11 @@
               <mat-select
                 class="vietlist-select"
                 placeholder="Video type"
-               
+               [formControl]="video_type"
               >
-                <mat-option value="retail">Promotional</mat-option>
-                <mat-option value="restaurant">Tutorial</mat-option>
-                <mat-option value="restaurant">Testimonial</mat-option>
+                <mat-option value="promotional_videos">Promotional</mat-option>
+                <mat-option value="tutorials">Tutorial</mat-option>
+                <mat-option value="testimonial">Testimonial</mat-option>
               </mat-select>
             </div>
           </div>
@@ -48,7 +49,7 @@
                   </div>
           
           
-                  <video style="margin: 10px; object-fit: cover" *ngIf="videoUrl" width="320" height="240" controls>
+                  <video style="margin: 10px; object-fit: cover" *ngIf="videoUrl" width="220" height="200" controls>
                     <source [src]="videoUrl" type="video/mp4" />
                     <source [src]="videoUrl" type="video/ogg" />
                     Your browser does not support the video tag.
@@ -82,7 +83,8 @@
       <br/>
       <div mat-dialog-actions class="text-center">
         <button type="button" mat-flat-button class="btn orange-background-btn-w-100"
-          [disabled]="forgotPasswordForm.invalid">
+        [disabled]="!name.value || !video_type.value || !imagePreviews || !video_upload"
+         (click)="addVideo()">
           <span>Submit</span>
           <!-- <app-loader *ngIf="loader"></app-loader> -->
         </button>
