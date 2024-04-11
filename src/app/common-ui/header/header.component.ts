@@ -71,7 +71,8 @@ export class HeaderComponent {
   public isDropdownActive: boolean = false;
   public isDropdownActiveEvent: boolean = false;
   public notificationsArr: any[] = []
-  private notificationIntervalSubscription: Subscription | undefined;
+  private notificationIntervalSubscription!: Subscription;
+
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
@@ -91,14 +92,21 @@ export class HeaderComponent {
     private authService: AuthService,
     private homeService: HomepageService
   ) {
-    this.sessionservice.isAuthenticated$.subscribe((res) => {
+    this.sessionservice.notificationAUth.subscribe((res: any) => {
       this.isAuthenticated = res
-      console.log("check auth1", this.isAuthenticated)
       if (this.isAuthenticated) {
         this.getNotifications()
         this.startNotificationInterval()
       }
     })
+    // this.sessionservice.isAuthenticated$.subscribe((res) => {
+    //   this.isAuthenticated = res
+    //   console.log("check auth1", this.isAuthenticated)
+    //   if (this.isAuthenticated) {
+    //     this.getNotifications()
+    //     this.startNotificationInterval()
+    //   }
+    // })
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
@@ -338,7 +346,7 @@ export class HeaderComponent {
     this.longitude = place.geometry.location.lng()
   }
 
-  private startNotificationInterval() {
+  private startNotificationInterval(): void {
     // Start interval for fetching notifications every minute
     this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
       .subscribe(() => {
@@ -353,13 +361,42 @@ export class HeaderComponent {
     } else if (item.notification_type == 'event_booking') {
       this.router.navigate(['/event-details', item.id]);
     }
+    this.onAllMarkRead(item)
+  }
+  onAllMarkRead(item: any) {
+   
+    // if (this.toggleState) {
+    const body = {
+      read_type: 'single_read',
+      id: item?.id
+    }
+    this.homeService.notificationStatus(body).subscribe({
+      next: (res) => {
+        console.log("check res", res)
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.getNotifications();
+      },
+      error: (res) => {
+
+      }
+    })
+    // }
   }
 
 
   private stopNotificationInterval(): void {
     if (this.notificationIntervalSubscription) {
       this.notificationIntervalSubscription.unsubscribe();
-      this.notificationIntervalSubscription = undefined;
+      console.log('Notification interval stopped.');
       this.notificationsArr = []
       this.notificationsDetails = ''
     }
@@ -387,4 +424,13 @@ export class HeaderComponent {
   setDropdownActiveEvent(active: boolean): void {
     this.isDropdownActiveEvent = active;
   }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from the interval subscription to avoid memory leaks
+    if (this.notificationIntervalSubscription) {
+      this.notificationIntervalSubscription.unsubscribe();
+    }
+    this.stopNotificationInterval();
+  }
+
 }

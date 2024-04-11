@@ -21,6 +21,7 @@ export class AuthenticationService {
   public BlogID = new BehaviorSubject<any>('')
   public clearLocationValue = new BehaviorSubject<boolean>(false)
   public responseApi = new BehaviorSubject<boolean>(false)
+  public notificationAUth = new BehaviorSubject<boolean>(false)
   /**
    *
    * @param localstorageservice

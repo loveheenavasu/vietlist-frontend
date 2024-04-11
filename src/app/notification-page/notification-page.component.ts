@@ -34,9 +34,9 @@ export class NotificationPageComponent {
   }
 
   onAllMarkRead() {
-    if (this.toggleState) {
+
       const body = {
-        read_type: 'all_read'
+        read_type: this.toggleState?'all_read':'all_unread'
       }
       this.notification.notificationStatus(body).subscribe({
         next: (res) => {
@@ -51,13 +51,14 @@ export class NotificationPageComponent {
             timer: 3000,
             timerProgressBar: true,
           })
+          this.getNotifications();
         },
         error: (res) => {
 
         }
       })
     }
-  }
+  
 
   markAsArchive(item: any) {
     console.log("mark as archieve", item.id)
@@ -159,6 +160,11 @@ export class NotificationPageComponent {
           console.log("check data", res)
           this.notificationArr = res?.data;
           this.totalCount = +res?.total_count
+          // if(this.totalCount == 0){
+          //     this.toggleState = true
+          // }else{
+          //   this.toggleState = false
+          // }
         },
         error: (res: any) => {
           this.loader = false
@@ -172,6 +178,12 @@ export class NotificationPageComponent {
           this.notificationArr = res?.data
           this.totalCount = +res?.total_count
           console.log("chgeck ", this.totalCount)
+
+          if(this.totalCount == 0){
+            this.toggleState = true
+        }else{
+          this.toggleState = false
+        }
         },
         error: (err: any) => {
           this.loader = false
@@ -198,6 +210,29 @@ export class NotificationPageComponent {
     } else if (item.notification_type == 'event_booking') {
       this.router.navigate(['/event-details', item.id]);
     }
+    const body = {
+      read_type: 'single_read',
+      id: item?.id
+    }
+    this.notification.notificationStatus(body).subscribe({
+      next: (res) => {
+        console.log("check res", res)
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.getNotifications();
+      },
+      error: (res) => {
+
+      }
+    })
   }
 
 }

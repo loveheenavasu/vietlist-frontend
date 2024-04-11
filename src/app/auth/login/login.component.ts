@@ -23,6 +23,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import Swal from 'sweetalert2'
 import { AuthenticationService } from '@vietlist/shared'
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component'
+import { of } from 'rxjs'
 
 @Component({
   selector: 'app-login',
@@ -103,6 +104,10 @@ export class LoginComponent {
           this.authenticationService.setAuthenticationStatusTrue(res.data.token)
           this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
           this.authenticationService.setSubscriptonStatus(res.data.user.status)
+          if(res){
+            this.authenticationService.notificationAUth.next(true)
+          }
+         
           if (
             res.data.user.user_role == Roles.businessOwner &&
             res.data.user.status == 'inactive'

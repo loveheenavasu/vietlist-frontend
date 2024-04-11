@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
+import { AuthenticationService } from '@vietlist/shared'
 @Component({
   selector: 'app-business-listing',
   standalone: true,
@@ -55,7 +56,8 @@ export class BusinessListingComponent {
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private authenticationService: AuthenticationService
   ) {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
@@ -85,11 +87,16 @@ export class BusinessListingComponent {
     }
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
-        scrollToTop()
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
         this.totalCount = res.total_count
+        console.log(res, "business---", this.businessCategoriesArray)
+        scrollToTop()
       },
+      error: (err) => {
+        console.error('API error:', err);
+        this.fullPageLoaderService.hideLoader()
+      }
     })
   }
 
@@ -201,6 +208,26 @@ export class BusinessListingComponent {
     } else {
       this.getPublishBusinessData()
     }
+  }
+
+  public clearFilters(): void {
+    // Clear local variables
+    this.authenticationService.clearLocationValue.next(true)
+    this.fullAddress = '';
+    this.state = '';
+    this.country = '';
+    this.city = '';
+    this.zipcode = '';
+    this.latitude = '';
+    this.longitude = '';
+    this.street = ''
+    // Reset category FormControl
+    this.category.setValue(null);
+    // Reset pagination and loader
+    this.currentPage = 1;
+    // this.isPaginationVisible = false;
+    // Retrieve events again
+    this.getPublishBusinessData();
   }
 
 }
