@@ -115,12 +115,25 @@
         @for (key of businessArray; track $index) {
         <div class="d-flex small-screen-view">
           <div class="listing-img-container">
-            <div class="listing-img" *ngIf="key.image">
-              <img [src]="key.image[0]" />
-            </div>
-            <div class="listing-img" *ngIf="key.image == []">
-              <img src="/assets/image/No-image-found.jpeg" />
-            </div>
+               @if(key?.image?.includes("") || key?.image == null){
+                <div class="listing-img">
+                  <img src="../../../../assets/image/No-image-found.jpeg" />
+                </div>
+                }@else{
+                  <div class="listing-img" >
+                    <img [src]="key.image[0]" />
+                  </div>
+                }
+
+                <!-- @if(key?.image?.includes("") || key?.image == null){
+                  <div class="listing-img">
+                    <img src="../../../../assets/image/No-image-found.jpeg" />
+                  </div>
+                  }@else{
+                    <div class="listing-img" >
+                      <img [src]="key.image[0]" />
+                    </div>
+                  } -->
           </div>
           <div class="listing-img-info">
             <div class="listing-heading">

@@ -24,7 +24,8 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
-import { interval, Subscription } from 'rxjs'
+import { BehaviorSubject, interval, Subscription } from 'rxjs'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
   selector: 'app-header',
@@ -76,13 +77,14 @@ export class HeaderComponent {
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
-
+  public userDetail:any;
   /**
    *
    * @param router
    * @param dialog
    * @param sessionservice
    */
+
   constructor(
     private router: Router,
     public dialog: MatDialog,
@@ -90,7 +92,8 @@ export class HeaderComponent {
     private activatedRoute: ActivatedRoute,
     private businessService: BusinessService,
     private authService: AuthService,
-    private homeService: HomepageService
+    private homeService: HomepageService,
+    private profileService:ProfileService
   ) {
     this.sessionservice.notificationAUth.subscribe((res: any) => {
       this.isAuthenticated = res
@@ -112,7 +115,6 @@ export class HeaderComponent {
     })
 
     const data = this.sessionservice.getUserdata()
-    // console.log("check role1", data)
     if (data) {
       this.userRole = data?.user_role
       // console.log("check role", data)
@@ -133,7 +135,6 @@ export class HeaderComponent {
     })
     this.sessionservice.OnLogOut.subscribe((res: any) => {
       if (res) {
-        console.log('check the value')
         this.onLogout()
       }
     })
@@ -146,10 +147,24 @@ export class HeaderComponent {
     this.getBusinessCat()
     console.log("isAuth", this.isAuthenticated)
     if (this.isAuthenticated) {
-      console.log("isAuth", this.isAuthenticated)
-      this.getNotifications()
       this.startNotificationInterval()
-    }
+      this.fetchProfileDetail()
+  
+  }
+}
+
+ 
+    public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+
+       
+      },
+      error: (err: any) => {
+        this.router.navigateByUrl('/login')
+
+      },
+    })
   }
 
   public login() {
@@ -160,6 +175,7 @@ export class HeaderComponent {
   }
 
 
+  
   public navigateOnAddEvent() {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       if (res == true && this.userInfo.user_role == Roles.businessOwner) {
@@ -194,6 +210,7 @@ export class HeaderComponent {
   toggleDropdownsreset2() {
     this.isDropdownActiveEvent = false;
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) { }
 
@@ -211,7 +228,6 @@ export class HeaderComponent {
   }
 
   public profile() {
-    // console.log("chekc ", this.userRole)
     if (this.userRole == Roles.subscriber) {
       this.router.navigateByUrl('/manage-profile')
     } else if (
@@ -234,7 +250,6 @@ export class HeaderComponent {
       this.userRole == Roles.businessOwner &&
       this.subscriptionStatus
     ) {
-      // console.log("check3")
       this.router.navigateByUrl('/manage-profile')
     }
   }
@@ -270,6 +285,8 @@ export class HeaderComponent {
     else
       this.offsetFlag = true;
   }
+
+
   public getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
@@ -410,7 +427,6 @@ export class HeaderComponent {
     this.homeService.getNotification(body).subscribe({
       next: (res: any) => {
         this.notificationsDetails = res.total_count
-        console.log(this.notificationsDetails, "TOTALCOUNT")
         this.notificationsArr = res.data
 
       },

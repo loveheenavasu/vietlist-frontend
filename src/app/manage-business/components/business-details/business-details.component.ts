@@ -6,7 +6,7 @@ import {
   HostListener,
   ViewEncapsulation,
 } from '@angular/core'
-import { EventService } from '../../service/event.service'
+import { EventService } from '../../../manage-event/service/event.service'
 import { CommonModule, DatePipe, NgIf, TitleCasePipe } from '@angular/common'
 import {
   AuthenticationService,
@@ -37,13 +37,14 @@ import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import { MatIconModule } from '@angular/material/icon'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog'
-import { ImageModalSwiperComponent } from '../image-modal-swiper/image-modal-swiper.component'
-import { AddVideoComponent } from '../add-video/add-video.component'
+import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
+import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
 import { ForgotPasswordComponent } from 'src/app/auth'
+import { TabsModule } from 'ngx-bootstrap/tabs'
 
 // NgxStarRatingModule
 @Component({
-  selector: 'app-event-details',
+  selector: 'app-business-details',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -60,13 +61,14 @@ import { ForgotPasswordComponent } from 'src/app/auth'
     MatNativeDateModule,
     LoaderComponent,
     MatIconModule,
+    TabsModule,
   ],
-  templateUrl: './event-details.component.html',
-  styleUrl: './event-details.component.scss',
+  templateUrl: './business-details.component.html',
+  styleUrl: './business-details.component.scss',
   encapsulation: ViewEncapsulation.None,
   providers: [DatePipe],
 })
-export class EventDetailsComponent {
+export class BusinessDetailsComponent {
   public selectedDates: Date[] = []
   public isDesabledform: boolean = false
   public booking_date: any = new FormControl('')
@@ -129,6 +131,11 @@ export class EventDetailsComponent {
   public numberofBookingPrice: any
   public eventEndDate: any
   public claimedBusinessStatus: any
+  public post_category: any = {}
+  public newsletter: FormGroup
+  public minDate = new Date();
+  public isBookableClicked: boolean = false
+  public maxDate: any
 
   /**
    *
@@ -172,10 +179,14 @@ export class EventDetailsComponent {
       ],
       comment_author_url: [''],
     })
+    this.newsletter = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+    })
+
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
-        console.log('check auth', this.isAuthentecate)
         const controlsToValidate = ['comment_author_email', 'comment_author']
 
         controlsToValidate.forEach((controlName) => {
@@ -204,7 +215,19 @@ export class EventDetailsComponent {
     })
   }
 
+  get name() {
+    return this.newsletter.get('name')
+  }
+  get email() {
+    return this.newsletter.get('email')
+  }
+
+  parse(str: string) {
+    return JSON.parse(str)
+  }
+
   ngOnInit() {
+    // this.getBusinessCat()
     if (
       this._activatedRoute.snapshot.routeConfig?.path?.includes(
         'business-details',
@@ -363,15 +386,15 @@ export class EventDetailsComponent {
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
-      next: (res: any) => {
+      next: (res) => {
         this.fullPageLoaderService.hideLoader()
-        console.log(res, 'RESPON')
-        this.eventDetails = res?.data[0]
-        ;(this.latitude = Number(res?.data.latitude)),
-          (this.longitude = Number(res?.data.longitude))
-        console.log('check-business-lisiting-data-console', this.eventDetails)
-        console.log(this.eventDetails)
 
+        // this.dataget = res?.data || 'NA'
+        console.log(res?.data[0], 'res?.data[0]')
+        this.eventDetails = res?.data[0]
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
+        console.log('check-business-lisiting', this.eventDetails)
         this.initMap()
       },
       error: (err) => {
@@ -486,7 +509,6 @@ export class EventDetailsComponent {
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
   }
-
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]
     this.displayLevelOneImages()
@@ -891,6 +913,7 @@ export class EventDetailsComponent {
         next: (res) => {
           this.isBookingLoader = false
           if (res) {
+            // this.router.navigate(['/target-component'], { queryParams: { ids: ids.join(',') } });
             this.router.navigate(['/booking-payment'], {
               queryParams: {
                 eventId: details?.post_id,
@@ -923,31 +946,28 @@ export class EventDetailsComponent {
 
   public addVideo() {
     if (this.screensize > 720) {
-      this.dialogWidth = '65%'
+      this.dialogWidth = '55%'
     } else if (this.screensize < 720) {
       this.dialogWidth = '90%'
-      this.height = '80%'
+      this.height = '55%'
     }
 
     this.dialog.open(AddVideoComponent, {
       width: this.dialogWidth,
       height: this.height,
-      data: {
-        postId: this.eventDetails.post_id,
-      },
     })
   }
+  // public getBusinessCat() {
+  //   this.businessService.getBusinessCat().subscribe({
+  //     next: (res: any) => {
+  //       console.log(res.data, 'res.data')
+  //       this.post_category = res.data
 
-  public getVideosList() {
-    //   this.businessService
-    //     .getVideoIntegration(this.postId, 'promotional_videos')
-    //     .subscribe({
-    //       next: (res) => {
-    //         console.log(res)
-    //       },
-    //       error: (err) => {
-    //         console.log(err, 'error')
-    //       },
-    //     })
-  }
+  //       for (let i = 0; i < res.data; i++) {
+  //         this.post_category[res.data[i].id] = res.data[i].name
+  //       }
+  //     },
+  //     error: (err) => {},
+  //   })
+  // }
 }

@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <div class="swiper-wrapper" style="width:100%;">
+      <div class=" cta-verfied-image" style="padding:0px">
+        <div class="image-container">
+          <!-- <div class="d-flex"> --> 
+          <!-- <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
+            @for (userData of userdetails; track $index) {
+            <swiper-slide (click)="viewuserdetails(userData)">
+              <div class="image">
+                <img [src]="
+                    userData?.featured_image
+                      ? userData?.featured_image
+                      : '/assets/image/No-image-found.jpeg'
+                  " alt="verfied-image" />
+                <div class="verified-logo">
+                  <a style="
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;">{{ userData?.resource_title }}</a>
+                </div>
+              </div>
+            </swiper-slide>
+            }
+          </swiper-container> -->
+          <!-- Custom navigation buttons -->
+          <!-- <div class="swiper-button-prev">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div class="swiper-button-next">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container user-blog-detail-cnt">
+    <div class="row">
+      <div class="col-12 my-3">
+        <div class="img-cnt">
+          <img [src]="
+              resourceDetails?.resource_featured_image
+                ? resourceDetails?.resource_featured_image
+                : '/assets/image/No-image-found.jpeg'
+            " />
+        </div>
+      </div>
+      <div class="col-12 my-2">
+        <h1 class="blog-heading">{{ resourceDetails?.resource_title }}</h1>
+        <div class="content___info">
+          <div class="blog___">
+            <i class="far fa-user-circle"></i> &nbsp;<span>BlogBlitz &nbsp;</span>
+          </div>
+          &nbsp;
+          <div class="blog___">
+            <i class="fa-regular fa-calendar icon-size"></i> &nbsp;<span>{{resourceDetails?.resource_post_date ?
+              resourceDetails?.resource_post_date:'No Date'}} &nbsp;</span>
+          </div>
+          &nbsp;
+          <!-- <div class="blog___">
+            <i class="far fa-comment-dots"></i> &nbsp;<span style="cursor:pointer" (click)="scrollTo('commentsLength')">{{
+              commentArr?.length? commentArr.length + ' '+
+              'Comments':'No Comments'}}</span>
+          </div> -->
+        </div>
+        <div class="description" [innerHtml]="resourceDetails?.resource_desc">
+        </div>
+      </div>
+    </div>
+    <div class="comment__">
+      <div class="row my-3">
+        <div class="col-12">
+          <!-- <h5 class="block-head" style="border-bottom: solid 1px #cecece;">
+            {{ commentArr?.length === 1 ? '1 Comment' : (commentArr?.length > 1 ? commentArr.length + ' Comments' : 'No
+            Comments') }}
+          </h5> -->
+        </div>
+  
+      </div>
+
+  
+
+  
+  
+  
+    </div>
+
+  </div>

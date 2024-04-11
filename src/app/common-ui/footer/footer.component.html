@@ -116,14 +116,14 @@
     </div>
     <div class="col-12 col-md-6 col-lg-2">
       <ul>
-        <li class="links">Resources</li>
+        <li class="links" (click)="navigateTo('/resources')">Resources</li>
         <li class="links">For User</li>
-        <li class="links">For Businesses</li>
+        <li class="links" (click)="navigateTo('/for-business')">For Businesses</li>
       </ul>
     </div>
     <div class="col-12 col-md-6 col-lg-2">
       <ul>
-        <li class="links">FAQ</li>
+        <li class="links" (click)="navigateTo('/faq')">FAQ</li>
         <li class="links">Sitemap</li>
         <li class="links">Legal Policy</li>
         <li class="links">Terms & Conditions</li>
@@ -218,7 +218,7 @@
         <li>
           <h3 class="mobile-view-quick-links">Quick Links</h3>
         </li>
-        <li class="links">Resources</li>
+        <li class="links" (click)="navigateTo('/resources')">Resources</li>
         <li class="links">For User</li>
         <li class="links"  (click)="navigateTo('/for-business')">For Businesses</li>
       </ul>

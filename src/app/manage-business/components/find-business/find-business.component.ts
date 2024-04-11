@@ -282,6 +282,7 @@ export class FindBusinessComponent {
       },
     })
   }
+
   public getBusinessCat() {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
@@ -300,6 +301,7 @@ export class FindBusinessComponent {
     this.categoriesValue = this.findBusinessForm.value.post_category
     this.getDefaultCat()
   }
+  
   public getDefaultCat() {
     this.businessCategoriesService
       .getDefaultCat(this.categoriesValue)

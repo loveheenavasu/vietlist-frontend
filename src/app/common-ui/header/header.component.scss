@@ -5,7 +5,7 @@
     margin-left: 15px;
     color: #232F3E;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
 }
 
@@ -72,10 +72,10 @@
 
         .navbar-nav {
             align-items: center;
-
+            justify-content: center;
             .nav-item {
-                font-size: 16px;
-                padding: 15px;
+                font-size: 15px;
+                padding: 11px;
                 font-weight: 400;
                 font-family: 'Roboto Slab';
                 cursor: pointer;
@@ -629,7 +629,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 65%;
+                    width: 66%;
                     margin-right: 0.188rem;
                 }
 

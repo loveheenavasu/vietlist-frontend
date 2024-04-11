@@ -1,4 +1,5 @@
-import { BusinessBlogDetailsComponent } from './blognews/business-blog-details/business-blog-details.component';
+import { ResourceDetailComponent } from './landing-page/views/resource-detail/resource-detail.component'
+import { BusinessBlogDetailsComponent } from './blognews/business-blog-details/business-blog-details.component'
 
 import { ManageProfileComponent } from './manage-profile/manage-profile'
 import { HomepageComponent } from './landing-page/homepage'
@@ -28,6 +29,7 @@ import { CreateAdsComponent } from './manage-profile/components/manage-ads/creat
 import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
 import { AllEventComponent } from './manage-event/components/all-event/all-event.component'
 import { EventDetailsComponent } from './manage-event/components/event-details/event-details.component'
+import { BusinessDetailsComponent } from './manage-business/components/business-details/business-details.component'
 import { LoginGuard } from './shared/utils/guard/login.guard'
 import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
 import { Roles } from './shared'
@@ -42,10 +44,11 @@ import { BusinessCategories, BusinessListingComponent } from './categories'
 import { UserblogComponent } from './blognews/userblog/userblog.component'
 import { BusinessblogsComponent } from './blognews/businessblogs/businessblogs.component'
 import { UserBlogDetailsComponent } from './blognews/user-blog-details/user-blog-details.component'
-import { NotificationPageComponent } from './notification-page/notification-page.component';
-import { ClaimListingComponent } from './claim-listing/claim-listing.component';
-import { FaqComponent } from './landing-page/views/faq/faq.component';
-import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component';
+import { NotificationPageComponent } from './notification-page/notification-page.component'
+import { ClaimListingComponent } from './claim-listing/claim-listing.component'
+import { FaqComponent } from './landing-page/views/faq/faq.component'
+import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component'
+import { ResourcesComponent } from './landing-page/views/resources/resources.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -56,7 +59,7 @@ export default [
   {
     path: 'login',
     loadComponent: () => LoginComponent,
-    canActivate: [LoginGuard]
+    canActivate: [LoginGuard],
   },
   {
     path: 'register',
@@ -69,11 +72,11 @@ export default [
     children: [
       {
         path: 'manage-bookings',
-        loadComponent: () => MyBookingsComponent
+        loadComponent: () => MyBookingsComponent,
       },
       {
         path: 'cancellaton-policy',
-        loadComponent: () => CancellationPolicyComponent
+        loadComponent: () => CancellationPolicyComponent,
       },
       {
         path: '',
@@ -117,19 +120,19 @@ export default [
       },
       {
         path: 'manage-events',
-        loadComponent: () => MyEventsComponent
+        loadComponent: () => MyEventsComponent,
       },
       {
         path: 'my-transactions',
-        loadComponent: () => MyTransactionsComponent
+        loadComponent: () => MyTransactionsComponent,
       },
       {
         path: 'all-bookings/:id',
-        loadComponent: () => AllBookingsComponent
-      }
+        loadComponent: () => AllBookingsComponent,
+      },
     ],
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner', 'subscriber'] }
+    data: { roles: ['business-owner', 'subscriber'] },
   },
   {
     path: 'preview-business/:id',
@@ -167,7 +170,7 @@ export default [
     path: 'list-business',
     loadComponent: () => ListBusinessComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Roles.businessOwner] }
+    data: { roles: [Roles.businessOwner] },
   },
   {
     path: 'benefits-of-joining',
@@ -191,7 +194,7 @@ export default [
   },
   {
     path: 'business-blog-details/:id',
-    loadComponent: () => BusinessBlogDetailsComponent
+    loadComponent: () => BusinessBlogDetailsComponent,
   },
   {
     path: 'business-listing',
@@ -205,7 +208,7 @@ export default [
     path: 'add-event',
     loadComponent: () => AddEventComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner'] }
+    data: { roles: ['business-owner'] },
   },
   {
     path: 'edit-event/:id',
@@ -225,31 +228,39 @@ export default [
   },
   {
     path: 'business-details/:id',
-    loadComponent: () => EventDetailsComponent,
+    loadComponent: () => BusinessDetailsComponent,
   },
   {
     path: 'contact-us',
-    loadComponent: () => ContactUsComponent
+    loadComponent: () => ContactUsComponent,
   },
   {
     path: 'thank-you',
-    loadComponent: () => ThankYouPageComponent
+    loadComponent: () => ThankYouPageComponent,
   },
   {
     path: 'notifications',
-    loadComponent: () => NotificationPageComponent
+    loadComponent: () => NotificationPageComponent,
   },
   {
     path: 'claim-business/:id',
-    loadComponent: () => ClaimListingComponent
+    loadComponent: () => ClaimListingComponent,
   },
   {
     path: 'faq',
-    loadComponent: () => FaqComponent
+    loadComponent: () => FaqComponent,
   },
   {
-    path:'for-business',
-    loadComponent:()=>ForBusinessComponent
+    path: 'for-business',
+    loadComponent: () => ForBusinessComponent,
+  },
+  {
+    path: 'resources',
+    loadComponent: () => ResourcesComponent,
+  },
+  {
+    path: 'resource-details/:id',
+    loadComponent: () => ResourceDetailComponent,
   },
   {
     path: '**',
