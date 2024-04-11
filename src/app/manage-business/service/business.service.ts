@@ -102,4 +102,16 @@ export class BusinessService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BenefitsJoining)
     return this.http.get<any>(endpoint)
   }
+
+  public webinarRegistration(body:any): Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.WebinarRegistration)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+  public videoIntegration(body:any): Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.BusinessVideoIntegration)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
 }

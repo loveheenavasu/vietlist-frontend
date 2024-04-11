@@ -936,20 +936,39 @@
                   } @else {
                   <div class="profile-info-div mt-3" style="padding: 9%">
                     <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
-                      <!-- <img
-                        src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
-                        class="rounded-circle shadow border border-white border-width-4 mr-3" width="60" height="60"
-                        alt="Sourav Ghosh" /> -->
+                        <span style='font-size: 22px; font-weight: 600; color: black; ' >Timing :</span>
                       <div class="media-body">  <p *ngFor="let time of parse(eventDetails?.business_hours)" class="mt-0">
-          
                           {{ time[0] }}
                         </p>
-          
                         <p></p>
                       </div>
                     </div>
                   </div>
                   }
+                  <form [formGroup]="newsletter" >
+                  <div class="profile-info-div mt-3" style="padding: 9%">
+                    <div class="d-flex flex-column text-center text-md-left d-md-flex p-3 bg-light align-items-baseline gap-2 ">
+                            <span style='font-size: 22px; font-weight: 600; color: black; ' >Newsletter </span>
+                            <input
+                            type="text"
+                            class="newsletter"
+                            placeholder="Name"
+                            required
+                            formControlName='name'
+                            />
+                            <span *ngIf="name?.invalid && name?.touched " style='color: red;font-size: 12px;'> Name is required </span>
+                            <input
+                            formControlName='email'
+                            type="email"
+                            class="newsletter"
+                            placeholder="Email Address"
+                            required
+                            />
+                            <span *ngIf="email?.invalid && email?.touched" style='color: red;font-size: 12px;'> Email is required </span>
+                            <button [disabled]="newsletter.invalid" class='align-self-end border-0 py-2 px-4 rounded' style='color: white; background-color: #ff9900;'> Submit </button>
+                        </div>
+                    </div>
+                </form>
                 </div>
               </div>
           

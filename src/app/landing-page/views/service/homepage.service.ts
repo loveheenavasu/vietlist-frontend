@@ -152,12 +152,13 @@ export class HomepageService {
     resource_category: any,
   ): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResourcesList)
+    const authToken: any = this.sessionService.getAuthHeaders()
     let params = new HttpParams()
       .set('posts_per_page', posts_per_page)
       .set('page_no', page_no)
       .set('resource_category', resource_category)
 
-    return this.http.get<any>(endpoint, { params: params })
+    return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
   public getResourceDetails(resource_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResourceDetail)

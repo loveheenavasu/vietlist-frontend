@@ -6,181 +6,206 @@
 <div class="container-fluid g-0">
   <div class="row tabs-wrapper">
     <div class="tabs">
-      <p [ngClass]="{'active-tab': activeTab == 'articles'}" (click)="onTabClick('articles')">Articles</p>
-      <p [ngClass]="{'active-tab': activeTab == 'e-books'}" (click)="onTabClick('e-books')">E-Books</p>
-      <p [ngClass]="{'active-tab': activeTab == 'guides'}" (click)="onTabClick('guides')">Guides</p>
-      <p [ngClass]="{'active-tab': activeTab == 'webinar'}" (click)="onTabClick('webinar')">Webinar Links</p>
+      <p
+        [ngClass]="{ 'active-tab': activeTab == 'articles' }"
+        (click)="onTabClick('articles')"
+      >
+        Articles
+      </p>
+      <p
+        [ngClass]="{ 'active-tab': activeTab == 'e-books' }"
+        (click)="onTabClick('e-books')"
+      >
+        E-Books
+      </p>
+      <p
+        [ngClass]="{ 'active-tab': activeTab == 'guides' }"
+        (click)="onTabClick('guides')"
+      >
+        Guides
+      </p>
+      <p
+        [ngClass]="{ 'active-tab': activeTab == 'webinar' }"
+        (click)="onTabClick('webinar')"
+      >
+        Webinar Links
+      </p>
     </div>
   </div>
-  @if(!isWebinarView){
-  <div class="lisiting-container mt-4">
-    <div class="layout-icon d-flex align-items-center">
-      <div
-        class="grid-layout-icon d-flex align-items-center"
-        [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-        (click)="handleLayout('grid')"
-      >
-        <mat-icon>grid_on</mat-icon>
-      </div>
-      @if(activeTab !== 'e-books'){ 
-      <div
-        class="list-layout-icon d-flex align-items-center"
-        [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
-        (click)="handleLayout('list')"
-      >
-        <mat-icon>view_list</mat-icon>
-      </div>
-    }
-    </div>
-    <div class="view-container">
-      @if (selectedLayout == 'grid') {
-        <div class="grid-view-container row">
-          @for (
-            key of resourceArr
-              | paginate
-                : {
-                    itemsPerPage: postPerPage,
-                    currentPage: currentPage,
-                    totalItems: totalCount
-                  };
-            track $index
-          ) {
-            <div class="grid-card col-12 col-md-6 col-lg-4">
-              <div class="event-wrapper">
-                <div
-                  class="listing-img"
-                  (click)="gotToEventDetails(key.resource_id, true)"
-                  [style.background-image]="
-                    'url(' +
-                    (key.resource_featured_image
-                      ? key.resource_featured_image
-                      : '/assets/image/no-image.webp') +
-                    ')'
-                  "
-                >
-                </div>
-                @if(activeTab !== 'e-books') {
-                <div class="listing-description">
-                  <div class="listing-heading">
-                    <h3 (click)="gotToEventDetails(key.resource_id, true)">
-                      {{ key.resource_title }}
-                    </h3>
-                  </div>
-                  <div class="listing-info">
-                    <li class="post-content" [innerHtml]="key?.resource_desc"></li>
-                  </div>
-        
-                </div>
-              }@else if(activeTab == 'e-books'){
-               <div style="text-align:center">
-                <button class="btn read-btn">READ</button>
-               </div>
-              }
-              </div>
-            </div>
-          }
+  @if (!isWebinarView) {
+    <div class="lisiting-container mt-4">
+      <div class="layout-icon d-flex align-items-center">
+        <div
+          class="grid-layout-icon d-flex align-items-center"
+          [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+          (click)="handleLayout('grid')"
+        >
+          <mat-icon>grid_on</mat-icon>
         </div>
-      } @else {
-        <div class="list-view-container">
-          @for (
-            key of resourceArr
-              | paginate
-                : {
-                    itemsPerPage: postPerPage,
-                    currentPage: currentPage,
-                    totalItems: totalCount
-                  };
-            track $index
-          ) {
-            <div class="d-flex small-screen-view">
-              <div
-                class="listing-img-container"
-                (click)="gotToEventDetails(key.resource_id, true)"
-              >
-                <div
-                  class="listing-img"
-                  (click)="gotToEventDetails(key.resource_id, true)"
-                >
-
-                  @if (
-                    key && key.resource_featured_image && key.resource_featured_image.length > 0
-                  ) {
-                    <img
-                      [src]="key.resource_featured_image"
-                      (click)="gotToEventDetails(key.resource_id, true)"
-                    />
-                  } @else {
-                    <img src="/assets/image/no-image.webp" alt="no-image" />
+        @if (activeTab !== 'e-books') {
+          <div
+            class="list-layout-icon d-flex align-items-center"
+            [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
+            (click)="handleLayout('list')"
+          >
+            <mat-icon>view_list</mat-icon>
+          </div>
+        }
+      </div>
+      <div class="view-container">
+        @if (selectedLayout == 'grid') {
+          <div class="grid-view-container row">
+            @for (
+              key of resourceArr
+                | paginate
+                  : {
+                      itemsPerPage: postPerPage,
+                      currentPage: currentPage,
+                      totalItems: totalCount
+                    };
+              track $index
+            ) {
+              <div class="grid-card col-12 col-md-6 col-lg-4">
+                <div class="event-wrapper">
+                  <div
+                    class="listing-img"
+                    (click)="gotToEventDetails(key.post_id, true)"
+                    [style.background-image]="
+                      'url(' +
+                      (key.resource_featured_image
+                        ? key.resource_featured_image
+                        : '/assets/image/no-image.webp') +
+                      ')'
+                    "
+                  ></div>
+                  @if (activeTab !== 'e-books') {
+                    <div class="listing-description">
+                      <div class="listing-heading">
+                        <h3 (click)="gotToEventDetails(key.post_id, true)">
+                          {{ key.resource_title }}
+                        </h3>
+                      </div>
+                      <div class="listing-info">
+                        <li
+                          class="post-content"
+                          [innerHtml]="key?.resource_desc"
+                        ></li>
+                      </div>
+                    </div>
+                  } @else if (activeTab == 'e-books') {
+                    <div style="text-align: center">
+                      <button class="btn read-btn">READ</button>
+                    </div>
                   }
                 </div>
               </div>
-               @if(activeTab !== 'e-books') {
-              <div class="listing-img-info">
-                <div
-                  class="listing-heading"
-                  (click)="gotToEventDetails(key.resource_id, true)"
-                >
-                  <h3>
-                    {{ key.resource_title }}
-                  </h3>
-                </div>
-                <div class="listing-info">
-                  <li class="post-content" [innerHtml]="key?.resource_desc"></li>
-                </div>
-            
-              </div>
-            }@else if(activeTab == 'e-books'){
-              <div style="text-align:center" class="mx-3">
-                <button class="btn read-btn">READ</button>
-               </div>
             }
-            </div>
-          }
-        </div>
-      }
+          </div>
+        } @else {
+          <div class="list-view-container">
+            @for (
+              key of resourceArr
+                | paginate
+                  : {
+                      itemsPerPage: postPerPage,
+                      currentPage: currentPage,
+                      totalItems: totalCount
+                    };
+              track $index
+            ) {
+              <div class="d-flex small-screen-view">
+                <div
+                  class="listing-img-container"
+                  (click)="gotToEventDetails(key.post_id, true)"
+                >
+                  <div
+                    class="listing-img"
+                    (click)="gotToEventDetails(key.post_id, true)"
+                  >
+                    @if (
+                      key &&
+                      key.resource_featured_image &&
+                      key.resource_featured_image.length > 0
+                    ) {
+                      <img
+                        [src]="key.resource_featured_image"
+                        (click)="gotToEventDetails(key.post_id, true)"
+                      />
+                    } @else {
+                      <img src="/assets/image/no-image.webp" alt="no-image" />
+                    }
+                  </div>
+                </div>
+                @if (activeTab !== 'e-books') {
+                  <div class="listing-img-info">
+                    <div
+                      class="listing-heading"
+                      (click)="gotToEventDetails(key.post_id, true)"
+                    >
+                      <h3>
+                        {{ key.resource_title }}
+                      </h3>
+                    </div>
+                    <div class="listing-info">
+                      <li
+                        class="post-content"
+                        [innerHtml]="key?.resource_desc"
+                      ></li>
+                    </div>
+                  </div>
+                } @else if (activeTab == 'e-books') {
+                  <div style="text-align: center" class="mx-3">
+                    <button class="btn read-btn">READ</button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
     </div>
-  </div>
-}@else {
-  <div class="table-responsive mt-3">
-    <table>
-      <thead>
-        <tr style="text-align: center;">
-          <th>Webinar Topic</th>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-       
-          <tr>
-            <td style="color: #144b7c">
-          
-            </td>
-            <td style="color: #144b7c">
-          
-            </td>   <td style="color: #144b7c">
-          
-            </td>   <td style="color: #144b7c">
-          
-            </td>
+  } @else {
+    <div class="table-responsive mt-3">
+      <table>
+        <thead>
+          <tr style="text-align: center">
+            <th>Webinar Topic</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Link</th>
           </tr>
-   
-      </tbody>
-    </table>
-  </div>
-}
-
+        </thead>
+        <tbody>
+          @for (key of resourceArr2; track $index) {
+            <tr>
+              <td style="color: #144b7c">
+                {{ key.webinar_topic }}
+              </td>
+              <td style="color: #144b7c">
+                {{ key.webinar_date }}
+              </td>
+              <td style="color: #144b7c">
+                {{ key.webinar_time }}
+              </td>
+              <td style="color: #144b7c" (click)="registrationForm(key.resource_id)">---</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+@if(activeTab !== 'webinar'){
   <div class="row">
     <div class="col-md-12 mt-5">
-      <pagination-controls 
-      previousLabel="Prev" 
-      nextLabel="Next" 
-      [responsive]="true" 
-      [maxSize]="5" 
-      (pageChange)="handlePageChange($event)"
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        [responsive]="true"
+        [maxSize]="5"
+        (pageChange)="handlePageChange($event)"
       >
-  </pagination-controls>
+      </pagination-controls>
     </div>
   </div>
+}
 </div>

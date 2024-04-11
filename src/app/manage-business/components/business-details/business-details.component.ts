@@ -132,6 +132,7 @@ export class BusinessDetailsComponent {
   public eventEndDate: any
   public claimedBusinessStatus: any
   public post_category: any = {}
+  public newsletter: FormGroup
 
   /**
    *
@@ -175,6 +176,11 @@ export class BusinessDetailsComponent {
       ],
       comment_author_url: [''],
     })
+    this.newsletter = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+    })
+
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
@@ -205,6 +211,14 @@ export class BusinessDetailsComponent {
       }
     })
   }
+
+  get name() {
+    return this.newsletter.get('name')
+  }
+  get email() {
+    return this.newsletter.get('email')
+  }
+
   parse(str: string) {
     return JSON.parse(str)
   }

@@ -86,4 +86,6 @@ export enum Endpoints {
   NotificationStatus = 'notification_status_update',
   ResourcesList = 'get_all_resources',
   ResourceDetail = 'get_resource_by_id',
+  WebinarRegistration = 'set_webinar_regisration',
+  BusinessVideoIntegration = 'business_listing_video_integration',
 }
