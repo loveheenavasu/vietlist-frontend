@@ -29,6 +29,7 @@ import { CreateAdsComponent } from './manage-profile/components/manage-ads/creat
 import { AdsListComponent } from './manage-profile/components/manage-ads/ads-list/ads-list.component'
 import { AllEventComponent } from './manage-event/components/all-event/all-event.component'
 import { EventDetailsComponent } from './manage-event/components/event-details/event-details.component'
+import { BusinessDetailsComponent } from './manage-business/components/business-details/business-details.component'
 import { LoginGuard } from './shared/utils/guard/login.guard'
 import { MyEventsComponent } from './manage-profile/components/my-events/my-events.component'
 import { Roles } from './shared'
@@ -227,7 +228,7 @@ export default [
   },
   {
     path: 'business-details/:id',
-    loadComponent: () => EventDetailsComponent,
+    loadComponent: () => BusinessDetailsComponent,
   },
   {
     path: 'contact-us',

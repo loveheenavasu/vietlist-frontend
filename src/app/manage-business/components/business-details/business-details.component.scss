@@ -743,3 +743,39 @@ fieldset:disabled .btn {
     /* Disable pointer events */
     /* Add any other styles as needed */
 }
+
+
+.tab-container {
+    ul {
+        margin-inline: 9.5%;
+        margin-block: 20px;
+        border:none
+    }
+}
+
+ .nav-link.active {
+    color: #ff9900 !important ;
+    border-bottom: #ff9900 2px solid !important ;
+    border: none !important;
+}
+
+.nav-link:hover{
+    color: #ff9900 !important ;
+    border-bottom: #ff9900 2px solid !important ;
+    border: none;
+    transition: none;
+}
+
+.background_section:hover{
+    color: #7a7a7a;
+}
+
+.tag-container{
+    display: flex;
+    gap: 10px;
+}
+.tag-creation{
+    color: white;
+    background: #ff9900;
+    display: inline;padding: 3px 5px;
+}
