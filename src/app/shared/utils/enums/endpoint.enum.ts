@@ -85,7 +85,8 @@ export enum Endpoints {
   Faqs = 'faq_content_data',
   NotificationStatus = 'notification_status_update',
   ResourcesList = 'get_all_resources',
+  ResourceDetail = 'get_resource_by_id',
   WebinarRegistration = 'set_webinar_regisration',
   BusinessVideoIntegration = 'business_listing_video_integration',
-  VideosType = 'get_business_listing_video_integration  '
+  // VideosType = 'get_business_listing_video_integration  ',
 }

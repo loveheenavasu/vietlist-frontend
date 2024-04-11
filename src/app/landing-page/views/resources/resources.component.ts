@@ -128,7 +128,7 @@ export class ResourcesComponent {
           const currentDate: any =
             this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
 
-            this.resourceArr2 = []
+          this.resourceArr2 = []
           console.log(currentDate, 'currentdate')
           res?.data.forEach((item: any) => {
             if (item.webinar_date > currentDate) {
