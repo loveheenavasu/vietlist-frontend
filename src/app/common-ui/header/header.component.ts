@@ -1,4 +1,3 @@
-
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core'
@@ -22,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
-import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
+import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { BehaviorSubject, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
@@ -45,7 +44,7 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    AutocompleteComponent
+    AutocompleteComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -69,15 +68,15 @@ export class HeaderComponent {
   public fullAddress: any
   public longitude: any
   public latitude: any
-  public isDropdownActive: boolean = false;
-  public isDropdownActiveEvent: boolean = false;
+  public isDropdownActive: boolean = false
+  public isDropdownActiveEvent: boolean = false
   public notificationsArr: any[] = []
-  private notificationIntervalSubscription!: Subscription;
+  private notificationIntervalSubscription!: Subscription
 
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
-  public userDetail:any;
+  public userDetail: any
   /**
    *
    * @param router
@@ -93,7 +92,7 @@ export class HeaderComponent {
     private businessService: BusinessService,
     private authService: AuthService,
     private homeService: HomepageService,
-    private profileService:ProfileService
+    private profileService: ProfileService,
   ) {
     this.sessionservice.notificationAUth.subscribe((res: any) => {
       this.isAuthenticated = res
@@ -102,14 +101,14 @@ export class HeaderComponent {
         this.startNotificationInterval()
       }
     })
-    // this.sessionservice.isAuthenticated$.subscribe((res) => {
-    //   this.isAuthenticated = res
-    //   console.log("check auth1", this.isAuthenticated)
-    //   if (this.isAuthenticated) {
-    //     this.getNotifications()
-    //     this.startNotificationInterval()
-    //   }
-    // })
+    this.sessionservice.isAuthenticated$.subscribe((res) => {
+      this.isAuthenticated = res
+      // console.log("check auth1", this.isAuthenticated)
+      // if (this.isAuthenticated) {
+      //   this.getNotifications()
+      //   this.startNotificationInterval()
+      // }
+    })
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
@@ -140,42 +139,32 @@ export class HeaderComponent {
     })
   }
 
-
-
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
-    console.log("isAuth", this.isAuthenticated)
+    console.log('isAuth', this.isAuthenticated)
     if (this.isAuthenticated) {
       this.startNotificationInterval()
       this.fetchProfileDetail()
-  
+    }
   }
-}
 
- 
-    public fetchProfileDetail() {
+  public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
-      next: (res) => {
-
-       
-      },
+      next: (res) => {},
       error: (err: any) => {
         this.router.navigateByUrl('/login')
-
       },
     })
   }
 
   public login() {
     this.authService.isLoggedIn = false
-    console.log("login clicked !")
+    console.log('login clicked !')
     // this.router.navigate(['/login'])
     this.router.navigateByUrl('/login')
   }
 
-
-  
   public navigateOnAddEvent() {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       if (res == true && this.userInfo.user_role == Roles.businessOwner) {
@@ -196,23 +185,22 @@ export class HeaderComponent {
     })
   }
 
-
   toggleDropdowns() {
-    this.isDropdownActive = true;
+    this.isDropdownActive = true
   }
 
   toggleDropdownsEvent() {
-    this.isDropdownActiveEvent = true;
+    this.isDropdownActiveEvent = true
   }
   toggleDropdownsreset() {
-    this.isDropdownActive = false;
+    this.isDropdownActive = false
   }
   toggleDropdownsreset2() {
-    this.isDropdownActiveEvent = false;
+    this.isDropdownActiveEvent = false
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) { }
+  onResize(event: Event) {}
 
   public navigateToOtherComponent(link: string) {
     this.router.navigate([link])
@@ -221,7 +209,6 @@ export class HeaderComponent {
   public toggleDropdown(event: Event) {
     event.preventDefault()
   }
-
 
   public signup() {
     this.router.navigateByUrl('/register')
@@ -256,9 +243,9 @@ export class HeaderComponent {
 
   @HostListener('document:click', ['$event'])
   handleClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
+    const target = event.target as HTMLElement
     if (!target.closest('.search-box')) {
-      this.isSearchInputVisible = false;
+      this.isSearchInputVisible = false
     }
   }
 
@@ -270,46 +257,41 @@ export class HeaderComponent {
     }
   }
 
-
   public onLogout() {
     console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
-    this.router.navigate(['/']);
+    this.router.navigate(['/'])
     this.stopNotificationInterval()
   }
 
   @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
-    if (window.pageYOffset > 0)
-      this.offsetFlag = false;
-    else
-      this.offsetFlag = true;
+    if (window.pageYOffset > 0) this.offsetFlag = false
+    else this.offsetFlag = true
   }
-
 
   public getBusinessCat() {
     this.businessService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
   public customSearch(term: string, item: any) {
-    term = term.toLowerCase();
-    return item.name.toLowerCase().indexOf(term) > -1;
+    term = term.toLowerCase()
+    return item.name.toLowerCase().indexOf(term) > -1
   }
   public onCategoryChange() {
-
     if (this.selectedCategory) {
       this.router.navigate(['/find-business/', this.selectedCategory?.id])
-      this.selectedCategory = null;
+      this.selectedCategory = null
     }
   }
 
   public handleSearch() {
-    this.router.navigateByUrl('/find-business');
+    this.router.navigateByUrl('/find-business')
   }
 
   public navigatetoNotifications() {
@@ -317,7 +299,7 @@ export class HeaderComponent {
   }
 
   public openMenu(menu: MatMenuTrigger) {
-    menu.openMenu();
+    menu.openMenu()
   }
 
   public getAddress(place: any) {
@@ -346,7 +328,7 @@ export class HeaderComponent {
     if (this.fullAddress) {
       // let formattedName = selectedCategory.name.replace(/&/g, ' ');
       // formattedName = formattedName.replace(/\s+/g, '-');
-      console.log("check full address", this.fullAddress,)
+      console.log('check full address', this.fullAddress)
       // const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
       const location = this.fullAddress
       // Construct query parameters
@@ -355,9 +337,11 @@ export class HeaderComponent {
         state: this.state,
         city: this.city,
         street: this.fullAddress,
-        zip: this.zipcode
+        zip: this.zipcode,
       }
-      this.router.navigate(['/find-business-location'], { queryParams: addressParams });
+      this.router.navigate(['/find-business-location'], {
+        queryParams: addressParams,
+      })
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
@@ -367,29 +351,31 @@ export class HeaderComponent {
     // Start interval for fetching notifications every minute
     this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
       .subscribe(() => {
-        this.getNotifications();
-      });
+        this.getNotifications()
+      })
   }
 
   goToPage(item: any) {
-    console.log("check", item)
-    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
-      this.router.navigate(['/business-details', item.id]);
+    console.log('check', item)
+    if (
+      item.notification_type == 'business_listing' ||
+      item.notification_type == 'claim_business'
+    ) {
+      this.router.navigate(['/business-details', item.id])
     } else if (item.notification_type == 'event_booking') {
-      this.router.navigate(['/event-details', item.id]);
+      this.router.navigate(['/event-details', item.id])
     }
     this.onAllMarkRead(item)
   }
   onAllMarkRead(item: any) {
-   
     // if (this.toggleState) {
     const body = {
       read_type: 'single_read',
-      id: item?.id
+      id: item?.id,
     }
     this.homeService.notificationStatus(body).subscribe({
       next: (res) => {
-        console.log("check res", res)
+        console.log('check res', res)
         Swal.fire({
           toast: true,
           text: res.message,
@@ -400,53 +386,45 @@ export class HeaderComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.getNotifications();
+        this.getNotifications()
       },
-      error: (res) => {
-
-      }
+      error: (res) => {},
     })
     // }
   }
 
-
   private stopNotificationInterval(): void {
     if (this.notificationIntervalSubscription) {
-      this.notificationIntervalSubscription.unsubscribe();
-      console.log('Notification interval stopped.');
+      this.notificationIntervalSubscription.unsubscribe()
+      console.log('Notification interval stopped.')
       this.notificationsArr = []
       this.notificationsDetails = ''
     }
   }
 
-  notificationsDetails: any;
+  notificationsDetails: any
   public getNotifications() {
     const body = {
-      "limit": 10
+      limit: 10,
     }
     this.homeService.getNotification(body).subscribe({
       next: (res: any) => {
         this.notificationsDetails = res.total_count
         this.notificationsArr = res.data
-
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
 
-
   setDropdownActiveEvent(active: boolean): void {
-    this.isDropdownActiveEvent = active;
+    this.isDropdownActiveEvent = active
   }
 
   ngOnDestroy(): void {
     // Unsubscribe from the interval subscription to avoid memory leaks
     if (this.notificationIntervalSubscription) {
-      this.notificationIntervalSubscription.unsubscribe();
+      this.notificationIntervalSubscription.unsubscribe()
     }
-    this.stopNotificationInterval();
+    this.stopNotificationInterval()
   }
-
 }

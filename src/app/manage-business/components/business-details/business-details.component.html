@@ -719,26 +719,26 @@
           <div class="row mt-2 pt-4" id="profile">
             <div class="col-12 col-md-12 col-lg-8">
               <!-- <div class="row mt-3"> -->
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
                 Description
               </h3>
               <hr />
               <p>{{eventDetails?.post_content}}</p>
 
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-list" aria-hidden="true" style="font-size: 24px"></i>
                 Category
               </h3>
               <hr />
               <p *ngFor=" let category of eventDetails?.post_category ">{{category?.name}}</p>
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-list" aria-hidden="true" style="font-size: 24px"></i>
                 Default Category
               </h3>
               <hr />
               <p>{{eventDetails?.default_category?.name}}</p>
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-tag" aria-hidden="true" style="font-size: 24px"></i>
                 Tags
               </h3>
@@ -987,20 +987,20 @@
           <div class="row mt-2 pt-4" id="profile">
             <div class="col-12 col-md-12 col-lg-12">
               <!-- <div class="row mt-3"> -->
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-user" aria-hidden="true" style="font-size: 24px"></i>
                 Owner / Manager Name
               </h3>
               <hr />
               <p>{{eventDetails?.owner_name}}</p>
 
-              <h3 class="event-page-heading ">
+              <h3 class="event-page-headings ">
                 Business History / Background
               </h3>
               <hr />
               <p>{{eventDetails?.business_historybackground}}</p>
 
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 Mission & Vission
               </h3>
               <hr />
@@ -1019,7 +1019,7 @@
         <div class="container">
           <div class="row mt-2 pt-4" id="profile">
             <div class="col-12 col-md-12 col-lg-12">
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-user" aria-hidden="true" style="font-size: 24px"></i>
                 Consultation Booking Link
 
@@ -1034,13 +1034,13 @@
                       "> {{eventDetails?.consultation_booking_link}}</a>
               </p>
 
-              <h3 class="event-page-heading ">
+              <h3 class="event-page-headings ">
                 Consultation Mode
 
               </h3>
               <hr />
               <p>{{eventDetails?.consultation_mode}}</p>
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 Consultation Description
               </h3>
               <hr />
@@ -1059,10 +1059,10 @@
       </ng-template>
       <section class="background_section">
         <div class="container">
-          <div class="row mt-2 pt-4">
+          <div class="row mt-2 ">
             <div class="row my-4" id="photo">
               <div class="col-12 col-md-12 col-lg-12">
-                <h3 class="event-page-heading"> <i class="fa fa-picture-o" aria-hidden="true"
+                <h3 class="event-page-headings"> <i class="fa fa-picture-o" aria-hidden="true"
                     style="font-size:24px"></i>
                   Photo(s)</h3>
                 <hr>
@@ -1114,7 +1114,7 @@
         <div class="container">
           <div class="row mt-2 pt-4">
             <div class="col-12">
-              <h3 class="event-page-heading"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Video </h3>
+              <h3 class="event-page-headings"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Video </h3>
               <hr>
               <div class="main_images">
                 <div class="featured_images" style="display:flex;gap:1rem">
@@ -1129,7 +1129,7 @@
       </section>
     </tab>
     }
-    <tab [disabled]="true" heading="Event & promotion">Booking </tab>
+    <!-- <tab [disabled]="true" heading="Event & promotion">Booking </tab> -->
     <tab>
       <ng-template tabHeading>
         <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
@@ -1139,7 +1139,7 @@
           <div class="row mt-2 pt-4">
             <div class="row my-4" id="mapView">
               <div class="col-12 col-md-12 col-lg-12">
-                <h3 class="event-page-heading">
+                <h3 class="event-page-headings">
                   <i class="fa fa-globe" aria-hidden="true" style="font-size: 24px"></i>
                   &nbsp;Map
 
@@ -1193,7 +1193,7 @@
             <div class="col-12 col-md-12 col-lg-8">
 
 
-              <h3 class="event-page-heading">
+              <h3 class="event-page-headings">
                 <i class="fa fa-quetion" aria-hidden="true" style="font-size: 24px"></i>
                 FAQ
               </h3>
@@ -1217,10 +1217,19 @@
         <div class="container">
           <div class="row mt-2 pt-4">
             <div>
-              <h3 class="event-page-heading"> <i class="fa fa-file" aria-hidden="true" style="font-size:24px"></i>
+              <h3 class="event-page-headings"> <i class="fa fa-file" aria-hidden="true" style="font-size:24px"></i>
                 Certificate</h3>
               <hr>
-              <img [src]='eventDetails?.upload_certificates' alt="Certificate" class='mb-4'>
+              <div class="image-container">
+                <div class="featured_image mt-2" >
+                  <img [src]="eventDetails?.upload_certificates"
+                    (click)="openDialog([eventDetails?.upload_certificates],0)" />
+                  <div class="linking-icon">
+                    <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer"
+                      (click)="openDialog([eventDetails?.upload_certificates],0)"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1238,7 +1247,7 @@
 
             <div class="row my-4" id="review">
               <div class="col-12 col-md-12 col-lg-8">
-                <h3 class="event-page-heading">
+                <h3 class="event-page-headings">
                   <i class="fa fa-comments" aria-hidden="true" style="font-size: 24px"></i>
                   Reviews
                 </h3>
@@ -1358,7 +1367,7 @@
 
                 @if (isGlobal == 'true') {
                 <div class="col-12 mt-4 col-md-12 col-lg-8">
-                  <h3 class="event-page-heading">Leave Review</h3>
+                  <h3 class="event-page-headings">Leave Review</h3>
                 </div>
                 <div class="col-12 col-md-12 col-lg-8">
                   <div class="alert alert-warning" role="alert">
@@ -1465,7 +1474,7 @@
 
 
 
-    <tab>
+    <!-- <tab>
       <ng-template tabHeading>
         <span><i class="fa fa-percent" aria-hidden="true"></i> </span> Discount
       </ng-template>
@@ -1475,15 +1484,15 @@
 
             <div class="row my-4" id="review">
               <div class="col-12 col-md-12 col-lg-8">
-                <h3 class="event-page-heading">
+                <h3 class="event-page-headings">
                   <i class="fa fa-percent" aria-hidden="true" style="font-size: 24px"></i>
                   Discount
                 </h3>
                 <hr />
               </div>
             </div>
-            <!-- @if(isGlobal == 'true'){ -->
-            <!-- @if (isGlobal == 'true') { -->
+
+            @if (isGlobal == 'true') {
             <form [formGroup]="reviewForm">
               <div class="row mt-2">
                 <div class="row my-2">
@@ -1511,8 +1520,8 @@
                   <div class="col-12 col-md-12 col-lg-8">
                     <input type="text"  class="input-control"
                     placeholder="Discount Type" />
-                    <!-- <textarea  name="" id="" cols="30" rows="10" class="textarea"
-                      placeholder="Discount Type"></textarea> -->
+                    <textarea  name="" id="" cols="30" rows="10" class="textarea"
+                      placeholder="Discount Type"></textarea>
                   </div>
                 </div>
                 <div class="row my-2">
@@ -1568,7 +1577,7 @@
           </div>
         </div>
       </section>
-    </tab>
+    </tab> -->
   </tabset>
 </div>
 
