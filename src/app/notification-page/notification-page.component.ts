@@ -160,11 +160,7 @@ export class NotificationPageComponent {
           console.log("check data", res)
           this.notificationArr = res?.data;
           this.totalCount = +res?.total_count
-          // if(this.totalCount == 0){
-          //     this.toggleState = true
-          // }else{
-          //   this.toggleState = false
-          // }
+          
         },
         error: (res: any) => {
           this.loader = false
