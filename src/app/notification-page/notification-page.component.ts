@@ -40,7 +40,6 @@ export class NotificationPageComponent {
       }
       this.notification.notificationStatus(body).subscribe({
         next: (res) => {
-          console.log("check res", res)
           Swal.fire({
             toast: true,
             text: res.message,
