@@ -101,7 +101,6 @@ export class NotificationPageComponent {
       }
       this.notification.notificationStatus(body).subscribe({
         next: (res) => {
-          console.log("check res", res)
           this.getNotifications();
           this.fullPageLoaderService.hideLoader()
           Swal.fire({
@@ -131,7 +130,6 @@ export class NotificationPageComponent {
     }
     this.notification.getNotification({ limit: 10, page_no: this.count, notification_type: notificationType }).subscribe({
       next: (res: any) => {
-        console.log("check data", res)
         if (res && res.data) {
           if (Array.isArray(res.data)) {
             Array.prototype.push.apply(this.notificationArr, res.data);
@@ -157,7 +155,6 @@ export class NotificationPageComponent {
         next: (res: any) => {
 
           this.loader = false
-          console.log("check data", res)
           this.notificationArr = res?.data;
           this.totalCount = +res?.total_count
           
@@ -173,8 +170,6 @@ export class NotificationPageComponent {
           this.loader = false
           this.notificationArr = res?.data
           this.totalCount = +res?.total_count
-          console.log("chgeck ", this.totalCount)
-
           if(this.totalCount == 0){
             this.toggleState = true
         }else{
