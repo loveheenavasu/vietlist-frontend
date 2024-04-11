@@ -106,13 +106,10 @@ export class AddVideoComponent {
     const videoFiles: File[] = files.filter((file) =>
       file.type.startsWith('video/'),
     )
-
-    // If there are any image files, you can remove them
     const imageFiles: File[] = files.filter((file) =>
       file.type.startsWith('image/'),
     )
     if (imageFiles.length > 0) {
-      // Handle the presence of image files (disable or display a message)
       Swal.fire({
         toast: true,
         text: 'Image files are not allowed. Please upload only video files.',
@@ -136,9 +133,10 @@ export class AddVideoComponent {
           next: (res: any) => {
             this.isVideoUploading = false
             this.video_upload = [res.image_url]
-            console.log(this.video_upload)
+            console.log(this.video_upload , "Video_Upload")
 
             this.vediosUrl = [...this.vediosUrl, res.image_url]
+            console.log(this.vediosUrl , "VideosUrlVideosUrl")
           },
           error: (err: any) => {
           },

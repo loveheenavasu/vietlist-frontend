@@ -929,4 +929,14 @@ export class EventDetailsComponent {
   }
  
 
+  public getVideosList(){
+    this.businessService.getVideoIntegration(this.postId , 'promotional_videos').subscribe({
+      next:(res)=>{
+        console.log(res)
+      },
+      error:(err)=>{
+        console.log(err , "error")
+      }
+    })
+  }
 }

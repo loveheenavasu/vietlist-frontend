@@ -168,7 +168,7 @@
     <div class="table-responsive mt-3">
       <table>
         <thead>
-          <tr style="text-align: center">
+          <tr>
             <th>Webinar Topic</th>
             <th>Date</th>
             <th>Time</th>
@@ -187,7 +187,12 @@
               <td style="color: #144b7c">
                 {{ key.webinar_time }}
               </td>
-              <td style="color: #144b7c" (click)="registrationForm(key.resource_id)">---</td>
+              @if(key?.zoom_links){
+                <td style="color: #144b7c" >{{key?.zoom_links}}</td>
+              }@else {
+               <td> <button class="btn webinar-register-btn" (click)="registrationForm(key.resource_id)">Join</button></td>
+              }
+             
             </tr>
           }
         </tbody>

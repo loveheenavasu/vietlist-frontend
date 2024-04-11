@@ -101,10 +101,6 @@ export class HeaderComponent {
   
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
-      if (this.isAuthenticated) {
-        this.getNotifications()
-        this.startNotificationInterval()
-      }
     })
 
     this.sessionservice.userRole.subscribe((res) => {
@@ -144,8 +140,6 @@ export class HeaderComponent {
     this.getBusinessCat()
     console.log("isAuth", this.isAuthenticated)
     if (this.isAuthenticated) {
-      console.log("isAuth", this.isAuthenticated)
-      this.getNotifications()
       this.startNotificationInterval()
       this.fetchProfileDetail()
   

@@ -1,4 +1,4 @@
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'
 import { HomepageService } from './../service/homepage.service'
 import { DatePipe, NgClass, NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
@@ -6,12 +6,12 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSelectModule } from '@angular/material/select'
 import { Router } from '@angular/router'
-import { FullPageLoaderService} from '@vietlist/shared'
+import { FullPageLoaderService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
-import { WebinarRegistrationComponent } from '../webinar-registration/webinar-registration.component';
+import { WebinarRegistrationComponent } from '../webinar-registration/webinar-registration.component'
 
 @Component({
   selector: 'app-resources',
@@ -35,7 +35,7 @@ export class ResourcesComponent {
   public datePipe = new DatePipe('en-US')
   public selectedLayout: string = 'grid'
   public resourceArr: any[] = []
-  public resourceArr2:any[]=[]
+  public resourceArr2: any[] = []
   public subscription!: Subscription
   public isLoader: boolean = false
   public postPerPage: number = 6
@@ -46,13 +46,13 @@ export class ResourcesComponent {
   public totalPages: number = 0
   public resource_category = new FormControl('')
   public activeTab: any = 'articles'
-  public isWebinarView:boolean = false
+  public isWebinarView: boolean = false
   constructor(
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private homeservice: HomepageService,
-    private cdr:ChangeDetectorRef,
-    private dialog:MatDialog
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
   ) {
     this.getResourcesData(this.activeTab)
   }
@@ -62,7 +62,7 @@ export class ResourcesComponent {
     this.cdr.detectChanges()
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.getResourcesData(this.activeTab)
   }
 
@@ -76,13 +76,13 @@ export class ResourcesComponent {
     })
   }
 
- public onTabClick(tab: any) {
-    this.activeTab = tab 
+  public onTabClick(tab: any) {
+    this.activeTab = tab
     this.isPaginationClick = false
     this.currentPage = 1
     this.selectedLayout = 'grid'
     this.cdr.detectChanges()
-    if(this.activeTab == 'webinar'){
+    if (this.activeTab == 'webinar') {
       this.isWebinarView = true
       this.getWebinarData()
     } else {
@@ -91,14 +91,10 @@ export class ResourcesComponent {
     }
   }
 
- public getResourcesData(tab:any): void {
+  public getResourcesData(tab: any): void {
     this.fullPageLoaderService.showLoader()
     this.homeservice
-      .getResources(
-        this.postPerPage,
-        this.currentPage,
-       tab
-      )
+      .getResources(this.postPerPage, this.currentPage, tab)
       .subscribe({
         next: (res: any) => {
           this.fullPageLoaderService.hideLoader()
@@ -109,46 +105,64 @@ export class ResourcesComponent {
           this.fullPageLoaderService.hideLoader()
         },
       })
-      }
-
-
-      public handlePageChange(event: number): void {
-        this.isPaginationClick = true
-        this.currentPage = event 
-        if (this.isPaginationClick) {
-          this.getResourcesData(this.activeTab);
-          this.cdr.detectChanges()
-        } 
-      }
-
-
-      public getWebinarData(){
-        this.fullPageLoaderService.showLoader()
-        this.homeservice
-          .getResources(
-            this.postPerPage,
-            this.currentPage,
-            this.activeTab
-          )
-          .subscribe({
-            next: (res: any) => {
-              this.fullPageLoaderService.hideLoader()
-              this.resourceArr2 = res.data
-              console.log(this.resourceArr , "resourceArr")
-              this.totalCount = res.total_count
-            },
-            error: (err: any) => {
-              this.fullPageLoaderService.hideLoader()
-            },
-          })
-      }
-
-      public registrationForm(id:any){
-        this.dialog.open(WebinarRegistrationComponent , {
-          data: {
-            resourceId: id
-          }
-        })
-      }
   }
 
+  public handlePageChange(event: number): void {
+    this.isPaginationClick = true
+    this.currentPage = event
+    if (this.isPaginationClick) {
+      this.getResourcesData(this.activeTab)
+      this.cdr.detectChanges()
+    }
+  }
+
+  public getWebinarData(): void {
+    this.fullPageLoaderService.showLoader()
+    this.homeservice
+      .getResources(this.postPerPage, this.currentPage, this.activeTab)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res, 'resorcearr2')
+          this.cdr.detectChanges()
+          this.fullPageLoaderService.hideLoader()
+          const currentDate: any =
+            this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
+
+            this.resourceArr2 = []
+          console.log(currentDate, 'currentdate')
+          res?.data.forEach((item: any) => {
+            if (item.webinar_date > currentDate) {
+              this.resourceArr2.push(item)
+            }
+          })
+          //  res.data.filter((item:any)=>{
+          //   if(item.webinar_date > currentDate){
+          //     this.resourceArr2.push(item)
+          //   }
+          // })
+          // this.resourceArr2 = res.data.filter((item: any) => new Date(item.webinar_date) >= currentDate);
+          // this.resourceArr2 = res.data
+
+          this.totalCount = this.resourceArr2.length
+        },
+        error: (err: any) => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
+  }
+
+  public registrationForm(id: any) {
+    const dialogRef = this.dialog.open(WebinarRegistrationComponent, {
+      data: {
+        resourceId: id,
+      },
+    })
+    dialogRef.afterClosed().subscribe((res) => {
+      this.cdr.detectChanges()
+      this.getWebinarData()
+      if (res) {
+        // this.resourceArr2 = []; // Reset array before fetching new data
+      }
+    })
+  }
+}
