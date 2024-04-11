@@ -169,6 +169,7 @@ export class NotificationPageComponent {
           this.loader = false
           this.notificationArr = res?.data
           this.totalCount = +res?.total_count
+           console.log(this.totalCount,'this.totalCount')
           if(this.totalCount == 0){
             this.toggleState = true
         }else{
