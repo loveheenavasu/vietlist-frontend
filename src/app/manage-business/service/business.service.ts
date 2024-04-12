@@ -123,4 +123,13 @@ export class BusinessService {
     const params = new HttpParams().set('post_id', post_id).set('video_type' , post_type)
     return this.http.get<any>(endpoint, { headers:authToken , params: params })
   }
+
+  public deleteVideo(videoId:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteVideoType)
+    const authToken = this.authService.getAuthHeaders()
+    const params = new HttpParams().set('video_id' , videoId)
+    return this.http.delete<any>(endpoint, { headers:authToken , params: params })
+  }
+
+
 }
