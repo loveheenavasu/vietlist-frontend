@@ -317,7 +317,7 @@
 </form> -->
 
 
-<div >
+<div>
   <tabset>
     <tab heading="Business Information" id="tab1">
       <section class="background_section">
@@ -589,7 +589,8 @@
         </div>
       </section>
     </tab>
-    @if (businessFormDetails?.owner_name ||businessFormDetails?.business_historybackground||businessFormDetails?.mission__vision) {
+    @if (businessFormDetails?.owner_name
+    ||businessFormDetails?.business_historybackground||businessFormDetails?.mission__vision) {
 
     <tab heading="Business Bio">
       <section class="background_section">
@@ -724,7 +725,8 @@
         <div class="container">
           <div class="row mt-2 pt-4">
             <div class="col-12">
-              <h3 class="event-page-headings"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Video </h3>
+              <h3 class="event-page-headings"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+                &nbsp;Video </h3>
               <hr>
               <div class="main_images">
                 <div class="featured_images" style="display:flex;gap:1rem">
@@ -831,7 +833,7 @@
                 Certificate</h3>
               <hr>
               <div class="image-container">
-                <div class="featured_image mt-2" >
+                <div class="featured_image mt-2">
                   <img [src]="businessFormDetails?.upload_certificates"
                     (click)="openDialog([businessFormDetails?.upload_certificates],0)" />
                   <div class="linking-icon">
@@ -1069,105 +1071,178 @@
       <ng-template tabHeading>
         <span><i class="fa fa-percent" aria-hidden="true"></i> </span> Discount
       </ng-template>
-      <section class="background_section">
-        <div class="container">
-          <div class="row mt-2 pt-4" id="profile">
-
-            <div class="row my-4" id="review">
-              <div class="col-12 col-md-12 col-lg-8">
-                <h3 class="event-page-headings">
-                  <i class="fa fa-percent" aria-hidden="true" style="font-size: 24px"></i>
-                  Discount
-                </h3>
-                <hr />
-              </div>
-            </div>
-
-            <form >
-              <div class="row mt-2">
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text" class="input-control"
-                      placeholder="Coupon Title" />
-                  </div>
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text"  class="input-control"
-                      placeholder="Coupon code" />
-                  </div>
-
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text"  class="input-control"
-                      placeholder="Discount" />
-                  </div>
-                </div>
 
 
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text"  class="input-control"
-                    placeholder="Discount Type" />
-                    <!-- <textarea  name="" id="" cols="30" rows="10" class="textarea"
-                      placeholder="Discount Type"></textarea> -->
-                  </div>
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <div class="input-group">
-                    <input matInput [matDatepicker]="startdatepicker" class="input-control" (click)="startdatepicker.open()"
-                    formControlName="booking_start_date" [min]="minDate" [max]="maxDate"
-                    placeholder=" Booking Start Date" />
-                  <i class="fa fa-calendar-o"></i>
-                  <mat-datepicker #startdatepicker></mat-datepicker>
-                </div>
-                  </div>
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <div class="input-group">
-                    <input matInput [matDatepicker]="enddatepicker" class="input-control" (click)="enddatepicker.open()"
-                    formControlName="booking_end_date" [min]="minDate" [max]="maxDate" placeholder="Booking End Date" />
-                  <i class="fa fa-calendar-o"></i>
-                  <mat-datepicker #enddatepicker></mat-datepicker>
-                </div>
-                  </div>
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text"  class="input-control"
-                    placeholder="Usage Limit" />
-                  </div>
-                </div>
-                <div class="row my-2">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <input type="text"  class="input-control"
-                    placeholder="Designation site" />
-                  </div>
-                </div>
 
-                
-                <div class="row mt-2 mb-4">
-                  <div class="col-12 col-md-12 col-lg-8">
-                    <button class="btn orange-background-btn-w-100" style="color: #fff" 
-                      >
-                      <!-- @if (isLoader) {
-                      <app-loader></app-loader>
-                      } @else {
-                      Submit
-                      } --> submit 
-                    </button>
-                  </div>
-                </div>
+      <div class="table-responsive  mt-3">
+        <div class="add_btn">
+          <button class="mx-2 btn orange-background-btn" (click)="openDialogs()">Add New Coupon</button>
 
-              </div>
-            </form>
-          </div>
         </div>
-      </section>
+        <table>
+          <thead>
+            <tr>
+              <th>Coupon Title</th>
+              <th>Coupon code</th>
+              <th>Discount</th>
+              <th>Discount type</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Usage Limit</th>
+              <th>Designation site</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: #144b7c">
+                {{ 'Demo' }}
+              </td>
+              <td style="color: #144b7c">
+                {{ '1234567' }}
+              </td>
+              <td style="color: #144b7c">
+                {{ '20%' }}
+              </td>
+              <td style="color: #144b7c">
+                {{ 'Demo' }}
+              </td>
+              <td style="color: #144b7c">
+                {{ '24-02-2019' }}
+              </td>
+
+              <td style="color: #144b7c">
+                {{ '25-02-2019' }}
+              </td>
+
+              <td style="color: #144b7c">
+                {{ 'Testing' }}
+              </td>
+              <td style="color: #144b7c">
+                {{ 'Demo' }}
+              </td>
+              <td>
+                <div class="d-flex">
+                  <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+                  &nbsp;
+                  <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer"></i>
+                  &nbsp;
+                  <i style="cursor:pointer" class="fa fa-trash" aria-hidden="true"></i>
+
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #secondDialog>
+        <h2 class="background_section2 text-center" matDialogTitle>Add Coupon</h2>
+
+        <section>
+          <div class="container">
+            <div class="row" id="profile">
+              <!-- 
+                <div class="row my-4" id="review">
+                  <div class="col-12 col-md-12 col-lg-8">
+                    <h3 class="event-page-headings">
+                      <i class="fa fa-percent" aria-hidden="true" style="font-size: 24px"></i>
+                      Discount
+                    </h3>
+                    <hr />
+                  </div>
+                </div> -->
+
+              <form>
+                <div class="mt-2">
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Coupon Title" />
+                    </div>
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Coupon code" />
+                    </div>
+
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Discount" />
+                    </div>
+                  </div>
+
+
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Discount Type" />
+                    </div>
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="input-group">
+                        <input matInput [matDatepicker]="startdatepicker" class="input-control"
+                          (click)="startdatepicker.open()" formControlName="booking_start_date" [min]="minDate"
+                          [max]="maxDate" placeholder=" Booking Start Date" />
+                        <i class="fa fa-calendar-o"></i>
+                        <mat-datepicker #startdatepicker></mat-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="input-group">
+                        <input matInput [matDatepicker]="enddatepicker" class="input-control"
+                          (click)="enddatepicker.open()" formControlName="booking_end_date" [min]="minDate"
+                          [max]="maxDate" placeholder="Booking End Date" />
+                        <i class="fa fa-calendar-o"></i>
+                        <mat-datepicker #enddatepicker></mat-datepicker>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Usage Limit" />
+                    </div>
+                  </div>
+                  <div class="row my-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <input type="text" class="input-control" placeholder="Designation site" />
+                    </div>
+                  </div>
+
+
+                  <div class="row mt-4 mb-4">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="d-flex justify-content-center">
+                        <button matDialogClose class="btn orange-background-btn-w-100" style="color: #fff">
+                          Close
+                        </button>
+                        &nbsp;
+                        <button class="btn orange-background-btn-w-100" style="color: #fff">
+                          submit
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+
+      </ng-template>
+
     </tab>
+
+
+
+
+
+
   </tabset>
   @if(businessFormDetails?.final_submission == '0'){
   <div class="row" style='background-color: #fffbf5; padding: 35px;' >
@@ -1175,7 +1250,7 @@
       Edit
     </button>
     <button class="mx-2 btn orange-background-btn" (click)="addBusiness()">Submit</button>
-  
+
   </div>
   }
 </div>

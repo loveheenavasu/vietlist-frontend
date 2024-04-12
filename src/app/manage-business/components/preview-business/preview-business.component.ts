@@ -1,6 +1,6 @@
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Component, ChangeDetectorRef, ViewEncapsulation } from '@angular/core'
+import { Component, ChangeDetectorRef, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core'
 import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
 
 import {
@@ -19,9 +19,11 @@ import { EventService } from 'src/app/manage-event/service/event.service'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import Swal from 'sweetalert2'
-import { MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button'
+// import { MatDialogRef, , MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-preview-business',
   standalone: true,
@@ -33,6 +35,9 @@ import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
     TabsModule,
     AutocompleteComponent,
     MatDatepickerModule,
+    MatIconModule,
+    MatDialogModule,
+     MatButtonModule
   ],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
@@ -42,6 +47,7 @@ export class PreviewBusinessComponent {
   public postId: any
   public businessFormDetails: any
   public logo: any
+  
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public footerPageContent?: any
   public previewForm: FormGroup
@@ -66,6 +72,7 @@ export class PreviewBusinessComponent {
   public timeEstimate: any
   public minDate = new Date()
   public maxDate: any
+  @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>;
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -77,6 +84,7 @@ export class PreviewBusinessComponent {
     private localStorageService: LocalStorageService,
     private eventService: EventService,
     private cd: ChangeDetectorRef,
+    
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -284,7 +292,19 @@ export class PreviewBusinessComponent {
     this.localStorageService.saveData('postId', this.postId)
     this.router.navigate(['/list-business'])
   }
+  openDialogs() {
+    this.dialog.open(this.secondDialog , {
+      width: '45%',
+      //panelClass: 'myDialogStyle'
+  });
+  }
+  // openDialogs() {
+  //   const dialogRef = this.dialog.open(templateRef);
 
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log(`Dialog result: ${result}`);
+  //   });
+  // }
   public addBusiness(val?: any) {
     // this.isloader = true
     const body: any = {
@@ -487,3 +507,6 @@ export class PreviewBusinessComponent {
     }
   }
 }
+
+
+export class DialogContentExampleDialog {}

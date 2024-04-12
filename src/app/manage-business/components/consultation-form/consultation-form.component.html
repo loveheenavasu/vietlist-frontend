@@ -132,7 +132,7 @@
 
     </div>
   </div>
-  <div class="row my-3 px-2"  *ngIf="vediosHide?.level_id == '3'">
+  <div class="row my-3 px-2 mt-5"  *ngIf="vediosHide?.level_id == '3'">
     <div class="col-12 col-md-12 col-lg-4">
       <label class="listing-form-label">video url</label>
     </div>
@@ -153,7 +153,7 @@
     </div>
     <div class="col-12 col-md-12 col-lg-8">
       <mat-radio-group aria-label="Select an option" name="radio" [(ngModel)]="showTimeTable"
-        formControlName="business_hours">
+        formControlName="business_hours" style="margin-left: -10px;">
         <mat-radio-button [value]="true"> Yes </mat-radio-button>
         <mat-radio-button [value]="false"> No </mat-radio-button>
       </mat-radio-group>
