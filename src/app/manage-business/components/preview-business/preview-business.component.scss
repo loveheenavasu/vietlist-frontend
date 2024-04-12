@@ -2,6 +2,7 @@
 @import "../../../../assets/scss/banner";
 @import "../../../../assets/scss/variables/color";
 @import "../../../../assets/scss/event-card";
+@import "../../../../assets/scss/image-loader.scss";
 
 .main-card {
   margin: auto;
@@ -11,7 +12,15 @@
   // max-width:100%;
   padding: 35px;
 }
+.input-group {
+  position: relative;
 
+  .fa.fa-calendar-o {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
 .tabs-wrapper {
   width: 100%;
   overflow-x: scroll;
@@ -42,7 +51,8 @@
 }
 
 .tabsvideo p:active {
-  border: solid 1px grey
+  border: solid 1px grey;
+  background-color: var(--primary-color-orange);
 }
 
 
@@ -407,13 +417,13 @@ fieldset:disabled .btn {
 .list-items {
   list-style: none;
   padding: 10px 0 0 0;
-  margin: 0 5%;
+  margin: 0 2.5%;
   display: flex;
 }
 
 .list-items li {
   color: #7A7A7A;
-  margin-right: 5%;
+  margin-right: 2.5%;
   /* Adjust the space between items */
   cursor: pointer
 }

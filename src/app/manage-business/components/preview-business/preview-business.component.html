@@ -7,11 +7,6 @@
       <span class="elementor-divider-separator"> </span>
     </div>
   </div>
-  <!-- @if (businessFormDetails?.business_ownerassociate == '0') {
-  <div class="iconDirection__">
-    <button class="cliam__" (click)="claimlisting()">Claim Listing</button>
-  </div>
-  } -->
   <div class="iconDirection">
     <span class="elementor-grid-item" style="background: #3b5998">
       <a
@@ -78,316 +73,54 @@
     </span>
   </div>
 </section>
-<!-- 
-<form action="" [formGroup]="previewForm">
-  <div class="container-fluid my-5">
-    <div class="main-card">
-      <div class="breadcrumb">
-        <div class="breadcrumb">
-          <span class="manage-business" (click)="manageBusiness()"
-            >Manage Business</span
-          >
-          <span class="business-details">&nbsp; > </span>
-          <span class="business-details">&nbsp;Business Details</span>
-        </div>
-      </div>
-
-      <h4>Business Information</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Title</label>
-          <input formControlName="post_title" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Description</label>
-          <input
-            formControlName="post_content"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Owner Name</label>
-          <input formControlName="owner_name" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Email</label>
-          <input
-            formControlName="business_email"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Contact Details</label>
-          <input
-            formControlName="contact_phone"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Website Url</label>
-          <input formControlName="website" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business History</label>
-          <textarea
-            formControlName="business_historybackground"
-            cols="30"
-            rows="10"
-            readonly
-          ></textarea>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Mission & Vission</label>
-          <textarea
-            formControlName="mission__vision"
-            cols="30"
-            rows="10"
-            readonly
-          ></textarea>
-        </div>
-      </div>
-      <br />
-      <h4>Social Links</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Facebook</label>
-          <input formControlName="facebook" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Instagram</label>
-          <input formControlName="instagram" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Twitter</label>
-          <input formControlName="twitter" class="input-control" readonly />
-        </div>
-      </div>
-      <br />
-      <h4>Categories and Tags</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Post Categories</label>
-          <div class="input-control">
-            <ng-container
-              *ngFor="
-                let key of businessFormDetails?.post_category;
-                let i = index
-              "
-            >
-              <span [innerHTML]="key.name"></span>
-              <ng-container
-                *ngIf="i !== businessFormDetails.post_category.length - 1"
-                >,
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Tags</label>
-
-          <div class="input-control">
-            <ng-container
-              *ngFor="let key of businessFormDetails?.post_tags; let i = index"
-            >
-              <ng-container>
-                {{ key.name }}
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Default Category</label>
-          <div class="input-control">
-            <ng-container
-              *ngFor="
-                let item of businessFormDetails?.default_category | keyvalue;
-                let last = last
-              "
-            >
-              <span [innerHTML]="item.value"></span>
-              <ng-container *ngIf="!last">, </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <br />
-      <h4>Business Address</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Country</label>
-          <input formControlName="country" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Region</label>
-          <input class="input-control" formControlName="region" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>City</label>
-          <input class="input-control" formControlName="city" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Zipcode</label>
-          <input formControlName="zip" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Street</label>
-          <input formControlName="street" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Latitude</label>
-          <input formControlName="latitude" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Longitude</label>
-          <input formControlName="longitude" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Map View</label>
-          <input formControlName="mapview" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <map name=""></map>
-      </div>
-      <br />
-      <h4>Booking & Consultation</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Booking Link </label>
-          <input
-            formControlName="consultation_booking_link"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Mode</label>
-          <input
-            formControlName="consultation_mode"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Description</label>
-          <input
-            formControlName="consultation_description"
-            class="input-control"
-            readonly
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Service</label>
-          <input
-            formControlName="services_list"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Price</label>
-          <input formControlName="price" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Special Offer</label>
-          <input
-            formControlName="special_offers"
-            class="input-control"
-            readonly
-          />
-        </div>
-      </div>
-      <br />
-      <br />
-      <h4>Multimedia</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-12 col-lg-12">
-          <label>Business Logo</label>
-          <div>
-            <img *ngIf="logo" [src]="logo" width="200px" height="200px" />
-          </div>
-        </div>
-        <div class="col-12 col-md-12 col-lg-12">
-          <label> Images</label>
-          <div *ngFor="let data of businessFormDetails?.image">
-            <div class="d-flex">
-              <div>
-                <img [src]="data" width="200px" height="200px" />
-              </div>
-            </div>
-          
-          </div>
-        </div>
-        <div class="col-12 col-md-12 col-lg-12">
-          <label> Video </label>
-          <div *ngFor="let data of businessFormDetails?.video_upload">
-              <video style="margin: 10px; object-fit: cover" width="200" height="200" controls>
-          <source [src]="data" type="video/mp4" />
-          <source [src]="data" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
-          
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form> -->
 
 <section class="tabs">
   <div class="section-container">
     <ul class="list-items">
       <li
-        (click)="scrollTo('profile')"
-        [class.active]="activeTab === 'profile'"
+        (click)="mainTab('business-information')"
+        [class.active]="mainTabOption === 'business-information'"
       >
         <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
         Information
       </li>
-      <li (click)="scrollTo('profile')" [class.active]="activeTab === 'bio'">
+      <!-- <li (click)="scrollTo('profile')" [class.active]="activeTab === 'bio'">
         <span> <i class="fa fa-user" aria-hidden="true"></i></span> Business Bio
-      </li>
+      </li> -->
       <li
-        (click)="scrollTo('profile')"
-        [class.active]="activeTab === 'consultation'"
+      (click)="mainTab('consultation')"
+        [class.active]="mainTabOption === 'consultation'"
       >
         <span> <i class="fa fa-calendar" aria-hidden="true"></i> </span> Booking
         & Consultation
       </li>
-      <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'">
-        <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Photos
+      <li  (click)="mainTab('discount')" [class.active]="mainTabOption == 'discount'">
+        <span> <i class="fa fa-percent" aria-hidden="true"></i> </span> Discount
       </li>
-      <li (click)="scrollTo('profile')" [class.active]="activeTab === 'video'">
+      <li (click)="mainTab('photo')" [class.active]="mainTabOption === 'photo'">
+        <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Multimedia
+      </li>
+      <li (click)="mainTab('contactInfo')" [class.active]="mainTabOption=== 'contactInfo'">
+        <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Contact Info
+      </li>
+      <li (click)="mainTab('video')"  [class.active]="mainTabOption === 'video'">
         <span> <i class="fa fa-video-camera" aria-hidden="true"></i></span>
         Video
       </li>
-      <li (click)="scrollTo('profile')" [class.active]="activeTab === 'video'">
+      <li (click)="scrollTo('profile')" [class.active]="mainTabOption === 'profile'">
         <span> <i class="fa fa-microphone" aria-hidden="true"></i> </span> Event
         & promotions
       </li>
       <li
-        (click)="scrollTo('mapView')"
-        [class.active]="activeTab === 'mapView'"
+      (click)="mainTab('map')"
+        [class.active]="mainTabOption === 'map'"
       >
         <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
       </li>
       <li
         *ngIf="businessFormDetails?.event_id !== ''"
         (click)="scrollTo('mapView')"
-        [class.active]="activeTab === 'eventsView'"
+        [class.active]="mainTabOption === 'events'"
       >
         <span> <i class="fa fa-calendar-o" aria-hidden="true"></i> </span>
         Events
@@ -443,8 +176,231 @@
         <span class="business-details"> Business Details</span>
       </div>
     </div> -->
+    @if(mainTabOption == 'contactInfo'){
+      <div class="row mt-4">
+     
+        <div class="col-12 col-md-12 col-lg-4 mt-3">
+          <div class="profile-info-div">
+            <h3>Contact Info</h3>
+            <!-- {{ businessFormDetails?.contact_phone }} -->
+            <div class="social-link">
+              <div class="location">
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ businessFormDetails?.street }}
+              </div>
+              <div class="location">
+                <i
+                  class="fa fa-link"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <a
+                  href="{{ businessFormDetails?.website }}"
+                  target="_blank"
+                  style="
+                    color: #38ccff;
+                    font-size: 14px;
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                  >{{ 'Website url' }}</a
+                >
+              </div>
+              <div class="location">
+                <i
+                  class="fab fa-facebook-square"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <a
+                  href="{{ businessFormDetails?.facebook }}"
+                  target="_blank"
+                  style="
+                    color: #38ccff;
+                    font-size: 14px;
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                  >{{ 'Facebook' }}</a
+                >
+              </div>
+              <div class="location">
+                <i
+                  class="fa-brands fa-twitter"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <a
+                  href="{{ businessFormDetails?.twitter }}"
+                  target="_blank"
+                  style="
+                    color: #38ccff;
+                    font-size: 14px;
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                  >{{ 'Twitter' }}</a
+                >
+              </div>
+              <!-- <ul>
+                <li>
+                  <a>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a [href]="businessFormDetails?.facebook" target="_blank">
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                  </a>
+                </li>
+                <li>
+                  <a [href]="businessFormDetails?.linkedin" target="_blank">
+                    <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
+                  </a>
+                </li>
+                <li>
+                  <a [href]="businessFormDetails?.twitter" target="_blank">
+                    <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
+                  </a>
+                </li>
+                <li>
+                  <a [href]="businessFormDetails?.youtube" target="_blank">
+                    <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
+                  </a>
+                </li>
+                <li>
+                  <a [href]="businessFormDetails?.pinterest" target="_blank">
+                    <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
+                  </a>
+                </li>
+              </ul> -->
+            </div>
+          </div>
+          <div class="profile-info-div mt-3" style="padding: 9%">
+            <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
+              <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"
+                ><img
+                  src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
+                  class="rounded-circle shadow border border-white border-width-4 mr-3"
+                  width="60"
+                  height="60"
+                  alt="Sourav Ghosh"
+              /></a>
+              <div class="media-body">
+                <h5 class="mt-0">
+                  Author:
+                  <a href="#" routerLink="/manage-profile">
+                    {{ businessFormDetails?.user_deatil?.first_name }}
+                    {{ businessFormDetails?.user_deatil?.last_name }}</a
+                  >
+                </h5>
+  
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @if(mainTabOption == 'photo'){
+      <div class="row my-4" id="photo">
+        <div class="col-12">
+          <h3 class="event-page-heading">
+            <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+            &nbsp;Photo(s)
+          </h3>
+          <hr />
+          <div class="main_images">
+            <div class="featured_image" style="display: flex; gap: 1rem">
+              @for (item of businessFormDetails?.image; track $index) {
+                <img
+                  [src]="item ? item : '/assets/image/carrer-proffesional.jpeg'"
+                />
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row my-4" id="photo">
+        <div class="col-12">
+          <h3 class="event-page-heading">
+            <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+            &nbsp;Video
+          </h3>
+          <hr />
+          <div class="main_images">
+            <div class="featured_images" style="display: flex; gap: 1rem">
+              @if (businessFormDetails?.video_upload) {
+                <video width="320" height="240" controls>
+                  <source
+                    [src]="businessFormDetails?.video_upload"
+                    type="video/mp4"
+                  />
+                </video>
+              } @else {
+                <div>No Vedio Upload...</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @if(mainTabOption == 'video'){
+
+    <div class="row my-4" id="video">
+      <div class="col-12 col-md-12 col-lg-12">
+        <div class="d-flex">
+          <div>
+            <h3 class="event-page-heading">
+              <i
+                class="fa fa-picture-o"
+                aria-hidden="true"
+                style="font-size: 24px"
+              ></i>
+              Video
+            </h3>
+          </div>
+          <div class="ms-auto">
+            <button class="btn orange-background-btn" (click)="addVideo()">
+              Add new video
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div class="row tabs-wrapper">
+          <div class="tabsvideo">
+            <p (click)="onTabClick('all')">All</p>
+            <p (click)="onTabClick('promotional_videos')"   [ngClass]="{ 'active-tab': videoTab == 'promotional_videos' }">Promotional</p>
+            <p (click)="onTabClick('testimonial')" [ngClass]="{ 'active-tab': videoTab == 'testimonial' }">Testimonials</p>
+            <p (click)="onTabClick('tutorials')" [ngClass]="{ 'active-tab': videoTab == 'tutorials' }">Tutorials</p>
+          </div>
+        </div>
+       
+        <div *ngIf="videoTab == 'promotional_videos'">
+          <div class="main_images">
+            <div class="featured_image" style="display: flex; gap: 1rem">
+              @for (item of videosTypeArr; track $index) {
+                <img
+                *ngIf="!isVideoTypeLoading"
+                  [src]="item.thumbnail_image"
+                  style="cursor:pointer"
+                  (click)="playVideo(item, $index)"
+                />
+                
+              }
+              
+            
+            </div>
+            <div class="loader" *ngIf="isVideoTypeLoading"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+    @if(mainTabOption == 'business-information'){
     <div class="row mt-4">
-      <div class="col-12 col-md-12 col-lg-8" id="profile">
+      <div class="col-12 col-md-12 col-lg-8" >
         <div class="row mt-3">
           <h3 class="event-page-heading">
             <span> <i class="fa fa-home" aria-hidden="true"></i> </span>
@@ -532,7 +488,53 @@
             </tbody>
           </table>
         </div>
+
         <div class="row mt-4">
+          <h3 class="event-page-heading">
+            <span><i class="fa-solid fa-location-dot"></i></span>&nbsp;Address
+          </h3>
+          <hr />
+          <table class="table table-responsive table-borderless">
+            <tbody>
+              <tr>
+                <td class="table-title">Street</td>
+                <td class="table-subtitle">
+                  {{ businessFormDetails?.street }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-title">Region</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ businessFormDetails?.region || 'NA' }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-title">Country</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ businessFormDetails?.country || 'NA' }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-title">City</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ businessFormDetails?.city || 'NA' }}
+                </td>
+              </tr>
+              <tr>
+                <td class="table-title">Zip</td>
+                <td _ngcontent-tkn-c107="" class="table-subtitle">
+                  {{ businessFormDetails?.zip || 'NA' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(mainTabOption == 'consultation'){
+            <div class="row mt-4">
           <h3 class="event-page-heading">
             <span> <i class="fa-solid fa-comments"></i> </span>
             &nbsp;Consultation
@@ -600,242 +602,128 @@
             </tbody>
           </table>
         </div>
-        <div class="row mt-4">
-          <h3 class="event-page-heading">
-            <span><i class="fa-solid fa-location-dot"></i></span>&nbsp;Address
-          </h3>
-          <hr />
-          <table class="table table-responsive table-borderless">
-            <tbody>
-              <tr>
-                <td class="table-title">Street</td>
-                <td class="table-subtitle">
-                  {{ businessFormDetails?.street }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">Region</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ businessFormDetails?.region || 'NA' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">Country</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ businessFormDetails?.country || 'NA' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">City</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ businessFormDetails?.city || 'NA' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="table-title">Zip</td>
-                <td _ngcontent-tkn-c107="" class="table-subtitle">
-                  {{ businessFormDetails?.zip || 'NA' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div">
-          <h3>Contact Info</h3>
-          <!-- {{ businessFormDetails?.contact_phone }} -->
-          <div class="social-link">
-            <div class="location">
-              <i
-                class="fa-solid fa-location-dot"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              {{ businessFormDetails?.street }}
-            </div>
-            <div class="location">
-              <i
-                class="fa fa-link"
-                aria-hidden="true"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <a
-                href="{{ businessFormDetails?.website }}"
-                target="_blank"
-                style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                "
-                >{{ 'Website url' }}</a
-              >
-            </div>
-            <div class="location">
-              <i
-                class="fab fa-facebook-square"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <a
-                href="{{ businessFormDetails?.facebook }}"
-                target="_blank"
-                style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                "
-                >{{ 'Facebook' }}</a
-              >
-            </div>
-            <div class="location">
-              <i
-                class="fa-brands fa-twitter"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <a
-                href="{{ businessFormDetails?.twitter }}"
-                target="_blank"
-                style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                "
-                >{{ 'Twitter' }}</a
-              >
-            </div>
-            <!-- <ul>
-              <li>
-                <a>
-                  <i class="fa fa-map-marker" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a [href]="businessFormDetails?.facebook" target="_blank">
-                  <i class="fa fa-link" aria-hidden="true"></i>
-                </a>
-              </li>
-              <li>
-                <a [href]="businessFormDetails?.linkedin" target="_blank">
-                  <img src="/assets/icons/Social-Link/LinkedinIcon.svg" alt="linkedin-logo" />
-                </a>
-              </li>
-              <li>
-                <a [href]="businessFormDetails?.twitter" target="_blank">
-                  <img src="/assets/icons/Social-Link/TwitterIcon.svg" alt="twitter-logo" />
-                </a>
-              </li>
-              <li>
-                <a [href]="businessFormDetails?.youtube" target="_blank">
-                  <img src="/assets/icons/Social-Link/YoutubeIcon.svg" alt="youtube-logo" />
-                </a>
-              </li>
-              <li>
-                <a [href]="businessFormDetails?.pinterest" target="_blank">
-                  <img src="/assets/icons/Social-Link/PrinterestIcon.svg" alt="pinterest-logo" />
-                </a>
-              </li>
-            </ul> -->
-          </div>
-        </div>
-        <div class="profile-info-div mt-3" style="padding: 9%">
-          <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
-            <a href="https://vietlist.biz/staging_dev/profile-2/sghosh/"
-              ><img
-                src="https://secure.gravatar.com/avatar/2c59e279bee3ddb76cdea0df93944ed5?s=96&amp;r=g&amp;d=https://vietlist.biz/staging_dev/wp-content/plugins/userswp/assets/images/no_profile.png"
-                class="rounded-circle shadow border border-white border-width-4 mr-3"
-                width="60"
-                height="60"
-                alt="Sourav Ghosh"
-            /></a>
-            <div class="media-body">
-              <h5 class="mt-0">
-                Author:
-                <a href="#" routerLink="/manage-profile">
-                  {{ businessFormDetails?.user_deatil?.first_name }}
-                  {{ businessFormDetails?.user_deatil?.last_name }}</a
-                >
-              </h5>
+  }
 
-              <p></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row my-4" id="photo">
+  @if(mainTabOption == 'map'){
+    <div class="row my-4" id="mapView">
       <div class="col-12">
         <h3 class="event-page-heading">
-          <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-          &nbsp;Photo(s)
+          <span>
+            <i
+              class="fa fa-globe"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i
+          ></span>
+          &nbsp;Map
         </h3>
         <hr />
-        <div class="main_images">
-          <div class="featured_image" style="display: flex; gap: 1rem">
-            @for (item of businessFormDetails?.image; track $index) {
-              <img
-                [src]="item ? item : '/assets/image/carrer-proffesional.jpeg'"
-              />
-            }
-          </div>
-        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div id="map" style="height: 300px; width: 100%"></div>
       </div>
     </div>
-    <div class="row my-4" id="photo">
-      <div class="col-12">
-        <h3 class="event-page-heading">
-          <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-          &nbsp;Video
-        </h3>
-        <hr />
-        <div class="main_images">
-          <div class="featured_images" style="display: flex; gap: 1rem">
-            @if (businessFormDetails?.video_upload) {
-              <video width="320" height="240" controls>
-                <source
-                  [src]="businessFormDetails?.video_upload"
-                  type="video/mp4"
-                />
-              </video>
-            } @else {
-              <div>No Vedio Upload...</div>
-            }
+  }
+  @if(mainTabOption == 'discount'){
+      <div class="container">
+          <div class="row" id="review">
+            <div class="col-12 col-md-12 col-lg-8">
+              <h3 class="event-page-headings">
+                <i class="fa fa-percent" aria-hidden="true" style="font-size: 24px"></i>
+                Discount
+              </h3>
+              <hr />
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+          <form>
+            <div class="row mt-2">
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <input type="text" class="input-control"
+                    placeholder="Coupon Title" />
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <input type="text"  class="input-control"
+                    placeholder="Coupon code" />
+                </div>
 
-    <div class="row my-4" id="video">
-      <div class="col-12 col-md-12 col-lg-12">
-        <div class="d-flex">
-          <div>
-            <h3 class="event-page-heading">
-              <i
-                class="fa fa-picture-o"
-                aria-hidden="true"
-                style="font-size: 24px"
-              ></i>
-              Video
-            </h3>
-          </div>
-          <div class="ms-auto">
-            <button class="btn orange-background-btn" (click)="addVideo()">
-              Add new video
-            </button>
-          </div>
-        </div>
-        <hr />
-        <div class="row tabs-wrapper">
-          <div class="tabsvideo">
-            <p (click)="onTabClick('all')">All</p>
-            <p (click)="onTabClick('promotional_videos')">Promotional</p>
-            <p (click)="onTabClick('testimonial')">Testimonials</p>
-            <p (click)="onTabClick('tutorials')">Tutorials</p>
-          </div>
-        </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <input type="text"  class="input-control"
+                    placeholder="Discount" />
+                </div>
+              </div>
+
+
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  
+                    <mat-select
+                      class="vietlist-select"
+                      placeholder="Discount type"
+                     
+                    >
+                      <mat-option value="retail">Percentage</mat-option>
+                      <mat-option value="restaurant">Fixed Amount</mat-option>
+                    </mat-select>
+            
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <div class="input-group">
+                  <input matInput [matDatepicker]="startdatepicker" class="input-control" (click)="startdatepicker.open()"
+                   [min]="minDate" [max]="maxDate" placeholder="Validity Start Date" />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #startdatepicker></mat-datepicker>
+              </div>
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <div class="input-group">
+                  <input matInput [matDatepicker]="enddatepicker" class="input-control" (click)="enddatepicker.open()"
+                   [min]="minDate" [max]="maxDate" placeholder="Validity End Date" />
+                <i class="fa fa-calendar-o"></i>
+                <mat-datepicker #enddatepicker></mat-datepicker>
+              </div>
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <input type="text"  class="input-control"
+                  placeholder="Usage Limit" />
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <input type="text"  class="input-control"
+                  placeholder="Designation site" />
+                </div>
+              </div>
+
+              
+              <div class="row mt-2 mb-4">
+                <div class="col-12 col-md-12 col-lg-8">
+                  <button class="btn orange-background-btn-w-100" style="color: #fff" >
+              
+                    Submit
+                  
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
       </div>
-    </div>
+  }
+   
+  
+
 
     @if (this.businessFormDetails?.event_id) {
       <div class="row my-4" id="eventView">
@@ -863,24 +751,7 @@
         </div>
       </div>
     }
-    <div class="row my-4" id="mapView">
-      <div class="col-12">
-        <h3 class="event-page-heading">
-          <span>
-            <i
-              class="fa fa-globe"
-              aria-hidden="true"
-              style="font-size: 24px"
-            ></i
-          ></span>
-          &nbsp;Map
-        </h3>
-        <hr />
-      </div>
-      <div class="col-12 col-lg-6">
-        <div id="map" style="height: 300px; width: 100%"></div>
-      </div>
-    </div>
+   
     <!-- {{businessFormDetails?.final_submission}} -->
     @if (businessFormDetails?.final_submission == '0') {
       <div class="row">

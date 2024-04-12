@@ -1,3 +1,5 @@
+import { LoaderComponent } from './../../../common-ui/loader/loader.component';
+import { MatSelectModule } from '@angular/material/select'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { Component, HostListener } from '@angular/core'
@@ -7,17 +9,32 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms'
-import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  FullPageLoaderService,
+  LocalStorageService,
+} from '@vietlist/shared'
 import { CommonModule, NgIf } from '@angular/common'
 import { EventService } from 'src/app/manage-event/service/event.service'
 import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
 import { MatDialog } from '@angular/material/dialog'
-
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core'
+import { VideoPlayComponent } from '../../video-play/video-play.component';
 
 @Component({
   selector: 'app-preview-business',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgIf],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+    NgIf,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    LoaderComponent
+  ],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
 })
@@ -30,11 +47,14 @@ export class PreviewBusinessComponent {
   public previewForm: FormGroup
   public latitude!: number
   public longitude!: number
-  public userDetails: any;
+  public userDetails: any
   public hourFilter: any
   public eventDetails: any
-  public eventLocation: any;
+  public eventLocation: any
   public overllRating: any
+  public minDate = new Date()
+  public maxDate: any
+
   constructor(
     private fb: FormBuilder,
     private _route: ActivatedRoute,
@@ -117,8 +137,6 @@ export class PreviewBusinessComponent {
   //   this.router.navigateByUrl('/claim-business')
   // }
 
-
-
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
@@ -129,7 +147,10 @@ export class PreviewBusinessComponent {
         if (this.businessFormDetails.event_id) {
           this.getEventDetails()
         }
-        console.log(this.businessFormDetails, ' this.businessFormDetails this.businessFormDetails')
+        console.log(
+          this.businessFormDetails,
+          ' this.businessFormDetails this.businessFormDetails',
+        )
         const business_hours = this.businessFormDetails?.business_hours
         this.hourFilter = this.getCleanedBusinessHours(business_hours)
         this.previewForm.patchValue(this.businessFormDetails)
@@ -155,13 +176,14 @@ export class PreviewBusinessComponent {
         // this.city = this.businessFormDetails.city;
         // this.post_tags = this.businessFormDetails.post_tags?.map((tag:any)=>tag.id )
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
   public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
-
+    this.router.navigate(['/event-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
 
   public getCleanedBusinessHours(hours: any): string {
@@ -169,10 +191,9 @@ export class PreviewBusinessComponent {
 
     return hours
 
-      .replace(/\[|\]/g, '')  // Remove square brackets
-      .replace(/,/g, ' ');     // Replace commas with spaces
+      .replace(/\[|\]/g, '') // Remove square brackets
+      .replace(/,/g, ' ') // Replace commas with spaces
   }
-
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -210,37 +231,36 @@ export class PreviewBusinessComponent {
     this.router.navigateByUrl('/manage-profile/manage-events')
   }
 
-  activeTab: string = 'profile';
+  activeTab: string = 'profile'
 
-  public setActiveTab(tab: string) {
-
-  }
-
+  public setActiveTab(tab: string) {}
 
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
-    this.eventService.getEventDetailsByPostId(this.businessFormDetails?.event_id).subscribe({
-      next: (res) => {
-        console.log(res, "RESPONSE")
-        this.fullPageLoaderService.hideLoader()
-          ; (this.eventDetails = res?.data[0] || 'NA'),
+    this.eventService
+      .getEventDetailsByPostId(this.businessFormDetails?.event_id)
+      .subscribe({
+        next: (res) => {
+          console.log(res, 'RESPONSE')
+          this.fullPageLoaderService.hideLoader()
+          ;(this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
-        this.overllRating = Number(res.data[0].overall_rating)
-          ; (this.latitude = Number(this.eventDetails?.latitude)),
+          this.overllRating = Number(res.data[0].overall_rating)
+          ;(this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
-        this.initMap()
-      },
-      error: (err: any) => {
-        this.fullPageLoaderService.hideLoader()
-      },
-    })
+          this.initMap()
+        },
+        error: (err: any) => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
   }
 
   public scrollTo(elementId: string): void {
-    this.activeTab = elementId;
-    const element = document.getElementById(elementId);
+    this.activeTab = elementId
+    const element = document.getElementById(elementId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 
@@ -270,15 +290,13 @@ export class PreviewBusinessComponent {
       logo: this.businessFormDetails.logo,
       mapview: this.businessFormDetails.mapView,
       post_id: this.postId,
-      final_submission: 1
+      final_submission: 1,
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.router.navigate(['/manage-profile/my-business'])
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
   screensize: any = '35%'
@@ -306,27 +324,41 @@ export class PreviewBusinessComponent {
     })
   }
 
-  videoTab:any
-  public onTabClick(tab:any){
+  public videoTab: any = 'all'
+  public videosTypeArr : any[]=[]
+  public isVideoTypeLoading:boolean = true ;
+
+  public onTabClick(tab: any) {
+    this.isVideoTypeLoading = true
     this.videoTab = tab
-    this.getVideosList(this.postId , this.videoTab )
+    this.getVideosList(this.postId, this.videoTab)
+
   }
 
-  public getVideosList(postId:any , tab:any) {
-      this.businessService
-        .getVideoIntegration(postId , tab)
-        .subscribe({
-          next: (res:any) => {
-            console.log(res)
-          },
-          error: (err:any) => {
-            console.log(err, 'error')
-          },
-        })
+  public getVideosList(postId: any, tab: any) {
+    this.isVideoTypeLoading = true
+    this.businessService.getVideoIntegration(postId, tab).subscribe({
+      next: (res: any) => {
+        this.videosTypeArr = res.data
+        this.isVideoTypeLoading = false
+      },
+      error: (err: any) => {
+        console.log(err, 'error')
+      },
+    })
   }
 
+  public mainTabOption: any = 'business-information'
+  public mainTab(tab: any) {
+    this.mainTabOption = tab
+  }
 
-
+  public playVideo(item: any, index: number): void {
+    this.dialog.open(VideoPlayComponent, {
+      width: 'auto',
+      height:'auto',
+      data: { item, index } // Pass item and index as data
+    });
+  }
+  
 }
-
-
