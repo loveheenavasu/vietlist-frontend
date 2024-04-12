@@ -89,4 +89,5 @@ export enum Endpoints {
   WebinarRegistration = 'set_webinar_regisration',
   BusinessVideoIntegration = 'business_listing_video_integration',
   // VideosType = 'get_business_listing_video_integration  ',
+  AddSubscriber = 'add_subscriber',
 }
