@@ -772,15 +772,18 @@ fieldset:disabled .btn {
 
  .nav-link.active {
     color: #ff9900 !important ;
-    border-bottom: #ff9900 2px solid !important ;
     border: none !important;
+    border-bottom: #ff9900 2px solid !important ;
 }
 
 .nav-link:hover{
     color: #ff9900 !important ;
+    border: none !important ; 
     border-bottom: #ff9900 2px solid !important ;
-    border: none;
-    transition: none;
+}
+
+.nav-link{
+    border: 0px solid transparent !important;
 }
 
 
