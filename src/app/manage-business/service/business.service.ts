@@ -123,4 +123,14 @@ export class BusinessService {
   //   const params = new HttpParams().set('post_id', post_id).set('post_type' , post_type)
   //   return this.http.get<any>(endpoint, { headers:authToken , params: params })
   // }
+
+  public addSubscriber(info: any) {
+    const formData = new FormData()
+    formData.append('email', info?.email)
+    formData.append('First_name', info?.first_name)
+    formData.append('Last_name', info?.last_name)
+    formData.append('List_id', info?.list_id)
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddSubscriber)
+    return this.http.post<any>(endpoint, formData)
+  }
 }
