@@ -88,5 +88,5 @@ export enum Endpoints {
   ResourceDetail = 'get_resource_by_id',
   WebinarRegistration = 'set_webinar_regisration',
   BusinessVideoIntegration = 'business_listing_video_integration',
-  // VideosType = 'get_business_listing_video_integration  ',
+  VideosType = 'get_business_listing_video_integration',
 }

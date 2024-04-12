@@ -12,6 +12,40 @@
   padding: 35px;
 }
 
+.tabs-wrapper {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.tabsvideo {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  // margin-top: 1rem;
+
+  p {
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+      background-color: #f3f1f1;
+      border-radius: 5px;
+      padding:8px 1em;
+      // margin-top: 1.5rem;
+      white-space: nowrap;
+      // width: 100%;
+  }
+
+  .active-tab {
+      background-color: var(--primary-color-orange);
+      color: #fff;
+  }
+}
+
+.tabsvideo p:active {
+  border: solid 1px grey
+}
+
+
 label {
   font-size: 16px;
   color: rgb(108, 107, 107);

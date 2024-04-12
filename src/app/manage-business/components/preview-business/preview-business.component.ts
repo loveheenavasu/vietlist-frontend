@@ -1,6 +1,6 @@
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +10,8 @@ import {
 import { AuthenticationService, FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
 import { CommonModule, NgIf } from '@angular/common'
 import { EventService } from 'src/app/manage-event/service/event.service'
+import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
+import { MatDialog } from '@angular/material/dialog'
 
 
 @Component({
@@ -41,7 +43,8 @@ export class PreviewBusinessComponent {
     public router: Router,
     private authService: AuthenticationService,
     private localStorageService: LocalStorageService,
-    private eventService: EventService
+    private eventService: EventService,
+    private dialog: MatDialog,
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -278,6 +281,50 @@ export class PreviewBusinessComponent {
       }
     })
   }
+  screensize: any = '35%'
+  dialogWidth: any
+  height: any
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screensize = event.target.innerWidth
+  }
+
+  public addVideo() {
+    if (this.screensize > 720) {
+      this.dialogWidth = '65%'
+    } else if (this.screensize < 720) {
+      this.dialogWidth = '90%'
+      this.height = '80%'
+    }
+
+    this.dialog.open(AddVideoComponent, {
+      width: this.dialogWidth,
+      height: this.height,
+      data: {
+        postId: this.postId,
+      },
+    })
+  }
+
+  videoTab:any
+  public onTabClick(tab:any){
+    this.videoTab = tab
+    this.getVideosList(this.postId , this.videoTab )
+  }
+
+  public getVideosList(postId:any , tab:any) {
+      this.businessService
+        .getVideoIntegration(postId , tab)
+        .subscribe({
+          next: (res:any) => {
+            console.log(res)
+          },
+          error: (err:any) => {
+            console.log(err, 'error')
+          },
+        })
+  }
+
 
 
 }

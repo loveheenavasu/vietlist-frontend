@@ -102,14 +102,14 @@ export class HeaderComponent {
         this.startNotificationInterval()
       }
     })
-    // this.sessionservice.isAuthenticated$.subscribe((res) => {
-    //   this.isAuthenticated = res
-    //   console.log("check auth1", this.isAuthenticated)
-    //   if (this.isAuthenticated) {
-    //     this.getNotifications()
-    //     this.startNotificationInterval()
-    //   }
-    // })
+    this.sessionservice.isAuthenticated$.subscribe((res) => {
+      this.isAuthenticated = res
+      // console.log("check auth1", this.isAuthenticated)
+      // if (this.isAuthenticated) {
+      //   this.getNotifications()
+      //   this.startNotificationInterval()
+      // }
+    })
     this.sessionservice.userRole.subscribe((res) => {
       this.userRole = res
     })
