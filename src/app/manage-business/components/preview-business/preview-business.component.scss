@@ -3,6 +3,8 @@
 @import "../../../../assets/scss/variables/color";
 @import "../../../../assets/scss/event-card";
 @import "../../../../assets/scss/table.scss";
+@import "../../../../assets/scss/image-loader.scss";
+
 .main-card {
   margin: auto;
   height: auto;
@@ -173,6 +175,8 @@ label {
 .featured_image {
   height: 15rem;
   width: 17rem;
+  position: relative;
+
   object-fit: cover;
 
   img {
@@ -383,13 +387,13 @@ fieldset:disabled .btn {
 .list-items {
   list-style: none;
   padding: 10px 0 0 0;
-  margin: 0 5%;
+  margin: 0 2.5%;
   display: flex;
 }
 
 .list-items li {
   color: #7A7A7A;
-  margin-right: 5%;
+  margin-right: 2.5%;
   /* Adjust the space between items */
   cursor: pointer
 }
@@ -449,6 +453,8 @@ span.elementor-grid-item {
 
   .featured_image {
     height: 9rem !important;
+    position: relative;
+
     width: 14rem !important;
     object-fit: cover;
   }
@@ -612,4 +618,57 @@ span.elementor-grid-item {
       right: 10px;
       top: 10px;
   }
+}
+
+
+.main_images {
+  overflow: scroll;
+}
+
+
+.edit-icon{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    background: #00000096;
+    padding: 8px 15px;
+}
+
+
+/* Styling for icons */
+.edit-icon i,
+.delete-icon i {
+  font-size: 16px;
+  color: var(--primary-color-orange); /* Change the color as needed */
+}
+
+
+.tabsvideo {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  // margin-top: 1rem;
+
+  p {
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+      background-color: #f3f1f1;
+      border-radius: 5px;
+      padding:8px 1em;
+      // margin-top: 1.5rem;
+      white-space: nowrap;
+      // width: 100%;
+  }
+
+  .active-tab {
+      background-color: var(--primary-color-orange);
+      color: #fff;
+  }
+}
+
+.tabsvideo p:active {
+  border: solid 1px grey;
+  background-color: var(--primary-color-orange);
 }

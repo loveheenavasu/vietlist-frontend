@@ -42,7 +42,7 @@
                 <div  class="loader" *ngIf="isVideoUploading"></div>
               </ngx-dropzone>
               <div id="video-preview-container">
-                @for(videoUrl of video_upload; track $index) {
+                @for(videoUrl of vediosUrl; track $index) {
                 <div class="vedio____" *ngIf="video_upload.length > 0">
                   <div class="removeImage" >
                     <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItems($index)"></i>

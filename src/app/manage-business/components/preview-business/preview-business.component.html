@@ -1,321 +1,78 @@
-<section class="banner" style="position: relative;">
-  <div class="content" style="width:100%">
-    <h1 style="text-transform: uppercase;">{{businessFormDetails?.post_title}}</h1>
+<section class="banner" style="position: relative">
+  <div class="content" style="width: 100%">
+    <h1 style="text-transform: uppercase">
+      {{ businessFormDetails?.post_title }}
+    </h1>
     <div class="elementor-divider">
-      <span class="elementor-divider-separator">
-      </span>
+      <span class="elementor-divider-separator"> </span>
     </div>
-
-
   </div>
-  <!-- @if (businessFormDetails?.business_ownerassociate == '0') {
-  <div class="iconDirection__">
-    <button class="cliam__" (click)="claimlisting()">Claim Listing</button>
-  </div>
-  } -->
   <div class="iconDirection">
-    <span class="elementor-grid-item" style="background: #3b5998;">
-      <a href="{{businessFormDetails?.facebook}}" style="padding: 3px;"
+    <span class="elementor-grid-item" style="background: #3b5998">
+      <a
+        href="{{ businessFormDetails?.facebook }}"
+        style="padding: 3px"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank">
-        <i class="fa-brands fa-facebook-f size_icon" style="font-size:18px;color:#fff"></i></a>
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-facebook-f size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
     </span>
-    <span class="elementor-grid-item" style="background: #1DA1F2;">
-      <a href="{{businessFormDetails?.twitter}}"
+    <span class="elementor-grid-item" style="background: #1da1f2">
+      <a
+        href="{{ businessFormDetails?.twitter }}"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank">
-        <i class="fa-brands fa-twitter size_icon" style="font-size:18px;color:#fff"></i></a>
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-twitter size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
     </span>
-    <span class="elementor-grid-item size_icon" style="background: #818a91;">
-      <a href="{{businessFormDetails?.website}}"
+    <span class="elementor-grid-item size_icon" style="background: #818a91">
+      <a
+        href="{{ businessFormDetails?.website }}"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank">
-        <i class="fa fa-link" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
+        target="_blank"
+      >
+        <i
+          class="fa fa-link"
+          aria-hidden="true"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
     </span>
     <span class="elementor-grid-item">
-      <a href="https://mail.google.com"
+      <a
+        href="https://mail.google.com"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank">
-
-        <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size:18px;color:#fff"></i></a>
+        target="_blank"
+      >
+        <i
+          class="fa fa-envelope size_icon"
+          aria-hidden="true"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
     </span>
-    <span class="elementor-grid-item" style="background: #0073A4;">
-      <a class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
-        href="https://maps.google.com/?daddr=28.5383832,-81.3789269" target="_blank">
-
-        <i class="fas fa-directions size_icon" style="font-size:18px; color:#fff"></i></a>
+    <span class="elementor-grid-item" style="background: #0073a4">
+      <a
+        class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+        href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
+        target="_blank"
+      >
+        <i
+          class="fas fa-directions size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
     </span>
   </div>
 </section>
-<!-- 
-<form action="" [formGroup]="previewForm">
-  <div class="container-fluid my-5">
-    <div class="main-card">
-      <div class="breadcrumb">
-        <div class="breadcrumb">
-          <span class="manage-business" (click)="manageBusiness()"
-            >Manage Business</span
-          >
-          <span class="business-details">&nbsp; > </span>
-          <span class="business-details">&nbsp;Business Details</span>
-        </div>
-      </div>
-
-      <h4>Business Information</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Title</label>
-          <input formControlName="post_title" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Description</label>
-          <input
-            formControlName="post_content"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Owner Name</label>
-          <input formControlName="owner_name" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business Email</label>
-          <input
-            formControlName="business_email"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Contact Details</label>
-          <input
-            formControlName="contact_phone"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Website Url</label>
-          <input formControlName="website" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Business History</label>
-          <textarea
-            formControlName="business_historybackground"
-            cols="30"
-            rows="10"
-            readonly
-          ></textarea>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Mission & Vission</label>
-          <textarea
-            formControlName="mission__vision"
-            cols="30"
-            rows="10"
-            readonly
-          ></textarea>
-        </div>
-      </div>
-      <br />
-      <h4>Social Links</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Facebook</label>
-          <input formControlName="facebook" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Instagram</label>
-          <input formControlName="instagram" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Twitter</label>
-          <input formControlName="twitter" class="input-control" readonly />
-        </div>
-      </div>
-      <br />
-      <h4>Categories and Tags</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Post Categories</label>
-          <div class="input-control">
-            <ng-container
-              *ngFor="
-                let key of businessFormDetails?.post_category;
-                let i = index
-              "
-            >
-              <span [innerHTML]="key.name"></span>
-              <ng-container
-                *ngIf="i !== businessFormDetails.post_category.length - 1"
-                >,
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Tags</label>
-
-          <div class="input-control">
-            <ng-container
-              *ngFor="let key of businessFormDetails?.post_tags; let i = index"
-            >
-              <ng-container>
-                {{ key.name }}
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Default Category</label>
-          <div class="input-control">
-            <ng-container
-              *ngFor="
-                let item of businessFormDetails?.default_category | keyvalue;
-                let last = last
-              "
-            >
-              <span [innerHTML]="item.value"></span>
-              <ng-container *ngIf="!last">, </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <br />
-      <h4>Business Address</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Country</label>
-          <input formControlName="country" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Region</label>
-          <input class="input-control" formControlName="region" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>City</label>
-          <input class="input-control" formControlName="city" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Zipcode</label>
-          <input formControlName="zip" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Street</label>
-          <input formControlName="street" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Latitude</label>
-          <input formControlName="latitude" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Longitude</label>
-          <input formControlName="longitude" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Map View</label>
-          <input formControlName="mapview" class="input-control" readonly />
-        </div>
-      </div>
-      <div class="row my-3">
-        <map name=""></map>
-      </div>
-      <br />
-      <h4>Booking & Consultation</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Booking Link </label>
-          <input
-            formControlName="consultation_booking_link"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Mode</label>
-          <input
-            formControlName="consultation_mode"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Consultation Description</label>
-          <input
-            formControlName="consultation_description"
-            class="input-control"
-            readonly
-          />
-        </div>
-      </div>
-      <div class="row my-3">
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Service</label>
-          <input
-            formControlName="services_list"
-            class="input-control"
-            readonly
-          />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Price</label>
-          <input formControlName="price" class="input-control" readonly />
-        </div>
-        <div class="col-12 col-md-6 col-lg-4">
-          <label>Special Offer</label>
-          <input
-            formControlName="special_offers"
-            class="input-control"
-            readonly
-          />
-        </div>
-      </div>
-      <br />
-      <br />
-      <h4>Multimedia</h4>
-      <div class="row my-3">
-        <div class="col-12 col-md-12 col-lg-12">
-          <label>Business Logo</label>
-          <div>
-            <img *ngIf="logo" [src]="logo" width="200px" height="200px" />
-          </div>
-        </div>
-        <div class="col-12 col-md-12 col-lg-12">
-          <label> Images</label>
-          <div *ngFor="let data of businessFormDetails?.image">
-            <div class="d-flex">
-              <div>
-                <img [src]="data" width="200px" height="200px" />
-              </div>
-            </div>
-          
-          </div>
-        </div>
-        <div class="col-12 col-md-12 col-lg-12">
-          <label> Video </label>
-          <div *ngFor="let data of businessFormDetails?.video_upload">
-              <video style="margin: 10px; object-fit: cover" width="200" height="200" controls>
-          <source [src]="data" type="video/mp4" />
-          <source [src]="data" type="video/ogg" />
-          Your browser does not support the video tag.
-        </video>
-          
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</form> -->
-
 
 <div>
   <tabset>
@@ -719,20 +476,63 @@
     @if (businessFormDetails?.video_upload) {
     <tab>
       <ng-template tabHeading>
-        <i class="fa fa-video"></i> Videos
+        <i class="fa fa-video"></i> Videos Type 
       </ng-template>
       <section class="background_section">
         <div class="container">
-          <div class="row mt-2 pt-4">
-            <div class="col-12">
-              <h3 class="event-page-headings"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-                &nbsp;Video </h3>
-              <hr>
-              <div class="main_images">
-                <div class="featured_images" style="display:flex;gap:1rem">
-                  <video *ngFor='let url of businessFormDetails?.video_upload' width="320" height="240" controls>
-                    <source [src]="url" type="video/mp4">
-                  </video>
+          <div class="row my-4" id="video">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="d-flex">
+                <div>
+                  <h3 class="event-page-heading">
+                    <i
+                      class="fa fa-picture-o"
+                      aria-hidden="true"
+                      style="font-size: 24px"
+                    ></i>
+                    Video
+                  </h3>
+                </div>
+                <div class="ms-auto">
+                  <button class="btn orange-background-btn" (click)="addVideo()">
+                    Add new video
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div class="row tabs-wrapper">
+                <div class="tabsvideo">
+                  <p (click)="onTabClick('all')">All</p>
+                  <p (click)="onTabClick('promotional_videos')"   [ngClass]="{ 'active-tab': videoTab == 'promotional_videos' }">Promotional</p>
+                  <p (click)="onTabClick('testimonial')" [ngClass]="{ 'active-tab': videoTab == 'testimonial' }">Testimonials</p>
+                  <p (click)="onTabClick('tutorials')" [ngClass]="{ 'active-tab': videoTab == 'tutorials' }">Tutorials</p>
+                </div>
+              </div>
+             
+              <div *ngIf="videoTab == 'promotional_videos'">
+                <div class="main_images">
+                  <div class="featured_image" style="display: flex; gap: 1rem">
+                    @for (item of videosTypeArr; track $index) {
+                      <img
+                      *ngIf="!isVideoTypeLoading"
+                        [src]="item.thumbnail_image"
+                        style="cursor:pointer"
+                        (click)="playVideo(item, $index)"
+                      />
+                      <div class="d-flex edit-icon">
+                        <div>
+                          <span  ><i class="fas fa-edit" style="color:orange"></i></span>
+                         
+                        </div>
+                        <div class="mx-2">
+                          <span class="delete-icon"  (click)="deleteVideo(item.video_id)"><i class="fas fa-trash-alt"></i></span>
+                        </div>
+                      </div>
+                    }
+                    
+                  
+                  </div>
+                  <div class="loader" *ngIf="isVideoTypeLoading"></div>
                 </div>
               </div>
             </div>

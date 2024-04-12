@@ -90,4 +90,6 @@ export enum Endpoints {
   BusinessVideoIntegration = 'business_listing_video_integration',
   // VideosType = 'get_business_listing_video_integration  ',
   AddSubscriber = 'add_subscriber',
+  VideosType = 'get_business_listing_video_integration',
+  DeleteVideoType = 'delete_business_listing_video',
 }

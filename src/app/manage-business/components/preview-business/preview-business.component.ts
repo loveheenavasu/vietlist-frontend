@@ -1,6 +1,15 @@
+import { LoaderComponent } from './../../../common-ui/loader/loader.component'
+import { MatSelectModule } from '@angular/material/select'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Component, ChangeDetectorRef, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core'
+import {
+  Component,
+  ChangeDetectorRef,
+  ViewEncapsulation,
+  ViewChild,
+  TemplateRef,
+  HostListener,
+} from '@angular/core'
 import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
 
 import {
@@ -19,10 +28,16 @@ import { EventService } from 'src/app/manage-event/service/event.service'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import Swal from 'sweetalert2'
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog'
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
+import { VideoPlayComponent } from '../../video-play/video-play.component'
+import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
 // import { MatDialogRef, , MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-preview-business',
@@ -37,7 +52,7 @@ import { MatButtonModule } from '@angular/material/button'
     MatDatepickerModule,
     MatIconModule,
     MatDialogModule,
-     MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './preview-business.component.html',
   styleUrl: './preview-business.component.scss',
@@ -47,7 +62,7 @@ export class PreviewBusinessComponent {
   public postId: any
   public businessFormDetails: any
   public logo: any
-  
+
   public map: google.maps.Map | null = null // Declare and initialize the map property
   public footerPageContent?: any
   public previewForm: FormGroup
@@ -72,7 +87,11 @@ export class PreviewBusinessComponent {
   public timeEstimate: any
   public minDate = new Date()
   public maxDate: any
-  @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>;
+  public videoTab: any = 'all'
+  public videosTypeArr: any[] = []
+  public isVideoTypeLoading: boolean = true
+  // public mainTabOption: any
+  @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -84,7 +103,6 @@ export class PreviewBusinessComponent {
     private localStorageService: LocalStorageService,
     private eventService: EventService,
     private cd: ChangeDetectorRef,
-    
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -293,10 +311,10 @@ export class PreviewBusinessComponent {
     this.router.navigate(['/list-business'])
   }
   openDialogs() {
-    this.dialog.open(this.secondDialog , {
+    this.dialog.open(this.secondDialog, {
       width: '45%',
       //panelClass: 'myDialogStyle'
-  });
+    })
   }
   // openDialogs() {
   //   const dialogRef = this.dialog.open(templateRef);
@@ -506,7 +524,92 @@ export class PreviewBusinessComponent {
       })
     }
   }
-}
 
+  screensize: any = '35%'
+  dialogWidth: any
+  height: any
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.screensize = event.target.innerWidth
+  }
+
+  public addVideo() {
+    if (this.screensize > 720) {
+      this.dialogWidth = '65%'
+    } else if (this.screensize < 720) {
+      this.dialogWidth = '90%'
+      this.height = '80%'
+    }
+
+    this.dialog.open(AddVideoComponent, {
+      width: this.dialogWidth,
+      height: this.height,
+      data: {
+        postId: this.postId,
+      },
+    })
+  }
+
+  public onTabClick(tab: any) {
+    this.isVideoTypeLoading = true
+    this.videoTab = tab
+    this.getVideosList(this.postId, this.videoTab)
+  }
+
+  public getVideosList(postId: any, tab: any) {
+    this.isVideoTypeLoading = true
+    this.businessService.getVideoIntegration(postId, tab).subscribe({
+      next: (res: any) => {
+        this.videosTypeArr = res.data
+        this.isVideoTypeLoading = false
+      },
+      error: (err: any) => {
+        console.log(err, 'error')
+      },
+    })
+  }
+
+  // public mainTab(tab: any) {
+  //   this.mainTabOption = tab
+  // }
+
+  public playVideo(item: any, index: number): void {
+    this.dialog.open(VideoPlayComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { item, index }, // Pass item and index as data
+    })
+  }
+
+  public deleteVideo(videoId: any) {
+    Swal.fire({
+      title: 'Do you really want to delete this video?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff9900',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        this.businessService.deleteVideo(videoId).subscribe({
+          next: (res: any) => {
+            Swal.fire({
+              toast: true,
+              text: res.message,
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+            this.getVideosList(this.postId, this.videoTab)
+          },
+        })
+      }
+    })
+  }
+}
 
 export class DialogContentExampleDialog {}
