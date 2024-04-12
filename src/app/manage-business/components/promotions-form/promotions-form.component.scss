@@ -10,7 +10,10 @@
     background-color: var(--primary-color-orange) !important;
     border-color: var(--primary-color-orange) !important;
 }
-
+.margin____{
+    padding-left: 0;
+    margin-left: -9px;
+}
 ::ng-deep.mdc-checkbox .mdc-checkbox__native-control:focus:checked~.mdc-checkbox__ripple {
     background-color: var(--primary-color-orange) !important;
 

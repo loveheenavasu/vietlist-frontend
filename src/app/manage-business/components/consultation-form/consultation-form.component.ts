@@ -49,15 +49,22 @@ export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
-    console.log(value);
+   
     this.imagePreviews = value?.image || [];
     this.video_upload = value?.video_upload || [];
-
-    console.log(value?.business_hours)
-    console.log(JSON.parse(value?.business_hours))
+    const Gethours = value?.business_hours
+    if(Gethours == 'false'){
+      console.log(Gethours, ' get data -------');
+      this.showTimeTable = false
+    }else{
+      this.showTimeTable = true;
+    }
+   
+    // console.log(value?.business_hours)
+    // console.log(JSON.parse(value?.business_hours))
 
     let businessHours: any[] = JSON.parse(value?.business_hours);
-    this.showTimeTable = true;
+    // this.showTimeTable = true;
     const timezone = businessHours?.[businessHours?.length - 1]?.[0];
     businessHours?.pop();
     const hours = businessHours;
@@ -83,8 +90,6 @@ export class ConsultationFormComponent {
         }
       })
     })
-
-    console.log(this.days);
 
     const controls = [
       'consultation_booking_link',
@@ -411,6 +416,10 @@ export class ConsultationFormComponent {
 
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
+
+    
+    
+  
   }
 
   onWeekSelect(dayName: string, event: Event) {
@@ -435,6 +444,7 @@ export class ConsultationFormComponent {
 
 
   public addBusiness(): void {
+
     this.isLoader = true
     console.log(this.days)
     const selectedDaysData = this.days.filter((day) =>
@@ -468,7 +478,7 @@ export class ConsultationFormComponent {
     )
 
     console.log(businessHours);
-
+  console.log(this.showTimeTable,'this.showTimeTablethis.showTimeTable')
     this.isLoader = true
     const body = {
       post_id: this.postId,
@@ -480,7 +490,7 @@ export class ConsultationFormComponent {
       services_list: this.ConsultationForm.value.services_list,
       price: this.ConsultationForm.value.price,
       video_url: this.ConsultationForm.value.video_url,
-      business_hours: businessHours,
+      business_hours: !this.showTimeTable ?  'false' : businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
       video_upload: this.vediosUrl && this.vediosUrl.length > 0 ? this.vediosUrl.filter((item: any) => item ? true : false) : null,
       image: this.imagePreviews && this.imagePreviews.length > 0 ? this.imagePreviews.filter((item: any) => item ? true : false) : null
@@ -488,10 +498,12 @@ export class ConsultationFormComponent {
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
         next: (res: any) => {
+
+          this.consultationFormSubmit.emit()
           this.isLoader = false
           if (res) {
-            this.isLoader = false
             this.consultationFormSubmit.emit()
+            this.isLoader = false
             this.localstorage.saveData('isConsultationFormFilled', 'true')
             this.businessService.isConsultationFormFilled.next(true)
             this.isFormFilled = true
@@ -505,6 +517,8 @@ export class ConsultationFormComponent {
       this.businessService.updateBusiness(body).subscribe({
         next: (res) => {
           this.isLoader = false
+
+          this.consultationFormSubmit.emit()
           if (res) {
             this.consultationFormSubmit.emit()
             this.localstorage.saveData('isConsultationFormFilled', 'true')
