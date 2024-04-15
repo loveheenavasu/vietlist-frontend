@@ -1,5 +1,3 @@
-import { LoaderComponent } from './../../../common-ui/loader/loader.component'
-import { MatSelectModule } from '@angular/material/select'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import {
@@ -160,6 +158,7 @@ export class PreviewBusinessComponent {
   ngOnInit() {
     if (this.postId) {
       this.getBusinessFormDetails()
+      this.getAllVideosList(this.postId)
     }
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
@@ -535,25 +534,34 @@ export class PreviewBusinessComponent {
 
   public addVideo() {
     if (this.screensize > 720) {
-      this.dialogWidth = '65%'
+      this.dialogWidth = '65%';
     } else if (this.screensize < 720) {
-      this.dialogWidth = '90%'
-      this.height = '80%'
+      this.dialogWidth = '90%';
+      this.height = '80%';
     }
-
-    this.dialog.open(AddVideoComponent, {
+  
+    const dialogRef = this.dialog.open(AddVideoComponent, {
       width: this.dialogWidth,
       height: this.height,
       data: {
         postId: this.postId,
       },
-    })
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getAllVideosList(this.postId);
+      this.getVideosList(this.postId , this.videoTab)
+    });
   }
 
   public onTabClick(tab: any) {
     this.isVideoTypeLoading = true
     this.videoTab = tab
-    this.getVideosList(this.postId, this.videoTab)
+    if(this.videoTab == 'all'){
+      this.getAllVideosList(this.postId)
+    }else{
+      this.getVideosList(this.postId, this.videoTab)
+    }
+
   }
 
   public getVideosList(postId: any, tab: any) {
@@ -569,6 +577,18 @@ export class PreviewBusinessComponent {
     })
   }
 
+  public getAllVideosList(postId: any) {
+    this.isVideoTypeLoading = true
+    this.businessService.getAllVideoIntegration(postId).subscribe({
+      next: (res: any) => {
+        this.videosTypeArr = res.data
+        this.isVideoTypeLoading = false
+      },
+      error: (err: any) => {
+        console.log(err, 'error')
+      },
+    })
+  }
   // public mainTab(tab: any) {
   //   this.mainTabOption = tab
   // }
@@ -578,6 +598,12 @@ export class PreviewBusinessComponent {
       width: 'auto',
       height: 'auto',
       data: { item, index }, // Pass item and index as data
+    })
+  }
+
+  public editVideo(item: any, index: number){
+    this.dialog.open(AddVideoComponent,{
+      data:{item , index}
     })
   }
 
@@ -604,6 +630,7 @@ export class PreviewBusinessComponent {
               timer: 3000,
               timerProgressBar: true,
             })
+            this.getAllVideosList(this.postId)
             this.getVideosList(this.postId, this.videoTab)
           },
         })

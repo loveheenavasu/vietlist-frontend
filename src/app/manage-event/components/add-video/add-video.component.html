@@ -7,11 +7,11 @@
       </div>
       <div class="col-12">
         <h1 mat-dialog-title class="text-center">
-            Add New Video
+            {{postId ? 'Add New Video' : 'Edit Video'}}
         </h1>
       </div>
     </div>
-    <form class="form-forgot" [formGroup]="forgotPasswordForm">
+    <form class="form-forgot">
       <div mat-dialog-content class="mt-4">
         <div class="row">
           <div class="col-12">
@@ -42,16 +42,16 @@
                 <div  class="loader" *ngIf="isVideoUploading"></div>
               </ngx-dropzone>
               <div id="video-preview-container">
-                @for(videoUrl of vediosUrl; track $index) {
-                <div class="vedio____" *ngIf="video_upload.length > 0">
+                @for(video of videoUrl; track $index) {
+                <div class="vedio____">
                   <div class="removeImage" >
                     <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItems($index)"></i>
                   </div>
           
           
-                  <video style="margin: 10px; object-fit: cover" *ngIf="videoUrl" width="220" height="200" controls>
-                    <source [src]="videoUrl" type="video/mp4" />
-                    <source [src]="videoUrl" type="video/ogg" />
+                  <video style="margin: 10px; object-fit: cover" *ngIf="video" width="220" height="200" controls>
+                    <source [src]="video" type="video/mp4" />
+                    <source [src]="video" type="video/ogg" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
@@ -83,10 +83,10 @@
       <br/>
       <div mat-dialog-actions class="text-center">
         <button type="button" mat-flat-button class="btn orange-background-btn-w-100"
-        [disabled]="!name.value || !video_type.value || !imagePreviews || !video_upload"
+        [disabled]="!name.value || !video_type.value || !imagePreviews.length || !videoUrl.length"
          (click)="addVideo()">
-          <span>Submit</span>
-          <!-- <app-loader *ngIf="loader"></app-loader> -->
+          <span *ngIf="!isLoader">Submit</span>
+          <app-loader *ngIf="isLoader"></app-loader>
         </button>
     
       

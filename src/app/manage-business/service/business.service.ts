@@ -142,6 +142,14 @@ export class BusinessService {
     return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
 
+  public getAllVideoIntegration(post_id: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllVideo)
+    const authToken = this.authService.getAuthHeaders()
+    const params = new HttpParams()
+      .set('post_id', post_id)
+    return this.http.get<any>(endpoint, { headers: authToken, params: params })
+  }
+
   public deleteVideo(videoId: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.DeleteVideoType)
     const authToken = this.authService.getAuthHeaders()
@@ -151,4 +159,13 @@ export class BusinessService {
       params: params,
     })
   }
+
+  public updateVideo(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateVideo)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body ,  {
+      headers: authToken
+    })
+  }
+
 }

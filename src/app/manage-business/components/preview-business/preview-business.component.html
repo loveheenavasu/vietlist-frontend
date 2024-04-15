@@ -473,7 +473,7 @@
       </section>
     </tab>
     }
-    @if (businessFormDetails?.video_upload) {
+
     <tab>
       <ng-template tabHeading>
         <i class="fa fa-video"></i> Videos Type 
@@ -502,45 +502,50 @@
               <hr />
               <div class="row tabs-wrapper">
                 <div class="tabsvideo">
-                  <p (click)="onTabClick('all')">All</p>
+                  <p (click)="onTabClick('all')" [ngClass]="{ 'active-tab': videoTab == 'all' }">All</p>
                   <p (click)="onTabClick('promotional_videos')"   [ngClass]="{ 'active-tab': videoTab == 'promotional_videos' }">Promotional</p>
                   <p (click)="onTabClick('testimonial')" [ngClass]="{ 'active-tab': videoTab == 'testimonial' }">Testimonials</p>
                   <p (click)="onTabClick('tutorials')" [ngClass]="{ 'active-tab': videoTab == 'tutorials' }">Tutorials</p>
                 </div>
               </div>
              
-              <div *ngIf="videoTab == 'promotional_videos'">
+
                 <div class="main_images">
+                  @for (item of videosTypeArr; track $index) {
                   <div class="featured_image" style="display: flex; gap: 1rem">
-                    @for (item of videosTypeArr; track $index) {
                       <img
                       *ngIf="!isVideoTypeLoading"
                         [src]="item.thumbnail_image"
                         style="cursor:pointer"
                         (click)="playVideo(item, $index)"
                       />
+                     
+                      <img *ngIf="isVideoTypeLoading"
+                        src="/assets/image/blank-white-img.jpeg"
+                      />
+                     
                       <div class="d-flex edit-icon">
                         <div>
-                          <span  ><i class="fas fa-edit" style="color:orange"></i></span>
+                          <span  (click)="editVideo(item, $index)"><i class="fas fa-edit" style="color:orange"></i></span>
                          
                         </div>
                         <div class="mx-2">
                           <span class="delete-icon"  (click)="deleteVideo(item.video_id)"><i class="fas fa-trash-alt"></i></span>
                         </div>
                       </div>
-                    }
-                    
+                      
+                      
+                    </div>
+                  }
                   
-                  </div>
-                  <div class="loader" *ngIf="isVideoTypeLoading"></div>
                 </div>
-              </div>
+   
             </div>
           </div>
         </div>
       </section>
     </tab>
-    }
+ 
     <!-- <tab [disabled]="true" heading="Event & promotion">Booking </tab> -->
     <tab>
       <ng-template tabHeading>
