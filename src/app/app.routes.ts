@@ -49,6 +49,7 @@ import { ClaimListingComponent } from './claim-listing/claim-listing.component'
 import { FaqComponent } from './landing-page/views/faq/faq.component'
 import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component'
 import { ResourcesComponent } from './landing-page/views/resources/resources.component'
+import { AnalyticsComponent } from './analytics'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -261,6 +262,10 @@ export default [
   {
     path: 'resource-details/:id',
     loadComponent: () => ResourceDetailComponent,
+  },
+  {
+    path: 'analytics',
+    loadComponent: () => AnalyticsComponent,
   },
   {
     path: '**',
