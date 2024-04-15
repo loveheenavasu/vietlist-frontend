@@ -1,0 +1,69 @@
+
+<div class="btn-cont">
+    <button (click)="openDialogs()" class='add-btn rounded' > Add New </button>
+</div>
+
+<table class="table  table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Subscribers</th>
+        <th scope="col">Updated</th>
+        <th scope="col">Added</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of lists" >
+        <td > {{list.name ||'--' }} </td>
+        <td>{{list.description || '--'}}</td>
+        <td> {{list?.subscriber || '--'}} </td>
+        <td> {{date(list?.updated ||'--' )}} </td>
+        <td> {{date(list?.added) ||'--' }} </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <ng-template #secondDialog  let-modal >
+    <h2 class="background_section2 text-center" matDialogTitle>Add List</h2>
+    <section>
+      <div class="container">
+        <div class="row" id="profile">
+
+          <form [formGroup]="listForm" >
+            <div class="mt-2">
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" formControlName='name'  class="input-control" placeholder="Name" />
+                </div>
+                <span *ngIf="isNameExist" class='error-msg' > List Name already exist </span>
+              </div>
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <textarea  placeholder='Description' formControlName='description' id="" cols="30" rows="10" class='input-control' ></textarea>
+                </div>
+              </div>
+
+              <div class="row mt-4 mb-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="d-flex justify-content-center">
+                    <button matDialogClose class="btn orange-background-btn-w-100" style="color: #fff">
+                      Close
+                    </button>
+                    &nbsp;
+                    <button  (click)="createList()" class="btn orange-background-btn-w-100" style="color: #fff">
+                      {{ isLoading?'Loading...':'Submit' }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+  </ng-template>

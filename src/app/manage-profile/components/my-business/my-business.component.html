@@ -77,8 +77,6 @@
               <p>
                 {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
               </p>
-
-
             </div>
             @if(key.final_submission == '1'){
             <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
@@ -88,20 +86,11 @@
             <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
               View
             </button>
-            <!-- <div class="lisiting-package">
-                  <span>$ Package : Free Business</span>
-                </div> -->
-            <!-- <div class="listing-rating">
-                  <div class="d-flex">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>
-                </div> -->
+            <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
+              Email Marketing
+            </button>
           </div>
-        </div>
+        </div> 
         }
 
         @if (!businessArray.length) {
@@ -151,7 +140,10 @@
               </button>
               }
               <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
-                View
+                View 
+              </button>
+              <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
+                Email Marketing
               </button>
             </div>
             <!-- <div class="lisiting-package">
