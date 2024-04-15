@@ -50,6 +50,11 @@
     "url": "/manage-profile/manage-events"
   },
   {
+    "label": "Analytics",
+    "icon": "fa-solid fa-chart-simple",
+    "url": "/analytics"
+  },
+  {
     "label": "Cancellation Policies settings",
     "icon": "fa fa-times-circle",
     "url": "/manage-profile/cancellaton-policy"

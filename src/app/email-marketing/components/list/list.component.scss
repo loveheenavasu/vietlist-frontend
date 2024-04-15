@@ -1,0 +1,26 @@
+th{
+    padding: 20px;
+}
+td{
+    padding: 20px;
+}
+
+.add-btn{
+    padding: 8px 18px;
+    border: none;
+    background-color: #FF9900;
+    color: white;;
+
+}
+
+.btn-cont{
+    display: flex;
+    padding: 20px;
+    justify-content: end;
+
+}
+
+.error-msg{
+    font-size: 12px;
+    color: red;
+}
