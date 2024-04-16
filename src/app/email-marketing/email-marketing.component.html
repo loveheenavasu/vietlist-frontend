@@ -4,28 +4,37 @@
   </div>
 </section>
 
-
 <div class="koko">
-    <tabset>
-      <tab heading="All Campaigns" id="tab1">
-          <section class="background_section">
-              <div class="container">hello</div>
-            </section>
-          
-      </tab>
-      <tab heading="New Campaigns" id="tab2">
-          <section class="background_section">
-              <div class="container">hello</div>
-            </section>
-          
-      </tab>
-      <tab heading="Lists" id="tab3">
-          <section class="background_section">
-              <div class="container">
-                <app-list></app-list>
-              </div>
-            </section>
-      </tab>
-
-    </tabset>
-  </div>
+  <tabset #tabset  >
+    <tab (selectTab)="removeListId($event)"  heading="All Campaigns" id="tab1">
+      <section class="background_section">
+        <div class="container">hello</div>
+      </section>
+    </tab>
+    <tab (selectTab)="removeListId($event)" heading="New Campaigns" id="tab2">
+      <section class="background_section">
+        <div class="container">hello</div>
+      </section>
+    </tab>
+    <tab (selectTab)="removeListId($event)" heading="Lists" id="tab3" #tab3>
+      <section class="background_section">
+        <div class="container">
+          <app-list
+            (navigateToTabs)="navigateToTabs($event)"
+            (setListId)="setListId($event)"
+          >
+          </app-list>
+        </div>
+      </section>
+    </tab>
+    <tab  (selectTab)="removeListId($event)"  heading="Subscribers" id="tab4">
+      <section *ngIf="tabset?.tabs?.[3]?.active" class="background_section">
+        <div class="container">
+          <app-subscribers
+            [listId]="listId"
+          ></app-subscribers>
+        </div>
+      </section>
+    </tab>
+  </tabset>
+</div>

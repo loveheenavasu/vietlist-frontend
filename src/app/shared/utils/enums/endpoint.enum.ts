@@ -96,4 +96,6 @@ export enum Endpoints {
   DeleteVideoType = 'delete_business_listing_video',
   GetAllVideo = 'get_business_listing_video_integration',
   UpdateVideo = 'business_listing_video_update',
+  GetSingleListSubscribers = 'get_single_list_subscribers',
+  GetAllSubscribers = 'get_All_subscriber',
 }

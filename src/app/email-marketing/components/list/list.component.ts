@@ -1,5 +1,7 @@
 import {
   Component,
+  OnInit,
+  Output,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -15,12 +17,14 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog'
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { EventEmitter } from '@angular/core'
 
 @Component({
   selector: 'app-list',
@@ -30,16 +34,21 @@ import {
   styleUrl: './list.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   @ViewChild('secondDialog', { static: true }) secondDialog: any
   dialogRef: MatDialogRef<any> | null = null
+  @Output() navigateToTabs = new EventEmitter<any>()
+  @Output() setListId = new EventEmitter<any>()
   public isNameExist: boolean = false
   public isLoading: boolean = false
   lists: any
+  currentList: any
+  isListSelected: boolean = false
   constructor(
     public service: EmailMarketingServiceService,
     private dialog: MatDialog,
     private fullPageLoaderService: FullPageLoaderService,
+    private formBuilder: FormBuilder,
   ) {
     this.getAllList()
   }
@@ -65,30 +74,28 @@ export class ListComponent {
   }
   listForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
   })
 
-  date(unixTimestamp: any) {
-    const date = new Date(parseInt(unixTimestamp))
-
-    const month = date.toLocaleString('default', { month: 'long' })
-    const day = date.getDate()
-    const year = date.getFullYear()
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
-
-    const amPm = hours >= 12 ? 'pm' : 'am'
-    const formattedHours = hours % 12 || 12
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
-
-    const formattedDate = `${month} ${day}, ${year} ${formattedHours}:${formattedMinutes} ${amPm}`
-    return formattedDate
+  navigateToSubscriber(tabIndex: any, listId: any) {
+    this.setListId.emit(listId)
+    this.navigateToTabs.emit(tabIndex)
   }
 
-  openDialogs() {
+  openDialogs(list?: any) {
+    if (list) {
+      this.currentList = list
+      this.isListSelected = true
+      this.listForm = this.formBuilder.group({
+        name: [list.name || '', Validators.required], // Use default value or empty string
+        description: [list.description || ''], // Use default value or empty string
+      })
+    } else {
+      this.currentList = null
+      this.isListSelected = true
+    }
     this.dialogRef = this.dialog.open(this.secondDialog, {
       width: '45%',
-      //panelClass: 'myDialogStyle'
     })
     this.secondDialog.afterClosed().subscribe(() => {
       console.log('The dialog was closed')
@@ -97,7 +104,7 @@ export class ListComponent {
 
   createList() {
     this.isLoading = true
-    this.service.CreateList(this.listForm.value).subscribe(
+    this.service.CreateList(this.listForm?.value).subscribe(
       (res) => {
         this.isLoading = false
         this.isNameExist = false
@@ -127,4 +134,6 @@ export class ListComponent {
   closeDialog(dialog: any) {
     dialog.close()
   }
+
+  ngOnInit(): void {}
 }
