@@ -84,6 +84,7 @@ export class ManageProfileComponent {
     })
   }
 
+ 
   ngAfterViewInit() {
     const messaging = getMessaging()
     getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
@@ -97,9 +98,7 @@ export class ManageProfileComponent {
           // ...
         } else {
           // Show permission request UI
-          console.log(
-            'No registration token available. Request permission to generate one.',
-          )
+        
           // ...
         }
       })
@@ -114,7 +113,6 @@ export class ManageProfileComponent {
       }
     })
   }
-
   public setTitle() {
     switch (true) {
       case this.currentPath === '/manage-profile':
@@ -151,8 +149,11 @@ export class ManageProfileComponent {
         this.pageTitle = 'Settings'
         break
       case this.currentPath === '/manage-profile/delete-account':
-        this.pageTitle = 'Delete Account'
-        break
+        this.pageTitle = 'Delete Account';
+        break;
+        case this.currentPath === '/manage-profile/manage-coupons':
+          this.pageTitle = 'Manage Coupons';
+          break;
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
         const segments = this.currentPath.split('/')
         if (segments.length === 4) {
@@ -226,27 +227,25 @@ export class ManageProfileComponent {
           const role = this.localStorage.getData('loginInfo')
           const roleGet = JSON.parse(role)
           if (roleGet.user_role == Roles.subscriber) {
-            this.menuItems = this.sidebarMenu.filter(
-              (tab) =>
-                tab.label !== 'Ads' &&
-                tab.label !== 'My Business' &&
-                tab.label !== 'Subscriptions' &&
-                tab.label !== 'Billing Address' &&
-                tab.label !== 'Privacy' &&
-                tab.label !== 'Notifications' &&
-                tab.label !== 'Invoices' &&
-                tab.label !== 'Transactions' &&
-                tab.label !== 'Notifications Settings' &&
-                tab.label !== 'Cancellation Policies settings' &&
-                tab.label !== 'Events Management',
-            )
-          } else if (
-            this.userDetail.user_role == Roles.businessOwner &&
-            this.userDetail.level_id == '1'
-          ) {
-            this.menuItems = this.sidebarMenu.filter(
-              (tab) => tab.label !== 'Ads',
-            )
+            this.menuItems = this.sidebarMenu.filter(tab =>
+              tab.label !== 'Ads' &&
+              tab.label !== 'My Business' &&
+              tab.label !== 'Subscriptions' &&
+              tab.label !== 'Billing Address' &&
+              tab.label !== 'Privacy' &&
+              tab.label !== 'Notifications' &&
+              tab.label !== 'Invoices' &&
+              tab.label !== 'Transactions' &&
+              tab.label !== 'Notifications Settings' &&
+              tab.label !== 'Cancellation Policies settings' &&
+              tab.label !== 'Events Management' &&
+              tab.label !== 'Manage Coupons'
+              
+            );
+          } else if (this.userDetail.user_role == Roles.businessOwner && this.userDetail.level_id == '1') {
+            this.menuItems = this.sidebarMenu.filter(tab =>
+              tab.label !== 'Ads'
+            );
             return this.menuItems
           } else if (roleGet.user_role == 'subscriber') {
             return this.menuItems

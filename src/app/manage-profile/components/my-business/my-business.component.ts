@@ -7,17 +7,25 @@ import { BusinessService } from 'src/app/manage-business/service/business.servic
 import { NgClass, NgIf } from '@angular/common'
 import Swal from 'sweetalert2'
 import { Router, RouterLink } from '@angular/router'
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-my-business',
   standalone: true,
-  imports: [MatIconModule, NgClass, NgIf, RouterLink, MatTooltipModule],
+  imports: [MatIconModule, NgClass, NgIf, RouterLink , MatTooltipModule, NgxPaginationModule,],
   templateUrl: './my-business.component.html',
   styleUrl: './my-business.component.scss',
 })
 export class MyBusinessComponent {
   public selectedLayout: string = 'grid'
   public businessArray: any[] = []
+  public postPerPage: number = 4
+  public currentPage: number = 1
+  public isPaginationClick: boolean = false
+  public isPaginationVisible: boolean = false
+  public totalCount: number = 0
+  public totalPages: number = 0;
+
   constructor(
     private profileService: ProfileService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -35,10 +43,11 @@ export class MyBusinessComponent {
 
   getBusiness() {
     this.fullPageLoaderService.showLoader()
-    this.profileService.getBusinessByUserId().subscribe({
+    this.profileService.getBusinessByUserId(this.postPerPage , this.currentPage).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessArray = res.data
+        this.totalCount = res.total_count
       },
       error: (err) => {
         this.fullPageLoaderService.hideLoader()
@@ -59,6 +68,7 @@ export class MyBusinessComponent {
       if (result.isConfirmed) {
         this.profileService.deleteBuisness({ post_id: postId }).subscribe({
           next: (res) => {
+
             Swal.fire({
               toast: true,
               text: res.message,
@@ -92,4 +102,12 @@ export class MyBusinessComponent {
     this.localStorage.removeData('isSubscriptionFormFilled')
     this.localStorage.removeData('postId')
   }
-}
+
+  handlePageChange(event: number): void {
+    this.currentPage = event;
+    // if(this.isPaginationClick){
+      this.getBusiness()
+    // }
+    }
+  }
+

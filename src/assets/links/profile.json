@@ -50,6 +50,11 @@
     "url": "/manage-profile/manage-events"
   },
   {
+    "label": "Manage Coupons",
+    "icon": "fa fa-tag",
+    "url": "/manage-profile/manage-coupons"
+  },
+  {
     "label": "Analytics",
     "icon": "fa-solid fa-chart-simple",
     "url": "/analytics"

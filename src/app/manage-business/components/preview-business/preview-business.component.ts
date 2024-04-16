@@ -29,7 +29,6 @@ import Swal from 'sweetalert2'
 import {
   MatDialog,
   MatDialogModule,
-  MatDialogRef,
 } from '@angular/material/dialog'
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatIconModule } from '@angular/material/icon'
@@ -309,6 +308,7 @@ export class PreviewBusinessComponent {
     this.localStorageService.saveData('postId', this.postId)
     this.router.navigate(['/list-business'])
   }
+
   openDialogs() {
     this.dialog.open(this.secondDialog, {
       width: '45%',

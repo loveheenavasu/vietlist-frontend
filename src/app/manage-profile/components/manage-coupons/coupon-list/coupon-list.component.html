@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <div class="row justify-content-end">
+      <div class="col-auto">
+        <button class="btn orange-background-btn" (click)="addCoupon()">Add New Coupon</button>
+      </div>
+    </div>
+  </div>
+  
+
+<div class="table-responsive  mt-3">
+<table class="mt-3">
+    <thead>
+      <tr>
+        <th>Coupon Title</th>
+        <th>Coupon code</th>
+        <th>Description</th>
+        <th>Coupon type</th>
+        <th>Coupon Value</th>
+        <th>Expiry Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color: #144b7c">
+          {{ 'Demo' }}
+        </td>
+        <td style="color: #144b7c">
+          {{ '1234567' }}
+        </td>
+        <td style="color: #144b7c">
+          {{ 'Test' }}
+        </td>
+        <td style="color: #144b7c">
+          {{ 'Demo' }}
+        </td>
+        <td style="color: #144b7c">
+          {{ '24-02-2019' }}
+        </td>
+
+        <td style="color: #144b7c">
+          {{ '25-02-2019' }}
+        </td>
+        <td>
+          <div class="d-flex">
+            <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+            &nbsp;
+            <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer"></i>
+            &nbsp;
+            <i style="cursor:pointer" class="fa fa-trash" aria-hidden="true"></i>
+
+          </div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+  <ng-template #secondDialog>
+    <h2 class="background_section2 text-center" matDialogTitle>Add Coupon</h2>
+    <section >
+      <div class="container px-4">
+        <div class="row" id="profile">
+          <form>
+            <div class="mt-2">
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" class="input-control" placeholder="Coupon Title" />
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" class="input-control" placeholder="Coupon code" />
+                </div>
+
+              </div>
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" class="input-control" placeholder="Description" />
+                </div>
+              </div>
+
+
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" class="input-control" placeholder="Coupon Type" />
+                </div>
+              </div>
+
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <input type="text" class="input-control" placeholder="Coupon Value" />
+                </div>
+              </div>
+              <div class="row my-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="input-group">
+                    <input matInput [matDatepicker]="startdatepicker" class="input-control"
+                      (click)="startdatepicker.open()" [min]="minDate"
+                      [max]="maxDate" placeholder="Expiry Date" />
+                    <i class="fa fa-calendar-o"></i>
+                    <mat-datepicker #startdatepicker></mat-datepicker>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4 mb-4">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="d-flex justify-content-center">
+                    <button matDialogClose class="btn orange-background-btn-w-100" style="color: #fff">
+                      Close
+                    </button>
+                    &nbsp;
+                    <button class="btn orange-background-btn-w-100" style="color: #fff">
+                      submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+
+  </ng-template>

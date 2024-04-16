@@ -1,4 +1,5 @@
 <div class="container-fluid g-0">
+  
   <!-- <div class="search row">
       <div class="search-input col">
         <div class="input-group">
@@ -54,7 +55,12 @@
     <div class="view-container">
       @if (selectedLayout == 'grid') {
       <div class="grid-view-container row">
-        @for (key of businessArray; track $index) {
+        @for (key of businessArray | paginate
+        : {
+        itemsPerPage: postPerPage,
+        currentPage: currentPage,
+        totalItems: totalCount
+        }; track $index) {
         <div class="grid-card col-lg-5">
           @if (key?.image?.includes("") || key?.image == null) {
           <div class="listing-img">
@@ -163,6 +169,18 @@
         }
       </div>
       }
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mt-5">
+      <pagination-controls 
+      previousLabel="Prev" 
+      nextLabel="Next" 
+      [responsive]="true" 
+      [maxSize]="4" 
+      (pageChange)="handlePageChange($event)">
+  </pagination-controls>
     </div>
   </div>
 </div>
