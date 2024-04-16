@@ -50,6 +50,11 @@
     "url": "/manage-profile/manage-events"
   },
   {
+    "label": "Manage Coupons",
+    "icon": "fa fa-tag",
+    "url": "/manage-profile/manage-coupons"
+  },
+  {
     "label": "Cancellation Policies settings",
     "icon": "fa fa-times-circle",
     "url": "/manage-profile/cancellaton-policy"

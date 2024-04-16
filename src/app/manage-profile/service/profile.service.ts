@@ -38,10 +38,11 @@ export class ProfileService {
     return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-  public getBusinessByUserId(): Observable<any> {
+  public getBusinessByUserId(posts_per_page:any , page:any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessByUserId)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.get<any>(endpoint, { headers: authToken })
+    const params = new HttpParams().set('posts_per_page' , posts_per_page).set('page' , page)
+    return this.http.get<any>(endpoint, { headers: authToken , params:params})
   }
 
   public deleteBuisness(postId: any): Observable<any> {

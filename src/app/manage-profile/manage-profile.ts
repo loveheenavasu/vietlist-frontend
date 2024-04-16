@@ -89,8 +89,6 @@ public  pageTitle: string = '';
     getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey }).then((currentToken) => {
       if (currentToken) {
 
-         console.log(currentToken,'currentTokencurrentTokencurrentTokencurrentToken')
-        // Send the token to your server and update the UI if necessary
         // ...
       } else {
         // Show permission request UI
@@ -148,6 +146,9 @@ public  pageTitle: string = '';
       case this.currentPath === '/manage-profile/delete-account':
         this.pageTitle = 'Delete Account';
         break;
+        case this.currentPath === '/manage-profile/manage-coupons':
+          this.pageTitle = 'Manage Coupons';
+          break;
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
         const segments = this.currentPath.split('/');
         if (segments.length === 4) {
@@ -234,7 +235,8 @@ public  pageTitle: string = '';
               tab.label !== 'Transactions' &&
               tab.label !== 'Notifications Settings' &&
               tab.label !== 'Cancellation Policies settings' &&
-              tab.label !== 'Events Management'
+              tab.label !== 'Events Management' &&
+              tab.label !== 'Manage Coupons'
               
             );
           } else if (this.userDetail.user_role == Roles.businessOwner && this.userDetail.level_id == '1') {
