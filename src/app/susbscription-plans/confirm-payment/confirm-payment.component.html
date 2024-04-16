@@ -11,7 +11,7 @@
       <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout mt-4">
         <label class="card-details">If you have any coupon code, please apply it below.</label>
         <div class='coupon-container' >
-          <input class='coupon rounded' placeholder='Coupon' ngModel type='text' name='coupon' required /> 
+          <input class='coupon rounded' placeholder='Coupon' ngModel type='text' name='Coupon code' required /> 
           <button type='button' class='apply-btn' > Apply </button> 
         </div>
         <div class="form-row mt-4" [ngClass]="{'is-invalid': !billingAddressValid}">

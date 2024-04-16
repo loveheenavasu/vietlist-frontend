@@ -67,4 +67,20 @@ export class EmailMarketingServiceService {
       return '--'
     }
   }
+  public addSubscriber(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddSubscriber)
+    const formData = new FormData()
+    formData.append('First_name', body?.First_name)
+    formData.append('Last_name', body?.Last_name)
+    formData.append('email', body?.email)
+    // formData.append('status', '1')
+    if (body?.List_id) {
+      formData.append('List_id', body?.List_id)
+    }
+
+    // const authToken = this.authService.getAuthHeaders()
+    const authToken = this.authService.getAuthHeaders()
+    // const params = new HttpParams().set('post_id', post_id)
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
+  }
 }

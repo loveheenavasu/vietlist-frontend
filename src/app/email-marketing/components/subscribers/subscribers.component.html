@@ -15,8 +15,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let subscriber of subscriberList">
-      <td (click)="openDialogs()">{{ subscriber?.name || '--' }}</td>
-      <td (click)="openDialogs()">{{ subscriber?.email || '--' }}</td>
+      <td >{{ subscriber?.name || '--' }}</td>
+      <td >{{ subscriber?.email || '--' }}</td>
       <td>{{ subscriber?.list_and_tags || '--' }}</td>
       <td>{{ subscriber?.emails || '--' }}</td>
       <td>{{this.status[subscriber?.status] }}</td>
@@ -26,7 +26,7 @@
 </table>
 
 <ng-template #secondDialog let-modal>
-  <h2 class="background_section2 text-center" matDialogTitle>Add Subscriber</h2>
+  <h2 class="background_section2 text-center mt-3 " matDialogTitle>Add Subscriber</h2>
   <section>
     <div class="container">
       <div class="row" id="profile">
@@ -36,26 +36,47 @@
               <div class="col-12 col-md-12 col-lg-12">
                 <input
                   type="text"
-                  formControlName="name"
+                  formControlName="email"
                   class="input-control"
-                  placeholder="Name"
+                  placeholder="Email"
                 />
               </div>
             </div>
             <div class="row my-4">
               <div class="col-12 col-md-12 col-lg-12">
-                <textarea
-                  placeholder="Description"
-                  formControlName="description"
-                  id=""
-                  cols="30"
-                  rows="10"
+                <input
+                  type="text"
+                  formControlName="First_name"
                   class="input-control"
-                ></textarea>
+                  placeholder="First Name"
+                />
               </div>
             </div>
+            <div class="row my-4">
+              <div class="col-12 col-md-12 col-lg-12">
+                  <input
+                  type="text"
+                  formControlName="Last_name"
+                  class="input-control"
+                  placeholder="Last Name"
+                  />
+                </div>
+            </div>
+            <div class="row my-4" *ngIf="!listId" >
+                <div class="col-12 col-md-12 col-lg-12">
+                    <mat-select
+                    class="vietlist-select"
+                    placeholder="List"
+                    formControlName="List_id"
+                    >
+                    @for (key of list; track $index) {
+                        <mat-option [value]="key?.ID">{{ key?.name }}</mat-option>
+                    }
+                </mat-select>
+            </div>
+            </div>
 
-            <div class="row mt-4 mb-4">
+            <div   class="row mt-4 mb-4">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="d-flex justify-content-center">
                   <button
@@ -69,9 +90,9 @@
                   <button
                     class="btn orange-background-btn-w-100"
                     style="color: #fff"
+                    (click)="addSubscriber()"
                   >
-                    <!-- {{ isLoading?'Loading...':'Submit' }}  -->
-                    Submit
+                    {{ isLoading?'Loading...':'Submit' }} 
                   </button>
                 </div>
               </div>
