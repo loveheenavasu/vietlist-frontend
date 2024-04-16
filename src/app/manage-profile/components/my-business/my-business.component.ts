@@ -1,4 +1,4 @@
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip'
 import { ProfileService } from './../../service/profile.service'
 import { MatIconModule } from '@angular/material/icon'
 import { Component } from '@angular/core'
@@ -92,6 +92,9 @@ export class MyBusinessComponent {
   ngOnDestroy() {}
   public viewBusiness(postId: any) {
     this.router.navigate(['/preview-business', postId])
+  }
+  public emailMarketing(postId: any) {
+    this.router.navigateByUrl('/email-marketing')
   }
 
   removeLocalstoagekey() {

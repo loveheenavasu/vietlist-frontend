@@ -1,8 +1,12 @@
+@import "../../assets/scss/banner";
+
 .koko{
     // padding: 500px;
 }
 .tab-container {
     ul {
+        display: flex;
+        gap: 10px;
         margin-inline: 6%;
         margin-block: 20px;
         border:none
@@ -38,6 +42,6 @@
     width: 100%;
     height: 100%;
   }
-  .background_section:hover{
-    color: #7a7a7a;
-}
+//   .background_section:hover{
+//     color: #7a7a7a;
+// }

@@ -66,6 +66,29 @@ label {
   display: none !important;
 }
 
+.coupon-container{
+  display: flex; 
+  gap: 20px;
+}
+
+.coupon{
+  background-color: #f1f1f1;
+  border: none;
+  padding: 1rem;
+  transition: background 0.15s ease, border 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+  // display: block;
+  // border-radius: ;
+    width: 100%;
+}
+
+.apply-btn{
+background-color: #FF9900;
+padding: 10px 37px;
+border: none;
+border-radius: 5px;
+color: white;
+}
+
 @media (max-width:500px) {
   .container {
     width: 100%;

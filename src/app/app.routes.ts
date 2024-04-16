@@ -50,6 +50,8 @@ import { FaqComponent } from './landing-page/views/faq/faq.component'
 import { ForBusinessComponent } from './landing-page/views/for-business/for-business.component'
 import { ResourcesComponent } from './landing-page/views/resources/resources.component'
 import { CouponListComponent } from './manage-profile/components/manage-coupons/coupon-list/coupon-list.component'
+import { AnalyticsComponent } from './analytics'
+import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -268,6 +270,14 @@ export default [
     loadComponent: () => ResourceDetailComponent,
   },
 
+  {
+    path: 'analytics',
+    loadComponent: () => AnalyticsComponent,
+  },
+  {
+    path: 'email-marketing',
+    loadComponent: () => EmailMarketingComponent,
+  },
   {
     path: '**',
     loadComponent: () => PageNotFoundComponent,

@@ -1,4 +1,11 @@
-import { RouterOutlet, RouterLink, Router, RouterLinkActive, ActivatedRoute, NavigationEnd } from '@angular/router'
+import {
+  RouterOutlet,
+  RouterLink,
+  Router,
+  RouterLinkActive,
+  ActivatedRoute,
+  NavigationEnd,
+} from '@angular/router'
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import {
   AuthenticationService,
@@ -12,10 +19,8 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { SkeletonLoadingComponent } from '../common-ui/skeleton-loading/skeleton-loading.component'
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken } from 'firebase/messaging'
 import { environment } from 'src/environments/environment.development'
-
-
 
 @Component({
   selector: 'app-manage-profile',
@@ -29,7 +34,7 @@ import { environment } from 'src/environments/environment.development'
     MatTooltipModule,
     RouterLinkActive,
     SkeletonLoadingComponent,
-    NgFor
+    NgFor,
   ],
   templateUrl: './manage-profile.html',
   styleUrl: './manage-profile.scss',
@@ -45,104 +50,104 @@ export class ManageProfileComponent {
   public isUploading: boolean = false
   public menuItems: any
   public basedLevelMenuItem: any
-  public isMenuLoading:boolean = true
+  public isMenuLoading: boolean = true
   public role = Roles
-  public currentPath:any
-public  pageTitle: string = '';
+  public currentPath: any
+  public pageTitle: string = ''
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
     private router: Router,
     private profileService: ProfileService,
     private localStorage: LocalStorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.activeIndex = this.router.url
     this.sessionservice.userDetailResponse.subscribe((res) => {
-    this.userDetail = res
+      this.userDetail = res
     })
   }
-
 
   ngOnInit() {
     this.fetchProfileDetail()
     this.route.url.subscribe((segments) => {
-      this.currentPath = this.router.url;
+      this.currentPath = this.router.url
       this.setTitle()
-      console.log('Current Path:::', this.currentPath);
-    });
+      console.log('Current Path:::', this.currentPath)
+    })
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.currentPath = this.router.url;
+        this.currentPath = this.router.url
         this.setTitle()
       }
-    });
-  
-
+    })
   }
 
  
-
-  ngAfterViewInit(){
-    const messaging = getMessaging();
-    getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey }).then((currentToken) => {
-      if (currentToken) {
-
+  ngAfterViewInit() {
+    const messaging = getMessaging()
+    getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log(
+            currentToken,
+            'currentTokencurrentTokencurrentTokencurrentToken',
+          )
+          // Send the token to your server and update the UI if necessary
+          // ...
+        } else {
+          // Show permission request UI
+        
+          // ...
+        }
+      })
+      .catch((err) => {
+        console.log('An error occurred while retrieving token. ', err)
         // ...
-      } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-        // ...
-      }
-    }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-      // ...
-    });
+      })
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.currentPath = this.router.url;
+        this.currentPath = this.router.url
         this.setTitle()
       }
-    });
-  
+    })
   }
-
   public setTitle() {
     switch (true) {
       case this.currentPath === '/manage-profile':
-        this.pageTitle = 'My Account';
-        break;
+        this.pageTitle = 'My Account'
+        break
       case this.currentPath === '/manage-profile/change-password':
-        this.pageTitle = 'Change Password';
-        break;
+        this.pageTitle = 'Change Password'
+        break
       case this.currentPath === '/manage-profile/privacy':
-        this.pageTitle = 'Privacy';
-        break;
+        this.pageTitle = 'Privacy'
+        break
       case this.currentPath === '/manage-profile/manage-ads':
-        this.pageTitle = 'Manage Ads';
-        break;
+        this.pageTitle = 'Manage Ads'
+        break
       case this.currentPath === '/manage-profile/subscription':
-        this.pageTitle = 'Manage Subscriptions';
-        break;
+        this.pageTitle = 'Manage Subscriptions'
+        break
       case this.currentPath === '/manage-profile/billing-address':
-        this.pageTitle = 'Manage Billing Address';
-        break;
+        this.pageTitle = 'Manage Billing Address'
+        break
       case this.currentPath === '/manage-profile/manage-bookings':
-        this.pageTitle = 'My Bookings';
-        break;
+        this.pageTitle = 'My Bookings'
+        break
       case this.currentPath === '/manage-profile/my-business':
-        this.pageTitle = 'My Business';
-        break;
+        this.pageTitle = 'My Business'
+        break
       case this.currentPath === '/manage-profile/manage-events':
-        this.pageTitle = 'Events Management';
-        break;
+        this.pageTitle = 'Events Management'
+        break
       case this.currentPath === '/manage-profile/cancellation-policy':
-        this.pageTitle = 'Cancellation Policy';
-        break;
+        this.pageTitle = 'Cancellation Policy'
+        break
       case this.currentPath === '/manage-profile/setting':
-        this.pageTitle = 'Settings';
-        break;
+        this.pageTitle = 'Settings'
+        break
       case this.currentPath === '/manage-profile/delete-account':
         this.pageTitle = 'Delete Account';
         break;
@@ -150,21 +155,20 @@ public  pageTitle: string = '';
           this.pageTitle = 'Manage Coupons';
           break;
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
-        const segments = this.currentPath.split('/');
+        const segments = this.currentPath.split('/')
         if (segments.length === 4) {
           // Assuming the dynamic ID is in the 3rd segment
-          const bookingId = segments[3];
-          this.pageTitle = `All Bookings`;
+          const bookingId = segments[3]
+          this.pageTitle = `All Bookings`
         } else {
-          this.pageTitle = 'All Bookings';
+          this.pageTitle = 'All Bookings'
         }
-        break;
+        break
       default:
-        this.pageTitle = '';
-        break;
+        this.pageTitle = ''
+        break
     }
   }
-  
 
   public isRouteActive(route: string): boolean {
     return this.router.isActive(route, true)
@@ -215,7 +219,6 @@ public  pageTitle: string = '';
     this.isMenuLoading = true
     this.profileService.userDetails().subscribe({
       next: (res) => {
-
         this.userDetail = res.data.user
         this.imgUrl = res.data.user.user_image
         this.localStorage.saveData('level_id', res.data.user.level_id)
@@ -244,19 +247,16 @@ public  pageTitle: string = '';
               tab.label !== 'Ads'
             );
             return this.menuItems
-
           } else if (roleGet.user_role == 'subscriber') {
             return this.menuItems
           } else {
-            return this.menuItems = this.sidebarMenu
+            return (this.menuItems = this.sidebarMenu)
           }
-
         })
         this.isMenuLoading = false
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
-
       },
     })
   }
@@ -277,10 +277,9 @@ public  pageTitle: string = '';
     }
   }
 
-get skeletonItems() {
-  return new Array(this.menuItems.length > 0 ? 0 : 4).fill(null);
-}
-
+  get skeletonItems() {
+    return new Array(this.menuItems.length > 0 ? 0 : 4).fill(null)
+  }
 
   public handleLogout() {
     // this.isAuthenticated = false
