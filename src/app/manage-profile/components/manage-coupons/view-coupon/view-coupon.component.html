@@ -1,1 +1,71 @@
-<p>view-coupon works!</p>
+<h2 class="background_section2 text-center" matDialogTitle>
+  {{ couponData?.coupon_title | titlecase}}
+</h2>
+<section>
+  <div class="container px-4">
+    <div class="row" id="profile">
+      <div class="mt-4">
+
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            <p class="coupon-label"><strong>Coupon Title:</strong></p>
+            <p class="coupon-value">{{ couponData?.coupon_title }}</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <p class="coupon-label"><strong>Coupon Code:</strong></p>
+            <p class="coupon-code">{{ couponData?.coupon_code }}</p>
+          </div>
+        </div>
+
+
+        <div class="row my-2">
+          <div class="col-12 col-md-6">
+            <p class="coupon-label"><strong>Coupon Type:</strong></p>
+            <p class="coupon-value">
+              {{
+                couponData?.type == 'fixed_amount'
+                  ? 'Fixed Amount'
+                  : 'Percentage Amount'
+              }}
+            </p>
+          </div>
+          <div class="col-12 col-md-6">
+            <p class="coupon-label"><strong>Coupon Value:</strong></p>
+            <p class="coupon-value">{{ couponData?.coupon_value }}</p>
+          </div>
+        </div>
+
+
+
+        <div class="row mt-4">
+            <div class="col-12 col-md-6">
+              <p class="coupon-label"><strong>Expiry Date:</strong></p>
+              <p class="coupon-value">{{ couponData?.coupon_title }}</p>
+            </div>
+            <div class="col-12 col-md-6">
+              <p class="coupon-label"><strong>Description:</strong></p>
+              <p class="coupon-value">{{ couponData?.coupon_desc }}</p>
+            </div>
+          </div>
+
+
+        <!-- Add more fields as needed -->
+
+        <!-- Close Button -->
+        <div class="row mt-4 mb-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-center">
+              <button
+                matDialogClose
+                class="btn orange-background-btn"
+                style="color: #fff"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

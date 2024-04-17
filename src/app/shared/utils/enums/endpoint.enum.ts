@@ -99,4 +99,8 @@ export enum Endpoints {
   GetSingleListSubscribers = 'get_single_list_subscribers',
   GetAllSubscribers = 'get_All_subscriber',
   ChangeSubscriptionStatus = 'change_subscription_status',
+  CreateCoupon = 'set_business_coupon',
+  GetCoupons = 'get_all_business_coupon',
+  DeleteCoupon = 'delete_business_coupon',
+  UpdateCoupon = 'update_business_coupon',
 }
