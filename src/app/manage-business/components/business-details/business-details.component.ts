@@ -41,7 +41,7 @@ import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image
 import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
 import { ForgotPasswordComponent } from 'src/app/auth'
 import { TabsModule } from 'ngx-bootstrap/tabs'
-
+import { EmailMarketingServiceService } from 'src/app/email-marketing/service/email-marketing-service.service'
 // NgxStarRatingModule
 @Component({
   selector: 'app-business-details',
@@ -133,7 +133,7 @@ export class BusinessDetailsComponent {
   public claimedBusinessStatus: any
   public post_category: any = {}
   public newsletter: FormGroup
-  public minDate = new Date();
+  public minDate = new Date()
   public isBookableClicked: boolean = false
   public maxDate: any
 
@@ -165,6 +165,7 @@ export class BusinessDetailsComponent {
     private localStorageService: LocalStorageService,
     private datePipe: DatePipe,
     private dialog: MatDialog,
+    private emailMarketingService: EmailMarketingServiceService,
   ) {
     this.reviewForm = this.fb.group({
       comment_content: ['', Validators.required],
@@ -180,7 +181,8 @@ export class BusinessDetailsComponent {
       comment_author_url: [''],
     })
     this.newsletter = this.fb.group({
-      name: ['', Validators.required],
+      First_name: ['', Validators.required],
+      Last_name: ['', Validators.required],
       email: ['', Validators.required],
     })
 
@@ -215,11 +217,38 @@ export class BusinessDetailsComponent {
     })
   }
 
-  get name() {
-    return this.newsletter.get('name')
+  get First_name() {
+    return this.newsletter.get('First_name')
+  }
+  get Last_name() {
+    return this.newsletter.get('Last_name')
   }
   get email() {
     return this.newsletter.get('email')
+  }
+
+  addSubscriber() {
+    this.fullPageLoaderService.showLoader()
+    this.emailMarketingService.addSubscriber(this.newsletter.value).subscribe(
+      () => {
+        this.fullPageLoaderService.hideLoader()
+        Swal.fire({
+          toast: true,
+          text: 'subscriber added successfully',
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+
+        this.newsletter.reset()
+      },
+      () => {
+        this.fullPageLoaderService.hideLoader()
+      },
+    )
   }
 
   parse(str: string) {

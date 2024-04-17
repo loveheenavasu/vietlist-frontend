@@ -83,4 +83,15 @@ export class EmailMarketingServiceService {
     // const params = new HttpParams().set('post_id', post_id)
     return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
+  public updateSubscriberStatus(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.ChangeSubscriptionStatus,
+    )
+    const formData = new FormData()
+    formData.append('subscription_id', body?.id)
+    formData.append('subscription_status', body?.status)
+
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
+  }
 }

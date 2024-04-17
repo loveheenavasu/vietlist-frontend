@@ -98,4 +98,5 @@ export enum Endpoints {
   UpdateVideo = 'business_listing_video_update',
   GetSingleListSubscribers = 'get_single_list_subscribers',
   GetAllSubscribers = 'get_All_subscriber',
+  ChangeSubscriptionStatus = 'change_subscription_status',
 }

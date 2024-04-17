@@ -84,17 +84,26 @@
                 {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
               </p>
             </div>
-            @if(key.final_submission == '1'){
-            <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
-              Delete
-            </button>
+            <div class="row justify-content-center ">
+              @if(key.final_submission == '1'){
+              <div class="col-5">
+                <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
+                  Delete
+                </button>
+              </div>
             }
-            <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
-              View
-            </button>
-            <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
-              Email Marketing
-            </button>
+              <div class="col-5">
+                <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
+                  View
+                </button>
+                
+              </div>
+            </div>
+            <div class="row justify-content-center mt-2 ">
+              <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
+                Email Marketing
+              </button>
+            </div>
           </div>
         </div> 
         }

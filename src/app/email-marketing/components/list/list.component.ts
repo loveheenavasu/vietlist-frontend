@@ -25,11 +25,18 @@ import {
   Validators,
 } from '@angular/forms'
 import { EventEmitter } from '@angular/core'
+import { CircularProgressbarComponent } from 'src/app/common-ui/circular-progressbar/circular-progressbar.component'
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CircularProgressbarComponent,
+  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -51,6 +58,14 @@ export class ListComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) {
     this.getAllList()
+  }
+
+  start_details = {
+    sent: 1,
+    opens: 100,
+    clicks: 0,
+    unsubs: 0,
+    bounces: 0,
   }
 
   getAllList() {
@@ -82,17 +97,22 @@ export class ListComponent implements OnInit {
     this.navigateToTabs.emit(tabIndex)
   }
 
+  setFormFields(list?: any) {
+    this.listForm = this.formBuilder.group({
+      name: [list.name || '', Validators.required], // Use default value or empty string
+      description: [list.description || ''], // Use default value or empty string
+    })
+  }
+
   openDialogs(list?: any) {
     if (list) {
       this.currentList = list
       this.isListSelected = true
-      this.listForm = this.formBuilder.group({
-        name: [list.name || '', Validators.required], // Use default value or empty string
-        description: [list.description || ''], // Use default value or empty string
-      })
+      this.setFormFields(list)
     } else {
       this.currentList = null
-      this.isListSelected = true
+      this.isListSelected = false
+      this.setFormFields()
     }
     this.dialogRef = this.dialog.open(this.secondDialog, {
       width: '45%',

@@ -916,14 +916,17 @@
                   <div
                     class="d-flex flex-column text-center text-md-left d-md-flex p-3 bg-light align-items-baseline gap-2 ">
                     <span style='font-size: 22px; font-weight: 600; color: black; '>Newsletter </span>
-                    <input type="text" class="newsletter" placeholder="Name" required formControlName='name' />
-                    <span *ngIf="name?.invalid && name?.touched " style='color: red;font-size: 12px;'> Name is required
+                    <input type="text" class="newsletter" placeholder="First Name" required formControlName='First_name' />
+                    <span *ngIf="First_name?.invalid && First_name?.touched " style='color: red;font-size: 12px;'>First Name is required
+                    </span>
+                    <input type="text" class="newsletter" placeholder="Last Name" required formControlName='Last_name' />
+                    <span *ngIf="Last_name?.invalid && Last_name?.touched " style='color: red;font-size: 12px;'>Last Name is required
                     </span>
                     <input formControlName='email' type="email" class="newsletter" placeholder="Email Address"
                       required />
                     <span *ngIf="email?.invalid && email?.touched" style='color: red;font-size: 12px;'> Email is
                       required </span>
-                    <button [disabled]="newsletter.invalid" class='align-self-end border-0 py-2 px-4 rounded'
+                    <button [disabled]="newsletter.invalid" (click)="addSubscriber()"  class='align-self-end border-0 py-2 px-4 rounded'
                       style='color: white; background-color: #ff9900;'> Submit </button>
                   </div>
                 </div>

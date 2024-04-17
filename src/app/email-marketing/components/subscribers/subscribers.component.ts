@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, ViewChild } from '@angular/core'
 import { EmailMarketingServiceService } from '../../service/email-marketing-service.service'
 import {
   MatDialog,
@@ -6,6 +6,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog'
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -38,11 +39,16 @@ export class SubscribersComponent implements OnInit {
   subscriberList: any
   list: any
   isLoading: any
+  isSubscriberSelected: boolean = false
+  currentSubscriber: any
+  statusArray: any
   public status: any = Status
+
   constructor(
     public service: EmailMarketingServiceService,
     private dialog: MatDialog,
     private fullPageLoaderService: FullPageLoaderService,
+    private formBuilder: FormBuilder,
   ) {
     // this.getSubscribers()
   }
@@ -51,9 +57,37 @@ export class SubscribersComponent implements OnInit {
     Last_name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     List_id: new FormControl(''),
+    status: new FormControl(''),
   })
 
-  openDialogs() {
+  setFormFields(subscriber?: any, listId?: any) {
+    this.subscriberForm = this.formBuilder.group({
+      First_name: new FormControl(subscriber?.name?.split(' ')[0] || '', [
+        Validators.required,
+      ]),
+      Last_name: new FormControl(subscriber?.name?.split(' ')[1] || '', [
+        Validators.required,
+      ]),
+      email: new FormControl(subscriber?.email || '', [Validators.required]),
+      List_id: new FormControl(listId?.ID || ''),
+      status: new FormControl(subscriber?.status || ''),
+    })
+  }
+
+  openDialogs(subscriber?: any) {
+    let listId = this.list?.find(
+      (elem: any) => elem?.name === subscriber?.list_and_tags,
+    )
+    if (subscriber) {
+      this.isSubscriberSelected = true
+      this.currentSubscriber = subscriber
+      this.setFormFields(subscriber, listId)
+    } else {
+      this.isSubscriberSelected = false
+      this.currentSubscriber = null
+      this.setFormFields()
+    }
+
     this.dialogRef = this.dialog.open(this.secondDialog, {
       width: '45%',
     })
@@ -80,8 +114,16 @@ export class SubscribersComponent implements OnInit {
           : this.subscriberForm.value),
       })
       .subscribe(
-        () => {
+        (res) => {
           this.isLoading = false
+          if (this.subscriberForm.value.status) {
+            this.service
+              .updateSubscriberStatus({
+                id: 4,
+                status: this.subscriberForm.value?.status,
+              })
+              .subscribe(() => {})
+          }
           Swal.fire({
             toast: true,
             text: 'Subscriber added successfully',
@@ -103,6 +145,13 @@ export class SubscribersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.status, 'ksbsbksbsbskbsi')
+    this.statusArray = Object.keys(this.status).map((key) => {
+      return {
+        value: key,
+        name: this.status[key],
+      }
+    })
     this.fullPageLoaderService.showLoader()
     if (this.listId) {
       this.getSubscribers()

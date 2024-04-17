@@ -1,8 +1,8 @@
 th{
-    padding: 20px;
+    padding: 20px !important ;
 }
 td{
-    padding: 20px;
+    padding: 20px !important ;
 }
 
 .add-btn{
@@ -12,6 +12,26 @@ td{
     color: white;;
 
 }
+
+.clickable-cell{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.clickable-cell:hover{
+    color: blue !important
+}
+
+.table-container{
+    position: relative;
+    max-height: 500px;
+    overflow: auto;
+}
+
+thead{
+    position: sticky;
+    top: 0;
+}
+
 
 .btn-cont{
     display: flex;
