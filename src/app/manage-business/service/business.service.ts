@@ -163,9 +163,9 @@ export class BusinessService {
   public updateVideo(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateVideo)
     const authToken = this.authService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body ,  {
-      headers: authToken
-    })
+    return this.http.post<any>(endpoint, body ,{headers: authToken})
   }
+
+
 
 }

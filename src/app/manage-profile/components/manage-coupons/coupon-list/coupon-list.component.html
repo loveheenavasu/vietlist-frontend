@@ -13,7 +13,7 @@
       <tr>
         <th>Coupon Title</th>
         <th>Coupon code</th>
-        <th>Description</th>
+        <!-- <th>Description</th> -->
         <th>Coupon type</th>
         <th>Coupon Value</th>
         <th>Expiry Date</th>
@@ -21,83 +21,107 @@
       </tr>
     </thead>
     <tbody>
+      @for(key of couponsArr | paginate
+      : {
+      itemsPerPage: postPerPage,
+      currentPage: currentPage,
+      totalItems: totalCount
+      }; track $index){
       <tr>
         <td style="color: #144b7c">
-          {{ 'Demo' }}
+          {{key.coupon_title}}
         </td>
         <td style="color: #144b7c">
-          {{ '1234567' }}
+          {{key.coupon_code}}
+        </td>
+        <!-- <td style="color: #144b7c">
+          {{key.coupon_desc}}
+        </td> -->
+        <td style="color: #144b7c">
+          {{key.type == 'fixed_discount' ? 'Fixed Amount' : 'Percentage Amount'}}
         </td>
         <td style="color: #144b7c">
-          {{ 'Test' }}
-        </td>
-        <td style="color: #144b7c">
-          {{ 'Demo' }}
-        </td>
-        <td style="color: #144b7c">
-          {{ '24-02-2019' }}
+          {{key.coupon_value }}
         </td>
 
         <td style="color: #144b7c">
-          {{ '25-02-2019' }}
+          {{key.expiry_date | date:'shortDate'}}
         </td>
         <td>
           <div class="d-flex">
-            <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true"></i>
+            <i class="fa fa-eye" style="cursor:pointer" aria-hidden="true" (click)="view(key)"></i>
             &nbsp;
-            <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer"></i>
+            <i class="fa fa-pencil" aria-hidden="true" style="cursor:pointer" (click)="edit(key)"></i>
             &nbsp;
-            <i style="cursor:pointer" class="fa fa-trash" aria-hidden="true"></i>
+            <i style="cursor:pointer" class="fa fa-trash" aria-hidden="true" (click)="delete(key.id)"></i>
 
           </div>
         </td>
       </tr>
-
+    }
     </tbody>
   </table>
+  <div class="row">
+    <div class="col-md-12 mt-5">
+      <pagination-controls 
+      previousLabel="Prev" 
+      nextLabel="Next" 
+      [responsive]="true" 
+      [maxSize]="4" 
+      (pageChange)="handlePageChange($event)">
+  </pagination-controls>
+    </div>
+  </div>
   </div>
   <ng-template #secondDialog>
-    <h2 class="background_section2 text-center" matDialogTitle>Add Coupon</h2>
+    <h2 class="background_section2 text-center" matDialogTitle>{{dialogData ? 'Edit Coupon' : 'Add New Coupon'}}</h2>
+    <form [formGroup]="couponForm">
     <section >
       <div class="container px-4">
         <div class="row" id="profile">
-          <form>
             <div class="mt-2">
               <div class="row my-4">
                 <div class="col-12 col-md-12 col-lg-12">
-                  <input type="text" class="input-control" placeholder="Coupon Title" />
+                  <input type="text" class="input-control" placeholder="Coupon Title" formControlName="coupon_title"/>
                 </div>
               </div>
               <div class="row my-4">
                 <div class="col-12 col-md-12 col-lg-12">
-                  <input type="text" class="input-control" placeholder="Coupon code" />
+                  <input type="text" class="input-control" placeholder="Coupon code" formControlName="coupon_code"/>
                 </div>
 
               </div>
               <div class="row my-4">
                 <div class="col-12 col-md-12 col-lg-12">
-                  <input type="text" class="input-control" placeholder="Description" />
+                  <input type="text" class="input-control" placeholder="Description" formControlName="coupon_desc"/>
                 </div>
               </div>
 
+
+              <div class="row my-4">
+                  <div class="col-12 col-md-12">
+                    <mat-select
+                    class="vietlist-select"
+                    placeholder="Coupon type"
+                    formControlName="type"
+                  >
+                    <mat-option value="fixed_discount">Fixed Discount</mat-option>
+                    <mat-option value="percentage_discount">Percentage Discount</mat-option>
+                  </mat-select>
+                  </div>
+              </div>
 
               <div class="row my-4">
                 <div class="col-12 col-md-12 col-lg-12">
-                  <input type="text" class="input-control" placeholder="Coupon Type" />
+                  <input type="text" class="input-control" placeholder="Coupon Value" formControlName="coupon_value"/>
                 </div>
               </div>
-
-              <div class="row my-4">
-                <div class="col-12 col-md-12 col-lg-12">
-                  <input type="text" class="input-control" placeholder="Coupon Value" />
-                </div>
-              </div>
-              <div class="row my-4">
+              <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                   <div class="input-group">
                     <input matInput [matDatepicker]="startdatepicker" class="input-control"
                       (click)="startdatepicker.open()" [min]="minDate"
-                      [max]="maxDate" placeholder="Expiry Date" />
+                      [max]="maxDate" placeholder="Expiry Date" formControlName="expiry_date"/>
                     <i class="fa fa-calendar-o"></i>
                     <mat-datepicker #startdatepicker></mat-datepicker>
                   </div>
@@ -110,18 +134,22 @@
                       Close
                     </button>
                     &nbsp;
-                    <button class="btn orange-background-btn-w-100" style="color: #fff">
-                      submit
+                    <button class="btn orange-background-btn-w-100" style="color: #fff" (click)="createCoupon()" [disabled]="!couponForm.valid">
+                      @if(isLoading){
+                        <app-loader></app-loader>
+                      }@else {
+                        Submit
+                      }
                     </button>
                   </div>
                 </div>
               </div>
 
             </div>
-          </form>
+          
         </div>
       </div>
     </section>
-
+  </form>
 
   </ng-template>
