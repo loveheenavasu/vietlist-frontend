@@ -5,21 +5,26 @@
 </section>
 
 <div class="koko">
-  <tabset #tabset  >
-    <tab (selectTab)="removeListId($event)"  heading="All Campaigns" id="tab1">
+  <tabset #tabset>
+    <tab (selectTab)="removeListId($event)" heading="All Campaigns" id="tab1">
       <section class="background_section">
         <div class="container">hello</div>
       </section>
     </tab>
     <tab (selectTab)="removeListId($event)" heading="New Campaigns" id="tab2">
       <section class="background_section">
-        <div class="container">hello</div>
+        <div class="container">
+          <app-new-campaign
+          [lists]='lists'
+          ></app-new-campaign>
+        </div>
       </section>
     </tab>
     <tab (selectTab)="removeListId($event)" heading="Lists" id="tab3" #tab3>
       <section class="background_section">
         <div class="container">
           <app-list
+          [lists]='lists'
             (navigateToTabs)="navigateToTabs($event)"
             (setListId)="setListId($event)"
           >
@@ -27,12 +32,10 @@
         </div>
       </section>
     </tab>
-    <tab  (selectTab)="removeListId($event)"  heading="Subscribers" id="tab4">
+    <tab (selectTab)="removeListId($event)" heading="Subscribers" id="tab4">
       <section *ngIf="tabset?.tabs?.[3]?.active" class="background_section">
         <div class="container">
-          <app-subscribers
-            [listId]="listId"
-          ></app-subscribers>
+          <app-subscribers [listId]="listId"></app-subscribers>
         </div>
       </section>
     </tab>

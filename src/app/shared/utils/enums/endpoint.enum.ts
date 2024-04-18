@@ -103,4 +103,6 @@ export enum Endpoints {
   GetCoupons = 'get_all_business_coupon',
   DeleteCoupon = 'delete_business_coupon',
   UpdateCoupon = 'update_business_coupon',
+  GetAllTemplate = 'get_all_template',
+  CreateNewCampaign = 'create_new_campaign',
 }

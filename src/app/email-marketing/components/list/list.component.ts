@@ -1,5 +1,6 @@
 import {
   Component,
+  Input,
   OnInit,
   Output,
   TemplateRef,
@@ -46,9 +47,9 @@ export class ListComponent implements OnInit {
   dialogRef: MatDialogRef<any> | null = null
   @Output() navigateToTabs = new EventEmitter<any>()
   @Output() setListId = new EventEmitter<any>()
+  @Input() lists: any
   public isNameExist: boolean = false
   public isLoading: boolean = false
-  lists: any
   currentList: any
   isListSelected: boolean = false
   constructor(
@@ -57,7 +58,7 @@ export class ListComponent implements OnInit {
     private fullPageLoaderService: FullPageLoaderService,
     private formBuilder: FormBuilder,
   ) {
-    this.getAllList()
+    // this.getAllList()
   }
 
   start_details = {
@@ -68,25 +69,25 @@ export class ListComponent implements OnInit {
     bounces: 0,
   }
 
-  getAllList() {
-    this.service.GetAllList().subscribe(
-      (res) => {
-        this.lists = res?.data
-      },
-      (err) => {
-        Swal.fire({
-          toast: true,
-          text: 'Failed to fetch list',
-          animation: false,
-          icon: 'error',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-      },
-    )
-  }
+  // getAllList() {
+  //   this.service.GetAllList().subscribe(
+  //     (res) => {
+  //       this.lists = res?.data
+  //     },
+  //     (err) => {
+  //       Swal.fire({
+  //         toast: true,
+  //         text: 'Failed to fetch list',
+  //         animation: false,
+  //         icon: 'error',
+  //         position: 'top-right',
+  //         showConfirmButton: false,
+  //         timer: 3000,
+  //         timerProgressBar: true,
+  //       })
+  //     },
+  //   )
+  // }
   listForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -128,7 +129,7 @@ export class ListComponent implements OnInit {
       (res) => {
         this.isLoading = false
         this.isNameExist = false
-        this.getAllList()
+        // this.getAllList()
         Swal.fire({
           toast: true,
           text: 'List Created Successfully!',

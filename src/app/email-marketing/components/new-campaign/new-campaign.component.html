@@ -1,0 +1,143 @@
+<!-- <section class="banner">
+    <div class="content">
+      <h1>Showcase Your Business</h1>
+    </div>
+  </section> -->
+<div class="container my-5">
+  <div class="main-card">
+    <form [formGroup]="campaignForm">
+      <section class="my-4">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="listing-form-heading">Add New Campaign</h1>
+          </div>
+        </div>
+        <!-- <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Package <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1"
+                >Free Business: number of publish days are unlimited
+                (Free)</mat-radio-button
+              >
+              <mat-radio-button value="2"> Paid</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div> -->
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Campaign Title <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input class="input-control" formControlName="post_title" />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Subject <span class="asterik">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <!-- <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="6"
+                placeholder="Enter the business description"
+                formControlName="post_content"
+              ></textarea> -->
+            <input class="input-control" formControlName="_mailster_subject" />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >From Name <span class="asterik">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              formControlName="_mailster_from_name"
+            />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >From Email <span class="asterik">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              formControlName="_mailster_from_email"
+            />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Reply-to Email<span class="asterik">*</span>
+            </label>
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input class="input-control" formControlName="_mailster_reply_to" />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Recivers <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-select
+              class="vietlist-select"
+              placeholder="Lists"
+              formControlName="_mailster_lists"
+              multiple
+            >
+              @for (list of lists; track $index) {
+                <mat-option [value]="list?.ID">{{ list?.name }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Template <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-select class="vietlist-select" formControlName="post_content" placeholder="Template" (selectionChange)="onChangeSelect()" >
+              @for (template of templates; track $index) {
+                <mat-option [value]="template?.src">{{ template?.name }}</mat-option>
+              }
+            </mat-select>
+          </div>
+        </div>
+        @if (this.campaignForm.value?.post_content) {
+            <iframe [src]='safeSrc' width="100%" height="600px"></iframe>
+        }
+      </section>
+
+      <button
+        type="button"
+        class="btn orange-background-btn ms-auto"
+        [disabled]="!campaignForm.valid"
+        (click)="addcampaign()"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

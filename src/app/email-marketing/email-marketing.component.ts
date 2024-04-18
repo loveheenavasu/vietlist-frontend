@@ -3,11 +3,20 @@ import { TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs'
 import { ListComponent } from './components/list/list.component'
 import { SubscribersComponent } from './components/subscribers/subscribers.component'
 import { CommonModule } from '@angular/common'
+import { NewCampaignComponent } from './components/new-campaign/new-campaign.component'
+import { EmailMarketingServiceService } from './service/email-marketing-service.service'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-email-marketing',
   standalone: true,
-  imports: [TabsModule, ListComponent, SubscribersComponent, CommonModule],
+  imports: [
+    TabsModule,
+    ListComponent,
+    SubscribersComponent,
+    CommonModule,
+    NewCampaignComponent,
+  ],
   templateUrl: './email-marketing.component.html',
   styleUrl: './email-marketing.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -15,7 +24,10 @@ import { CommonModule } from '@angular/common'
 export class EmailMarketingComponent {
   @ViewChild('tabset') tabset?: TabsetComponent
   public listId: number = 0
-  constructor() {}
+  public lists: any
+  constructor(public service: EmailMarketingServiceService) {
+    this.getAllList()
+  }
 
   navigateToTabs(tabIndex: any) {
     if (this.tabset) {
@@ -34,5 +46,25 @@ export class EmailMarketingComponent {
     if (tab.heading !== 'Subscribers') {
       this.listId = 0
     }
+  }
+
+  getAllList() {
+    this.service.GetAllList().subscribe(
+      (res) => {
+        this.lists = res?.data
+      },
+      (err) => {
+        Swal.fire({
+          toast: true,
+          text: 'Failed to fetch list',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+      },
+    )
   }
 }

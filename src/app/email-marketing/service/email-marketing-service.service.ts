@@ -94,4 +94,25 @@ export class EmailMarketingServiceService {
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
+  public GetAllTemplate(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllTemplate)
+
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+
+  public CreateNewCampaign(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CreateNewCampaign)
+    const formData = new FormData()
+    formData.append('post_title', body?.post_title)
+    formData.append('post_content', body?.post_content)
+    formData.append('_mailster_subject', body?._mailster_subject)
+    formData.append('_mailster_from_name', body?._mailster_from_name)
+    formData.append('_mailster_from_email', body?._mailster_from_email)
+    formData.append('_mailster_reply_to', body?._mailster_reply_to)
+    formData.append('_mailster_lists', body?._mailster_lists)
+
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
+  }
 }
