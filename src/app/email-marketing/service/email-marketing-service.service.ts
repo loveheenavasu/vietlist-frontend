@@ -70,12 +70,12 @@ export class EmailMarketingServiceService {
   public addSubscriber(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AddSubscriber)
     const formData = new FormData()
-    formData.append('First_name', body?.First_name)
-    formData.append('Last_name', body?.Last_name)
+    formData.append('first_name', body?.First_name)
+    formData.append('last_name', body?.Last_name)
     formData.append('email', body?.email)
     // formData.append('status', '1')
     if (body?.List_id) {
-      formData.append('List_id', body?.List_id)
+      formData.append('list_id', body?.List_id)
     }
 
     // const authToken = this.authService.getAuthHeaders()
@@ -89,7 +89,7 @@ export class EmailMarketingServiceService {
     )
     const formData = new FormData()
     formData.append('subscription_id', body?.id)
-    formData.append('subscription_status', body?.status)
+    formData.append('subscription_status', body?.status?.toLowerCase())
 
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, formData, { headers: authToken })

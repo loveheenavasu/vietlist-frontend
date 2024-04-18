@@ -105,6 +105,17 @@ export class SubscribersComponent implements OnInit {
     )
   }
 
+  updateSubscriberStatus(id: number) {
+    if (this.subscriberForm.value.status) {
+      this.service
+        .updateSubscriberStatus({
+          id,
+          status: this.subscriberForm.value?.status,
+        })
+        .subscribe(() => {})
+    }
+  }
+
   addSubscriber() {
     this.isLoading = true
     this.service
@@ -116,14 +127,7 @@ export class SubscribersComponent implements OnInit {
       .subscribe(
         (res) => {
           this.isLoading = false
-          if (this.subscriberForm.value.status) {
-            this.service
-              .updateSubscriberStatus({
-                id: 4,
-                status: this.subscriberForm.value?.status,
-              })
-              .subscribe(() => {})
-          }
+
           Swal.fire({
             toast: true,
             text: 'Subscriber added successfully',
@@ -134,6 +138,7 @@ export class SubscribersComponent implements OnInit {
             timer: 3000,
             timerProgressBar: true,
           })
+          this.updateSubscriberStatus(res?.subscriber_id)
           if (this.dialogRef) {
             this.dialogRef.close()
           }
