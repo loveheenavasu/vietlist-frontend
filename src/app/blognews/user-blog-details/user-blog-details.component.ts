@@ -189,7 +189,6 @@ export class UserBlogDetailsComponent {
   public async getIPAddress(): Promise<string> {
     try {
       const res: any = await firstValueFrom(this.IpService.getIPAddress());
-      console.log("RESPONSEEE", res.ip)
       this.ipAddress = res.ip
       this.showAdBlogPage()
       return res.ip;

@@ -63,7 +63,6 @@ export class BusinessCategories {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
-        console.log(this.businessCategoriesArray, 'RESPONSE')
       },
     })
   }
@@ -78,7 +77,6 @@ export class BusinessCategories {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.post_category = res.data
-        console.log(this.post_category, "check cat---")
       },
       error: (err) => { },
     })

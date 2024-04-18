@@ -17,7 +17,6 @@ export class ResourceDetailComponent {
     private loaderService: FullPageLoaderService,
   ) {
     this._activatedRoute.params.subscribe((res) => {
-      console.log(res['id'], 'res[id]')
       this.resourceId = res['id']
     })
     this.getResourceDetails()
@@ -30,7 +29,6 @@ export class ResourceDetailComponent {
     this.homeService.getResourceDetails(this.resourceId).subscribe({
       next: (res: any) => {
         if (res) {
-          console.log(res?.data, 'res?.data')
           this.resourceDetails = res?.data
           this.loaderService.hideLoader()
         }

@@ -75,7 +75,6 @@ export class ResourcesComponent {
   }
 
   public gotToEventDetails(id: any) {
-    // level id 3 is elite
     if (this.activeTab !== 'e-books' || this.userDetails?.level_id === '3') {
       this.router.navigate(['resource-details', id])
     }
@@ -127,14 +126,12 @@ export class ResourcesComponent {
       .getResources(this.postPerPage, this.currentPage, this.activeTab)
       .subscribe({
         next: (res: any) => {
-          console.log(res, 'resorcearr2')
           this.cdr.detectChanges()
           this.fullPageLoaderService.hideLoader()
           const currentDate: any =
             this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
 
           this.resourceArr2 = []
-          console.log(currentDate, 'currentdate')
           res?.data.forEach((item: any) => {
             if (item.webinar_date > currentDate) {
               this.resourceArr2.push(item)
