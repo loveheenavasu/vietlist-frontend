@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { WebinarRegistrationComponent } from '../webinar-registration/webinar-registration.component'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
   selector: 'app-resources',
@@ -47,12 +48,15 @@ export class ResourcesComponent {
   public resource_category = new FormControl('')
   public activeTab: any = 'articles'
   public isWebinarView: boolean = false
+  public userDetails: any
+
   constructor(
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private homeservice: HomepageService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
+    private profileService:ProfileService
   ) {
     this.getResourcesData(this.activeTab)
   }
@@ -70,10 +74,11 @@ export class ResourcesComponent {
     this.selectedLayout = layout
   }
 
-  public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
-    })
+  public gotToEventDetails(id: any) {
+    // level id 3 is elite
+    if (this.activeTab !== 'e-books' || this.userDetails?.level_id === '3') {
+      this.router.navigate(['resource-details', id])
+    }
   }
 
   public onTabClick(tab: any) {
@@ -163,6 +168,17 @@ export class ResourcesComponent {
       if (res) {
         // this.resourceArr2 = []; // Reset array before fetching new data
       }
+    })
+  }
+
+  public fetchProfileDetail() {
+    this.profileService.userDetails().subscribe({
+      next: (res) => {
+        this.userDetails = res.data?.user
+      },
+      error: (err: any) => {
+        // this.loaderService.hideLoader()
+      },
     })
   }
 }

@@ -211,7 +211,7 @@ export class CouponListComponent {
     }
     console.log(this.dialogData, 'dialogdata')
     this.dialogRef = this.dialog.open(this.secondDialog, {
-      width: this.dialogWidth,
+      width: '45%',
     })
   }
 

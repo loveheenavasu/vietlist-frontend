@@ -162,8 +162,8 @@ export class HomepageService {
   }
   public getResourceDetails(resource_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ResourceDetail)
+    const authToken = this.sessionService.getAuthHeaders()
     let params = new HttpParams().set('resource_id', resource_id)
-
-    return this.http.get<any>(endpoint, { params: params })
+    return this.http.get<any>(endpoint, {headers:authToken , params: params })
   }
 }
