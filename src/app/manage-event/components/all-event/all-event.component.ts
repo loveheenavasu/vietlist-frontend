@@ -289,7 +289,7 @@ export class AllEventComponent {
         this.fullPageLoaderService.hideLoader();
         this.publishEventsArray = res.data;
         this.totalCount = res.total_count;
-        console.log(this.totalCount , "total_count")
+       
         this.calculateTotalPages();
       },
       error: (err: any) => {
@@ -357,7 +357,6 @@ export class AllEventComponent {
 
   handlePageChange(event: number): void {
     this.currentPage = event;
-     console.log(this.isSearching,'isSearching')
 
     if (this.isSearching) {
       this.searchBusiness();

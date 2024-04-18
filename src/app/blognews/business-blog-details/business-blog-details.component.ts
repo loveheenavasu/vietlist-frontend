@@ -470,7 +470,6 @@ export class BusinessBlogDetailsComponent {
 
   }
   public getComments() {
-    console.log('check function')
     setTimeout(() => {
       this.homeService.getBlogComment(this.blogId).subscribe({
         next: (res: any) => {
@@ -478,10 +477,8 @@ export class BusinessBlogDetailsComponent {
           this.commentArr = res?.data;
           const lastIndex = this.commentArr.length - 1;
           this.lastElement = this.commentArr[lastIndex];
-          console.log(res, 'getComments API response');
         },
         error: (err: any) => {
-          console.error('Error fetching comments:', err);
         },
       });
     }, 2000)

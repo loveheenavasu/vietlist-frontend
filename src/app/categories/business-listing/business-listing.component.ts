@@ -61,7 +61,7 @@ export class BusinessListingComponent {
   ) {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
-      console.log("check global", this.isGlobal)
+     
     })
   }
 
