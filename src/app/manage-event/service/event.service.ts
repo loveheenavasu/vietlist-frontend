@@ -150,4 +150,17 @@ export class EventService {
     const params = new HttpParams().set('post_id', post_id)
     return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
+
+  public applCoupon(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.ApplyCoupon)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body , { headers: authToken})
+  }
+
+  public updateEventBooking(body:any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateEventBooking)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body , { headers: authToken})
+  }
+
 }

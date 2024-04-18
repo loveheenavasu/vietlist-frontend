@@ -423,9 +423,10 @@ export class EventDetailsComponent {
   public dateFilter: DateFilterFn<Date | null> = (date: Date | null) => {
     if (date !== null) {
       const selectedTimestamp = date.getTime() // Get timestamp of selected date
-      const startDateString = this.eventDetails?.event_dates.start_date
-      const endDateString = this.eventDetails?.event_dates.end_date
-
+      // const startDateString = this.eventDetails?.event_dates.start_date
+      // const endDateString = this.eventDetails?.event_dates.end_date
+      const startDateString = this.eventDetails?.booking_start_date
+      const endDateString = this.eventDetails?.booking_end_date
       if (startDateString && endDateString) {
         const startDate = new Date(startDateString)
         const endDate = new Date(endDateString)

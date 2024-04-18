@@ -1,3 +1,4 @@
+import { LoaderComponent } from './../../common-ui/loader/loader.component'
 import { PlansService } from '../service/plan.service'
 import {
   Component,
@@ -5,7 +6,12 @@ import {
   ViewChild,
   ChangeDetectorRef,
 } from '@angular/core'
-import { NgForm, FormsModule } from '@angular/forms'
+import {
+  NgForm,
+  FormsModule,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AngularStripeService } from '@fireflysemantics/angular-stripe-service'
 import {
@@ -22,7 +28,14 @@ import { EventService } from 'src/app/manage-event/service/event.service'
 @Component({
   selector: 'app-confirm-payment',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf, CommonModule],
+  imports: [
+    FormsModule,
+    NgFor,
+    NgIf,
+    CommonModule,
+    ReactiveFormsModule,
+    LoaderComponent,
+  ],
   templateUrl: './confirm-payment.component.html',
   styleUrl: './confirm-payment.component.scss',
 })
@@ -44,11 +57,15 @@ export class ConfirmPaymentComponent {
   public paymentIntent: any
   public paymentMethod: any
   public billingDetails: any
-  public billingAddressValid: boolean = false; // Add this line
+  public billingAddressValid: boolean = false // Add this line
   public bookingData: any
   public eventPrice: any
   public eventIds: any
   public numberOfBooking: any
+  public coupon_code = new FormControl('')
+  public appliedCouponResponse: any
+  public isApplyCoupon: boolean = false
+
 
   constructor(
     private stripeService: AngularStripeService,
@@ -61,16 +78,17 @@ export class ConfirmPaymentComponent {
     private profileServie: ProfileService,
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
-    private authService:AuthenticationService
+    private authService: AuthenticationService,
   ) {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.eventIds = params
 
-    });
+      console.log(this.eventIds, 'eventId')
+      this.getEventDetails()
+    })
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()
     })
-
   }
 
   ngOnInit() {
@@ -84,7 +102,6 @@ export class ConfirmPaymentComponent {
     }
     this.getBillingDetails()
   }
-
 
   getBillingDetails() {
     // this.fullPageLoader.showLoader()
@@ -115,8 +132,8 @@ export class ConfirmPaymentComponent {
               // this.billingAddressElements = elements.create(
               //   'address',
               //   billingAddressOptions,
-              this.billingAddressElements = elements.create("address", {
-                mode: "shipping",
+              this.billingAddressElements = elements.create('address', {
+                mode: 'shipping',
 
                 defaultValues: {
                   name: this.billingDetails?.pmpro_bfirstname,
@@ -137,24 +154,21 @@ export class ConfirmPaymentComponent {
                   //   country: this.billingAddress?.pmpro_bcountry,
                   // },
                 },
-              });
-              this.billingAddressElements.mount('#billing-address-element');
+              })
+              this.billingAddressElements.mount('#billing-address-element')
               this.billingAddressElements.mount(
                 this.billingAddressElement.nativeElement,
               )
               this.billingAddressElements.on('change', (event: any) => {
                 this.billingAddress = event.value
-                this.billingAddressValid = !!event.complete;
+                this.billingAddressValid = !!event.complete
               })
               this.stripe = stripe
             })
-
         }
-      }
+      },
     })
-
   }
-
 
   ngAfterViewInit() {
     this.stripeService
@@ -180,8 +194,8 @@ export class ConfirmPaymentComponent {
         //   'address',
 
         //   billingAddressOptions,
-        this.billingAddressElements = elements.create("address", {
-          mode: "shipping",
+        this.billingAddressElements = elements.create('address', {
+          mode: 'shipping',
 
           defaultValues: {
             name: this.billingDetails?.pmpro_bfirstname,
@@ -191,7 +205,7 @@ export class ConfirmPaymentComponent {
               city: this.billingDetails?.pmpro_bcity,
               state: this.billingDetails?.pmpro_bstate,
               postal_code: this.billingDetails?.pmpro_bzipcode,
-              country: this.billingDetails?.pmpro_bcountry
+              country: this.billingDetails?.pmpro_bcountry,
             },
             // address: {
             // line1: 'demoggfghf',
@@ -202,23 +216,19 @@ export class ConfirmPaymentComponent {
             // country: this.billingAddress?.pmpro_bcountry,
             // },
           },
-        });
+        })
 
-        this.billingAddressElements.mount('#billing-address-element');
-
-
+        this.billingAddressElements.mount('#billing-address-element')
 
         this.billingAddressElements.mount(
           this.billingAddressElement.nativeElement,
         )
         this.billingAddressElements.on('change', (event: any) => {
           this.billingAddress = event.value
-          this.billingAddressValid = !!event.complete;
+          this.billingAddressValid = !!event.complete
         })
         this.stripe = stripe
       })
-
-
   }
   public getPaymentIntent() {
     this.loaderService.showLoader()
@@ -227,7 +237,7 @@ export class ConfirmPaymentComponent {
         this.loaderService.hideLoader()
         this.paymentIntent = res.client_secret
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
@@ -239,7 +249,6 @@ export class ConfirmPaymentComponent {
     }
     this.cd.detectChanges()
   }
-
 
   async onSubmit(form: NgForm) {
     if (form.invalid || !this.billingAddressValid) {
@@ -254,7 +263,7 @@ export class ConfirmPaymentComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-      return;
+      return
     }
     const { setupIntent, error } = await this.stripe.confirmCardSetup(
       this.paymentIntent,
@@ -320,23 +329,69 @@ export class ConfirmPaymentComponent {
     })
   }
 
-
   /************* API FOR BOOKING AN EVENT ************/
+
+  public getEventDetails() {
+    this.eventService
+      .getEventDetailsByPostId(this.eventIds?.eventId)
+      .subscribe({
+        next: (res) => {
+          this.eventPrice = res?.data[0]?.price
+          console.log(this.eventPrice, res, 'Event Price')
+        },
+      })
+  }
+
+  public applyCoupon() {
+    this.isApplyCoupon = true
+    const body = {
+      coupon_code: this.coupon_code.value,
+      event_price: this.eventPrice,
+      event_id: this.eventIds?.eventId,
+    }
+    this.eventService.applCoupon(body).subscribe({
+      next: (res) => {
+        this.isApplyCoupon = false
+        if (res) {
+          this.updateEventBooking()
+        }
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.appliedCouponResponse = res?.data?.discount_price
+        const body = {
+          booking_id: this.eventIds.bookingId,
+          booking_price: this.appliedCouponResponse,
+        }
+        this.eventService.updateEventBooking(body).subscribe({
+          next: (res) => {},
+        })
+      },
+      error: (err) => {
+        this.isApplyCoupon = false
+      },
+    })
+  }
+
+  public updateEventBooking() {}
 
   //API TO CREATE BOOKING INTENT//
   public createBookingIntent() {
-
     this.eventService.createPaymentIntentForBooking().subscribe({
       next: (res: any) => {
-
         if (res) {
           this.bookingPaymentIntent = res?.client_secret
         }
         console.log(res, this.bookingPaymentIntent)
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
 
@@ -345,6 +400,9 @@ export class ConfirmPaymentComponent {
     const body = {
       booking_id: this.eventIds?.bookingId,
       event_id: this.eventIds?.eventId,
+      event_price: this.appliedCouponResponse
+        ? this.appliedCouponResponse
+        : this.eventPrice,
       number_of_booking: parseInt(this.eventIds?.numberOfBooking),
       pm_data: {
         id: this.paymentMethod?.payment_method,
@@ -368,7 +426,7 @@ export class ConfirmPaymentComponent {
       },
       error: (err) => {
         this.loaderService.hideLoader()
-      }
+      },
     })
   }
 
@@ -376,7 +434,7 @@ export class ConfirmPaymentComponent {
     this.profileServie.userDetails().subscribe({
       next: (res) => {
         this.authService.userDetailResponse.next(res?.data?.user)
-        console.log(res , "ResponseAppComponent")
+        console.log(res, 'ResponseAppComponent')
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
