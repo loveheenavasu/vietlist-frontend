@@ -29,7 +29,6 @@ export class EmailMarketingComponent {
 
   removeListId(tab: any) {
     if (this.tabset) {
-      console.log(this.tabset.tabs[3]?.active, 'tabset.tabs[3]?.active')
     }
     console.log('object', tab)
     if (tab.heading !== 'Subscribers') {
