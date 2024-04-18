@@ -1,3 +1,4 @@
+import { LoaderComponent } from 'src/app/common-ui';
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
@@ -45,7 +46,8 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    AutocompleteComponent
+    AutocompleteComponent,
+    LoaderComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -73,7 +75,7 @@ export class HeaderComponent {
   public isDropdownActiveEvent: boolean = false;
   public notificationsArr: any[] = []
   private notificationIntervalSubscription!: Subscription;
-
+  public isNotificationLoading:boolean = false;
   public roles = Roles
   public userInfo: any
   public offsetFlag!: boolean
@@ -101,6 +103,10 @@ export class HeaderComponent {
   
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
+      if(this.isAuthenticated){
+        this.getNotifications()
+        this.startNotificationInterval()
+      }
     })
 
     this.sessionservice.userRole.subscribe((res) => {
@@ -383,11 +389,13 @@ export class HeaderComponent {
 
   notificationsDetails: any;
   public getNotifications() {
+    this.isNotificationLoading = true
     const body = {
       "limit": 10
     }
     this.homeService.getNotification(body).subscribe({
-      next: (res: any) => {
+      next: (res: any) => { 
+        this.isNotificationLoading = false
         this.notificationsDetails = res.total_count
         this.notificationsArr = res.data
 

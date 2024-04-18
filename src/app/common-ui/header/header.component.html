@@ -245,6 +245,9 @@
               <button class="btn" style="background-color: orange;color:#fff;border-radius:2px;width:100%;"
                 (click)="navigatetoNotifications()">View All</button>
               }
+              <!-- @if(isNotificationLoading){
+                <app-loader></app-loader>
+              } -->
               @if(!notificationsArr.length){
               <p style="font-size: 15px;text-align: center;"> You don't have any notifications!</p>
               }
