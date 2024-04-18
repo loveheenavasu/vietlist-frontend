@@ -180,7 +180,7 @@ export class BusinessblogsComponent {
     }
     this.businessBlog.setStats(body).subscribe({
       next: (res: any) => {
-        console.log(res)
+
       },
       error: (err) => {
 

@@ -55,10 +55,9 @@ export class FooterComponent {
     }
     this.footerContent.EmailSubscribeNewsletter(body).subscribe({
       next: (res: any) => {
-        console.log('check subscribe mail', res)
       },
       error: (err: any) => {
-        console.log('error in subscribe email', err)
+
       },
     })
   }

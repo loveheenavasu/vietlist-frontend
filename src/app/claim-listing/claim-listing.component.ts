@@ -123,10 +123,8 @@ export class ClaimListingComponent {
       Verification_upload: this.imageUrl,
       // country_code: this.claimBusinessForm.value?.phone_number?.dialCode,
     }
-    console.log("check form data", body)
     this.claimService.claimBusiness(body).subscribe({
       next: (res) => {
-        console.log("form data", res)
         this.loader = false
         if (!res.status) {
           Swal.fire({

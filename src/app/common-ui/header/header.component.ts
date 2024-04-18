@@ -138,7 +138,6 @@ export class HeaderComponent {
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
-    console.log("isAuth", this.isAuthenticated)
     if (this.isAuthenticated) {
       this.startNotificationInterval()
       this.fetchProfileDetail()
@@ -227,7 +226,7 @@ export class HeaderComponent {
       this.userRole == Roles.businessOwner &&
       !this.subscriptionStatus
     ) {
-      // console.log("check2")
+
       Swal.fire({
         toast: true,
         text: 'Please choose plan',
@@ -265,7 +264,6 @@ export class HeaderComponent {
 
 
   public onLogout() {
-    console.log('test log')
     this.isAuthenticated = false
     this.sessionservice.clearAuthentication()
     this.router.navigate(['/']);

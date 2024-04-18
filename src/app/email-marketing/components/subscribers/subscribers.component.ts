@@ -150,7 +150,6 @@ export class SubscribersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.status, 'ksbsbksbsbskbsi')
     this.statusArray = Object.keys(this.status).map((key) => {
       return {
         value: key,
