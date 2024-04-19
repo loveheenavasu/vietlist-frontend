@@ -112,7 +112,9 @@ export class SubscribersComponent implements OnInit {
           id,
           status: this.subscriberForm.value?.status,
         })
-        .subscribe(() => {})
+        .subscribe(() => {
+          this.getSubscribers()
+        })
     }
   }
 

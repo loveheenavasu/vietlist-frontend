@@ -1,5 +1,5 @@
-import { status } from './../../helper/index';
-import { Component, OnInit } from '@angular/core'
+import { status } from './../../helper/index'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { EmailMarketingServiceService } from '../../service/email-marketing-service.service'
 import { CommonModule } from '@angular/common'
 import { FullPageLoaderService } from '@vietlist/shared'
@@ -11,39 +11,33 @@ import { FullPageLoaderService } from '@vietlist/shared'
   styleUrl: './all-campaign.component.scss',
 })
 export class AllCampaignComponent implements OnInit {
-  public campaigns: any
+  @Input() campaigns: any
+  @Output() GetAllCampaign = new EventEmitter<any>()
   constructor(
     public service: EmailMarketingServiceService,
     private fullPageLoaderService: FullPageLoaderService,
   ) {}
 
   ngOnInit(): void {
-    this.GetAllCampaign()
+    this.GetAllCampaign.emit()
   }
 
-  GetAllCampaign() {
+  statusPayload: any = {
+    active: 'paused',
+    paused: 'active',
+  }
+
+  updateStatus(id: any, status: any) {
     this.fullPageLoaderService.showLoader()
-    this.service.GetAllCampaign().subscribe({
-      next:(res)=>{
-        console.log(res , "campaign list")
-        this.fullPageLoaderService.hideLoader()
-        this.campaigns = res?.data
-      },
-      error:(err)=>{
-        this.fullPageLoaderService.hideLoader()
-      }
-    })
-  }
-
-  updateStatus(id:any,status:any) {
     this.service
-      .UpdateCampaignStatus({ id , status })
+      .UpdateCampaignStatus({ id, status: this.statusPayload[status] })
       .subscribe({
         next: (data) => {
+          this.fullPageLoaderService.hideLoader()
           console.log(data, 'res1')
           console.log(data, 'res1')
           if (data) {
-            this.GetAllCampaign()
+            this.GetAllCampaign.emit()
           }
         },
         error: () => {
@@ -52,28 +46,28 @@ export class AllCampaignComponent implements OnInit {
       })
   }
 
-  // public getResourcesData(tab: any): void {
-  //   this.fullPageLoaderService.showLoader()
-  //   this.homeservice
-  //     .getResources(this.postPerPage, this.currentPage, tab)
-  //     .subscribe({
-  //       next: (res: any) => {
-  //         this.fullPageLoaderService.hideLoader()
-  //         this.resourceArr = res.data
-  //         this.totalCount = res.total_count
-  //       },
-  //       error: (err: any) => {
-  //         this.fullPageLoaderService.hideLoader()
-  //       },
-  //     })
-  // }
-
   statusIconName: any = {
     finished: ['circle-check', 'Finished'],
     paused: ['circle-stop', 'Paused'],
+    active: ['envelope', 'progressing...'],
+  }
+
+  getColor(status: string) {
+    switch (status) {
+      case 'paused':
+        return 'text-warning'
+        break
+      case 'finished':
+        return 'text-success'
+        break
+
+      default:
+        return 'text-muted'
+        break
+    }
   }
 
   showStatusWithIcon(status: string) {
-    return ` <i class="fa-regular fa-${this.statusIconName[status][0]}"></i> ${this.statusIconName[status][1]}`
+    return `<i class="fa-regular fa-${this.statusIconName[status]?.[0]} ${this.getColor(status)} "></i> ${this.statusIconName[status]?.[1]}`
   }
 }

@@ -9,7 +9,10 @@
     <tab (selectTab)="removeListId($event)" heading="All Campaigns" id="tab1">
       <section class="background_section">
         <div class="container">
-          <app-all-campaign></app-all-campaign>
+          <app-all-campaign
+          (GetAllCampaign)="GetAllCampaign()"
+          [campaigns]='campaigns'
+          ></app-all-campaign>
         </div>
       </section>
     </tab>
@@ -17,6 +20,8 @@
       <section class="background_section">
         <div class="container">
           <app-new-campaign
+          (navigateToTabs)="navigateToTabs($event)"
+          (GetAllCampaign)="GetAllCampaign()"
           [lists]='lists'
           ></app-new-campaign>
         </div>
@@ -29,6 +34,7 @@
           [lists]='lists'
             (navigateToTabs)="navigateToTabs($event)"
             (setListId)="setListId($event)"
+            (getAllList)="getAllList()"
           >
           </app-list>
         </div>

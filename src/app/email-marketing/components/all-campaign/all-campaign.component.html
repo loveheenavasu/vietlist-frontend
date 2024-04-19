@@ -17,32 +17,39 @@
     </thead>
     <tbody>
       <tr *ngFor="let campaign of campaigns">
-        <td >
-            {{campaign?.post_title || '--' }}
+        <td>
+          {{ campaign?.post_title || '--' }}
         </td>
-        <td >
-            <div class="status-btn">
-                <span [innerHTML]="showStatusWithIcon(campaign?.post_status)" >  </span>
-                <button (click)="updateStatus(campaign.campaign_id , campaign.post_status)" > start </button>
-            </div>
+        <td>
+          <div class="status-btn">
+            <span [innerHTML]="showStatusWithIcon(campaign?.post_status)">
+            </span>
+            @if (campaign?.post_status !== 'finished') {
+              <button
+                (click)="
+                  updateStatus(campaign.campaign_id, campaign.post_status)
+                "
+              >
+                {{ campaign.post_status == 'active' ? 'pause' : 'start' }}
+              </button>
+            }
+          </div>
         </td>
-        <td >
-            {{campaign?.totals ?? '--' }}
+        <td>
+          {{ campaign?.totals ?? '--' }}
         </td>
-        <td >
-            {{campaign?.opens ?? '--' }} / {{campaign?.sent}}
+        <td>{{ campaign?.opens ?? '--' }} / {{ campaign?.sent }}</td>
+        <td>
+          {{ campaign?.clicks ?? '--' }}
         </td>
-        <td >
-            {{campaign?.clicks ?? '--' }}
+        <td>
+          {{ campaign?.unsubs ?? '--' }}
         </td>
-        <td >
-            {{campaign?.unsubs ?? '--' }}
+        <td>
+          {{ campaign?.bounces ?? '--' }}
         </td>
-        <td >
-            {{campaign?.bounces ?? '--' }}
-        </td>
-        <td >
-            {{ service.formatDate(campaign?.timestamp) || '--' }}
+        <td  >
+          {{ service.formatDate(campaign?.timestamp) || '--' }}
         </td>
       </tr>
     </tbody>

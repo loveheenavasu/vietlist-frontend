@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core'
 import { EmailMarketingServiceService } from '../../service/email-marketing-service.service'
 import { MatSelectModule } from '@angular/material/select'
 import { CommonModule } from '@angular/common'
@@ -10,6 +16,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
+import { FullPageLoaderService } from '@vietlist/shared'
 @Component({
   selector: 'app-new-campaign',
   standalone: true,
@@ -19,19 +26,19 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'
 })
 export class NewCampaignComponent {
   @Input() lists: any
+  @Output() navigateToTabs = new EventEmitter<any>()
+  @Output() GetAllCampaign = new EventEmitter<any>()
+
   safeSrc?: SafeResourceUrl
   constructor(
     public service: EmailMarketingServiceService,
     private _formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef,
     private sanitizer: DomSanitizer,
+    private loader: FullPageLoaderService,
   ) {
     this.service.GetAllTemplate().subscribe((res) => {
       this.templates = Object.values(res?.data?.templates)
-      console.log(
-        Object.values(res?.data?.templates),
-        'Object.values(res?.data?.templates)',
-      )
     })
     this.campaignForm = this._formBuilder.group({
       post_title: ['', Validators.required],
@@ -50,13 +57,18 @@ export class NewCampaignComponent {
   campaignForm: FormGroup
   templates: any
 
-  // public onCategoryChange() {
-  //   this.categoriesValue = this.campaignForm.value._mailster_lists
-  //   // this.getDefaultCat()
-  // }
-
   addcampaign() {
-    this.service.CreateNewCampaign(this.campaignForm.value).subscribe(() => {})
+    this.loader.showLoader()
+    this.service.CreateNewCampaign(this.campaignForm.value).subscribe(
+      () => {
+        this.loader.hideLoader()
+        this.GetAllCampaign.emit()
+        this.navigateToTabs.emit(0)
+      },
+      () => {
+        this.loader.hideLoader()
+      },
+    )
   }
   onChangeSelect() {
     this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(

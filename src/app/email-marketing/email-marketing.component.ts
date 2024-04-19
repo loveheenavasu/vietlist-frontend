@@ -7,6 +7,7 @@ import { NewCampaignComponent } from './components/new-campaign/new-campaign.com
 import { EmailMarketingServiceService } from './service/email-marketing-service.service'
 import Swal from 'sweetalert2'
 import { AllCampaignComponent } from './components/all-campaign/all-campaign.component'
+import { FullPageLoaderService } from '@vietlist/shared'
 
 @Component({
   selector: 'app-email-marketing',
@@ -27,7 +28,11 @@ export class EmailMarketingComponent {
   @ViewChild('tabset') tabset?: TabsetComponent
   public listId: number = 0
   public lists: any
-  constructor(public service: EmailMarketingServiceService) {
+  public campaigns: any
+  constructor(
+    public service: EmailMarketingServiceService,
+    private fullPageLoaderService: FullPageLoaderService,
+  ) {
     this.getAllList()
   }
 
@@ -68,5 +73,18 @@ export class EmailMarketingComponent {
         })
       },
     )
+  }
+
+  GetAllCampaign() {
+    this.fullPageLoaderService.showLoader()
+    this.service.GetAllCampaign().subscribe({
+      next: (res) => {
+        this.fullPageLoaderService.hideLoader()
+        this.campaigns = res?.data
+      },
+      error: (err) => {
+        this.fullPageLoaderService.hideLoader()
+      },
+    })
   }
 }

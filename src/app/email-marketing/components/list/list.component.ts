@@ -47,6 +47,7 @@ export class ListComponent implements OnInit {
   dialogRef: MatDialogRef<any> | null = null
   @Output() navigateToTabs = new EventEmitter<any>()
   @Output() setListId = new EventEmitter<any>()
+  @Output() getAllList = new EventEmitter<any>()
   @Input() lists: any
   public isNameExist: boolean = false
   public isLoading: boolean = false
@@ -57,9 +58,7 @@ export class ListComponent implements OnInit {
     private dialog: MatDialog,
     private fullPageLoaderService: FullPageLoaderService,
     private formBuilder: FormBuilder,
-  ) {
-    // this.getAllList()
-  }
+  ) {}
 
   start_details = {
     sent: 1,
@@ -100,8 +99,8 @@ export class ListComponent implements OnInit {
 
   setFormFields(list?: any) {
     this.listForm = this.formBuilder.group({
-      name: [list.name || '', Validators.required], // Use default value or empty string
-      description: [list.description || ''], // Use default value or empty string
+      name: [list?.name || '', Validators.required], // Use default value or empty string
+      description: [list?.description || ''], // Use default value or empty string
     })
   }
 
@@ -110,6 +109,7 @@ export class ListComponent implements OnInit {
       this.currentList = list
       this.isListSelected = true
       this.setFormFields(list)
+      this.start_details = list?.starts_detail
     } else {
       this.currentList = null
       this.isListSelected = false
@@ -140,6 +140,7 @@ export class ListComponent implements OnInit {
           timer: 3000,
           timerProgressBar: true,
         })
+        this.getAllList.emit()
         if (this.dialogRef) {
           this.dialogRef.close()
         }

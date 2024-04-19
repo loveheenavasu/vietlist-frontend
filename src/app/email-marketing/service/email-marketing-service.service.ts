@@ -29,14 +29,18 @@ export class EmailMarketingServiceService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllList)
     // const authToken = this.authService.getAuthHeaders()
     const authToken = this.authService.getAuthHeaders()
-    // const params = new HttpParams().set('post_id', post_id)
-    return this.http.get<any>(endpoint, { headers: authToken })
+
+    const randomQueryParam = `nocache=${Math.random().toString(36).substring(7)}`
+    const urlWithNoCache = `${endpoint}?${randomQueryParam}`
+
+    return this.http.get<any>(urlWithNoCache, { headers: authToken })
   }
 
   public getListSubscribers(listId: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.GetSingleListSubscribers,
     )
+
     const params = new HttpParams().set('list_id', listId)
     const authToken = this.authService.getAuthHeaders()
     const urlWithParams = `${endpoint}?${params.toString()}`
@@ -45,7 +49,9 @@ export class EmailMarketingServiceService {
   public getAllSubscribers(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllSubscribers)
     const authToken = this.authService.getAuthHeaders()
-    return this.http.get<any>(endpoint, { headers: authToken })
+    const randomQueryParam = `nocache=${Math.random().toString(36).substring(7)}`
+    const urlWithNoCache = `${endpoint}?${randomQueryParam}`
+    return this.http.get<any>(urlWithNoCache, { headers: authToken })
   }
 
   formatDate(unixTimestamp: any) {
@@ -126,7 +132,9 @@ export class EmailMarketingServiceService {
   public GetAllCampaign(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllCampaign)
     const authToken = this.authService.getAuthHeaders()
-    return this.http.get<any>(endpoint, { headers: authToken })
+    const randomQueryParam = `nocache=${Math.random().toString(36).substring(7)}`
+    const urlWithNoCache = `${endpoint}?${randomQueryParam}`
+    return this.http.get<any>(urlWithNoCache, { headers: authToken })
   }
   public UpdateCampaignStatus(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.StartCampaign)

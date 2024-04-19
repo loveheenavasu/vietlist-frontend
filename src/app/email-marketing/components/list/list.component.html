@@ -2,29 +2,30 @@
   <button (click)="openDialogs()" class="add-btn rounded">Add New</button>
 </div>
 <div class="table-container">
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Subscribers</th>
-      <th scope="col">Updated</th>
-      <th scope="col">Added</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let list of lists">
-      <td class='clickable-cell' (click)="openDialogs(list)">{{ list.name || '--' }}</td>
-      <td>{{ list.description || '--' }}</td>
-      <td class='clickable-cell' (click)="navigateToSubscriber(3, list?.ID)">
-        {{ list?.subscriber_count || '--' }}
-      </td>
-      <td>{{ service.formatDate(list?.updated || '--') }}</td>
-      <td>{{ service.formatDate(list?.added) || '--' }}</td>
-    </tr>
-  </tbody>
-</table>
-
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Subscribers</th>
+        <th scope="col">Updated</th>
+        <th scope="col">Added</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of lists">
+        <td class="clickable-cell" (click)="openDialogs(list)">
+          {{ list.name || '--' }}
+        </td>
+        <td>{{ list.description || '--' }}</td>
+        <td class="clickable-cell" (click)="navigateToSubscriber(3, list?.ID)">
+          {{ list?.subscriber_count || '--' }}
+        </td>
+        <td>{{ service.formatDate(list?.updated || '--') }}</td>
+        <td>{{ service.formatDate(list?.added) || '--' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <ng-template #secondDialog let-modal>
@@ -63,37 +64,37 @@
                 ></textarea>
               </div>
             </div>
-            <div *ngIf="isListSelected" class="row">
+            <div *ngIf="isListSelected" class="row mb-4 ">
+              <div class="col-12 m-3 mx-0">
+                <span> {{ start_details['sent'] }} Mail sent </span>
+              </div>
               <div class="col-4">
                 <app-circular-progressbar
                   [percentage]="start_details['opens']"
-                  [title]="'openrate'"
+                  [title]="'open rate'"
                 ></app-circular-progressbar>
               </div>
               <div class="col-4">
                 <app-circular-progressbar
                   [percentage]="start_details['clicks']"
-                  [title]="'openrate'"
+                  [title]="'click rate	                  '"
                 ></app-circular-progressbar>
               </div>
               <div class="col-4">
                 <app-circular-progressbar
                   [percentage]="start_details['unsubs']"
-                  [title]="'openrate'"
+                  [title]="'unsubscribe rate	                  '"
                 ></app-circular-progressbar>
               </div>
               <div class="col-4">
                 <app-circular-progressbar
                   [percentage]="start_details['bounces']"
-                  [title]="'openrate'"
+                  [title]="'bounce rate                  '"
                 ></app-circular-progressbar>
-              </div>
-              <div class="col-4">
-                <span> {{start_details['sent']}} Mail sent </span>
               </div>
             </div>
 
-            <div class="row mt-4 mb-4">
+            <div *ngIf="!isListSelected"  class="row mt-4 mb-4">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="d-flex justify-content-center">
                   <button
