@@ -25,6 +25,7 @@ export class AllCampaignComponent implements OnInit {
     this.fullPageLoaderService.showLoader()
     this.service.GetAllCampaign().subscribe({
       next:(res)=>{
+        console.log(res , "campaign list")
         this.fullPageLoaderService.hideLoader()
         this.campaigns = res?.data
       },
