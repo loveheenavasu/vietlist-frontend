@@ -23,7 +23,7 @@
         <td >
             <div class="status-btn">
                 <span [innerHTML]="showStatusWithIcon(campaign?.post_status)" >  </span>
-                <button (click)="updateStatus(campaign?.post_status)" > start </button>
+                <button (click)="updateStatus(campaign.campaign_id , campaign.post_status)" > start </button>
             </div>
         </td>
         <td >

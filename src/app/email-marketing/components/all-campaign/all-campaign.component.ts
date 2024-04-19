@@ -1,3 +1,4 @@
+import { status } from './../../helper/index';
 import { Component, OnInit } from '@angular/core'
 import { EmailMarketingServiceService } from '../../service/email-marketing-service.service'
 import { CommonModule } from '@angular/common'
@@ -22,20 +23,20 @@ export class AllCampaignComponent implements OnInit {
 
   GetAllCampaign() {
     this.fullPageLoaderService.showLoader()
-    this.service.GetAllCampaign().subscribe(
-      (res) => {
+    this.service.GetAllCampaign().subscribe({
+      next:(res)=>{
         this.fullPageLoaderService.hideLoader()
         this.campaigns = res?.data
       },
-      () => {
+      error:(err)=>{
         this.fullPageLoaderService.hideLoader()
-      },
-    )
+      }
+    })
   }
 
-  updateStatus(campaign: any) {
+  updateStatus(id:any,status:any) {
     this.service
-      .UpdateCampaignStatus({ id: 1, status: campaign?.post_status })
+      .UpdateCampaignStatus({ id , status })
       .subscribe({
         next: (data) => {
           console.log(data, 'res1')
