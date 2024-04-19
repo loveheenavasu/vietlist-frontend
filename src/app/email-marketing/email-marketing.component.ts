@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common'
 import { NewCampaignComponent } from './components/new-campaign/new-campaign.component'
 import { EmailMarketingServiceService } from './service/email-marketing-service.service'
 import Swal from 'sweetalert2'
+import { AllCampaignComponent } from './components/all-campaign/all-campaign.component'
 
 @Component({
   selector: 'app-email-marketing',
@@ -16,6 +17,7 @@ import Swal from 'sweetalert2'
     SubscribersComponent,
     CommonModule,
     NewCampaignComponent,
+    AllCampaignComponent,
   ],
   templateUrl: './email-marketing.component.html',
   styleUrl: './email-marketing.component.scss',

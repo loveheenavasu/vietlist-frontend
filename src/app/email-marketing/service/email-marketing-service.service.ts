@@ -115,4 +115,26 @@ export class EmailMarketingServiceService {
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, formData, { headers: authToken })
   }
+
+  public GetCampaignById(campaignId: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetCampaign)
+    const params = new HttpParams().set('campaign_id', campaignId)
+    const authToken = this.authService.getAuthHeaders()
+    const urlWithParams = `${endpoint}?${params.toString()}`
+    return this.http.get<any>(urlWithParams, { headers: authToken })
+  }
+  public GetAllCampaign(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllCampaign)
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+  public UpdateCampaignStatus(body: any): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.StartCampaign)
+    const formData = new FormData()
+    formData.append('campaign_id', body?.id)
+    formData.append('campaign_status', body?.status)
+
+    const authToken = this.authService.getAuthHeaders()
+    return this.http.post<any>(endpoint, formData, { headers: authToken })
+  }
 }

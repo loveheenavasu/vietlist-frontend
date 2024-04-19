@@ -23,7 +23,7 @@
         <td>{{ subscriber?.list_and_tags || '--' }}</td>
         <td>{{ subscriber?.emails || '--' }}</td>
         <td>{{ this.status[subscriber?.status] }}</td>
-        <td>{{ service.formatDate(subscriber?.subscribed) || '--' }}</td>
+        <td>{{ listId? subscriber?.added :  this.service.formatDate(subscriber?.added) || '--' }}</td>
       </tr>
     </tbody>
   </table>

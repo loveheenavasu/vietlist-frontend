@@ -8,7 +8,9 @@
   <tabset #tabset>
     <tab (selectTab)="removeListId($event)" heading="All Campaigns" id="tab1">
       <section class="background_section">
-        <div class="container">hello</div>
+        <div class="container">
+          <app-all-campaign></app-all-campaign>
+        </div>
       </section>
     </tab>
     <tab (selectTab)="removeListId($event)" heading="New Campaigns" id="tab2">

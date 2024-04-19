@@ -107,4 +107,7 @@ export enum Endpoints {
   CreateNewCampaign = 'create_new_campaign',
   ApplyCoupon = 'business_coupon_apply',
   UpdateEventBooking = 'update_event_endpoint',
+  GetCampaign = 'get_campaign',
+  GetAllCampaign = 'get_All_campaign',
+  StartCampaign = 'start_campaign',
 }
