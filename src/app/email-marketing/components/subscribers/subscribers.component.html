@@ -20,8 +20,8 @@
           {{ subscriber?.name || '--' }}
         </td>
         <td>{{ subscriber?.email || '--' }}</td>
-        <td>{{ subscriber?.list_and_tags || '--' }}</td>
-        <td>{{ subscriber?.emails || '--' }}</td>
+        <td>{{ subscriber?.lists?.join(' ') || '--' }}</td>
+        <td>{{ subscriber?.emails ?? '--' }}</td>
         <td>{{ subscriber?.status }}</td>
         <td>{{ listId? subscriber?.added :  this.service.formatDate(subscriber?.added) || '--' }}</td>
       </tr>
@@ -90,7 +90,7 @@
                   formControlName="status"
                 >
                   @for (key of statusArray; track $index) {
-                    <mat-option [value]="key?.name">{{ key?.name }}</mat-option>
+                    <mat-option [value]="key?.value">{{ key?.name }}</mat-option>
                   }
                 </mat-select>
               </div>

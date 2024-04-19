@@ -41,7 +41,10 @@ export class SubscribersComponent implements OnInit {
   isLoading: any
   isSubscriberSelected: boolean = false
   currentSubscriber: any
-  statusArray: any
+  statusArray = [
+    { name: 'Unsubscribe', value: 'unsubscribe' },
+    { name: 'Subscribe', value: 'subscribe' },
+  ]
   public status: any = Status
 
   constructor(
@@ -61,6 +64,7 @@ export class SubscribersComponent implements OnInit {
   })
 
   setFormFields(subscriber?: any, listId?: any) {
+    console.log(listId, 'listId?.IDlistId?.IDlistId?.IDlistId?.ID')
     this.subscriberForm = this.formBuilder.group({
       First_name: new FormControl(subscriber?.name?.split(' ')[0] || '', [
         Validators.required,
@@ -76,7 +80,7 @@ export class SubscribersComponent implements OnInit {
 
   openDialogs(subscriber?: any) {
     let listId = this.list?.find(
-      (elem: any) => elem?.name === subscriber?.list_and_tags,
+      (elem: any) => elem?.name === subscriber?.lists[0],
     )
     if (subscriber) {
       this.isSubscriberSelected = true
@@ -106,16 +110,32 @@ export class SubscribersComponent implements OnInit {
   }
 
   updateSubscriberStatus(id: number) {
-    if (this.subscriberForm.value.status) {
-      this.service
-        .updateSubscriberStatus({
-          id,
-          status: this.subscriberForm.value?.status,
-        })
-        .subscribe(() => {
-          this.getSubscribers()
-        })
+    this.fullPageLoaderService.showLoader()
+    if (this.subscriberForm.value.status !== 'subscribe') {
+      if (this.subscriberForm.value.status) {
+        this.service
+          .updateSubscriberStatus({
+            id,
+            status: this.subscriberForm.value?.status,
+          })
+          .subscribe(() => {
+            this.getAllSubscriber()
+          })
+      }
+    } else {
+      this.getAllSubscriber()
     }
+  }
+
+  deleteSubscriber(id: number) {
+    this.service
+      .updateSubscriberStatus({
+        id,
+        status: 'delete',
+      })
+      .subscribe(() => {
+        this.getAllSubscriber()
+      })
   }
 
   addSubscriber() {
@@ -151,26 +171,24 @@ export class SubscribersComponent implements OnInit {
       )
   }
 
+  getAllSubscriber() {
+    this.service.getAllSubscribers().subscribe(
+      (res) => {
+        this.fullPageLoaderService.hideLoader()
+        this.subscriberList = res?.data
+      },
+      () => {
+        this.fullPageLoaderService.hideLoader()
+      },
+    )
+  }
+
   ngOnInit(): void {
-    this.statusArray = Object.keys(this.status).map((key) => {
-      return {
-        value: key,
-        name: this.status[key],
-      }
-    })
     this.fullPageLoaderService.showLoader()
     if (this.listId) {
       this.getSubscribers()
     } else {
-      this.service.getAllSubscribers().subscribe(
-        (res) => {
-          this.fullPageLoaderService.hideLoader()
-          this.subscriberList = res?.data
-        },
-        () => {
-          this.fullPageLoaderService.hideLoader()
-        },
-      )
+      this.getAllSubscriber()
     }
 
     this.service.GetAllList().subscribe((res) => {
