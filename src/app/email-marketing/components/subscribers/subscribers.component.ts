@@ -111,7 +111,7 @@ export class SubscribersComponent implements OnInit {
 
   updateSubscriberStatus(id: number) {
     this.fullPageLoaderService.showLoader()
-    if (this.subscriberForm.value.status !== 'subscribe') {
+    if (this.subscriberForm.value.status === 'unsubscribe') {
       if (this.subscriberForm.value.status) {
         this.service
           .updateSubscriberStatus({
@@ -122,6 +122,7 @@ export class SubscribersComponent implements OnInit {
             this.getAllSubscriber()
           })
       }
+      this.fullPageLoaderService.hideLoader()
     } else {
       this.getAllSubscriber()
     }
