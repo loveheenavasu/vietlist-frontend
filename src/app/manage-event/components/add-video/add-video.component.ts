@@ -1,7 +1,7 @@
 import { BusinessService } from './../../../manage-business/service/business.service'
 import { MatSelectModule } from '@angular/material/select'
 import { NgIf, CommonModule } from '@angular/common'
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -13,6 +13,7 @@ import {
 } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { FullPageLoaderService } from '@vietlist/shared'
 import {
   MatDialogRef,
   MatDialog,
@@ -48,7 +49,7 @@ import { Subscription, forkJoin } from 'rxjs'
   templateUrl: './add-video.component.html',
   styleUrl: './add-video.component.scss',
 })
-export class AddVideoComponent {
+export class AddVideoComponent implements OnInit {
   public isVideoUploading: boolean = false
   public isImageUploading: boolean = false
   public video_upload: any = []
@@ -64,6 +65,8 @@ export class AddVideoComponent {
   public isLoader = false
   public videosFields = [0]
   public videoDetails: FormGroup
+  totalVideoCount: any
+  videoLimitFull: boolean = false
   /**
    *
    * @param matDialogRef
@@ -79,6 +82,7 @@ export class AddVideoComponent {
     private authService: AuthService,
     private fb: FormBuilder,
     private businessService: BusinessService,
+    private fullPageLoaderService: FullPageLoaderService,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     this.postId = data.postId
@@ -86,12 +90,12 @@ export class AddVideoComponent {
     if (this.dialogData) {
       this.name.patchValue(this.dialogData.name)
       this.video_type.patchValue(this.dialogData.video_type)
-      this.imagePreviews = this.dialogData?.thumbnail_image
-        ? [this.dialogData.thumbnail_image]
-        : []
-      this.videoUrl = this.dialogData?.video_url
-        ? [this.dialogData.video_url]
-        : []
+      // this.imagePreviews = this.dialogData?.thumbnail_image
+      //   ? [this.dialogData.thumbnail_image]
+      //   : []
+      // this.videoUrl = this.dialogData?.video_url
+      //   ? [this.dialogData.video_url]
+      //   : []
     }
     console.log(this.dialogData)
 
@@ -102,16 +106,52 @@ export class AddVideoComponent {
 
   ngOnInit() {
     this.updateSize()
-    this.addMore()
+    let PostId = this.postId || this.data.item.post_id
+    this.getAllVideosList(PostId)
+  }
+
+  maxVideoCondition() {
+    let a = this.totalVideoCount + this.videos().controls.length
+    console.log(this.totalVideoCount, 'totalcount')
+    console.log(a, 'total')
+    if (a < 5) {
+      return true
+    } else {
+      return false
+    }
   }
 
   addMore() {
-    this.videos().push(this.newVideoField())
-    console.log(
-      this.videos().controls.length,
-      'this.videos()this.videos()this.videos()this.videos()',
-    )
+    const { item } = this.data
+    if (item) {
+      this.videos().push(
+        this.fb.group({
+          name: [item?.name, Validators.required],
+          video_type: [item?.video_type, Validators.required],
+          video_url: [item?.video_url[0], Validators.required],
+          thumbnail_image: [item?.thumbnail_image, Validators.required],
+        }),
+      )
+    } else {
+      if (this.maxVideoCondition()) {
+        this.videos().push(this.newVideoField())
+      } else {
+        Swal.fire({
+          toast: true,
+          text: 'Video upload limit reached',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.videoLimitFull = true
+        this.close()
+      }
+    }
   }
+
   newVideoField(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
@@ -127,6 +167,21 @@ export class AddVideoComponent {
   removeVideoField(i: number) {
     this.videos().removeAt(i)
     console.log(this.videoDetails.value, 'this.videos()')
+  }
+
+  public getAllVideosList(postId: any) {
+    this.fullPageLoaderService.showLoader()
+    this.businessService.getAllVideoIntegration(postId).subscribe({
+      next: (res: any) => {
+        this.fullPageLoaderService.hideLoader()
+        this.totalVideoCount = Number(res?.total_count)
+        this.addMore()
+      },
+      error: (err: any) => {
+        this.fullPageLoaderService.hideLoader()
+        console.log(err, 'error')
+      },
+    })
   }
 
   public close() {
@@ -218,20 +273,6 @@ export class AddVideoComponent {
   // }
 
   public onSelect(event: any) {
-    // if (this.videoUrl.length > 0) {
-    //   Swal.fire({
-    //     toast: true,
-    //     text: 'You have already uploaded a video. Please remove the existing video before uploading a new one.',
-    //     animation: false,
-    //     icon: 'error',
-    //     position: 'top-right',
-    //     showConfirmButton: false,
-    //     timer: 3000,
-    //     timerProgressBar: true,
-    //   })
-    //   return
-    // }
-
     this.isVideoUploading = true
     const files: File[] = event.addedFiles
 
@@ -257,7 +298,6 @@ export class AddVideoComponent {
     const reader = new FileReader()
     this.isVideoUploading = true
     reader.onload = () => {
-      const videoUrl = reader.result as string
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isVideoUploading = false
@@ -266,7 +306,6 @@ export class AddVideoComponent {
             this.videoUrl?.push(res?.image_url)
             this.videoDetails.value.videos[this.videoUrl.length - 1].video_url =
               res?.image_url
-            console.log(this.videoDetails.value, 'this.videos()')
           }
         },
         error: (err: any) => {
@@ -277,10 +316,8 @@ export class AddVideoComponent {
     reader.readAsDataURL(file)
   }
 
-  public removeItems(index: any) {
-    this.videoUrl.splice(index, 1)
-    console.log(index, 'index')
-    console.log(this.videoUrl, '')
+  public removeItems(i: any, key: any) {
+    this.videoDetails.value.videos[i][key] = ''
   }
 
   public onRemove(videoElement: HTMLElement) {
@@ -313,7 +350,6 @@ export class AddVideoComponent {
             this.videoDetails.value.videos[
               this.imagePreviews.length - 1
             ].thumbnail_image = res?.image_url
-            console.log(this.videoDetails.value, 'this.videos()2')
           }
 
           if (this.imagePreviews.length >= 5) {
@@ -372,11 +408,8 @@ export class AddVideoComponent {
       })
     } else {
       const updatebody = {
-        name: this.name.value,
+        ...this.videoDetails.value.videos[0],
         post_id: this.postId,
-        video_type: this.video_type.value,
-        thumbnail_image: this.imagePreviews[0],
-        video_url: this.videoUrl,
         video_id: this.dialogData.video_id,
       }
       this.businessService.updateVideo(updatebody).subscribe({

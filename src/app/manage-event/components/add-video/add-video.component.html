@@ -15,72 +15,73 @@
       </h1>
     </div>
   </div>
-  <form [formGroup]="videoDetails" class="form-forgot">
-    <div mat-dialog-content class="mt-4" formArrayName="videos" >
-      <div
-        class="row position-relative pt-5" 
-        *ngFor="let quantity of videos().controls; let i = index"
-        [formGroupName]="i"
-      >
-      @if (videos().controls.length > 1) {
-        <button
-          mat-icon-button
-          aria-label="Example icon button with a vertical three dot icon"
-          class='remove-video-field'
-          (click)="removeVideoField(i)"
+  @if (!videoLimitFull) {
+    <form [formGroup]="videoDetails" class="form-forgot">
+      <div mat-dialog-content class="mt-4" formArrayName="videos">
+        <div
+          class="row position-relative pt-5"
+          *ngFor="let quantity of videos().controls; let i = index"
+          [formGroupName]="i"
         >
-          <mat-icon>close</mat-icon>
-        </button>
-      }
-        <div class="col-6">
-          <div class="form-group">
-            <input
-              type="text"
-              class="input-control"
-              placeholder="Name"
-              required
-              formControlName="name"
-            />
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="form-group">
-            <mat-select
-              class="vietlist-select"
-              placeholder="Video type"
-              formControlName='video_type'
+          @if (videos().controls.length > 1) {
+            <button
+              mat-icon-button
+              aria-label="Example icon button with a vertical three dot icon"
+              class="remove-video-field"
+              (click)="removeVideoField(i)"
             >
-              <mat-option value="promotional_videos">Promotional</mat-option>
-              <mat-option value="tutorials">Tutorial</mat-option>
-              <mat-option value="testimonial">Testimonial</mat-option>
-            </mat-select>
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+          <div class="col-6">
+            <div class="form-group">
+              <input
+                type="text"
+                class="input-control"
+                placeholder="Name"
+                required
+                formControlName="name"
+              />
+            </div>
           </div>
-        </div>
-        <div class="col-6">
-          <ngx-dropzone
-            [accept]="'.mp4,.mov'"
-            (change)="onSelect($event)"
-            [multiple]="false"
-            formControlName="videoUrl"
-          >
-            <ngx-dropzone-label *ngIf="!isVideoUploading"
-              ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
-              Video here or Browse a file</ngx-dropzone-label
+          <div class="col-6">
+            <div class="form-group">
+              <mat-select
+                class="vietlist-select"
+                placeholder="Video type"
+                formControlName="video_type"
+              >
+                <mat-option value="promotional_videos">Promotional</mat-option>
+                <mat-option value="tutorials">Tutorial</mat-option>
+                <mat-option value="testimonial">Testimonial</mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="col-6">
+            <ngx-dropzone
+              [accept]="'.mp4,.mov'"
+              (change)="onSelect($event)"
+              [multiple]="false"
+              formControlName="videoUrl"
             >
-            <div class="loader" *ngIf="isVideoUploading"></div>
-          </ngx-dropzone>
-        </div>
-        <div class="col-6">
-          <div id="video-preview-container">
-            <!-- @for (video of videoUrl; track $index) { -->
+              <ngx-dropzone-label *ngIf="!isVideoUploading"
+                ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
+                Video here or Browse a file</ngx-dropzone-label
+              >
+              <div class="loader" *ngIf="isVideoUploading"></div>
+            </ngx-dropzone>
+          </div>
+          <div class="col-6">
+            <div id="video-preview-container">
+              <!-- @for (video of videoUrl; track $index) { -->
               <div class="vedio____">
-                <!-- <div class="removeImage">
+                <div class="removeImage" *ngIf="data?.item">
                   <i
                     class="fa fa-times-circle"
                     aria-hidden="true"
-                    (click)="removeItems(i)"
+                    (click)="removeItems(i, 'video_url')"
                   ></i>
-                </div> -->
+                </div>
 
                 <video
                   style="margin: 10px; object-fit: cover"
@@ -89,38 +90,47 @@
                   height="200"
                   controls
                 >
-                  <source [src]="videoDetails.value.videos[i]?.video_url" type="video/mp4" />
-                  <source [src]="videoDetails.value.videos[i]?.video_url" type="video/ogg" />
+                  <source
+                    [src]="videoDetails.value.videos[i]?.video_url"
+                    type="video/mp4"
+                  />
+                  <source
+                    [src]="videoDetails.value.videos[i]?.video_url"
+                    type="video/ogg"
+                  />
                   Your browser does not support the video tag.
                 </video>
               </div>
-            <!-- } -->
+              <!-- } -->
+            </div>
           </div>
-        </div>
-        <div class="col-6 mt-3">
-          <ngx-dropzone
-            [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
-            (change)="onSelectImage($event)"
-            [multiple]="false"
-          >
-            <ngx-dropzone-label *ngIf="!isImageUploading"
-              ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
-              Thumbnail image here or Browse a file</ngx-dropzone-label
+          <div class="col-6 mt-3">
+            <ngx-dropzone
+              [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
+              (change)="onSelectImage($event)"
+              [multiple]="false"
             >
-            <div class="loader" *ngIf="isImageUploading"></div>
-          </ngx-dropzone>
-        </div>
-        <div class="col-6">
-          <div class="main_images">
-            <!-- @for (preview of imagePreviews; track $index) { -->
-              <div class="images__" *ngIf="videoDetails.value.videos[i]?.thumbnail_image">
-                <!-- <div class="removeImage">
+              <ngx-dropzone-label *ngIf="!isImageUploading"
+                ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
+                Thumbnail image here or Browse a file</ngx-dropzone-label
+              >
+              <div class="loader" *ngIf="isImageUploading"></div>
+            </ngx-dropzone>
+          </div>
+          <div class="col-6">
+            <div class="main_images">
+              <!-- @for (preview of imagePreviews; track $index) { -->
+              <div
+                class="images__"
+                *ngIf="videoDetails.value.videos[i]?.thumbnail_image"
+              >
+                <div class="removeImage" *ngIf="data?.item">
                   <i
                     class="fa fa-times-circle"
                     aria-hidden="true"
-                    (click)="removeItem(i)"
+                    (click)="removeItems(i, 'thumbnail_image')"
                   ></i>
-                </div> -->
+                </div>
                 <img
                   [src]="videoDetails.value.videos[i]?.thumbnail_image"
                   alt="Image Preview"
@@ -128,25 +138,29 @@
                   height="150"
                 />
               </div>
-            <!-- } -->
+              <!-- } -->
+            </div>
           </div>
         </div>
+        <div class="mt-5 d-flex justify-content-end" *ngIf="!data?.item">
+          <button class="add-more" (click)="addMore()">Add more</button>
+        </div>
       </div>
-      <div class='mt-5 d-flex justify-content-end' >
-        <button class="add-more" (click)="addMore()">Add more</button>
+      <br />
+      <div mat-dialog-actions class="text-center">
+        <button
+          type="button"
+          mat-flat-button
+          class="btn orange-background-btn-w-100"
+          (click)="addVideo()"
+          [disabled]="isImageUploading || isVideoUploading"
+        >
+          <span *ngIf="!isLoader">Submit</span>
+          <app-loader *ngIf="isLoader"></app-loader>
+        </button>
       </div>
-    </div>
-    <br />
-    <div mat-dialog-actions class="text-center">
-      <button
-        type="button"
-        mat-flat-button
-        class="btn orange-background-btn-w-100"
-        (click)="addVideo()"
-      >
-        <span *ngIf="!isLoader">Submit</span>
-        <app-loader *ngIf="isLoader"></app-loader>
-      </button>
-    </div>
-  </form>
+    </form>
+  } @else {
+    <span> To upload video delete the existing video </span>
+  }
 </div>

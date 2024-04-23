@@ -26,10 +26,7 @@ import { EventService } from 'src/app/manage-event/service/event.service'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import Swal from 'sweetalert2'
-import {
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { DateFilterFn, MatDatepickerModule } from '@angular/material/datepicker'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
@@ -534,34 +531,33 @@ export class PreviewBusinessComponent {
 
   public addVideo() {
     if (this.screensize > 720) {
-      this.dialogWidth = '65%';
+      this.dialogWidth = '65%'
     } else if (this.screensize < 720) {
-      this.dialogWidth = '90%';
-      this.height = '80%';
+      this.dialogWidth = '90%'
+      this.height = '80%'
     }
-  
+
     const dialogRef = this.dialog.open(AddVideoComponent, {
       width: this.dialogWidth,
       height: this.height,
       data: {
         postId: this.postId,
       },
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getAllVideosList(this.postId);
-      this.getVideosList(this.postId , this.videoTab)
-    });
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllVideosList(this.postId)
+      this.getVideosList(this.postId, this.videoTab)
+    })
   }
 
   public onTabClick(tab: any) {
     this.isVideoTypeLoading = true
     this.videoTab = tab
-    if(this.videoTab == 'all'){
+    if (this.videoTab == 'all') {
       this.getAllVideosList(this.postId)
-    }else{
+    } else {
       this.getVideosList(this.postId, this.videoTab)
     }
-
   }
 
   public getVideosList(postId: any, tab: any) {
@@ -578,20 +574,20 @@ export class PreviewBusinessComponent {
   }
 
   public getAllVideosList(postId: any) {
+    this.fullPageLoaderService.showLoader()
     this.isVideoTypeLoading = true
     this.businessService.getAllVideoIntegration(postId).subscribe({
       next: (res: any) => {
+        this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data
         this.isVideoTypeLoading = false
       },
       error: (err: any) => {
+        this.fullPageLoaderService.hideLoader()
         console.log(err, 'error')
       },
     })
   }
-  // public mainTab(tab: any) {
-  //   this.mainTabOption = tab
-  // }
 
   public playVideo(item: any, index: number): void {
     this.dialog.open(VideoPlayComponent, {
@@ -601,9 +597,13 @@ export class PreviewBusinessComponent {
     })
   }
 
-  public editVideo(item: any, index: number){
-    this.dialog.open(AddVideoComponent,{
-      data:{item , index}
+  public editVideo(item: any, index: number) {
+    const dialogRef = this.dialog.open(AddVideoComponent, {
+      data: { item, index },
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getAllVideosList(this.postId)
+      this.getVideosList(this.postId, this.videoTab)
     })
   }
 

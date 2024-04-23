@@ -61,7 +61,7 @@ import { Component } from '@angular/core'
       position: fixed;
       bottom: 0;
       left: 0;
-      z-index: 1000;
+      z-index: 1001;
     }
   `,
 })
