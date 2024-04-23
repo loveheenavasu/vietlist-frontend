@@ -110,4 +110,8 @@ export enum Endpoints {
   GetCampaign = 'get_campaign',
   GetAllCampaign = 'get_All_campaign',
   StartCampaign = 'start_campaign',
+  GetBusnessListingAnalytics = 'get_busness_listing_analytics',
+  GetEventAnalytics = 'get_event_analytics',
+  GetBookingAnalytics = 'get_booking_analytics',
+  GetAdsAnalytics = 'get_ads_analytics',
 }

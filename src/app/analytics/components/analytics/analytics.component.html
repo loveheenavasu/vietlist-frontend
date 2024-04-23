@@ -1,52 +1,63 @@
 <section class="banner" style="position: relative">
-    <div class="content" style="width: 100%">
-      <h1 style="text-transform: uppercase">
-Test
-      </h1>
-      <p>
-        <i class="fa-solid fa-location-dot" style="color: #fff; font-size: 15px"></i>
-        &nbsp Test
-      </p>
-      <div class="elementor-divider">
-        <span class="elementor-divider-separator"> </span>
-      </div>
+  <div class="content" style="width: 100%">
+    <h1 style="text-transform: uppercase">Test</h1>
+    <p>
+      <i
+        class="fa-solid fa-location-dot"
+        style="color: #fff; font-size: 15px"
+      ></i>
+      &nbsp Test
+    </p>
+    <div class="elementor-divider">
+      <span class="elementor-divider-separator"> </span>
     </div>
-    <div class="iconDirection">
-      <div class="elementor-grid-item">
-        <a href="https://mail.google.com" target="_blank"
-          class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-          target="_blank">
-          <!-- <span class="elementor-screen-only">Phone</span> -->
-          <i class="fa fa-envelope size_icon" aria-hidden="true" style="font-size: 20px; color: #fff"></i></a>
-      </div>
+  </div>
+  <div class="iconDirection">
+    <div class="elementor-grid-item">
+      <a
+        href="https://mail.google.com"
+        target="_blank"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <!-- <span class="elementor-screen-only">Phone</span> -->
+        <i
+          class="fa fa-envelope size_icon"
+          aria-hidden="true"
+          style="font-size: 20px; color: #fff"
+        ></i
+      ></a>
     </div>
-  </section>
+  </div>
+</section>
 
 <div class="koko">
   <tabset>
     <tab heading="Listings" id="tab1">
-        <section class="background_section">
-            <div class="container">hello</div>
-          </section>
-        
+      <section class="background_section">
+        <div class="container">
+          <app-business-listing></app-business-listing>
+        </div>
+      </section>
     </tab>
     <tab heading="Events" id="tab2">
-        <section class="background_section">
-            <div class="container">hello</div>
-          </section>
-        
+      <section class="background_section">
+        <div class="container"><app-events></app-events></div>
+      </section>
     </tab>
     <tab heading="Booking" id="tab3">
-        <section class="background_section">
-            <div class="container">hello</div>
-          </section>
-        
+      <section class="background_section">
+        <div class="container">
+          <app-booking-analytics></app-booking-analytics>
+        </div>
+      </section>
     </tab>
     <tab heading="Ads" id="tab4">
-        <section class="background_section">
-            <div class="container">hello</div>
-          </section>
-        
+      <section class="background_section">
+        <div class="container">
+          <app-ads-analytics></app-ads-analytics>
+        </div>
+      </section>
     </tab>
   </tabset>
 </div>

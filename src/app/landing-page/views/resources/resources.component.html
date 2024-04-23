@@ -94,7 +94,7 @@
                     </div>
                   } @else if (activeTab == 'e-books') {
                     <div style="text-align: center">
-                      <button class="btn read-btn">READ</button>
+                      <button (click)="openBooks(key)" class="btn read-btn">READ</button>
                     </div>
                   }
                 </div>
@@ -155,7 +155,7 @@
                   </div>
                 } @else if (activeTab == 'e-books') {
                   <div style="text-align: center" class="mx-3">
-                    <button class="btn read-btn">READ</button>
+                    <button (click)="openBooks(key)" class="btn read-btn">READ</button>
                   </div>
                 }
               </div>

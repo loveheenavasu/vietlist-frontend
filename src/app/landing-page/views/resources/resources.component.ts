@@ -56,7 +56,7 @@ export class ResourcesComponent {
     private homeservice: HomepageService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
-    private profileService:ProfileService
+    private profileService: ProfileService,
   ) {
     this.getResourcesData(this.activeTab)
   }
@@ -177,5 +177,9 @@ export class ResourcesComponent {
         // this.loaderService.hideLoader()
       },
     })
+  }
+
+  openBooks(book: any) {
+    window.location = book?.ebook_link
   }
 }

@@ -2,137 +2,155 @@
 @import "../../../../assets/scss/common";
 
 h1 {
-    color: var(--dark-grey);
-    font-weight: var(--font-weight-medium);
-    font-size: 30px
+  color: var(--dark-grey);
+  font-weight: var(--font-weight-medium);
+  font-size: 30px
+}
+
+
+.container {
+  padding: 20px 35px 25px 35px;
+}
+
+.images__ {
+  position: relative;
+}
+
+.vedio____ {
+  position: relative;
+}
+
+div#video-preview-container {
+  // text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  overflow: scroll;
+}
+
+video {
+  margin: 13px !important;
+  text-align: center;
+}
+
+::ng-deep.mat-mdc-unelevated-button:not(:disabled) {
+  background-color: var(--primary-color-orange) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: var(--font-weight-medium) !important;
+  height: 42px !important
+}
+
+::ng-deep.mat-mdc-unelevated-button:disabled {
+  background-color: var(--primary-color-orange) !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: var(--font-weight-medium) !important;
+  height: 42px !important
+}
+
+::ng-deep.mat-mdc-unelevated-button:not(:disabled) {
+  background-color: var(--primary-color-orange) !important;
+  color: #fff !important;
+  height: 42px !important
+}
+
+::ng-deep.mat-mdc-unelevated-button:disabled {
+  background-color: var(--primary-color-orange) !important;
+  color: #fff !important;
+}
+
+
+.forgot_password {
+  color: #1E73bE;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.input-group {
+  flex-wrap: nowrap;
+  position: relative;
+
+  .input-control {
+    border-radius: 4px !important;
   }
-  
-  
-  .container {
-    padding: 20px 35px 25px 35px;
-  }
-  
-  .images__{
-    position: relative;
-  }
-  .vedio____{
-    position: relative;
-  }
-  div#video-preview-container{
-      // text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      overflow: scroll;
-  }
-  video{
-      margin: 13px!important;
-      text-align: center;
-  }
-  ::ng-deep.mat-mdc-unelevated-button:not(:disabled) {
-    background-color: var(--primary-color-orange) !important;
-    color: #fff !important;
-    font-size: 14px !important;
-    font-weight: var(--font-weight-medium) !important;
-    height: 42px !important
-  }
-  
-  ::ng-deep.mat-mdc-unelevated-button:disabled {
-    background-color: var(--primary-color-orange) !important;
-    color: #fff !important;
-    font-size: 14px !important;
-    font-weight: var(--font-weight-medium) !important;
-    height: 42px !important
-  }
-  
-  ::ng-deep.mat-mdc-unelevated-button:not(:disabled) {
-    background-color: var(--primary-color-orange) !important;
-    color: #fff !important;
-    height: 42px !important
-  }
-  
-  ::ng-deep.mat-mdc-unelevated-button:disabled {
-    background-color: var(--primary-color-orange) !important;
-    color: #fff !important;
-  }
-  
-  
-  .forgot_password {
-    color: #1E73bE;
+
+  .input-group-text {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    border-left: none;
     cursor: pointer;
-    font-size: 16px;
+    border-radius: 4px;
   }
-  
-  .input-group {
-    flex-wrap: nowrap;
-    position: relative;
-  
-    .input-control {
-      border-radius: 4px !important;
-    }
-  
-    .input-group-text {
-      position: absolute;
-      right: 0;
-      height: 100%;
-      background-color: #f5f5f5;
-      border-left: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
+}
+
+/* Your component styles.css or styles.scss */
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: var(--primary-color-orange) !important;
+}
+
+
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: var(--primary-color-orange) !important;
+
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color-orange) !important;
+  border-color: var(--primary-color-orange) !important;
+}
+
+.form-check-label {
+  color: var(--dark-grey)
+}
+
+.new-to-vietlist {
+  color: var(--dark-grey);
+  font-size: 15px;
+}
+
+.create-account {
+  color: #1E73bE;
+  cursor: pointer
+}
+
+
+.new-to-vietlist {
+  color: var(--dark-grey);
+  font-size: 15px;
+  margin: 0 auto;
+  width: fit-content
+}
+
+
+@media screen and (max-width:720px) {
+  .my-custom-panel {
+    width: 90% !important;
   }
-  
-  /* Your component styles.css or styles.scss */
-  
-  ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
-    background-color: var(--primary-color-orange) !important;
-  }
-  
-  
-  ::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
-    background-color: var(--primary-color-orange) !important;
-  
-  }
-  
-  .form-check-input:checked {
-    background-color: var(--primary-color-orange) !important;
-    border-color: var(--primary-color-orange) !important;
-  }
-  
-  .form-check-label {
-    color: var(--dark-grey)
-  }
-  
-  .new-to-vietlist {
-    color: var(--dark-grey);
-    font-size: 15px;
-  }
-  
-  .create-account {
-    color: #1E73bE;
-    cursor: pointer
-  }
-  
-  
-  .new-to-vietlist {
-    color: var(--dark-grey);
-    font-size: 15px;
-    margin: 0 auto;
-    width: fit-content
-  }
-  
-  
-  @media screen and (max-width:720px){
-    .my-custom-panel{
-      width:90% !important;
+}
+
+@media screen and (max-width:480px) {
+  .container {
+    padding: 0px;
+
+    .form-forgot {
+      padding: 10px;
     }
   }
-  @media screen and (max-width:480px) {
-    .container {
-      padding: 0px;
-  
-      .form-forgot {
-        padding: 10px;
-      }
-    }
-  }
+}
+
+.remove-video-field {
+  position: absolute;
+  right: 0;
+  top: -16px;
+}
+
+.add-more {
+  border: none;
+  background: none;
+  color: blue;
+  text-decoration: underline;
+}
