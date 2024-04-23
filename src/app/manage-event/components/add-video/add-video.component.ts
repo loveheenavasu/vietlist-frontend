@@ -106,8 +106,11 @@ export class AddVideoComponent implements OnInit {
 
   ngOnInit() {
     this.updateSize()
-    let PostId = this.postId || this.data.item.post_id
+    let PostId = this.postId || this.data?.item?.post_id
     this.getAllVideosList(PostId)
+    if (this.data?.item) {
+      this.addMore()
+    }
   }
 
   maxVideoCondition() {
@@ -175,7 +178,9 @@ export class AddVideoComponent implements OnInit {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.totalVideoCount = Number(res?.total_count)
-        this.addMore()
+        if (!this.data?.item) {
+          this.addMore()
+        }
       },
       error: (err: any) => {
         this.fullPageLoaderService.hideLoader()

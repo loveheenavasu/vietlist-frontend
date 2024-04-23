@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import {
   AuthenticationService,
@@ -49,4 +49,10 @@ export class PlansService {
     return this.http.post<any>(endpoint, formData, { headers: authToken });
   }
 
+  public applyCoupon(pmpro_coupon:any , level_id:any):Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.PmproCoupon);
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('pmpro_coupon' , pmpro_coupon).set('level_id' , level_id)
+    return this.http.get<any>(endpoint,  { params:params , headers: authToken });
+  }
 }

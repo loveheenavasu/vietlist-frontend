@@ -65,7 +65,7 @@ export class ConfirmPaymentComponent {
   public coupon_code = new FormControl('')
   public appliedCouponResponse: any
   public isApplyCoupon: boolean = false
-
+  public isUserSubscribed:any
 
   constructor(
     private stripeService: AngularStripeService,
@@ -79,6 +79,7 @@ export class ConfirmPaymentComponent {
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
+    private planService:PlansService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.eventIds = params
@@ -89,6 +90,7 @@ export class ConfirmPaymentComponent {
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()
     })
+   this.isUserSubscribed =  this.authService.checkSubscriptionStatus()
   }
 
   ngOnInit() {
@@ -344,6 +346,7 @@ export class ConfirmPaymentComponent {
 
   public applyCoupon() {
     this.isApplyCoupon = true
+    if(this.eventIds?.eventId){
     const body = {
       coupon_code: this.coupon_code.value,
       event_price: this.eventPrice,
@@ -378,6 +381,29 @@ export class ConfirmPaymentComponent {
         this.isApplyCoupon = false
       },
     })
+  }else {
+    this.planService.applyCoupon(this.coupon_code.value , this.planId).subscribe({
+      next: (res) => {
+        this.isApplyCoupon = true
+        if (res) {
+          this.updateEventBooking()
+        }
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.appliedCouponResponse = res?.data?.discount_price
+      },error:(err)=>{
+        this.isApplyCoupon = false
+      }
+    })
+  }
   }
 
   public updateEventBooking() {}

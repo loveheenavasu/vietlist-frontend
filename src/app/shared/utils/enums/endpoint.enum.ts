@@ -114,4 +114,5 @@ export enum Endpoints {
   GetEventAnalytics = 'get_event_analytics',
   GetBookingAnalytics = 'get_booking_analytics',
   GetAdsAnalytics = 'get_ads_analytics',
+  PmproCoupon = 'apply_pmpro_coupon',
 }

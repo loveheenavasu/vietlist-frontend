@@ -59,6 +59,7 @@
           </div>
           <div class="col-6">
             <ngx-dropzone
+            [disabled]="videoDetails.value.videos[i]?.video_url ?true:false"
               [accept]="'.mp4,.mov'"
               (change)="onSelect($event)"
               [multiple]="false"
@@ -106,6 +107,9 @@
           </div>
           <div class="col-6 mt-3">
             <ngx-dropzone
+              [disabled]="
+                videoDetails.value.videos[i]?.thumbnail_image ? true : false
+              "
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
               (change)="onSelectImage($event)"
               [multiple]="false"
