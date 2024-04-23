@@ -368,13 +368,24 @@ export class HeaderComponent {
       });
   }
 
+  notifcationStatus:any;
+  
   goToPage(item: any) {
-    console.log("check", item)
-    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
-      this.router.navigate(['/business-details', item.id]);
-    } else if (item.notification_type == 'event_booking') {
-      this.router.navigate(['/event-details', item.id]);
+    const body = {
+    read_type:'single_read',
+    id:item?.id
     }
+    this.homeService.notificationStatus(body).subscribe({
+      next:(res)=>{
+        this.notifcationStatus = res
+        if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
+          this.router.navigate(['/business-details', item.id]);
+        } else if (item.notification_type == 'event_booking') {
+          this.router.navigate(['/event-details', item.id]);
+        }
+      }
+    })
+  
   }
 
 

@@ -8,7 +8,8 @@
   <div class="container">
     <div class="form-cnt">
       <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout mt-4">
-        @if(eventIds?.eventId){
+        <!-- @if(eventIds?.eventId){ -->
+          @if(!isUserSubscribed || eventIds?.eventId){
           <label class="card-details">If you have any coupon code, please apply it below.</label>
         <div class='coupon-container' >
           <input class='coupon rounded' placeholder='Coupon code' type='text' name='coupon' [formControl]="coupon_code" required /> 
@@ -24,6 +25,7 @@
         <label class="card-details" style="font-size: 18px;">You have to pay ${{appliedCouponResponse * eventIds.numberOfBooking}} for {{eventIds.numberOfBooking}} booking(s).</label>
        }
       }
+      <!-- } -->
         <div class="form-row mt-4" [ngClass]="{'is-invalid': !billingAddressValid}">
           <label for="billing-address-element" class="card-details">Billing Address</label>
           <div id="billing-address-element" #billingAddressElement></div>

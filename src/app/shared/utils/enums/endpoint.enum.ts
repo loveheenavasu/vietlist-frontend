@@ -110,4 +110,5 @@ export enum Endpoints {
   GetCampaign = 'get_campaign',
   GetAllCampaign = 'get_All_campaign',
   StartCampaign = 'start_campaign',
+  PmproCoupon = 'apply_pmpro_coupon'
 }
