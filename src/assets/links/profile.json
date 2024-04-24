@@ -20,11 +20,6 @@
     "url": "/manage-profile/manage-ads"
   },
   {
-    "label": "Invoices",
-    "icon": "fa fa-file ",
-    "url": "/invoices"
-  },
-  {
     "label": "Subscriptions",
     "icon": "fa fa-repeat",
     "url": "/manage-profile/subscription"

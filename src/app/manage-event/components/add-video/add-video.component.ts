@@ -1,7 +1,7 @@
 import { BusinessService } from './../../../manage-business/service/business.service'
 import { MatSelectModule } from '@angular/material/select'
 import { NgIf, CommonModule } from '@angular/common'
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core'
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -52,6 +52,7 @@ import { Subscription, forkJoin } from 'rxjs'
 export class AddVideoComponent implements OnInit {
   isVideoUploading: any = {}
   isImageUploading: any = {}
+  isLoading: boolean = false
   public video_upload: any = []
   public filess: any
   public videoUrl: any[] = []
@@ -67,6 +68,7 @@ export class AddVideoComponent implements OnInit {
   public videoDetails: FormGroup
   totalVideoCount: any
   videoLimitFull: boolean = false
+  isValidated = true
   /**
    *
    * @param matDialogRef
@@ -124,7 +126,6 @@ export class AddVideoComponent implements OnInit {
   videoDetailss: any = []
   onChange(e: any, i: any, name: any) {
     this.videoDetailss[i][name] = e
-    console.log(this.videoDetailss, 'alnvlnasvlnslvnlsnvlan')
   }
 
   addMore() {
@@ -193,9 +194,11 @@ export class AddVideoComponent implements OnInit {
 
   public getAllVideosList(postId: any) {
     this.fullPageLoaderService.showLoader()
+    this.isLoading = true
     this.businessService.getAllVideoIntegration(postId).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
+        this.isLoading = false
         if (res?.message === 'No data Found') {
           this.totalVideoCount = 0
         } else {
@@ -206,6 +209,7 @@ export class AddVideoComponent implements OnInit {
         }
       },
       error: (err: any) => {
+        this.isLoading = false
         this.fullPageLoaderService.hideLoader()
         console.log(err, 'error')
       },
@@ -426,10 +430,33 @@ export class AddVideoComponent implements OnInit {
 
   private subscriptions: Subscription[] = []
 
+  validate(arr: any) {
+    for (const obj of arr) {
+      for (const key in obj) {
+        if (!obj[key]) {
+          return false
+        }
+      }
+    }
+    return true
+  }
+
   public addVideo() {
-    // return
-    this.isLoader = true
     console.log(this.videoDetailss, 'this.videoDetailss')
+    if (!this.validate(this.videoDetailss)) {
+      Swal.fire({
+        toast: true,
+        text: 'Please fill all the field first',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      return
+    }
+    this.isLoader = true
     this.subscriptions = this.videoDetailss?.map((body: any) => {
       return this.businessService.videoIntegration({
         ...body,

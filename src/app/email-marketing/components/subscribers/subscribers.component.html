@@ -1,6 +1,6 @@
-<div class="btn-cont">
+<!-- <div class="btn-cont">
   <button (click)="openDialogs()" class="add-btn rounded">Add New</button>
-</div>
+</div> -->
 
 <div class="table-container">
   <table class="table table-striped table-bordered">
@@ -16,14 +16,17 @@
     </thead>
     <tbody>
       <tr *ngFor="let subscriber of subscriberList">
-        <td class='clickable-cell'  (click)="openDialogs(subscriber)">
+        <td >
           {{ subscriber?.name || '--' }}
         </td>
+        <!-- <td class='clickable-cell'  (click)="openDialogs(subscriber)">
+          {{ subscriber?.name || '--' }}
+        </td> -->
         <td>{{ subscriber?.email || '--' }}</td>
         <td>{{ subscriber?.lists?.join(' ') || '--' }}</td>
         <td>{{ subscriber?.emails ?? '--' }}</td>
         <td>{{ subscriber?.status }}</td>
-        <td>{{ listId? subscriber?.added :  this.service.formatDate(subscriber?.added) || '--' }}</td>
+        <td>{{ listId? subscriber?.added :  this.service.formatDatee(subscriber?.added) || '--' }}</td>
       </tr>
     </tbody>
   </table>
