@@ -115,20 +115,28 @@ export class AddVideoComponent implements OnInit {
 
   maxVideoCondition() {
     let a = this.totalVideoCount + this.videos().controls.length
-    console.log(this.totalVideoCount, 'totalcount')
-    console.log(a, 'total')
     if (a < 5) {
       return true
     } else {
       return false
     }
   }
+  videoDetailss: any = []
+  onChange(e: any, i: any, name: any) {
+    this.videoDetailss[i][name] = e
+    console.log(this.videoDetailss, 'alnvlnasvlnslvnlsnvlan')
+  }
 
   addMore() {
-    console.log(this.videoDetails.value, 'this.videoDetails.value')
     const { item } = this.data
     console.log(this.data, 'this.data')
     if (item) {
+      this.videoDetailss.push({
+        name: item?.name,
+        video_type: item?.video_type,
+        video_url: item?.video_url[0],
+        thumbnail_image: item?.thumbnail_image,
+      })
       this.videos().push(
         this.fb.group({
           name: [item?.name, Validators.required],
@@ -139,6 +147,7 @@ export class AddVideoComponent implements OnInit {
       )
     } else {
       if (this.maxVideoCondition()) {
+        this.videoDetailss.push(this.newVideoFields())
         this.videos().push(this.newVideoField())
       } else {
         Swal.fire({
@@ -157,6 +166,14 @@ export class AddVideoComponent implements OnInit {
     }
   }
 
+  newVideoFields() {
+    return {
+      name: '',
+      video_type: '',
+      video_url: '',
+      thumbnail_image: '',
+    }
+  }
   newVideoField(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
@@ -170,7 +187,8 @@ export class AddVideoComponent implements OnInit {
     return this.videoDetails.get('videos') as FormArray
   }
   removeVideoField(i: number) {
-    this.videos().removeAt(i)
+    // this.videos().removeAt(i)
+    this.videoDetailss.splice(i, 1)
   }
 
   public getAllVideosList(postId: any) {
@@ -327,7 +345,7 @@ export class AddVideoComponent implements OnInit {
           if (!this.videoUrl?.includes(res?.image_url)) {
             this.videoUrl?.push(res?.image_url)
             console.log(this.videoUrl, ' url ======== videos().controls', i)
-            this.videoDetails.value.videos[i].video_url = res?.image_url
+            this.videoDetailss[i].video_url = res?.image_url
           }
         },
         error: (err: any) => {
@@ -342,7 +360,7 @@ export class AddVideoComponent implements OnInit {
   }
 
   public removeItems(i: any, key: any) {
-    this.videoDetails.value.videos[i][key] = ''
+    this.videoDetailss[i][key] = ''
   }
 
   public onRemove(videoElement: HTMLElement) {
@@ -380,7 +398,7 @@ export class AddVideoComponent implements OnInit {
           }
           if (res) {
             this.imagePreviews.push(res.image_url)
-            this.videoDetails.value.videos[i].thumbnail_image = res?.image_url
+            this.videoDetailss[i].thumbnail_image = res?.image_url
           }
 
           if (this.imagePreviews.length >= 5) {
@@ -409,10 +427,10 @@ export class AddVideoComponent implements OnInit {
   private subscriptions: Subscription[] = []
 
   public addVideo() {
-    console.log(this.videoDetails.value.videos, 'this.videoDetail')
     // return
     this.isLoader = true
-    this.subscriptions = this.videoDetails.value.videos?.map((body: any) => {
+    console.log(this.videoDetailss, 'this.videoDetailss')
+    this.subscriptions = this.videoDetailss?.map((body: any) => {
       return this.businessService.videoIntegration({
         ...body,
         post_id: this.postId,
@@ -446,8 +464,9 @@ export class AddVideoComponent implements OnInit {
         },
       })
     } else {
+      console.log(this.videoDetailss, 'this.videoDetailss update')
       const updatebody = {
-        ...this.videoDetails.value.videos[0],
+        ...this.videoDetailss?.[0],
         post_id: this.postId,
         video_id: this.dialogData.video_id,
       }

@@ -155,6 +155,7 @@ export class PreviewBusinessComponent {
     if (this.postId) {
       this.getBusinessFormDetails()
       this.getAllVideosList(this.postId)
+      this.getVideosList(this.postId, this.videoTab)
     }
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {

@@ -20,10 +20,10 @@
       <div mat-dialog-content class="mt-4" formArrayName="videos">
         <div
           class="row position-relative pt-5"
-          *ngFor="let quantity of videos().controls; let i = index"
+          *ngFor="let quantity of videoDetailss; let i = index"
           [formGroupName]="i"
         >
-          @if (videos().controls.length > 1) {
+          @if (this.videoDetailss?.length > 1) {
             <button
               mat-icon-button
               aria-label="Example icon button with a vertical three dot icon"
@@ -40,7 +40,10 @@
                 class="input-control"
                 placeholder="Name"
                 required
+                name="name"
                 formControlName="name" 
+                [(ngModel)]='videoDetailss?.[i].name'
+                (ngModelChange)="onChange($event, i, 'name')"
               />
             </div>
           </div>
@@ -50,6 +53,9 @@
                 class="vietlist-select"
                 placeholder="Video type"
                 formControlName="video_type"
+                [(ngModel)]="videoDetailss?.[i].video_type"
+                (ngModelChange)="onChange($event, i, 'video_type')"
+
               >
                 <mat-option value="promotional_videos">Promotional</mat-option>
                 <mat-option value="tutorials">Tutorial</mat-option>
@@ -59,18 +65,22 @@
           </div>
           <div class="col-6">
             <ngx-dropzone
-              [disabled]="
-                videoDetails.value.videos[i]?.video_url ? true : false
-              "
+              [disabled]="videoDetailss?.[i]?.video_url ? true : false"
               [accept]="'.mp4,.mov'"
-              (change)="onSelect($event,i)"
+              (change)="onSelect($event, i)"
               [multiple]="false"
             >
-              <ngx-dropzone-label *ngIf="!isVideoUploading?.status || isVideoUploading?.index!==i"
+              <ngx-dropzone-label
+                *ngIf="
+                  !isVideoUploading?.status || isVideoUploading?.index !== i
+                "
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
                 Video here or Browse a file</ngx-dropzone-label
               >
-              <div class="loader" *ngIf="isVideoUploading?.status && isVideoUploading?.index==i"></div>
+              <div
+                class="loader"
+                *ngIf="isVideoUploading?.status && isVideoUploading?.index == i"
+              ></div>
             </ngx-dropzone>
           </div>
           <div class="col-6">
@@ -86,17 +96,17 @@
                 </div>
                 <video
                   style="margin: 10px; object-fit: cover"
-                  *ngIf="videoDetails.value.videos[i]?.video_url"
+                  *ngIf="videoDetailss?.[i]?.video_url"
                   width="220"
                   height="200"
                   controls
                 >
                   <source
-                    [src]="videoDetails.value.videos[i]?.video_url"
+                    [src]="videoDetailss?.[i]?.video_url"
                     type="video/mp4"
                   />
                   <source
-                    [src]="videoDetails.value.videos[i]?.video_url"
+                    [src]="videoDetailss?.[i]?.video_url"
                     type="video/ogg"
                   />
                   Your browser does not support the video tag.
@@ -107,28 +117,29 @@
           </div>
           <div class="col-6 mt-3">
             <ngx-dropzone
-              [disabled]="
-                videoDetails.value.videos[i]?.thumbnail_image ? true : false
-              "
+              [disabled]="videoDetailss?.[i]?.thumbnail_image ? true : false"
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
-              (change)="onSelectImage($event ,i )"
+              (change)="onSelectImage($event, i)"
               [multiple]="false"
             >
-              <ngx-dropzone-label *ngIf="!isImageUploading?.status || isImageUploading?.index !== i"
+              <ngx-dropzone-label
+                *ngIf="
+                  !isImageUploading?.status || isImageUploading?.index !== i
+                "
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
                 Thumbnail image here or Browse a file</ngx-dropzone-label
               >
               <!-- <div class="loader" *ngIf="isImageUploading"></div> -->
-              <div class="loader" *ngIf="isImageUploading?.status && isImageUploading?.index==i"></div>
+              <div
+                class="loader"
+                *ngIf="isImageUploading?.status && isImageUploading?.index == i"
+              ></div>
             </ngx-dropzone>
           </div>
           <div class="col-6">
             <div class="main_images">
               <!-- @for (preview of imagePreviews; track $index) { -->
-              <div
-                class="images__"
-                *ngIf="videoDetails.value.videos[i]?.thumbnail_image"
-              >
+              <div class="images__" *ngIf="videoDetailss?.[i]?.thumbnail_image">
                 <div class="removeImage" *ngIf="data?.item">
                   <i
                     class="fa fa-times-circle"
@@ -137,7 +148,7 @@
                   ></i>
                 </div>
                 <img
-                  [src]="videoDetails.value.videos[i]?.thumbnail_image"
+                  [src]="videoDetailss?.[i]?.thumbnail_image"
                   alt="Image Preview"
                   width="150"
                   height="150"
@@ -150,7 +161,7 @@
         <div class="mt-5 d-flex justify-content-end" *ngIf="!data?.item">
           <button
             [disabled]="!maxVideoCondition()"
-            [ngClass]="{ 'disabled': !maxVideoCondition() }"
+            [ngClass]="{ disabled: !maxVideoCondition() }"
             class="add-more"
             (click)="addMore()"
           >
@@ -165,7 +176,7 @@
           mat-flat-button
           class="btn orange-background-btn-w-100"
           (click)="addVideo()"
-          [disabled]="isImageUploading.status|| isVideoUploading.status"
+          [disabled]="isImageUploading.status || isVideoUploading.status"
         >
           <span *ngIf="!isLoader">Submit</span>
           <app-loader *ngIf="isLoader"></app-loader>
