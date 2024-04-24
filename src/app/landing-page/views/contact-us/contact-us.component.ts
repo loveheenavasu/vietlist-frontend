@@ -120,7 +120,7 @@ export class ContactUsComponent {
       this.loader = true
       const body  = {
         name:this.contactus.value.name,
-        phone_number:this.contactus.value.name,
+        phone_number:this.contactus.value.phone_number?.e164Number,
         messages:this.contactus.value.messages,
         email:this.contactus.value.email,
         address:this.fullAddress

@@ -60,7 +60,7 @@ export class PromotionsFormComponent {
     private router: Router,
     private localstorage: LocalStorageService,
     private eventService: EventService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
   ) {
     this.promotions = this.fb.group({
       createEvent: [''],
@@ -71,17 +71,15 @@ export class PromotionsFormComponent {
       business_ownerassociate: [''],
       choose_layout: [''],
       event_id: [''],
-      promotions_field: ['']
+      promotions_field: [''],
     })
     this.authService.userDetails.subscribe((res: any) => {
       this.eliteUserOnly = res
-
     })
 
     const id = localstorage.getData('postId')
     this.postId = Number(id)
   }
-
 
   ngOnInit() {
     this.getAddedEvents()
@@ -94,7 +92,7 @@ export class PromotionsFormComponent {
 
   displayImagePreviews() {
     this.isImageUploading = true
-    this.imagePreviews = [...this.imagePreviews];
+    this.imagePreviews = [...this.imagePreviews]
 
     // Loop through each file
     for (let i = 0; i < this.files.length; i++) {
@@ -126,17 +124,12 @@ export class PromotionsFormComponent {
     console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
 
-
   public getAddedEvents() {
-
     this.eventService.getEventsByUserId().subscribe({
       next: (res: any) => {
         this.eventsArray = res.data
-
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
 
@@ -153,8 +146,10 @@ export class PromotionsFormComponent {
       final_submission: 1,
       promotions_field: this.promotions.value.promotions_field,
       createEvent: this.promotions.value.createEvent ? 1 : 0,
-      business_ownerassociate: this.promotions.value.business_ownerassociate ? 1 : 0,
-      event_id: this.promotions.value.event_id
+      business_ownerassociate: this.promotions.value.business_ownerassociate
+        ? 1
+        : 0,
+      event_id: this.promotions.value.event_id,
     }
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
@@ -182,66 +177,8 @@ export class PromotionsFormComponent {
     })
   }
 
-
-  public previewBusiness(){
-// console.log(this.postId , "postid" )
-//     // if(!this.postId){
-//       const body = {
-//         faq: this.promotions.value.faq,
-//         upload_certificates: this.imagePreviews,
-//         physical_accessibility: this.promotions.value.physical_accessibility,
-//         digital_accessibility: this.promotions.value.digital_accessibility,
-//         choose_layout: this.promotions.value.choose_layout,
-//         terms_conditions: this.term_and_condition.value,
-//         final_submission: 0,
-//         promotions_field: this.promotions.value.promotions_field,
-//         createEvent: this.promotions.value.createEvent ? 1 : 0,
-//         business_ownerassociate: this.promotions.value.business_ownerassociate,
-//         event_id: this.promotions.value.event_id
-//       }
-//     this.businessService.addBusiness(body).subscribe({
-//       next: (res) => {
-//         console.log(res ,"Response")
-//           if(res){
-//             console.log(res)
-//             const data = res?.post_id
-//             console.log(data , "Data")
-//             this.router.navigate(['/preview-business' , data])
-//           }
-          
-    
-//       },
-//     })
-//   // }
-
-    const updatebody = {
-      post_id: this.postId,
-      faq: this.promotions.value.faq,
-      upload_certificates: this.imagePreviews,
-      physical_accessibility: this.promotions.value.physical_accessibility,
-      digital_accessibility: this.promotions.value.digital_accessibility,
-      choose_layout: this.promotions.value.choose_layout,
-      terms_conditions: this.term_and_condition.value,
-      final_submission: 1,
-      promotions_field: this.promotions.value.promotions_field,
-      createEvent: this.promotions.value.createEvent ? 1 : 0,
-      business_ownerassociate: this.promotions.value.business_ownerassociate,
-      event_id: this.promotions.value.event_id,
-    }
-    this.businessService.updateBusiness(updatebody).subscribe({
-      next:(res)=>{
-          console.log(res ,"Response")
-            if(res){
-              this.router.navigate(['/preview-business' , this.postId])
-            }
-            
-      
-        
-      },error:(err)=>{
-
-      }
-    })
-  // }
+  public previewBusiness() {
+    this.router.navigate(['/preview-business', this.postId])
   }
 
   public navigateToEvent() {
