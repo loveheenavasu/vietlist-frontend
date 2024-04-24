@@ -1,0 +1,160 @@
+.container-fluid {
+    margin: 10em;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+
+.form-container {
+    width: 55%;
+    padding: 20px 30px;
+    height: auto;
+    border: solid 1px rgb(0, 208, 255);
+    
+}
+
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 12px;
+}
+
+::ng-deep.mat-mdc-select {
+    padding: 7px 10px;
+}
+
+::ng-deep.mat-mdc-slider {
+    width: 96% !important;
+}
+
+::ng-deep.mat-mdc-slider .mdc-slider__thumb-knob {
+    background-color: rgb(0, 136, 255)!important;
+    border-color: rgb(0, 136, 255) !important;
+}
+
+::ng-deep.mat-mdc-slider .mdc-slider__track--active_fill {
+    border-color: rgb(0, 136, 255) !important;
+}
+
+::ng-deep.mat-mdc-slider__thumb--with-indicator {
+    background-color: rgb(0, 136, 255) !important;
+}
+
+h3{
+    color: rgb(65, 65, 65);
+    font-weight: 400;
+    font-size:22px;
+}
+
+h4 {
+    color: rgb(65, 65, 65);
+    font-weight: 400;
+    font-size:18px;
+}
+
+h5{
+    font-size:16px;
+    font-weight: 500;
+    color:rgb(0, 136, 255)
+}
+
+.amount-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: solid 2.5px rgb(0, 136, 255);
+    cursor: pointer;
+    color: rgb(0, 136, 255);
+    text-align: center;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */;
+    margin-top:12px;
+}
+
+.slider-div {
+    // flex-grow: 1;
+    width:95%;
+    padding: 0 10px;
+}
+
+
+.amount-div-main {
+    margin-top: 22px;
+}
+
+.loan-breakdown-p{
+    font-style: italic;
+    font-size: 17px;
+    color:rgb(139, 139, 139);
+}
+
+.loan-breakdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loan-breakdown {
+    display: flex;
+    height: 20px; /* Adjust the height as needed */
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.segment {
+    flex-grow: 1;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+}
+
+.legend-item {
+    width: 20px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    margin-right: 10px; /* Adjust spacing between legend items */
+}
+
+.legend-label {
+    margin-right: 20px; /* Adjust spacing between legend items and labels */
+}
+
+.loan-btn{
+    background-color: rgb(64, 64, 64);
+    color: #fff;
+    height: 35px;
+    cursor: pointer;
+    display: flex; /* Add display flex */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+    font-size:14px
+}
+
+
+.loan-form-label{
+    color: rgb(65, 65, 65);
+    font-weight: 400;
+    font-size:16px;
+}
+
+.loan-input{
+    height:32px;
+    border:solid 1px rgb(45, 45, 45);
+    border-radius:2px;
+    padding:10px;
+    width:100%;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+  }
+  .checkbox-label {
+    margin-right: 20px; /* Adjust spacing between checkboxes */
+    display: flex;
+    align-items: center;
+  }
+  input[type="checkbox"] {
+    margin-right: 5px; /* Adjust spacing between checkbox and label text */
+  }
