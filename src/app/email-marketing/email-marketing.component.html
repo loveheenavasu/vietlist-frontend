@@ -11,6 +11,7 @@
         <div class="container">
           <app-all-campaign
           (GetAllCampaign)="GetAllCampaign()"
+          (navigateToTabs)="navigateToTabs($event)"
           [campaigns]='campaigns'
           ></app-all-campaign>
         </div>

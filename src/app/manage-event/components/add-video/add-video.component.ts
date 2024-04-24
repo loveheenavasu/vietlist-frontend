@@ -50,8 +50,8 @@ import { Subscription, forkJoin } from 'rxjs'
   styleUrl: './add-video.component.scss',
 })
 export class AddVideoComponent implements OnInit {
-  public isVideoUploading: boolean = false
-  public isImageUploading: boolean = false
+  isVideoUploading: any = {}
+  isImageUploading: any = {}
   public video_upload: any = []
   public filess: any
   public videoUrl: any[] = []
@@ -125,7 +125,9 @@ export class AddVideoComponent implements OnInit {
   }
 
   addMore() {
+    console.log(this.videoDetails.value, 'this.videoDetails.value')
     const { item } = this.data
+    console.log(this.data, 'this.data')
     if (item) {
       this.videos().push(
         this.fb.group({
@@ -169,7 +171,6 @@ export class AddVideoComponent implements OnInit {
   }
   removeVideoField(i: number) {
     this.videos().removeAt(i)
-    console.log(this.videoDetails.value, 'this.videos()')
   }
 
   public getAllVideosList(postId: any) {
@@ -177,7 +178,11 @@ export class AddVideoComponent implements OnInit {
     this.businessService.getAllVideoIntegration(postId).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        this.totalVideoCount = Number(res?.total_count)
+        if (res?.message === 'No data Found') {
+          this.totalVideoCount = 0
+        } else {
+          this.totalVideoCount = Number(res?.total_count)
+        }
         if (!this.data?.item) {
           this.addMore()
         }
@@ -277,8 +282,11 @@ export class AddVideoComponent implements OnInit {
   //   });
   // }
 
-  public onSelect(event: any) {
-    this.isVideoUploading = true
+  public onSelect(event: any, i: any) {
+    this.isVideoUploading = {
+      status: true,
+      index: i,
+    }
     const files: File[] = event.addedFiles
 
     // Allow only one video file
@@ -293,7 +301,10 @@ export class AddVideoComponent implements OnInit {
         timer: 3000,
         timerProgressBar: true,
       })
-      this.isVideoUploading = false
+      this.isVideoUploading = {
+        status: false,
+        index: i,
+      }
       return
     }
 
@@ -301,20 +312,29 @@ export class AddVideoComponent implements OnInit {
 
     // Process the video file
     const reader = new FileReader()
-    this.isVideoUploading = true
+    this.isVideoUploading = {
+      status: true,
+      index: i,
+    }
     reader.onload = () => {
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isVideoUploading = false
+          this.isVideoUploading = {
+            status: false,
+            index: i,
+          }
           this.video_upload = [res.image_url]
           if (!this.videoUrl?.includes(res?.image_url)) {
             this.videoUrl?.push(res?.image_url)
-            this.videoDetails.value.videos[this.videoUrl.length - 1].video_url =
-              res?.image_url
+            console.log(this.videoUrl, ' url ======== videos().controls', i)
+            this.videoDetails.value.videos[i].video_url = res?.image_url
           }
         },
         error: (err: any) => {
-          this.isVideoUploading = false
+          this.isVideoUploading = {
+            status: false,
+            index: i,
+          }
         },
       })
     }
@@ -331,15 +351,19 @@ export class AddVideoComponent implements OnInit {
     }
   }
 
-  onSelectImage(event: any) {
+  onSelectImage(event: any, i: any) {
     const file = event.addedFiles[0] // Only consider the first added file
     this.files = [file]
 
-    this.displayImagePreviews()
+    this.displayImagePreviews(i)
   }
 
-  displayImagePreviews() {
-    this.isImageUploading = true
+  displayImagePreviews(i: any) {
+    // this.isImageUploading = true
+    this.isImageUploading = {
+      status: true,
+      index: i,
+    }
     const filesToUpload = this.files.slice(0, 5)
     filesToUpload.forEach((file, index) => {
       const reader = new FileReader()
@@ -349,20 +373,30 @@ export class AddVideoComponent implements OnInit {
       reader.readAsDataURL(file)
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false
+          // this.isImageUploading = false
+          this.isImageUploading = {
+            status: false,
+            index: i,
+          }
           if (res) {
             this.imagePreviews.push(res.image_url)
-            this.videoDetails.value.videos[
-              this.imagePreviews.length - 1
-            ].thumbnail_image = res?.image_url
+            this.videoDetails.value.videos[i].thumbnail_image = res?.image_url
           }
 
           if (this.imagePreviews.length >= 5) {
-            this.isImageUploading = false
+            // this.isImageUploading = false
+            this.isImageUploading = {
+              status: false,
+              index: i,
+            }
           }
         },
         error: (err: any) => {
-          this.isImageUploading = false
+          // this.isImageUploading = false
+          this.isImageUploading = {
+            status: false,
+            index: i,
+          }
         },
       })
     })

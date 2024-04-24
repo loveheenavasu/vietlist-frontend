@@ -32,10 +32,10 @@ import { EventsComponent } from '../events/events.component'
 export class AnalyticsComponent {
   constructor(private analyticsService: AnalyticsService) {
     this.analyticsService
-      .GetAdsAnalytics({
+      .GetEventAnalytics({
         posts_per_page: 2,
         page_no: 1,
-        time_period: 'daily',
+        time_period: 'monthly',
       })
       .subscribe({ next: (data) => {}, error: (err) => {} })
   }

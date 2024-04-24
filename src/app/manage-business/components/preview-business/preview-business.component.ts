@@ -562,12 +562,15 @@ export class PreviewBusinessComponent {
 
   public getVideosList(postId: any, tab: any) {
     this.isVideoTypeLoading = true
+    this.fullPageLoaderService.showLoader()
     this.businessService.getVideoIntegration(postId, tab).subscribe({
       next: (res: any) => {
+        this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data
         this.isVideoTypeLoading = false
       },
       error: (err: any) => {
+        this.fullPageLoaderService.hideLoader()
         console.log(err, 'error')
       },
     })

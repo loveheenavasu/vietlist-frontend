@@ -13,6 +13,8 @@ import { FullPageLoaderService } from '@vietlist/shared'
 export class AllCampaignComponent implements OnInit {
   @Input() campaigns: any
   @Output() GetAllCampaign = new EventEmitter<any>()
+  @Output() navigateToTabs = new EventEmitter<any>()
+
   constructor(
     public service: EmailMarketingServiceService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -46,6 +48,9 @@ export class AllCampaignComponent implements OnInit {
       })
   }
 
+  navigate(index: any) {
+    this.navigateToTabs.emit(index)
+  }
   statusIconName: any = {
     finished: ['circle-check', 'Finished'],
     paused: ['circle-stop', 'Paused'],

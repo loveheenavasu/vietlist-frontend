@@ -40,7 +40,7 @@
                 class="input-control"
                 placeholder="Name"
                 required
-                formControlName="name"
+                formControlName="name" 
               />
             </div>
           </div>
@@ -59,17 +59,18 @@
           </div>
           <div class="col-6">
             <ngx-dropzone
-            [disabled]="videoDetails.value.videos[i]?.video_url ?true:false"
+              [disabled]="
+                videoDetails.value.videos[i]?.video_url ? true : false
+              "
               [accept]="'.mp4,.mov'"
-              (change)="onSelect($event)"
+              (change)="onSelect($event,i)"
               [multiple]="false"
-              formControlName="videoUrl"
             >
-              <ngx-dropzone-label *ngIf="!isVideoUploading"
+              <ngx-dropzone-label *ngIf="!isVideoUploading?.status || isVideoUploading?.index!==i"
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
                 Video here or Browse a file</ngx-dropzone-label
               >
-              <div class="loader" *ngIf="isVideoUploading"></div>
+              <div class="loader" *ngIf="isVideoUploading?.status && isVideoUploading?.index==i"></div>
             </ngx-dropzone>
           </div>
           <div class="col-6">
@@ -83,7 +84,6 @@
                     (click)="removeItems(i, 'video_url')"
                   ></i>
                 </div>
-
                 <video
                   style="margin: 10px; object-fit: cover"
                   *ngIf="videoDetails.value.videos[i]?.video_url"
@@ -111,14 +111,15 @@
                 videoDetails.value.videos[i]?.thumbnail_image ? true : false
               "
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
-              (change)="onSelectImage($event)"
+              (change)="onSelectImage($event ,i )"
               [multiple]="false"
             >
-              <ngx-dropzone-label *ngIf="!isImageUploading"
+              <ngx-dropzone-label *ngIf="!isImageUploading?.status || isImageUploading?.index !== i"
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
                 Thumbnail image here or Browse a file</ngx-dropzone-label
               >
-              <div class="loader" *ngIf="isImageUploading"></div>
+              <!-- <div class="loader" *ngIf="isImageUploading"></div> -->
+              <div class="loader" *ngIf="isImageUploading?.status && isImageUploading?.index==i"></div>
             </ngx-dropzone>
           </div>
           <div class="col-6">
@@ -147,7 +148,14 @@
           </div>
         </div>
         <div class="mt-5 d-flex justify-content-end" *ngIf="!data?.item">
-          <button class="add-more" (click)="addMore()">Add more</button>
+          <button
+            [disabled]="!maxVideoCondition()"
+            [ngClass]="{ 'disabled': !maxVideoCondition() }"
+            class="add-more"
+            (click)="addMore()"
+          >
+            Add more
+          </button>
         </div>
       </div>
       <br />
@@ -157,7 +165,7 @@
           mat-flat-button
           class="btn orange-background-btn-w-100"
           (click)="addVideo()"
-          [disabled]="isImageUploading || isVideoUploading"
+          [disabled]="isImageUploading.status|| isVideoUploading.status"
         >
           <span *ngIf="!isLoader">Submit</span>
           <app-loader *ngIf="isLoader"></app-loader>
