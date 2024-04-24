@@ -1,8 +1,10 @@
+import { switchMap, catchError } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LoaderComponent } from 'src/app/common-ui';
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core'
+import { Component, DestroyRef, ElementRef, HostListener, ViewChild } from '@angular/core'
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -25,7 +27,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
-import { BehaviorSubject, interval, Subscription } from 'rxjs'
+import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
@@ -95,7 +97,8 @@ export class HeaderComponent {
     private businessService: BusinessService,
     private authService: AuthService,
     private homeService: HomepageService,
-    private profileService:ProfileService
+    private profileService:ProfileService,
+    private destroyRef:DestroyRef
   ) {
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res;
@@ -361,11 +364,29 @@ export class HeaderComponent {
   }
 
   private startNotificationInterval(): void {
-    // Start interval for fetching notifications every minute
-    this.notificationIntervalSubscription = interval(20000) // 60000 ms = 1 minute
-      .subscribe(() => {
-        this.getNotifications();
-      });
+    this.notificationIntervalSubscription = interval(6000).pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap(()=>{
+        this.isNotificationLoading = true
+        const body = {
+          "limit": 10
+        }
+        return this.homeService.getNotification(body).pipe(
+          catchError(() => {
+            this.isNotificationLoading = false
+            this.notificationsDetails = '0';
+            this.notificationsArr = []
+            return EMPTY;
+          })
+        )
+      })
+    ).subscribe({
+      next: (res: any) => { 
+        this.isNotificationLoading = false
+        this.notificationsDetails = res.total_count
+        this.notificationsArr = res.data
+      }
+    })
   }
 
   notifcationStatus:any;
