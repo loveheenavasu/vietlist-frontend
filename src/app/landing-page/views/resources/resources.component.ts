@@ -81,6 +81,7 @@ export class ResourcesComponent {
   }
 
   public onTabClick(tab: any) {
+    this.resourceArr = []
     this.activeTab = tab
     this.isPaginationClick = false
     this.currentPage = 1
