@@ -99,13 +99,13 @@
               <p>{{businessFormDetails?.post_content}}</p>
 
               <h3 class="event-page-headings">
-                <i class="fa fa-list" aria-hidden="true" style="font-size: 24px"></i>
+                <i class="fa fa-" aria-hidden="true" style="font-size: 24px"></i>
                 Category
               </h3>
               <hr />
               <p *ngFor=" let category of businessFormDetails?.post_category ">{{category?.name}}</p>
               <h3 class="event-page-headings">
-                <i class="fa fa-list" aria-hidden="true" style="font-size: 24px"></i>
+                <i class="fa fa-" aria-hidden="true" style="font-size: 24px"></i>
                 Default Category
               </h3>
               <hr />
@@ -310,7 +310,7 @@
                 </div>
                 }
               </div> -->
-              <div class="profile-info-div mt-3" style="padding: 9%">
+              <div *ngIf="businessFormDetails?.business_hours" class="profile-info-div mt-3" style="padding: 9%">
                 <div class="d-block text-center text-md-left d-md-flex p-3 bg-light">
                   <span style='font-size: 22px; font-weight: 600; color: black; '>Timing :</span>
                   <div class="media-body">
