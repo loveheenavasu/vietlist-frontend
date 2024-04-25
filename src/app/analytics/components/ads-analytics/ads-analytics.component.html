@@ -1,1 +1,12 @@
-<p>ads-analytics works!</p>
+<app-analytics-table
+  [data]="dataa"
+  [currentPage]="currentPage"
+  [totalItems]="totalItems"
+  [itemsPerPage]="itemsPerPage"
+  (handlePageChange)="handlePageChange($event)"
+  (handleTimePeriodChange)="handleTimePeriodChange($event)"
+  [timePeriod]='timePeriod'
+  [columns]="columns"
+  [rowAccessor]="rowAccessor"
+  [paginationHide]='true'
+></app-analytics-table>

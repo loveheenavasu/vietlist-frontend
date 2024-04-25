@@ -179,25 +179,20 @@ video {
 }
 
 .form-group{
-  input{
-    border: solid #8f8e8e !important;
-    background: #fefefe !important;
-    // outline: none !important;
-  }
-  input:focus{
-    border-color: transparent !important;
-  }
+  input::placeholder { /* Most modern browsers support this now. */
+    color:    black;
+ }
 
 }
-
-.mat-mdc-select{
-  border: solid #8f8e8e !important;
-  background: #fefefe !important;
-  display: flex !important;
-  // outline: none !important;
+::ng-deep.mat-mdc-select-placeholder{
+  color: black !important ;
 }
 
-.mat-mdc-select:focus{
-  border-color: transparent !important;
+::ng-deep.mat-mdc-select{
+color: black !important;
 }
+
+// .mat-mdc-select:focus{
+//   border-color: transparent !important;
+// }
 

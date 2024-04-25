@@ -1,1 +1,60 @@
-<p>analytics-table works!</p>
+<div class="row">
+  <div class="col-3">
+    <div class="form-group">
+      <mat-select
+        class="vietlist-select"
+        placeholder="Time Period"
+        (ngModelChange)="onChange($event)"
+        [(ngModel)]="timePeriod"
+      >
+        <mat-option value="daily"> Daily </mat-option>
+        <mat-option value="weekly"> Weekly</mat-option>
+        <mat-option value="monthly">Monthly</mat-option>
+        <mat-option value="yearly">Yearly</mat-option>
+      </mat-select>
+    </div>
+  </div>
+</div>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns" scope="col">{{ column }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (data?.length) {
+      <tr
+        *ngFor="
+          let rowData of data
+            | paginate
+              : {
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: totalItems
+                };
+          let i = index
+        "
+      >
+        <td  *ngFor="let accessor of rowAccessor">
+          {{ rowData[accessor] }}
+        </td>
+      </tr>
+    } @else {
+      <tr align="center">
+        <td align="center" [colSpan]="colspan"><span> No data Found </span></td>
+      </tr>
+    }
+  </tbody>
+</table>
+<div class="row" [hidden]="paginationHide">
+  <div class="col-md-12 mt-5">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChanges($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>
