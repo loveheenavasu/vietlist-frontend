@@ -102,6 +102,7 @@ export class HeaderComponent {
   ) {
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res;
+      console.log(this.userDetail , res ,  "userDetail for Resources")
     })
   
     this.sessionservice.isAuthenticated$.subscribe((res) => {
@@ -432,9 +433,7 @@ export class HeaderComponent {
         this.notificationsArr = res.data
 
       },
-      error: (err) => {
 
-      }
     })
   }
 

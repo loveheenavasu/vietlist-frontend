@@ -37,7 +37,7 @@
               </ul>
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(plan.id)">
+              <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(plan.id)" [disabled]="userDetails?.level_id === plan.id">
                 {{userDetails?.level_id === plan.id ? 'Active' : 'Choose Plan'}}
               </button>
             </div>
