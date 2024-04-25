@@ -105,8 +105,9 @@ export class PlanComponent {
     }
     this.subscriptionService.freePlanSubscription(body).subscribe({
       next: (res) => {
-        console.log("res", res)
+
         this.loaderService.hideLoader()
+        this.fetchProfileDetail()
         if (res.data?.status == UserStatus.Active) {
           const status = UserStatus.Active
           this.sessionService.setSubscriptonStatus(status)
@@ -139,6 +140,7 @@ export class PlanComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.userDetails = res.data?.user
+        console.log(this.userDetails,"userDetails")
         this.sessionService.userDetails.next(this.userDetails)
         this.sessionService.userDetailResponse.next(this.userDetails)
       },

@@ -1,21 +1,18 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import Swal from 'sweetalert2';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http'
+import { inject } from '@angular/core'
+import { Router } from '@angular/router'
+import { BehaviorSubject, throwError } from 'rxjs'
+import { catchError } from 'rxjs/operators'
+import Swal from 'sweetalert2'
 
 export const errorMessageSubject = new BehaviorSubject<any>('');
 
 export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
-
-  // Check if the request URL matches the endpoint you want to exclude
-  const isExcludedEndpoint = req.url === 'https://vietlist.biz/wp-json/vietlist/v1/get_notification?limit=10';
-
+ // Check if the request URL matches the endpoint you want to exclude
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
     
-      if(error.status === 403 && !isExcludedEndpoint){ // Display Swal only if it's not the excluded endpoint
+      if(error.status === 403 && req.url != 'https://vietlist.biz/wp-json/vietlist/v1/get_notification?limit=10'){
         Swal.fire({
           toast: true,
           text: error.error.message,
@@ -25,10 +22,9 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        });
-        errorMessageSubject.next(true);
-      }else{
-        // For all other errors or excluded endpoint, display Swal without navigating or setting errorMessageSubject
+        })
+        errorMessageSubject.next(true)
+      }else if(req.url != 'https://vietlist.biz/wp-json/vietlist/v1/get_notification?limit=10'){
         Swal.fire({
           toast: true,
           text: error.error.message,
@@ -38,9 +34,9 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        });
+        })
       }
-      return throwError(() => {});
+      return throwError(() => {})
     }),
-  );
-};
+  )
+}
