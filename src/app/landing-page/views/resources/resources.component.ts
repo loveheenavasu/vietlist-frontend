@@ -58,11 +58,11 @@ export class ResourcesComponent {
     private dialog: MatDialog,
     private profileService: ProfileService,
   ) {
-    this.getResourcesData(this.activeTab)
+    // this.getResourcesData(this.activeTab)
   }
 
   ngOnInit() {
-    this.getResourcesData(this.activeTab)
+    // this.getResourcesData(this.activeTab)
     this.cdr.detectChanges()
   }
 
@@ -82,7 +82,7 @@ export class ResourcesComponent {
 
   public onTabClick(tab: any) {
     this.resourceArr = []
-    this.activeTab = tab
+    this.activeTab = tab  
     this.isPaginationClick = false
     this.currentPage = 1
     this.selectedLayout = 'grid'
@@ -92,7 +92,9 @@ export class ResourcesComponent {
       this.getWebinarData()
     } else {
       this.isWebinarView = false
+      if(this.activeTab){
       this.getResourcesData(this.activeTab)
+      }
     }
   }
 
@@ -102,8 +104,10 @@ export class ResourcesComponent {
       .getResources(this.postPerPage, this.currentPage, tab)
       .subscribe({
         next: (res: any) => {
-          this.fullPageLoaderService.hideLoader()
           this.resourceArr = res.data
+          if(this.resourceArr){
+            this.fullPageLoaderService.hideLoader()
+          }
           this.totalCount = res.total_count
         },
         error: (err: any) => {
@@ -138,14 +142,6 @@ export class ResourcesComponent {
               this.resourceArr2.push(item)
             }
           })
-          //  res.data.filter((item:any)=>{
-          //   if(item.webinar_date > currentDate){
-          //     this.resourceArr2.push(item)
-          //   }
-          // })
-          // this.resourceArr2 = res.data.filter((item: any) => new Date(item.webinar_date) >= currentDate);
-          // this.resourceArr2 = res.data
-
           this.totalCount = this.resourceArr2.length
         },
         error: (err: any) => {

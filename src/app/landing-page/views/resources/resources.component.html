@@ -35,13 +35,15 @@
   @if (!isWebinarView) {
     <div class="lisiting-container mt-4">
       <div class="layout-icon d-flex align-items-center">
-        <div
-          class="grid-layout-icon d-flex align-items-center"
-          [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-          (click)="handleLayout('grid')"
-        >
-          <mat-icon>grid_on</mat-icon>
-        </div>
+        @if (activeTab !== 'e-books') {
+          <div
+            class="grid-layout-icon d-flex align-items-center"
+            [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+            (click)="handleLayout('grid')"
+          >
+            <mat-icon>grid_on</mat-icon>
+          </div>
+        }
         @if (activeTab !== 'e-books') {
           <div
             class="list-layout-icon d-flex align-items-center"
@@ -94,7 +96,9 @@
                     </div>
                   } @else if (activeTab == 'e-books') {
                     <div style="text-align: center">
-                      <button (click)="openBooks(key)" class="btn read-btn">READ</button>
+                      <button (click)="openBooks(key)" class="btn read-btn">
+                        READ
+                      </button>
                     </div>
                   }
                 </div>
@@ -155,7 +159,9 @@
                   </div>
                 } @else if (activeTab == 'e-books') {
                   <div style="text-align: center" class="mx-3">
-                    <button (click)="openBooks(key)" class="btn read-btn">READ</button>
+                    <button (click)="openBooks(key)" class="btn read-btn">
+                      READ
+                    </button>
                   </div>
                 }
               </div>
@@ -165,52 +171,67 @@
       </div>
     </div>
   } @else {
-    <div class="table-responsive mt-3">
-      <table>
-        <thead>
-          <tr>
-            <th>Webinar Topic</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (key of resourceArr2; track $index) {
+    @if (resourceArr2.length) {
+      <div class="table-responsive mt-3">
+        <table>
+          <thead>
             <tr>
-              <td style="color: #144b7c">
-                {{ key.webinar_topic }}
-              </td>
-              <td style="color: #144b7c">
-                {{ key.webinar_date }}
-              </td>
-              <td style="color: #144b7c">
-                {{ key.webinar_time }}
-              </td>
-              @if(key?.zoom_links){
-                <td style="color: #144b7c" >{{key?.zoom_links}}</td>
-              }@else {
-               <td> <button class="btn webinar-register-btn" (click)="registrationForm(key.resource_id)">Join</button></td>
-              }
-             
+              <th>Webinar Topic</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Link</th>
             </tr>
-          }
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            @for (key of resourceArr2; track $index) {
+              <tr>
+                <td style="color: #144b7c">
+                  {{ key.webinar_topic }}
+                </td>
+                <td style="color: #144b7c">
+                  {{ key.webinar_date }}
+                </td>
+                <td style="color: #144b7c">
+                  {{ key.webinar_time }}
+                </td>
+                @if (key?.zoom_links) {
+                  <td style="color: #144b7c">{{ key?.zoom_links }}</td>
+                } @else {
+                  <td>
+                    <button
+                      class="btn webinar-register-btn"
+                      (click)="registrationForm(key.resource_id)"
+                    >
+                      Join
+                    </button>
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else if (!resourceArr2.length) {
+      <p
+        class="text-center"
+        style="font-size: 18px; margin-top: 2em; color: #6b6b6b"
+      >
+        No data found!
+      </p>
+    }
+  }
+  @if (activeTab !== 'webinar') {
+    <div class="row">
+      <div class="col-md-12 mt-5">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          [responsive]="true"
+          [maxSize]="5"
+          (pageChange)="handlePageChange($event)"
+        >
+        </pagination-controls>
+      </div>
     </div>
   }
-@if(activeTab !== 'webinar'){
-  <div class="row">
-    <div class="col-md-12 mt-5">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        [responsive]="true"
-        [maxSize]="5"
-        (pageChange)="handlePageChange($event)"
-      >
-      </pagination-controls>
-    </div>
-  </div>
-}
 </div>
