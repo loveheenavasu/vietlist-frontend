@@ -13,6 +13,7 @@ import { AdsAnalyticsComponent } from '../ads-analytics/ads-analytics.component'
 import { BookingAnalyticsComponent } from '../booking-analytics/booking-analytics.component'
 import { BusinessListingComponent } from '../business-listing/business-listing.component'
 import { EventsComponent } from '../events/events.component'
+import { AnalyticsTableComponent } from '../analytics-table/analytics-table.component'
 
 @Component({
   selector: 'app-analytics',
@@ -24,6 +25,7 @@ import { EventsComponent } from '../events/events.component'
     BookingAnalyticsComponent,
     BusinessListingComponent,
     EventsComponent,
+    AnalyticsTableComponent,
   ],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
@@ -32,10 +34,10 @@ import { EventsComponent } from '../events/events.component'
 export class AnalyticsComponent {
   constructor(private analyticsService: AnalyticsService) {
     this.analyticsService
-      .GetEventAnalytics({
+      .GetAdsAnalytics({
         posts_per_page: 2,
         page_no: 1,
-        time_period: 'monthly',
+        time_period: 'yearly',
       })
       .subscribe({ next: (data) => {}, error: (err) => {} })
   }

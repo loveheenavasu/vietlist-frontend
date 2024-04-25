@@ -1694,11 +1694,11 @@
               }
             </div>
           } @else {
-            <div class="profile-info-div mt-3" style="padding: 9%">
+            <div *ngIf="eventDetails?.business_hours" class="profile-info-div mt-3" style="padding: 9%">
               <div
                 class="d-block text-center text-md-left d-md-flex p-3 bg-light"
               >
-                <span style="font-size: 22px; font-weight: 600; color: black"
+                <span  style="font-size: 22px; font-weight: 600; color: black"
                   >Timing :</span
                 >
                 <div class="media-body">
