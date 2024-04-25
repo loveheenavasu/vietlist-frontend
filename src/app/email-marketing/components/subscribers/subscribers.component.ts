@@ -100,7 +100,9 @@ export class SubscribersComponent implements OnInit {
   getSubscribers() {
     this.service.getListSubscribers(this.listId).subscribe(
       (res) => {
-        this.subscriberList = res?.data
+        if (res?.data) {
+          this.subscriberList = res?.data?.reverse()
+        }
         this.fullPageLoaderService.hideLoader()
       },
       (err) => {
@@ -176,7 +178,9 @@ export class SubscribersComponent implements OnInit {
     this.service.getAllSubscribers().subscribe(
       (res) => {
         this.fullPageLoaderService.hideLoader()
-        this.subscriberList = res?.data
+        if (res?.data) {
+          this.subscriberList = res?.data?.reverse()
+        }
       },
       () => {
         this.fullPageLoaderService.hideLoader()

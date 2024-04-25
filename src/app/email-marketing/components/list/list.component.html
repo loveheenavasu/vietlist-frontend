@@ -21,8 +21,8 @@
         <td class="clickable-cell" (click)="navigateToSubscriber(3, list?.ID)">
           {{ list?.subscriber_count || '--' }}
         </td>
-        <td>{{ service.formatDate(list?.updated || '--') }}</td>
-        <td>{{ service.formatDate(list?.added) || '--' }}</td>
+        <td>{{ service.formatDatee(list?.updated || '--') }}</td>
+        <td>{{ service.formatDatee(list?.added) || '--' }}</td>
       </tr>
     </tbody>
   </table>

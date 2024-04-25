@@ -1,5 +1,198 @@
-<div class="container">
-    <div class="form-conatiner">
-        
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+        <div class="form-container">
+            <div class="row">
+                <h4>Select Currency</h4>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">Pounds</mat-radio-button>
+                    <mat-radio-button value="2">US Dollars</mat-radio-button>
+                    <mat-radio-button value="2">Euros</mat-radio-button>
+                </mat-radio-group>
+            </div>
+                <div class="amount-div-main">
+                    <div class="row">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                              <h5>$90877</h5>
+                            </div>
+                            <div>
+                                <h4>I want to Borrow this amount</h4>
+                            </div>
+                            <div>
+                                <h5>$90877</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="d-flex">
+                            <div>
+                                <div class="amount-btn">-</div>
+                            </div>
+                            <div class="slider-div">
+                                <mat-slider>
+                                    <input matSliderThumb>
+                                </mat-slider>
+                            </div>
+                            <div>
+                                <div class="amount-btn" >+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="amount-div-main">
+                    <div class="row">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                              <h5>6 years</h5>
+                            </div>
+                            <div>
+                                <h4>for this long: 18 years</h4>
+                            </div>
+                            <div>
+                                <h5>60 years</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="d-flex">
+                            <div>
+                                <div class="amount-btn">-</div>
+                            </div>
+                            <div class="slider-div">
+                                <mat-slider>
+                                    <input matSliderThumb>
+                                </mat-slider>
+                            </div>
+                            <div>
+                                <div class="amount-btn">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="amount-div-main">
+                    <div class="row">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                              <h5>$0</h5>
+                            </div>
+                            <div>
+                                <h4>Downpayment $2,000</h4>
+                            </div>
+                            <div>
+                                <h5>10,000</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="d-flex">
+                            <div>
+                                <div class="amount-btn">-</div>
+                            </div>
+                            <div class="slider-div">
+                                <mat-slider>
+                                    <input matSliderThumb>
+                                </mat-slider>
+                            </div>
+                            <div>
+                                <div class="amount-btn">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="row loan-breakdown-container mt-3">
+               <p class="loan-breakdown-p">Loan Breakdown</p>
+                <div class="loan-breakdown">
+                    <div class="segment" style="width: 20%; background-color: rgb(184, 0, 0);"></div>
+                    <div class="segment" style="width: 60%; background-color: rgb(218, 171, 0);"></div>
+                    <div class="segment" style="width: 6%; background-color: rgb(0, 110, 0);"></div>
+                    <div class="segment" style="width: 14%; background-color: rgb(2, 12, 155);"></div>
+                </div>
+                <div class="legend">
+                    <div class="legend-item" style="background-color: rgb(184, 0, 0);"></div>
+                    <div class="legend-label">Downpayment</div>
+                    <div class="legend-item" style="background-color: rgb(218, 171, 0);"></div>
+                    <div class="legend-label">Admin Fee</div>
+                    <div class="legend-item" style="background-color: rgb(2, 12, 155)"></div>
+                    <div class="legend-label">Principal</div>
+                    <div class="legend-item" style="background-color:rgb(0, 110, 0);"></div>
+                    <div class="legend-label">Other</div>
+                </div>
+                
+            </div>
+            <div class="row mt-4">
+                <h4>Convert to</h4>
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">Pounds</mat-radio-button>
+                    <mat-radio-button value="2">US Dollars</mat-radio-button>
+                    <mat-radio-button value="2">Euros</mat-radio-button>
+                </mat-radio-group>
+            </div>
+    
+            <div class="mt-3">
+                <h5>With a downpayment of $20000 your repayments at 2% will be $262.86 every month.</h5>
+            </div>
+            <div class="mt-3">
+                <h3>Total you will Pay: £3,787.91</h3>
+            </div>
+            <div class="mt-3">
+                <div class="loan-btn">Apply for this Loan</div>
+            </div>
+        </div>
     </div>
+    <div class="col-12 my-2">
+        <div class="form-container">
+            <h4>Enter your details below. All fields are required</h4>
+        
+            <div class="row">
+                <div class="col-12 my-2">
+                    <label class="loan-form-label">Your Name</label>
+                    <div>
+                        <input type="text" class="loan-input">
+                    </div>
+                </div>
+                <div class="col-12 my-2">
+                    <label class="loan-form-label">Email Address</label>
+                    <div>
+                        <input type="text" class="loan-input">
+                    </div>
+                </div>
+                <div class="col-12 my-2">
+                    <label class="loan-form-label">Telephone Number</label>
+                    <div>
+                        <input type="text" class="loan-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-12">
+                    <label class="loan-form-label">Reson for Loan</label>
+                </div>
+                <div class="col-12">
+                    <div class="flex-container">
+                        <label class="checkbox-label"><input type="checkbox"> Buy Car</label>
+                        <label class="checkbox-label"><input type="checkbox"> Buy Food</label>
+                        <label class="checkbox-label"><input type="checkbox"> Pay Rent</label>
+                      </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <label class="checkbox-label"><input type="checkbox">I consent to my data being retained by the site owner after the application has been processed</label>
+            </div>
+            <div class="row my-3">
+                <label class="loan-form-label">Answer the sum: 8-3 = <input type="text" style="width:30px"></label>
+            </div>
+            <div class="row my-3">
+                <div class="loan-btn">Apply for this Loan</div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+   <div class="row">
+ 
+   </div>
 </div>
+
+

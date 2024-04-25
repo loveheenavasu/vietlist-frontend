@@ -64,7 +64,7 @@
             </div>
           </div>
           <div class="col-6">
-            <ngx-dropzone
+            <div class="custom-dropzone" ngx-dropzone
               [disabled]="videoDetailss?.[i]?.video_url ? true : false"
               [accept]="'.mp4,.mov'"
               (change)="onSelect($event, i)"
@@ -81,13 +81,13 @@
                 class="loader"
                 *ngIf="isVideoUploading?.status && isVideoUploading?.index == i"
               ></div>
-            </ngx-dropzone>
+          </div>
           </div>
           <div class="col-6">
             <div id="video-preview-container">
               <!-- @for (video of videoUrl; track $index) { -->
               <div class="vedio____">
-                <div class="removeImage" *ngIf="data?.item">
+                <div class="removeImage" >
                   <i
                     class="fa fa-times-circle"
                     aria-hidden="true"
@@ -98,7 +98,7 @@
                   style="margin: 10px; object-fit: cover"
                   *ngIf="videoDetailss?.[i]?.video_url"
                   width="220"
-                  height="200"
+                  height="115"
                   controls
                 >
                   <source
@@ -116,7 +116,7 @@
             </div>
           </div>
           <div class="col-6 mt-3">
-            <ngx-dropzone
+            <div class="custom-dropzone" ngx-dropzone
               [disabled]="videoDetailss?.[i]?.thumbnail_image ? true : false"
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
               (change)="onSelectImage($event, i)"
@@ -129,18 +129,17 @@
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
                 Thumbnail image here or Browse a file</ngx-dropzone-label
               >
-              <!-- <div class="loader" *ngIf="isImageUploading"></div> -->
               <div
                 class="loader"
                 *ngIf="isImageUploading?.status && isImageUploading?.index == i"
               ></div>
-            </ngx-dropzone>
+          </div>
           </div>
           <div class="col-6">
             <div class="main_images">
               <!-- @for (preview of imagePreviews; track $index) { -->
               <div class="images__" *ngIf="videoDetailss?.[i]?.thumbnail_image">
-                <div class="removeImage" *ngIf="data?.item">
+                <div class="removeImage">
                   <i
                     class="fa fa-times-circle"
                     aria-hidden="true"
@@ -158,7 +157,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-5 d-flex justify-content-end" *ngIf="!data?.item">
+        <div  class="mt-5 d-flex justify-content-end" *ngIf="!data?.item &&!isLoading ">
           <button
             [disabled]="!maxVideoCondition()"
             [ngClass]="{ disabled: !maxVideoCondition() }"
@@ -170,11 +169,11 @@
         </div>
       </div>
       <br />
-      <div mat-dialog-actions class="text-center">
+      <div *ngIf="!isLoading" mat-dialog-actions class="text-center">
         <button
           type="button"
           mat-flat-button
-          class="btn orange-background-btn-w-100"
+          class="btn orange-background-btn-w-100 rounded submit-button"
           (click)="addVideo()"
           [disabled]="isImageUploading.status || isVideoUploading.status"
         >

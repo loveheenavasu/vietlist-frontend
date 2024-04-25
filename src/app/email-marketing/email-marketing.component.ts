@@ -58,7 +58,9 @@ export class EmailMarketingComponent {
   getAllList() {
     this.service.GetAllList().subscribe(
       (res) => {
-        this.lists = res?.data
+        if (res?.data) {
+          this.lists = res?.data?.reverse()
+        }
       },
       (err) => {
         Swal.fire({
@@ -80,7 +82,9 @@ export class EmailMarketingComponent {
     this.service.GetAllCampaign().subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
-        this.campaigns = res?.data
+        if (res?.data) {
+          this.campaigns = res?.data?.reverse()
+        }
       },
       error: (err) => {
         this.fullPageLoaderService.hideLoader()

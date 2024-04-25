@@ -708,3 +708,12 @@ span.elementor-grid-item {
   border: solid 1px grey;
   background-color: var(--primary-color-orange);
 }
+
+.main_images::-webkit-scrollbar {
+  display: none;
+}
+
+.main_images {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}

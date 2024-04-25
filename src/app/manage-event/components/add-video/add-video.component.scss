@@ -26,6 +26,7 @@ div#video-preview-container {
   align-items: center;
   justify-content: start;
   overflow: scroll;
+  height: 150px;
 }
 
 video {
@@ -159,3 +160,44 @@ video {
 .disabled{
   color: rgb(103, 103, 247) !important;
 }
+
+.custom-dropzone{
+  height:150px
+}
+
+.main_images{
+  height: 150px!important;
+}
+
+.video-preview-container::-webkit-scrollbar {
+  display: none;
+}
+
+.video-preview-container {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.form-group{
+  input{
+    border: solid #8f8e8e !important;
+    background: #fefefe !important;
+    // outline: none !important;
+  }
+  input:focus{
+    border-color: transparent !important;
+  }
+
+}
+
+.mat-mdc-select{
+  border: solid #8f8e8e !important;
+  background: #fefefe !important;
+  display: flex !important;
+  // outline: none !important;
+}
+
+.mat-mdc-select:focus{
+  border-color: transparent !important;
+}
+

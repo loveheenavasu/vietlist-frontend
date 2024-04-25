@@ -54,20 +54,20 @@ export class EmailMarketingServiceService {
     return this.http.get<any>(urlWithNoCache, { headers: authToken })
   }
 
-  formatDate(unixTimestamp: any) {
-    if (unixTimestamp && !isNaN(unixTimestamp)) {
-      const date = new Date(parseInt(unixTimestamp))
-      const month = date.toLocaleString('default', { month: 'long' })
-      const day = date.getDate()
-      const year = date.getFullYear()
-      const hours = date.getHours()
-      const minutes = date.getMinutes()
+  formatDatee(timestamp: any) {
+    if (timestamp && !isNaN(timestamp) && timestamp != 0) {
+      const date = new Date(timestamp * 1000)
 
-      const amPm = hours >= 12 ? 'pm' : 'am'
-      const formattedHours = hours % 12 || 12
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
+      // Format the date according to your desired format
+      const formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      })
 
-      const formattedDate = `${month} ${day}, ${year} ${formattedHours}:${formattedMinutes} ${amPm}`
       return formattedDate
     } else {
       return '--'

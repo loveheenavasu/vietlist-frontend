@@ -107,8 +107,9 @@ export class HeaderComponent {
     this.sessionservice.isAuthenticated$.subscribe((res) => {
       this.isAuthenticated = res
       if(this.isAuthenticated){
-        this.getNotifications()
         this.startNotificationInterval()
+      }else{
+        this.stopNotificationInterval()
       }
     })
 
@@ -148,7 +149,6 @@ export class HeaderComponent {
     this.sessionservice.OnLogOut.next(false)
     this.getBusinessCat()
     if (this.isAuthenticated) {
-      this.startNotificationInterval()
       this.fetchProfileDetail()
   
   }

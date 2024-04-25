@@ -52,6 +52,7 @@ import { ResourcesComponent } from './landing-page/views/resources/resources.com
 import { CouponListComponent } from './manage-profile/components/manage-coupons/coupon-list/coupon-list.component'
 import { AnalyticsComponent } from './analytics'
 import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
+import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -269,7 +270,10 @@ export default [
     path: 'resource-details/:id',
     loadComponent: () => ResourceDetailComponent,
   },
-
+{
+  path:'calculator',
+  loadComponent:()=>CalculatorMainComponent
+},
   {
     path: 'analytics',
     loadComponent: () => AnalyticsComponent,
