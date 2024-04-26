@@ -152,6 +152,10 @@ export class PreviewBusinessComponent {
   }
 
   ngOnInit() {
+    console.log(
+      this.businessFormDetails,
+      'this.businessFormDetailsthis.businessFormDetailsthis.businessFormDetails',
+    )
     if (this.postId) {
       this.getBusinessFormDetails()
       this.getAllVideosList(this.postId)
@@ -171,6 +175,8 @@ export class PreviewBusinessComponent {
   //   this.router.navigateByUrl('/claim-business')
   // }
 
+  videoUrl: any = []
+
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
@@ -178,6 +184,12 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
+        if (this.eventDetails?.video_upload?.length) {
+          this.videoUrl.push(...this.eventDetails?.video_upload)
+        }
+        if (this.eventDetails?.video_url) {
+          this.videoUrl.push(this.eventDetails?.video_url)
+        }
         if (this.businessFormDetails.event_id) {
           this.getEventDetails()
         }
@@ -572,7 +584,6 @@ export class PreviewBusinessComponent {
       },
       error: (err: any) => {
         this.fullPageLoaderService.hideLoader()
-        console.log(err, 'error')
       },
     })
   }
@@ -599,6 +610,16 @@ export class PreviewBusinessComponent {
       height: 'auto',
       data: { item, index }, // Pass item and index as data
     })
+  }
+  public formatDate(dateString: string): string {
+    if (!dateString) return ''
+
+    const date = new Date(dateString)
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+
+    return `${year}-${month}-${day}`
   }
 
   public editVideo(item: any, index: number) {

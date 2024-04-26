@@ -976,14 +976,14 @@
       }
       <div class="elementor-grid-item">
         <a
-          href="https://mail.google.com"
+          [href]="eventDetails?.instagram"
           target="_blank"
           class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
           target="_blank"
         >
           <!-- <span class="elementor-screen-only">Phone</span> -->
           <i
-            class="fa fa-envelope size_icon"
+            class="fa-brands fa-instagram size_icon"
             aria-hidden="true"
             style="font-size: 20px; color: #fff"
           ></i
@@ -1065,6 +1065,10 @@
         <li *ngIf="eventDetails?.video_upload" (click)="scrollTo('videoss')" [class.active]="activeTab === 'videoss'">
           <span> <i class="fa fa-video" aria-hidden="true"></i></span>
           Videos
+        </li>
+        <li *ngIf="eventInfo" (click)="scrollTo('event-promo')" [class.active]="activeTab === 'event-promo'">
+          <span> <i class="fa fa-" aria-hidden="true"></i></span>
+          Event & Promotions
         </li>
         <li
           (click)="scrollTo('mapView')"
@@ -1156,7 +1160,7 @@
               <!-- <div class="row mt-3"> -->
               <h3 class="event-page-headings">
                 <i
-                  class="fa fa-user"
+                  class="fa fa-"
                   aria-hidden="true"
                   style="font-size: 24px"
                 ></i>
@@ -1185,7 +1189,7 @@
             >
               <h3 class="event-page-headings">
                 <i
-                  class="fa fa-user"
+                  class="fa fa-"
                   aria-hidden="true"
                   style="font-size: 24px"
                 ></i>
@@ -1216,58 +1220,154 @@
             </div>
           }
           @if (eventDetails?.image) {
-          <div class="row my-4" id="photo">
-            <div class="col-12 col-md-12 col-lg-12">
-              <h3 class="event-page-headings"> <i class="fa fa-picture-o" aria-hidden="true"
-                  style="font-size:24px"></i>
-                Photo(s)</h3>
-              <hr>
-              @if (eventDetails?.featured_image) {
-              <div class="image-container">
-                <div class="featured_image mt-2" *ngFor="let key of eventDetails?.featured_image; let i=index">
-                  <img [src]="key ? key : '/assets/image/carrer-professional.jpeg'"
-                    (click)="openDialog(eventDetails?.featured_image,i)" />
-                  <div class="linking-icon">
-                    <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer"
-                      (click)="openDialog(eventDetails?.featured_image,i)"></i>
+            <div class="row my-4" id="photo">
+              <div class="col-12 col-md-12 col-lg-12">
+                <h3 class="event-page-headings">
+                  <i
+                    class="fa fa-picture-o"
+                    aria-hidden="true"
+                    style="font-size: 24px"
+                  ></i>
+                  Photo(s)
+                </h3>
+                <hr />
+                @if (eventDetails?.featured_image) {
+                  <div class="image-container">
+                    <div
+                      class="featured_image mt-2"
+                      *ngFor="
+                        let key of eventDetails?.featured_image;
+                        let i = index
+                      "
+                    >
+                      <img
+                        [src]="
+                          key ? key : '/assets/image/carrer-professional.jpeg'
+                        "
+                        (click)="
+                          openDialog(eventDetails?.featured_image, i)
+                        "
+                      />
+                      <div class="linking-icon">
+                        <i
+                          class="fa-solid fa-magnifying-glass-plus"
+                          style="cursor: pointer"
+                          (click)="
+                            openDialog(eventDetails?.featured_image, i)
+                          "
+                        ></i>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              } @else {
-              @if (eventDetails?.image?.includes("")) {
-              <div class="no-photos-wrapper">
-                <p class="no-photo">No photos...</p>
-              </div>
-              } @else {
-              <div class="image-container">
-                @for (img of eventDetails?.image; track $index) {
-                <div class="featured_image mt-2">
-                  <img [src]="img" alt="business-img" (click)="openDialog(eventDetails?.image,$index)" />
-                  <div class="linking-icon">
-                    <i class="fa-solid fa-magnifying-glass-plus" style="cursor:pointer"
-                      (click)="openDialog(eventDetails?.image,$index)"></i>
-                  </div>
-                </div>
+                } @else {
+                  @if (eventDetails?.image?.includes('')) {
+                    <div class="no-photos-wrapper">
+                      <p class="no-photo">No photos...</p>
+                    </div>
+                  } @else {
+                    <div class="image-container">
+                      @for (img of eventDetails?.image; track $index) {
+                        <div class="featured_image mt-2">
+                          <img
+                            [src]="img"
+                            alt="business-img"
+                            (click)="
+                              openDialog(eventDetails?.image, $index)
+                            "
+                          />
+                          <div class="linking-icon">
+                            <i
+                              class="fa-solid fa-magnifying-glass-plus"
+                              style="cursor: pointer"
+                              (click)="
+                                openDialog(eventDetails?.image, $index)
+                              "
+                            ></i>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
                 }
               </div>
-
-              }
-
-              }
             </div>
-          </div>
-        }
-        @if (eventDetails?.video_upload) {
+          }
+        @if (videoUrl?.length) {
           <div class="col-12" id='videoss' >
             <h3 class="event-page-headings"><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;Video </h3>
             <hr>
             <div class="main_images">
               <div class="featured_images" style="display:flex;gap:1rem">
-                <video *ngFor='let url of eventDetails?.video_upload' width="320" height="240" controls>
+                <video *ngFor='let url of videoUrl' width="320" height="240" controls>
                   <source [src]="url" type="video/mp4">
                 </video>
               </div>
             </div>
+          </div>
+        }
+        @if (eventInfo) {
+          <div class="profile-info-divs mt-4" style="padding: 9%" id='event-promo' >
+            <h3 class="event-heading">Event Detail</h3>
+            <div class="info-cont">
+            <div class="event-venuee">
+              <div class="icon">
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+              </div>
+              <div class="info">
+                {{ eventDetails?.street }}
+              </div>
+            </div>
+            <div class="event-venuee">
+              <div class="icon">
+                <i
+                  class="fa-solid fa-calendar"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+              </div>
+              <div class="info">
+                {{ formatDate(eventInfo?.booking_start_date) }} &
+                {{ formatDate(eventInfo?.booking_end_date) }}
+              </div>
+            </div>
+            <div class="event-venuee">
+              <div class="icon">
+                <i
+                  class="fa-solid fa-layer-group"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+              </div>
+              <div class="info">
+                {{ eventInfo?.post_category?.name }}
+              </div>
+            </div>
+            <div class="event-venuee">
+              <div class="icon">
+                <i
+                  class="fa-solid fa-user"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+              </div>
+              <div class="info">
+                {{ eventInfo?.user_detail?.display_name }}
+              </div>
+            </div>
+            @if (eventInfo?.price) {
+              <div class="event-venuee">
+                <div class="icon">
+                  <i
+                    class="fa-solid fa-dollar-sign"
+                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                  ></i>
+                </div>
+                <div class="info">
+                  {{ eventInfo?.price }}
+                </div>
+              </div>
+            }
+          </div>
           </div>
         }
         <div class="row my-4" id="mapView">
@@ -1540,9 +1640,11 @@
         </div>
         <div class="col-12 col-md-12 col-lg-4 mt-3">
           @if (businessListing) {
-            <div class="profile-info-div mt-3">
+            <div class="profile-info-div mt-3 position-relative ">
               <h3>Contact Info</h3>
-
+              <div class="logo-containerr">
+                <img [src]="eventDetails?.logo" alt="">
+              </div>
               <div class="social-link">
                 <div class="location">
                   <i
@@ -1551,78 +1653,22 @@
                   ></i>
                   {{ eventDetails?.street }}
                 </div>
+
                 <div class="location">
                   <i
-                    class="fa fa-link"
+                    class="fa fa-envelope"
                     aria-hidden="true"
                     style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
                   ></i>
-                  <a
-                    href=""
-                    target="_blank"
-                    style="
-                      color: #38ccff;
-                      font-size: 14px;
-                      font-weight: 500;
-                      text-decoration: none;
-                    "
-                  >
-                    {{ eventDetails?.website }}
-                  </a>
+                  {{ eventDetails?.business_email }}
                 </div>
                 <div class="location">
                   <i
-                    class="fab fa-facebook-square"
+                    class="fa fa-phone"
+                    aria-hidden="true"
                     style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
                   ></i>
-                  <a
-                    [href]="eventDetails?.facebook"
-                    target="_blank"
-                    style="
-                      color: #38ccff;
-                      font-size: 14px;
-                      font-weight: 500;
-                      text-decoration: none;
-                    "
-                  >
-                    {{ eventDetails?.facebook }}
-                  </a>
-                </div>
-                <div class="location">
-                  <i
-                    class="fa-brands fa-twitter"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  <a
-                    [href]="eventDetails?.twitter"
-                    target="_blank"
-                    style="
-                      color: #38ccff;
-                      font-size: 14px;
-                      font-weight: 500;
-                      text-decoration: none;
-                    "
-                  >
-                    {{ eventDetails?.twitter }}
-                  </a>
-                </div>
-                <div class="location">
-                  <i
-                    class="fa-brands fa-instagram"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  <a
-                    href="https://www.twitter.com"
-                    target="_blank"
-                    style="
-                      color: #38ccff;
-                      font-size: 14px;
-                      font-weight: 500;
-                      text-decoration: none;
-                    "
-                  >
-                    {{ eventDetails?.instagram }}
-                  </a>
+                  {{ eventDetails?.contact_phone }}
                 </div>
               </div>
             </div>
@@ -1694,14 +1740,14 @@
               }
             </div>
           } @else {
-            <div *ngIf="eventDetails?.business_hours" class="profile-info-div mt-3" style="padding: 9%">
+            <div *ngIf="parse(eventDetails?.business_hours)?.[0]?.[0]" class="profile-info-div mt-3" style="padding: 9%">
               <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light"
+                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont "
               >
                 <span  style="font-size: 22px; font-weight: 600; color: black"
-                  >Timing :</span
+                  >Business Open Hours :</span
                 >
-                <div class="media-body">
+                <div class="media-body d-flex flex-wrap">
                   <p
                     *ngFor="let time of parse(eventDetails?.business_hours)"
                     class="mt-0"

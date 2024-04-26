@@ -270,12 +270,12 @@ export class BusinessDetailsComponent {
     } else if (
       this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')
     ) {
-      if (this.postId) {
-        this.businessListing = false
-        this.getEventDetails()
-      }
     }
 
+    if (this.postId) {
+      this.businessListing = false
+      this.getEventDetails()
+    }
     this.getReviews()
 
     const Token = localStorage.getItem('accessToken')
@@ -379,6 +379,7 @@ export class BusinessDetailsComponent {
     )
   }
 
+  videoUrl: any = []
   public getAddress(place: any) {
     this.directionStreet = place.formatted_address
     this.state = ''
@@ -419,8 +420,13 @@ export class BusinessDetailsComponent {
         this.fullPageLoaderService.hideLoader()
 
         // this.dataget = res?.data || 'NA'
-        console.log(res?.data[0], 'res?.data[0]')
         this.eventDetails = res?.data[0]
+        if (this.eventDetails?.video_upload?.length) {
+          this.videoUrl.push(...this.eventDetails?.video_upload)
+        }
+        if (this.eventDetails?.video_url) {
+          this.videoUrl.push(this.eventDetails?.video_url)
+        }
         ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
         console.log('check-business-lisiting', this.eventDetails)
@@ -432,41 +438,47 @@ export class BusinessDetailsComponent {
     })
   }
 
+  eventInfo: any
+
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
-    this.eventService.getEventDetailsByPostId(this.postId).subscribe({
-      next: (res) => {
-        console.log(res, 'resresresresres')
-        this.fullPageLoaderService.hideLoader()
-        const currentDate: string =
-          this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
-        const startDate = res.data[0]?.event_dates?.start_date
-        const endDate = res.data[0]?.event_dates?.end_date
-        const startDateNew = this.extractDateFromTimestamp(startDate)
-        const endDateNew = this.extractDateFromTimestamp(endDate)
-        // this.eventEndDate = this.eventDetails.booking
-        if (currentDate > res?.data[0]?.booking_end_date) {
-          this.isDesabledform = true
-        }
-        if (startDateNew == endDateNew) {
-          this.isDateMatched = true
-        } else {
-          this.isDateMatched = false
-        }
+    this.eventService
+      .getEventDetailsByPostId(this.eventDetails?.event_id)
+      .subscribe({
+        next: (res) => {
+          console.log(this.eventDetails?.event_id, 'eventDetails11')
+          console.log(res, 'resresresresres')
+          this.eventInfo = res?.data[0] || 'NA'
+          this.fullPageLoaderService.hideLoader()
+          // const currentDate: string =
+          //   this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
+          // const startDate = res.data[0]?.event_dates?.start_date
+          // const endDate = res.data[0]?.event_dates?.end_date
+          // const startDateNew = this.extractDateFromTimestamp(startDate)
+          // const endDateNew = this.extractDateFromTimestamp(endDate)
+          // // this.eventEndDate = this.eventDetails.booking
+          // if (currentDate > res?.data[0]?.booking_end_date) {
+          //   this.isDesabledform = true
+          // }
+          // if (startDateNew == endDateNew) {
+          //   this.isDateMatched = true
+          // } else {
+          //   this.isDateMatched = false
+          // }
 
-        ;(this.eventDetails = res?.data[0] || 'NA'),
-          (this.eventLocation = this.eventDetails?.street)
-        this.overllRating = Number(res.data[0].overall_rating)
-        ;(this.latitude = Number(this.eventDetails?.latitude)),
-          (this.longitude = Number(this.eventDetails?.longitude))
-        this.eventPrice = this.eventDetails.price
-        this.eventNumberOfBooking = this.eventDetails.number_of_bookings
-        this.initMap()
-      },
-      error: (err) => {
-        this.fullPageLoaderService.hideLoader()
-      },
-    })
+          // ;(this.eventDetails = res?.data[0] || 'NA'),
+          //   (this.eventLocation = this.eventDetails?.street)
+          // this.overllRating = Number(res.data[0].overall_rating)
+          // ;(this.latitude = Number(this.eventDetails?.latitude)),
+          //   (this.longitude = Number(this.eventDetails?.longitude))
+          // this.eventPrice = this.eventDetails.price
+          // this.eventNumberOfBooking = this.eventDetails.number_of_bookings
+          // this.initMap()
+        },
+        error: (err) => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
   }
 
   public getnumberOfBooking() {
