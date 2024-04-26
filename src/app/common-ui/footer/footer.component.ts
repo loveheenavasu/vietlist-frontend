@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router'
+import { AuthenticationService } from '@vietlist/shared'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 
 @Component({
@@ -19,11 +20,13 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 export class FooterComponent {
   public footerPageContent?: any
   public newsLetterSubscribeForm!: FormGroup
-
+  public userDetail:any;
+  
   constructor(
     private footerContent: HomepageService,
     private fb: FormBuilder,
-    private router:Router
+    private router:Router,
+    private sessionservice:AuthenticationService
   ) {
     this.newsLetterSubscribeForm = this.fb.group({
       email: [
@@ -34,6 +37,10 @@ export class FooterComponent {
           Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ],
       ],
+    })
+
+    this.sessionservice.userDetailResponse.subscribe((res)=>{
+      this.userDetail = res;
     })
   }
 
