@@ -14,10 +14,16 @@ h1 {
 
 .images__ {
   position: relative;
+  padding-right: 15px;
+  padding-top: 13px;
 }
 
 .vedio____ {
   position: relative;
+}
+.removeImagee{
+  top: -3px !important;
+  right: 2px !important;
 }
 
 div#video-preview-container {
