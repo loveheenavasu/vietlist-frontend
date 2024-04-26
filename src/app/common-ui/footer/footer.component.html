@@ -116,7 +116,9 @@
     </div>
     <div class="col-12 col-md-6 col-lg-2">
       <ul>
+        @if(userDetail?.level_id == '3'){
         <li class="links" (click)="navigateTo('/resources')">Resources</li>
+        }
         <li class="links">For User</li>
         <li class="links" (click)="navigateTo('/for-business')">For Businesses</li>
       </ul>
