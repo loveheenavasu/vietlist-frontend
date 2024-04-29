@@ -110,7 +110,7 @@
             </li> -->
             <li class="nav-item">
               <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Join Our Directory</span>
+                [routerLinkActiveOptions]="{ exact: true }" (click)="joinDirectory()">Join Our Directory</span>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
               [matMenuTriggerFor]="menublog">

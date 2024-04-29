@@ -346,6 +346,9 @@ export class PreviewBusinessComponent {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.router.navigate(['/manage-profile/my-business'])
+        if(res){
+          this.localStorageService.removeData('isConsultationFormFilled')
+        }
       },
       error: (err) => {},
     })

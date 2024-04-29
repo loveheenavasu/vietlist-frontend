@@ -11,6 +11,12 @@
     <div class="col-12 col-md-12 col-lg-8">
       <input class="input-control" placeholder="Enter consultation booking link"
         formControlName="consultation_booking_link" />
+        @if (
+          ConsultationForm.get('consultation_booking_link')?.touched &&
+          ConsultationForm.get('consultation_booking_link')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -32,6 +38,12 @@
     <div class="col-12 col-md-12 col-lg-8">
       <textarea name="" id="" cols="30" rows="6" placeholder="Enter consultation description"
         formControlName="consultation_description"></textarea>
+        @if (
+          ConsultationForm.get('consultation_description')?.touched &&
+          ConsultationForm.get('consultation_description')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -42,6 +54,12 @@
     <div class="col-12 col-md-12 col-lg-8">
       <textarea formControlName="special_offers" name="" id="" cols="30" rows="6"
         placeholder="List any special offer"></textarea>
+        @if (
+          ConsultationForm.get('special_offers')?.touched &&
+          ConsultationForm.get('special_offers')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -54,6 +72,12 @@
         <mat-option value="A service oriented business">A service oriented business</mat-option>
         <mat-option value="A food and beverage establishment">A food and beverage establishment</mat-option>
       </mat-select>
+      @if (
+        ConsultationForm.get('services_list')?.touched &&
+        ConsultationForm.get('services_list')?.hasError('maxlength')
+      ) {
+        <span class="error-message">Maximum 254 characters are allowed.</span>
+      }
     </div>
   </div>
   <div class="row my-3 px-2">

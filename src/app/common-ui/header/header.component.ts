@@ -4,7 +4,7 @@ import { LoaderComponent } from 'src/app/common-ui';
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { Component, DestroyRef, ElementRef, HostListener, ViewChild } from '@angular/core'
+import { Component, DestroyRef, HostListener } from '@angular/core'
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -18,7 +18,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog'
 import { LoginComponent } from '../../auth'
-import { AuthenticationService, NavItem, Roles } from '@vietlist/shared'
+import { AuthenticationService, LocalStorageService, Roles } from '@vietlist/shared'
 import Swal from 'sweetalert2'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -27,7 +27,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { AuthService } from 'src/app/auth/service/auth.service'
 import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler';
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
-import { BehaviorSubject, EMPTY, interval, Subscription } from 'rxjs'
+import {  EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 
 @Component({
@@ -98,11 +98,11 @@ export class HeaderComponent {
     private authService: AuthService,
     private homeService: HomepageService,
     private profileService:ProfileService,
+    private localStorage:LocalStorageService,
     private destroyRef:DestroyRef
   ) {
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res;
-      console.log(this.userDetail , res ,  "userDetail for Resources")
     })
   
     this.sessionservice.isAuthenticated$.subscribe((res) => {
@@ -125,7 +125,6 @@ export class HeaderComponent {
     }
     this.sessionservice.isSubscription$.subscribe((res) => {
       this.subscriptionStatus = res
-      // console.log("check the subscription status", this.subscriptionStatus)
     })
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -440,6 +439,14 @@ export class HeaderComponent {
 
   setDropdownActiveEvent(active: boolean): void {
     this.isDropdownActiveEvent = active;
+  }
+
+  public joinDirectory(){
+    this.localStorage.removeData('postId')
+    this.localStorage.removeData('isSubscriptionFormFilled')
+    this.localStorage.removeData('isBusinessFormFilled')
+    this.localStorage.removeData('isBusinessBioFormFilled')
+    this.localStorage.removeData('isConsultationFormFilled')
   }
 
   ngOnDestroy(): void {

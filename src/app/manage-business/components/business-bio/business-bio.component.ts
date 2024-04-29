@@ -48,8 +48,8 @@ export class BusinessBioComponent {
   ) {
     this.businessBioForm = this.fb.group({
       owner_name: ['', Validators.required],
-      business_historybackground: [''],
-      mission__vision: [''],
+      business_historybackground: ['' , [Validators.maxLength(254)]],
+      mission__vision: ['' , [Validators.maxLength(254)]],
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
@@ -99,11 +99,10 @@ export class BusinessBioComponent {
         next: (res) => {
           if (res) {
             this.isLoader = false
-            
-            this.buinessFormSubmit.emit()
             this.businessService.isBusinessBioFormFilled.next(true)
             this.localstorage.saveData('isBusinessBioFormFilled', 'true')
             this.isFormFilled = true
+            this.buinessFormSubmit.emit()
             // Swal.fire({
             //   toast: true,
             //   text: 'Successfully added Business bio details.',

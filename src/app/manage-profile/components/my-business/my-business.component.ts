@@ -109,5 +109,9 @@ export class MyBusinessComponent {
       this.getBusiness()
     // }
     }
+
+    editBusiness(id:any){
+      this.router.navigate(['/edit-business' , id])
+    }
   }
 

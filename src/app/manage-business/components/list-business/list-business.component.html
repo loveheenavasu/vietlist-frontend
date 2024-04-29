@@ -105,6 +105,12 @@
               placeholder="Enter the business description"
               formControlName="post_content"
             ></textarea>
+            @if (
+              businessInfoForm.get('post_content')?.touched &&
+              businessInfoForm.get('post_content')?.hasError('maxlength')
+            ) {
+              <span class="error-message">Maximum 254 characters are allowed.</span>
+            }
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -315,28 +321,35 @@
               >Contact Details <span class="asterik">*</span></label
             >
           </div>
-          <div class="col-12 col-md-12 col-lg-8">
-            <ngx-intl-tel-input
-              [cssClass]="'input-control'"
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
-              [searchCountryFlag]="true"
-              [searchCountryField]="[
-                SearchCountryField.Iso2,
-                SearchCountryField.Name
-              ]"
-              [selectFirstCountry]="false"
-              [selectedCountryISO]="CountryISO.India"
-              [maxLength]="15"
-              [phoneValidation]="true"
-              [separateDialCode]="true"
-              [numberFormat]="PhoneNumberFormat.National"
-              name="phone"
-              formControlName="contact_phone"
-            >
-            </ngx-intl-tel-input>
-          </div>
+            <div class="col-12 col-md-12 col-lg-8">
+              <ngx-intl-tel-input
+                [cssClass]="'input-control'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.India"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="true"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone"
+                formControlName="contact_phone"
+                (click)="checkInput($event)"
+              >
+              </ngx-intl-tel-input>
+              @if (
+                businessInfoForm.get('contact_phone')?.touched &&
+                businessInfoForm.get('contact_phone')?.hasError('validatePhoneNumber')
+              ) {
+                <span class="error-message">Invalid phone number.</span>
+              }
+            </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
@@ -550,6 +563,7 @@
         ></app-subscription-form>
       </section>
     }
+
     @if (businessFormDetails && businessFormDetails?.twitter) {
       <section class="my-4">
         <app-business-bio
@@ -558,6 +572,7 @@
         ></app-business-bio>
       </section>
     }
+
     @if (businessFormDetails && businessFormDetails?.owner_name) {
       <section class="my-4">
         <app-consultation-form

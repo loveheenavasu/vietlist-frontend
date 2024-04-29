@@ -210,6 +210,32 @@
     color:rgb(179, 179, 179)
   }
   
+
+  .footer {
+    display: flex;
+    justify-content: space-between; /* Distribute items along the main axis */
+    align-items: center; /* Align items vertically */
+    height: auto;
+  }
+  
+  .footer i {
+    margin-right: 8px; /* Add some space between icon and border */
+    cursor:pointer
+  }
+  
+  .icons {
+    display: flex;
+  }
+  
+  .email-marketing{
+    background-color: #f3993e;
+    width: fit-content;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 1px;
+    margin: 8px;
+  }
+  
 @media(max-width: 766px) {
 
     .search {
