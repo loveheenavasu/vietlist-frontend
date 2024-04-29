@@ -379,6 +379,9 @@ export class ConfirmPaymentComponent {
       },
       error: (err) => {
         this.isApplyCoupon = false
+        this.coupon_code.setValue('')
+        this.coupon_code.patchValue('')
+        this.coupon_code.patchValue(null)
       },
     })
   }else {
@@ -401,6 +404,9 @@ export class ConfirmPaymentComponent {
         this.appliedCouponResponse = res?.data?.discount_price
       },error:(err)=>{
         this.isApplyCoupon = false
+        this.coupon_code.setValue('')
+        this.coupon_code.patchValue('')
+        this.coupon_code.patchValue(null)
       }
     })
   }

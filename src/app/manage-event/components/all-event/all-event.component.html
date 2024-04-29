@@ -9,7 +9,7 @@
       <div class="flex-grow-1">
         <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
           @for (key of event_category; track $index) {
-          <mat-option [value]="key.id">{{ key.name }}</mat-option>
+          <mat-option [value]="key.id">{{ key?.name }}</mat-option>
           }
         </mat-select>
       </div>

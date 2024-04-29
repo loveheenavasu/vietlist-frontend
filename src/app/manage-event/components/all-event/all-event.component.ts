@@ -88,11 +88,11 @@ export class AllEventComponent {
     })
   }
 
-  formatDate(time: string): string {
+  formatDate(time: string): string {  
     // Manually append today's date before formatting
     const today = new Date();
     const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`;
-    return this.datePipe.transform(formattedTime, 'shortTime') || '';
+    return this.datePipe?.transform(formattedTime, 'shortTime') || '';
   }
 
   private getBrowserTimezone(): string {
@@ -289,7 +289,7 @@ export class AllEventComponent {
         this.fullPageLoaderService.hideLoader();
         this.publishEventsArray = res.data;
         this.totalCount = res.total_count;
-       
+       console.log(res ,'events')
         this.calculateTotalPages();
       },
       error: (err: any) => {
