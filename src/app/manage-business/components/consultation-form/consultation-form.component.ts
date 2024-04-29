@@ -434,17 +434,22 @@ export class ConsultationFormComponent {
     this.isLastRemoved[dayIndex] = this.days[dayIndex].times.length === 0
   }
 
+  pushDay(day: any) {
+    if (!this.selectedWeek.includes(day?.name)) {
+      this.selectedWeek.push(day?.name)
+    }
+  }
+
   checkHours(day: any) {
     let { times } = day
     if (!times[0].start && !times[0].end) {
       return false
     }
     if (times[0].start === times[0].end) {
-      if (!this.selectedWeek.includes(day?.name)) {
-        this.selectedWeek.push(day?.name)
-      }
+      this.pushDay(day)
       return true
     } else {
+      this.pushDay(day)
       return false
     }
   }
