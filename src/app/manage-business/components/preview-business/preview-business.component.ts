@@ -152,10 +152,6 @@ export class PreviewBusinessComponent {
   }
 
   ngOnInit() {
-    console.log(
-      this.businessFormDetails,
-      'this.businessFormDetailsthis.businessFormDetailsthis.businessFormDetails',
-    )
     if (this.postId) {
       this.getBusinessFormDetails()
       this.getAllVideosList(this.postId)
@@ -184,19 +180,17 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-        if (this.eventDetails?.video_upload?.length) {
-          this.videoUrl.push(...this.eventDetails?.video_upload)
+
+        if (this.businessFormDetails?.video_upload?.length) {
+          this.videoUrl.push(...this.businessFormDetails?.video_upload)
         }
-        if (this.eventDetails?.video_url) {
-          this.videoUrl.push(this.eventDetails?.video_url)
+        if (this.businessFormDetails?.video_url) {
+          this.videoUrl.push(this.businessFormDetails?.video_url)
         }
         if (this.businessFormDetails.event_id) {
           this.getEventDetails()
         }
-        console.log(
-          this.businessFormDetails,
-          ' this.businessFormDetails this.businessFormDetails',
-        )
+
         const business_hours = this.businessFormDetails?.business_hours
         this.hourFilter = this.getCleanedBusinessHours(business_hours)
         this.previewForm.patchValue(this.businessFormDetails)
@@ -244,7 +238,6 @@ export class PreviewBusinessComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
-      console.log(this.latitude, this.longitude, 'lng ;at')
       this.map = new google.maps.Map(mapElement, {
         center: {
           lat: this.latitude,
@@ -291,7 +284,6 @@ export class PreviewBusinessComponent {
       .getEventDetailsByPostId(this.businessFormDetails?.event_id)
       .subscribe({
         next: (res) => {
-          console.log(res, 'RESPONSE')
           this.fullPageLoaderService.hideLoader()
           ;(this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
@@ -595,6 +587,24 @@ export class PreviewBusinessComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data
+        console.log(this.videosTypeArr, 'videosTypeArr1')
+        console.log(this.videoTab, 'all')
+        if (this.videoTab == 'all') {
+          this.videosTypeArr?.push(
+            ...this.videoUrl?.map((elem: any) => {
+              return {
+                video_id: '0',
+                post_id: this.postId,
+                user_id: 'na',
+                name: 'NA',
+                video_url: [elem],
+                video_type: 'all',
+                thumbnail_image: '',
+                isEditHide: true,
+              }
+            }),
+          )
+        }
         this.isVideoTypeLoading = false
       },
       error: (err: any) => {

@@ -391,13 +391,13 @@
                       src="/assets/image/blank-white-img.jpeg"
                     />
   
-                    <div class="d-flex edit-icon">
-                      <div>
+                    <div  *ngIf="!item?.isEditHide" class="d-flex edit-icon">
+                      <div  > 
                         <span (click)="editVideo(item, $index)"
                           ><i class="fas fa-edit" style="color: orange"></i
                         ></span>
                       </div>
-                      <div class="mx-2">
+                      <div  class="mx-2">
                         <span
                           class="delete-icon"
                           (click)="deleteVideo(item.video_id)"
