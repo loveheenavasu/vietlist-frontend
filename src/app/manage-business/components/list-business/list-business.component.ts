@@ -72,6 +72,9 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class ListBusinessComponent {
   public isloader: boolean = false
