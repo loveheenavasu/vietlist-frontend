@@ -198,7 +198,7 @@
                   <!-- <i class="fa fa-dot-circle-o" aria-hidden="true"></i> -->
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" [value]="day.name" id="terms"
-                      (change)="onWeekSelect(day.name, $event)" />
+                      (change)="onWeekSelect(day.name, $event)" [checked]="checkHours(day)" />
                   </div>
                 </td>
                 <td>
@@ -206,11 +206,11 @@
                     <div class="row">
                       <div class="col-10 d-flex">
                         <div>
-                          <input class="input-control" type="time" placeholder="Start Time"
+                          <input (ngModelChange)='onChange($event,day.times[timeIndex].end,day.name)' class="input-control" type="time" placeholder="Start Time"
                             [ngModelOptions]="{ standalone: true }" [(ngModel)]="day.times[timeIndex].start" />
                         </div>
                         <div>
-                          <input class="input-control" type="time" placeholder="End Time"
+                          <input (ngModelChange)='onChange($event,day.times[timeIndex].start,day.name)' class="input-control" type="time" placeholder="End Time"
                             [ngModelOptions]="{ standalone: true }" [(ngModel)]="day.times[timeIndex].end" />
                         </div>
                       </div>

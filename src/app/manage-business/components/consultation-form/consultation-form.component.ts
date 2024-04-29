@@ -1,4 +1,4 @@
-import { filter } from 'rxjs';
+import { filter } from 'rxjs'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import {
@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common'
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select'
 import { Router } from '@angular/router'
 // import moment from 'moment';
-import moment from 'moment-timezone';
+import moment from 'moment-timezone'
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
@@ -49,39 +49,37 @@ export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
-   
-    this.imagePreviews = value?.image || [];
-    this.video_upload = value?.video_upload || [];
+    this.imagePreviews = value?.image || []
+    this.video_upload = value?.video_upload || []
     const Gethours = value?.business_hours
-    if(Gethours == 'false'){
-      console.log(Gethours, ' get data -------');
+    if (Gethours == 'false') {
       this.showTimeTable = false
-    }else{
-      this.showTimeTable = true;
+    } else {
+      this.showTimeTable = true
     }
-   
+
     // console.log(value?.business_hours)
     // console.log(JSON.parse(value?.business_hours))
 
-    let businessHours: any[] = JSON.parse(value?.business_hours);
+    let businessHours: any[] = JSON.parse(value?.business_hours)
     // this.showTimeTable = true;
-    const timezone = businessHours?.[businessHours?.length - 1]?.[0];
-    businessHours?.pop();
-    const hours = businessHours;
+    const timezone = businessHours?.[businessHours?.length - 1]?.[0]
+    businessHours?.pop()
+    const hours = businessHours
 
     const formattedDays = hours?.map((day) => {
-      const value = day?.map((item: any) => item)?.[0]?.split(' ');
-      const times = value[1]?.split(',');
+      const value = day?.map((item: any) => item)?.[0]?.split(' ')
+      const times = value[1]?.split(',')
       return {
         name: value?.[0],
         times: times?.map((time: string) => {
           return {
             start: time?.split('-')?.[0] || '',
-            end: time?.split('-')?.[1] || ''
-          };
-        })
+            end: time?.split('-')?.[1] || '',
+          }
+        }),
       }
-    });
+    })
 
     this.days?.forEach((day) => {
       formattedDays?.forEach((newDay) => {
@@ -108,9 +106,9 @@ export class ConsultationFormComponent {
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
-  public video_upload: any = [];
+  public video_upload: any = []
   public daysName: any
-  public vediosUrl: any[] = [];
+  public vediosUrl: any[] = []
   public startTime: any
   public endTime: any
   public jsonString: any
@@ -152,13 +150,13 @@ export class ConsultationFormComponent {
   ]
 
   /**
-   * 
-   * @param http 
-   * @param renderer 
-   * @param fb 
-   * @param businessService 
-   * @param router 
-   * @param localstorage 
+   *
+   * @param http
+   * @param renderer
+   * @param fb
+   * @param businessService
+   * @param router
+   * @param localstorage
    */
   vediosHide: any
   constructor(
@@ -168,13 +166,10 @@ export class ConsultationFormComponent {
     private businessService: BusinessService,
     private router: Router,
     private localstorage: LocalStorageService,
-    private authService: AuthenticationService
-
+    private authService: AuthenticationService,
   ) {
-
-
     // Now, you can use timezone-related functions safely
-    const timeZoneNames = moment?.tz?.names();
+    const timeZoneNames = moment?.tz?.names()
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
         this.vediosHide = res
@@ -200,10 +195,10 @@ export class ConsultationFormComponent {
 
     this.isLastRemoved = new Array<boolean>(this.days.length).fill(false)
     this.ConsultationForm = this.fb.group({
-      consultation_booking_link: ['' , [Validators.maxLength(254)]],
+      consultation_booking_link: ['', [Validators.maxLength(254)]],
       consultation_mode: [''],
-      consultation_description: ['' , [Validators.maxLength(254)]],
-      services_list: ['' , [Validators.maxLength(254)]],
+      consultation_description: ['', [Validators.maxLength(254)]],
+      services_list: ['', [Validators.maxLength(254)]],
       price: [''],
       video_url: [''],
       business_hours: [''],
@@ -219,8 +214,7 @@ export class ConsultationFormComponent {
 
     const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
-  }//end constrctor 
-
+  } //end constrctor
 
   public formatData() {
     this.formattedData = []
@@ -242,6 +236,14 @@ export class ConsultationFormComponent {
     const target = event.target as HTMLInputElement
     if (target) {
       this.select.filter(target.value)
+    }
+  }
+
+  onChange(time: any, difTime: any, dayName: any) {
+    if (time == '00:00' && difTime == '00:00') {
+      this.selectedWeek = this.selectedWeek.filter((day) => day !== dayName)
+    } else if (!this.selectedWeek.includes(dayName)) {
+      this.selectedWeek.push(dayName)
     }
   }
 
@@ -294,7 +296,6 @@ export class ConsultationFormComponent {
             //     this.video_upload = [...this.video_upload, res.image_url];
             // }
             this.video_upload = [res.image_url]
-            console.log(this.video_upload)
 
             this.vediosUrl = [...this.vediosUrl, res.image_url]
           },
@@ -302,13 +303,12 @@ export class ConsultationFormComponent {
             // Handle errors
           },
         })
-
       }
       reader.readAsDataURL(file)
     })
   }
   removeItems(index: any) {
-    this.video_upload.splice(index, 1);
+    this.video_upload.splice(index, 1)
   }
   onRemove(videoElement: HTMLElement) {
     if (videoElement && videoElement.parentNode) {
@@ -323,7 +323,6 @@ export class ConsultationFormComponent {
     this.files = [...event.addedFiles]
     //  console.log( this.files,' this.files this.files this.files')
     if (this.vediosHide.level_id == '1') {
-
       if (this.files.length > 5) {
         console.log('upload 5 images ')
         Swal.fire({
@@ -340,7 +339,6 @@ export class ConsultationFormComponent {
       }
     }
     if (this.vediosHide.level_id == '2') {
-
       if (this.files.length > 20) {
         console.log('upload 20 images ')
         Swal.fire({
@@ -360,15 +358,15 @@ export class ConsultationFormComponent {
   }
 
   displayImagePreviews() {
-    let maxImages: any;
+    let maxImages: any
     switch (this.vediosHide.level_id) {
       case '2':
-        maxImages = 20;
-        break;
+        maxImages = 20
+        break
       case '3':
       default:
-        maxImages = Infinity;
-        break;
+        maxImages = Infinity
+        break
     }
 
     if (this.files.length > maxImages) {
@@ -381,45 +379,42 @@ export class ConsultationFormComponent {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
-      });
-      return;
+      })
+      return
     }
 
-    this.isImageUploading = true;
-    const filesToUpload = this.files.slice(0, maxImages);
+    this.isImageUploading = true
+    const filesToUpload = this.files.slice(0, maxImages)
     filesToUpload.forEach((file, index) => {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = () => {
-        const result = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+        const result = reader.result as string
+      }
+      reader.readAsDataURL(file)
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
-          this.isImageUploading = false;
-          this.imagePreviews.push(res.image_url);
-          if (this.imagePreviews.length >= maxImages && this.vediosHide.level_id !== '3') {
-            this.isImageUploading = false;
+          this.isImageUploading = false
+          this.imagePreviews.push(res.image_url)
+          if (
+            this.imagePreviews.length >= maxImages &&
+            this.vediosHide.level_id !== '3'
+          ) {
+            this.isImageUploading = false
           }
         },
         error: (err: any) => {
-          this.isImageUploading = false;
+          this.isImageUploading = false
         },
-      });
-    });
+      })
+    })
   }
 
   public removeItem(index: any) {
-    this.imagePreviews.splice(index, 1);
+    this.imagePreviews.splice(index, 1)
   }
-
-
 
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
-
-    
-    
-  
   }
 
   onWeekSelect(dayName: string, event: Event) {
@@ -432,20 +427,30 @@ export class ConsultationFormComponent {
     }
   }
 
-  onSubmit() { }
+  onSubmit() {}
 
   public removeTime(dayIndex: number, timeIndex: number) {
     this.days[dayIndex].times.splice(timeIndex, 1)
     this.isLastRemoved[dayIndex] = this.days[dayIndex].times.length === 0
   }
 
-
-
-
+  checkHours(day: any) {
+    let { times } = day
+    if (!times[0].start && !times[0].end) {
+      return false
+    }
+    if (times[0].start === times[0].end) {
+      if (!this.selectedWeek.includes(day?.name)) {
+        this.selectedWeek.push(day?.name)
+      }
+      return true
+    } else {
+      return false
+    }
+  }
 
   public addBusiness(): void {
     this.isLoader = true
-    console.log(this.days)
     const selectedDaysData = this.days.filter((day) =>
       this.selectedWeek.includes(day.name),
     )
@@ -456,11 +461,11 @@ export class ConsultationFormComponent {
         if (!jsonData[day.name]) {
           jsonData[day.name] = []
         }
-        jsonData[day.name].push(`${time.start}-${time.end}`)
+        jsonData[day.name].push(
+          `${time.start || '12:00'}-${time.end || '12:00'}`,
+        )
       })
     })
-
-    console.log(selectedDaysData)
 
     // const resultArray = Object.keys(jsonData).map(day => `${day} ${jsonData[day].join(', ')}`);
     const resultArray = this.selectedWeek.map((day) => {
@@ -468,16 +473,12 @@ export class ConsultationFormComponent {
       return `${day} ${times}`
     })
 
-    console.log(resultArray)
-
     const selectedData = [this.selectedData]
     // const businessHours = [resultArray, selectedData]; // Modified the way of constructing businessHours array
     const businessHours = JSON.stringify(
       resultArray.map((item) => [item]).concat([selectedData]),
     )
 
-    console.log(businessHours);
-  console.log(this.showTimeTable,'this.showTimeTablethis.showTimeTable')
     this.isLoader = true
     const body = {
       post_id: this.postId,
@@ -489,15 +490,20 @@ export class ConsultationFormComponent {
       services_list: this.ConsultationForm.value.services_list,
       price: this.ConsultationForm.value.price,
       video_url: this.ConsultationForm.value.video_url,
-      business_hours: !this.showTimeTable ?  'false' : businessHours,
+      business_hours: !this.showTimeTable ? 'false' : businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
-      video_upload: this.vediosUrl && this.vediosUrl.length > 0 ? this.vediosUrl.filter((item: any) => item ? true : false) : null,
-      image: this.imagePreviews && this.imagePreviews.length > 0 ? this.imagePreviews.filter((item: any) => item ? true : false) : null
+      video_upload:
+        this.vediosUrl && this.vediosUrl.length > 0
+          ? this.vediosUrl.filter((item: any) => (item ? true : false))
+          : null,
+      image:
+        this.imagePreviews && this.imagePreviews.length > 0
+          ? this.imagePreviews.filter((item: any) => (item ? true : false))
+          : null,
     }
     if (!this.isFormFilled) {
       this.businessService.addBusiness(body).subscribe({
         next: (res: any) => {
-
           this.consultationFormSubmit.emit()
           this.isLoader = false
           if (res) {
@@ -510,7 +516,7 @@ export class ConsultationFormComponent {
         },
         error: (err) => {
           this.isLoader = false
-        }
+        },
       })
     } else if (this.isFormFilled) {
       this.businessService.updateBusiness(body).subscribe({
@@ -527,7 +533,7 @@ export class ConsultationFormComponent {
         },
         error: (err) => {
           this.isLoader = false
-        }
+        },
       })
     }
   }
