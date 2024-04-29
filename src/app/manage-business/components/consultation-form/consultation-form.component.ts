@@ -200,10 +200,10 @@ export class ConsultationFormComponent {
 
     this.isLastRemoved = new Array<boolean>(this.days.length).fill(false)
     this.ConsultationForm = this.fb.group({
-      consultation_booking_link: [''],
+      consultation_booking_link: ['' , [Validators.maxLength(254)]],
       consultation_mode: [''],
-      consultation_description: [''],
-      services_list: [''],
+      consultation_description: ['' , [Validators.maxLength(254)]],
+      services_list: ['' , [Validators.maxLength(254)]],
       price: [''],
       video_url: [''],
       business_hours: [''],
@@ -444,7 +444,6 @@ export class ConsultationFormComponent {
 
 
   public addBusiness(): void {
-
     this.isLoader = true
     console.log(this.days)
     const selectedDaysData = this.days.filter((day) =>

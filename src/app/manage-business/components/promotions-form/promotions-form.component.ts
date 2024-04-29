@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   FormControl,
+  Validators,
 } from '@angular/forms'
 import { HttpClient } from '@angular/common/http'
 import { Component, EventEmitter, Output } from '@angular/core'
@@ -64,9 +65,9 @@ export class PromotionsFormComponent {
   ) {
     this.promotions = this.fb.group({
       createEvent: [''],
-      faq: [''],
-      physical_accessibility: [''],
-      digital_accessibility: [''],
+      faq: ['' , [Validators.maxLength(254)]],
+      physical_accessibility: ['' , [Validators.maxLength(254)]],
+      digital_accessibility: ['' , [Validators.maxLength(254)]],
       upload_certificates: [''],
       business_ownerassociate: [''],
       choose_layout: [''],
@@ -178,7 +179,8 @@ export class PromotionsFormComponent {
   }
 
   public previewBusiness() {
-    this.router.navigate(['/preview-business', this.postId])
+    // this.router.navigate(['/preview-business', this.postId])
+    window.open(`/preview-business/${this.postId}`, '_blank');
   }
 
   public navigateToEvent() {

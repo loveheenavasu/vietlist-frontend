@@ -56,6 +56,12 @@
         <!-- <div class="form-text">
           <span>Add question answer</span>
         </div> -->
+        @if (
+          promotions.get('faq')?.touched &&
+          promotions.get('faq')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
       </div>
     </div>
     <div class="row">
@@ -96,6 +102,12 @@
       </div>
       <div class="col-12 col-md-12 col-lg-8">
         <input class="input-control" formControlName="physical_accessibility" />
+        @if (
+          promotions.get('physical_accessibility')?.touched &&
+          promotions.get('physical_accessibility')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
       </div>
     </div>
     <div class="row my-3 px-2">
@@ -104,6 +116,12 @@
       </div>
       <div class="col-12 col-md-12 col-lg-8">
         <input class="input-control" formControlName="digital_accessibility" />
+        @if (
+          promotions.get('digital_accessibility')?.touched &&
+          promotions.get('digital_accessibility')?.hasError('maxlength')
+        ) {
+          <span class="error-message">Maximum 254 characters are allowed.</span>
+        }
       </div>
     </div>
     <div class="row my-3 px-2">

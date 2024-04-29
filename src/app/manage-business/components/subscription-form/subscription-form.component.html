@@ -7,67 +7,122 @@
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="terms" [(ngModel)]="check"
-          [formControl]="verifiedBadge" />
-        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '1'"> {{ 'Verified Listing'}} </label>
-        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '2'"> {{ 'Verified Listing'}} </label>
-        <label class="form-check-label" for="terms" *ngIf="hidefileds.level_id == '3'"> {{ 'Verified Listing'}} </label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="terms"
+          [(ngModel)]="check"
+          [formControl]="verifiedBadge"
+        />
+        <label
+          class="form-check-label"
+          for="terms"
+          *ngIf="hidefileds.level_id == '1'"
+        >
+          {{ 'Verified Listing' }}
+        </label>
+        <label
+          class="form-check-label"
+          for="terms"
+          *ngIf="hidefileds.level_id == '2'"
+        >
+          {{ 'Verified Listing' }}
+        </label>
+        <label
+          class="form-check-label"
+          for="terms"
+          *ngIf="hidefileds.level_id == '3'"
+        >
+          {{ 'Verified Listing' }}
+        </label>
       </div>
     </div>
   </div>
   @if (verifiedBadge.value == true) {
-  <div class="row px-2 my-3">
-    <div class="col-12">
-      <label for="" class="listing-form-label mb-2">Verification upload <span class="asterik">*</span></label>
+    <div class="row px-2 my-3">
+      <div class="col-12">
+        <label for="" class="listing-form-label mb-2"
+          >Verification upload <span class="asterik">*</span></label
+        >
 
-      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.pdf,.doc,.docx'">
-        <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
-          or Browse a file (Allowed .pdf , .docx, .doc)</ngx-dropzone-label>
-        <div *ngIf="isImageUploading" class="loader"></div>
-      </ngx-dropzone>
+        <ngx-dropzone
+          (change)="onSelectImage($event)"
+          [accept]="'.pdf,.doc,.docx'"
+        >
+          <ngx-dropzone-label *ngIf="!isImageUploading"
+            ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+            or Browse a file (Allowed .pdf , .docx, .doc)</ngx-dropzone-label
+          >
+          <div *ngIf="isImageUploading" class="loader"></div>
+        </ngx-dropzone>
 
-      <div class="main_images mt-3">
-        <div class="images__">
-          @if ( this.imageUrl) {
-          <p>{{ this.imageUrl }}</p>
-          } @else {
-          <p>{{businessFormDetails?.verification_upload}}</p>
-          }
+        <div class="main_images mt-3">
+          <div class="images__">
+            @if (this.imageUrl) {
+              <p>{{ this.imageUrl }}</p>
+            } @else {
+              <p>{{ businessFormDetails?.verification_upload }}</p>
+            }
+          </div>
         </div>
       </div>
     </div>
-  </div>
   }
 
   <br />
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4">
-      <label for="name" class="listing-form-label">Facebook <span class="asterik">*</span></label>
+      <label for="name" class="listing-form-label"
+        >Facebook <span class="asterik">*</span></label
+      >
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter Facebook url" formControlName="facebook" />
+      <input
+        class="input-control"
+        placeholder="Enter Facebook url"
+        formControlName="facebook"
+      />
     </div>
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4">
-      <label for="name" class="listing-form-label">Instagram <span class="asterik">*</span></label>
+      <label for="name" class="listing-form-label"
+        >Instagram <span class="asterik">*</span></label
+      >
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter Instagram url" formControlName="instagram" />
+      <input
+        class="input-control"
+        placeholder="Enter Instagram url"
+        formControlName="instagram"
+      />
     </div>
   </div>
   <div class="row my-3 px-2">
     <div class="col-12 col-md-12 col-lg-4">
-      <label class="listing-form-label">Twitter <span class="asterik">*</span></label>
+      <label class="listing-form-label"
+        >Twitter <span class="asterik">*</span></label
+      >
     </div>
     <div class="col-12 col-md-12 col-lg-8">
-      <input class="input-control" placeholder="Enter Twitter url" formControlName="twitter" />
+      <input
+        class="input-control"
+        placeholder="Enter Twitter url"
+        formControlName="twitter"
+      />
     </div>
   </div>
 
   <div style="width: 100%; text-align: end">
-    <button type="button" class="btn orange-background-btn ms-auto"
-      [disabled]="!subscriptionForm.valid || !this.imageUrl && verifiedBadge.value == true  " (click)="addBusiness()">
+    <button
+      type="button"
+      class="btn orange-background-btn ms-auto"
+      [disabled]="
+        !subscriptionForm.valid || (verifiedBadge.value && !this.imageUrl)
+      "
+      (click)="addBusiness()"
+    >
       <app-loader *ngIf="isLoader"></app-loader>
       <span *ngIf="!isLoader">Next</span>
     </button>

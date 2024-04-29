@@ -181,6 +181,12 @@ export default [
     data: { roles: [Roles.businessOwner] },
   },
   {
+    path: 'edit-business/:id',
+    loadComponent: () => ListBusinessComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Roles.businessOwner] },
+  },
+  {
     path: 'benefits-of-joining',
     loadComponent: () => BenefitsOfJoiningComponent,
   },

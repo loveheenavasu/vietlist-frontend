@@ -146,6 +146,7 @@ export class SubscriptionFormComponent {
   }
 
   public addBusiness() {
+    // window.location.reload()
     this.isLoader = true
     const body = {
       post_id: this.postId,
@@ -180,20 +181,10 @@ export class SubscriptionFormComponent {
         next: (res) => {
           if (res) {
             this.isLoader = false
-            this.formSubmit.emit()
             this.businessService.isSubscriptionFormFilled.next(true)
             this.localstorage.saveData('isSubscriptionFormFilled', 'true')
             this.isFormFilled = true
-            // Swal.fire({
-            //   toast: true,
-            //   text: 'Successfully added subscription details.',
-            //   animation: false,
-            //   icon: 'success',
-            //   position: 'top-right',
-            //   showConfirmButton: false,
-            //   timer: 3000,
-            //   timerProgressBar: true,
-            // })
+            this.formSubmit.emit()
           }
         },
         error: (err) => { },
