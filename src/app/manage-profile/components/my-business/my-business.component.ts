@@ -98,9 +98,12 @@ export class MyBusinessComponent {
   }
 
   removeLocalstoagekey() {
-    this.localStorage.removeData('isBusinessFormFilled')
-    this.localStorage.removeData('isSubscriptionFormFilled')
     this.localStorage.removeData('postId')
+    this.localStorage.removeData('isSubscriptionFormFilled')
+    this.localStorage.removeData('isBusinessFormFilled')
+    this.localStorage.removeData('isBusinessBioFormFilled')
+    this.localStorage.removeData('isConsultationFormFilled')
+    this.router.navigateByUrl('/list-business')
   }
 
   handlePageChange(event: number): void {
@@ -111,7 +114,12 @@ export class MyBusinessComponent {
     }
 
     editBusiness(id:any){
+      this.localStorage.saveData('isBusinessFormFilled', 'true')
+      this.localStorage.saveData('isSubscriptionFormFilled', 'true')
+      this.localStorage.saveData('isConsultationFormFilled', 'true')
+      this.localStorage.saveData('isBusinessBioFormFilled', 'true')
       this.router.navigate(['/edit-business' , id])
+       this.localStorage.saveData('postId', id)
     }
   }
 

@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { HttpClient } from '@angular/common/http'
-import { Component, EventEmitter, Output } from '@angular/core'
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSelectModule } from '@angular/material/select'
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
@@ -39,6 +39,20 @@ import { EventService } from 'src/app/manage-event/service/event.service'
 })
 export class PromotionsFormComponent {
   @Output() promotionFormSubmit = new EventEmitter<void>()
+  @Input() set promotionData(value: any) {
+    this.businessFormDetails = value || undefined
+    this.cdr.detectChanges()
+    this.promotions?.patchValue({
+      physical_accessibility: value?.physical_accessibility,
+      digital_accessibility: value?.digital_accessibility,
+      choose_layout:value?.choose_layout,
+      promotions_field:value?.promotions_field,
+      event_id:value?.event_id,
+      faq:value?.faq,
+      business_ownerassociate:value?.business_ownerassociate  
+      // twitter: value?.twitter,
+    })
+  }
   public title = 'dropzone'
   public files: File[] = []
   public imagePreviews: any[] = []
@@ -54,6 +68,9 @@ export class PromotionsFormComponent {
   public eventsArray: any[] = []
   public postId: any
   public eliteUserOnly?: any
+  public businessFormDetails: any
+  public currentRoute:any
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -62,6 +79,7 @@ export class PromotionsFormComponent {
     private localstorage: LocalStorageService,
     private eventService: EventService,
     private authService: AuthenticationService,
+    private cdr:ChangeDetectorRef
   ) {
     this.promotions = this.fb.group({
       createEvent: [''],
@@ -80,6 +98,10 @@ export class PromotionsFormComponent {
 
     const id = localstorage.getData('postId')
     this.postId = Number(id)
+
+    this.currentRoute = this.router.url;
+
+
   }
 
   ngOnInit() {
@@ -134,6 +156,8 @@ export class PromotionsFormComponent {
     })
   }
 
+
+
   public handleFinalSubmission() {
     this.isLoader = true
     const body = {
@@ -152,6 +176,32 @@ export class PromotionsFormComponent {
         : 0,
       event_id: this.promotions.value.event_id,
     }
+    if(this.currentRoute?.includes('edit-business')){
+      this.businessService.updateBusiness(body).subscribe({
+        next: (res) => {
+          this.isLoader = false
+          if (res) {
+            Swal.fire({
+              toast: true,
+              text: 'Your business has been added successfully.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+            this.localstorage.removeData('postId')
+            this.localstorage.removeData('isSubscriptionFormFilled')
+            this.localstorage.removeData('isBusinessFormFilled')
+            this.localstorage.removeData('isBusinessBioFormFilled')
+            this.localstorage.removeData('isConsultationFormFilled')
+            this.router.navigateByUrl('/manage-profile/my-business')
+            this.router.navigateByUrl('/manage-profile/my-business')
+          }
+        },
+      })
+    }else{
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.isLoader = false
@@ -176,6 +226,7 @@ export class PromotionsFormComponent {
         }
       },
     })
+  }
   }
 
   public previewBusiness() {

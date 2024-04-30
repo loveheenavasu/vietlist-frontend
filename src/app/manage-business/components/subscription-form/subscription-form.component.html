@@ -83,6 +83,9 @@
         placeholder="Enter Facebook url"
         formControlName="facebook"
       />
+      <div *ngIf="subscriptionForm.get('facebook')?.invalid && subscriptionForm.get('facebook')?.touched" class="error-message">
+        Please enter a valid link.
+      </div>
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -97,6 +100,9 @@
         placeholder="Enter Instagram url"
         formControlName="instagram"
       />
+      <div *ngIf="subscriptionForm.get('instagram')?.invalid && subscriptionForm.get('instagram')?.touched" class="error-message">
+        Please enter a valid link.
+      </div>
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -111,6 +117,9 @@
         placeholder="Enter Twitter url"
         formControlName="twitter"
       />
+      <div *ngIf="subscriptionForm.get('twitter')?.invalid && subscriptionForm.get('twitter')?.touched" class="error-message">
+        Please enter a valid link.
+      </div>
     </div>
   </div>
 

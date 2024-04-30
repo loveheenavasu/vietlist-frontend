@@ -384,6 +384,9 @@
               placeholder="Enter the website url"
               formControlName="website"
             />
+              <div *ngIf="businessInfoForm.get('website')?.invalid && businessInfoForm.get('website')?.touched" class="error-message">
+                Please enter a valid link.
+              </div>
           </div>
         </div>
         <div class="row px-2 my-3">
@@ -586,7 +589,8 @@
     }
 
     @if (businessFormDetails && businessFormDetails?.special_offers) {
-      <app-promotions-form ngSkipHydration></app-promotions-form>
+      <app-promotions-form ngSkipHydration   (promotionFormSubmit)="getBusinessFormDetails(postId)"
+      [promotionData]="businessFormDetails"></app-promotions-form>
     }
    
     <!-- <app-promotions-form></app-promotions-form> -->

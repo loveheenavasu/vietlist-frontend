@@ -82,9 +82,9 @@ export class SubscriptionFormComponent {
     private authService: AuthenticationService
   ) {
     this.subscriptionForm = this.fb.group({
-      facebook: ['', Validators.required],
-      twitter: ['', Validators.required],
-      instagram: ['', Validators.required],
+      facebook: ['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
+      twitter: ['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
+      instagram:['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
 
     })
     this.authService.userDetails.subscribe((res: any) => {
