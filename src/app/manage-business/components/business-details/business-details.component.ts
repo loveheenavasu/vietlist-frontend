@@ -446,8 +446,6 @@ export class BusinessDetailsComponent {
       .getEventDetailsByPostId(this.eventDetails?.event_id)
       .subscribe({
         next: (res) => {
-          console.log(this.eventDetails?.event_id, 'eventDetails11')
-          console.log(res, 'resresresresres')
           this.eventInfo = res?.data[0] || 'NA'
           this.fullPageLoaderService.hideLoader()
           // const currentDate: string =
@@ -630,8 +628,9 @@ export class BusinessDetailsComponent {
           this.isLoader = false
           this.getReviews()
           this.reviewForm.reset()
-
-          this.getEventDetails()
+          if (this.eventDetails?.event_id) {
+            this.getEventDetails()
+          }
           Swal.fire({
             toast: true,
             text: res.message,

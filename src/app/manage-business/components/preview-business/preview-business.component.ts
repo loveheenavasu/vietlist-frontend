@@ -155,7 +155,7 @@ export class PreviewBusinessComponent {
     if (this.postId) {
       this.getBusinessFormDetails()
       this.getAllVideosList(this.postId)
-      this.getVideosList(this.postId, this.videoTab)
+      // this.getVideosList(this.postId, this.videoTab)
     }
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
@@ -590,8 +590,6 @@ export class PreviewBusinessComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data
-        console.log(this.videosTypeArr, 'videosTypeArr1')
-        console.log(this.videoTab, 'all')
         if (this.videoTab == 'all') {
           this.videosTypeArr?.push(
             ...this.videoUrl?.map((elem: any) => {
