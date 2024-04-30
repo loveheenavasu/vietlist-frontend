@@ -350,7 +350,7 @@ export class PreviewBusinessComponent {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.router.navigate(['/manage-profile/my-business'])
-        if(res){
+        if (res) {
           this.localStorageService.removeData('isConsultationFormFilled')
         }
       },
@@ -602,7 +602,7 @@ export class PreviewBusinessComponent {
                 name: 'NA',
                 video_url: [elem],
                 video_type: 'all',
-                thumbnail_image: '',
+                thumbnail_image: '/assets/image/no-image.webp',
                 isEditHide: true,
               }
             }),

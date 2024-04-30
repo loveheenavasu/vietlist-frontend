@@ -81,7 +81,7 @@
         (click)="scrollTo('profile')"
         [class.actives]="activeTab === 'profile'"
       >
-        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
+        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business Information
       </li>
       <li
         *ngIf="
@@ -92,7 +92,7 @@
         (click)="scrollTo('bio')"
         [class.active]="activeTab === 'bio'"
       >
-        <span> <i class="fa fa-" aria-hidden="true"></i></span>
+        <span> <i class="fa fa-user" aria-hidden="true"></i></span>
         Business Bio
       </li>
       <li
@@ -104,7 +104,7 @@
         (click)="scrollTo('booking')"
         [class.active]="activeTab === 'booking'"
       >
-        <span> <i class="fa fa-" aria-hidden="true"></i></span>
+        <span> <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
         Booking & Consultation
       </li>
       <li
@@ -122,8 +122,12 @@
         <span> <i class="fa fa-video" aria-hidden="true"></i></span>
         Videos
       </li>
-      <li *ngIf="eventDetails" (click)="scrollTo('event-promo')" [class.active]="activeTab === 'event-promo'">
-        <span> <i class="fa fa-" aria-hidden="true"></i></span>
+      <li
+        *ngIf="eventDetails"
+        (click)="scrollTo('event-promo')"
+        [class.active]="activeTab === 'event-promo'"
+      >
+        <span> <i class="fa-solid fa-microphone"></i> </span>
         Event & Promotions
       </li>
       <li
@@ -165,7 +169,6 @@
             <i aria-hidden="true" style="font-size: 24px"></i>
             Category
           </h3>
-          <hr />
           <p *ngFor="let category of businessFormDetails?.post_category">
             {{ category?.name }}
           </p>
@@ -173,14 +176,12 @@
             <i aria-hidden="true" style="font-size: 24px"></i>
             Default Category
           </h3>
-          <hr />
           <p>{{ businessFormDetails?.default_category?.name }}</p>
           <h3 class="event-page-headings">
             <i aria-hidden="true" style="font-size: 24px"></i>
             Tags
           </h3>
         </div>
-        <hr />
         <div class="tag-container">
           <p
             *ngFor="let tags of businessFormDetails?.post_tags"
@@ -198,21 +199,25 @@
             class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
             id="bio"
           >
-            <!-- <div class="row mt-3"> -->
-            <h3 class="event-page-headings">
-              <i class="fa fa-" aria-hidden="true" style="font-size: 24px"></i>
-              Owner / Manager Name
-            </h3>
+            <h3 class="headingg">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              Business Bio</h3>
             <hr class="hr" />
-            <p>{{ businessFormDetails?.owner_name }}</p>
 
-            <h3 class="event-page-headings">Business History / Background</h3>
-            <hr class="hr" />
-            <p>{{ businessFormDetails?.business_historybackground }}</p>
+            <div class="contentt">
+              <h3 class="event-page-headings">Owner / Manager Name</h3>
+              <p>{{ businessFormDetails?.owner_name }}</p>
+            </div>
 
-            <h3 class="event-page-headings">Mission & Vission</h3>
-            <hr class="hr" />
-            <p>{{ businessFormDetails?.mission__vision }}</p>
+            <div class="contentt">
+              <h3 class="event-page-headings">Business History / Background</h3>
+              <p>{{ businessFormDetails?.business_historybackground }}</p>
+            </div>
+
+            <div class="contentt">
+              <h3 class="event-page-headings">Mission & Vission</h3>
+              <p>{{ businessFormDetails?.mission__vision }}</p>
+            </div>
           </div>
         }
         @if (
@@ -221,35 +226,41 @@
           businessFormDetails?.consultation_description
         ) {
           <div
-            class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative"
+            class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0 "
             id="booking"
           >
-            <h3 class="event-page-headings">
-              <i class="fa fa-" aria-hidden="true" style="font-size: 24px"></i>
-              Consultation Booking Link
-            </h3>
+            <h3 class="headingg">
+              <i class="fa-solid fa-bag-shopping"></i>  
+              Booking & Consultation</h3>
             <hr class="hr" />
-            <p>
-              <a
-                [href]="businessFormDetails?.consultation_booking_link"
-                target="_blank"
-                style="
-                  color: #38ccff;
-                  font-size: 14px;
-                  font-weight: 500;
-                  text-decoration: none;
-                "
-              >
-                {{ businessFormDetails?.consultation_booking_link }}</a
-              >
-            </p>
 
-            <h3 class="event-page-headings">Consultation Mode</h3>
-            <hr class="hr" />
-            <p>{{ businessFormDetails?.consultation_mode }}</p>
-            <h3 class="event-page-headings">Consultation Description</h3>
-            <hr class="hr" />
-            <p>{{ businessFormDetails?.consultation_description }}</p>
+            <div class="contentt">
+              <h3 class="event-page-headings">
+                Consultation Booking Link
+              </h3>
+              <p>
+                <a
+                  [href]="businessFormDetails?.consultation_booking_link"
+                  target="_blank"
+                  style="
+                    color: #38ccff;
+                    font-size: 14px;
+                    font-weight: 500;
+                    text-decoration: none;
+                  "
+                >
+                  {{ businessFormDetails?.consultation_booking_link }}</a
+                >
+              </p>
+            </div>
+            <div class="contentt">
+              <h3 class="event-page-headings">Consultation Mode</h3>
+              <p>{{ businessFormDetails?.consultation_mode }}</p>
+            </div>
+            <div class="contentt">
+              <h3 class="event-page-headings">Consultation Description</h3>
+              <p>{{ businessFormDetails?.consultation_description }}</p>
+            </div>
           </div>
         }
         @if (businessFormDetails?.image) {
@@ -376,7 +387,6 @@
 
             <div class="main_images">
               @if (videosTypeArr) {
-
                 @for (item of videosTypeArr; track $index) {
                   <div class="featured_image" style="display: flex; gap: 1rem">
                     <img
@@ -385,19 +395,19 @@
                       style="cursor: pointer"
                       (click)="playVideo(item, $index)"
                     />
-  
+
                     <img
                       *ngIf="isVideoTypeLoading"
                       src="/assets/image/blank-white-img.jpeg"
                     />
-  
-                    <div  *ngIf="!item?.isEditHide" class="d-flex edit-icon">
-                      <div  > 
+
+                    <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
+                      <div>
                         <span (click)="editVideo(item, $index)"
                           ><i class="fas fa-edit" style="color: orange"></i
                         ></span>
                       </div>
-                      <div  class="mx-2">
+                      <div class="mx-2">
                         <span
                           class="delete-icon"
                           (click)="deleteVideo(item.video_id)"
@@ -407,77 +417,82 @@
                     </div>
                   </div>
                 }
-              }@else {
-                <span>
-                  No Data Found
-                </span>
+              } @else {
+                <span> No Data Found </span>
               }
             </div>
           </div>
         </div>
         @if (eventDetails) {
-          <div class="profile-info-divs mt-4" style="padding: 9%" id='event-promo' >
-            <h3 class="event-heading">Event Detail</h3>
+          <div
+            class="profile-info-divs mt-4"
+            id="event-promo"
+          >
+            <h3 class="event-heading" style='color: black;' >Event Detail</h3>
             <div class="info-cont">
-            <div class="event-venuee">
-              <div class="icon">
-                <i
-                  class="fa-solid fa-location-dot"
-                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                ></i>
-              </div>
-              <div class="info">
-                {{ businessFormDetails?.street }}
-              </div>
-            </div>
-            <div class="event-venuee">
-              <div class="icon">
-                <i
-                  class="fa-solid fa-calendar"
-                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                ></i>
-              </div>
-              <div class="info">
-                {{ formatDate(eventDetails?.booking_start_date) }} &
-                {{ formatDate(eventDetails?.booking_end_date) }}
-              </div>
-            </div>
-            <div class="event-venuee">
-              <div class="icon">
-                <i
-                  class="fa-solid fa-layer-group"
-                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                ></i>
-              </div>
-              <div class="info">
-                {{ eventDetails?.post_category?.name }}
-              </div>
-            </div>
-            <div class="event-venuee">
-              <div class="icon">
-                <i
-                  class="fa-solid fa-user"
-                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                ></i>
-              </div>
-              <div class="info">
-                {{ eventDetails?.user_detail?.display_name }}
-              </div>
-            </div>
-            @if (eventDetails?.price) {
-              <div class="event-venuee">
+              <div class="event-venuee" *ngIf="businessFormDetails?.street" >
                 <div class="icon">
                   <i
-                    class="fa-solid fa-dollar-sign"
+                    class="fa-solid fa-location-dot"
                     style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
                   ></i>
                 </div>
                 <div class="info">
-                  {{ eventDetails?.price }}
+                  {{ businessFormDetails?.street }}
                 </div>
               </div>
-            }
-          </div>
+              <div class="event-venuee" *ngIf="eventDetails?.booking_start_date" >
+                <div class="icon">
+                  <i
+                    class="fa-solid fa-calendar"
+                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                  ></i>
+                </div>
+                <div class="info">
+                  {{ formatDate(eventDetails?.booking_start_date) }} &
+                  {{ formatDate(eventDetails?.booking_end_date) }}
+                </div>
+              </div>
+              <div class="event-venuee" *ngIf="eventDetails?.post_category?.name " >
+                <div class="icon">
+                  <i
+                    class="fa-solid fa-layer-group"
+                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                  ></i>
+                </div>
+                <div class="info">
+                  {{ eventDetails?.post_category?.name }}
+                </div>
+              </div>
+              <div class="event-venuee" *ngIf="eventDetails?.user_detail?.display_name " >
+                <div class="icon">
+                  <i
+                    class="fa-solid fa-user"
+                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                  ></i>
+                </div>
+                <div class="info">
+                  {{ eventDetails?.user_detail?.display_name }}
+                </div>
+              </div>
+              @if (eventDetails?.price) {
+                <div class="event-venuee">
+                  <div class="icon">
+                    <i
+                      class="fa-solid fa-dollar-sign"
+                      style="
+                        font-size: 20px;
+                        margin-right: 13px;
+                        color: #7a7a7a;
+                      "
+                    ></i>
+                  </div>
+                  <div class="info">
+                    {{ eventDetails?.price }}
+                  </div>
+                </div>
+              }
+            </div>
           </div>
         }
         <div class="row my-4" id="mapView">
@@ -579,20 +594,20 @@
         }
       </div>
       <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div mt-3 position-relative ">
+        <div class="profile-info-div mt-3 position-relative">
           <h3>Contact Info</h3>
           <div class="logo-containerr">
-            <img [src]="businessFormDetails?.logo" alt="">
+            <img [src]="businessFormDetails?.logo" alt="" />
           </div>
           <div class="social-link">
-            <div class="location">
+            <div class="location" *ngIf="businessFormDetails?.street" >
               <i
                 class="fa-solid fa-location-dot"
                 style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
               ></i>
               {{ businessFormDetails?.street }}
             </div>
-            <div class="location">
+            <div class="location" *ngIf="businessFormDetails?.business_email" >
               <i
                 class="fa fa-envelope"
                 aria-hidden="true"
@@ -600,7 +615,7 @@
               ></i>
               {{ businessFormDetails?.business_email }}
             </div>
-            <div class="location">
+            <div class="location" *ngIf="businessFormDetails?.contact_phone" >
               <i
                 class="fa fa-phone"
                 aria-hidden="true"
@@ -637,9 +652,9 @@
         >
           <div class="text-center p-3 bg-light timing-cont">
             <span style="font-size: 22px; font-weight: 600; color: black"
-              >Business Open Hours :</span
+              >Business Open Hours</span
             >
-            <div class="media-body d-flex flex-wrap">
+            <div class="media-body">
               <p
                 *ngFor="let time of parse(businessFormDetails?.business_hours)"
                 class="mt-0"
