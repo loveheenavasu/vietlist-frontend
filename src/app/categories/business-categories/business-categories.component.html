@@ -53,11 +53,11 @@
       <div class="grid-view-container row">
         @for (key of businessCategoriesArray; track $index) {
         <div class="grid-card col-lg-4">
-          <div class="listing-img">
+          <div class="listing-img" style="cursor:pointer" (click)="onCategorySelected(key)">
             <img [src]="key.image" />
           </div>
           <div class="listing-description">
-            <div class="listing-heading">
+            <div class="listing-heading" style="cursor:pointer" (click)="onCategorySelected(key)">
               <h3>
                 {{ key.name }}
               </h3>
@@ -88,12 +88,12 @@
         @for (key of businessCategoriesArray; track $index) {
         <div class="d-flex small-screen-view">
           <div class="listing-img-container">
-            <div class="listing-img">
-              <img [src]="key.image" />
+            <div class="listing-img" style="cursor:pointer" (click)="onCategorySelected(key)">
+              <img [src]="key.image" style="cursor:pointer" (click)="onCategorySelected(key)"/>
             </div>
           </div>
           <div class="listing-img-info">
-            <div class="listing-heading">
+            <div class="listing-heading" style="cursor:pointer" (click)="onCategorySelected(key)">
               <h3>{{ key.name }}</h3>
             </div>
             <div class="listing-info">
