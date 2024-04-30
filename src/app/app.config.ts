@@ -3,7 +3,10 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { provideRouter, withInMemoryScrolling } from '@angular/router'
 
 import routes from './app.routes'
-import { provideClientHydration } from '@angular/platform-browser'
+import {
+  provideClientHydration,
+  withNoHttpTransferCache,
+} from '@angular/platform-browser'
 import { provideAnimations } from '@angular/platform-browser/animations'
 import {
   provideHttpClient,
@@ -15,7 +18,6 @@ import { ErrorHandlerInterceptor } from '@vietlist/shared'
 import { environment } from 'src/environments/environment.development'
 import { MatNativeDateModule } from '@angular/material/core'
 
-
 const stripePublishKey = environment.stripe_publish_key
 
 export const appConfig: ApplicationConfig = {
@@ -26,7 +28,7 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled',
       }),
     ),
-    provideClientHydration(),
+    provideClientHydration(withNoHttpTransferCache()),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([ErrorHandlerInterceptor])),
     provideNgxStripe(stripePublishKey),
