@@ -384,6 +384,9 @@
               placeholder="Enter the website url"
               formControlName="website"
             />
+              <div *ngIf="businessInfoForm.get('website')?.invalid && businessInfoForm.get('website')?.touched" class="error-message">
+                Please enter a valid link.
+              </div>
           </div>
         </div>
         <div class="row px-2 my-3">
@@ -558,6 +561,7 @@
     @if (businessFormDetails?.business_email && vediosHide?.level_id !== '1') {
       <section>
         <app-subscription-form
+        ngSkipHydration
           (formSubmit)="getBusinessFormDetails(postId)"
           [subscriptionData]="businessFormDetails"
         ></app-subscription-form>
@@ -567,6 +571,7 @@
     @if (businessFormDetails && businessFormDetails?.twitter) {
       <section class="my-4">
         <app-business-bio
+        ngSkipHydration
           (buinessFormSubmit)="getBusinessFormDetails(postId)"
           [businessbioData]="businessFormDetails"
         ></app-business-bio>
@@ -576,6 +581,7 @@
     @if (businessFormDetails && businessFormDetails?.owner_name) {
       <section class="my-4">
         <app-consultation-form
+        ngSkipHydration
           (consultationFormSubmit)="getBusinessFormDetails(postId)"
           [consultationData]="businessFormDetails"
         ></app-consultation-form>
@@ -583,7 +589,8 @@
     }
 
     @if (businessFormDetails && businessFormDetails?.special_offers) {
-      <app-promotions-form></app-promotions-form>
+      <app-promotions-form ngSkipHydration   (promotionFormSubmit)="getBusinessFormDetails(postId)"
+      [promotionData]="businessFormDetails"></app-promotions-form>
     }
    
     <!-- <app-promotions-form></app-promotions-form> -->

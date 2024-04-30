@@ -195,12 +195,22 @@ export class ConsultationFormComponent {
 
     this.isLastRemoved = new Array<boolean>(this.days.length).fill(false)
     this.ConsultationForm = this.fb.group({
-      consultation_booking_link: ['', [Validators.maxLength(254)]],
+      consultation_booking_link: [
+        '',
+        Validators.pattern(
+          /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+        ),
+      ],
       consultation_mode: [''],
       consultation_description: ['', [Validators.maxLength(254)]],
       services_list: ['', [Validators.maxLength(254)]],
       price: [''],
-      video_url: [''],
+      video_url: [
+        '',
+        Validators.pattern(
+          /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+        ),
+      ],
       business_hours: [''],
       special_offers: ['', Validators.required],
     })

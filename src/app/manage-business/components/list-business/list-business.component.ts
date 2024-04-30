@@ -72,6 +72,9 @@ import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
   ],
   templateUrl: './list-business.component.html',
   styleUrl: './list-business.component.scss',
+  host: {
+    ngSkipHydration: 'true',
+  },
 })
 export class ListBusinessComponent {
   public isloader: boolean = false
@@ -169,11 +172,17 @@ export class ListBusinessComponent {
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
       post_content: ['', [Validators.required, Validators.maxLength(254)]],
-      website: [''],
+      website: ['', Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)],
       mapview: [''],
     })
 
-    this.route.params.subscribe((res: any) => {})
+    this.route.params.subscribe((res: any) => { 
+      if (res?.id) {
+      
+        this.getBusinessFormDetails(res?.id)
+
+      }
+    })
     this.businessService.storePostId.subscribe((res) => {
       this.postId = res
     })
@@ -217,6 +226,8 @@ export class ListBusinessComponent {
     this.getTags()
     this.initMap()
   }
+
+
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
@@ -226,11 +237,8 @@ export class ListBusinessComponent {
           this.userDetail.level_id,
         )
         this.authService.userDetails.next(this.userDetail)
-        // this.imgUrl = res.data.user.user_image
-        // console.log(res)
       },
       error: (err: any) => {
-        // this.router.navigateByUrl('/login')
       },
     })
   }
@@ -300,7 +308,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -314,7 +322,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_tags = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -323,7 +331,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.selectedDefaultCategories = res.data
       },
-      error: (err) => {},
+      error: (err) => { },
     })
   }
 
@@ -424,7 +432,7 @@ export class ListBusinessComponent {
 
           this.initMap()
         },
-        error: (err) => {},
+        error: (err) => { },
       })
   }
 
@@ -477,7 +485,7 @@ export class ListBusinessComponent {
     }
   }
 
-  public resolved(captchaResponse: string | null) {}
+  public resolved(captchaResponse: string | null) { }
 
   checkInput(event: any) {
     console.log(event, 'evntphone')
@@ -538,11 +546,10 @@ export class ListBusinessComponent {
           this.addBusinessFormData = res
           this.isFormFilled = true
           this.isSubscriptionStepper = true
-          setInterval(() => {
-            this.getBusinessFormDetails(
-              this.localStoragePostId ? this.localStoragePostId : this.postId,
-            )
-          }, 2000)
+          this.getBusinessFormDetails(
+            this.localStoragePostId ? this.localStoragePostId : this.postId,
+          )
+
         },
         error: (err) => {
           this.isloader = false
@@ -550,8 +557,8 @@ export class ListBusinessComponent {
       })
     } else if (this.userDetailsLevel_id.level_id == '1') {
       body.final_submission = 1
-      ;(body.terms_conditions = this.term_and_condition.value),
-        (body.image = this.levelOneImageArr)
+        ; (body.terms_conditions = this.term_and_condition.value),
+          (body.image = this.levelOneImageArr)
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false

@@ -11,12 +11,9 @@
     <div class="col-12 col-md-12 col-lg-8">
       <input class="input-control" placeholder="Enter consultation booking link"
         formControlName="consultation_booking_link" />
-        @if (
-          ConsultationForm.get('consultation_booking_link')?.touched &&
-          ConsultationForm.get('consultation_booking_link')?.hasError('maxlength')
-        ) {
-          <span class="error-message">Maximum 254 characters are allowed.</span>
-        }
+        <div *ngIf="ConsultationForm.get('consultation_booking_link')?.invalid && ConsultationForm.get('consultation_booking_link')?.touched" class="error-message">
+          Please enter a valid link.
+        </div>
     </div>
   </div>
   <div class="row my-3 px-2">
@@ -163,6 +160,9 @@
     <div class="col-12 col-md-12 col-lg-8">
       <input class="input-control" placeholder="Add  video url  or code here, Youtube etc."
         formControlName="video_url" />
+        <div *ngIf="ConsultationForm.get('video_url')?.invalid && ConsultationForm.get('video_url')?.touched" class="error-message">
+          Please enter a valid link.
+        </div>
     </div>
   </div>
 
