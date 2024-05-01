@@ -15,19 +15,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let subscriber of subscriberList">
-        <td >
-          {{ subscriber?.name || '--' }}
-        </td>
-        <!-- <td class='clickable-cell'  (click)="openDialogs(subscriber)">
-          {{ subscriber?.name || '--' }}
-        </td> -->
-        <td>{{ subscriber?.email || '--' }}</td>
-        <td>{{ subscriber?.lists?.join(' ') || '--' }}</td>
-        <td>{{ subscriber?.emails ?? '--' }}</td>
-        <td>{{ subscriber?.status }}</td>
-        <td>{{ listId? subscriber?.added :  this.service.formatDatee(subscriber?.added) || '--' }}</td>
-      </tr>
+      @if (subscriberList?.length) {
+        <tr *ngFor="let subscriber of subscriberList">
+          <td>
+            {{ subscriber?.name || '--' }}
+          </td>
+          <!-- <td class='clickable-cell'  (click)="openDialogs(subscriber)">
+            {{ subscriber?.name || '--' }}
+          </td> -->
+          <td>{{ subscriber?.email || '--' }}</td>
+          <td>{{ subscriber?.lists?.join(' ') || '--' }}</td>
+          <td>{{ subscriber?.emails ?? '--' }}</td>
+          <td>{{ subscriber?.status }}</td>
+          <td>
+            {{
+              listId
+                ? subscriber?.added
+                : this.service.formatDatee(subscriber?.added) || '--'
+            }}
+          </td>
+        </tr>
+      } @else {
+        <tr align='center'  >
+          <td align='center'  colspan="6"><span> No data found</span></td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>
@@ -93,7 +105,9 @@
                   formControlName="status"
                 >
                   @for (key of statusArray; track $index) {
-                    <mat-option [value]="key?.value">{{ key?.name }}</mat-option>
+                    <mat-option [value]="key?.value">{{
+                      key?.name
+                    }}</mat-option>
                   }
                 </mat-select>
               </div>

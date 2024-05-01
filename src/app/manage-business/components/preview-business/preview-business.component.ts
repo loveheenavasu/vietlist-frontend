@@ -155,7 +155,7 @@ export class PreviewBusinessComponent {
     if (this.postId) {
       this.getBusinessFormDetails()
       this.getAllVideosList(this.postId)
-      this.getVideosList(this.postId, this.videoTab)
+      // this.getVideosList(this.postId, this.videoTab)
     }
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
@@ -171,6 +171,8 @@ export class PreviewBusinessComponent {
   //   this.router.navigateByUrl('/claim-business')
   // }
 
+  videoUrl: any = []
+
   public getBusinessFormDetails() {
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
@@ -178,13 +180,17 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
+
+        if (this.businessFormDetails?.video_upload?.length) {
+          this.videoUrl.push(...this.businessFormDetails?.video_upload)
+        }
+        if (this.businessFormDetails?.video_url) {
+          this.videoUrl.push(this.businessFormDetails?.video_url)
+        }
         if (this.businessFormDetails.event_id) {
           this.getEventDetails()
         }
-        console.log(
-          this.businessFormDetails,
-          ' this.businessFormDetails this.businessFormDetails',
-        )
+
         const business_hours = this.businessFormDetails?.business_hours
         this.hourFilter = this.getCleanedBusinessHours(business_hours)
         this.previewForm.patchValue(this.businessFormDetails)
@@ -232,7 +238,6 @@ export class PreviewBusinessComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
-      console.log(this.latitude, this.longitude, 'lng ;at')
       this.map = new google.maps.Map(mapElement, {
         center: {
           lat: this.latitude,
@@ -279,7 +284,6 @@ export class PreviewBusinessComponent {
       .getEventDetailsByPostId(this.businessFormDetails?.event_id)
       .subscribe({
         next: (res) => {
-          console.log(res, 'RESPONSE')
           this.fullPageLoaderService.hideLoader()
           ;(this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
@@ -346,7 +350,7 @@ export class PreviewBusinessComponent {
     this.businessService.addBusiness(body).subscribe({
       next: (res) => {
         this.router.navigate(['/manage-profile/my-business'])
-        if(res){
+        if (res) {
           this.localStorageService.removeData('isConsultationFormFilled')
         }
       },
@@ -575,7 +579,6 @@ export class PreviewBusinessComponent {
       },
       error: (err: any) => {
         this.fullPageLoaderService.hideLoader()
-        console.log(err, 'error')
       },
     })
   }
@@ -587,6 +590,22 @@ export class PreviewBusinessComponent {
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data
+        if (this.videoTab == 'all') {
+          this.videosTypeArr?.push(
+            ...this.videoUrl?.map((elem: any) => {
+              return {
+                video_id: '0',
+                post_id: this.postId,
+                user_id: 'na',
+                name: 'NA',
+                video_url: [elem],
+                video_type: 'all',
+                thumbnail_image: '/assets/image/no-image.webp',
+                isEditHide: true,
+              }
+            }),
+          )
+        }
         this.isVideoTypeLoading = false
       },
       error: (err: any) => {
@@ -602,6 +621,16 @@ export class PreviewBusinessComponent {
       height: 'auto',
       data: { item, index }, // Pass item and index as data
     })
+  }
+  public formatDate(dateString: string): string {
+    if (!dateString) return ''
+
+    const date = new Date(dateString)
+    const year = date.getFullYear()
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+    const day = date.getDate().toString().padStart(2, '0')
+
+    return `${year}-${month}-${day}`
   }
 
   public editVideo(item: any, index: number) {

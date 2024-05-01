@@ -13,17 +13,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let list of lists">
-        <td class="clickable-cell" (click)="openDialogs(list)">
-          {{ list.name || '--' }}
-        </td>
-        <td>{{ list.description || '--' }}</td>
-        <td class="clickable-cell" (click)="navigateToSubscriber(3, list?.ID)">
-          {{ list?.subscriber_count || '--' }}
-        </td>
-        <td>{{ service.formatDatee(list?.updated || '--') }}</td>
-        <td>{{ service.formatDatee(list?.added) || '--' }}</td>
-      </tr>
+      @if (lists?.length) {
+        <tr *ngFor="let list of lists">
+          <td class="clickable-cell" (click)="openDialogs(list)">
+            {{ list.name || '--' }}
+          </td>
+          <td>{{ list.description || '--' }}</td>
+          <td
+            class="clickable-cell"
+            (click)="navigateToSubscriber(3, list?.ID)"
+          >
+            {{ list?.subscriber_count || '--' }}
+          </td>
+          <td>{{ service.formatDatee(list?.updated || '--') }}</td>
+          <td>{{ service.formatDatee(list?.added) || '--' }}</td>
+        </tr>
+      } @else {
+        <tr align="center">
+          <td align="center" colspan="5"><span> No data found</span></td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>
@@ -64,7 +73,7 @@
                 ></textarea>
               </div>
             </div>
-            <div *ngIf="isListSelected" class="row mb-4 ">
+            <div *ngIf="isListSelected" class="row mb-4">
               <div class="col-12 m-3 mx-0">
                 <span> {{ start_details['sent'] }} Mail sent </span>
               </div>
@@ -94,7 +103,7 @@
               </div>
             </div>
 
-            <div *ngIf="!isListSelected"  class="row mt-4 mb-4">
+            <div *ngIf="!isListSelected" class="row mt-4 mb-4">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="d-flex justify-content-center">
                   <button

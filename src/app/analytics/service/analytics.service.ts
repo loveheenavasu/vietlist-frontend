@@ -40,10 +40,9 @@ export class AnalyticsService {
   }
   public GetBookingAnalytics(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBookingAnalytics)
-    const params = new HttpParams()
-      .set('time_period', body?.time_period)
-      .set('page_no', body?.page_no)
-      .set('posts_per_page', body?.posts_per_page)
+    const params = new HttpParams().set('time_period', body?.time_period)
+    // .set('page_no', body?.page_no)
+    // .set('posts_per_page', body?.posts_per_page)
     const authToken = this.authService.getAuthHeaders()
     const urlWithParams = `${endpoint}?${params.toString()}`
     return this.http.get<any>(urlWithParams, { headers: authToken })

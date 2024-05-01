@@ -136,9 +136,10 @@ export class BusinessService {
   public getVideoIntegration(post_id: any, post_type: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.VideosType)
     const authToken = this.authService.getAuthHeaders()
-    const params = new HttpParams()
-      .set('post_id', post_id)
-      .set('video_type', post_type)
+    const params = new HttpParams().set('post_id', post_id)
+    if (post_type !== 'all') {
+      params.set('video_type', post_type)
+    }
     return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
 

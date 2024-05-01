@@ -1,4 +1,4 @@
-import { FindEventParams } from './../../../manage-business/service/business.interface';
+import { FindEventParams } from './../../../manage-business/service/business.interface'
 import { DatePipe, NgClass, NgIf } from '@angular/common'
 import { Component } from '@angular/core'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-all-event',
@@ -26,13 +26,13 @@ import Swal from 'sweetalert2';
     DatePipe,
     MatSelectModule,
     NgxPaginationModule,
-    NgIf
+    NgIf,
   ],
   templateUrl: './all-event.component.html',
   styleUrl: './all-event.component.scss',
 })
 export class AllEventComponent {
-  public datePipe = new DatePipe('en-US');
+  public datePipe = new DatePipe('en-US')
 
   public selectedLayout: string = 'grid'
   public publishEventsArray: any[] = []
@@ -54,21 +54,15 @@ export class AllEventComponent {
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
   public totalCount: number = 0
-  public totalPages: number = 0;
- 
+  public totalPages: number = 0
 
- 
-
-  isSearching: boolean = false;
+  isSearching: boolean = false
   constructor(
     private eventService: EventService,
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
-    private authenticationService: AuthenticationService
-
-  ) {
-
-  }
+    private authenticationService: AuthenticationService,
+  ) {}
 
   ngOnInit() {
     this.getPublishEventData()
@@ -84,31 +78,35 @@ export class AllEventComponent {
       next: (res: any) => {
         this.event_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
-  formatDate(time: string): string {  
+  formatDate(time: string): string {
     // Manually append today's date before formatting
-    const today = new Date();
-    const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`;
-    return this.datePipe?.transform(formattedTime, 'shortTime') || '';
+    if (time) {
+      const today = new Date()
+      const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`
+      return this.datePipe?.transform(formattedTime, 'shortTime') || ''
+    } else {
+      return '--'
+    }
   }
 
   private getBrowserTimezone(): string {
-    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    return this.convertTimezoneIdentifier(browserTimezone);
+    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    return this.convertTimezoneIdentifier(browserTimezone)
   }
 
   private convertTimezoneIdentifier(timezone: string): string {
     switch (timezone) {
       case 'Asia/Calcutta':
-        return 'Asia/Kolkata';
+        return 'Asia/Kolkata'
       default:
-        return timezone;
+        return timezone
     }
   }
-  
+
   // public getPublishEventData() {
   //   this.fullPageLoaderService.showLoader()
   //   // var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -136,7 +134,6 @@ export class AllEventComponent {
   //   })
   // }
 
-
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -163,7 +160,6 @@ export class AllEventComponent {
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
-
 
   // public searchBusiness() {
   //   this.currentPage = 1;
@@ -234,10 +230,10 @@ export class AllEventComponent {
   //   })
   // }
 
-
   public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], { queryParams: { isGlobal: isGlobal } });
-
+    this.router.navigate(['/event-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
 
   // public handlePageChange(event: number): void {
@@ -250,118 +246,117 @@ export class AllEventComponent {
   //     this.getPublishEventData()
   //   }
   // }
-  
 
   public clearFilters(): void {
     // Clear local variables
     this.authenticationService.clearLocationValue.next(true)
-    this.fullAddress = '';
-    this.state = '';
-    this.country = '';
-    this.city = '';
-    this.zipcode = '';
-    this.latitude = '';
-    this.longitude = '';
+    this.fullAddress = ''
+    this.state = ''
+    this.country = ''
+    this.city = ''
+    this.zipcode = ''
+    this.latitude = ''
+    this.longitude = ''
     this.street = ''
     // Reset category FormControl
-    this.category.setValue(null);
+    this.category.setValue(null)
     this.postTitle.setValue(null)
     // Reset pagination and loader
-    this.currentPage = 1;
-    this.isPaginationVisible = false;
-    this.isLoader = true;
+    this.currentPage = 1
+    this.isPaginationVisible = false
+    this.isLoader = true
 
     // Retrieve events again
-    this.getPublishEventData();
+    this.getPublishEventData()
   }
-  
+
   getPublishEventData(): void {
-    this.isSearching = false; // Reset search flag
-    this.fullPageLoaderService.showLoader();
+    this.isSearching = false // Reset search flag
+    this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
-      timezone: this.getBrowserTimezone()
-    };
+      timezone: this.getBrowserTimezone(),
+    }
 
     this.eventService.getPublishEvents(params).subscribe({
       next: (res: any) => {
-        this.fullPageLoaderService.hideLoader();
-        this.publishEventsArray = res.data;
-        this.totalCount = res.total_count;
-       console.log(res ,'events')
-        this.calculateTotalPages();
+        this.fullPageLoaderService.hideLoader()
+        this.publishEventsArray = res.data
+        this.totalCount = res.total_count
+        console.log(res, 'events')
+        this.calculateTotalPages()
       },
       error: (err: any) => {
         // Handle error
-        this.fullPageLoaderService.hideLoader();
-      }
-    });
+        this.fullPageLoaderService.hideLoader()
+      },
+    })
   }
 
   searchBusiness(): void {
-    this.isSearching = true; // Set search flag
-    this.fullPageLoaderService.showLoader();
+    this.isSearching = true // Set search flag
+    this.fullPageLoaderService.showLoader()
     const post_category = this.category.value
-      const postPerPage = this.postPerPage
-      var browserTimezone = this.getBrowserTimezone();
+    const postPerPage = this.postPerPage
+    var browserTimezone = this.getBrowserTimezone()
     const params: FindEventParams = {}
-      if (post_category) {
-        params['post_category'] = post_category
-      }
-      if (this.postTitle.value) {
-        params['post_title'] = this.postTitle.value
-      }
-      if (postPerPage) {
-        params['posts_per_page'] = postPerPage
-      }
-      if (this.currentPage) {
-        params['page_no'] = this.currentPage
-      }
-      if (this.city) {
-        params['city'] = this.city
-      }
-      if (this.state) {
-        params['region'] = this.state
-      }
-      if (this.fullAddress) {
-        params['street'] = this.fullAddress
-      }
-      if (this.zipcode) {
-        params['zip'] = this.zipcode
-      }
-      if (this.country) {
-        params['country'] = this.country
-      }
-      if (browserTimezone) {
-        params['timezone'] = browserTimezone
-      }
+    if (post_category) {
+      params['post_category'] = post_category
+    }
+    if (this.postTitle.value) {
+      params['post_title'] = this.postTitle.value
+    }
+    if (postPerPage) {
+      params['posts_per_page'] = postPerPage
+    }
+    if (this.currentPage) {
+      params['page_no'] = this.currentPage
+    }
+    if (this.city) {
+      params['city'] = this.city
+    }
+    if (this.state) {
+      params['region'] = this.state
+    }
+    if (this.fullAddress) {
+      params['street'] = this.fullAddress
+    }
+    if (this.zipcode) {
+      params['zip'] = this.zipcode
+    }
+    if (this.country) {
+      params['country'] = this.country
+    }
+    if (browserTimezone) {
+      params['timezone'] = browserTimezone
+    }
 
     this.eventService.findEvents(params).subscribe({
       next: (res: any) => {
-        this.fullPageLoaderService.hideLoader();
-        this.publishEventsArray = res.data;
-        this.totalCount = res.total_count;
-        this.calculateTotalPages();
+        this.fullPageLoaderService.hideLoader()
+        this.publishEventsArray = res.data
+        this.totalCount = res.total_count
+        this.calculateTotalPages()
       },
       error: (err: any) => {
         // Handle error
-        this.fullPageLoaderService.hideLoader();
-      }
-    });
+        this.fullPageLoaderService.hideLoader()
+      },
+    })
   }
 
   calculateTotalPages(): void {
-    this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
+    this.totalPages = Math.ceil(this.totalCount / this.postPerPage)
   }
 
   handlePageChange(event: number): void {
-    this.currentPage = event;
+    this.currentPage = event
 
     if (this.isSearching) {
-      this.searchBusiness();
+      this.searchBusiness()
     } else {
-      this.getPublishEventData();
+      this.getPublishEventData()
     }
   }
 }

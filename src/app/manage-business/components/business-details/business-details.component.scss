@@ -4,7 +4,7 @@
 @import "../../../../assets/scss/image-loader";
 
 .container {
-    max-width: 1140px;
+    max-width: 1210px;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -14,15 +14,16 @@
     // margin-top: 4rem;
     // margin-bottom: 4rem;
 }
+
 .input-group {
     position: relative;
-  
+
     .fa.fa-calendar-o {
-      position: absolute;
-      right: 10px;
-      top: 10px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
     }
-  }
+}
 
 .tabs-wrapper {
     width: 100%;
@@ -41,7 +42,7 @@
         font-weight: 500;
         background-color: #f3f1f1;
         border-radius: 5px;
-        padding:8px 1em;
+        padding: 8px 1em;
         // margin-top: 1.5rem;
         white-space: nowrap;
         // width: 100%;
@@ -79,7 +80,7 @@
 .elementor-divider-separator {
     background: #FF9900;
     /* padding: 10px !important; */
-    height: 5px;
+    height: 2px;
     width: 83px;
     z-index: 99999999;
     content: '';
@@ -117,6 +118,7 @@
     font-weight: bold;
     padding: 0;
 }
+
 .event-page-headings {
     /* font-size: 25px; */
     color: #232F3E !important;
@@ -148,13 +150,20 @@
     font-size: 15.5px;
 }
 
-.profile-info-divs{
+.profile-info-divs {
+
+    .headingg {
+        color: black;
+        padding-top: 3% !important;
+    }
+
     width: 100%;
-    padding: 10%;
-    background-color: #FFFFFF;
+    // padding: 10%;
+    // background-color: #FFFFFF;
     padding-top: 7%;
     padding-bottom: 7%;
 }
+
 .profile-info-div {
     width: 100%;
     // height:12rem;
@@ -257,8 +266,15 @@
     }
 }
 
-.hr{
-    margin: 1rem 0 0 0 !important; 
+.hr {
+    margin: 0 0 2rem 0 !important;
+}
+
+.contentt{
+    padding-block:5px !important ;
+    h3{
+        font-size: 16px !important;
+    }
 }
 
 .featured_image:hover {
@@ -553,13 +569,14 @@ fieldset:disabled .btn {
 .list-items {
     list-style: none;
     padding: 10px 0 0 0px;
-    margin: 0 5%;
+    margin: 0 8%;
     display: flex;
     // list-style: none;
     // padding: 10px 0 0 0;
     // margin: 0 5%;
     // display: flex;
     margin-bottom: 1rem;
+    white-space: nowrap !important;
     // padding: 0px;
 }
 
@@ -777,23 +794,23 @@ fieldset:disabled .btn {
     ul {
         margin-inline: 6%;
         margin-block: 20px;
-        border:none
+        border: none;
     }
 }
 
- .nav-link.active {
-    color: #ff9900 !important ;
+.nav-link.active {
+    color: #ff9900 !important;
     border: none !important;
-    border-bottom: #ff9900 2px solid !important ;
+    border-bottom: #ff9900 2px solid !important;
 }
 
-.nav-link:hover{
-    color: #ff9900 !important ;
-    border: none !important ; 
-    border-bottom: #ff9900 2px solid !important ;
+.nav-link:hover {
+    color: #ff9900 !important;
+    border: none !important;
+    border-bottom: #ff9900 2px solid !important;
 }
 
-.nav-link{
+.nav-link {
     border: 0px solid transparent !important;
 }
 
@@ -803,21 +820,23 @@ fieldset:disabled .btn {
     border-top: solid 1px rgba(16, 11, 11, 0.3294117647);
     overflow: hidden;
     padding: 15px !important;
-  }
-  
+}
 
-.background_section:hover{
+
+.background_section:hover {
     color: #7a7a7a;
 }
 
-.tag-container{
+.tag-container {
     display: flex;
     gap: 10px;
 }
-.tag-creation{
+
+.tag-creation {
     color: white;
     background: #ff9900;
-    display: inline;padding: 3px 5px;
+    display: inline;
+    padding: 3px 5px;
 }
 
 
@@ -832,8 +851,8 @@ fieldset:disabled .btn {
 
 .main_images {
     overflow: scroll;
-  }
-  
+}
+
 
 
 .tabs-wrapper {
@@ -853,7 +872,7 @@ fieldset:disabled .btn {
         font-weight: 500;
         background-color: #f3f1f1;
         border-radius: 5px;
-        padding:8px 1em;
+        padding: 8px 1em;
         // margin-top: 1.5rem;
         white-space: nowrap;
         // width: 100%;
@@ -869,9 +888,33 @@ fieldset:disabled .btn {
     border: solid 1px grey
 }
 
-.sub-heading{
-    margin-left: 20px;
-    h3{
+.sub-heading {
+    h3 {
         font-size: 16px;
     }
+}
+
+.logo-containerr {
+    width: 86px;
+    position: absolute;
+    height: 50px !important;
+    right: 40px;
+    top: 20px;
+}
+
+.timing-cont {
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-cont {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.event-venuee {
+    display: flex;
 }
