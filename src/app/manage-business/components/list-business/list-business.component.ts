@@ -145,6 +145,7 @@ export class ListBusinessComponent {
    * @param localStorageService
    */
   public userDetailsLevel_id: any
+  public isParamsId:boolean = false
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
@@ -171,14 +172,14 @@ export class ListBusinessComponent {
       ],
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
-      post_content: ['', [Validators.required, Validators.maxLength(254)]],
+      post_content: ['', [Validators.required]],
       website: ['', Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)],
       mapview: [''],
     })
 
     this.route.params.subscribe((res: any) => { 
       if (res?.id) {
-      
+        this.isParamsId = true
         this.getBusinessFormDetails(res?.id)
 
       }
@@ -514,7 +515,7 @@ export class ListBusinessComponent {
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
     }
-    if (this.isFormFilled || this.postId) {
+    if (this.isFormFilled || this.postId || this.isParamsId) {
       this.isloader = true
       const updatebody: any = {
         post_title: this.businessInfoForm.value.post_title,
