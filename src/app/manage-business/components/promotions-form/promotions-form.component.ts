@@ -225,6 +225,9 @@ export class PromotionsFormComponent {
           this.router.navigateByUrl('/manage-profile/my-business')
         }
       },
+      error:(err)=>{
+        this.isLoader = false
+      }
     })
   }
   }

@@ -146,6 +146,7 @@ export class ListBusinessComponent {
    */
   public userDetailsLevel_id: any
   public isParamsId:boolean = false
+  public currentRoute:any
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
@@ -176,9 +177,10 @@ export class ListBusinessComponent {
       website: ['', Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)],
       mapview: [''],
     })
-
+    this.currentRoute = this.router.url;
     this.route.params.subscribe((res: any) => { 
       if (res?.id) {
+        
         this.isParamsId = true
         this.getBusinessFormDetails(res?.id)
 
@@ -550,7 +552,8 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
           )
-
+          if(this.userDetailsLevel_id.level_id == '1')
+          this.router.navigateByUrl('/manage-profile/my-business')
         },
         error: (err) => {
           this.isloader = false
@@ -567,9 +570,7 @@ export class ListBusinessComponent {
           this.isFormFilled = true
           this.postId = res.post_id
           this.isSubscriptionStepper = true
-          setInterval(() => {
             this.getBusinessFormDetails(this.postId)
-          }, 2000)
           this.getBusinessFormDetails(this.postId)
           this.localStorageService.saveData('postId', this.postId)
           this.businessService.isBusinessFormFilled.next(true)
