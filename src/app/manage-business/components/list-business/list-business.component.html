@@ -105,12 +105,12 @@
               placeholder="Enter the business description"
               formControlName="post_content"
             ></textarea>
-            @if (
+            <!-- @if (
               businessInfoForm.get('post_content')?.touched &&
               businessInfoForm.get('post_content')?.hasError('maxlength')
             ) {
               <span class="error-message">Maximum 254 characters are allowed.</span>
-            }
+            } -->
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
@@ -395,6 +395,7 @@
             <ngx-dropzone
               (change)="onSelectLogo($event)"
               [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
+              [maxFileSize]="2097152"
             >
               <ngx-dropzone-label *ngIf="!isImageLoading"
                 ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
@@ -403,6 +404,7 @@
               >
               <div class="loader" *ngIf="isImageLoading"></div>
             </ngx-dropzone>
+            <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
 
             <div class="main_images mt-3">
               <div class="images__">
@@ -465,13 +467,14 @@
               <div class="col-sm-10 col-md-12 upload-instruction">
               </div>
             </div>
-            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"   [maxFileSize]="2097152">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
                 or
                 Browse a file (You can upload only 5 images)</ngx-dropzone-label>
               <div *ngIf="isImageUploading" class="loader"></div>
             
             </ngx-dropzone>
+            <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
             <div class="main_images">
               @for (preview of levelOneImageArr; track $index) {
       
