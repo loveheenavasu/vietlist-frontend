@@ -506,6 +506,7 @@
           <button
             type="button"
             class="btn orange-background-btn ms-auto mx-2"
+            *ngIf="businessFormDetails?.final_submission != '1'"
             [disabled]="
             !businessInfoForm.valid ||
             !country ||

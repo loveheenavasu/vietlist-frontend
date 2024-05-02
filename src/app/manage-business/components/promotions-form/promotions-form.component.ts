@@ -144,7 +144,7 @@ export class PromotionsFormComponent {
   }
 
   public resolved(captchaResponse: string | null) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`)
+    
   }
 
   public getAddedEvents() {
@@ -233,6 +233,41 @@ export class PromotionsFormComponent {
   }
 
   public previewBusiness() {
+    const body = {
+      post_id: this.postId,
+      faq: this.promotions.value.faq,
+      upload_certificates: this.imagePreviews,
+      physical_accessibility: this.promotions.value.physical_accessibility,
+      digital_accessibility: this.promotions.value.digital_accessibility,
+      choose_layout: this.promotions.value.choose_layout,
+      terms_conditions: this.term_and_condition.value,
+      // final_submission: 1,
+      promotions_field: this.promotions.value.promotions_field,
+      createEvent: this.promotions.value.createEvent ? 1 : 0,
+      business_ownerassociate: this.promotions.value.business_ownerassociate
+        ? 1
+        : 0,
+      event_id: this.promotions.value.event_id,
+    }
+    this.businessService.addBusiness(body).subscribe({
+      next: (res) => {
+        // this.addBusinessFormData = res
+        // this.isFormFilled = true
+        this.postId = res.post_id
+        // this.isSubscriptionStepper = true
+        // this.getBusinessFormDetails(this.postId)
+        this.localstorage.saveData('postId', this.postId)
+        this.businessService.isBusinessFormFilled.next(true)
+        // this.localStorageService.saveData('isBusinessFormFilled', 'true')
+        const post_id = res.post_id
+        this.businessService.storePostId.next(post_id)
+        this.router.navigate(['/preview-business' , this.postId])
+        // window.open(`/preview-business/${post_id}`, '_blank')
+      },
+      error: (err) => {
+        // this.isloader = false
+      },
+    })
     this.router.navigate(['/preview-business', this.postId])
     // window.open(`/preview-business/${this.postId}`, '_blank');
   }

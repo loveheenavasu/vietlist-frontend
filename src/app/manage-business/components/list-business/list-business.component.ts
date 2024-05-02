@@ -491,7 +491,6 @@ export class ListBusinessComponent {
   public resolved(captchaResponse: string | null) { }
 
   checkInput(event: any) {
-    console.log(event, 'evntphone')
   }
 
   public addBusiness(val?: any) {
