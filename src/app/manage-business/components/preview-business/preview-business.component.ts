@@ -180,7 +180,7 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-
+        console.log(this.businessFormDetails,"formmmmmm")
         if (this.businessFormDetails?.video_upload?.length) {
           this.videoUrl.push(...this.businessFormDetails?.video_upload)
         }
@@ -307,8 +307,8 @@ export class PreviewBusinessComponent {
   }
 
   public editBusiness() {
-    this.localStorageService.saveData('postId', this.postId)
-    this.router.navigate(['/list-business'])
+    // this.localStorageService.saveData('postId', this.postId)
+    this.router.navigate(['/edit-business/' , this.postId])
   }
 
   openDialogs() {

@@ -422,7 +422,7 @@ export class ListBusinessComponent {
             id: this.businessFormDetails?.default_category?.id,
             name: this.businessFormDetails?.default_category?.name,
           })
-
+          this.levelOneImageArr  = this.businessFormDetails?.image
           this.street = this.businessFormDetails?.street
           this.latitude = Number(this.businessFormDetails?.latitude)
           this.longitude = Number(this.businessFormDetails?.longitude)
@@ -516,6 +516,7 @@ export class ListBusinessComponent {
       street: this.fullAddress,
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
+      image:this.levelOneImageArr
     }
     if (this.isFormFilled || this.postId || this.isParamsId) {
       this.isloader = true
@@ -668,8 +669,8 @@ export class ListBusinessComponent {
               ? this.localStoragePostId
               : this.postId
             this.businessService.storePostId.next(post_id)
-            // this.router.navigate(['preview-business' , post_id])
-            window.open(`/preview-business/${post_id}`, '_blank')
+            this.router.navigate(['preview-business' , post_id])
+            // window.open(`/preview-business/${post_id}`, '_blank')
           }
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
@@ -692,8 +693,8 @@ export class ListBusinessComponent {
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
-          // this.router.navigate(['/preview-business' , post_id])
-          window.open(`/preview-business/${post_id}`, '_blank')
+          this.router.navigate(['/preview-business' , post_id])
+          // window.open(`/preview-business/${post_id}`, '_blank')
         },
         error: (err) => {
           this.isloader = false

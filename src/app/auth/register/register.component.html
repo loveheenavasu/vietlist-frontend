@@ -33,6 +33,7 @@
         </div>
         <div class="col-12 mt-4">
           <div class="form-group">
+            <label class="form-check-label">First Name <span class="asterik">*</span></label>
             <input
               class="input-control"
               type="text"
@@ -45,6 +46,7 @@
         </div>
         <div class="col-12">
           <div class="form-group">
+            <label class="form-check-label">Last Name <span class="asterik">*</span></label>
             <input
               class="input-control"
               type="text"
@@ -57,6 +59,7 @@
         </div>
         <div class="col-12">
           <div class="form-group">
+            <label class="form-check-label">Username <span class="asterik">*</span></label>
             <input
               class="input-control"
               type="text"
@@ -69,6 +72,7 @@
         </div>
         <div class="col-12">
           <div class="form-group">
+            <label class="form-check-label">Email<span class="asterik">*</span></label>
             <input
               class="input-control"
               type="email"
@@ -88,6 +92,7 @@
         </div>
         <div class="col-12">
           <div class="form-group">
+            <label class="form-check-label">Password<span class="asterik">*</span></label>
             <div class="input-group">
               <input
                 class="input-control"
@@ -120,6 +125,7 @@
         <div class="col-12">
           <div class="form-group mt-3">
             <div class="col-12">
+              <label class="form-check-label">Confirm Password<span class="asterik">*</span></label>
               <div class="input-group">
                 <input
                   class="input-control"
@@ -162,6 +168,7 @@
         @if (selectedSignupType == userRole.businessOwner) {
           <div class="col-12">
             <div class="form-group">
+              <label class="form-check-label">Business Type<span class="asterik">*</span></label>
               <mat-select
                 class="vietlist-select"
                 placeholder="Business type"
@@ -175,6 +182,7 @@
               </mat-select>
             </div>
           </div>
+          <label class="form-check-label">Phone Number<span class="asterik">*</span></label>
           <ngx-intl-tel-input
             [cssClass]="'input-control'"
             [preferredCountries]="preferredCountries"
@@ -198,6 +206,7 @@
 
         <div class="col-12 mt-2">
           <div class="form-group">
+            
             <div class="form-check">
               <input
                 class="form-check-input"

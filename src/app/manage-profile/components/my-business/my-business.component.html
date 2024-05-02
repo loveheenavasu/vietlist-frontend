@@ -65,14 +65,23 @@
           @if (key?.image?.includes("") || key?.image == null) {
           <div class="listing-img">
             <img src="../../../../assets/image/no-image.webp" />
+            <div class="badge" *ngIf="key?.final_submission == '0'">
+              Pending
+            </div>
           </div>
           } @else {
           <div class="listing-img">
             <img [src]="key.image[0]" />
+            <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
+              Pending
+            </div> -->
           </div>
           }
-
-
+   
+          <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
+          Pending
+        </div> -->
+          
           <div class="listing-description">
             <div class="listing-heading">
               <h3>
@@ -111,12 +120,21 @@
               </button>
             </div> -->
           </div>
-          <div class="footer">
-            <button class="btn email-marketing" (click)="emailMarketing(key.post_id)">Email marketing</button>
-            <div class="icons">
-            <i class="fa fa-eye" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="viewBusiness(key.post_id)"></i>
-            <i class="fa fa-pencil" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="editBusiness(key.post_id)"></i>
-            <i class="fa fa-trash-o" aria-hidden="true" style="color:rgb(255, 70, 19)" (click)="deleteBusiness(key.post_id)"></i>
+          <div class="footer mx-2">
+            <div class="d-flex">
+              <div>
+                <button class="btn email-marketing" (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">Email marketing</button>
+                <button class="btn email-marketing" (click)="emailMarketing(key.post_id)" (click)="viewBusiness(key.post_id)">View</button>
+                <button class="btn email-marketing" (click)="emailMarketing(key.post_id)" (click)="editBusiness(key.post_id)">Edit</button>
+                <button class="btn email-marketing" (click)="emailMarketing(key.post_id)" (click)="deleteBusiness(key.post_id)">Delete</button>
+              </div>
+              <!-- <div class="ms-auto">
+                <div class="icons">
+                  <i class="fa fa-eye" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="viewBusiness(key.post_id)"></i>
+                  <i class="fa fa-pencil" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="editBusiness(key.post_id)"></i>
+                  <i class="fa fa-trash-o" aria-hidden="true" style="color:rgb(255, 70, 19)" (click)="deleteBusiness(key.post_id)"></i>
+                  </div>
+              </div> -->
             </div>
           </div>
         </div> 
@@ -152,7 +170,13 @@
                       <img [src]="key.image[0]" />
                     </div>
                   } -->
+                  @if(key?.final_submission == '0'){
+                    <div class="badge">
+                    Pending
+                  </div>
+                    }
           </div>
+        
           <div class="listing-img-info">
             <div class="listing-heading">
               <h3>{{ key.post_title }}</h3>
@@ -162,7 +186,7 @@
                 {{ key.post_content.length > 40 ? (key.post_content.slice(0, 37) + '...') : key.post_content }}
               </p>
               <!-- @if(key.final_submission == '1'){ -->
-                <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
+                <button class="btn orange-background-btn mx-1"  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
                   Email Marketing
                 </button>
               <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
@@ -172,7 +196,7 @@
               <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
                 View 
               </button>
-              <button class="btn orange-background-btn mx-1" (click)="editBusiness(key.post_id)">
+              <button class="btn orange-background-btn mx-1 my-1" (click)="editBusiness(key.post_id)">
                 Edit
               </button>
              

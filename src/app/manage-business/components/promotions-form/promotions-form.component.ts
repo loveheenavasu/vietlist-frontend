@@ -43,13 +43,13 @@ export class PromotionsFormComponent {
     this.businessFormDetails = value || undefined
     this.cdr.detectChanges()
     this.promotions?.patchValue({
-      physical_accessibility: value?.physical_accessibility,
-      digital_accessibility: value?.digital_accessibility,
-      choose_layout:value?.choose_layout,
-      promotions_field:value?.promotions_field,
-      event_id:value?.event_id,
-      faq:value?.faq,
-      business_ownerassociate:value?.business_ownerassociate  
+      physical_accessibility: value?.physical_accessibility || "NA",
+      digital_accessibility: value?.digital_accessibility || "NA",
+      choose_layout:value?.choose_layout || "NA",
+      promotions_field:value?.promotions_field || "NA",
+      event_id:value?.event_id || "NA",
+      faq:value?.faq || "NA",
+      business_ownerassociate:value?.business_ownerassociate || "NA"
       // twitter: value?.twitter,
     })
   }
@@ -233,8 +233,8 @@ export class PromotionsFormComponent {
   }
 
   public previewBusiness() {
-    // this.router.navigate(['/preview-business', this.postId])
-    window.open(`/preview-business/${this.postId}`, '_blank');
+    this.router.navigate(['/preview-business', this.postId])
+    // window.open(`/preview-business/${this.postId}`, '_blank');
   }
 
   public navigateToEvent() {

@@ -16,11 +16,13 @@
         <div class="row mt-4">
           <div class="col-12">
             <div class="form-group">
+              <label for="" class="form-check-label">Email or Username <span class="asterik">*</span></label>
               <input type="text" class="input-control" placeholder="Username or Email" formControlName="username"
                 appFormControlValidation [validationMsgId]="'username-required-msg'" />
             </div>
           </div>
           <div class="col-12">
+            <label for="" class="form-check-label">Password <span class="asterik">*</span></label>
             <div class="input-group">
               <input [type]="!isHidePassword ? 'password' : 'text'" class="input-control pwd-control"
                 formControlName="password" placeholder="Password" />

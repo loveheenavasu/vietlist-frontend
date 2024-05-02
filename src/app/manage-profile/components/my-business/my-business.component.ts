@@ -8,11 +8,12 @@ import { NgClass, NgIf } from '@angular/common'
 import Swal from 'sweetalert2'
 import { Router, RouterLink } from '@angular/router'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
 @Component({
   selector: 'app-my-business',
   standalone: true,
-  imports: [MatIconModule, NgClass, NgIf, RouterLink , MatTooltipModule, NgxPaginationModule,],
+  imports: [MatIconModule, NgClass, NgIf, RouterLink , MatTooltipModule, NgxPaginationModule,TruncateHtmlPipe],
   templateUrl: './my-business.component.html',
   styleUrl: './my-business.component.scss',
 })
