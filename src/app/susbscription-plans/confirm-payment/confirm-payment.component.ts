@@ -66,6 +66,8 @@ export class ConfirmPaymentComponent {
   public appliedCouponResponse: any
   public isApplyCoupon: boolean = false
   public isUserSubscribed:any
+  public subscriptionCouponPrice:any;
+  public subscriptionCouponId:any;
 
   constructor(
     private stripeService: AngularStripeService,
@@ -293,6 +295,7 @@ export class ConfirmPaymentComponent {
     } else {
       console.log(setupIntent , "setUpIntent  ")
       this.paymentMethod = setupIntent
+      return;
       if (this.paymentMethod && this.eventIds?.numberOfBooking) {
         console.log('price available')
         this.confirmBookingPayment()
@@ -305,13 +308,17 @@ export class ConfirmPaymentComponent {
 
   public confirmSubscriptionPayment() {
     this.loaderService.showLoader()
-    const body = {
+    const body:any = {
       level_id: this.planId,
       pm_data: {
         id: this.paymentMethod?.payment_method,
         billing_details: this.billingAddress,
       },
     }
+    if (this.subscriptionCouponPrice) {
+      body.coupon_price = this.subscriptionCouponPrice;
+      body.code_id = this.subscriptionCouponId
+  }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
@@ -395,6 +402,7 @@ export class ConfirmPaymentComponent {
     this.planService.applyCoupon(this.coupon_code.value , this.planId).subscribe({
       next: (res) => {
         this.isApplyCoupon = true
+        this.subscriptionCouponPrice = res?.price
         if (res) {
           this.updateEventBooking()
         }
