@@ -436,7 +436,7 @@ export class BusinessDetailsComponent {
 
         // this.dataget = res?.data || 'NA'
         this.eventDetails = res?.data[0]
-        this.eventLocation
+        this.eventLocation = res?.data[0]?.street
         // if (this.eventDetails?.video_upload?.length) {
         this.videoUrl.push({
           video_id: '0',

@@ -613,7 +613,9 @@
                 class="fa-solid fa-location-dot"
                 style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
               ></i>
-              {{ businessFormDetails?.street }}
+              <span>
+                {{ businessFormDetails?.street }}
+              </span>
             </div>
             <div class="location" *ngIf="businessFormDetails?.business_email" >
               <i
@@ -621,7 +623,9 @@
                 aria-hidden="true"
                 style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
               ></i>
-              {{ businessFormDetails?.business_email }}
+              <span>
+                {{ businessFormDetails?.business_email }}
+              </span>
             </div>
             <div class="location" *ngIf="businessFormDetails?.contact_phone" >
               <i
@@ -629,7 +633,9 @@
                 aria-hidden="true"
                 style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
               ></i>
-              {{ businessFormDetails?.contact_phone }}
+              <span>
+                {{ businessFormDetails?.contact_phone }}
+              </span>
             </div>
 
             <!-- <div class="location">
