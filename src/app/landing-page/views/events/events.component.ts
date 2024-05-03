@@ -15,7 +15,7 @@ export class EventsComponent {
   constructor(private eventService:EventService) { }
 
   ngOnInit() {
-    this.getAllEvents()
+    // this.getAllEvents()
   }
 
   public getAllEvents(){
