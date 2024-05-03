@@ -10,77 +10,37 @@
         </p>
       </div>
       <div class="explore-btn">
-        <button class="btn orange-background-btn">
+        <button class="btn orange-background-btn" (click)="allEvent()">
           {{ homePageData?.events_section?.explore_more }}
         </button>
       </div>
     </div>
     <div class="upcoming-swiper row justify-content-around">
-      @for(key in eventsArray;track $index){
-      <div class="events-main-card col-sm-12 col-md-4 p-0">
+      @for(key of eventsArray ;track $index){
+      <div class="events-main-card col-sm-12 col-md-4 p-0" >
         <div class="image-cnt">
-          <img src="../../../../assets/image/events1.png" />
+          @if(key?.featured_image?.[0]){
+            <img [src]="key?.featured_image[0]"/>
+          } @else{
+            <img src="../../../../assets/image/no-image-new.jpeg"/>
+          }
         </div>
         <div class="description d-flex">
           <div>
-            <h3 class="month">APR</h3>
-            <h3 class="date">14</h3>
+            <h3 class="month">{{key?.event_dates?.start_date | date:'MMMM'}}</h3>
+            <h3 class="date">{{key?.event_dates?.start_date | date:'d'}}</h3>
           </div>
           <div class="mx-4">
             <h1 class="event-title">
-              Wonder Girls 2010 Wonder Girls World Tour San Francisco
+              {{key?.post_title }}
             </h1>
-            <p class="event-description">
-              Lorem ipsum dolor sit amet consectetur. Ullamcorper turpis auctor
-              suscipit aliquam hac auctor velit non in. Tincidunt eget elementum
-              adi
+            <p class="event-description" [innerHtml]="key?.post_content | truncateHtml:84">
+              <!-- {{key?.post_content}} -->
             </p>
           </div>
         </div>
       </div>
     }
-      <div class="events-main-card col-sm-12 col-md-4 p-0">
-        <div class="image-cnt">
-          <img src="../../../../assets/image/events1.png" />
-        </div>
-        <div class="description d-flex">
-          <div>
-            <h3 class="month">APR</h3>
-            <h3 class="date">14</h3>
-          </div>
-          <div class="mx-4">
-            <h1 class="event-title">
-              Wonder Girls 2010 Wonder Girls World Tour San Francisco
-            </h1>
-            <p class="event-description">
-              Lorem ipsum dolor sit amet consectetur. Ullamcorper turpis auctor
-              suscipit aliquam hac auctor velit non in. Tincidunt eget elementum
-              adi
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="events-main-card col-sm-12 col-md-4 p-0">
-        <div class="image-cnt">
-          <img src="../../../../assets/image/events1.png" />
-        </div>
-        <div class="description d-flex">
-          <div>
-            <h3 class="month">APR</h3>
-            <h3 class="date">14</h3>
-          </div>
-          <div class="mx-4">
-            <h1 class="event-title">
-              Wonder Girls 2010 Wonder Girls World Tour San Francisco
-            </h1>
-            <p class="event-description">
-              Lorem ipsum dolor sit amet consectetur. Ullamcorper turpis auctor
-              suscipit aliquam hac auctor velit non in. Tincidunt eget elementum
-              adi
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class="new-collection-features container-fluid">

@@ -75,12 +75,12 @@
             </div>
             <div class="listing-description">
               <div class="listing-heading">
-                <h3 (click)="gotToEventDetails(key.post_id, true)">
-                  {{ key.post_title }}
+                <h3 (click)="gotToEventDetails(key.post_id, true)" [innerHtml]="key?.post_content | truncateHtml:84">
+                  <!-- {{ key.post_title }} -->
                 </h3>
               </div>
               <div class="listing-info">
-                <li class="post-content">{{ key.post_content }}</li>
+                <li class="post-content"  [innerHtml]="key?.post_content | truncateHtml:84"></li>
                 <li style="padding-bottom: 5px;">
                   <i class="fa fa-calendar-o" aria-hidden="true"></i>
                   {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
@@ -148,12 +148,12 @@
           </div>
           <div class="listing-img-info">
             <div class="listing-heading" (click)="gotToEventDetails(key.post_id, true)">
-              <h3>
-                {{ key.post_title }}
+              <h3 [innerHtml]="key?.post_title | truncateHtml:84">
+                <!-- {{ key.post_title }} -->
               </h3>
             </div>
             <div class="listing-info">
-              <li>{{ key.post_content }}</li>
+              <li [innerHtml]="key?.post_content | truncateHtml:84"></li>
               <li>
                 <i class="fa fa-calendar-o" aria-hidden="true"></i>
                 {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:

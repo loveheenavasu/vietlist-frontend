@@ -12,6 +12,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
 import Swal from 'sweetalert2'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
 @Component({
   selector: 'app-all-event',
@@ -27,6 +28,7 @@ import Swal from 'sweetalert2'
     MatSelectModule,
     NgxPaginationModule,
     NgIf,
+    TruncateHtmlPipe
   ],
   templateUrl: './all-event.component.html',
   styleUrl: './all-event.component.scss',
