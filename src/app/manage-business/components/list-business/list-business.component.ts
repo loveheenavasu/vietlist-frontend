@@ -161,7 +161,7 @@ export class ListBusinessComponent {
     this.fetchProfileDetail()
 
     this.businessInfoForm = this._formBuilder.group({
-      post_title: ['', Validators.required],
+      post_title: ['', [Validators.required , Validators.maxLength(90)]],
       contact_phone: ['', Validators.required],
       business_email: [
         '',

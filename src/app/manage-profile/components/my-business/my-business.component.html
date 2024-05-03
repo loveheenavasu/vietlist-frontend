@@ -84,8 +84,8 @@
           
           <div class="listing-description">
             <div class="listing-heading">
-              <h3>
-                {{ key.post_title }}
+              <h3 [innerHtml]="key?.post_title | truncateHtml: 85">
+                <!-- {{ key.post_title }} -->
               </h3>
             </div>
             <div class="listing-info">
