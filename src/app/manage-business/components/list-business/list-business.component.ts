@@ -180,7 +180,7 @@ export class ListBusinessComponent {
     this.currentRoute = this.router.url;
     this.route.params.subscribe((res: any) => { 
       if (res?.id) {
-        
+        console.log(res.id , "id")
         this.isParamsId = true
         this.getBusinessFormDetails(res?.id)
 

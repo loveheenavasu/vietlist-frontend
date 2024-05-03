@@ -175,4 +175,7 @@ export class BlogNewsComponent {
     this.authService.BlogID.next(details?.blog_id)
   }
 
+  public blog(){
+    this.router.navigate(['/user-blog'])
+  }
 }

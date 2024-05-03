@@ -82,4 +82,8 @@ export class BuisnessCategoryComponent {
       this.router.navigate(['/find-business/', item?.id])
     }
   }
+
+  public blogCat(){
+    this.router.navigateByUrl('/business-categories')
+  }
 }

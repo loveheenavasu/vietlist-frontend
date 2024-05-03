@@ -15,7 +15,7 @@
         <p>
           {{ homePageData?.blog_section?.description }}
         </p>
-        <button class="btn orange-background-btn">{{ homePageData?.blog_section?.view_all_articles }}</button>
+        <button class="btn orange-background-btn" (click)="blog()">{{ homePageData?.blog_section?.view_all_articles }}</button>
       </div>
       <div class="blog-card">
         @for (item of blogData; track $index) {

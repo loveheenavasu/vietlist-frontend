@@ -40,7 +40,7 @@
         <div class="row mt-4">
             <div class="col-12 col-md-6">
               <p class="coupon-label"><strong>Expiry Date:</strong></p>
-              <p class="coupon-value">{{ couponData?.coupon_title }}</p>
+              <p class="coupon-value">{{couponData.expiry_date | date:'shortDate'}}</p>
             </div>
             <div class="col-12 col-md-6">
               <p class="coupon-label"><strong>Description:</strong></p>

@@ -127,6 +127,7 @@ export class CouponListComponent {
             timerProgressBar: true,
           })
           this.isLoading = false
+
           this.getCoupons()
           this.dialogRef.close()
         },
@@ -148,7 +149,9 @@ export class CouponListComponent {
           this.getCoupons()
           this.dialogRef.close()
         },
-        error: (err) => {},
+        error: (err) => {
+          this.isLoading = false
+        },
       })
     }
   }
