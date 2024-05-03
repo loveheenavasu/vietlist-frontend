@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink } from '@angular/router'
 import { AuthenticationService } from '@vietlist/shared'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-footer',
@@ -62,9 +63,20 @@ export class FooterComponent {
     }
     this.footerContent.EmailSubscribeNewsletter(body).subscribe({
       next: (res: any) => {
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.newsLetterSubscribeForm.get('email')?.setValue(null)
       },
       error: (err: any) => {
-
+    this.newsLetterSubscribeForm.get('email')?.setValue(null)
       },
     })
   }

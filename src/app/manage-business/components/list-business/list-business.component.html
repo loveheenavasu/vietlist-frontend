@@ -88,6 +88,12 @@
               formControlName="post_title"
               placeholder="Enter the title of your business"
             />
+                      @if (
+              businessInfoForm.get('post_title')?.touched &&
+              businessInfoForm.get('post_title')?.hasError('maxlength')
+            ) {
+              <span class="error-message">Maximum 90 characters are allowed.</span>
+            }
           </div>
         </div>
         <div class="row my-4 px-2 align-items-center">

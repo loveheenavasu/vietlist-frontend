@@ -16,6 +16,7 @@
       </div>
     </div>
     <div class="upcoming-swiper row justify-content-around">
+      @for(key in eventsArray;track $index){
       <div class="events-main-card col-sm-12 col-md-4 p-0">
         <div class="image-cnt">
           <img src="../../../../assets/image/events1.png" />
@@ -37,6 +38,7 @@
           </div>
         </div>
       </div>
+    }
       <div class="events-main-card col-sm-12 col-md-4 p-0">
         <div class="image-cnt">
           <img src="../../../../assets/image/events1.png" />

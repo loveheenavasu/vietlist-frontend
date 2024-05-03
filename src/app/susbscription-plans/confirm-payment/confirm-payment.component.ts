@@ -232,6 +232,7 @@ export class ConfirmPaymentComponent {
         this.stripe = stripe
       })
   }
+
   public getPaymentIntent() {
     this.loaderService.showLoader()
     this.subscriptionService.createIntent().subscribe({
@@ -273,7 +274,9 @@ export class ConfirmPaymentComponent {
         payment_method: {
           card: this.card,
         },
+
       },
+
     )
 
     if (error) {
@@ -288,6 +291,7 @@ export class ConfirmPaymentComponent {
         timerProgressBar: true,
       })
     } else {
+      console.log(setupIntent , "setUpIntent  ")
       this.paymentMethod = setupIntent
       if (this.paymentMethod && this.eventIds?.numberOfBooking) {
         console.log('price available')
