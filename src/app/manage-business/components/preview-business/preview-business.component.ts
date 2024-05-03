@@ -152,7 +152,7 @@ export class PreviewBusinessComponent {
     // })
   }
 
-  userDetail: any
+  userDetailss: any
 
   ngOnInit() {
     if (this.postId) {
@@ -166,7 +166,7 @@ export class PreviewBusinessComponent {
       }
     })
     this.authService.userDetailResponse.subscribe((res) => {
-      this.userDetail = res
+      this.userDetailss = res
     })
   }
 
@@ -546,7 +546,8 @@ export class PreviewBusinessComponent {
   }
 
   public addVideo() {
-    if (this.userDetail?.level_id != '3') {
+    console.log(this.userDetailss?.level_id, 'this.userDetail')
+    if (this.userDetailss?.level_id != '3') {
       Swal.fire({
         toast: true,
         text: 'Please upgrade your plan to upload videos',

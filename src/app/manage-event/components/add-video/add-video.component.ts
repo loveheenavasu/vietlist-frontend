@@ -117,6 +117,8 @@ export class AddVideoComponent implements OnInit {
 
   maxVideoCondition() {
     let a = this.totalVideoCount + this.videos().controls.length
+    console.log(this.videos().controls.length, 'this.videos().controls.length')
+    console.log(this.totalVideoCount, 'total')
     if (a < 5) {
       return true
     } else {
@@ -146,6 +148,7 @@ export class AddVideoComponent implements OnInit {
         }),
       )
     } else {
+      console.log(this.maxVideoCondition(), 'this.maxVideoCondition()')
       if (this.maxVideoCondition()) {
         this.videoDetailss.push(this.newVideoFields())
         this.videos().push(this.newVideoField())
