@@ -1,8 +1,8 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common'
 import { Component, Input } from '@angular/core'
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { EventService } from 'src/app/manage-event/service/event.service'
-import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
 @Component({
   selector: 'app-events',
@@ -13,14 +13,22 @@ import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 })
 export class EventsComponent {
   @Input() homePageData?: any
-  public eventsArray:any[]=[]
+  public eventsArray: any[] = []
 
-  constructor(private eventService:EventService,private router:Router) { }
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getAllEvents()
   }
 
+  public gotToEventDetails(id: any, isGlobal: any) {
+    this.router.navigate(['/event-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
+  }
 
   private getBrowserTimezone(): string {
     const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -36,20 +44,19 @@ export class EventsComponent {
     }
   }
 
-  public getAllEvents(){
+  public getAllEvents() {
     const params = {
       timezone: this.getBrowserTimezone(),
     }
     this.eventService.getPublishEvents(params).subscribe({
-      next:(res)=>{
-        this.eventsArray = res?.data.slice(0, 3);
-        console.log(this.eventsArray , "response")
-      }
+      next: (res) => {
+        this.eventsArray = res?.data.slice(0, 3)
+        console.log(this.eventsArray, 'response')
+      },
     })
   }
 
-  public allEvent(){
+  public allEvent() {
     this.router.navigateByUrl('/events')
   }
-
 }

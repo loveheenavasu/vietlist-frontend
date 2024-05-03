@@ -16,35 +16,48 @@
       </div>
     </div>
     <div class="upcoming-swiper row justify-content-around">
-      @for(key of eventsArray ;track $index){
-      <div class="events-main-card col-sm-12 col-md-4 p-0" >
-        <div class="image-cnt">
-          @if(key?.featured_image?.[0]){
-            <img [src]="key?.featured_image[0]"/>
-          } @else{
-            <img src="../../../../assets/image/no-image-new.jpeg"/>
-          }
-        </div>
-        <div class="description d-flex">
-          <div>
-            <h3 class="month">{{key?.event_dates?.start_date | date:'MMMM'}}</h3>
-            <h3 class="date">{{key?.event_dates?.start_date | date:'d'}}</h3>
+      @for (key of eventsArray; track $index) {
+        <div
+          class="events-main-card col-sm-12 col-md-4 p-0  "
+          style='cursor: pointer;'
+          (click)="gotToEventDetails(key?.post_id, true)"
+        >
+          <div class="image-cnt">
+            @if (key?.featured_image?.[0]) {
+              <img [src]="key?.featured_image[0]" />
+            } @else {
+              <img src="../../../../assets/image/no-image-new.jpeg" />
+            }
           </div>
-          <div class="mx-4">
-            <h1 class="event-title">
-              {{key?.post_title }}
-            </h1>
-            <p class="event-description" [innerHtml]="key?.post_content | truncateHtml:84">
-              <!-- {{key?.post_content}} -->
-            </p>
+          <div class="description d-flex">
+            <div>
+              <h3 class="month">
+                {{ key?.event_dates?.start_date | date: 'MMMM' }} lplplp
+              </h3>
+              <h3 class="date">
+                {{ key?.event_dates?.start_date | date: 'd' }}
+              </h3>
+            </div>
+            <div class="mx-4">
+              <h1 class="event-title">
+                {{ key?.post_title }}
+              </h1>
+              <p
+                class="event-description"
+                [innerHtml]="key?.post_content | truncateHtml: 84"
+              >
+                <!-- {{key?.post_content}} -->
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    }
+      }
     </div>
   </div>
   <div class="new-collection-features container-fluid">
-    <div class="collection-description-wrapper d-flex justify-content-center align-items-center">
+    <div
+      class="collection-description-wrapper d-flex justify-content-center align-items-center"
+    >
       <div class="description">
         <p>
           Our new collection features all of this summer's on-trend colors! Make
