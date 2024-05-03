@@ -88,12 +88,19 @@ section {
         }
 
         .event-title {
+            /* Ensure that the text doesn't wrap */
+            white-space: nowrap; 
+            /* Hide overflow text with an ellipsis */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Set the font size, weight, line height, and letter spacing */
             font-size: 24px;
             font-weight: var(--font-weight-semibold);
             line-height: 36px;
             letter-spacing: 0em;
             padding: 0px;
         }
+        
 
         .event-description {
             font-size: 16px;
