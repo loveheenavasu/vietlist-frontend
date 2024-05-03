@@ -84,4 +84,8 @@ export class FooterComponent {
   public navigateTo(url:any){
     this.router.navigateByUrl(url)
   }
+
+  public gotohome(){
+    this.router.navigateByUrl('/')
+  }
 }

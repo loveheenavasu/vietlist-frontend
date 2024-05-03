@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe, DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
   standalone: true,
   templateUrl: './view-coupon.component.html',
   styleUrls: ['./view-coupon.component.scss'],
-  imports:[MatDialogModule , TitleCasePipe]
+  imports:[MatDialogModule , TitleCasePipe,DatePipe]
 
 })
 export class ViewCouponComponent {

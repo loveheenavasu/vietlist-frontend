@@ -372,13 +372,16 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        this.isApplyCoupon = false
         this.appliedCouponResponse = res?.data?.discount_price
         const body = {
           booking_id: this.eventIds.bookingId,
           booking_price: this.appliedCouponResponse,
         }
         this.eventService.updateEventBooking(body).subscribe({
-          next: (res) => {},
+          next: (res) => {
+            this.isApplyCoupon = false
+          },
         })
       },
       error: (err) => {
@@ -405,6 +408,7 @@ export class ConfirmPaymentComponent {
           timer: 3000,
           timerProgressBar: true,
         })
+        this.isApplyCoupon = false
         this.appliedCouponResponse = res?.data?.discount_price
       },error:(err)=>{
         this.isApplyCoupon = false
