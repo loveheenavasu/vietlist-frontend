@@ -44,7 +44,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
     MatSliderModule,
     FormsModule,
     AutocompleteComponent,
-    NgbRatingModule
+    NgbRatingModule,
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -88,7 +88,6 @@ export class FindBusinessComponent {
   public map: google.maps.Map | null = null
   public ratingMax: string = '5'
 
-
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -97,7 +96,7 @@ export class FindBusinessComponent {
     private IpService: ProfileService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
   ) {
     this.findBusinessForm = this.fb.group({
       post_category: [''],
@@ -108,13 +107,12 @@ export class FindBusinessComponent {
       slidervalue: [''],
     })
 
-
-    this.route.queryParams.subscribe(params => {
-      this.country = params['country'];
-      this.street = params['state'];
-      this.city = params['city'];
-      this.street = params['street'];
-      this.zipcode = params['zip'];
+    this.route.queryParams.subscribe((params) => {
+      this.country = params['country']
+      this.street = params['state']
+      this.city = params['city']
+      this.street = params['street']
+      this.zipcode = params['zip']
       this.street = this.street
 
       // Now you can use these parameters as needed
@@ -127,7 +125,7 @@ export class FindBusinessComponent {
       // You can also use these parameters to perform any actions or logic in your component
       // For example, you can call a method to fetch data based on these parameters
       this.searchBusiness()
-    });
+    })
   }
 
   ngOnInit() {
@@ -136,7 +134,13 @@ export class FindBusinessComponent {
     this.getIPAddress()
     // this.initMap()
 
-    if (this.country || this.state || this.city || this.street || this.zipcode) {
+    if (
+      this.country ||
+      this.state ||
+      this.city ||
+      this.street ||
+      this.zipcode
+    ) {
       this.searchBusiness()
     }
 
@@ -178,13 +182,13 @@ export class FindBusinessComponent {
 
   public async getIPAddress(): Promise<string> {
     try {
-      const res: any = await firstValueFrom(this.IpService.getIPAddress());
-      console.log("RESPONSEEE", res.ip)
+      const res: any = await firstValueFrom(this.IpService.getIPAddress())
+      console.log('RESPONSEEE', res.ip)
       this.ipAddress = res.ip
       this.fetchSearchAd()
-      return res.ip;
+      return res.ip
     } catch (error) {
-      throw new Error('Error fetching IP address: ' + error);
+      throw new Error('Error fetching IP address: ' + error)
     }
   }
 
@@ -225,7 +229,6 @@ export class FindBusinessComponent {
   }
 
   public setStats(ad_id?: string, space_id?: string) {
-
     const currentDate = new Date()
     const actionTime = this.formatDate(currentDate)
     const currentRoute = window.location.href
@@ -258,26 +261,26 @@ export class FindBusinessComponent {
     this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {
       posts_per_page: 4,
-      page_no: this.currentPage
+      page_no: this.currentPage,
     }
 
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        console.log("check res", res.data)
+        console.log('check res', res.data)
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         this.maxPrice = res.max_price
         this.totalCount = res.total_count
-        this.latitude = [];
-        this.longitude = [];
+        this.latitude = []
+        this.longitude = []
         this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)
             this.longitude.push(obj.longitude)
           }
         })
-        console.log('check lat', this.latitude, this.longitude);
+        console.log('check lat', this.latitude, this.longitude)
         this.initMap()
       },
     })
@@ -286,22 +289,22 @@ export class FindBusinessComponent {
   public getBusinessCat() {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
-        this.businessCat = res.data;
-        console.log(this.businessCat, "businessCat")
+        this.businessCat = res.data
+        console.log(this.businessCat, 'businessCat')
         if (res && this.route.snapshot.paramMap.has('id')) {
-          const categoryId = Number(this.route.snapshot.paramMap.get('id'));
+          const categoryId = Number(this.route.snapshot.paramMap.get('id'))
           this.findBusinessForm.get('post_category')?.setValue(categoryId)
           this.searchBusiness()
         }
       },
-    });
+    })
   }
 
   public onCategoryChange() {
     this.categoriesValue = this.findBusinessForm.value.post_category
     this.getDefaultCat()
   }
-  
+
   public getDefaultCat() {
     this.businessCategoriesService
       .getDefaultCat(this.categoriesValue)
@@ -312,8 +315,8 @@ export class FindBusinessComponent {
       })
   }
 
-  public searchBusiness() {
-    console.log("street", this.fullAddress)
+  public searchBusiness(callFrom?: any) {
+    console.log('street', this.fullAddress)
     this.loader = true
     this.fullPageLoaderService.showLoader()
     const post_category = this.findBusinessForm.value.post_category
@@ -356,10 +359,10 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
-        console.log("check res data", res.data)
+        console.log('check res data', res.data)
         this.categoryDetails = res.category_data
-        this.latitude = [];
-        this.longitude = [];
+        this.latitude = []
+        this.longitude = []
         console.log('check findbusiness', this.findBusinessData)
         this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
@@ -371,6 +374,9 @@ export class FindBusinessComponent {
         this.initMap()
         this.totalCount = res.total_count
         this.maxPrice = res.max_price
+        if (callFrom !== 'pagination') {
+          this.currentPage = 1
+        }
       },
       error: (err: any) => {
         this.loader = false
@@ -383,13 +389,11 @@ export class FindBusinessComponent {
     this.currentPage = event
 
     if (this.findBusinessForm.value.post_category) {
-      this.searchBusiness()
+      this.searchBusiness('pagination')
     } else {
-      this.getPublishBusinessData();
+      this.getPublishBusinessData()
     }
   }
-
-
 
   public updatePrice(event: any) {
     this.price = event.value
@@ -397,17 +401,17 @@ export class FindBusinessComponent {
   }
 
   public initMap() {
-    const mapElement = document.getElementById('map');
+    const mapElement = document.getElementById('map')
     if (mapElement !== null) {
       for (let i = 0; i < this.latitude.length; i++) {
         this.map = new google.maps.Map(mapElement, {
           center: {
             lat: parseFloat(this.latitude[i]),
-            lng: parseFloat(this.longitude[i])
+            lng: parseFloat(this.longitude[i]),
           },
           zoom: 13,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-        });
+        })
       }
 
       // Loop through latitude and longitude arrays to create markers
@@ -419,14 +423,12 @@ export class FindBusinessComponent {
           },
           map: this.map || undefined,
           title: 'Marker Title',
-        });
+        })
       }
     } else {
-      console.error('Map element not found.');
+      console.error('Map element not found.')
     }
   }
-
-
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -459,8 +461,9 @@ export class FindBusinessComponent {
   }
 
   public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
-
+    this.router.navigate(['/business-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
 
   ngOnDestroy() {
