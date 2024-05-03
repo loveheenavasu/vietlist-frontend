@@ -130,7 +130,6 @@ export class AddVideoComponent implements OnInit {
 
   addMore() {
     const { item } = this.data
-    console.log(this.data, 'this.data')
     if (item) {
       this.videoDetailss.push({
         name: item?.name,

@@ -70,6 +70,9 @@ export class NewCampaignComponent {
       },
     )
   }
+  navigateToList() {
+    this.navigateToTabs.emit(2)
+  }
   onChangeSelect() {
     this.safeSrc = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.campaignForm.value?.post_content,

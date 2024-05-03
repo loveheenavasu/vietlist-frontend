@@ -79,6 +79,7 @@ export class EmailMarketingServiceService {
     formData.append('first_name', body?.First_name)
     formData.append('last_name', body?.Last_name)
     formData.append('email', body?.email)
+    formData.append('business_listing_id', body?.post_id)
     // formData.append('status', '1')
     if (body?.List_id) {
       formData.append('list_id', body?.List_id)

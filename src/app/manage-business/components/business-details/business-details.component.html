@@ -333,7 +333,7 @@
             <h3>Contact Info</h3>
             <!-- {{ businessFormDetails?.contact_phone }} -->
             <div class="social-link">
-              <div class="location">
+              <div class="location" *ngIf="eventDetails?.street">
                 <i
                   class="fa-solid fa-location-dot"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -357,7 +357,7 @@
                   "
                 ></a>
               </div>
-              <div class="location">
+              <div class="location" *ngIf="eventDetails?.facebook">
                 <i
                   class="fab fa-facebook-square"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -375,7 +375,7 @@
                   {{ eventDetails?.facebook }}
                 </a>
               </div>
-              <div class="location">
+              <div class="location" *ngIf="eventDetails?.twitter">
                 <i
                   class="fa-brands fa-twitter"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -430,7 +430,7 @@
           @if (!businessListing) {
             <div class="profile-info-div mt-3" style="padding: 9%">
               <h3 class="event-heading">Event Detail</h3>
-              <div class="event-venue">
+              <div class="event-venue" *ngIf="eventDetails?.street">
                 <div class="icon">
                   <i
                     class="fa-solid fa-location-dot"
@@ -441,7 +441,10 @@
                   {{ eventDetails?.street }}
                 </div>
               </div>
-              <div class="event-venue">
+              <div
+                class="event-venue"
+                *ngIf="eventDetails?.event_dates?.start_date"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-calendar"
@@ -453,7 +456,10 @@
                   {{ formatDate(eventDetails?.event_dates?.end_date) }}
                 </div>
               </div>
-              <div class="event-venue">
+              <div
+                class="event-venue"
+                *ngIf="eventDetails?.post_category?.name"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-layer-group"
@@ -464,7 +470,10 @@
                   {{ eventDetails?.post_category?.name }}
                 </div>
               </div>
-              <div class="event-venue">
+              <div
+                class="event-venue"
+                *ngIf="eventDetails?.user_detail?.display_name"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-user"
@@ -1056,7 +1065,9 @@
           (click)="scrollTo('booking')"
           [class.active]="activeTab === 'booking'"
         >
-          <span> <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+          <span>
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
+          ></span>
           Booking & Consultation
         </li>
         <li
@@ -1165,9 +1176,10 @@
               class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
               id="bio"
             >
-              <h3 class="headingg"> 
+              <h3 class="headingg">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                 Business Bio</h3>
+                Business Bio
+              </h3>
               <hr class="hr" />
               <!-- <div class="row mt-3"> -->
               <div class="contentt">
@@ -1192,44 +1204,39 @@
             eventDetails?.consultation_description
           ) {
             <div
-              class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0 "
+              class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
               id="booking"
             >
-            <h3 class="headingg">
-              <i class="fa-solid fa-bag-shopping"></i>  
-              Booking & Consultation</h3>
-            <hr class="hr" />
-            <div class="contentt">
-
-              <h3 class="event-page-headings">
-                Consultation Booking Link
+              <h3 class="headingg">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Booking & Consultation
               </h3>
-              <p>
-                <a
-                [href]="eventDetails?.consultation_booking_link"
-                target="_blank"
-                style="
-                    color: #38ccff;
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-decoration: none;
+              <hr class="hr" />
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Booking Link</h3>
+                <p>
+                  <a
+                    [href]="eventDetails?.consultation_booking_link"
+                    target="_blank"
+                    style="
+                      color: #38ccff;
+                      font-size: 14px;
+                      font-weight: 500;
+                      text-decoration: none;
                     "
-                >
-                {{ eventDetails?.consultation_booking_link }}</a
-                >
-              </p>
-            </div>
-            <div class="contentt">
-
-              
-              <h3 class="event-page-headings">Consultation Mode</h3>
-              <p>{{ eventDetails?.consultation_mode }}</p>
-            </div>
-            <div class="contentt">
-
-              <h3 class="event-page-headings">Consultation Description</h3>
-              <p>{{ eventDetails?.consultation_description }}</p>
-            </div>
+                  >
+                    {{ eventDetails?.consultation_booking_link }}</a
+                  >
+                </p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Mode</h3>
+                <p>{{ eventDetails?.consultation_mode }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Description</h3>
+                <p>{{ eventDetails?.consultation_description }}</p>
+              </div>
             </div>
           }
           @if (eventDetails?.image) {
@@ -1305,27 +1312,23 @@
               </h3>
               <hr />
               <div class="main_images">
-                <div class="featured_images" style="display: flex; gap: 1rem">
-                  <video
-                    *ngFor="let url of videoUrl"
-                    width="320"
-                    height="240"
-                    controls
-                  >
-                    <source [src]="url" type="video/mp4" />
-                  </video>
+              <div class="featured_image" style="display: flex; gap: 1rem">
+                  @for (item of videoUrl; track $index) {
+                    <img
+                      [src]="item.thumbnail_image"
+                      style="cursor: pointer"
+                      (click)="playVideo(item, $index)"
+                    />
+                  }
                 </div>
               </div>
             </div>
           }
           @if (eventInfo) {
-            <div
-              class="profile-info-divs mt-4"
-              id="event-promo"
-            >
-              <h3 style='color: black;' class="event-heading">Event Detail</h3>
+            <div class="profile-info-divs mt-4" id="event-promo">
+              <h3 style="color: black" class="event-heading">Event Detail</h3>
               <div class="info-cont">
-                <div class="event-venuee" *ngIf="eventDetails?.street" >
+                <div class="event-venuee" *ngIf="eventDetails?.street">
                   <div class="icon">
                     <i
                       class="fa-solid fa-location-dot"
@@ -1340,7 +1343,7 @@
                     {{ eventDetails?.street }}
                   </div>
                 </div>
-                <div class="event-venuee" *ngIf="eventInfo?.booking_start_date" >
+                <div class="event-venuee" *ngIf="eventInfo?.booking_start_date">
                   <div class="icon">
                     <i
                       class="fa-solid fa-calendar"
@@ -1356,7 +1359,10 @@
                     {{ formatDate(eventInfo?.booking_end_date) }}
                   </div>
                 </div>
-                <div class="event-venuee" *ngIf="eventInfo?.post_category?.name" >
+                <div
+                  class="event-venuee"
+                  *ngIf="eventInfo?.post_category?.name"
+                >
                   <div class="icon">
                     <i
                       class="fa-solid fa-layer-group"
@@ -1371,7 +1377,10 @@
                     {{ eventInfo?.post_category?.name }}
                   </div>
                 </div>
-                <div class="event-venuee" *ngIf="eventInfo?.user_detail?.display_name" >
+                <div
+                  class="event-venuee"
+                  *ngIf="eventInfo?.user_detail?.display_name"
+                >
                   <div class="icon">
                     <i
                       class="fa-solid fa-user"
@@ -1449,6 +1458,14 @@
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="distanceToEvent">
+            <div class="col-12 col-lg-12">
+              <label for="">Distance (Km)</label>
+              <p style="font-weight: 500; font-size: 18px">
+                {{ distanceToEvent }} Km in {{ timeEstimate }}
+              </p>
             </div>
           </div>
           @if (eventDetails?.faq) {
@@ -1809,60 +1826,60 @@
           </div>
         </div>
         <div class="col-12 col-md-12 col-lg-4 mt-3">
-            <div class="profile-info-div mt-3 position-relative">
-              <h3>Contact Info</h3>
-              <div class="logo-containerr">
-                <img [src]="eventDetails?.logo" alt="" />
+          <div class="profile-info-div mt-3 position-relative">
+            <h3>Contact Info</h3>
+            <div class="logo-containerr">
+              <img [src]="eventDetails?.logo" alt="" />
+            </div>
+            <div class="social-link">
+              <div class="location" *ngIf="eventDetails?.street">
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ eventDetails?.street }}
               </div>
-              <div class="social-link">
-                <div class="location" *ngIf="eventDetails?.street" >
-                  <i
-                    class="fa-solid fa-location-dot"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ eventDetails?.street }}
-                </div>
 
-                <div class="location" *ngIf="eventDetails?.business_email " >
-                  <i
-                    class="fa fa-envelope"
-                    aria-hidden="true"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ eventDetails?.business_email }}
-                </div>
-                <div class="location" *ngIf="eventDetails?.contact_phone" >
-                  <i
-                    class="fa fa-phone"
-                    aria-hidden="true"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ eventDetails?.contact_phone }}
-                </div>
+              <div class="location" *ngIf="eventDetails?.business_email">
+                <i
+                  class="fa fa-envelope"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ eventDetails?.business_email }}
+              </div>
+              <div class="location" *ngIf="eventDetails?.contact_phone">
+                <i
+                  class="fa fa-phone"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ eventDetails?.contact_phone }}
               </div>
             </div>
+          </div>
+          <div
+            *ngIf="parse(eventDetails?.business_hours)?.[0]?.[0]"
+            class="profile-info-div mt-3"
+            style="padding: 9%"
+          >
             <div
-              *ngIf="parse(eventDetails?.business_hours)?.[0]?.[0]"
-              class="profile-info-div mt-3"
-              style="padding: 9%"
+              class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
             >
-              <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+              <span style="font-size: 22px; font-weight: 600; color: black"
+                >Business Open Hours :</span
               >
-                <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+              <div class="media-body">
+                <p
+                  *ngFor="let time of parse(eventDetails?.business_hours)"
+                  class="mt-0"
                 >
-                <div class="media-body">
-                  <p
-                    *ngFor="let time of parse(eventDetails?.business_hours)"
-                    class="mt-0"
-                  >
-                    {{ time[0] }}
-                  </p>
-                  <p></p>
-                </div>
+                  {{ time[0] }}
+                </p>
+                <p></p>
               </div>
             </div>
+          </div>
           <form [formGroup]="newsletter">
             <div class="profile-info-div mt-3" style="padding: 9%">
               <div

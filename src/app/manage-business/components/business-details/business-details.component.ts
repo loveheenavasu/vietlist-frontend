@@ -42,6 +42,7 @@ import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add
 import { ForgotPasswordComponent } from 'src/app/auth'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { EmailMarketingServiceService } from 'src/app/email-marketing/service/email-marketing-service.service'
+import { VideoPlayComponent } from '../../video-play/video-play.component'
 // NgxStarRatingModule
 @Component({
   selector: 'app-business-details',
@@ -229,33 +230,47 @@ export class BusinessDetailsComponent {
 
   addSubscriber() {
     this.fullPageLoaderService.showLoader()
-    this.emailMarketingService.addSubscriber(this.newsletter.value).subscribe(
-      () => {
-        this.fullPageLoaderService.hideLoader()
-        Swal.fire({
-          toast: true,
-          text: 'subscriber added successfully',
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
+    this.emailMarketingService
+      .addSubscriber({ ...this.newsletter.value, post_id: this.postId })
+      .subscribe(
+        () => {
+          this.fullPageLoaderService.hideLoader()
+          Swal.fire({
+            toast: true,
+            text: 'subscriber added successfully',
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
 
-        this.newsletter.reset()
-      },
-      () => {
-        this.fullPageLoaderService.hideLoader()
-      },
-    )
+          this.newsletter.reset()
+        },
+        () => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      )
   }
 
   parse(str: string) {
     return JSON.parse(str)
   }
 
+  getIntegrationVideo() {
+    this.businessService.getAllVideoIntegration(this.postId).subscribe({
+      next: (res) => {
+        if (res?.data) {
+          this.videoUrl.push(...res?.data)
+        }
+      },
+      error: (error) => {},
+    })
+  }
+
   ngOnInit() {
+    this.getIntegrationVideo()
     // this.getBusinessCat()
     if (
       this._activatedRoute.snapshot.routeConfig?.path?.includes(
@@ -421,11 +436,29 @@ export class BusinessDetailsComponent {
 
         // this.dataget = res?.data || 'NA'
         this.eventDetails = res?.data[0]
-        if (this.eventDetails?.video_upload?.length) {
-          this.videoUrl.push(...this.eventDetails?.video_upload)
-        }
+        this.eventLocation
+        // if (this.eventDetails?.video_upload?.length) {
+        this.videoUrl.push({
+          video_id: '0',
+          post_id: this.postId,
+          user_id: 'na',
+          name: 'NA',
+          video_url: this.eventDetails?.video_upload,
+          video_type: 'all',
+          thumbnail_image: '/assets/image/no-image.webp',
+          isEditHide: true,
+        })
         if (this.eventDetails?.video_url) {
-          this.videoUrl.push(this.eventDetails?.video_url)
+          this.videoUrl.push({
+            video_id: '0',
+            post_id: this.postId,
+            user_id: 'na',
+            name: 'NA',
+            video_url: [this.eventDetails?.video_url],
+            video_type: 'all',
+            thumbnail_image: '/assets/image/no-image.webp',
+            isEditHide: true,
+          })
         }
         ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
@@ -440,13 +473,21 @@ export class BusinessDetailsComponent {
 
   eventInfo: any
 
+  public playVideo(item: any, index: number): void {
+    this.dialog.open(VideoPlayComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: { item, index }, // Pass item and index as data
+    })
+  }
+
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService
       .getEventDetailsByPostId(this.eventDetails?.event_id)
       .subscribe({
         next: (res) => {
-          this.eventInfo = res?.data[0] || 'NA'
+          this.eventInfo = res?.data[0]
           this.fullPageLoaderService.hideLoader()
           // const currentDate: string =
           //   this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''

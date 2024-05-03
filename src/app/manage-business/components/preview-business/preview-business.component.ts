@@ -97,6 +97,7 @@ export class PreviewBusinessComponent {
     private localStorageService: LocalStorageService,
     private eventService: EventService,
     private cd: ChangeDetectorRef,
+    // private sessionservice: AuthenticationService,
   ) {
     this._route.params.subscribe((res) => {
       this.postId = res['id']
@@ -151,6 +152,8 @@ export class PreviewBusinessComponent {
     // })
   }
 
+  userDetail: any
+
   ngOnInit() {
     if (this.postId) {
       this.getBusinessFormDetails()
@@ -161,6 +164,9 @@ export class PreviewBusinessComponent {
       if (res) {
         this.userDetails = res
       }
+    })
+    this.authService.userDetailResponse.subscribe((res) => {
+      this.userDetail = res
     })
   }
 
@@ -180,7 +186,8 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-        console.log(this.businessFormDetails,"formmmmmm")
+        this.eventLocation = res?.data[0]?.street
+
         if (this.businessFormDetails?.video_upload?.length) {
           this.videoUrl.push(...this.businessFormDetails?.video_upload)
         }
@@ -284,10 +291,10 @@ export class PreviewBusinessComponent {
       .getEventDetailsByPostId(this.businessFormDetails?.event_id)
       .subscribe({
         next: (res) => {
+          this.eventLocation = res?.data[0]?.street
           this.fullPageLoaderService.hideLoader()
           ;(this.eventDetails = res?.data[0] || 'NA'),
-            (this.eventLocation = this.eventDetails?.street)
-          this.overllRating = Number(res.data[0].overall_rating)
+            (this.overllRating = Number(res.data[0].overall_rating))
           ;(this.latitude = Number(this.eventDetails?.latitude)),
             (this.longitude = Number(this.eventDetails?.longitude))
           this.initMap()
@@ -308,7 +315,7 @@ export class PreviewBusinessComponent {
 
   public editBusiness() {
     // this.localStorageService.saveData('postId', this.postId)
-    this.router.navigate(['/edit-business/' , this.postId])
+    this.router.navigate(['/edit-business/', this.postId])
   }
 
   openDialogs() {
@@ -502,6 +509,7 @@ export class PreviewBusinessComponent {
       const directionsRenderer = new google.maps.DirectionsRenderer()
       directionsRenderer.setMap(map)
 
+      console.log(this.eventLocation, 'this.eventLocation')
       const request = {
         origin: this.directionStreet,
         destination: this.eventLocation,
@@ -538,24 +546,37 @@ export class PreviewBusinessComponent {
   }
 
   public addVideo() {
-    if (this.screensize > 720) {
-      this.dialogWidth = '65%'
-    } else if (this.screensize < 720) {
-      this.dialogWidth = '90%'
-      this.height = '80%'
-    }
+    if (this.userDetail?.level_id != '3') {
+      Swal.fire({
+        toast: true,
+        text: 'Please upgrade your plan to upload videos',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    } else {
+      if (this.screensize > 720) {
+        this.dialogWidth = '65%'
+      } else if (this.screensize < 720) {
+        this.dialogWidth = '90%'
+        this.height = '80%'
+      }
 
-    const dialogRef = this.dialog.open(AddVideoComponent, {
-      width: this.dialogWidth,
-      height: this.height,
-      data: {
-        postId: this.postId,
-      },
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-      this.getAllVideosList(this.postId)
-      this.getVideosList(this.postId, this.videoTab)
-    })
+      const dialogRef = this.dialog.open(AddVideoComponent, {
+        width: this.dialogWidth,
+        height: this.height,
+        data: {
+          postId: this.postId,
+        },
+      })
+      dialogRef.afterClosed().subscribe((result) => {
+        this.getAllVideosList(this.postId)
+        this.getVideosList(this.postId, this.videoTab)
+      })
+    }
   }
 
   public onTabClick(tab: any) {
@@ -589,7 +610,7 @@ export class PreviewBusinessComponent {
     this.businessService.getAllVideoIntegration(postId).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        this.videosTypeArr = res.data
+        this.videosTypeArr = res.data || []
         if (this.videoTab == 'all') {
           this.videosTypeArr?.push(
             ...this.videoUrl?.map((elem: any) => {

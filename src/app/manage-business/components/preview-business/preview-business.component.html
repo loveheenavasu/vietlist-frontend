@@ -540,6 +540,14 @@
             </div>
           </div>
         </div>
+        <div class="row mt-3" *ngIf="distanceToEvent">
+          <div class="col-12 col-lg-12">
+            <label style='color: black;' for="">Distance (Km)</label>
+            <p style="font-weight: 500; font-size: 18px; color: black;">
+              {{ distanceToEvent }} Km in {{ timeEstimate }}
+            </p>
+          </div>
+        </div>
         @if (businessFormDetails?.faq) {
           <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
             <h3 class="event-page-headings">
