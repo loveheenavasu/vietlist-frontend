@@ -35,6 +35,16 @@
 
         <div class="container user-blog-detail-cnt">
             <div class="row">
+                <div class="col-12 my-3">
+                    <div class="img-cnt">
+                      <img [src]="
+                          userBlogDetails?.featured_image
+                            ? userBlogDetails?.featured_image
+                            : '/assets/image/No-image-found.jpeg'
+                        " />
+                    </div>
+                  </div>
+                  
                 <div class="main_content__">
                     <h2 class="heading-title">{{userBlogDetails?.blog_title}}
                     </h2>
