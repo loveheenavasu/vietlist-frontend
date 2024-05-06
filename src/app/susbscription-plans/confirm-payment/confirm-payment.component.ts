@@ -357,9 +357,10 @@ export class ConfirmPaymentComponent {
     this.isApplyCoupon = true
     if(this.eventIds?.eventId){
     const body = {
-      coupon_code: this.coupon_code.value,
+      coupon_code: this.coupon_code.value,  
       event_price: this.eventPrice,
-      event_id: this.eventIds?.eventId,
+      event_id: this.eventIds?.eventId, 
+      number_of_booking:this.numberOfBooking
     }
     this.eventService.applCoupon(body).subscribe({
       next: (res) => {
