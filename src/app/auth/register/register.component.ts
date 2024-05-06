@@ -58,6 +58,7 @@ export class RegisterComponent {
     CountryISO.UnitedKingdom,
   ]
 
+
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
   public signupType = [

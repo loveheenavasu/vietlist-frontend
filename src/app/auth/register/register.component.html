@@ -183,22 +183,14 @@
             </div>
           </div>
           <label class="form-check-label">Phone Number<span class="asterik">*</span></label>
+          
           <ngx-intl-tel-input
-            [cssClass]="'input-control'"
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="[
-              SearchCountryField.Iso2,
-              SearchCountryField.Name
-            ]"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.India"
-            [phoneValidation]="true"
-            [separateDialCode]="true"
-            [numberFormat]="PhoneNumberFormat.National"
-            name="phone"
+          #countryList [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true"
+            [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone"
             [formControl]="contact_details"
           >
           </ngx-intl-tel-input>
