@@ -31,8 +31,8 @@
             <h3 class="date">{{key?.event_dates?.start_date | date:'d'}}</h3>
           </div>
           <div class="mx-4">
-            <h1 class="event-title">
-              {{key?.post_title }}
+            <h1 class="event-title" [innerHtml]="key?.post_title | truncateHtml:22">
+              <!-- {{key?.post_title }} -->
             </h1>
             <p class="event-description" [innerHtml]="key?.post_content | truncateHtml:84">
               <!-- {{key?.post_content}} -->
