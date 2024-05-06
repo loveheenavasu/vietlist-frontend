@@ -129,7 +129,7 @@ export class EventDetailsComponent {
   public numberofBookingPrice: any
   public eventEndDate: any
   public claimedBusinessStatus: any
-
+  public userDetailId:any
   /**
    *
    *
@@ -172,6 +172,10 @@ export class EventDetailsComponent {
       ],
       comment_author_url: [''],
     })
+    this.sessionService.userDetailResponse.subscribe((res)=>{
+      this.userDetailId = res
+      console.log(res , "userResponse")
+    })
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
@@ -188,6 +192,7 @@ export class EventDetailsComponent {
           control?.updateValueAndValidity()
         })
       }
+      
     })
 
     this._activatedRoute.params.subscribe((res) => {
@@ -380,11 +385,13 @@ export class EventDetailsComponent {
     })
   }
 
+  public eventUserId:any;
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         console.log(res, 'resresresresres')
+        this.eventUserId = res?.data[0]?.user_detail?.user_id
         this.fullPageLoaderService.hideLoader()
         const currentDate: string =
           this.datePipe.transform(new Date(), 'yyyy-MM-dd') ?? ''
@@ -876,7 +883,19 @@ export class EventDetailsComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-    } else {
+    } else if(this.eventUserId === this.userDetailId.ID){
+      Swal.fire({
+        toast: true,
+        text: `You can't book your own event`,
+        animation: false,
+        icon: 'warning',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+    }
+    else {
       // const dataObj = { eventId: this.eventDetails.post_id , eventPrice:this.eventDetails.price , date:this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date , bookingNumber: this.number_of_booking.value };
       // console.log(dataObj , "DATAOBJ")
       const data = {

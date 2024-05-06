@@ -83,7 +83,7 @@ export class PromotionsFormComponent {
   ) {
     this.promotions = this.fb.group({
       createEvent: [''],
-      faq: ['' , [Validators.maxLength(254)]],
+      faq: [''],
       physical_accessibility: ['' , [Validators.maxLength(254)]],
       digital_accessibility: ['' , [Validators.maxLength(254)]],
       upload_certificates: [''],
