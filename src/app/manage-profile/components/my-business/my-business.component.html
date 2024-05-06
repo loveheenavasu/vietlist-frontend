@@ -183,36 +183,24 @@
             </div>
             <div class="listing-info">
               <p>
-                {{ key.post_content.length > 40 ? (key.post_content.slice(0, 37) + '...') : key.post_content }}
+                {{ key.post_content.length > 240 ? (key.post_content.slice(0, 237) + '...') : key.post_content }}
               </p>
-              <!-- @if(key.final_submission == '1'){ -->
-                <button class="btn orange-background-btn mx-1"  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
-                  Email Marketing
-                </button>
-              <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
-                Delete
-              </button>
-              <!-- } -->
-              <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
-                View 
-              </button>
-              <button class="btn orange-background-btn mx-1 my-1" (click)="editBusiness(key.post_id)">
-                Edit
-              </button>
-             
             </div>
-            <!-- <div class="lisiting-package">
-                  <span>$ Package : Free Business</span>
-                </div> -->
-            <!-- <div class="listing-rating">
-                  <div class="d-flex">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                  </div>
-                </div> -->
+            <div>
+              <button class="btn orange-background-btn mx-1"  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
+                Email Marketing
+              </button>
+            <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
+              Delete
+            </button>
+            <!-- } -->
+            <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
+              View 
+            </button>
+            <button class="btn orange-background-btn mx-1 my-1" (click)="editBusiness(key.post_id)">
+              Edit
+            </button>
+            </div>
           </div>
         </div>
         }

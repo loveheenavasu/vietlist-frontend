@@ -195,6 +195,10 @@
                         }
                     }
 
+                    .listing-info{
+                        height: 100px;
+                    }
+
                     .listing-rating {
                         padding: 0.625rem;
                     }
@@ -295,4 +299,10 @@
 .heading_____ {
     display: flex;
     justify-content: space-between;
+}
+
+.listing-heading{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
