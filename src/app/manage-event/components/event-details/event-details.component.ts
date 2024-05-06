@@ -894,6 +894,9 @@ export class EventDetailsComponent {
         timer: 3000,
         timerProgressBar: true,
       })
+      this.isBookingLoader = false
+      this.number_of_booking.setValue(null)
+      this.booking_date.setValue(null)
     }
     else {
       // const dataObj = { eventId: this.eventDetails.post_id , eventPrice:this.eventDetails.price , date:this.booking_date.value ? this.booking_date.value : this.eventDetails?.event_dates?.start_date , bookingNumber: this.number_of_booking.value };

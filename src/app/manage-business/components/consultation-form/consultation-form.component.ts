@@ -311,6 +311,7 @@ export class ConsultationFormComponent {
           },
           error: (err: any) => {
             // Handle errors
+            this.isVideoUploading = false
           },
         })
       }
