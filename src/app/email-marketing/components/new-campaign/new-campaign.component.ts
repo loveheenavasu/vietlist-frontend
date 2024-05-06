@@ -64,6 +64,17 @@ export class NewCampaignComponent {
         this.loader.hideLoader()
         this.GetAllCampaign.emit()
         this.navigateToTabs.emit(0)
+        // this.campaignForm.reset()
+        this.campaignForm.patchValue({
+          post_title: '',
+          _mailster_subject: '',
+          _mailster_from_name:
+            'vietlist from The Premier Vietnamese Business Director',
+          _mailster_from_email: 'social@vietlist.biz',
+          post_content: '',
+          _mailster_reply_to: 'social@vietlist.biz',
+          _mailster_lists: '',
+        })
       },
       () => {
         this.loader.hideLoader()

@@ -302,6 +302,7 @@ export class FindBusinessComponent {
 
   public onCategoryChange() {
     this.categoriesValue = this.findBusinessForm.value.post_category
+    this.searchBusiness()
     this.getDefaultCat()
   }
 
@@ -316,8 +317,8 @@ export class FindBusinessComponent {
   }
 
   public searchBusiness(callFrom?: any) {
-    console.log('street', this.fullAddress)
     this.loader = true
+
     this.fullPageLoaderService.showLoader()
     const post_category = this.findBusinessForm.value.post_category
     const price = this.slidervalue
@@ -350,7 +351,6 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country
     }
-    console.log('param', params)
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
@@ -359,11 +359,9 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
-        console.log('check res data', res.data)
         this.categoryDetails = res.category_data
         this.latitude = []
         this.longitude = []
-        console.log('check findbusiness', this.findBusinessData)
         this.findBusinessData.forEach((obj) => {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)

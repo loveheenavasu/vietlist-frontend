@@ -48,7 +48,7 @@
       <div class="form-container">
         <form [formGroup]="findBusinessForm">
           <div class="row mt-3">
-            <div class="d-flex">
+            <div class="d-flex col-6 " >
               <div class="mx-2 w-100">
                 <!-- <input type="text" class="input-control" placeholder="category" /> -->
                 <mat-select (selectionChange)="onCategoryChange()" class="vietlist-select" placeholder="Category"
@@ -59,23 +59,26 @@
                   }
                 </mat-select>
               </div>
-
-              <div class="mx-2 w-100">
+              <!-- <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Select business type" formControlName="model">
                   <mat-option>--Select category--</mat-option>
                   <mat-option value="retail">Retail</mat-option>
                   <mat-option value="restaurant">Restaurant</mat-option>
                   <mat-option value="restaurant">Service</mat-option>
                 </mat-select>
-              </div>
+              </div> -->
+            </div>
+            <div class=" col-6 ">
+              <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+              </AutocompleteComponent>
             </div>
           </div>
           <div class="row mt-3">
             <div class="d-flex">
-              <div class="mx-2 w-100">
+              <!-- <div class="mx-2 w-100">
                 <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
                 </AutocompleteComponent>
-              </div>
+              </div> -->
               <!-- <div class="mx-2 w-100">
                 <mat-select class="vietlist-select" placeholder="Hours" formControlName="hours">
                   <mat-option value="monday">Monday</mat-option>
