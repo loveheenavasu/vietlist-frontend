@@ -56,13 +56,16 @@ export class EmailMarketingComponent {
   }
 
   getAllList() {
+    this.fullPageLoaderService.showLoader()
     this.service.GetAllList().subscribe(
       (res) => {
+        this.fullPageLoaderService.hideLoader()
         if (res?.data) {
           this.lists = res?.data?.reverse()
         }
       },
       (err) => {
+        this.fullPageLoaderService.hideLoader()
         Swal.fire({
           toast: true,
           text: 'Failed to fetch list',
