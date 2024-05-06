@@ -3,51 +3,6 @@
     <div class="content">
       <h1>{{pageTitle}}</h1>
     </div>
-    <!-- <div class="content">
-      @if(currentPath === '/manage-profile'){
-      <h1>My Account</h1>
-      }@else if(currentPath === '/manage-profile/change-password'){
-      <h1>Change Password</h1>
-      }@else if(currentPath === '/manage-profile/privacy'){
-      <h1>Privacy</h1>
-      }@else if(currentPath === '/manage-profile/manage-ads'){
-        <h1>Manage Ads</h1>
-      }
-      @else if(currentPath === '/manage-profile/subscription'){
-        <h1>Manage Subscriptions</h1>
-      }
-      @else if(currentPath === '/manage-profile/billing-address'){
-        <h1>Manage Billing Address</h1>
-      }
-      @else if(currentPath === '/manage-profile/manage-bookings'){
-        <h1>My Bookings</h1>
-      }
-      @else if(currentPath === '/manage-profile/my-business'){
-        <h1>My Business</h1>
-      }
-      @else if(currentPath === '/manage-profile/manage-events'){
-        <h1>Events Management</h1>
-      }
-      @else if(currentPath === '/manage-profile/cancellaton-policy'){
-        <h1>Cancellation Policy</h1>
-      }
-      @else if(currentPath === '/manage-profile/setting'){
-        <h1>Settings</h1>
-      }
-      @else if(currentPath === '/manage-profile/cancellaton-policy'){
-        <h1>Cancellation Policy</h1>
-      }
-      @else if(currentPath === '/manage-profile/delete-account'){
-        <h1>Delete Account</h1>
-      }
-      @else if(currentPath === '/manage-profile/cancellaton-policy'){
-        <h1>Cancellation Policy</h1>
-      }
-      @else if(currentPath.startsWith === '/manage-profile/all-bookings'){
-        <h1>All Bookings</h1>
-      }
-
-    </div> -->
   </section>
 
   <div class="container">
@@ -67,6 +22,7 @@
                   <input
                     #fileInput
                     type="file"
+                    accept="image/jpeg, image/jpg, image/png, image/webp"
                     (change)="handleFileInput($event)"
                   />
                   <div class="d-flex justify-content-center icon">

@@ -53,6 +53,7 @@ import { CouponListComponent } from './manage-profile/components/manage-coupons/
 import { AnalyticsComponent } from './analytics'
 import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
 import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
+import { ForUsersComponent } from './landing-page/views/for-users/for-users.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -263,6 +264,10 @@ export default [
   {
     path: 'faq',
     loadComponent: () => FaqComponent,
+  },
+    {
+    path: 'for-users',
+    loadComponent: () => ForUsersComponent,
   },
   {
     path: 'for-business',
