@@ -143,6 +143,7 @@
                   formControlName="email"
                   placeholder="Email Address"
                 />
+               
               </div>
               <div>
                 <button
@@ -152,6 +153,7 @@
                   &#8594;
                 </button>
               </div>
+      
             </div>
           </form>
         </li>
@@ -239,19 +241,21 @@
           <h3>Newsletter Subscribe</h3>
         </li>
         <li>
-          <div class="d-flex">
+          <div class="d-flex" [formGroup]="newsLetterSubscribeForm">
             <div>
               <input
                 type="text"
                 class="newsletter"
                 placeholder="Email Address"
               />
+          
             </div>
             <div>
-              <button class="btn orange-background-btn enter-btn">
+              <button class="btn orange-background-btn enter-btn"  (click)="subscribeEmailNewsletter()">
                 &#8594;
               </button>
             </div>
+
           </div>
         </li>
         <li>
