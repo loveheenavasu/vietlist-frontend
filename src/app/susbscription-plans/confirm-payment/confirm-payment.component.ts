@@ -293,9 +293,7 @@ export class ConfirmPaymentComponent {
         timerProgressBar: true,
       })
     } else {
-      console.log(setupIntent , "setUpIntent  ")
       this.paymentMethod = setupIntent
-      return;
       if (this.paymentMethod && this.eventIds?.numberOfBooking) {
         console.log('price available')
         this.confirmBookingPayment()
