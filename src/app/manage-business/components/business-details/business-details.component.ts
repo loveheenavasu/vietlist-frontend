@@ -445,7 +445,7 @@ export class BusinessDetailsComponent {
           name: 'NA',
           video_url: this.eventDetails?.video_upload,
           video_type: 'all',
-          thumbnail_image: '/assets/image/no-image.webp',
+          thumbnail_image: false,
           isEditHide: true,
         })
         if (this.eventDetails?.video_url) {
@@ -456,7 +456,7 @@ export class BusinessDetailsComponent {
             name: 'NA',
             video_url: [this.eventDetails?.video_url],
             video_type: 'all',
-            thumbnail_image: '/assets/image/no-image.webp',
+            thumbnail_image: false,
             isEditHide: true,
           })
         }
@@ -829,7 +829,7 @@ export class BusinessDetailsComponent {
     const element = document.getElementById(elementId)
     this.activeTab = elementId
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
 

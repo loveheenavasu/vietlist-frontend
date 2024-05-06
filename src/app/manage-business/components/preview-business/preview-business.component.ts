@@ -309,7 +309,7 @@ export class PreviewBusinessComponent {
     this.activeTab = elementId
     const element = document.getElementById(elementId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
 
@@ -622,7 +622,7 @@ export class PreviewBusinessComponent {
                 name: 'NA',
                 video_url: [elem],
                 video_type: 'all',
-                thumbnail_image: '/assets/image/no-image.webp',
+                thumbnail_image: false,
                 isEditHide: true,
               }
             }),

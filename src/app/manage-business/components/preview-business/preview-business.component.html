@@ -81,7 +81,8 @@
         (click)="scrollTo('profile')"
         [class.actives]="activeTab === 'profile'"
       >
-        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business Information
+        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
+        Information
       </li>
       <li
         *ngIf="
@@ -104,7 +105,9 @@
         (click)="scrollTo('booking')"
         [class.active]="activeTab === 'booking'"
       >
-        <span> <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></span>
+        <span>
+          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
+        ></span>
         Booking & Consultation
       </li>
       <li
@@ -201,7 +204,8 @@
           >
             <h3 class="headingg">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Business Bio</h3>
+              Business Bio
+            </h3>
             <hr class="hr" />
 
             <div class="contentt">
@@ -226,18 +230,17 @@
           businessFormDetails?.consultation_description
         ) {
           <div
-            class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0 "
+            class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
             id="booking"
           >
             <h3 class="headingg">
-              <i class="fa-solid fa-bag-shopping"></i>  
-              Booking & Consultation</h3>
+              <i class="fa-solid fa-bag-shopping"></i>
+              Booking & Consultation
+            </h3>
             <hr class="hr" />
 
             <div class="contentt">
-              <h3 class="event-page-headings">
-                Consultation Booking Link
-              </h3>
+              <h3 class="event-page-headings">Consultation Booking Link</h3>
               <p>
                 <a
                   [href]="businessFormDetails?.consultation_booking_link"
@@ -388,34 +391,56 @@
             <div class="main_images">
               @if (videosTypeArr?.length) {
                 @for (item of videosTypeArr; track $index) {
-                  <div class="featured_image" style="display: flex; gap: 1rem">
-                    <img
-                      *ngIf="!isVideoTypeLoading"
-                      [src]="item.thumbnail_image"
-                      style="cursor: pointer"
-                      (click)="playVideo(item, $index)"
-                    />
+                  @if (item?.thumbnail_image) {
+                    <div
+                      class="featured_image"
+                      style="
+                        display: flex;
+                        gap: 1rem;
+                        align-items: center;
+                        width: 280px !important;
+                      "
+                    >
+                      <img
+                        *ngIf="!isVideoTypeLoading"
+                        [src]="item.thumbnail_image"
+                        style="cursor: pointer;"
+                        (click)="playVideo(item, $index)"
+                      />
 
-                    <img
-                      *ngIf="isVideoTypeLoading"
-                      src="/assets/image/blank-white-img.jpeg"
-                    />
+                      <img
+                        *ngIf="isVideoTypeLoading"
+                        src="/assets/image/blank-white-img.jpeg"
+                      />
 
-                    <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
-                      <div>
-                        <span (click)="editVideo(item, $index)"
-                          ><i class="fas fa-edit" style="color: orange"></i
-                        ></span>
-                      </div>
-                      <div class="mx-2">
-                        <span
-                          class="delete-icon"
-                          (click)="deleteVideo(item.video_id)"
-                          ><i class="fas fa-trash-alt"></i
-                        ></span>
+                      <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
+                        <div>
+                          <span (click)="editVideo(item, $index)"
+                            ><i class="fas fa-edit" style="color: orange"></i
+                          ></span>
+                        </div>
+                        <div class="mx-2">
+                          <span
+                            class="delete-icon"
+                            (click)="deleteVideo(item.video_id)"
+                            ><i class="fas fa-trash-alt"></i
+                          ></span>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  } @else {
+                    <div
+                      class="featured_image"
+                      style="display: flex; width: 280px"
+                    >
+                      <video
+                        style=" object-fit: cover; width: 280px"
+                        controls
+                      >
+                        <source [src]="item?.video_url" />
+                      </video>
+                    </div>
+                  }
                 }
               } @else {
                 <span> No Data Found </span>
@@ -424,13 +449,10 @@
           </div>
         </div>
         @if (eventDetails) {
-          <div
-            class="profile-info-divs mt-4"
-            id="event-promo"
-          >
-            <h3 class="event-heading" style='color: black;' >Event Detail</h3>
+          <div class="profile-info-divs mt-4" id="event-promo">
+            <h3 class="event-heading" style="color: black">Event Detail</h3>
             <div class="info-cont">
-              <div class="event-venuee" *ngIf="businessFormDetails?.street" >
+              <div class="event-venuee" *ngIf="businessFormDetails?.street">
                 <div class="icon">
                   <i
                     class="fa-solid fa-location-dot"
@@ -441,7 +463,10 @@
                   {{ businessFormDetails?.street }}
                 </div>
               </div>
-              <div class="event-venuee" *ngIf="eventDetails?.booking_start_date" >
+              <div
+                class="event-venuee"
+                *ngIf="eventDetails?.booking_start_date"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-calendar"
@@ -453,7 +478,10 @@
                   {{ formatDate(eventDetails?.booking_end_date) }}
                 </div>
               </div>
-              <div class="event-venuee" *ngIf="eventDetails?.post_category?.name " >
+              <div
+                class="event-venuee"
+                *ngIf="eventDetails?.post_category?.name"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-layer-group"
@@ -464,7 +492,10 @@
                   {{ eventDetails?.post_category?.name }}
                 </div>
               </div>
-              <div class="event-venuee" *ngIf="eventDetails?.user_detail?.display_name " >
+              <div
+                class="event-venuee"
+                *ngIf="eventDetails?.user_detail?.display_name"
+              >
                 <div class="icon">
                   <i
                     class="fa-solid fa-user"
@@ -542,8 +573,8 @@
         </div>
         <div class="row mt-3" *ngIf="distanceToEvent">
           <div class="col-12 col-lg-12">
-            <label style='color: black;' for="">Distance (Km)</label>
-            <p style="font-weight: 500; font-size: 18px; color: black;">
+            <label style="color: black" for="">Distance (Km)</label>
+            <p style="font-weight: 500; font-size: 18px; color: black">
               {{ distanceToEvent }} Km in {{ timeEstimate }}
             </p>
           </div>
@@ -608,7 +639,7 @@
             <img [src]="businessFormDetails?.logo" alt="" />
           </div>
           <div class="social-link">
-            <div class="location" *ngIf="businessFormDetails?.street" >
+            <div class="location" *ngIf="businessFormDetails?.street">
               <i
                 class="fa-solid fa-location-dot"
                 style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -617,7 +648,7 @@
                 {{ businessFormDetails?.street }}
               </span>
             </div>
-            <div class="location" *ngIf="businessFormDetails?.business_email" >
+            <div class="location" *ngIf="businessFormDetails?.business_email">
               <i
                 class="fa fa-envelope"
                 aria-hidden="true"
@@ -627,7 +658,7 @@
                 {{ businessFormDetails?.business_email }}
               </span>
             </div>
-            <div class="location" *ngIf="businessFormDetails?.contact_phone" >
+            <div class="location" *ngIf="businessFormDetails?.contact_phone">
               <i
                 class="fa fa-phone"
                 aria-hidden="true"

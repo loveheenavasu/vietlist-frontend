@@ -1079,7 +1079,7 @@
           Photos
         </li>
         <li
-          *ngIf="eventDetails?.video_upload"
+          *ngIf="videoUrl?.length"
           (click)="scrollTo('videoss')"
           [class.active]="activeTab === 'videoss'"
         >
@@ -1312,13 +1312,22 @@
               </h3>
               <hr />
               <div class="main_images">
-              <div class="featured_image" style="display: flex; gap: 1rem">
+                <div class="featured_image" style="display: flex; gap: 1rem">
                   @for (item of videoUrl; track $index) {
-                    <img
-                      [src]="item.thumbnail_image"
-                      style="cursor: pointer"
-                      (click)="playVideo(item, $index)"
-                    />
+                    @if (item.thumbnail_image) {
+                        <img
+                          [src]="item.thumbnail_image"
+                          style="cursor: pointer"
+                          (click)="playVideo(item, $index)"
+                        />
+                    } @else {
+                        <video
+                          style="object-fit: cover; width: 280px"
+                          controls  
+                        >
+                          <source [src]="item?.video_url" />
+                        </video>
+                    }
                   }
                 </div>
               </div>

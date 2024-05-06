@@ -918,3 +918,19 @@ fieldset:disabled .btn {
 .event-venuee {
     display: flex;
 }
+
+
+
+.main_images::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main_images {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#review{
+    margin-bottom: -2.5rem;
+}
