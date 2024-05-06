@@ -139,6 +139,7 @@ export class PromotionsFormComponent {
       },
       error: (err: any) => {
         // Handle errors
+        this.isImageUploading = false
       },
     })
   }
