@@ -172,6 +172,8 @@
                             font-size: 1.25rem;
                             cursor: pointer;
                             text-transform: capitalize;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
 
                         h3:hover {
@@ -181,7 +183,7 @@
 
                     .listing-info {
                         font-size: 1rem;
-                        min-height: 100px;
+                        min-height: 120px;
 
                         :host ::ng-deep p {
                             display: -webkit-box;
@@ -295,6 +297,8 @@
                         font-size: 1.25rem;
                         cursor: pointer;
                         text-transform: capitalize;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
 
                     h3:hover {
