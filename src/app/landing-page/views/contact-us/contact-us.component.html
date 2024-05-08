@@ -29,6 +29,12 @@
             [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone"
             formControlName="phone_number">
           </ngx-intl-tel-input>
+          @if (
+            contactus.get('phone_number')?.touched &&
+            contactus.get('phone_number')?.hasError('validatePhoneNumber')
+          ) {
+            <span class="error-message">Invalid phone number.</span>
+          }
           <!-- </div> -->
           <!-- </div> -->
 

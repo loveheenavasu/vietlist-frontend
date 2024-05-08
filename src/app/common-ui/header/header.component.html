@@ -148,7 +148,7 @@
                 </button>
               </mat-menu>
             </li>
-            @if(userDetail?.level_id == '3'){
+            @if(userDetail?.level_id == '3' && isAuthenticated){
             <li class="nav-item">
               <span [routerLink]="['/resources']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Resources</span>
