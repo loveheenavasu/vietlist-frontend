@@ -61,21 +61,19 @@ export class ConsultationFormComponent {
     // console.log(value?.business_hours)
     // console.log(JSON.parse(value?.business_hours))
 
-    let businessHours = JSON.parse(value?.business_hours)
+    let businessHours = this.parse(value?.business_hours)
     // this.showTimeTable = true;
-    const timezone = businessHours?.[businessHours?.length - 1]?.[0]
-    businessHours?.pop()
-    const hours = businessHours
+    this.selectedData = this.changeTimeZoneFormat([
+      businessHours.pop(),
+      businessHours.pop(),
+    ])
+    // businessHours?.splice(businessHours?.length - 2, 2)
+    // Africa - UTC+01:00
+    const hours = businessHours.flat()?.map((item: any) => [item])
 
-    console.log(value, 'valuevaluevalue')
-    console.log(businessHours, 'businessHoursbusinessHoursbusinessHours')
-    console.log(hours, 'kkmkmkm')
     const formattedDays = hours?.map((day: any) => {
-      console.log(day, 'day')
       const value = day?.map((item: any) => item)?.[0]?.split(' ')
-      console.log(value, 'valuevaluevaluevalue')
       const times = value[1]?.split(',')
-      console.log(times, 'timestimestimes')
       return {
         name: value?.[0],
         times: times?.map((time: string) => {
@@ -233,6 +231,48 @@ export class ConsultationFormComponent {
     const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
   } //end constrctor
+
+  parse(originalStr: string) {
+    const cleanedStr = originalStr.replace(/\\|"/g, '')
+
+    // Convert the cleaned string to a valid JSON string
+    const validJsonStr = `[${cleanedStr
+      .split('][')
+      .map(
+        (arr) =>
+          `${arr
+            .split(',')
+            .map((val) => `"${val.replaceAll(']', '').replaceAll('[', '')}"`)
+            .join(',')}`,
+      )
+      .join(',')}]`
+
+    // Parse the valid JSON string
+    return JSON.parse(validJsonStr)
+  }
+
+  changeTimeZoneFormat(originalArray: string[]) {
+    var timezone = ''
+    var offset = ''
+
+    // Iterate over the array to extract timezone and offset
+    originalArray.forEach(function (element) {
+      var parts = element.split(':')
+      var key = parts[0]
+      var value = parts[1]
+      var thirdTime = parts?.[2]
+
+      if (key === 'Timezone') {
+        timezone = value
+      } else if (key === 'UTC') {
+        offset = value.slice(1, value.length) + ':' + thirdTime
+      }
+    })
+
+    // Construct the desired string format
+    var resultString = timezone + ' - UTC' + offset
+    return resultString
+  }
 
   public formatData() {
     this.formattedData = []
@@ -473,6 +513,29 @@ export class ConsultationFormComponent {
     }
   }
 
+  formatTimezone(timeZone: string[]) {
+    if (timeZone?.[0]) {
+      var originalString = timeZone[0]
+      var parts = originalString.split(' - UTC')
+      var timezone = parts[0]
+      var offset = parts[1]
+
+      // Create new object with desired format
+      var newArray = [
+        {
+          UTC: '+' + offset,
+          Timezone: timezone,
+        },
+      ]
+
+      // Convert new array to JSON string
+      var newJsonString = JSON.stringify(newArray)
+      return newJsonString.replaceAll('{', '').replaceAll('}', '')
+    } else {
+      return [null]
+    }
+  }
+
   public addBusiness(): void {
     this.isLoader = true
     const selectedDaysData = this.days.filter((day) =>
@@ -502,8 +565,8 @@ export class ConsultationFormComponent {
     })
     console.log(resultArray, 'resultArray')
 
-    const selectedData = [this.selectedData]
-    const businessHours = `${JSON.stringify(resultArray)},${JSON.stringify(selectedData)}`
+    const selectedData = this.formatTimezone([this.selectedData])
+    const businessHours = `${JSON.stringify(resultArray)},${selectedData}`
 
     this.isLoader = true
     const body = {
