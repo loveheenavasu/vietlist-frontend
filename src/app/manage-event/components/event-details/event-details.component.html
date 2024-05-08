@@ -800,7 +800,8 @@
         </div>
         <div class="col-12 col-md-12 col-lg-4 mt-3">
           <!-- @if(userDetail?.user_role === role.subscriber || !isAuthentecate){ -->
-          <div *ngIf="!businessListing" class="profile-info-div">
+
+          <div *ngIf="!businessListing" class="profile-info-div" >
             @if (isDesabledform) {
             <div class="warning-message">
               <mat-icon>warning</mat-icon>
@@ -808,7 +809,7 @@
             </div>
             }
   
-  
+     
             <div class="endBooking" [ngClass]="isDesabledform ? 'disabled-div':''">
               <h3>Book Now</h3>
               @if(!isDateMatched){
@@ -857,6 +858,7 @@
               </div>
             </div>
           </div>
+
           <!-- } -->
           @if (businessListing) {
           <div class="profile-info-div mt-3">

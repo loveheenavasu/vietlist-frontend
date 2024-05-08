@@ -154,6 +154,9 @@ export class ManageProfileComponent {
         case this.currentPath === '/manage-profile/manage-coupons':
           this.pageTitle = 'Manage Coupons';
           break;
+          case this.currentPath === '/analytics':
+            this.pageTitle = 'Analytics';
+            break;
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
         const segments = this.currentPath.split('/')
         if (segments.length === 4) {

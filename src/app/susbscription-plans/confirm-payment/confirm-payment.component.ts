@@ -449,7 +449,7 @@ export class ConfirmPaymentComponent {
       event_id: this.eventIds?.eventId,
       event_price: this.appliedCouponResponse
         ? this.appliedCouponResponse
-        : this.eventPrice,
+        : this.eventPrice * parseInt(this.eventIds?.numberOfBooking),
       number_of_booking: parseInt(this.eventIds?.numberOfBooking),
       pm_data: {
         id: this.paymentMethod?.payment_method,
