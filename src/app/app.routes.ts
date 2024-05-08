@@ -56,6 +56,7 @@ import { CalculatorMainComponent } from './calculator/calculator-main/calculator
 import { ForUsersComponent } from './landing-page/views/for-users/for-users.component'
 import { TermsComponent } from './landing-page/views/terms/terms.component'
 import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-policy.component'
+import { SitemapComponent } from './sitemap/sitemap.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -138,8 +139,8 @@ export default [
         loadComponent: () => AllBookingsComponent,
       },
       {
-        path:'manage-coupons',
-        loadComponent:()=> CouponListComponent
+        path: 'manage-coupons',
+        loadComponent: () => CouponListComponent,
       },
     ],
     canActivate: [AuthGuard],
@@ -267,7 +268,7 @@ export default [
     path: 'faq',
     loadComponent: () => FaqComponent,
   },
-    {
+  {
     path: 'for-users',
     loadComponent: () => ForUsersComponent,
   },
@@ -276,12 +277,12 @@ export default [
     loadComponent: () => ForBusinessComponent,
   },
   {
-    path:'terms-conditions',
-    loadComponent:()=>TermsComponent
+    path: 'terms-conditions',
+    loadComponent: () => TermsComponent,
   },
   {
-    path:'legal-policy',
-    loadComponent:()=>LegalPolicyComponent
+    path: 'legal-policy',
+    loadComponent: () => LegalPolicyComponent,
   },
   {
     path: 'resources',
@@ -291,10 +292,10 @@ export default [
     path: 'resource-details/:id',
     loadComponent: () => ResourceDetailComponent,
   },
-{
-  path:'calculator',
-  loadComponent:()=>CalculatorMainComponent
-},
+  {
+    path: 'calculator',
+    loadComponent: () => CalculatorMainComponent,
+  },
   {
     path: 'analytics',
     loadComponent: () => AnalyticsComponent,
@@ -302,6 +303,10 @@ export default [
   {
     path: 'email-marketing',
     loadComponent: () => EmailMarketingComponent,
+  },
+  {
+    path: 'sitemap',
+    loadComponent: () => SitemapComponent,
   },
   {
     path: '**',

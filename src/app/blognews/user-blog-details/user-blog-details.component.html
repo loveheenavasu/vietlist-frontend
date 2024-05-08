@@ -509,28 +509,27 @@
                     </div>
                 </div> -->
                 @if(!this.isAuthenticated){
-                <div class="row g-0">
-                    <div class="col-12 col-lg-12">
-                        <div class="blog-banner">
-                            <swiper-container #blogSwiper class="mySwiper" init="false">
-                                @for (key of addDetail; track $index) {
-                                <swiper-slide>
-                                    <div class="banner-img" (click)="setStats(key?.id, key?.space_id)" style="background-image: url({{key?.img}});    width: 100%;
-                                  height: 100%;">
-                                        <!-- <div class="banner-text ">
-                                      <h3>{{key?.title}}</h3>
-                                      <p>
-                                        {{key?.description}}
-                                      </p>
-                                    </div> -->
-                                    </div>
-                                </swiper-slide>
-                                }
-                            </swiper-container>
-                        </div>
-                    </div>
-
-                </div>
+                    <div class="row g-0">
+    <div class="col-12 col-lg-12">
+      <div class="blog-banner">
+        <swiper-container #blogSwiper class="mySwiper" init="false">
+          @for (key of addDetail; track $index) {
+          <swiper-slide style="width: '100%';"  >
+            <div class="banner-img" (click)="setStats(key?.id, key?.space_id)"
+              style="background-image: url({{key?.img}})">
+              <div class="banner-text ">
+                    <h3>{{key?.title}}</h3>
+                    <p>
+                      {{key?.description}}
+                    </p>
+                  </div>
+            </div>
+          </swiper-slide>
+          }
+        </swiper-container>
+      </div>
+    </div>
+  </div>
                 }
             </div>
 

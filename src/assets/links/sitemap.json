@@ -123,7 +123,7 @@
         ]
     },
     {
-        "module": "Manage Bookings",
+        "module": "Bookings",
         "links": [
             {
                 "url": "/manage-profile/manage-bookings",
@@ -132,7 +132,7 @@
         ]
     },
     {
-        "module": "Manage Coupons",
+        "module": "Coupons",
         "links": [
             {
                 "url": "/manage-profile/manage-coupons",
