@@ -137,6 +137,7 @@ export class BusinessDetailsComponent {
   public minDate = new Date()
   public isBookableClicked: boolean = false
   public maxDate: any
+  public openingHour: any[] = []
 
   /**
    *
@@ -254,8 +255,26 @@ export class BusinessDetailsComponent {
       )
   }
 
-  parse(str: string) {
-    return JSON.parse(str)
+  parse(originalStr: string) {
+    if (originalStr) {
+      const cleanedStr = originalStr.replace(/\\|"/g, '')
+      // Convert the cleaned string to a valid JSON string
+      const validJsonStr = `[${cleanedStr
+        .split('][')
+        .map(
+          (arr) =>
+            `${arr
+              .split(',')
+              .map((val) => `"${val.replaceAll(']', '').replaceAll('[', '')}"`)
+              .join(',')}`,
+        )
+        .join(',')}]`
+      let arr = JSON.parse(validJsonStr)
+      let utc = arr[arr.length - 2] + ' ' + arr[arr.length - 1]
+      arr.splice(arr.length - 2, 2)
+      arr.push(utc)
+      return arr
+    }
   }
 
   getIntegrationVideo() {
@@ -436,6 +455,8 @@ export class BusinessDetailsComponent {
 
         // this.dataget = res?.data || 'NA'
         this.eventDetails = res?.data[0]
+
+        this.openingHour = this.parse(res?.data[0]?.business_hours)
         this.eventLocation = res?.data[0]?.street
         // if (this.eventDetails?.video_upload?.length) {
         this.videoUrl.push({

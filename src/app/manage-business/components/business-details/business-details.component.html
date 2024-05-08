@@ -1239,7 +1239,7 @@
               </div>
             </div>
           }
-          @if (eventDetails?.image) {
+          <!-- @if (eventDetails?.image) {
             <div class="row my-4" id="photo">
               <div class="col-12 col-md-12 col-lg-12">
                 <h3 class="event-page-headings">
@@ -1303,8 +1303,8 @@
                 }
               </div>
             </div>
-          }
-          @if (videoUrl?.length) {
+          } -->
+          <!-- @if (videoUrl?.length) {
             <div class="col-12" id="videoss">
               <h3 class="event-page-headings">
                 <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
@@ -1332,7 +1332,7 @@
                 </div>
               </div>
             </div>
-          }
+          } -->
           @if (eventInfo) {
             <div class="profile-info-divs mt-4" id="event-promo">
               <h3 style="color: black" class="event-heading">Event Detail</h3>
@@ -1868,7 +1868,7 @@
             </div>
           </div>
           <div
-            *ngIf="parse(eventDetails?.business_hours)?.[0]?.[0]"
+
             class="profile-info-div mt-3"
             style="padding: 9%"
           >
@@ -1880,10 +1880,10 @@
               >
               <div class="media-body">
                 <p
-                  *ngFor="let time of parse(eventDetails?.business_hours)"
+                  *ngFor="let time of openingHour"
                   class="mt-0"
                 >
-                  {{ time[0] }}
+                  {{ time }}
                 </p>
                 <p></p>
               </div>

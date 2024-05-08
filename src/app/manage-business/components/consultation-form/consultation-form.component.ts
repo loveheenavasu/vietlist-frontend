@@ -61,15 +61,21 @@ export class ConsultationFormComponent {
     // console.log(value?.business_hours)
     // console.log(JSON.parse(value?.business_hours))
 
-    let businessHours: any[] = JSON.parse(value?.business_hours)
+    let businessHours = JSON.parse(value?.business_hours)
     // this.showTimeTable = true;
     const timezone = businessHours?.[businessHours?.length - 1]?.[0]
     businessHours?.pop()
     const hours = businessHours
 
-    const formattedDays = hours?.map((day) => {
+    console.log(value, 'valuevaluevalue')
+    console.log(businessHours, 'businessHoursbusinessHoursbusinessHours')
+    console.log(hours, 'kkmkmkm')
+    const formattedDays = hours?.map((day: any) => {
+      console.log(day, 'day')
       const value = day?.map((item: any) => item)?.[0]?.split(' ')
+      console.log(value, 'valuevaluevaluevalue')
       const times = value[1]?.split(',')
+      console.log(times, 'timestimestimes')
       return {
         name: value?.[0],
         times: times?.map((time: string) => {
@@ -80,14 +86,16 @@ export class ConsultationFormComponent {
         }),
       }
     })
+    console.log(formattedDays, 'formattedDays')
 
     this.days?.forEach((day) => {
-      formattedDays?.forEach((newDay) => {
+      formattedDays?.forEach((newDay: any) => {
         if (day?.name === newDay?.name) {
           day.times = newDay?.times
         }
       })
     })
+    console.log(this.days, 'dayslll')
 
     const controls = [
       'consultation_booking_link',
@@ -140,13 +148,13 @@ export class ConsultationFormComponent {
   public isLastRemoved: boolean[] = []
   public imageUrlsArr: any[] = []
   public days = [
-    { name: 'Mon', times: [{ start: '', end: '' }] },
-    { name: 'Tue', times: [{ start: '', end: '' }] },
-    { name: 'Wed', times: [{ start: '', end: '' }] },
-    { name: 'Thu', times: [{ start: '', end: '' }] },
-    { name: 'Fri', times: [{ start: '', end: '' }] },
-    { name: 'Sat', times: [{ start: '', end: '' }] },
-    { name: 'Sun', times: [{ start: '', end: '' }] },
+    { name: 'Mo', times: [{ start: '', end: '' }] },
+    { name: 'Tu', times: [{ start: '', end: '' }] },
+    { name: 'We', times: [{ start: '', end: '' }] },
+    { name: 'Th', times: [{ start: '', end: '' }] },
+    { name: 'Fr', times: [{ start: '', end: '' }] },
+    { name: 'Sa', times: [{ start: '', end: '' }] },
+    { name: 'Su', times: [{ start: '', end: '' }] },
   ]
 
   /**
@@ -470,6 +478,10 @@ export class ConsultationFormComponent {
     const selectedDaysData = this.days.filter((day) =>
       this.selectedWeek.includes(day.name),
     )
+    console.log(
+      selectedDaysData,
+      'selectedDaysDataselectedDaysDataselectedDaysData',
+    )
     const jsonData: { [key: string]: string[] } = {} // Use an object to group times by day
 
     selectedDaysData.forEach((day) => {
@@ -478,7 +490,7 @@ export class ConsultationFormComponent {
           jsonData[day.name] = []
         }
         jsonData[day.name].push(
-          `${time.start || '12:00'}-${time.end || '12:00'}`,
+          `${time.start || '00:00'}-${time.end || '00:00'}`,
         )
       })
     })
@@ -488,12 +500,10 @@ export class ConsultationFormComponent {
       const times = jsonData[day] ? jsonData[day].join(',') : ''
       return `${day} ${times}`
     })
+    console.log(resultArray, 'resultArray')
 
     const selectedData = [this.selectedData]
-    // const businessHours = [resultArray, selectedData]; // Modified the way of constructing businessHours array
-    const businessHours = JSON.stringify(
-      resultArray.map((item) => [item]).concat([selectedData]),
-    )
+    const businessHours = `${JSON.stringify(resultArray)},${JSON.stringify(selectedData)}`
 
     this.isLoader = true
     const body = {

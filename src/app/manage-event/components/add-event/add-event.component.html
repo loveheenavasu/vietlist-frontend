@@ -370,7 +370,7 @@
               <div class="col-sm-10 col-md-12 upload-instruction">
               </div>
             </div>
-            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+            <ngx-dropzone [multiple]="false" (change)="onSelectImages($event)" [disabled]="levelOneImageArr" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and
                 Drop here
                 or
@@ -379,15 +379,15 @@
 
             </ngx-dropzone>
             <div class="main_images">
-              @for (preview of levelOneImageArr; track $index) {
+              <!-- @for (preview of levelOneImageArr; track $index) { -->
 
-              <div class="images__" *ngIf="preview">
+              <div class="images__" *ngIf="levelOneImageArr">
                 <div class="removeImage">
-                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem(1)"></i>
                 </div>
-                <img [src]="preview" alt="Image Preview" width="150" height="150" />
+                <img [src]="levelOneImageArr?.url" alt="Image Preview" width="150" height="150" />
               </div>
-              }
+              <!-- } -->
             </div>
             <!-- <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
               <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
@@ -468,14 +468,14 @@
         </div>
         <div style="width: 100%; text-align: end">
           <button type="button" class="btn orange-background-btn ms-auto" [disabled]="
-              !addEventForm.valid ||
-              !country ||
-              !zipcode ||
-              !state ||
-              !city ||
-              !recaptcha.value ||
-              debounce
-            " (click)="addEvent()">
+          !addEventForm.valid ||
+          !country ||
+          !zipcode ||
+          !state ||
+          !city ||
+          !recaptcha.value ||
+          debounce
+        "  (click)="addEvent()">
             <app-loader *ngIf="isloader"></app-loader><span *ngIf="!isloader">Next</span>
           </button>
         </div>

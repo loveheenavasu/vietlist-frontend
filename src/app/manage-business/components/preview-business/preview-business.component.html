@@ -691,7 +691,7 @@
           </div>
         </div>
         <div
-          *ngIf="parse(businessFormDetails?.business_hours)?.[0]?.[0]"
+          *ngIf="openingHour?.length"
           class="profile-info-div mt-3"
           style="padding: 9%"
         >
@@ -701,10 +701,10 @@
             >
             <div class="media-body">
               <p
-                *ngFor="let time of parse(businessFormDetails?.business_hours)"
+                *ngFor="let time of openingHour"
                 class="mt-0"
               >
-                {{ time[0] }}
+                {{ time }}
               </p>
               <p></p>
             </div>

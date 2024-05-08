@@ -15,7 +15,12 @@ import { MatSelectModule } from '@angular/material/select'
 import { MatStepperModule } from '@angular/material/stepper'
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { AuthenticationService, FullPageLoaderService, LocalStorageService, Roles } from '@vietlist/shared'
+import {
+  AuthenticationService,
+  FullPageLoaderService,
+  LocalStorageService,
+  Roles,
+} from '@vietlist/shared'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import {
   NgxIntlTelInputModule,
@@ -36,7 +41,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 // import { Router } from 'express'
 interface FileWithLoading extends File {
-  isLoading: boolean;
+  isLoading: boolean
 }
 
 @Component({
@@ -64,12 +69,11 @@ interface FileWithLoading extends File {
     JsonPipe,
     RecaptchaFormsModule,
     RecaptchaModule,
-    MatCheckboxModule
-
+    MatCheckboxModule,
   ],
   templateUrl: './add-event.component.html',
   styleUrl: './add-event.component.scss',
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class AddEventComponent {
   public isloader: boolean = false
@@ -81,7 +85,7 @@ export class AddEventComponent {
   public longitude: number = 0
   public separateDialCode = true
   public isImageUploading: boolean = false
-  public levelOneImageArr: any[] = []
+  public levelOneImageArr: any
   public isFirstStepCompleted: boolean = false
   public isBookable = new FormControl()
   public SearchCountryField = SearchCountryField
@@ -133,7 +137,7 @@ export class AddEventComponent {
   public checkValue: any
   public userInfo: any
   public userDetailsLevel_id: any
-  public minDate = new Date();
+  public minDate = new Date()
   public isBookableClicked: boolean = false
   public maxDate: any
   public maxTotalImages: any
@@ -167,63 +171,66 @@ export class AddEventComponent {
       mapview: [''],
       startTime: [''],
       endTime: [''],
-      price: ['', [Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')]],
+      price: ['', [Validators.pattern('^[0-9]+(.[0-9]{1,2})?$')]],
       number_of_bookings: [''],
       booking_end_date: [''],
-      booking_start_date: ['']
+      booking_start_date: [''],
     })
     this.fetchProfileDetail()
 
     const getLevelId = localStorageService.getData('level_id')
     this.isBookable.valueChanges.subscribe((res: any) => {
       if (res == true) {
-        this.isBookableClicked = true;
-        this.addEventForm.get('price')?.setValidators(Validators.required);
-        this.addEventForm.get('number_of_bookings')?.setValidators(Validators.required);
-        this.addEventForm.get('booking_end_date')?.setValidators(Validators.required);
-        this.addEventForm.get('booking_start_date')?.setValidators(Validators.required);
+        this.isBookableClicked = true
+        this.addEventForm.get('price')?.setValidators(Validators.required)
+        this.addEventForm
+          .get('number_of_bookings')
+          ?.setValidators(Validators.required)
+        this.addEventForm
+          .get('booking_end_date')
+          ?.setValidators(Validators.required)
+        this.addEventForm
+          .get('booking_start_date')
+          ?.setValidators(Validators.required)
       } else {
-        this.isBookableClicked = false;
-        this.addEventForm.get('price')?.clearValidators();
-        this.addEventForm.get('number_of_bookings')?.clearValidators();
-        this.addEventForm.get('booking_end_date')?.clearValidators();
-        this.addEventForm.get('booking_start_date')?.clearValidators();
+        this.isBookableClicked = false
+        this.addEventForm.get('price')?.clearValidators()
+        this.addEventForm.get('number_of_bookings')?.clearValidators()
+        this.addEventForm.get('booking_end_date')?.clearValidators()
+        this.addEventForm.get('booking_start_date')?.clearValidators()
       }
-      this.addEventForm.get('price')?.updateValueAndValidity();
-      this.addEventForm.get('number_of_bookings')?.updateValueAndValidity();
-      this.addEventForm.get('booking_end_date')?.updateValueAndValidity();
-      this.addEventForm.get('booking_start_date')?.updateValueAndValidity();
-    });
-
+      this.addEventForm.get('price')?.updateValueAndValidity()
+      this.addEventForm.get('number_of_bookings')?.updateValueAndValidity()
+      this.addEventForm.get('booking_end_date')?.updateValueAndValidity()
+      this.addEventForm.get('booking_start_date')?.updateValueAndValidity()
+    })
 
     this.userDetailsLevel_id = getLevelId
     this.authService.userDetails.subscribe((res: any) => {
       if (res) {
         this.vediosHide = res
-
-
       }
-
     })
 
-    this.addEventForm.get('number_of_bookings')?.valueChanges.subscribe((res) => {
-      if (this.userDetail?.level_id == '2') {
-
-        if (res > 20) {
-          Swal.fire({
-            toast: true,
-            text: 'You can only add 20 bookings for this plan.',
-            animation: false,
-            icon: 'warning',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-          this.addEventForm.get('number_of_bookings')?.setValue('')
+    this.addEventForm
+      .get('number_of_bookings')
+      ?.valueChanges.subscribe((res) => {
+        if (this.userDetail?.level_id == '2') {
+          if (res > 20) {
+            Swal.fire({
+              toast: true,
+              text: 'You can only add 20 bookings for this plan.',
+              animation: false,
+              icon: 'warning',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
+            this.addEventForm.get('number_of_bookings')?.setValue('')
+          }
         }
-      }
-    })
+      })
 
     const loginData = this.localStorageService.getData('loginInfo')
     this.userInfo = JSON.parse(loginData)
@@ -238,35 +245,30 @@ export class AddEventComponent {
         // 'occurrences',
         // 'end_date_recurring'
         'startDate',
-        'endDate'
-      ];
+        'endDate',
+      ]
 
-      controlsToValidate.forEach(controlName => {
-        const control = this.addEventForm.get(controlName);
+      controlsToValidate.forEach((controlName) => {
+        const control = this.addEventForm.get(controlName)
         if (res) {
-          control?.clearValidators();
+          control?.clearValidators()
         } else {
-          control?.setValidators(Validators.required);
-
+          control?.setValidators(Validators.required)
         }
-        control?.updateValueAndValidity();
-      });
-    });
-
+        control?.updateValueAndValidity()
+      })
+    })
 
     this._activatedRoute.params.subscribe((res) => {
       this.postId = res['id']
     })
-
   }
 
   public selectedEventEndDate(selectedDate: Date) {
-    const maxBookingEndDate = new Date(selectedDate);
-    maxBookingEndDate.setDate(maxBookingEndDate.getDate() - 1);
+    const maxBookingEndDate = new Date(selectedDate)
+    maxBookingEndDate.setDate(maxBookingEndDate.getDate() - 1)
     this.maxDate = maxBookingEndDate
   }
-
-
 
   ngOnInit() {
     this.getBusinessCat()
@@ -274,8 +276,6 @@ export class AddEventComponent {
     if (this.postId) {
       this.getEventDetails()
     }
-
-
 
     // this.sessionService.isAuthenticated$.subscribe((res)=>{
     //   if(res == true && this.userInfo.user_role == Roles.businessOwner){
@@ -299,15 +299,15 @@ export class AddEventComponent {
   }
 
   public onInputChange(event: any) {
-    let inputValue: string = event.target.value;
-    inputValue = inputValue.replace(/[^0-9.]/g, '');
-    event.target.value = inputValue;
+    let inputValue: string = event.target.value
+    inputValue = inputValue.replace(/[^0-9.]/g, '')
+    event.target.value = inputValue
   }
 
   public numberBookingInput(event: any) {
-    let inputValue: string = event.target.value;
-    inputValue = inputValue.replace(/\D/g, '');
-    event.target.value = inputValue;
+    let inputValue: string = event.target.value
+    inputValue = inputValue.replace(/\D/g, '')
+    event.target.value = inputValue
   }
 
   public fetchProfileDetail() {
@@ -318,11 +318,9 @@ export class AddEventComponent {
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
-
       },
     })
   }
-
 
   public onSelect(event: any) {
     if (event.addedFiles.length > 1) {
@@ -373,7 +371,7 @@ export class AddEventComponent {
       next: (res: any) => {
         this.post_categorys = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -381,19 +379,17 @@ export class AddEventComponent {
     this.categoriesValue = this.addEventForm.value.post_category
   }
   public removeImageItem(index: any) {
-    this.levelOneImageArr.splice(index, 1);
+    // this.levelOneImageArr.splice(index, 1)
+    this.levelOneImageArr = null
   }
-
 
   // public removeImageItem() {
   //   this.ImageUrl = ''
   // }
 
-
   public resolved(captchaResponse: string | null) {
     // console.log(`Resolved captcha with response: ${captchaResponse}`)
   }
-
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -423,7 +419,6 @@ export class AddEventComponent {
     this.cd.detectChanges()
     this.initMap()
   }
-
 
   public initMap() {
     const mapElement = document.getElementById('map')
@@ -469,8 +464,6 @@ export class AddEventComponent {
     }
   }
 
-
-
   // public onSelectImages(event: any) {
   //   this.files = [...event.addedFiles]
 
@@ -514,68 +507,74 @@ export class AddEventComponent {
   // }
 
   public onSelectImages(event: any) {
-    this.maxTotalImages = this.userDetail.level_id === '1' ? 5 : this.userDetail.level_id === '2' ? 20 : this.userDetail.level_id === '3' ? Infinity : 0;
-    const totalUploadedImages = this.levelOneImageArr.length;
-    const remainingImagesCapacity = this.maxTotalImages - totalUploadedImages;
+    this.maxTotalImages =
+      this.userDetail.level_id === '1'
+        ? 5
+        : this.userDetail.level_id === '2'
+          ? 20
+          : this.userDetail.level_id === '3'
+            ? Infinity
+            : 0
+    // const totalUploadedImages = this.levelOneImageArr.length
+    // const remainingImagesCapacity = this.maxTotalImages - totalUploadedImages
 
-    const selectedFiles = [...event.addedFiles];
+    const selectedFiles = [...event.addedFiles]
 
-    if (selectedFiles.length > remainingImagesCapacity) {
-      Swal.fire({
-        toast: true,
-        text: `You can only upload ${this.maxTotalImages} images for this plan.`,
-        animation: false,
-        icon: 'error',
-        position: 'top-right',
-        showConfirmButton: false,
-        timer: 5000,
-        timerProgressBar: true,
-      });
-      return;
-    }
+    // if (selectedFiles.length > remainingImagesCapacity) {
+    //   Swal.fire({
+    //     toast: true,
+    //     text: `You can only upload ${this.maxTotalImages} images for this plan.`,
+    //     animation: false,
+    //     icon: 'error',
+    //     position: 'top-right',
+    //     showConfirmButton: false,
+    //     timer: 5000,
+    //     timerProgressBar: true,
+    //   })
+    //   return
+    // }
 
-    this.files = selectedFiles;
-    this.displayLevelOneImages();
+    this.files = selectedFiles
+    this.displayLevelOneImages()
   }
 
-
   public displayLevelOneImages() {
-    this.isImageUploading = true;
+    this.isImageUploading = true
 
-    const delayBetweenUploads = 2000; // Adjust as needed, in milliseconds
+    const delayBetweenUploads = 2000 // Adjust as needed, in milliseconds
 
     this.files.forEach((file, index) => {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onload = () => {
-        const result = reader.result as string;
-      };
-      reader.readAsDataURL(file);
+        const result = reader.result as string
+      }
+      reader.readAsDataURL(file)
 
       // Upload each file with a delay
       setTimeout(() => {
-        this.isImageUploading = true;
+        this.isImageUploading = true
         this.businessService.uploadMedia(file).subscribe({
           next: (res: any) => {
-            this.isImageUploading = false;
-            this.levelOneImageArr.push(res.image_url);
-            if (this.levelOneImageArr.length >= this.maxTotalImages) {
-              this.isImageUploading = false;
+            this.isImageUploading = false
+            this.levelOneImageArr = {
+              url: res.image_url,
+              attachment_id: res?.attachment_id,
             }
+            this.isImageUploading = false
+            // if (this.levelOneImageArr.length >= this.maxTotalImages) {
+            // }
           },
           error: (err: any) => {
-            this.isImageUploading = false;
+            this.isImageUploading = false
             // Handle errors if needed
           },
-        });
-      }, index * delayBetweenUploads); // Delay increases with each iteration
-    });
+        })
+      }, index * delayBetweenUploads) // Delay increases with each iteration
+    })
   }
-
-
 
   // formatDate(date: Date): any {
   //   if (!(date instanceof Date) || isNaN(date.getTime())) {
-
 
   //   const year = date?.getFullYear();
   //   const month = date?.getMonth() + 1; // Months are zero based
@@ -597,39 +596,59 @@ export class AddEventComponent {
       country: this.country,
       zip: this.zipcode,
       post_content: this.addEventForm.value.event_description,
-      featured_image: this.levelOneImageArr,
+      featured_image: this.levelOneImageArr?.url,
+      attachment_id: this.levelOneImageArr?.attachment_id,
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
       is_bookable_: this.isBookable.value ? 1 : 0,
       price: this.addEventForm.value.price,
       number_of_bookings: this.addEventForm.value.number_of_bookings,
-      booking_start_date: this.datePipe.transform(this.addEventForm.value.booking_start_date, 'yyyy-MM-dd') ?? '',
+      booking_start_date:
+        this.datePipe.transform(
+          this.addEventForm.value.booking_start_date,
+          'yyyy-MM-dd',
+        ) ?? '',
 
-      booking_end_date: this.datePipe.transform(this.addEventForm.value.booking_end_date, 'yyyy-MM-dd') ?? '',
-    };
-    const formData = new FormData();
+      booking_end_date:
+        this.datePipe.transform(
+          this.addEventForm.value.booking_end_date,
+          'yyyy-MM-dd',
+        ) ?? '',
+    }
+    const formData = new FormData()
     Object.entries(body).forEach(([key, value]) => {
-      if (typeof value === 'object' && value !== null) {
+      if (
+        typeof value === 'object' &&
+        value !== null &&
+        key !== 'featured_image'
+      ) {
         Object.entries(value).forEach(([nestedKey, nestedValue]) => {
-          formData.append(`${key}[${nestedKey}]`, String(nestedValue));
-        });
+          formData.append(`${key}[${nestedKey}]`, String(nestedValue))
+        })
       } else {
-        formData.append(key, String(value));
+        formData.append(key, String(value))
       }
-    });
+    })
     const eventDates = {
-      start_date: this.datePipe.transform(this.addEventForm.value.eventStartDate, 'yyyy-MM-dd') ?? '',
-      end_date: this.datePipe.transform(this.addEventForm.value.eventEndDate, 'yyyy-MM-dd') ?? '',
+      start_date:
+        this.datePipe.transform(
+          this.addEventForm.value.eventStartDate,
+          'yyyy-MM-dd',
+        ) ?? '',
+      end_date:
+        this.datePipe.transform(
+          this.addEventForm.value.eventEndDate,
+          'yyyy-MM-dd',
+        ) ?? '',
       all_day: this.checkValue,
       start_time: this.addEventForm.value.startTime,
       end_time: this.addEventForm.value.endTime,
-    };
+    }
 
-    formData.append('event_dates', JSON.stringify(eventDates));
-    formData.forEach((value, key) => {
-    });
+    formData.append('event_dates', JSON.stringify(eventDates))
+    formData.forEach((value, key) => {})
     if (this.postId) {
-      formData.append('post_id', this.postId);
+      formData.append('post_id', this.postId)
       this.eventService.updateEvent(formData).subscribe({
         next: (res) => {
           this.debounce = false
@@ -682,19 +701,19 @@ export class AddEventComponent {
     }
   }
 
-
-
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
       next: (res) => {
         this.fullPageLoaderService.hideLoader()
         this.eventDetails = res?.data[0] || 'NA'
-        this.latitude = Number(this.eventDetails?.latitude),
-          this.longitude = Number(this.eventDetails?.longitude)
+        ;(this.latitude = Number(this.eventDetails?.latitude)),
+          (this.longitude = Number(this.eventDetails?.longitude))
         console.log(this.eventDetails, 'check details')
         this.state = this.eventDetails?.region
-        this.isBookable.patchValue(this.eventDetails.is_bookable_ == '1' ? true : false);
+        this.isBookable.patchValue(
+          this.eventDetails.is_bookable_ == '1' ? true : false,
+        )
         this.levelOneImageArr = this.eventDetails?.featured_image
         this.addEventForm.patchValue({
           event_title: this.eventDetails.post_title,
@@ -709,14 +728,13 @@ export class AddEventComponent {
           booking_end_date: this.eventDetails.booking_end_date,
           number_of_bookings: this.eventDetails.number_of_bookings,
           price: this.eventDetails?.price,
-
         })
-        this.street = this.eventDetails.street,
-          this.fullAddress = this.eventDetails?.street,
-          this.zipcode = this.eventDetails.zip,
-          this.city = this.eventDetails.city,
-          this.country = this.eventDetails.country,
-          this.ImageUrl = this.eventDetails.featured_image,
+        ;(this.street = this.eventDetails.street),
+          (this.fullAddress = this.eventDetails?.street),
+          (this.zipcode = this.eventDetails.zip),
+          (this.city = this.eventDetails.city),
+          (this.country = this.eventDetails.country),
+          (this.ImageUrl = this.eventDetails.featured_image),
           this.initMap()
       },
       error: (err) => {
@@ -724,7 +742,4 @@ export class AddEventComponent {
       },
     })
   }
-
-
-
 }

@@ -145,8 +145,8 @@ export class ListBusinessComponent {
    * @param localStorageService
    */
   public userDetailsLevel_id: any
-  public isParamsId:boolean = false
-  public currentRoute:any
+  public isParamsId: boolean = false
+  public currentRoute: any
   constructor(
     private _formBuilder: FormBuilder,
     private businessService: BusinessService,
@@ -161,7 +161,7 @@ export class ListBusinessComponent {
     this.fetchProfileDetail()
 
     this.businessInfoForm = this._formBuilder.group({
-      post_title: ['', [Validators.required , Validators.maxLength(90)]],
+      post_title: ['', [Validators.required, Validators.maxLength(90)]],
       contact_phone: ['', Validators.required],
       business_email: [
         '',
@@ -174,16 +174,20 @@ export class ListBusinessComponent {
       post_category: ['', Validators.required],
       default_category: ['', Validators.required],
       post_content: ['', [Validators.required]],
-      website: ['', Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)],
+      website: [
+        '',
+        Validators.pattern(
+          /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+        ),
+      ],
       mapview: [''],
     })
-    this.currentRoute = this.router.url;
-    this.route.params.subscribe((res: any) => { 
+    this.currentRoute = this.router.url
+    this.route.params.subscribe((res: any) => {
       if (res?.id) {
-        console.log(res.id , "id")
+        console.log(res.id, 'id')
         this.isParamsId = true
         this.getBusinessFormDetails(res?.id)
-
       }
     })
     this.businessService.storePostId.subscribe((res) => {
@@ -230,7 +234,6 @@ export class ListBusinessComponent {
     this.initMap()
   }
 
-
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
@@ -241,8 +244,7 @@ export class ListBusinessComponent {
         )
         this.authService.userDetails.next(this.userDetail)
       },
-      error: (err: any) => {
-      },
+      error: (err: any) => {},
     })
   }
 
@@ -311,7 +313,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -325,7 +327,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.post_tags = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -334,7 +336,7 @@ export class ListBusinessComponent {
       next: (res: any) => {
         this.selectedDefaultCategories = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -377,6 +379,7 @@ export class ListBusinessComponent {
           this.fullPageLoader.hideLoader()
           console.log(res, 'getApiResponse')
           this.businessFormDetails = res?.data?.[0] || null
+
           this.tags = this.businessFormDetails?.post_tags.map(
             (tag: any) => tag.id,
           )
@@ -422,7 +425,7 @@ export class ListBusinessComponent {
             id: this.businessFormDetails?.default_category?.id,
             name: this.businessFormDetails?.default_category?.name,
           })
-          this.levelOneImageArr  = this.businessFormDetails?.image
+          this.levelOneImageArr = this.businessFormDetails?.image
           this.street = this.businessFormDetails?.street
           this.latitude = Number(this.businessFormDetails?.latitude)
           this.longitude = Number(this.businessFormDetails?.longitude)
@@ -435,7 +438,7 @@ export class ListBusinessComponent {
 
           this.initMap()
         },
-        error: (err) => { },
+        error: (err) => {},
       })
   }
 
@@ -488,10 +491,9 @@ export class ListBusinessComponent {
     }
   }
 
-  public resolved(captchaResponse: string | null) { }
+  public resolved(captchaResponse: string | null) {}
 
-  checkInput(event: any) {
-  }
+  checkInput(event: any) {}
 
   public addBusiness(val?: any) {
     this.isloader = true
@@ -515,7 +517,7 @@ export class ListBusinessComponent {
       street: this.fullAddress,
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
-      image:this.levelOneImageArr
+      image: this.levelOneImageArr,
     }
     if (this.isFormFilled || this.postId || this.isParamsId) {
       this.isloader = true
@@ -552,8 +554,8 @@ export class ListBusinessComponent {
           this.getBusinessFormDetails(
             this.localStoragePostId ? this.localStoragePostId : this.postId,
           )
-          if(this.userDetailsLevel_id.level_id == '1')
-          this.router.navigateByUrl('/manage-profile/my-business')
+          if (this.userDetailsLevel_id.level_id == '1')
+            this.router.navigateByUrl('/manage-profile/my-business')
         },
         error: (err) => {
           this.isloader = false
@@ -561,8 +563,8 @@ export class ListBusinessComponent {
       })
     } else if (this.userDetailsLevel_id.level_id == '1') {
       body.final_submission = 1
-        ; (body.terms_conditions = this.term_and_condition.value),
-          (body.image = this.levelOneImageArr)
+      ;(body.terms_conditions = this.term_and_condition.value),
+        (body.image = this.levelOneImageArr)
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -570,7 +572,7 @@ export class ListBusinessComponent {
           this.isFormFilled = true
           this.postId = res.post_id
           this.isSubscriptionStepper = true
-            this.getBusinessFormDetails(this.postId)
+          this.getBusinessFormDetails(this.postId)
           this.getBusinessFormDetails(this.postId)
           this.localStorageService.saveData('postId', this.postId)
           this.businessService.isBusinessFormFilled.next(true)
@@ -668,7 +670,7 @@ export class ListBusinessComponent {
               ? this.localStoragePostId
               : this.postId
             this.businessService.storePostId.next(post_id)
-            this.router.navigate(['preview-business' , post_id])
+            this.router.navigate(['preview-business', post_id])
             // window.open(`/preview-business/${post_id}`, '_blank')
           }
           this.getBusinessFormDetails(
@@ -692,7 +694,7 @@ export class ListBusinessComponent {
           this.localStorageService.saveData('isBusinessFormFilled', 'true')
           const post_id = res.post_id
           this.businessService.storePostId.next(post_id)
-          this.router.navigate(['/preview-business' , post_id])
+          this.router.navigate(['/preview-business', post_id])
           // window.open(`/preview-business/${post_id}`, '_blank')
         },
         error: (err) => {
