@@ -1,0 +1,170 @@
+[
+    {
+        "module": "Business",
+        "links": [
+            {
+                "url": "/business-categories",
+                "name": "Business Category"
+            },
+            {
+                "url": "/business-listing",
+                "name": "Business Listing"
+            },
+            {
+                "url": "/manage-profile/my-business",
+                "name": "My Business"
+            },
+            {
+                "url": "/list-business",
+                "name": "Add Business"
+            }
+        ]
+    },
+    {
+        "module": "Events",
+        "links": [
+            {
+                "url": "/events",
+                "name": "All Events"
+            },
+            {
+                "url": "/add-event",
+                "name": "Add Event"
+            },
+            {
+                "url": "/manage-profile/manage-events",
+                "name": "My Events"
+            }
+        ]
+    },
+    {
+        "module": "Blogs",
+        "links": [
+            {
+                "url": "/user-blog",
+                "name": "User Blogs"
+            },
+            {
+                "url": "/business-blog",
+                "name": "Business Blogs"
+            }
+        ]
+    },
+    {
+        "module": "Category",
+        "links": [
+            {
+                "url": "/business-categories",
+                "name": "Business Category"
+            }
+        ]
+    },
+    {
+        "module": "Directory",
+        "links": [
+            {
+                "url": "/benefits-of-joining",
+                "name": "Our Directory"
+            }
+        ]
+    },
+    {
+        "module": "Resources",
+        "links": [
+            {
+                "url": "/resources",
+                "name": "Resources"
+            }
+        ]
+    },
+    {
+        "module": "Contact",
+        "links": [
+            {
+                "url": "/contact-us",
+                "name": "Contact Us"
+            }
+        ]
+    },
+    {
+        "module": "Privacy",
+        "links": [
+            {
+                "url": "/manage-profile/privacy",
+                "name": "Privacy"
+            }
+        ]
+    },
+    {
+        "module": "ADS",
+        "links": [
+            {
+                "url": "/manage-profile/manage-ads",
+                "name": "Manage ADS"
+            }
+        ]
+    },
+    {
+        "module": "Subscription",
+        "links": [
+            {
+                "url": "/manage-profile/subscription",
+                "name": "Manage Subscription"
+            }
+        ]
+    },
+    {
+        "module": "Billing Address",
+        "links": [
+            {
+                "url": "/manage-profile/billing-address",
+                "name": "Billing Address"
+            }
+        ]
+    },
+    {
+        "module": "Manage Bookings",
+        "links": [
+            {
+                "url": "/manage-profile/manage-bookings",
+                "name": "Manage Bookings"
+            }
+        ]
+    },
+    {
+        "module": "Manage Coupons",
+        "links": [
+            {
+                "url": "/manage-profile/manage-coupons",
+                "name": "Manage Coupons"
+            }
+        ]
+    },
+    {
+        "module": "Analytics",
+        "links": [
+            {
+                "url": "/analytics",
+                "name": "Analytics"
+            }
+        ]
+    },
+    {
+        "module": "Setting",
+        "links": [
+            {
+                "url": "/manage-profile/setting",
+                "name": "setting"
+            }
+        ]
+    },
+    {
+        "module": "Profile",
+        "links": [
+            {
+                "url": "/manage-profile",
+                "name": "Manage Profile"
+            }
+        ]
+    }
+]

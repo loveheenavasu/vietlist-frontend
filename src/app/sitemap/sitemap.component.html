@@ -1,0 +1,22 @@
+<section class="banner top-banner">
+  <div class="content">
+    <h1>SITEMAP</h1>
+  </div>
+</section>
+
+<div class="sitemap-container">
+  <div class="links-container">
+    <div class="row">
+        @for (item of links; track $index) {
+            <div class="col-3 my-3 ">
+              <span class='module-title' > {{item.module}} </span>
+              <ul class='p-0 list-unstyled mt-2 ' >
+                @for (link of item.links; track $index) {
+                    <li class='links' (click)="router.navigateByUrl(link.url)" > {{link.name}} </li>
+                }
+              </ul>
+            </div>
+        }
+    </div>
+  </div>
+</div>
