@@ -166,4 +166,10 @@ export class HomepageService {
     let params = new HttpParams().set('resource_id', resource_id)
     return this.http.get<any>(endpoint, {headers:authToken , params: params })
   }
+
+  public getTerms_Legaldata(page:any){
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.TermsAndLegal)
+     let params = new HttpParams().set('page', page)
+    return this.http.get<any>(endpoint, {params: params })
+  }
 }

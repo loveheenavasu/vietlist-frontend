@@ -360,7 +360,7 @@ export class ConfirmPaymentComponent {
       coupon_code: this.coupon_code.value,  
       event_price: this.eventPrice,
       event_id: this.eventIds?.eventId, 
-      number_of_booking:this.numberOfBooking
+      number_of_booking:this.eventIds?.numberOfBooking
     }
     this.eventService.applCoupon(body).subscribe({
       next: (res) => {
