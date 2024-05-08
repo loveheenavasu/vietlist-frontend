@@ -54,6 +54,8 @@ import { AnalyticsComponent } from './analytics'
 import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
 import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
 import { ForUsersComponent } from './landing-page/views/for-users/for-users.component'
+import { TermsComponent } from './landing-page/views/terms/terms.component'
+import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-policy.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -272,6 +274,14 @@ export default [
   {
     path: 'for-business',
     loadComponent: () => ForBusinessComponent,
+  },
+  {
+    path:'terms-conditions',
+    loadComponent:()=>TermsComponent
+  },
+  {
+    path:'legal-policy',
+    loadComponent:()=>LegalPolicyComponent
   },
   {
     path: 'resources',

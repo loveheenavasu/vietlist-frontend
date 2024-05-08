@@ -144,12 +144,12 @@ export class BusinessService {
 
   public getAllVideoIntegration(post_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetAllVideo)
-    const authToken = this.authService.getAuthHeaders()
+    // const authToken = this.authService.getAuthHeaders()
     // const randomQueryParam = `nocache=${Math.random().toString(36).substring(7)}`
     const params = new HttpParams()
       .set('post_id', post_id)
       .set('nocache=', Math.random().toString(36).substring(7))
-    return this.http.get<any>(endpoint, { headers: authToken, params: params })
+    return this.http.get<any>(endpoint, {params: params })
   }
 
   public deleteVideo(videoId: any): Observable<any> {

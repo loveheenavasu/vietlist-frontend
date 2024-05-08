@@ -4,7 +4,7 @@
   <!-- <div class="container"> -->
   <div class="row">
     <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img">
-      <img src="/assets/icons/brand-logo.svg" alt="Logo"  (click)="gotohome()"/>
+      <img src="/assets/icons/brand-logo.svg" alt="Logo"  style="cursor:pointer" (click)="gotohome()"/>
     </div>
     <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
       <h3>Quick Links</h3>
@@ -127,8 +127,8 @@
       <ul>
         <li class="links" (click)="navigateTo('/faq')">FAQ</li>
         <li class="links">Sitemap</li>
-        <li class="links">Legal Policy</li>
-        <li class="links">Terms & Conditions</li>
+        <li class="links" (click)="navigateTo('/legal-policy')">Legal Policy</li>
+        <li class="links" (click)="navigateTo('/terms-conditions')">Terms & Conditions</li>
       </ul>
     </div>
     <div class="col-12 col-md-6 col-lg-3">
@@ -231,8 +231,8 @@
       <ul>
         <li class="links" (click)="navigateTo('/faq')">FAQ</li>
         <li class="links">Sitemap</li>
-        <li class="links">Legal Policy</li>
-        <li class="links">Terms & Conditions</li>
+        <li class="links" (click)="navigateTo('/legal-policy')">Legal Policy</li>
+        <li class="links" (click)="navigateTo('/terms-conditions')">Terms & Conditions</li>
       </ul>
     </div>
     <div class="col-12 col-md-6">
