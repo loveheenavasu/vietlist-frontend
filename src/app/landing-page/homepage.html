@@ -62,10 +62,12 @@
     [adDetails]="adDetails"></app-blog-news>
 </section>
 <section>
-  <app-events [homePageData]="homePageData"></app-events>
+  @if (collectionAd && homePageData) {
+    <app-events (bannerClick)="CountClickStats($event.adId, $event.spaceId)" [collectionAd]="collectionAd" [homePageData]="homePageData"></app-events>
+  }
 </section>
 <section>
-  <app-testimonials></app-testimonials>
+    <app-testimonials ></app-testimonials>
 </section>
 <section>
   <app-explaining-platform [homePageData]="homePageData"></app-explaining-platform>

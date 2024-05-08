@@ -41,19 +41,36 @@
       }
     </div>
   </div>
-  <div class="new-collection-features container-fluid">
+  <div class="new-collection-features container-fluid p-0 ">
     <div
       class="collection-description-wrapper d-flex justify-content-center align-items-center"
     >
-      <div class="description">
-        <p>
-          Our new collection features all of this summer's on-trend colors! Make
-          the world brighter with us!
-        </p>
-      </div>
-      <div class="view-collection">
-        <button class="btn orange-background-btn">view collection</button>
-      </div>
+    @if (collectionAd) {
+      <swiper-container #collectionSwiperr class="mySwiper" init="false">
+  
+        @for (key of collectionAd; track $index) {
+        <swiper-slide>
+          <div class="banner-img" (click)="CountClickStats(key?.id,key?.space_id)"
+            style="background-image: url({{key?.img}})">
+            <div class="banner-text overlay ">
+              <div class="infoo">
+                <h3>{{key?.title}}</h3>
+                <p>
+                  {{ key.description.length > 230 ? (key.description.slice(0, 227) + '...') : key.description }}
+                </p>
+              </div>
+              @if (key?.url) {
+              <button class="btn" (click)="getUrl(key?.url)">
+                Explore
+              </button>
+              }
+            </div>
+          </div>
+        </swiper-slide>
+        }
+      </swiper-container>
+  
+      }
     </div>
   </div>
 </section>
