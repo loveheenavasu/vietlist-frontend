@@ -100,7 +100,7 @@ export class RegisterComponent {
     this.signupForm = this.fb.nonNullable.group(
       {
         username: ['', Validators.required],
-        password: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
         email: [
           '',
           [

@@ -119,7 +119,14 @@
                 ></i>
               </span>
             </div>
+            @if(signupForm.get('password')?.touched && signupForm.get('password')?.hasError('pattern')){
+              <span class="error-message">Password must contain uppercase , lowercase , number & special character</span>
+            }
+            @if(signupForm.get('password')?.touched && signupForm.get('password')?.hasError('minlength')){
+              <p class="error-message">Minimum length should be 6</p>
+            }
           </div>
+      
         </div>
 
         <div class="col-12">
