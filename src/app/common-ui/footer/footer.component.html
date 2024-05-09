@@ -27,7 +27,7 @@
             <div>
               <img src="/assets/icons/mdi_location-radius.svg" />
             </div>
-            <div>
+            <div class="links" (click)="openGoogleMaps()">
               {{ footerPageContent?.contact?.address }}
             </div>
           </div>
@@ -48,7 +48,7 @@
             <div>
               <img src="/assets/icons/ri_whatsapp-fill.svg" />
             </div>
-            <div>
+            <div style="cursor: pointer;" class="links" (click)="redirectToWhatsApp()">
               +1
               {{ footerPageContent?.contact?.phone_number }}
             </div>
@@ -59,7 +59,7 @@
             <div>
               <img src="/assets/icons/email.svg" />
             </div>
-            <div>
+            <div class="links" (click)="redirectToMail()">
               {{ footerPageContent?.contact?.email }}
             </div>
           </div>
@@ -186,7 +186,7 @@
             <div>
               <img src="/assets/icons/mdi_location-radius.svg" />
             </div>
-            <div>
+            <div class="links" (click)="openGoogleMaps()">
               {{ footerPageContent?.contact?.address }}
             </div>
           </div>
@@ -203,7 +203,7 @@
           </div>
         </li>
         <li>
-          <div class="d-flex info-wrapper">
+          <div class="d-flex info-wrapper" style="cursor: pointer;" class="links" (click)="redirectToWhatsApp()">
             <div>
               <img src="/assets/icons/ri_whatsapp-fill.svg" />
             </div>
@@ -218,7 +218,7 @@
             <div>
               <img src="/assets/icons/email.svg" />
             </div>
-            <div>
+            <div class="links" (click)="redirectToMail()">
               {{ footerPageContent?.contact?.email }}
             </div>
           </div>

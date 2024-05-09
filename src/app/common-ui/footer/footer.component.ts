@@ -10,11 +10,12 @@ import { Router, RouterLink } from '@angular/router'
 import { AuthenticationService } from '@vietlist/shared'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import Swal from 'sweetalert2'
+import { ClipboardModule } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterLink ],
+  imports: [FormsModule, ReactiveFormsModule,RouterLink,ClipboardModule ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -22,7 +23,10 @@ export class FooterComponent {
   public footerPageContent?: any
   public newsLetterSubscribeForm!: FormGroup
   public userDetail:any;
-  
+  email = 'example@example.com'; // Replace with the recipient email address
+  subject = 'Hello'; // Replace with the email subject
+  body = 'Hello, I hope you are doing well';
+
   constructor(
     private footerContent: HomepageService,
     private fb: FormBuilder,
@@ -88,4 +92,21 @@ export class FooterComponent {
   public gotohome(){
     this.router.navigateByUrl('/')
   }
+
+  public redirectToWhatsApp() {
+    const whatsappUrl = `https://wa.me/${this.footerPageContent?.contact?.phone_number}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  public redirectToMail(){
+    const mailToUrl = `mailto:${this.footerPageContent?.contact?.email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`;
+    window.location.href = mailToUrl;
+
+  }
+
+  public openGoogleMaps() {
+    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.footerPageContent?.contact?.address)}`;
+    window.open(googleMapsUrl, '_blank');
+  }
+ 
 }
