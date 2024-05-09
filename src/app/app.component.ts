@@ -1,3 +1,4 @@
+import { ErrorHandlerInterceptor } from '@vietlist/shared';
 import { NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
@@ -20,6 +21,8 @@ import { Observable } from 'rxjs'
 import { initializeApp } from 'firebase/app'
 import Swal from 'sweetalert2'
 import { ProfileService } from './manage-profile/service/profile.service'
+import { errorMessageSubject } from './shared/utils/interceptor/errorhandler';
+
 initializeApp(environment.firebaseConfig)
 @Component({
   selector: 'app-root',
@@ -54,7 +57,7 @@ export class AppComponent {
     private changeDetector: ChangeDetectorRef,
     private oneSignal: OneSignal,
     private notificationService: NotificationService,
-    private profileService: ProfileService,
+    private profileService: ProfileService
     
   ) {
     // this.oneSignal.init({
@@ -62,6 +65,9 @@ export class AppComponent {
     // });
     this.authenticationService.isAuthenticated$.subscribe((res:any) => {
       this.isAuthenticated = res
+    })
+    errorMessageSubject.subscribe((res)=>{
+      console.log(res,'RESPONSE')
     })
   }
 
