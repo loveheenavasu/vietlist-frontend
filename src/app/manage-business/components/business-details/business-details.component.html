@@ -1,4 +1,4 @@
-@if (eventDetails?.choose_layout === 'Standard layout') {
+@if (eventDetails?.choose_layout?.toLowerCase() === 'standard layout') {
   <section class="banner" style="position: relative">
     <div class="content" style="width: 100%">
       <h1 style="text-transform: uppercase">
@@ -28,6 +28,13 @@
         ></ngb-rating>
       </div>
     </div>
+    @if (checkIsClaimButtonVisible(eventDetails, userDetail)) {
+      <div class="iconDirection__">
+        <button class="cliam__" (click)="claimlisting(eventDetails)">
+          Claim Business
+        </button>
+      </div>
+    }
     <div class="iconDirection">
       @if (eventDetails?.facebook) {
         <div class="elementor-grid-item" style="background: #3b5998">
