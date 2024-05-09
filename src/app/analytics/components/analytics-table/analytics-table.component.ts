@@ -21,7 +21,7 @@ export class AnalyticsTableComponent implements AfterViewInit {
   @Input() currentPage = 0
   @Input() totalItems = 0
   @Input() itemsPerPage = 0
-  @Input() data: any
+  @Input() data: any[] = []
   @Input() columns: any
   @Input() rowAccessor: any
   @Input() timePeriod: any
@@ -39,9 +39,6 @@ export class AnalyticsTableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.data, 'data')
-    console.log(this.columns, 'columns')
-    console.log(this.rowAccessor, 'rowAccessor')
     this.colspan = this.columns?.length
   }
 }
