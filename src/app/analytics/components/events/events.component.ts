@@ -30,8 +30,8 @@ export class EventsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.fullPageLoader.hideLoader()
-          this.dataa = res?.data
-          this.totalItems = res?.total_count
+          this.dataa = res?.data || []
+          this.totalItems = res?.total_count || 0
         },
         error: (err) => {
           this.fullPageLoader.hideLoader()
@@ -49,7 +49,6 @@ export class EventsComponent implements OnInit {
 
   handleTimePeriodChange(e: any) {
     this.timePeriod = e
-    console.log(e, 'kkkkkkkkk')
     this.getAnalyticsData()
   }
 

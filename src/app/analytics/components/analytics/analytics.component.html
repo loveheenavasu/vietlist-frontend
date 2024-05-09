@@ -33,33 +33,42 @@
 
 <div class="koko">
   <tabset>
-    <tab heading="Listings" id="tab1">
-      <section class="background_section">
-        <div class="container">
-          <app-business-listing></app-business-listing>
-        </div>
-      </section>
+    <tab (selectTab)="currentTab($event)" heading="Listings" id="listing">
+      @if (activeTab === 'listing') {
+        <section class="background_section">
+          <div class="container">
+            <app-business-listing></app-business-listing>
+          </div>
+        </section>
+      }
     </tab>
-    <tab heading="Events" id="tab2">
-      <section class="background_section">
-        <div class="container">
-          <app-events></app-events>
-        </div>
-      </section>
+    <tab (selectTab)="currentTab($event)" heading="Events" id="event">
+      @if (activeTab === 'event') {
+        <section class="background_section">
+          <div class="container">
+            <app-events></app-events>
+          </div>
+        </section>
+      }
     </tab>
-    <tab heading="Booking" id="tab3">
-      <section class="background_section">
-        <div class="container">
-          <app-booking-analytics></app-booking-analytics>
-        </div>
-      </section>
+    <tab (selectTab)="currentTab($event)" heading="Booking" id="booking">
+      @if (activeTab === 'booking') {
+        
+        <section class="background_section">
+          <div class="container">
+            <app-booking-analytics></app-booking-analytics>
+          </div>
+        </section>
+      }
     </tab>
-    <tab heading="Ads" id="tab4">
-      <section class="background_section">
-        <div class="container">
-          <app-ads-analytics></app-ads-analytics>
-        </div>
-      </section>
+    <tab (selectTab)="currentTab($event)" heading="Ads" id="ads">
+      @if (activeTab === 'ads') {
+        <section class="background_section">
+          <div class="container">
+            <app-ads-analytics></app-ads-analytics>
+          </div>
+        </section>
+      }
     </tab>
   </tabset>
 </div>
