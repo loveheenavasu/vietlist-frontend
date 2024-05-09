@@ -24,7 +24,7 @@
                             </div>
                             <div class="ads-description">
                                 <div class="ads-title">
-                                    <h4>{{key.ad_data.title}}</h4>
+                                    <h4 [innerHtml]="key.ad_data.title | truncateHtml:22"></h4>
                                 </div>
                                 <div class="ads-desc">
                                     <p>{{key.ad_data.description}}</p>

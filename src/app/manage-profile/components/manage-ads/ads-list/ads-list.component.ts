@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared';
 import Swal from 'sweetalert2'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 
 @Component({
   selector: 'app-ads-list',
   standalone: true,
-  imports: [],
+  imports: [TruncateHtmlPipe],
   templateUrl: './ads-list.component.html',
   styleUrl: './ads-list.component.scss'
 })

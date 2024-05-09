@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { EventService } from 'src/app/manage-event/service/event.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 
 @Component({
   selector: 'app-my-events',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe,TruncateHtmlPipe],
   templateUrl: './my-events.component.html',
   styleUrl: './my-events.component.scss'
 })

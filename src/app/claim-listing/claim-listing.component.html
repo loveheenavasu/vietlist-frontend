@@ -42,16 +42,21 @@
           </div>
         </div>
 
-        <ngx-intl-tel-input [cssClass]="'input-control'" formControlName="phone_number"
-          [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true" [enablePlaceholder]="true"
-          [searchCountryFlag]="true" [searchCountryField]="[
-            SearchCountryField.Iso2,
-            SearchCountryField.Name
-          ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [phoneValidation]="true"
-          [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone">
+        <ngx-intl-tel-input formControlName="phone_number"
+        #countryList [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
+        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true"
+        [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone">
 
         </ngx-intl-tel-input>
-
+      @if (
+        claimBusinessForm.get('phone_number')?.touched &&
+        claimBusinessForm.get('phone_number')?.hasError('validatePhoneNumber')
+          ) {
+            <span class="error-message">Invalid phone number.</span>
+          }
         <div class="col-12 mt-3">
           <div class="form-group">
             <input class="input-control" type="text" [formControl]="position_business"
