@@ -10,12 +10,13 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router'
 import { FullPageLoaderService, AuthenticationService } from '@vietlist/shared'
 
 import { BusinessService } from 'src/app/manage-business/service/business.service'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 import { EventService } from '../../service/event.service'
 
 @Component({
   selector: 'app-booking-detail',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgIf],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgIf , TruncateHtmlPipe],
   templateUrl: './booking-detail.component.html',
   styleUrl: './booking-detail.component.scss',
 })

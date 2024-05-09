@@ -46,10 +46,10 @@
         </h3>
         <hr />
         <p>Number of Bookings : {{bookingInfo?.number_of_booking}}</p>
-        <p>Booking Price : $ {{bookingInfo?.booking_price}}</p>
+        <p>Booking Price : ${{bookingInfo?.booking_price}}</p>
         <p>Booking Status : {{bookingInfo?.booking_status}}</p>
         <p>Booking By: {{bookingInfo?.first_name}} {{bookingInfo?.last_name}}</p>
-        <p>Amount After Discount: ${{bookingInfo?.booking_transection[0].price}}</p>
+        <p>Amount After Discount: ${{bookingInfo?.booking_transection[0].total_amount}}</p>
       </div>
 
     </div>
@@ -67,24 +67,26 @@
               <tr>
                 <th>Booking Id</th>
                 <th>Event Id</th>
-                <th>Price</th>
+                <th>Event Name</th>
+                <th>Price (Per person)</th>
                 <th>Number of Booking</th>
                 <th>Total Amount</th>
               </tr>
 
             </thead>
             <tbody>
-              @for(key of bookingInfo?.booking_transection ; track $index){
+              <!-- @for(key of bookingInfo?.booking_transection ; track $index){ -->
               <tr>
-                <td>{{key.booking_id}}</td>
-                <td>{{key.event_id}}</td>
-                <td>$ {{key?.price}}</td>
+                <td>{{bookingInfo?.booking_transection[0].booking_id}}</td>
+                <td>{{bookingInfo?.booking_transection[0].event_id}}</td>
+                  <td [innerHtml]="bookingInfo?.event_title | truncateHtml:22"></td>
+                <td>$ {{bookingInfo?.booking_transection[0]?.price}}</td>
                 <td>{{bookingInfo?.number_of_booking}}</td>
-                <td>$ {{key?.total_amount}}</td>
+                <td>${{bookingInfo?.booking_transection[0]?.total_amount}}</td>
 
                 <!-- Add more data cells as needed -->
               </tr>
-              }
+              <!-- } -->
               <!-- Add more rows of data as needed -->
             </tbody>
           </table>
