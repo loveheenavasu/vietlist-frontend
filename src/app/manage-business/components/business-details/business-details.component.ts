@@ -457,6 +457,7 @@ export class BusinessDetailsComponent {
         this.eventDetails = res?.data[0]
 
         this.openingHour = this.parse(res?.data[0]?.business_hours)
+
         this.eventLocation = res?.data[0]?.street
         // if (this.eventDetails?.video_upload?.length) {
         this.videoUrl.push({

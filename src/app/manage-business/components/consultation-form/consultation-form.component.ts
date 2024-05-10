@@ -63,12 +63,11 @@ export class ConsultationFormComponent {
 
     let businessHours = this.parse(value?.business_hours)
     // this.showTimeTable = true;
-    this.selectedData = this.changeTimeZoneFormat([
-      businessHours.pop(),
-      businessHours.pop(),
-    ])
-    // businessHours?.splice(businessHours?.length - 2, 2)
-    // Africa - UTC+01:00
+    let selectedTimeZone = this.changeTimeZoneFormat(businessHours.pop())
+    if (selectedTimeZone) {
+      this.selectedData = selectedTimeZone
+    }
+
     const hours = businessHours.flat()?.map((item: any) => [item])
 
     const formattedDays = hours?.map((day: any) => {
@@ -93,7 +92,6 @@ export class ConsultationFormComponent {
         }
       })
     })
-    console.log(this.days, 'dayslll')
 
     const controls = [
       'consultation_booking_link',
@@ -131,6 +129,7 @@ export class ConsultationFormComponent {
   public selectedData: any
   public selectedTimeZone: any
   public isFormFilled: boolean = false
+  public currentSelectedWeek: any[] = []
   public filess: any
   public Timezone: {
     region: string
@@ -230,48 +229,71 @@ export class ConsultationFormComponent {
 
     const localData = this.localstorage.getData('isConsultationFormFilled')
     this.isFormFilled = Boolean(localData)
-  } //end constrctor
-
-  parse(originalStr: string) {
-    const cleanedStr = originalStr.replace(/\\|"/g, '')
-
-    // Convert the cleaned string to a valid JSON string
-    const validJsonStr = `[${cleanedStr
-      .split('][')
-      .map(
-        (arr) =>
-          `${arr
-            .split(',')
-            .map((val) => `"${val.replaceAll(']', '').replaceAll('[', '')}"`)
-            .join(',')}`,
-      )
-      .join(',')}]`
-
-    // Parse the valid JSON string
-    return JSON.parse(validJsonStr)
   }
 
-  changeTimeZoneFormat(originalArray: string[]) {
-    var timezone = ''
-    var offset = ''
+  ngAfterViewInit() {
+    this.addData()
+  }
 
-    // Iterate over the array to extract timezone and offset
-    originalArray.forEach(function (element) {
-      var parts = element.split(':')
-      var key = parts[0]
-      var value = parts[1]
-      var thirdTime = parts?.[2]
+  parse(originalStr: string): any[] {
+    if (originalStr) {
+      const cleanedStr = originalStr.replace(/\\|"/g, '')
+      // Remove the outermost square brackets
+      const trimmedStr = cleanedStr.slice(1, -1)
+      // Split the string into an array of substrings
+      const substrings = trimmedStr.split('],[')
 
-      if (key === 'Timezone') {
-        timezone = value
-      } else if (key === 'UTC') {
-        offset = value.slice(1, value.length) + ':' + thirdTime
+      // Extract the first substring and flatten it
+      const firstArray = substrings[0].replace(/\[|\]/g, '').split(',')
+      const flattenedFirstArray = firstArray.map((item) => item.trim())
+
+      // Extract the second substring and join its elements into a single string
+      const secondArray = substrings[1].replace(/\[|\]/g, '').split(',')
+      const joinedSecondArray = secondArray.join(' ')
+
+      // Combine the elements of the first array with the joined elements of the second array
+      const result = [...flattenedFirstArray, joinedSecondArray]
+
+      return result
+    } else {
+      return []
+    }
+  }
+
+  changeTimeZoneFormat(str: string) {
+    if (str) {
+      // Split the string into parts using the space character
+      const parts = str.split(' ')
+
+      // Find the UTC offset part (e.g., "UTC:++03:00")
+      const utcPart = parts.find((part) => part.startsWith('UTC:'))
+
+      // If there is no UTC offset part, return the original string
+      if (!utcPart) {
+        return str
       }
-    })
 
-    // Construct the desired string format
-    var resultString = timezone + ' - UTC' + offset
-    return resultString
+      // Extract the offset value from the UTC part (e.g., "++03:00")
+      const offset = utcPart.slice(4)
+
+      // Find the timezone name part (e.g., "Timezone:Africa")
+      const timezonePart = parts.find((part) => part.startsWith('Timezone:'))
+
+      // If there is no timezone name part, return the original string
+      if (!timezonePart) {
+        return str
+      }
+
+      // Extract the timezone name (e.g., "Africa")
+      const name = timezonePart.slice(9)
+
+      // Construct the formatted string
+      const formattedString = `${name} - UTC${offset.replace('+', '')}`
+
+      return formattedString
+    } else {
+      return ''
+    }
   }
 
   public formatData() {
@@ -480,10 +502,12 @@ export class ConsultationFormComponent {
     const checked = (event.target as HTMLInputElement).checked
 
     if (checked) {
-      this.selectedWeek.push(dayName)
+      this.pushDay(dayName)
+      // this.selectedWeek.push(dayName)
     } else {
       this.selectedWeek = this.selectedWeek.filter((day) => day !== dayName)
     }
+    this.currentSelectedWeek = [...this.selectedWeek]
   }
 
   onSubmit() {}
@@ -494,8 +518,8 @@ export class ConsultationFormComponent {
   }
 
   pushDay(day: any) {
-    if (!this.selectedWeek.includes(day?.name)) {
-      this.selectedWeek.push(day?.name)
+    if (!this.selectedWeek.includes(day)) {
+      this.selectedWeek.push(day)
     }
   }
 
@@ -505,12 +529,33 @@ export class ConsultationFormComponent {
       return false
     }
     if (times[0].start === times[0].end) {
-      this.pushDay(day)
+      this.pushDay(day?.name)
       return true
     } else {
-      this.pushDay(day)
+      this.pushDay(day?.name)
       return false
     }
+  }
+  pusDay(day: any) {
+    if (!this.currentSelectedWeek.includes(day)) {
+      this.currentSelectedWeek.push(day)
+    }
+  }
+
+  addData() {
+    this.days.map((day) => {
+      let { times } = day
+      if (!times[0].start && !times[0].end) {
+        return false
+      }
+      if (times[0].start === times[0].end) {
+        this.pusDay(day?.name)
+        return true
+      } else {
+        this.pusDay(day?.name)
+        return false
+      }
+    })
   }
 
   formatTimezone(timeZone: string[]) {
@@ -532,19 +577,18 @@ export class ConsultationFormComponent {
       var newJsonString = JSON.stringify(newArray)
       return newJsonString.replaceAll('{', '').replaceAll('}', '')
     } else {
-      return [null]
+      return []
     }
   }
 
   public addBusiness(): void {
     this.isLoader = true
     const selectedDaysData = this.days.filter((day) =>
-      this.selectedWeek.includes(day.name),
+      this.currentSelectedWeek.includes(day.name),
     )
-    console.log(
-      selectedDaysData,
-      'selectedDaysDataselectedDaysDataselectedDaysData',
-    )
+    console.log(this.currentSelectedWeek, 'this.selectedWeek')
+    console.log(selectedDaysData, 'selectedDaysData')
+
     const jsonData: { [key: string]: string[] } = {} // Use an object to group times by day
 
     selectedDaysData.forEach((day) => {
@@ -559,14 +603,23 @@ export class ConsultationFormComponent {
     })
 
     // const resultArray = Object.keys(jsonData).map(day => `${day} ${jsonData[day].join(', ')}`);
-    const resultArray = this.selectedWeek.map((day) => {
+    const resultArray = this.currentSelectedWeek.map((day) => {
       const times = jsonData[day] ? jsonData[day].join(',') : ''
       return `${day} ${times}`
     })
     console.log(resultArray, 'resultArray')
 
     const selectedData = this.formatTimezone([this.selectedData])
-    const businessHours = `${JSON.stringify(resultArray)},${selectedData}`
+    let businessHours = null
+    if (selectedData?.length || resultArray?.length) {
+      if (selectedData?.length) {
+        businessHours = `${JSON.stringify(resultArray)},${selectedData}`
+      } else {
+        businessHours = `${JSON.stringify(resultArray)},[]`
+      }
+    }
+    console.log(selectedData, resultArray, 'lplplplplpl')
+    console.log(this.selectedData, 'polplplplplpl')
 
     this.isLoader = true
     const body = {
