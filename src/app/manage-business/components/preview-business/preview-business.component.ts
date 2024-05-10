@@ -223,14 +223,7 @@ export class PreviewBusinessComponent {
         // this.post_category=this.businessFormDetails.post_category?.map((category: any) => category?.id),
         // this.default_category= this.businessFormDetails.default_category ? this.businessFormDetails.default_category.id : 'NA'
 
-        // this.street = this.businessFormDetails.street;
-        // this.latitude = this.businessFormDetails.latitude;
-        // this.longitude = this.businessFormDetails.longitude;
-        // this.zipcode = this.businessFormDetails.zip;
-        // this.state = this.businessFormDetails.region ;
-        // this.country = this.businessFormDetails.country;
-        // this.city = this.businessFormDetails.city;
-        // this.post_tags = this.businessFormDetails.post_tags?.map((tag:any)=>tag.id )
+        this.initMap()
       },
       error: (err) => {},
     })
@@ -327,8 +320,9 @@ export class PreviewBusinessComponent {
           this.fullPageLoaderService.hideLoader()
           ;(this.eventDetails = res?.data[0] || 'NA'),
             (this.overllRating = Number(res.data[0].overall_rating))
-          ;(this.latitude = Number(this.eventDetails?.latitude)),
-            (this.longitude = Number(this.eventDetails?.longitude))
+          this.latitude = Number(this.eventDetails?.latitude)
+
+          this.longitude = Number(this.eventDetails?.longitude)
           this.initMap()
         },
         error: (err: any) => {
