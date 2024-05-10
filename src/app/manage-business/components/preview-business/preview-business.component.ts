@@ -9,6 +9,7 @@ import {
   HostListener,
 } from '@angular/core'
 import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
 import {
   FormBuilder,
@@ -46,6 +47,7 @@ import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add
     MatDatepickerModule,
     MatIconModule,
     MatDialogModule,
+    TruncateHtmlPipe,
     MatButtonModule,
   ],
   templateUrl: './preview-business.component.html',
@@ -158,7 +160,7 @@ export class PreviewBusinessComponent {
   ngOnInit() {
     if (this.postId) {
       this.getBusinessFormDetails()
-      this.getAllVideosList(this.postId)
+
       // this.getVideosList(this.postId, this.videoTab)
     }
     this.authService.userDetails.subscribe((res: any) => {
@@ -199,6 +201,7 @@ export class PreviewBusinessComponent {
         if (this.businessFormDetails?.video_url) {
           this.videoUrl.push(this.businessFormDetails?.video_url)
         }
+        this.getAllVideosList(this.postId)
         if (this.businessFormDetails.event_id) {
           this.getEventDetails()
         }
@@ -209,6 +212,7 @@ export class PreviewBusinessComponent {
         this.logo = res?.data[0]?.logo
         this.latitude = Number(this.businessFormDetails.latitude)
         this.longitude = Number(this.businessFormDetails.longitude)
+        this.cd.detectChanges()
         this.initMap()
         // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
         // this.post_content = this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',
@@ -640,6 +644,8 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.videosTypeArr = res.data || []
         if (this.videoTab == 'all') {
+          console.log('alllllli')
+          console.log(this.videoUrl, 'videoUrlvideoUrl')
           this.videosTypeArr?.push(
             ...this.videoUrl?.map((elem: any) => {
               return {
@@ -671,7 +677,16 @@ export class PreviewBusinessComponent {
       data: { item, index }, // Pass item and index as data
     })
   }
-  public formatDate(dateString: string): string {
+
+  show247(time: string): string {
+    let slicedTime = time.slice(3, time.length)
+
+    if (slicedTime === '00:00-00:00') {
+      return `${time.slice(0, 2)} 24HR`
+    } else return time
+  }
+  public formatDate(dateString: string, callFrom?: string): string {
+    console.log(dateString, 'dateString', callFrom)
     if (!dateString) return ''
 
     const date = new Date(dateString)

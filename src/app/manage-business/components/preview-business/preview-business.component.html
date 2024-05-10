@@ -44,8 +44,8 @@
         </ul>
       </div> -->
   
-    <div class="koko">
-      <div class="section-container">
+    <!-- <div class="koko"> -->
+      <!-- <div class="section-container">
         <ul class="list-items">
           <li
             (click)="scrollTo('profile')"
@@ -125,8 +125,8 @@
             Certifications
           </li>
         </ul>
-      </div>
-    </div>
+      </div> -->
+    <!-- </div> -->
   
     <section class="background_section">
       <div class="container">
@@ -239,7 +239,7 @@
                   >
                   <div class="media-body">
                     <p *ngFor="let time of openingHour" class="mt-0">
-                      {{ time }}
+                      {{show247(time) }}
                     </p>
                     <p></p>
                   </div>
@@ -533,7 +533,47 @@
               </div>
             </div>
             @if (eventDetails) {
-              <div class="profile-info-divs mt-4" id="event-promo">
+              <h3 style="color: black" class="event-heading mt-4 ">Event Detail</h3>
+              <hr>
+              <div class="event-wrapper mt-4"  >
+                <div class="listing-img" (click)="gotToEventDetails(eventDetails.post_id, true)"
+                  [style.background-image]="'url(' + (eventDetails.featured_image ? eventDetails.featured_image : '/assets/image/no-image.webp') + ')'">
+                  <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
+                  <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
+                  } @else {
+                  <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+                  } -->
+    
+                </div>
+                <div class="listing-description">
+                  <div class="listing-heading">
+                    <h3 (click)="gotToEventDetails(eventDetails.post_id, true)" [innerHtml]="eventDetails?.post_title | truncateHtml:84">
+                      <!-- {{ eventDetails.post_title }} -->
+                    </h3>
+                  </div>
+                  <div class="listing-info">
+                    <li class="post-content"  [innerHtml]="eventDetails?.post_content | truncateHtml:84"></li>
+                    @if (eventDetails?.event_dates?.start_date||eventDetails?.event_dates?.end_date) {
+
+                      <li style="padding-bottom: 5px;">
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                        {{ eventDetails?.event_dates?.start_date | date: 'longDate' ||'' }} - {{eventDetails?.event_dates?.end_date | date:
+                      'longDate'||''}}
+                      <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                        {{formatDate( key?.event_dates?.end_time)}} -->
+                      </li>
+                    }
+                    @if (eventDetails?.event_dates?.start_time||eventDetails?.event_dates?.end_time ) {
+                      <li>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        Starts From: {{eventDetails?.event_dates?.start_time || ''}} -
+                        Ends: {{eventDetails?.event_dates?.end_time ||''}}
+                      </li>
+                    }
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="profile-info-divs mt-4" id="event-promo">
                 <h3 style="color: black" class="event-heading">Event Detail</h3>
                 <div class="info-cont">
                   <div class="event-venuee" *ngIf="businessFormDetails?.street">
@@ -621,7 +661,7 @@
                     </div>
                   }
                 </div>
-              </div>
+              </div> -->
             }
             <div class="row my-4" id="mapView">
               <div class="col-12 col-md-12 col-lg-12">
@@ -733,8 +773,6 @@
     </section>
   }
 @else {
-
-
 <section class="banner" style="position: relative">
   <div class="content" style="width: 100%">
     <h1 style="text-transform: uppercase">
@@ -1445,7 +1483,7 @@
             *ngFor="let time of openingHour"
             class="mt-0"
             >
-            {{ time }}
+            {{show247(time) }}
           </p>
           <p></p>
         </div>

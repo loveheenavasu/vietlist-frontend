@@ -25,6 +25,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LoaderComponent } from 'src/app/common-ui'
@@ -63,6 +64,7 @@ import { VideoPlayComponent } from '../../video-play/video-play.component'
     LoaderComponent,
     MatIconModule,
     TabsModule,
+    TruncateHtmlPipe,
   ],
   templateUrl: './business-details.component.html',
   styleUrl: './business-details.component.scss',
@@ -288,6 +290,12 @@ export class BusinessDetailsComponent {
     })
   }
 
+  public gotToEventDetails(id: any, isGlobal: any) {
+    this.router.navigate(['/event-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
+  }
+
   ngOnInit() {
     this.getIntegrationVideo()
     // this.getBusinessCat()
@@ -308,7 +316,7 @@ export class BusinessDetailsComponent {
 
     if (this.postId) {
       this.businessListing = false
-      this.getEventDetails()
+      // this.getEventDetails()
     }
     this.getReviews()
 
@@ -459,7 +467,9 @@ export class BusinessDetailsComponent {
         if (res?.data[0]?.business_hours) {
           this.openingHour = this.parse(res?.data[0]?.business_hours)
         }
-
+        if (res?.data[0]?.event_id) {
+          this.getEventDetails()
+        }
         this.eventLocation = res?.data[0]?.street
         if (this.eventDetails?.video_upload) {
           this.videoUrl.push({
@@ -487,7 +497,7 @@ export class BusinessDetailsComponent {
         }
         ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
-        console.log('check-business-lisiting', this.eventDetails)
+        this.cd.detectChanges()
         this.initMap()
       },
       error: (err) => {
@@ -613,6 +623,14 @@ export class BusinessDetailsComponent {
   openGoogleMaps() {
     const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
     window.open(mapUrl, '_blank')
+  }
+
+  show247(time: string): string {
+    let slicedTime = time.slice(3, time.length)
+
+    if (slicedTime === '00:00-00:00') {
+      return `${time.slice(0, 2)} 24HR`
+    } else return time
   }
   public onSelectImages(event: any) {
     this.files = [...event.addedFiles]

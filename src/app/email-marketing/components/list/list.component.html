@@ -39,7 +39,8 @@
 
 <ng-template #secondDialog let-modal>
   <h2 class="background_section2 text-center" matDialogTitle>
-    {{ isListSelected ? 'Update list' : 'Add List' }}
+    <!-- {{ isListSelected ? 'Update list' : 'Add List' }} -->
+    Add List
   </h2>
   <section>
     <div class="container">
@@ -73,29 +74,29 @@
                 ></textarea>
               </div>
             </div>
-            <div *ngIf="isListSelected" class="row mb-4">
+            <div *ngIf="isListSelected" class="row mb-4 g-sm-3 ">
               <div class="col-12 m-3 mx-0">
                 <span> {{ start_details['sent'] }} Mail sent </span>
               </div>
-              <div class="col-4">
+              <div class=" col-sm-12 col-md-6 col-lg-4">
                 <app-circular-progressbar
                   [percentage]="start_details['opens']"
                   [title]="'open rate'"
                 ></app-circular-progressbar>
               </div>
-              <div class="col-4">
+              <div class=" col-sm-12 col-md-6 col-lg-4">
                 <app-circular-progressbar
                   [percentage]="start_details['clicks']"
                   [title]="'click rate	                  '"
                 ></app-circular-progressbar>
               </div>
-              <div class="col-4">
+              <div class=" col-sm-12 col-md-6 col-lg-4">
                 <app-circular-progressbar
                   [percentage]="start_details['unsubs']"
                   [title]="'unsubscribe rate	                  '"
                 ></app-circular-progressbar>
               </div>
-              <div class="col-4">
+              <div class=" col-sm-12 col-md-6 col-lg-4">
                 <app-circular-progressbar
                   [percentage]="start_details['bounces']"
                   [title]="'bounce rate                  '"

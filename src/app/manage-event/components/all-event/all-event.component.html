@@ -81,18 +81,23 @@
               </div>
               <div class="listing-info">
                 <li class="post-content"  [innerHtml]="key?.post_content | truncateHtml:84"></li>
-                <li style="padding-bottom: 5px;">
-                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                  {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
-                  'longDate'}}
-                  <!-- {{formatDate(key?.event_dates?.start_time)}} -
-                {{formatDate( key?.event_dates?.end_time)}} -->
-                </li>
-                <li>
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
-                  Starts From: {{formatDate(key?.event_dates?.start_time)}} -
-                  Ends: {{formatDate( key?.event_dates?.end_time)}}
-                </li>
+                @if(key?.event_dates?.start_date || key?.event_dates?.end_date ){
+
+                  <li>
+                    <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                    {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
+                    'longDate'}}
+                    <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                    {{formatDate( key?.event_dates?.end_time)}} -->
+                  </li>
+                }
+                @if (key?.event_dates?.start_time||key?.event_dates?.end_time) {
+                  <li>
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    Starts From: {{formatDate(key?.event_dates?.start_time)}} -
+                    Ends: {{formatDate( key?.event_dates?.end_time)}}
+                  </li>
+                }
               </div>
               <!-- <div class="lisiting-package">
                     <span>$ Package : Free Business</span>
@@ -154,18 +159,23 @@
             </div>
             <div class="listing-info">
               <li [innerHtml]="key?.post_content | truncateHtml:84"></li>
-              <li>
-                <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
-                'longDate'}}
-                <!-- {{formatDate(key?.event_dates?.start_time)}} -
-                {{formatDate( key?.event_dates?.end_time)}} -->
-              </li>
-              <li>
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                Starts From: {{formatDate(key?.event_dates?.start_time)}} -
-                Ends: {{formatDate( key?.event_dates?.end_time)}}
-              </li>
+              @if(key?.event_dates?.start_date || key?.event_dates?.end_date ){
+
+                <li>
+                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                  {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
+                  'longDate'}}
+                  <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                  {{formatDate( key?.event_dates?.end_time)}} -->
+                </li>
+              }
+              @if (key?.event_dates?.start_time||key?.event_dates?.end_time) {
+                <li>
+                  <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  Starts From: {{formatDate(key?.event_dates?.start_time)}} -
+                  Ends: {{formatDate( key?.event_dates?.end_time)}}
+                </li>
+              }
             </div>
             <!-- <div class="lisiting-package">
                     <span>$ Package : Free Business</span>

@@ -1,38 +1,9 @@
-th{
-    padding: 20px !important ;
-}
-td{
-    padding: 20px !important ;
-}
-
-.add-btn{
-    padding: 8px 18px;
-    border: none;
-    background-color: #FF9900;
-    color: white;;
-
-}
-
-.clickable-cell{
-    text-decoration: underline;
-    cursor: pointer;
-}
-.clickable-cell:hover{
-    color: blue !important
-}
-
-.table-container{
-    position: relative;
-    max-height: 500px;
-    overflow: auto;
-}
-
-thead{
-    position: sticky;
-    top: -1px;
-}
 
 
+
+
+
+@import "../../helper/email-marketing.scss";
 .btn-cont{
     display: flex;
     padding: 20px;

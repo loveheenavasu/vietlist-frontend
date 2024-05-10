@@ -1,4 +1,4 @@
-@if (eventDetails?.choose_layout?.toLowerCase() === 'standard layout') {
+@if (eventDetails?.choose_layout?.toLowerCase() !== 'standard layout') {
 <!-- @if (true) { -->
   <section class="banner standard-banner " style="position: relative">
     <div class="content" style="width: 100%">
@@ -55,7 +55,7 @@
       </ul>
     </div> -->
 
-  <div class="koko">
+  <!-- <div class="koko">
     <div class="section-container">
       <ul class="list-items">
         <li
@@ -145,7 +145,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div> -->
 
   <section class="background_section">
     <div class="container">
@@ -261,7 +261,7 @@
                 >
                 <div class="media-body">
                   <p *ngFor="let time of openingHour" class="mt-0">
-                    {{ time }}
+                    {{show247( time) }}
                   </p>
                   <p></p>
                 </div>
@@ -527,10 +527,50 @@
             </div>
           }
           @if (eventInfo) {
-            <div class="profile-info-divs mt-4" id="event-promo">
+            <h3 style="color: black" class="event-heading mt-4 ">Event Detail</h3>
+            <hr>
+            <div class="event-wrapper mt-4"  >
+              <div class="listing-img" (click)="gotToEventDetails(eventInfo.post_id, true)"
+                [style.background-image]="'url(' + (eventInfo.featured_image ? eventInfo.featured_image : '/assets/image/no-image.webp') + ')'">
+                <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
+                <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
+                } @else {
+                <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
+                } -->
+  
+              </div>
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3 (click)="gotToEventDetails(eventInfo.post_id, true)" [innerHtml]="eventInfo?.post_title | truncateHtml:84">
+                    <!-- {{ eventInfo.post_title }} -->
+                  </h3>
+                </div>
+                <div class="listing-info">
+                  <li class="post-content"  [innerHtml]="eventInfo?.post_content | truncateHtml:84"></li>
+                  @if (eventInfo?.event_dates?.start_date||eventInfo?.event_dates?.end_date) {
+
+                    <li style="padding-bottom: 5px;">
+                      <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                      {{ eventInfo?.event_dates?.start_date | date: 'longDate' ||'' }} - {{eventInfo?.event_dates?.end_date | date:
+                    'longDate'||''}}
+                    <!-- {{formatDate(key?.event_dates?.start_time)}} -
+                      {{formatDate( key?.event_dates?.end_time)}} -->
+                    </li>
+                  }
+                  @if (eventInfo?.event_dates?.start_time||eventInfo?.event_dates?.end_time ) {
+                    <li>
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
+                      Starts From: {{eventInfo?.event_dates?.start_time || ''}} -
+                      Ends: {{eventInfo?.event_dates?.end_time ||''}}
+                    </li>
+                  }
+                </div>
+              </div>
+            </div>
+            <!-- <div class="profile-info-divs mt-4" id="event-promo">
               <h3 style="color: black" class="event-heading">Event Detail</h3>
               <div class="info-cont">
-                <div class="event-venuee" *ngIf="eventDetails?.street">
+                <div class="event-venuee" *ngIf="businessFormDetails?.street">
                   <div class="icon">
                     <i
                       class="fa-solid fa-location-dot"
@@ -542,10 +582,10 @@
                     ></i>
                   </div>
                   <div class="info">
-                    {{ eventDetails?.street }}
+                    {{ businessFormDetails?.street }}
                   </div>
                 </div>
-                <div class="event-venuee" *ngIf="eventInfo?.booking_start_date">
+                <div class="event-venuee" *ngIf="eventDetails?.booking_start_date">
                   <div class="icon">
                     <i
                       class="fa-solid fa-calendar"
@@ -557,13 +597,13 @@
                     ></i>
                   </div>
                   <div class="info">
-                    {{ formatDate(eventInfo?.booking_start_date) }} &
-                    {{ formatDate(eventInfo?.booking_end_date) }}
+                    {{ formatDate(eventDetails?.booking_start_date) }} &
+                    {{ formatDate(eventDetails?.booking_end_date) }}
                   </div>
                 </div>
                 <div
                   class="event-venuee"
-                  *ngIf="eventInfo?.post_category?.name"
+                  *ngIf="eventDetails?.post_category?.name"
                 >
                   <div class="icon">
                     <i
@@ -576,12 +616,12 @@
                     ></i>
                   </div>
                   <div class="info">
-                    {{ eventInfo?.post_category?.name }}
+                    {{ eventDetails?.post_category?.name }}
                   </div>
                 </div>
                 <div
                   class="event-venuee"
-                  *ngIf="eventInfo?.user_detail?.display_name"
+                  *ngIf="eventDetails?.user_detail?.display_name"
                 >
                   <div class="icon">
                     <i
@@ -594,10 +634,10 @@
                     ></i>
                   </div>
                   <div class="info">
-                    {{ eventInfo?.user_detail?.display_name }}
+                    {{ eventDetails?.user_detail?.display_name }}
                   </div>
                 </div>
-                @if (eventInfo?.price) {
+                @if (eventDetails?.price) {
                   <div class="event-venuee">
                     <div class="icon">
                       <i
@@ -610,12 +650,12 @@
                       ></i>
                     </div>
                     <div class="info">
-                      {{ eventInfo?.price }}
+                      {{ eventDetails?.price }}
                     </div>
                   </div>
                 }
               </div>
-            </div>
+            </div> -->
           }
           <div class="row my-4" id="mapView">
             <div class="col-12 col-md-12 col-lg-12">
@@ -1994,7 +2034,7 @@
                 >
                 <div class="media-body">
                   <p *ngFor="let time of openingHour" class="mt-0">
-                    {{ time }}
+                    {{show247(time) }}
                   </p>
                   <p></p>
                 </div>
