@@ -209,24 +209,9 @@ export class PreviewBusinessComponent {
         this.logo = res?.data[0]?.logo
         this.latitude = Number(this.businessFormDetails.latitude)
         this.longitude = Number(this.businessFormDetails.longitude)
-        this.initMap()
-        // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
-        // this.post_content = this.businessFormDetails.post_content ? this.businessFormDetails.post_content : 'NA',
-        // this.business_email=this.businessFormDetails.business_email ? this.businessFormDetails.business_email : 'NA',
-        // this.contact_phone=this.businessFormDetails.contact_phone ? this.businessFormDetails.contact_phone : 'NA',
-        // this.website=this.businessFormDetails.website ? this.businessFormDetails.website : 'Na',
-        // this.mapview=this.businessFormDetails.mapview ? this.businessFormDetails.mapview : 'NA',
-        // this.post_category=this.businessFormDetails.post_category?.map((category: any) => category?.id),
-        // this.default_category= this.businessFormDetails.default_category ? this.businessFormDetails.default_category.id : 'NA'
+        console.log(typeof this.latitude , "lat")
 
-        // this.street = this.businessFormDetails.street;
-        // this.latitude = this.businessFormDetails.latitude;
-        // this.longitude = this.businessFormDetails.longitude;
-        // this.zipcode = this.businessFormDetails.zip;
-        // this.state = this.businessFormDetails.region ;
-        // this.country = this.businessFormDetails.country;
-        // this.city = this.businessFormDetails.city;
-        // this.post_tags = this.businessFormDetails.post_tags?.map((tag:any)=>tag.id )
+        this.initMap()
       },
       error: (err) => {},
     })
@@ -323,8 +308,9 @@ export class PreviewBusinessComponent {
           this.fullPageLoaderService.hideLoader()
           ;(this.eventDetails = res?.data[0] || 'NA'),
             (this.overllRating = Number(res.data[0].overall_rating))
-          ;(this.latitude = Number(this.eventDetails?.latitude)),
-            (this.longitude = Number(this.eventDetails?.longitude))
+          this.latitude = Number(this.eventDetails?.latitude);
+           
+         this.longitude = Number(this.eventDetails?.longitude)
           this.initMap()
         },
         error: (err: any) => {
