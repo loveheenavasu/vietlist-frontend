@@ -10,12 +10,11 @@ import { Router, RouterLink } from '@angular/router'
 import { AuthenticationService } from '@vietlist/shared'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import Swal from 'sweetalert2'
-import { ClipboardModule } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule,RouterLink,ClipboardModule ],
+  imports: [FormsModule, ReactiveFormsModule,RouterLink ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
