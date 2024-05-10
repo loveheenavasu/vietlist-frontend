@@ -187,7 +187,9 @@ export class PreviewBusinessComponent {
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
-        this.openingHour = this.parse(res?.data[0]?.business_hours)
+        if (res?.data[0]?.business_hours) {
+          this.openingHour = this.parse(res?.data[0]?.business_hours)
+        }
 
         this.eventLocation = res?.data[0]?.street
 
@@ -243,6 +245,11 @@ export class PreviewBusinessComponent {
 
       .replace(/\[|\]/g, '') // Remove square brackets
       .replace(/,/g, ' ') // Replace commas with spaces
+  }
+
+  openGoogleMaps() {
+    const mapUrl = `https://www.google.com/maps?q=${this.latitude},${this.longitude}`
+    window.open(mapUrl, '_blank')
   }
 
   public initMap() {
@@ -530,7 +537,6 @@ export class PreviewBusinessComponent {
       const directionsRenderer = new google.maps.DirectionsRenderer()
       directionsRenderer.setMap(map)
 
-      console.log(this.eventLocation, 'this.eventLocation')
       const request = {
         origin: this.directionStreet,
         destination: this.eventLocation,
