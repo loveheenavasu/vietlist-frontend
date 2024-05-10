@@ -42,7 +42,6 @@ export class EventsComponent implements OnInit {
   totalItems = 4
   itemsPerPage = 2
   handlePageChange(e: any) {
-    console.log(e)
     this.currentPage = e
     this.getAnalyticsData()
   }
