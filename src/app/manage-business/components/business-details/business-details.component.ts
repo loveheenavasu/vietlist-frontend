@@ -456,20 +456,23 @@ export class BusinessDetailsComponent {
         // this.dataget = res?.data || 'NA'
         this.eventDetails = res?.data[0]
 
-        this.openingHour = this.parse(res?.data[0]?.business_hours)
+        if (res?.data[0]?.business_hours) {
+          this.openingHour = this.parse(res?.data[0]?.business_hours)
+        }
 
         this.eventLocation = res?.data[0]?.street
-        // if (this.eventDetails?.video_upload?.length) {
-        this.videoUrl.push({
-          video_id: '0',
-          post_id: this.postId,
-          user_id: 'na',
-          name: 'NA',
-          video_url: this.eventDetails?.video_upload,
-          video_type: 'all',
-          thumbnail_image: false,
-          isEditHide: true,
-        })
+        if (this.eventDetails?.video_upload) {
+          this.videoUrl.push({
+            video_id: '0',
+            post_id: this.postId,
+            user_id: 'na',
+            name: 'NA',
+            video_url: this.eventDetails?.video_upload,
+            video_type: 'all',
+            thumbnail_image: false,
+            isEditHide: true,
+          })
+        }
         if (this.eventDetails?.video_url) {
           this.videoUrl.push({
             video_id: '0',
