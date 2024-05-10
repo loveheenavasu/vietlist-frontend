@@ -23,7 +23,7 @@
     </tr>
   </thead>
   <tbody>
-    @if (data?.length) {
+    @if (data && data.length) {
       <tr
         *ngFor="
           let rowData of data
