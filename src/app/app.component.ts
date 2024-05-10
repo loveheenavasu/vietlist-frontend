@@ -79,12 +79,9 @@ export class AppComponent {
     getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
       .then((currentToken) => {
         if (currentToken) {
-          console.log('Hurraaa!!! we got the token.....')
-          console.log(currentToken)
+        
         } else {
-          console.log(
-            'No registration token available. Request permission to generate one.',
-          )
+         
         }
       })
       .catch((err) => {

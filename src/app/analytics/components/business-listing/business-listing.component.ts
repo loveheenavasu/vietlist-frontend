@@ -42,7 +42,7 @@ export class BusinessListingComponent {
   totalItems = 4
   itemsPerPage = 5
   handlePageChange(e: any) {
-    console.log(e)
+
     this.currentPage = e
     this.getAnalyticsData()
   }

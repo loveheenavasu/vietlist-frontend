@@ -22,7 +22,10 @@ export class FooterComponent {
   public footerPageContent?: any
   public newsLetterSubscribeForm!: FormGroup
   public userDetail:any;
-  
+  email = 'example@example.com'; // Replace with the recipient email address
+  subject = 'Hello'; // Replace with the email subject
+  body = 'Hello, I hope you are doing well';
+
   constructor(
     private footerContent: HomepageService,
     private fb: FormBuilder,
@@ -88,4 +91,21 @@ export class FooterComponent {
   public gotohome(){
     this.router.navigateByUrl('/')
   }
+
+  public redirectToWhatsApp() {
+    const whatsappUrl = `https://wa.me/${this.footerPageContent?.contact?.phone_number}`;
+    window.open(whatsappUrl, '_blank');
+  }
+
+  public redirectToMail(){
+    const mailToUrl = `mailto:${this.footerPageContent?.contact?.email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`;
+    window.location.href = mailToUrl;
+
+  }
+
+  public openGoogleMaps() {
+    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.footerPageContent?.contact?.address)}`;
+    window.open(googleMapsUrl, '_blank');
+  }
+ 
 }
