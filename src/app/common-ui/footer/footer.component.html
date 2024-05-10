@@ -203,11 +203,11 @@
           </div>
         </li>
         <li>
-          <div class="d-flex info-wrapper" style="cursor: pointer;" class="links" (click)="redirectToWhatsApp()">
+          <div class="d-flex info-wrapper" >
             <div>
               <img src="/assets/icons/ri_whatsapp-fill.svg" />
             </div>
-            <div>
+            <div (click)="redirectToWhatsApp()" class="links">
               +1
               {{ footerPageContent?.contact?.phone_number }}
             </div>

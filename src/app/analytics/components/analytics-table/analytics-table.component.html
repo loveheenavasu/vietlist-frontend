@@ -47,7 +47,7 @@
     }
   </tbody>
 </table>
-@if (data?.length) {
+@if (data && data.length) {
   <div class="row" [hidden]="paginationHide">
     <div class="col-md-12 mt-5">
       <pagination-controls
