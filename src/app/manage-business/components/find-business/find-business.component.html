@@ -276,36 +276,35 @@
       <div class="business-inner-wrapper d-flex">
         <div class="carrer-professional-img">
           <div class="img-wrapper">
-            <img src="/assets/image/carrer-proffesional.jpeg" alt="carrer-professional" />
+            <img [src]='bannerBlog?.featured_image' alt="carrer-professional" />
 
             <div class="img-over-text">
               <div class="d-flex align-items-end text-container">
                 <div>
                   <div class="title mb-2">
-                    <span>Carrer & Proffesional Life</span>
+                    <span> {{bannerBlog?.blog_category}} </span>
                   </div>
                   <div class="img-over-heading">
                     <h3>
-                      Keywords: Social Media Marketing, Property Listings,
-                      Online Engagement, Visual Content, Targeting Strategies.
+              {{bannerBlog?.blog_title}}
                     </h3>
                   </div>
                   <div class="d-flex">
                     <div class="delivered-by">
                       <div class="d-flex align-items-center">
                         <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2">By BlogBlitz</span>
+                        <span class="pe-2">By {{bannerBlog?.author_detail.first_name }} {{bannerBlog?.author_detail.last_name}}</span>
                       </div>
                     </div>
                     <div class="deliver-date">
                       <div class="d-flex align-items-center">
                         <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2">October 4, 2023</span>
+                        <span class="pe-2"> {{bannerBlog?.post_date}} </span>
                       </div>
                     </div>
                   </div>
                   <div class="read-more">
-                    <button class="btn">Read More</button>
+                    <button class="btn" (click)="viewuserdetails(bannerBlog?.blog_id)" >Read More</button>
                   </div>
                 </div>
               </div>
@@ -313,134 +312,41 @@
           </div>
         </div>
         <div class="carrer-professional-list">
-          <div class="list-container">
-            <div class="d-flex">
-              <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
-              </div>
-              <div class="list-info">
-                <div class="title">
-                  <span>Carrer & Professional Life</span>
+          @for (item of userBlogs; track $index) {
+
+            <div class="list-container" (click)="viewuserdetails(item?.blog_id)" >
+              <div class="d-flex">
+                <div class="list-img">
+                  <img [src]='item?.featured_image ?item?.featured_image  :"/assets/image/No-image-found.jpeg"' alt="list-image" />
                 </div>
-                <div class="list-heading">
-                  <h3>
-                    Exploring Investment Opportunities In Vietnam For North
-                    American Residents
-                  </h3>
-                </div>
-                <div class="d-flex">
-                  <div class="delivered-by">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">By BlogBlitz</span>
-                    </div>
+                <div class="list-info">
+                  <div class="title">
+                    <span> {{item?.blog_category}} </span>
                   </div>
-                  <div class="deliver-date">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">October 4, 2023</span>
-                    </div>
+                  <div class="list-heading">
+                    <h3>
+                      {{ item?.blog_title.length > 100 ? (item?.blog_title.slice(0, 97) + '...') : item?.blog_title }}
+                      <!-- {{item?.blog_title}} -->
+                    </h3>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-container">
-            <div class="d-flex">
-              <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
-              </div>
-              <div class="list-info">
-                <div class="title">
-                  <span>Carrer & Professional Life</span>
-                </div>
-                <div class="list-heading">
-                  <h3>
-                    Exploring Investment Opportunities In Vietnam For North
-                    American Residents
-                  </h3>
-                </div>
-                <div class="d-flex">
-                  <div class="delivered-by">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">By BlogBlitz</span>
+                  <div class="d-flex">
+                    <div class="delivered-by">
+                      <div class="d-flex align-items-center">
+                        <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
+                        <span class="pe-2">By {{item?.author_detail.first_name }} {{item?.author_detail.last_name}}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div class="deliver-date">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">October 4, 2023</span>
+                    <div class="deliver-date">
+                      <div class="d-flex align-items-center">
+                        <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
+                        <span class="pe-2">{{item?.post_date}}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="list-container">
-            <div class="d-flex">
-              <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
-              </div>
-              <div class="list-info">
-                <div class="title">
-                  <span>Carrer & Professional Life</span>
-                </div>
-                <div class="list-heading">
-                  <h3>
-                    Exploring Investment Opportunities In Vietnam For North
-                    American Residents
-                  </h3>
-                </div>
-                <div class="d-flex">
-                  <div class="delivered-by">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">By BlogBlitz</span>
-                    </div>
-                  </div>
-                  <div class="deliver-date">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">October 4, 2023</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-container">
-            <div class="d-flex">
-              <div class="list-img">
-                <img src="/assets/image/carrer-proffessional-list1.jpeg" alt="list-image" />
-              </div>
-              <div class="list-info">
-                <div class="title">
-                  <span>Carrer & Professional Life</span>
-                </div>
-                <div class="list-heading">
-                  <h3>
-                    Exploring Investment Opportunities In Vietnam For North
-                    American Residents
-                  </h3>
-                </div>
-                <div class="d-flex">
-                  <div class="delivered-by">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">By BlogBlitz</span>
-                    </div>
-                  </div>
-                  <div class="deliver-date">
-                    <div class="d-flex align-items-center">
-                      <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                      <span class="pe-2">October 4, 2023</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          }
         </div>
       </div>
     </div>

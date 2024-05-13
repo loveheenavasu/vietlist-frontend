@@ -6,7 +6,7 @@
 <div class="container-fluid g-0">
   <div class="row search-fields mt-4">
     <div class="d-flex">
-      <div class="flex-grow-1">
+      <div class="flex-grow-1 mx-1 ">
         <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
           @for (key of event_category; track $index) {
           <mat-option [value]="key.id">{{ key?.name }}</mat-option>

@@ -87,6 +87,8 @@ export class FindBusinessComponent {
   public categoryDetails: any
   public map: google.maps.Map | null = null
   public ratingMax: string = '5'
+  bannerBlog: any
+  userBlogs: any
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -128,7 +130,23 @@ export class FindBusinessComponent {
     })
   }
 
+  getUserBlogs() {
+    this.searchAd.userBlogs(5, 1, 'home').subscribe({
+      next: (result) => {
+        this.bannerBlog = result?.data.shift()
+        this.userBlogs = result?.data
+        console.log(this.bannerBlog, this.userBlogs, 'kokoko')
+      },
+      error: (err) => {},
+    })
+  }
+  public viewuserdetails(blog_id: any) {
+    this.router.navigate(['/user-blog-details/', blog_id])
+    // this.authService.BlogID.next(details?.blog_id)
+  }
+
   ngOnInit() {
+    this.getUserBlogs()
     this.getPublishBusinessData()
     // this.getIPAdress()
     this.getIPAddress()

@@ -140,6 +140,9 @@ export class BusinessDetailsComponent {
   public isBookableClicked: boolean = false
   public maxDate: any
   public openingHour: any[] = []
+  subject = 'Hello' // Replace with the email subject
+  body = 'Hello, I hope you are doing well'
+  isLoading: boolean = false
 
   /**
    *
@@ -304,7 +307,6 @@ export class BusinessDetailsComponent {
         'business-details',
       )
     ) {
-      console.log('its is business detail')
       if (this.postId) {
         this.businessListing = true
         this.getBusinessFormDetails()
@@ -456,9 +458,11 @@ export class BusinessDetailsComponent {
   }
 
   public getBusinessFormDetails() {
+    this.isLoading = true
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
+        this.isLoading = false
         this.fullPageLoaderService.hideLoader()
 
         // this.dataget = res?.data || 'NA'
@@ -501,6 +505,7 @@ export class BusinessDetailsComponent {
         this.initMap()
       },
       error: (err) => {
+        this.isLoading = false
         this.fullPageLoaderService.hideLoader()
       },
     })
@@ -629,7 +634,7 @@ export class BusinessDetailsComponent {
     let slicedTime = time.slice(3, time.length)
 
     if (slicedTime === '00:00-00:00') {
-      return `${time.slice(0, 2)} 24HR`
+      return `${time.slice(0, 2)} 24 Hours`
     } else return time
   }
   public onSelectImages(event: any) {
@@ -717,7 +722,9 @@ export class BusinessDetailsComponent {
           }
           Swal.fire({
             toast: true,
-            text: res.message,
+            text:
+              res?.message.slice(0, 1).toUpperCase() +
+              res?.message.slice(1, res?.message.length),
             animation: false,
             icon: 'success',
             position: 'top-right',
@@ -734,10 +741,25 @@ export class BusinessDetailsComponent {
     }
   }
 
+  public redirectToWhatsApp(number: any) {
+    const whatsappUrl = `https://wa.me/${number}`
+    window.open(whatsappUrl, '_blank')
+  }
+
+  public redirectToMail(email: string) {
+    const mailToUrl = `mailto:${email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`
+    window.location.href = mailToUrl
+  }
+
+  public openGoogleMapss(address: string) {
+    console.log(address, 'address')
+    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}`
+    window.open(googleMapsUrl, '_blank')
+  }
+
   public getReviews() {
     this.businessService.GetReviewList(this.postId).subscribe({
       next: (res) => {
-        console.log('check review', res)
         this.reviewsArray = res?.data
       },
     })

@@ -1,4 +1,4 @@
-@if (eventDetails?.choose_layout?.toLowerCase() === 'standard layout') {
+@if (eventDetails?.choose_layout?.toLowerCase() === 'standard layout' && !isLoading ) {
 <!-- @if (true) { -->
   <section class="banner standard-banner " style="position: relative">
     <div class="content" style="width: 100%">
@@ -157,7 +157,7 @@
               <img [src]="eventDetails?.logo" alt="" />
             </div>
             <div class="social-link">
-              <div class="location" *ngIf="eventDetails?.street">
+              <div class="location link " *ngIf="eventDetails?.street" (click)='openGoogleMapss(eventDetails?.street)' >
                 <i
                   class="fa-solid fa-location-dot"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -165,7 +165,7 @@
                 {{ eventDetails?.street }}
               </div>
 
-              <div class="location" *ngIf="eventDetails?.business_email">
+              <div class="location link " *ngIf="eventDetails?.business_email" (click)='redirectToMail(eventDetails?.business_email)' >
                 <i
                   class="fa fa-envelope"
                   aria-hidden="true"
@@ -173,7 +173,7 @@
                 ></i>
                 {{ eventDetails?.business_email }}
               </div>
-              <div class="location" *ngIf="eventDetails?.contact_phone">
+              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='redirectToWhatsApp(eventDetails?.contact_phone)' >
                 <i
                   class="fa fa-phone"
                   aria-hidden="true"
@@ -252,21 +252,25 @@
             </div>
           </div>
           @if (openingHour && openingHour.length) {
-            <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
-              <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
-              >
-                <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+            @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
+              <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+                <div
+                  class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
                 >
-                <div class="media-body">
-                  <p *ngFor="let time of openingHour" class="mt-0">
-                    {{show247( time) }}
-                  </p>
-                  <p></p>
+                  <span style="font-size: 22px; font-weight: 600; color: black"
+                    >Business Open Hours :</span
+                  >
+                  <div class="media-body">
+                    <p *ngFor="let time of openingHour" class="mt-0">
+                      @if (time != 'null' && time != "undefined") {
+                        {{show247(time) }}
+                      }
+                    </p>
+                    <p></p>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           }
           <form [formGroup]="newsletter">
             <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
@@ -1071,7 +1075,7 @@
       </div>
     </div>
   </section>
-} @else {
+} @else if(!isLoading){
   <section class="banner" style="position: relative">
     <div class="content" style="width: 100%">
       <h1 style="text-transform: uppercase">
@@ -1998,7 +2002,7 @@
               <img [src]="eventDetails?.logo" alt="" />
             </div>
             <div class="social-link">
-              <div class="location" *ngIf="eventDetails?.street">
+              <div class="location link" *ngIf="eventDetails?.street" (click)='openGoogleMapss(eventDetails?.street)' >
                 <i
                   class="fa-solid fa-location-dot"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
@@ -2006,7 +2010,7 @@
                 {{ eventDetails?.street }}
               </div>
 
-              <div class="location" *ngIf="eventDetails?.business_email">
+              <div class="location link" *ngIf="eventDetails?.business_email" (click)='redirectToMail(eventDetails?.business_email)' >
                 <i
                   class="fa fa-envelope"
                   aria-hidden="true"
@@ -2014,7 +2018,7 @@
                 ></i>
                 {{ eventDetails?.business_email }}
               </div>
-              <div class="location" *ngIf="eventDetails?.contact_phone">
+              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='redirectToWhatsApp(eventDetails?.contact_phone)' >
                 <i
                   class="fa fa-phone"
                   aria-hidden="true"
@@ -2025,21 +2029,25 @@
             </div>
           </div>
           @if (openingHour && openingHour.length) {
-            <div class="profile-info-div mt-3" style="padding: 9%">
-              <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
-              >
-                <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+            @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
+              <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+                <div
+                  class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
                 >
-                <div class="media-body">
-                  <p *ngFor="let time of openingHour" class="mt-0">
-                    {{show247(time) }}
-                  </p>
-                  <p></p>
+                  <span style="font-size: 22px; font-weight: 600; color: black"
+                    >Business Open Hours :</span
+                  >
+                  <div class="media-body">
+                    <p *ngFor="let time of openingHour" class="mt-0">
+                      @if (time != 'null' && time != "undefined") {
+                        {{show247(time) }}
+                      }
+                    </p>
+                    <p></p>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           }
           <form [formGroup]="newsletter">
             <div class="profile-info-div mt-3" style="padding: 9%">

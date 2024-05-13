@@ -121,7 +121,7 @@
     </div>
     <div class="col-12 col-md-6 col-lg-2">
       <ul>
-        @if (userDetail?.level_id == '3') {
+        @if (userDetail?.level_id == '3' && isAuthenticated ) {
           <li class="links" (click)="navigateTo('/resources')">Resources</li>
         }
         <li class="links" (click)="navigateTo('/for-users')">For User</li>

@@ -1013,3 +1013,11 @@ fieldset:disabled .btn {
     background: white;
     border-radius: 10px;
 }
+
+.link{
+    cursor: pointer;
+    
+    &:hover{
+        color: #FF9900;
+    }
+}

@@ -41,6 +41,15 @@
     .fa.fa-calendar-o {
         position: absolute;
         right: 10px;
-        top: 10px;
+        top: 33%;
+    }
+  }
+
+  @media (max-width: 769px)  {
+    .input-group {
+    
+      .fa.fa-calendar-o {
+          top: 38%;
+      }
     }
   }

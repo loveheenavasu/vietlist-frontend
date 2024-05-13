@@ -122,25 +122,29 @@
                     <input matInput [matDatepicker]="startdatepicker" class="input-control"
                       (click)="startdatepicker.open()" [min]="minDate"
                       [max]="maxDate" placeholder="Expiry Date" formControlName="expiry_date"/>
-                    <i class="fa fa-calendar-o"></i>
+                    <i class="fa fa-calendar-o"></i >
                     <mat-datepicker #startdatepicker></mat-datepicker>
                   </div>
                 </div>
               </div>
               <div class="row mt-4 mb-4">
                 <div class="col-12 col-md-12 col-lg-12">
-                  <div class="d-flex justify-content-center">
-                    <button matDialogClose class="btn orange-background-btn-w-100" style="color: #fff">
-                      Close
-                    </button>
-                    &nbsp;
-                    <button class="btn orange-background-btn-w-100" style="color: #fff" (click)="createCoupon()" [disabled]="!couponForm.valid">
-                      @if(isLoading){
-                        <app-loader></app-loader>
-                      }@else {
-                        Submit
-                      }
-                    </button>
+                  <div class="row g-2  ">
+                    <div class="col-12 col-md-6">
+                      <button matDialogClose class="btn orange-background-btn-w-100" style="color: #fff">
+                        Close
+                      </button>
+                    </div>
+                    <div class=" col-12 col-md-6">
+
+                      <button class="btn orange-background-btn-w-100 col-3" style="color: #fff" (click)="createCoupon()" [disabled]="!couponForm.valid">
+                        @if(isLoading){
+                          <app-loader></app-loader>
+                        }@else {
+                          Submit
+                        }
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

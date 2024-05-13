@@ -87,6 +87,9 @@ export class PreviewBusinessComponent {
   public videosTypeArr: any[] = []
   public openingHour: any[] = []
   public isVideoTypeLoading: boolean = true
+  public isLoading: boolean = false
+  subject = 'Hello' // Replace with the email subject
+  body = 'Hello, I hope you are doing well'
   // public mainTabOption: any
   @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>
   constructor(
@@ -183,9 +186,11 @@ export class PreviewBusinessComponent {
   videoUrl: any = []
 
   public getBusinessFormDetails() {
+    this.isLoading = true
     this.fullPageLoaderService.showLoader()
     this.businessService.getBusiness(this.postId).subscribe({
       next: (res) => {
+        this.isLoading = false
         this.fullPageLoaderService.hideLoader()
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
@@ -225,7 +230,9 @@ export class PreviewBusinessComponent {
 
         this.initMap()
       },
-      error: (err) => {},
+      error: (err) => {
+        this.isLoading = false
+      },
     })
   }
 
@@ -615,6 +622,22 @@ export class PreviewBusinessComponent {
     }
   }
 
+  public redirectToWhatsApp(number: any) {
+    const whatsappUrl = `https://wa.me/${number}`
+    window.open(whatsappUrl, '_blank')
+  }
+
+  public redirectToMail(email: string) {
+    const mailToUrl = `mailto:${email}?subject=${encodeURIComponent(this.subject)}&body=${encodeURIComponent(this.body)}`
+    window.location.href = mailToUrl
+  }
+
+  public openGoogleMapss(address: string) {
+    console.log(address, 'address')
+    const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(address)}`
+    window.open(googleMapsUrl, '_blank')
+  }
+
   public getVideosList(postId: any, tab: any) {
     this.isVideoTypeLoading = true
     this.fullPageLoaderService.showLoader()
@@ -676,7 +699,7 @@ export class PreviewBusinessComponent {
     let slicedTime = time.slice(3, time.length)
 
     if (slicedTime === '00:00-00:00') {
-      return `${time.slice(0, 2)} 24HR`
+      return `${time.slice(0, 2)} 24 Hours`
     } else return time
   }
   public formatDate(dateString: string, callFrom?: string): string {
