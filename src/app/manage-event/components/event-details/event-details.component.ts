@@ -883,6 +883,10 @@ export class EventDetailsComponent {
         timer: 3000,
         timerProgressBar: true,
       })
+      this.isBookingLoader = false
+      this.number_of_booking.setValue(null)
+      this.booking_date.setValue(null)
+      this.numberofBookingPrice = ''
     } else if(this.eventUserId === this.userDetailId.ID){
       Swal.fire({
         toast: true,
