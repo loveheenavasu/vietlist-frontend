@@ -75,11 +75,6 @@ export class ContactUsComponent {
 
   @ViewChild('countryList', { static: true }) countryListRef!: ElementRef;
 
-  ngAfterViewInit() {
-    const countryListElement = this.countryListRef.nativeElement;
-    countryListElement.style.maxHeight = '200px'; // Adjust the height as needed
-    countryListElement.style.overflowY = 'auto'; // Enable vertical scrolling if necessary
-  }
   
   onStreetChange(value: any) {
    this.getstreet = value?.value;
