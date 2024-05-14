@@ -174,7 +174,6 @@ export class EventDetailsComponent {
     })
     this.sessionService.userDetailResponse.subscribe((res) => {
       this.userDetailId = res
-      console.log(res, 'userResponse')
     })
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {

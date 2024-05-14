@@ -244,7 +244,11 @@
                           <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
                         }
                       </p>
-                      <p></p>
+                      <!-- <p> -->
+                        <!-- <div class="hour-container row ">
+                          <div class='col-4' > sunday </div> <div class='col-4' ><div> 1231231</div> <div> 8989797</div> <div> 8989797</div></div>
+                        </div> -->
+                      <!-- </p> -->
                     </div>
                   </div>
                 </div>
@@ -1471,9 +1475,9 @@
         </div>
         @if (openingHour && openingHour.length) {
           @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
-            <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+            <div class="profile-info-div mt-3" style="padding: 9%">
               <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+                class="d-block text-center text-md-left d-md-flex p-3  timing-cont"
               >
                 <span style="font-size: 22px; font-weight: 600; color: black"
                   >Business Open Hours :</span
@@ -1484,7 +1488,6 @@
                       <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
                     }
                   </p>
-                  <p></p>
                 </div>
               </div>
             </div>
