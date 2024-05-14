@@ -105,12 +105,13 @@
           > -->
         </div>
       </div>
-      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'">
+      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'" [maxFileSize]="2097152" >
         <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
           or
           Browse a file</ngx-dropzone-label>
         <div *ngIf="isImageUploading" class="loader"></div>
       </ngx-dropzone>
+       <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
       <div class="main_images">
         @for (preview of imagePreviews; track $index) {
 
@@ -128,12 +129,13 @@
     <div class="col-12">
       <label for="" class="listing-form-label mb-2">Video upload</label>
       <!-- formControlName="video_upload" -->
-      <ngx-dropzone [accept]="'.mp4,.mov'" (change)="onSelect($event)">
+      <ngx-dropzone [accept]="'.mp4,.mov'"  (change)="onSelect($event)">
         <ngx-dropzone-label *ngIf="!isVideoUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
           or
           Browse a file <span >{{vediosHide?.level_id == '2' ? 'Yo can upload only 20 images' : 'You can upload multiple videos '}}</span></ngx-dropzone-label>
         <div *ngIf="isVideoUploading" class="loader"></div>
       </ngx-dropzone>
+     
     </div>
     <div id="video-preview-container">
       @for(videoUrl of video_upload; track $index) {
@@ -252,8 +254,8 @@
   </div>
   <div style="width: 100%; text-align: end">
     <!-- [disabled]="!ConsultationForm.valid" -->
-    <button type="button" class="btn orange-background-btn ms-auto" 
-      (click)="addBusiness()">
+    <button type="button" [disabled]="!ConsultationForm.valid" class="btn orange-background-btn ms-auto" 
+      (click)="addBusiness()" >
       @if(isLoader){
       <app-loader></app-loader>
       } @else {
