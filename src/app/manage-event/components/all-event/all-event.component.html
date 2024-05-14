@@ -75,7 +75,7 @@
             </div>
             <div class="listing-description">
               <div class="listing-heading">
-                <h3 (click)="gotToEventDetails(key.post_id, true)" [innerHtml]="key?.post_title | truncateHtml:84">
+                <h3 (click)="gotToEventDetails(key.post_id, true)" [innerHtml]="key?.post_title | truncateHtml : 42">
                   <!-- {{ key.post_title }} -->
                 </h3>
               </div>
