@@ -17,6 +17,31 @@ export class BusinessService {
   public isBusinessBioFormFilled = new BehaviorSubject<boolean>(false)
   public isBusinessFormFilled = new BehaviorSubject<boolean>(false)
   public isConsultationFormFilled = new BehaviorSubject<boolean>(false)
+  public dayName = {
+    Mo: 'Monday',
+    Tu: 'Tuesday',
+    We: 'Wednesday',
+    Th: 'Thursday',
+    Fr: 'Friday',
+    Sa: 'Saturday',
+    Su: 'Sunday',
+  }
+
+  format24To12 = {
+    13: '01',
+    14: '02',
+    15: '03',
+    16: '04',
+    17: '05',
+    18: '06',
+    19: '07',
+    20: '08',
+    21: '09',
+    22: '10',
+    23: '11',
+    24: '12',
+  }
+
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService,
@@ -149,7 +174,7 @@ export class BusinessService {
     const params = new HttpParams()
       .set('post_id', post_id)
       .set('nocache=', Math.random().toString(36).substring(7))
-    return this.http.get<any>(endpoint, {params: params })
+    return this.http.get<any>(endpoint, { params: params })
   }
 
   public deleteVideo(videoId: any): Observable<any> {
@@ -166,5 +191,39 @@ export class BusinessService {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateVideo)
     const authToken = this.authService.getAuthHeaders()
     return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+  convertTimeTo12HourFormat(timeString: string) {
+    const [startTime, endTime] = timeString.split('-')
+    return `${this.convertTo12Hour(startTime)} - ${this.convertTo12Hour(endTime)}`
+  }
+
+  convertTo12Hour(time: string) {
+    if (time.slice(0, 2) !== '00') {
+      const hour = parseInt(time.slice(0, 2))
+      const minute = time.slice(3, 5)
+      const period = hour >= 12 ? 'PM' : 'AM'
+      const hour12 =
+        (this.format24To12 as { [key: number]: string })[hour] ||
+        hour.toString()
+      return `${hour12}:${minute}${period}`
+    } else {
+      return time
+    }
+  }
+
+  hourFormat(time: string) {
+    let slicedTime: string = time.slice(3, time.length)
+    let day: keyof typeof this.dayName = time.slice(
+      0,
+      2,
+    ) as keyof typeof this.dayName
+
+    if (slicedTime === '00:00-00:00') {
+      return ` <div class='col-4 text-nowrap' > ${this.dayName[day]} </div> <div class='col-7 text-nowrap '>24 Hours</div> `
+    } else if (this.dayName[day]) {
+      return ` <div class='col-4 text-nowrap'>  ${this.dayName[day]}</div> <div class='col-7 text-nowrap'>${this.convertTimeTo12HourFormat(slicedTime)}</div>`
+    } else {
+      return `<div class='col-12' > ${time} </div>`
+    }
   }
 }

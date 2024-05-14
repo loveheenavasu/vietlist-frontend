@@ -96,7 +96,7 @@ export class PreviewBusinessComponent {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private _route: ActivatedRoute,
-    private businessService: BusinessService,
+    public businessService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     public router: Router,
     private authService: AuthenticationService,

@@ -241,7 +241,7 @@
                     <div class="media-body">
                       <p *ngFor="let time of openingHour" class="mt-0">
                         @if (time != 'null' && time != "undefined") {
-                          {{show247(time) }}
+                          {{businessService.hourFormat(time) }}
                         }
                       </p>
                       <p></p>
@@ -1481,7 +1481,7 @@
                 <div class="media-body">
                   <p *ngFor="let time of openingHour" class="mt-0">
                     @if (time != 'null' && time != "undefined") {
-                      {{show247(time) }}
+                      {{businessService.hourFormat(time) }}
                     }
                   </p>
                   <p></p>

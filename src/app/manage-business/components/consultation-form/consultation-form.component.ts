@@ -322,8 +322,10 @@ export class ConsultationFormComponent {
   onChange(time: any, difTime: any, dayName: any) {
     if (time == '00:00' && difTime == '00:00') {
       this.selectedWeek = this.selectedWeek.filter((day) => day !== dayName)
+      this.currentSelectedWeek = [...this.selectedWeek]
     } else if (!this.selectedWeek.includes(dayName)) {
       this.selectedWeek.push(dayName)
+      this.currentSelectedWeek = [...this.selectedWeek]
     }
   }
 
@@ -632,7 +634,7 @@ export class ConsultationFormComponent {
       services_list: this.ConsultationForm.value.services_list,
       price: this.ConsultationForm.value.price,
       video_url: this.ConsultationForm.value.video_url,
-      business_hours: !this.showTimeTable ? 'false' : businessHours,
+      business_hours: !this.showTimeTable ? null : businessHours,
       special_offers: this.ConsultationForm.value.special_offers,
       video_upload:
         this.vediosUrl && this.vediosUrl.length > 0

@@ -263,7 +263,7 @@
                   <div class="media-body">
                     <p *ngFor="let time of openingHour" class="mt-0">
                       @if (time != 'null' && time != "undefined") {
-                        {{show247(time) }}
+                        <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
                       }
                     </p>
                     <p></p>
@@ -2030,7 +2030,7 @@
           </div>
           @if (openingHour && openingHour.length) {
             @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
-              <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+              <div class="profile-info-div mt-3" style="padding: 9%">
                 <div
                   class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
                 >
@@ -2040,7 +2040,7 @@
                   <div class="media-body">
                     <p *ngFor="let time of openingHour" class="mt-0">
                       @if (time != 'null' && time != "undefined") {
-                        {{show247(time) }}
+                        {{businessService.hourFormat(time) }}
                       }
                     </p>
                     <p></p>
