@@ -285,6 +285,7 @@ export class ListBusinessComponent {
           this.isImageLoading = false
           this.imageUrl = res.image_url
           this.businessLogoUrl = [res.image_url] // Replace old preview with new one
+          console.log(this.businessLogoUrl, "businessLogo")
         },
         error: (err: any) => {
           // Handle errors
@@ -517,8 +518,13 @@ export class ListBusinessComponent {
       street: this.fullAddress,
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
-      image: this.levelOneImageArr,
+      // image: this.levelOneImageArr ? this.levelOneImageArr ,
     }
+      if (this.userDetailsLevel_id.level_id === '1') {
+    // Add image to the body when level_id is 1
+    body.image = this.levelOneImageArr;
+  }
+
     if (this.isFormFilled || this.postId || this.isParamsId) {
       this.isloader = true
       const updatebody: any = {
