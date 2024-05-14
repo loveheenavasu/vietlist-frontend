@@ -52,7 +52,7 @@ export class ConsultationFormComponent {
     this.imagePreviews = value?.image || []
     this.video_upload = value?.video_upload || []
     const Gethours = value?.business_hours
-    if (Gethours == 'false') {
+    if (!Gethours) {
       this.showTimeTable = false
     } else {
       this.showTimeTable = true

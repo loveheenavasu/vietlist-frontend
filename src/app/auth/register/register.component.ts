@@ -27,6 +27,7 @@ import {
   PhoneNumberFormat,
   SearchCountryField,
 } from 'ngx-intl-tel-input'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { debounceTime, Subject } from 'rxjs'
 
 @Component({
@@ -58,7 +59,6 @@ export class RegisterComponent {
     CountryISO.UnitedKingdom,
   ]
 
-
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
   public signupType = [
@@ -80,14 +80,13 @@ export class RegisterComponent {
   public business_type = new FormControl('')
   public contact_details = new FormControl()
 
-
   /**
-   * 
-   * @param router 
-   * @param fb 
-   * @param authService 
-   * @param localStorageServce 
-   * @param sessionServce 
+   *
+   * @param router
+   * @param fb
+   * @param authService
+   * @param localStorageServce
+   * @param sessionServce
    */
   constructor(
     public router: Router,
@@ -95,12 +94,21 @@ export class RegisterComponent {
     private authService: AuthService,
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
+    private profileService: ProfileService,
   ) {
-
     this.signupForm = this.fb.nonNullable.group(
       {
         username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+            ),
+          ],
+        ],
         email: [
           '',
           [
@@ -145,6 +153,19 @@ export class RegisterComponent {
     }
 
     return false
+  }
+
+  public allowNotification() {
+    const body = {
+      Login: 1,
+      Subscription: 1,
+      delete_account: 1,
+      business_listing: 1,
+    }
+
+    this.profileService.allowNotificationSetting(body).subscribe({
+      next: (res) => {},
+    })
   }
 
   public handleRegistrationSubmission() {
@@ -212,15 +233,13 @@ export class RegisterComponent {
               this.sessionServce.setAuthenticationStatusTrue(res.data.token)
               this.router.navigateByUrl('/manage-profile')
             }
+            this.allowNotification()
           }
-
         },
         error: (err) => {
           this.loader = false
-
         },
       })
-
     } else {
       Swal.fire({
         toast: true,
@@ -233,7 +252,6 @@ export class RegisterComponent {
         timerProgressBar: true,
       })
     }
-
   }
 
   public changeSignupType() {
@@ -247,7 +265,6 @@ export class RegisterComponent {
       this.isHidePassword = true
     }
   }
-
 
   public hideConfirmPassword() {
     this.isHideConfirmPassword = !this.isHideConfirmPassword
@@ -264,5 +281,4 @@ export class RegisterComponent {
       ? null
       : event.charCode >= 48 && event.charCode <= 57
   }
-
 }
