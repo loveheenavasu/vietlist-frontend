@@ -52,7 +52,7 @@ export class ChangePasswordComponent {
     this.changePassword = this.fb.group(
       {
         old_password: ['', Validators.required],
-        new_password: ['', Validators.required],
+        new_password:  ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
         confirm_password: ['', [Validators.required]],
       },
       {

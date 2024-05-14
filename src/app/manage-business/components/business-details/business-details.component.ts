@@ -44,6 +44,7 @@ import { ForgotPasswordComponent } from 'src/app/auth'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { EmailMarketingServiceService } from 'src/app/email-marketing/service/email-marketing-service.service'
 import { VideoPlayComponent } from '../../video-play/video-play.component'
+
 // NgxStarRatingModule
 @Component({
   selector: 'app-business-details',
@@ -164,7 +165,7 @@ export class BusinessDetailsComponent {
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private fb: FormBuilder,
-    private businessService: BusinessService,
+    public businessService: BusinessService,
     private profileService: ProfileService,
     private sessionService: AuthenticationService,
     private cd: ChangeDetectorRef,
