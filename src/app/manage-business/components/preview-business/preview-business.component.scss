@@ -192,7 +192,7 @@ label {
   /* height: 12rem; */
   padding: 10%;
   background-color: #FFFFFF;
-  border: solid 1px #146EB4;
+  border: solid 1px #146EB4 !important ;
   padding-top: 7%;
 }
 
@@ -733,3 +733,9 @@ span.elementor-grid-item {
   margin: 0px !important;
 }
 
+
+.box-shadow {
+  border-color: transparent !important;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}

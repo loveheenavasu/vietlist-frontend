@@ -30,11 +30,10 @@ export class SettingComponent {
   constructor(
     private profileService: ProfileService,
     private fullPageLoader: FullPageLoaderService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getAllowedNotification()
-    this.allowNotification()
   }
 
   valueChange(event: any) {
@@ -64,7 +63,9 @@ export class SettingComponent {
         this.getAllowedNotification()
         Swal.fire({
           toast: true,
-          text: res.message,
+          text:
+            res?.message.slice(0, 1).toUpperCase() +
+            res?.message.slice(1, res?.message.length),
           animation: false,
           icon: 'success',
           position: 'top-right',
@@ -85,6 +86,7 @@ export class SettingComponent {
         this.Subscription = res.data.Subscription === 1
         this.delete_account = res.data.delete_account === 1
         this.business_listing = res.data.business_listing === 1
+        // this.allowNotification()
       },
     })
   }

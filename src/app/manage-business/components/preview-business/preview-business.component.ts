@@ -89,7 +89,7 @@ export class PreviewBusinessComponent {
   public isVideoTypeLoading: boolean = true
   public isLoading: boolean = false
   subject = 'Hello' // Replace with the email subject
-  body = 'Hello, I hope you are doing well'
+  body = 'Hello, I hope you are doing well '
   // public mainTabOption: any
   @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>
   constructor(
@@ -195,7 +195,10 @@ export class PreviewBusinessComponent {
         this.dataget = res?.data || 'NA'
         this.businessFormDetails = res?.data[0]
         if (res?.data[0]?.business_hours) {
-          this.openingHour = this.parse(res?.data[0]?.business_hours)
+          this.openingHour = this.businessService.combineMultipleTime(
+            this.parse(res?.data[0]?.business_hours),
+          )
+          console.log(this.openingHour)
         }
 
         this.eventLocation = res?.data[0]?.street

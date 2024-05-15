@@ -470,7 +470,9 @@ export class BusinessDetailsComponent {
         this.eventDetails = res?.data[0]
 
         if (res?.data[0]?.business_hours) {
-          this.openingHour = this.parse(res?.data[0]?.business_hours)
+          this.openingHour = this.businessService.combineMultipleTime(
+            this.parse(res?.data[0]?.business_hours),
+          )
         }
         if (res?.data[0]?.event_id) {
           this.getEventDetails()
