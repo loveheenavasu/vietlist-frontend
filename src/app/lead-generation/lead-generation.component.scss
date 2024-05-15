@@ -1,0 +1,43 @@
+@import "../../assets/scss/banner";
+
+.card-container {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    gap: 10%;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    width: 200px;
+    height: 150px;
+  }
+  
+  .card.selected {
+    border-color: #ff9900;
+    border-width: 3px;
+    background-color: #f5f7f9;
+  }
+  
+  mat-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  .progress-bar-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .progress-bar {
+    height: 10px;
+    background-color: #4caf50;
+    transition: width 0.3s ease-in-out;
+  }
+  

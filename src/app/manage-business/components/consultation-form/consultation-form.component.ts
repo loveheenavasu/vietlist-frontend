@@ -54,7 +54,9 @@ export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
+    console.log(this.imagePreviews, 'uppppppp')
     this.imagePreviews = value?.image || []
+    console.log(this.imagePreviews, 'down')
     this.video_upload = value?.video_upload || []
     const Gethours = value?.business_hours
     if (!Gethours) {
@@ -527,7 +529,9 @@ export class ConsultationFormComponent {
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isImageUploading = false
+          console.log(this.imagePreviews, 'this.imagePreviews up')
           this.imagePreviews.push(res.image_url)
+          console.log(this.imagePreviews, 'this.imagePreviews down')
           if (
             this.imagePreviews.length >= maxImages &&
             this.vediosHide.level_id !== '3'
@@ -586,7 +590,7 @@ export class ConsultationFormComponent {
     if (isSelected) {
       return true
     } else {
-      for (let index = 0; index < times.length; index++) {
+      for (let index = 0; index < times?.length; index++) {
         if (!times[index].start && !times[index].end) {
           return false
         }
@@ -693,7 +697,7 @@ export class ConsultationFormComponent {
       }
     }
     console.log(selectedData, resultArray, 'lplplplplpl')
-    console.log(this.selectedData, 'polplplplplpl')
+    console.log(this.imagePreviews, 'this.imagePreviewsthis.imagePreviews')
 
     this.isLoader = true
     const body = {
@@ -739,7 +743,7 @@ export class ConsultationFormComponent {
         next: (res) => {
           this.isLoader = false
 
-          this.consultationFormSubmit.emit()
+          // this.consultationFormSubmit.emit()
           if (res) {
             this.consultationFormSubmit.emit()
             this.localstorage.saveData('isConsultationFormFilled', 'true')

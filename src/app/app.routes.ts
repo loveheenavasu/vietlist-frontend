@@ -57,6 +57,7 @@ import { ForUsersComponent } from './landing-page/views/for-users/for-users.comp
 import { TermsComponent } from './landing-page/views/terms/terms.component'
 import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-policy.component'
 import { SitemapComponent } from './sitemap/sitemap.component'
+import { LeadGenerationComponent } from './lead-generation/lead-generation.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -307,6 +308,10 @@ export default [
   {
     path: 'sitemap',
     loadComponent: () => SitemapComponent,
+  },
+  {
+    path: 'loan-application',
+    loadComponent: () => LeadGenerationComponent,
   },
   {
     path: '**',

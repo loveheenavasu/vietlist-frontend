@@ -1,0 +1,80 @@
+<section class="banner">
+    <div class="content">
+      <h1>Load application</h1>
+    </div>
+  </section>
+  <div class="progress-bar-container">
+    <div class="progress-bar" [style.width]="progress + '%'"></div>
+  </div>
+<mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="firstFormGroup" [completed]="isStepCompleted(0)">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Property Use</ng-template>
+        <div class="card-container">
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Primary Residence'}"
+            (click)="selectOption('Primary Residence')"
+          >
+            <mat-icon>home</mat-icon>
+            <p>Primary Residence</p>
+          </div>
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Secondary Home'}"
+            (click)="selectOption('Secondary Home')"
+          >
+            <mat-icon>beach_access</mat-icon>
+            <p>Secondary Home</p>
+          </div>
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Investment Property'}"
+            (click)="selectOption('Investment Property')"
+          >
+            <mat-icon>monetization_on</mat-icon>
+            <p>Investment Property</p>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext [disabled]="!selectedOption">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup" [completed]="isStepCompleted(0)">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Property Use</ng-template>
+        <div class="card-container">
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Primary Residence'}"
+            (click)="selectOption('Primary Residence')"
+          >
+            <mat-icon>home</mat-icon>
+            <p>Primary Residence</p>
+          </div>
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Secondary Home'}"
+            (click)="selectOption('Secondary Home')"
+          >
+            <mat-icon>beach_access</mat-icon>
+            <p>Secondary Home</p>
+          </div>
+          <div
+            class="card"
+            [ngClass]="{'selected': selectedOption === 'Investment Property'}"
+            (click)="selectOption('Investment Property')"
+          >
+            <mat-icon>monetization_on</mat-icon>
+            <p>Investment Property</p>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperNext [disabled]="!selectedOption">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <!-- Add more steps as needed -->
+  </mat-horizontal-stepper>
+  
