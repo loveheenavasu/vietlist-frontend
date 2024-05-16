@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerInterceptor } from '@vietlist/shared';
 import { NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
@@ -34,11 +35,12 @@ initializeApp(environment.firebaseConfig)
     FullPageLoader,
     NgIf,
     PageNotFoundComponent,
+    TranslateModule
   ],
   template: `
     <app-header></app-header>
     <app-fullpage-loader *ngIf="loaderVisible == true"></app-fullpage-loader>
-    <router-outlet> </router-outlet>
+    <router-outlet></router-outlet>
     <app-footer></app-footer>
   `,
   styleUrl: './app.component.scss',
@@ -57,7 +59,8 @@ export class AppComponent {
     private changeDetector: ChangeDetectorRef,
     private oneSignal: OneSignal,
     private notificationService: NotificationService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private translateService:TranslateService
     
   ) {
     // this.oneSignal.init({
@@ -66,12 +69,11 @@ export class AppComponent {
     this.authenticationService.isAuthenticated$.subscribe((res:any) => {
       this.isAuthenticated = res
     })
-    errorMessageSubject.subscribe((res)=>{
-      console.log(res,'RESPONSE')
-    })
+    this.translateService.use('en')
   }
-
+  
   ngOnInit() {
+    this.translateService.use('en')
     this.loaderService.getLoaderVisibility().subscribe((res) => {
       this.loaderVisible = res
     })

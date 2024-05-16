@@ -4,6 +4,10 @@
   "newProjectRoot": "projects",
   "projects": {
     "vietlist-frontend": {
+      "i18n": {
+        "sourceLocale":"en-US",
+        "locales": {"es-PR":"src/locale/messages.es.xlf"}
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
