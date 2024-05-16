@@ -190,11 +190,24 @@ swiper-container {
     }
 }
 
+.add-btn {
+    margin-top: 2.625rem;
+    background-color: var(--white);
+    color: var( --primary-color-orange);
+    border: 1px solid #F90;
+    padding: 0.75rem 1.625rem;
+    height: 100%;
+
+    a {
+        color: var(--primary-color-orange) !important;
+        text-decoration: none !important;
+    }
+}
 
  .btn {
             margin-top: 2.625rem;
-            background-color: var(--white);
-            color: var(--primary-color-orange);
+            // background-color: var(--white);
+            // color: var(--primary-color-orange);
             border: 1px solid #F90;
             padding: 0.75rem 1.625rem;
             height: 100%;

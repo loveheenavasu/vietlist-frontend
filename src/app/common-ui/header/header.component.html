@@ -142,7 +142,7 @@
                 <button mat-menu-item [routerLink]="['/add-event']">
                   <span>Add Event</span>
                 </button>
-                <button mat-menu-item *ngIf="userRole == roles.businessOwner"
+                <button mat-menu-item *ngIf="userRole == roles.businessOwner &&isAuthenticated "
                   [routerLink]="['/manage-profile/manage-events']">
                   <span>My Events</span>
                 </button>
