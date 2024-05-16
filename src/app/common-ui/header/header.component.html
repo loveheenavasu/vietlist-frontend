@@ -81,7 +81,7 @@
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
               <span [routerLink]="['/']" routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }">Home</span>
+                [routerLinkActiveOptions]="{ exact: true }" data-bs-dismiss="offcanvas">Home</span>
             </li>
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
               [matMenuTriggerFor]="menucat">
@@ -108,7 +108,7 @@
                 </button>
               </mat-menu>
             </li> -->
-            <li class="nav-item">
+            <li class="nav-item" data-bs-dismiss="offcanvas">
               <span [routerLink]="'/benefits-of-joining'" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }" (click)="joinDirectory()">Join Our Directory</span>
             </li>
@@ -149,13 +149,13 @@
               </mat-menu>
             </li>
             @if(userDetail?.level_id == '3' && isAuthenticated){
-            <li class="nav-item">
+            <li class="nav-item" data-bs-dismiss="offcanvas">
               <span [routerLink]="['/resources']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Resources</span>
               <!-- <span >Contact Us</span> -->
             </li>
           }
-            <li class="nav-item">
+            <li class="nav-item" data-bs-dismiss="offcanvas" >
               <span [routerLink]="['/contact-us']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Contact Us</span>
               <!-- <span >Contact Us</span> -->
