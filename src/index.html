@@ -44,8 +44,12 @@
     -webkit-tap-highlight-color: transparent;
 } */
 
-
-
+.goog-te-gadget-icon {
+    display: none !important;
+  }
+  .goog-te-menu-frame.skiptranslate {
+      margin-top: 40px; /* Adjust this value as needed */
+    }
   </style>
 </head>
 
@@ -60,7 +64,7 @@
   </script>
 <script type="text/javascript">
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,vi'}, 'google_translate_element');
+    new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,vi' , layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
   }
   </script>
       

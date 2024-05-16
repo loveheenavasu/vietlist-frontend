@@ -9,6 +9,12 @@
     position: relative;
 }
 
+.gtrans{
+    
+}
+.goog-te-gadget-icon {
+    display: none !important;
+  }
 .badge {
     position: absolute;
     background-color: rgb(250 81 81 / 97%);
@@ -74,8 +80,8 @@
             align-items: center;
             justify-content: center;
             .nav-item {
-                font-size: 15px;
-                padding: 11px;
+                font-size: 14px;
+                padding: 10px;
                 font-weight: 400;
                 font-family: 'Roboto Slab';
                 cursor: pointer;
@@ -629,14 +635,14 @@ li.mat-mdc-menu-trigger.nav-item.active {
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 66%;
+                    width: 70%;
                     margin-right: 0.188rem;
                 }
 
             }
 
             .right-nav {
-                width: 25%;
+                width: 23%;
                 margin-left: 02.625rem;
             }
 
