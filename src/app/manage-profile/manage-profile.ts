@@ -85,25 +85,25 @@ export class ManageProfileComponent {
   }
 
   ngAfterViewInit() {
-    const messaging = getMessaging()
-    getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log(
-            currentToken,
-            'currentTokencurrentTokencurrentTokencurrentToken',
-          )
-          // Send the token to your server and update the UI if necessary
-          // ...
-        } else {
-          // Show permission request UI
-          // ...
-        }
-      })
-      .catch((err) => {
-        console.log('An error occurred while retrieving token. ', err)
-        // ...
-      })
+    // const messaging = getMessaging()
+    // getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
+    //   .then((currentToken) => {
+    //     if (currentToken) {
+    //       console.log(
+    //         currentToken,
+    //         'currentTokencurrentTokencurrentTokencurrentToken',
+    //       )
+    //       // Send the token to your server and update the UI if necessary
+    //       // ...
+    //     } else {
+    //       // Show permission request UI
+    //       // ...
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log('An error occurred while retrieving token. ', err)
+    //     // ...
+    //   })
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.router.url
@@ -111,6 +111,8 @@ export class ManageProfileComponent {
       }
     })
   }
+
+
   public setTitle() {
     switch (true) {
       case this.currentPath === '/manage-profile':

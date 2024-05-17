@@ -54,6 +54,9 @@ p {
 
     .plan-content {
         padding: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .ribbon {
@@ -79,7 +82,9 @@ p {
         width: 92%;
         margin: 10px auto;
         border-radius: 4px;
-
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
 
         h2 {
             font-weight: var(--font-weight-semibold);
@@ -225,6 +230,14 @@ p {
     }
 }
 
+@media screen and (max-width: 991px) {
+    .plan-header {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+}
 @media screen and (max-width: 768px) {
 
     .main-container {
@@ -246,8 +259,8 @@ p {
     .subscription-plan-cnt {
         min-height: auto;
         margin-bottom: 30px;
-        width:100%!important;
-        
+        width: 100% !important;
+
     }
 
     .col-12.col-md-6.col-lg-4.popular-card {
@@ -263,6 +276,8 @@ p {
 
 
     }
+
+ 
 
     .subscription-plan-cnt .plan-content {
         margin-top: 42px

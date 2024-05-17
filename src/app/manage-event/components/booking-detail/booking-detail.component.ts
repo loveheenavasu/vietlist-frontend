@@ -37,6 +37,16 @@ export class BookingDetailComponent {
   public gettags: any
   public activeTab: string = 'profile'
   public bookingInfo: any
+  public bookingPrice:any
+
+  /**
+   * 
+   * @param _route 
+   * @param fullPageLoaderService 
+   * @param router 
+   * @param authService 
+   * @param eventService 
+   */
   constructor(
     private _route: ActivatedRoute,
     private fullPageLoaderService: FullPageLoaderService,
@@ -68,7 +78,8 @@ export class BookingDetailComponent {
       next: (res) => {
 
         this.bookingInfo = res?.data[0]
-        console.log("res---", this.bookingInfo)
+        const price = Number(this.bookingInfo.booking_price)
+        this.bookingPrice = price?.toFixed(2)
         this.fullPageLoaderService.hideLoader()
           ; (this.eventDetails = res?.data[0] || 'NA'),
             (this.eventLocation = this.eventDetails?.street)
