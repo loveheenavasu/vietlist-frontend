@@ -1,5 +1,6 @@
+import { GlobalSubscriptionService } from './shared/utils/services/globalsubscription.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { ApplicationConfig, importProvidersFrom } from '@angular/core'
+import { ApplicationConfig, APP_INITIALIZER, importProvidersFrom } from '@angular/core'
 import { provideRouter, withInMemoryScrolling } from '@angular/router'
 
 import routes from './app.routes'
@@ -30,6 +31,15 @@ const stripePublishKey = environment.stripe_publish_key
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    GlobalSubscriptionService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (globalSubscriptionService: GlobalSubscriptionService) => () => {
+        return globalSubscriptionService;
+      },
+      deps: [GlobalSubscriptionService],
+      multi: true
+    },
     provideRouter(
       routes,
       withInMemoryScrolling({

@@ -21,7 +21,7 @@ img {
 }
 
 .goog-te-gadget-simple {
-  background-color: #FFF;
+  background-color: orange;
   border-left: 1px solid #eeeeee !important;
   border-top: 1px solid #eeeeee !important;
   border-bottom: 1px solid #eeeeee !important;
@@ -31,7 +31,9 @@ img {
   padding-top: 1px;
   padding-bottom: 2px;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 22px;
+  z-index:99999
+  // font-family: 'Roboto Slab';
 }
 
 .background_section {

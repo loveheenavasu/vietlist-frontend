@@ -1,7 +1,8 @@
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ErrorHandlerInterceptor } from '@vietlist/shared';
 import { NgIf } from '@angular/common'
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import {
   FooterComponent,
@@ -22,9 +23,18 @@ import { Observable } from 'rxjs'
 import { initializeApp } from 'firebase/app'
 import Swal from 'sweetalert2'
 import { ProfileService } from './manage-profile/service/profile.service'
-import { errorMessageSubject } from './shared/utils/interceptor/errorhandler';
+import { ChooseLanguageComponent } from './choose-language/choose-language.component';
 
 initializeApp(environment.firebaseConfig)
+declare namespace google {
+  namespace translate {
+    class TranslateElement {
+      static InlineLayout: any;
+      constructor(options: any, containerId: string);
+    }
+  }
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -52,6 +62,7 @@ export class AppComponent {
   public loaderVisible: boolean = false
   public isNotFoundPage: boolean = false
   public isAuthenticated:boolean = false
+
   constructor(
     private loaderService: FullPageLoaderService,
     private router: Router,
@@ -60,7 +71,8 @@ export class AppComponent {
     private oneSignal: OneSignal,
     private notificationService: NotificationService,
     private profileService: ProfileService,
-    private translateService:TranslateService
+    private translateService:TranslateService,
+    public dialog:MatDialog
     
   ) {
     // this.oneSignal.init({
@@ -70,6 +82,7 @@ export class AppComponent {
       this.isAuthenticated = res
     })
     this.translateService.use('en')
+
   }
   
   ngOnInit() {
@@ -80,6 +93,8 @@ export class AppComponent {
     if (this.isAuthenticated) {
       this.fetchProfileDetail()
     }
+    // console.log("Hello APp")
+    // this.openLanguageDialog()
   }
 
   public requestPermission() {
@@ -93,14 +108,14 @@ export class AppComponent {
         }
       })
       .catch((err) => {
-        console.log('An error occurred while retrieving token. ', err)
+        
       })
   }
 
   public listen() {
     const messaging = getMessaging()
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload)
+      
       this.message = payload
       this.notificationService.showNotification(payload)
       Swal.fire({
@@ -125,5 +140,51 @@ export class AppComponent {
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
+  }
+
+public openLanguageDialog() {
+    const dialogRef = this.dialog.open(ChooseLanguageComponent);
+
+    dialogRef.componentInstance.languageSelected.subscribe((selectedLanguage: string) => {
+      this.loadGoogleTranslateScript(selectedLanguage);
+      console.log('Selected Language:', selectedLanguage);
+    });
+  }
+
+  private loadGoogleTranslateScript(language: string) {
+    const scriptId = 'google-translate-script';
+    let scriptElement:any = document.getElementById(scriptId);
+
+    if (scriptElement) {
+      scriptElement.remove();
+    }
+
+    scriptElement = document.createElement('script');
+    scriptElement.id = scriptId;
+    scriptElement.type = 'text/javascript';
+    scriptElement.src = `//translate.google.com/translate_a/element.js?sl=vi&cb=googleTranslateElementInit`;
+    let windoww:any = window
+    windoww['googleTranslateElementInit'] = () => {
+      new google.translate.TranslateElement({ pageLanguage: language || 'en', includedLanguages: 'en,vi'}, 'google_translate_element');
+    };
+
+    document.body.appendChild(scriptElement);
+    // this.googleScriptUrl()
+  }
+
+  private googleScriptUrl() {
+    const scriptId = 'google-url-script';
+    let scriptElement:any = document.getElementById(scriptId);
+
+    if (scriptElement) {
+      scriptElement.remove();
+    }
+
+    scriptElement = document.createElement('script');
+    scriptElement.id = scriptId;
+    scriptElement.type = 'text/javascript';
+    scriptElement.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
+    
+    document.body.appendChild(scriptElement);
   }
 }

@@ -9,8 +9,11 @@
     position: relative;
 }
 
+
 .gtrans{
-    
+    // position: absolute;
+    // top:0px;
+    // border:solid 1px red;
 }
 .goog-te-gadget-icon {
     display: none !important;
@@ -157,10 +160,6 @@
         box-shadow: 0px 4px 30px 0px rgba(20, 110, 180, 0.10);
         display: flex;
         align-items: center;
-
-        // justify-content: center;
-        // margin-right: 42px;
-        // margin-left: 30px;
         .nav-item {
             padding: 0px !important;
 
