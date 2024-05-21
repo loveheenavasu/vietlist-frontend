@@ -17,8 +17,8 @@
         key="home_loan_purpose"
         title="I'm looking to:"
         (selectOption)="selectOption($event)"
-        (goBack)='goBack()'
-        (nextStep)='nextStep()'
+        (goBack)="goBack()"
+        (nextStep)="nextStep()"
       ></app-loan-option-card>
     </mat-step>
     <mat-step>
@@ -28,8 +28,8 @@
         key="home_description"
         title="Home Description"
         (selectOption)="selectOption($event)"
-        (goBack)='goBack()'
-        (nextStep)='nextStep()'
+        (goBack)="goBack()"
+        (nextStep)="nextStep()"
       ></app-loan-option-card>
     </mat-step>
     <mat-step>
@@ -39,8 +39,8 @@
         key="property_use"
         title="Property Use"
         (selectOption)="selectOption($event)"
-        (goBack)='goBack()'
-        (nextStep)='nextStep()'
+        (goBack)="goBack()"
+        (nextStep)="nextStep()"
       ></app-loan-option-card>
     </mat-step>
     <mat-step>
@@ -51,8 +51,8 @@
           key="home_buying_process"
           title="Where in the home buying process are you?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <p class="step-title">Estimated Home Value</p>
@@ -74,7 +74,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -99,8 +101,8 @@
           key="reason_to_refinance"
           title="Why do you want to Refinance?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
           [isTextCard]="true"
         ></app-loan-option-card>
       }
@@ -118,8 +120,8 @@
             key="expected_home_purchase_date"
             title="When do you hope to purchase your new home?          "
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         </mat-step>
       }
@@ -132,8 +134,8 @@
           key="first_time_homebuyer"
           title="Are you a first-time homebuyer?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <p class="step-title">Please enter your mortgage balance</p>
@@ -155,7 +157,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -191,7 +195,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -219,8 +225,8 @@
           key="military_service_status"
           title="Active or previous U.S. military service?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <p class="step-title">
@@ -244,7 +250,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -280,7 +288,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -306,8 +316,8 @@
           key="real_estate_agent_engagement"
           title="Are you currently working with a real estate agent?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       } @else {
         <app-loan-option-card
@@ -316,8 +326,8 @@
           key="military_service_status"
           title="Active or previous U.S. military service?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       }
     </mat-step>
@@ -342,7 +352,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -366,8 +378,8 @@
           key="your_credit_profile"
           title="Your Credit Profile?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       }
     </mat-step>
@@ -394,7 +406,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -419,8 +433,8 @@
           key="2nd_mortgage"
           title="Do you have a 2nd mortgage?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       }
     </mat-step>
@@ -435,8 +449,8 @@
             key="down_payment_assistance"
             title="Are you interested in down payment assistance?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         } @else {
           <app-loan-option-card
@@ -446,8 +460,8 @@
             key="your_credit_profile"
             title="Your Credit Profile?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         }
       } @else {
@@ -457,8 +471,8 @@
           key="employment_status"
           title="Employment Status"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       }
     </mat-step>
@@ -474,8 +488,8 @@
             key="your_credit_profile"
             title="Your Credit Profile?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         } @else {
           <app-loan-option-card
@@ -484,8 +498,8 @@
             key="employment_status"
             title="Employment Status          "
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         }
       } @else {
@@ -495,8 +509,8 @@
           key="bankruptcy_status"
           title="Any bankruptcy in the past 3 years?"
           (selectOption)="selectOption($event)"
-          (goBack)='goBack()'
-          (nextStep)='nextStep()'
+          (goBack)="goBack()"
+          (nextStep)="nextStep()"
         ></app-loan-option-card>
       }
     </mat-step>
@@ -511,8 +525,8 @@
             key="employment_status"
             title="Employment Status          "
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <app-loan-option-card
@@ -521,8 +535,8 @@
             key="employer_benefits"
             title="Are you receiving any benefits from your employer for this move?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         } @else {
           <app-loan-option-card
@@ -531,8 +545,8 @@
             key="bankruptcy_status"
             title="Any bankruptcy in the past 3 years?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         }
       } @else {
@@ -571,7 +585,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -605,8 +621,8 @@
               key="employer_benefits"
               title="Are you receiving any benefits from your employer for this move?"
               (selectOption)="selectOption($event)"
-              (goBack)='goBack()'
-              (nextStep)='nextStep()'
+              (goBack)="goBack()"
+              (nextStep)="nextStep()"
             ></app-loan-option-card>
           } @else {
             <app-loan-option-card
@@ -615,8 +631,8 @@
               key="bankruptcy_status"
               title="Any bankruptcy in the past 3 years?"
               (selectOption)="selectOption($event)"
-              (goBack)='goBack()'
-              (nextStep)='nextStep()'
+              (goBack)="goBack()"
+              (nextStep)="nextStep()"
             ></app-loan-option-card>
           }
         } @else if (selectedOptions['employment_status'] === 'employed') {
@@ -626,8 +642,8 @@
             key="bankruptcy_status"
             title="Any bankruptcy in the past 3 years?"
             (selectOption)="selectOption($event)"
-            (goBack)='goBack()'
-            (nextStep)='nextStep()'
+            (goBack)="goBack()"
+            (nextStep)="nextStep()"
           ></app-loan-option-card>
         } @else {
           <p class="step-title">First Name</p>
@@ -665,7 +681,14 @@
             </mat-form-field>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -749,7 +772,14 @@
             </div>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -780,8 +810,8 @@
               key="bankruptcy_status"
               title="Any bankruptcy in the past 3 years?"
               (selectOption)="selectOption($event)"
-              (goBack)='goBack()'
-              (nextStep)='nextStep()'
+              (goBack)="goBack()"
+              (nextStep)="nextStep()"
             ></app-loan-option-card>
           } @else {
             <p class="step-title">First Name</p>
@@ -819,7 +849,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -876,7 +913,14 @@
             </mat-form-field>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -961,7 +1005,14 @@
               </div>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -997,7 +1048,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -1053,7 +1106,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -1138,7 +1198,14 @@
                 </div>
               </div>
               <div class="btn-container">
-                <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+                <button
+                  class="back"
+                  mat-button
+                  matStepperPrevious
+                  (click)="goBack()"
+                >
+                  Back
+                </button>
                 <button
                   class="next"
                   [ngClass]="{
@@ -1221,7 +1288,14 @@
               </div>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -1258,7 +1332,14 @@
             </mat-form-field>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -1292,7 +1373,9 @@
           </mat-form-field>
         </div>
         <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
           <button
             class="next"
             [ngClass]="{
@@ -1379,7 +1462,14 @@
                 </div>
               </div>
               <div class="btn-container">
-                <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+                <button
+                  class="back"
+                  mat-button
+                  matStepperPrevious
+                  (click)="goBack()"
+                >
+                  Back
+                </button>
                 <button
                   class="next"
                   [ngClass]="{
@@ -1416,7 +1506,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -1450,7 +1547,14 @@
             </mat-form-field>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -1466,24 +1570,31 @@
         } @else {
           <p class="step-title">Current Mailing Address</p>
           <div class="card-container">
-            <mat-form-field style="width: 350px">
-              <mat-label>Current Mailing Address </mat-label>
-              <input
-                matInput
-                type="text"
-                placeholder="Address"
-                [formControl]="address"
-                (blur)="updateErrorMessage('address')"
-                required
-              />
+            <!-- <mat-form-field style="width: 350px">
+              <mat-label>Current Mailing Address </mat-label> -->
+              <AutocompleteComponent
+                aria-placeholder="Address"
+                class="direction-field"
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="direction"
+              >
+              </AutocompleteComponent>
               <i class="fa-solid fa-location-dot input-icon"></i>
               <mat-error *ngIf="address.invalid">{{
                 addressErrorMessage
               }}</mat-error>
-            </mat-form-field>
+            <!-- </mat-form-field> -->
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -1526,7 +1637,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -1559,7 +1677,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{
@@ -1581,14 +1706,14 @@
           <div class="card-container">
             <mat-form-field style="width: 350px">
               <mat-label>Current Mailing Address </mat-label>
-              <input
-                matInput
-                type="text"
-                placeholder="Address"
-                [formControl]="address"
-                (blur)="updateErrorMessage('address')"
-                required
-              />
+              <AutocompleteComponent
+                aria-placeholder="Address"
+                class="direction-field"
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="direction"
+              >
+              </AutocompleteComponent>
               <i class="fa-solid fa-location-dot input-icon"></i>
               <mat-error *ngIf="address.invalid">{{
                 addressErrorMessage
@@ -1596,7 +1721,14 @@
             </mat-form-field>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
+              Back
+            </button>
             <button
               class="next"
               [ngClass]="{
@@ -1639,7 +1771,14 @@
               </mat-form-field>
             </div>
             <div class="btn-container">
-              <button class="back" mat-button matStepperPrevious (click)="goBack()" >Back</button>
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
               <button
                 class="next"
                 [ngClass]="{

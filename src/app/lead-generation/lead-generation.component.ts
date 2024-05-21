@@ -18,6 +18,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper'
 import { MatInputModule } from '@angular/material/input'
 import { LoanOptionCardComponent } from './loan-option-card/loan-option-card.component'
 import { FullPageLoaderService } from '../shared/utils'
+import { AutocompleteComponent } from '../shared/utils/googleaddress'
 @Component({
   selector: 'app-lead-generation',
   standalone: true,
@@ -32,6 +33,7 @@ import { FullPageLoaderService } from '../shared/utils'
     ReactiveFormsModule,
     MatInputModule,
     LoanOptionCardComponent,
+    AutocompleteComponent,
   ],
   templateUrl: './lead-generation.component.html',
   styleUrl: './lead-generation.component.scss',
@@ -226,7 +228,7 @@ export class LeadGenerationComponent {
       value: '6+_months',
     },
   ]
-
+  direction: string = ''
   check: any
   public verifiedBadge = new FormControl(false)
   currentStep: number = 1
@@ -239,6 +241,11 @@ export class LeadGenerationComponent {
   toggleShowMore() {
     this.showMore = !this.showMore
   }
+
+  getAddress(place: any) {
+    this.direction = place.formatted_address
+  }
+
   public purchasePrice = new FormControl('', [
     Validators.required,
     this.priceValidator(50000, 10000000),

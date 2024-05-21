@@ -29,6 +29,7 @@ import {
 } from 'ngx-intl-tel-input'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { debounceTime, Subject } from 'rxjs'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -44,6 +45,7 @@ import { debounceTime, Subject } from 'rxjs'
     LoaderComponent,
     NgClass,
     NgxIntlTelInputModule,
+    AutocompleteComponent,
   ],
 
   templateUrl: './register.component.html',
@@ -64,6 +66,7 @@ export class RegisterComponent {
   public signupType = [
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
+    { name: 'Broker', value: Roles.broker, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedSignupType: any
@@ -127,6 +130,7 @@ export class RegisterComponent {
       },
     )
   }
+  direction: string = ''
 
   ngOnInit() {
     this.selectedSignupType = Roles.businessOwner
@@ -168,12 +172,16 @@ export class RegisterComponent {
     })
   }
 
+  getAddress(place: any) {
+    this.direction = place.formatted_address
+  }
+
   public handleRegistrationSubmission() {
     const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
       this.contact_details?.value?.dialCode,
     )
 
-    const body = {
+    const body: { [key: string]: any } = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
       business_type: this.signupForm.value.business_type,
@@ -196,6 +204,10 @@ export class RegisterComponent {
         )
         body['country_code'] = this.contact_details.value.dialCode
       }
+      if (this.selectedSignupType === this.userRole.businessOwner) {
+        body['address'] = this.direction
+      }
+
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
