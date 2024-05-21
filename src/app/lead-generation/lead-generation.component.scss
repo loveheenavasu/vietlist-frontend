@@ -1,43 +1,153 @@
 @import "../../assets/scss/banner";
 
+
+.step-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+}
+
 .card-container {
-    display: flex;
-    margin-top: 20px;
-    justify-content: center;
-    gap: 10%;
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  // gap: 5%;
+}
+
+.card-text {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  width: 400px;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-around;
+  transition: all ease-in-out .1s;
+  margin: 2%;
+  align-items: center;
+
+  p {
+    margin: 0;
   }
-  
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-    cursor: pointer;
-    width: 200px;
-    height: 150px;
+}
+
+.card-text.selected {
+  border-color: #ff9900;
+  border-width: 3px;
+  background-color: #f5f7f9;
+}
+
+.card-text:hover {
+  transform: scale(1.1);
+
+}
+
+mat-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  padding-inline: 10%;
+  padding-top: 5%;
+  padding-bottom: 2%;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  .un {
+    background-color: #ff99004a;
   }
-  
-  .card.selected {
-    border-color: #ff9900;
-    border-width: 3px;
-    background-color: #f5f7f9;
+}
+
+.progress-bar {
+  height: 5px;
+  background-color: #ff9900;
+  transition: width 0.3s ease-in-out;
+}
+
+
+:host {
+  ::ng-deep {
+    .mat-horizontal-stepper-header-container {
+      display: none;
+    }
   }
-  
-  mat-icon {
-    font-size: 40px;
-    margin-bottom: 10px;
-  }
-  .progress-bar-container {
-    width: 100%;
-    background-color: #f3f3f3;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 4%;
+
+  .next {
+    background-color: #ff9900;
+    color: #f5f7f9;
+    border: none;
+    padding: 9px 30px;
     border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 20px;
   }
-  
-  .progress-bar {
-    height: 10px;
-    background-color: #4caf50;
-    transition: width 0.3s ease-in-out;
+
+  .back {
+    border: 1.5px solid #ff9900;
+    padding: 9px 30px;
+    border-radius: 5px;
+    color: #ff9900;
+
   }
-  
+}
+
+.disable-next {
+  background-color: #ff9900b0 !important;
+}
+
+.input-icon {
+  position: absolute;
+  right: -10px;
+  font-size: 20px;
+  top: 20px;
+}
+
+.form-check-input:checked {
+  background-color: var(--primary-color-orange) !important;
+  border-color: var(--primary-color-orange) !important;
+}
+
+.form-check-label {
+  color: var(--dark-grey);
+  font-size: 15px;
+}
+
+.end-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px;
+
+  div {
+    max-width: 400px;
+  }
+
+  .title-end{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+  }
+}

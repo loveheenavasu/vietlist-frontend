@@ -1,80 +1,1615 @@
 <section class="banner">
-    <div class="content">
-      <h1>Load application</h1>
-    </div>
-  </section>
-  <div class="progress-bar-container">
-    <div class="progress-bar" [style.width]="progress + '%'"></div>
+  <div class="content">
+    <h1>Load application</h1>
   </div>
-<mat-horizontal-stepper [linear]="true" #stepper>
-    <mat-step [stepControl]="firstFormGroup" [completed]="isStepCompleted(0)">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Property Use</ng-template>
-        <div class="card-container">
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Primary Residence'}"
-            (click)="selectOption('Primary Residence')"
-          >
-            <mat-icon>home</mat-icon>
-            <p>Primary Residence</p>
-          </div>
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Secondary Home'}"
-            (click)="selectOption('Secondary Home')"
-          >
-            <mat-icon>beach_access</mat-icon>
-            <p>Secondary Home</p>
-          </div>
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Investment Property'}"
-            (click)="selectOption('Investment Property')"
-          >
-            <mat-icon>monetization_on</mat-icon>
-            <p>Investment Property</p>
-          </div>
-        </div>
-        <div>
-          <button mat-button matStepperNext [disabled]="!selectedOption">Next</button>
-        </div>
-      </form>
+</section>
+@if (notSubmitted) {
+  <div class="progress-bar-container">
+    <div class="un">
+      <div class="progress-bar" [style.width]="progress + '%'"></div>
+    </div>
+  </div>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step>
+      <app-loan-option-card
+        [steps]="firstStep"
+        [selectedOptions]="selectedOptions"
+        key="home_loan_purpose"
+        title="I'm looking to:"
+        (selectOption)="selectOption($event)"
+      ></app-loan-option-card>
     </mat-step>
-    <mat-step [stepControl]="firstFormGroup" [completed]="isStepCompleted(0)">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Property Use</ng-template>
-        <div class="card-container">
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Primary Residence'}"
-            (click)="selectOption('Primary Residence')"
-          >
-            <mat-icon>home</mat-icon>
-            <p>Primary Residence</p>
-          </div>
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Secondary Home'}"
-            (click)="selectOption('Secondary Home')"
-          >
-            <mat-icon>beach_access</mat-icon>
-            <p>Secondary Home</p>
-          </div>
-          <div
-            class="card"
-            [ngClass]="{'selected': selectedOption === 'Investment Property'}"
-            (click)="selectOption('Investment Property')"
-          >
-            <mat-icon>monetization_on</mat-icon>
-            <p>Investment Property</p>
-          </div>
-        </div>
-        <div>
-          <button mat-button matStepperNext [disabled]="!selectedOption">Next</button>
-        </div>
-      </form>
+    <mat-step>
+      <app-loan-option-card
+        [steps]="secondStep"
+        [selectedOptions]="selectedOptions"
+        key="home_description"
+        title="Home Description"
+        (selectOption)="selectOption($event)"
+      ></app-loan-option-card>
     </mat-step>
-    <!-- Add more steps as needed -->
+    <mat-step>
+      <app-loan-option-card
+        [steps]="thirdStep"
+        [selectedOptions]="selectedOptions"
+        key="property_use"
+        title="Property Use"
+        (selectOption)="selectOption($event)"
+      ></app-loan-option-card>
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <app-loan-option-card
+          [steps]="fourthStep"
+          [selectedOptions]="selectedOptions"
+          key="home_buying_process"
+          title="Where in the home buying process are you?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      } @else if (selectedOptions['home_loan_purpose'] === 'Take cash Out') {
+        <p class="step-title">Estimated Home Value</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label> Home value</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="estimatedHomeValue"
+              (blur)="updateErrorMessage('estimatedHomeValue')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="estimatedHomeValue.invalid">{{
+              estimatedHomeValueErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['estimated_home_value'] ||
+                estimatedHomeValue.invalid
+            }"
+            [disabled]="
+              !selectedOptions['estimated_home_value'] ||
+              estimatedHomeValue.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      } @else {
+        <app-loan-option-card
+          [steps]="refinanceReason"
+          [selectedOptions]="selectedOptions"
+          key="reason_to_refinance"
+          title="Why do you want to Refinance?"
+          (selectOption)="selectOption($event)"
+          [isTextCard]="true"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+      @if (
+        selectedOptions['home_buying_process'] ===
+        'Looking at homes and listings'
+      ) {
+        <mat-step>
+          <app-loan-option-card
+            [isTextCard]="true"
+            [steps]="purchaseDate"
+            [selectedOptions]="selectedOptions"
+            key="expected_home_purchase_date"
+            title="When do you hope to purchase your new home?          "
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        </mat-step>
+      }
+    }
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="first_time_homebuyer"
+          title="Are you a first-time homebuyer?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      } @else if (selectedOptions['home_loan_purpose'] === 'Take cash Out') {
+        <p class="step-title">Please enter your mortgage balance</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Mortgage Balance</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="mortgageBalance"
+              (blur)="updateErrorMessage('mortgageBalance')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="mortgageBalance.invalid">{{
+              mortgageBalanceErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['mortgage_balance'] || mortgageBalance.invalid
+            }"
+            [disabled]="
+              !selectedOptions['mortgage_balance'] || mortgageBalance.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      } @else {
+        <p class="step-title">Estimated Home Value</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label> Home value</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="estimatedHomeValue"
+              (blur)="updateErrorMessage('estimatedHomeValue')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="estimatedHomeValue.invalid">{{
+              estimatedHomeValueErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['estimated_home_value'] ||
+                estimatedHomeValue.invalid
+            }"
+            [disabled]="
+              !selectedOptions['estimated_home_value'] ||
+              estimatedHomeValue.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="military_service_status"
+          title="Active or previous U.S. military service?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      } @else if (selectedOptions['home_loan_purpose'] === 'Take cash Out') {
+        <p class="step-title">
+          How much additional cash would you like to borrow?
+        </p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label> Additional Cash</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="additionalCash"
+              (blur)="updateErrorMessage('additionalCash')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="additionalCash.invalid">{{
+              additionalCashErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['cash_borrow'] || additionalCash.invalid
+            }"
+            [disabled]="
+              !selectedOptions['cash_borrow'] || additionalCash.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      } @else {
+        <p class="step-title">Please enter your mortgage balance</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Mortgage Balance</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="mortgageBalance"
+              (blur)="updateErrorMessage('mortgageBalance')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="mortgageBalance.invalid">{{
+              mortgageBalanceErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['mortgage_balance'] || mortgageBalance.invalid
+            }"
+            [disabled]="
+              !selectedOptions['mortgage_balance'] || mortgageBalance.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="real_estate_agent_engagement"
+          title="Are you currently working with a real estate agent?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      } @else {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="military_service_status"
+          title="Active or previous U.S. military service?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <p class="step-title">Purchase price of the new home</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Purchase Price</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="purchasePrice"
+              (blur)="updateErrorMessage('purchasePrice')"
+              required
+            />
+            <i class="fa-solid fa-dollar-sign input-icon"></i>
+            <mat-error *ngIf="purchasePrice.invalid">{{
+              purchasePriceErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['purchase_price'] || purchasePrice.invalid
+            }"
+            matStepperNext
+            [disabled]="
+              !selectedOptions['purchase_price'] || purchasePrice.invalid
+            "
+          >
+            Next
+          </button>
+        </div>
+      } @else {
+        <app-loan-option-card
+          width="219px"
+          [steps]="creditProfileStep"
+          [selectedOptions]="selectedOptions"
+          key="your_credit_profile"
+          title="Your Credit Profile?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        <p class="step-title">Estimated Down Payment</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Down Payment Amount</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="downPaymentAmount"
+              (blur)="updateErrorMessage('downPaymentAmount')"
+              required
+            />
+            <i
+              class="fa-solid fa-dollar-sign position-absolute h4 end-2 top-22"
+            ></i>
+            <mat-error *ngIf="downPaymentAmount.invalid">{{
+              downPaymentAmountErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['estimated_down_payment'] ||
+                downPaymentAmount.invalid
+            }"
+            matStepperNext
+            [disabled]="
+              !selectedOptions['estimated_down_payment'] ||
+              downPaymentAmount.invalid
+            "
+          >
+            Next
+          </button>
+        </div>
+      } @else {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="2nd_mortgage"
+          title="Do you have a 2nd mortgage?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          <app-loan-option-card
+            [steps]="yesNoStep"
+            [selectedOptions]="selectedOptions"
+            key="down_payment_assistance"
+            title="Are you interested in down payment assistance?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        } @else {
+          <app-loan-option-card
+            width="219px"
+            [steps]="creditProfileStep"
+            [selectedOptions]="selectedOptions"
+            key="your_credit_profile"
+            title="Your Credit Profile?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        }
+      } @else {
+        <app-loan-option-card
+          [steps]="employmentStatus"
+          [selectedOptions]="selectedOptions"
+          key="employment_status"
+          title="Employment Status"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          <app-loan-option-card
+            width="219px"
+            [steps]="creditProfileStep"
+            [selectedOptions]="selectedOptions"
+            key="your_credit_profile"
+            title="Your Credit Profile?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        } @else {
+          <app-loan-option-card
+            [steps]="employmentStatus"
+            [selectedOptions]="selectedOptions"
+            key="employment_status"
+            title="Employment Status          "
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        }
+      } @else {
+        <app-loan-option-card
+          [steps]="yesNoStep"
+          [selectedOptions]="selectedOptions"
+          key="bankruptcy_status"
+          title="Any bankruptcy in the past 3 years?"
+          (selectOption)="selectOption($event)"
+        ></app-loan-option-card>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          <app-loan-option-card
+            [steps]="employmentStatus"
+            [selectedOptions]="selectedOptions"
+            key="employment_status"
+            title="Employment Status          "
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <app-loan-option-card
+            [steps]="yesNoStep"
+            [selectedOptions]="selectedOptions"
+            key="employer_benefits"
+            title="Are you receiving any benefits from your employer for this move?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        } @else {
+          <app-loan-option-card
+            [steps]="yesNoStep"
+            [selectedOptions]="selectedOptions"
+            key="bankruptcy_status"
+            title="Any bankruptcy in the past 3 years?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        }
+      } @else {
+        <p class="step-title">First Name</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>First Name</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="firstName"
+              (blur)="updateErrorMessage('firstName')"
+              required
+            />
+            <mat-error *ngIf="firstName.invalid">{{
+              firstNameErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <p class="step-title">Last Name</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Last Name</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="lastName"
+              (blur)="updateErrorMessage('lastName')"
+              required
+            />
+            <mat-error *ngIf="lastName.invalid">{{
+              lastNameErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['first_name'] ||
+                !selectedOptions['last_name'] ||
+                lastName.invalid
+            }"
+            [disabled]="
+              !selectedOptions['first_name'] ||
+              !selectedOptions['last_name'] ||
+              lastName.invalid
+            "
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <app-loan-option-card
+              [steps]="yesNoStep"
+              [selectedOptions]="selectedOptions"
+              key="employer_benefits"
+              title="Are you receiving any benefits from your employer for this move?"
+              (selectOption)="selectOption($event)"
+            ></app-loan-option-card>
+          } @else {
+            <app-loan-option-card
+              [steps]="yesNoStep"
+              [selectedOptions]="selectedOptions"
+              key="bankruptcy_status"
+              title="Any bankruptcy in the past 3 years?"
+              (selectOption)="selectOption($event)"
+            ></app-loan-option-card>
+          }
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <app-loan-option-card
+            [steps]="yesNoStep"
+            [selectedOptions]="selectedOptions"
+            key="bankruptcy_status"
+            title="Any bankruptcy in the past 3 years?"
+            (selectOption)="selectOption($event)"
+          ></app-loan-option-card>
+        } @else {
+          <p class="step-title">First Name</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>First Name</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="firstName"
+                (blur)="updateErrorMessage('firstName')"
+                required
+              />
+              <mat-error *ngIf="firstName.invalid">{{
+                firstNameErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <p class="step-title">Last Name</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Last Name</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="lastName"
+                (blur)="updateErrorMessage('lastName')"
+                required
+              />
+              <mat-error *ngIf="lastName.invalid">{{
+                lastNameErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next':
+                  !selectedOptions['first_name'] ||
+                  !selectedOptions['last_name'] ||
+                  lastName.invalid
+              }"
+              [disabled]="
+                !selectedOptions['first_name'] ||
+                !selectedOptions['last_name'] ||
+                lastName.invalid
+              "
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        }
+      } @else {
+        <div class="cont">
+          <p class="step-title">Phone Number</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Phone Number </mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="Phone Number"
+                [formControl]="phoneNumber"
+                (blur)="updateErrorMessage('phoneNumber')"
+                required
+              />
+              <i class="fa-solid fa-phone-volume input-icon"></i>
+              <mat-error *ngIf="phoneNumber.invalid">{{
+                phoneNumberErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row justify-content-center">
+            <div class="form-check col-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="terms"
+                [(ngModel)]="check"
+                [formControl]="verifiedBadge"
+              />
+              <label class="form-check-label mb-3" for="terms">
+                I'd like to get text messages about promotions and ways to save
+              </label>
+              <small>
+                Data rates may apply and message frequency varies. Reply STOP to
+                unsubscribe or HELP for help.
+              </small>
+              <p
+                class="mt-3"
+                [style.max-height]="!showMore ? '100px' : 'fit-content'"
+                [style.overflow]="'hidden'"
+              >
+                By providing your contact info and clicking “Confirm and
+                Continue” below, you agree to our Privacy Policy and Terms of
+                Use, which includes your agreement to arbitrate claims related
+                to the Telephone Consumer Protection Act. You also expressly
+                consent by electronic signature to receive sales, marketing and
+                other calls and texts, including those sent by any automated
+                system or other means for selecting and dialing telephone
+                numbers, or using an artificial or prerecorded voice message
+                when a connection is completed, from Rocket Mortgage at the
+                telephone number you provided, even if that telephone number is
+                on a do-not-call list. Agreement to receive such calls or texts
+                is not a condition of purchasing goods or services from us.
+              </p>
+              <p>
+                <button class="btn btn-link" (click)="toggleShowMore()">
+                  show more
+                </button>
+              </p>
+            </div>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next':
+                  !selectedOptions['phone_number'] || phoneNumber.invalid
+              }"
+              [disabled]="
+                !selectedOptions['phone_number'] || phoneNumber.invalid
+              "
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <app-loan-option-card
+              [steps]="yesNoStep"
+              [selectedOptions]="selectedOptions"
+              key="bankruptcy_status"
+              title="Any bankruptcy in the past 3 years?"
+              (selectOption)="selectOption($event)"
+            ></app-loan-option-card>
+          } @else {
+            <p class="step-title">First Name</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>First Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="firstName"
+                  (blur)="updateErrorMessage('firstName')"
+                  required
+                />
+                <mat-error *ngIf="firstName.invalid">{{
+                  firstNameErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <p class="step-title">Last Name</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Last Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="lastName"
+                  (blur)="updateErrorMessage('lastName')"
+                  required
+                />
+                <mat-error *ngIf="lastName.invalid">{{
+                  lastNameErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['first_name'] ||
+                    !selectedOptions['last_name'] ||
+                    lastName.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['first_name'] ||
+                  !selectedOptions['last_name'] ||
+                  lastName.invalid
+                "
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          }
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <p class="step-title">First Name check</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>First Name</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="firstName"
+                (blur)="updateErrorMessage('firstName')"
+                required
+              />
+              <mat-error *ngIf="firstName.invalid">{{
+                firstNameErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <p class="step-title">Last Name</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Last Name</mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="lastName"
+                (blur)="updateErrorMessage('lastName')"
+                required
+              />
+              <mat-error *ngIf="lastName.invalid">{{
+                lastNameErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next':
+                  !selectedOptions['first_name'] ||
+                  !selectedOptions['last_name'] ||
+                  lastName.invalid
+              }"
+              [disabled]="
+                !selectedOptions['first_name'] ||
+                !selectedOptions['last_name'] ||
+                lastName.invalid
+              "
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        } @else {
+          <div class="cont">
+            <p class="step-title">Phone Number</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Phone Number </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Phone Number"
+                  [formControl]="phoneNumber"
+                  (blur)="updateErrorMessage('phoneNumber')"
+                  required
+                />
+                <i class="fa-solid fa-phone-volume input-icon"></i>
+                <mat-error *ngIf="phoneNumber.invalid">{{
+                  phoneNumberErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row justify-content-center">
+              <div class="form-check col-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                  [(ngModel)]="check"
+                  [formControl]="verifiedBadge"
+                />
+                <label class="form-check-label mb-3" for="terms">
+                  I'd like to get text messages about promotions and ways to
+                  save
+                </label>
+                <small>
+                  Data rates may apply and message frequency varies. Reply STOP
+                  to unsubscribe or HELP for help.
+                </small>
+                <p
+                  class="mt-3"
+                  [style.max-height]="!showMore ? '100px' : 'fit-content'"
+                  [style.overflow]="'hidden'"
+                >
+                  By providing your contact info and clicking “Confirm and
+                  Continue” below, you agree to our Privacy Policy and Terms of
+                  Use, which includes your agreement to arbitrate claims related
+                  to the Telephone Consumer Protection Act. You also expressly
+                  consent by electronic signature to receive sales, marketing
+                  and other calls and texts, including those sent by any
+                  automated system or other means for selecting and dialing
+                  telephone numbers, or using an artificial or prerecorded voice
+                  message when a connection is completed, from Rocket Mortgage
+                  at the telephone number you provided, even if that telephone
+                  number is on a do-not-call list. Agreement to receive such
+                  calls or texts is not a condition of purchasing goods or
+                  services from us.
+                </p>
+                <p>
+                  <button class="btn btn-link" (click)="toggleShowMore()">
+                    show more
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['phone_number'] || phoneNumber.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['phone_number'] || phoneNumber.invalid
+                "
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        }
+      } @else {
+        <p class="step-title">Email Address</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Email Address </mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="email"
+              (blur)="updateErrorMessage('email')"
+              required
+            />
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <mat-error *ngIf="email.invalid">{{ emailErrorMessage }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next': !selectedOptions['email'] || email.invalid
+            }"
+            [disabled]="!selectedOptions['email'] || email.invalid"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <p class="step-title">First Name</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>First Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="firstName"
+                  (blur)="updateErrorMessage('firstName')"
+                  required
+                />
+                <mat-error *ngIf="firstName.invalid">{{
+                  firstNameErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <p class="step-title">Last Name</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Last Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="lastName"
+                  (blur)="updateErrorMessage('lastName')"
+                  required
+                />
+                <mat-error *ngIf="lastName.invalid">{{
+                  lastNameErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['first_name'] ||
+                    !selectedOptions['last_name'] ||
+                    lastName.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['first_name'] ||
+                  !selectedOptions['last_name'] ||
+                  lastName.invalid
+                "
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          } @else {
+            <div class="cont">
+              <p class="step-title">Phone Number</p>
+              <div class="card-container">
+                <mat-form-field style="width: 350px">
+                  <mat-label>Phone Number </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Phone Number"
+                    [formControl]="phoneNumber"
+                    (blur)="updateErrorMessage('phoneNumber')"
+                    required
+                  />
+                  <i class="fa-solid fa-phone-volume input-icon"></i>
+                  <mat-error *ngIf="phoneNumber.invalid">{{
+                    phoneNumberErrorMessage
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row justify-content-center">
+                <div class="form-check col-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="terms"
+                    [(ngModel)]="check"
+                    [formControl]="verifiedBadge"
+                  />
+                  <label class="form-check-label mb-3" for="terms">
+                    I'd like to get text messages about promotions and ways to
+                    save
+                  </label>
+                  <small>
+                    Data rates may apply and message frequency varies. Reply
+                    STOP to unsubscribe or HELP for help.
+                  </small>
+                  <p
+                    class="mt-3"
+                    [style.max-height]="!showMore ? '100px' : 'fit-content'"
+                    [style.overflow]="'hidden'"
+                  >
+                    By providing your contact info and clicking “Confirm and
+                    Continue” below, you agree to our Privacy Policy and Terms
+                    of Use, which includes your agreement to arbitrate claims
+                    related to the Telephone Consumer Protection Act. You also
+                    expressly consent by electronic signature to receive sales,
+                    marketing and other calls and texts, including those sent by
+                    any automated system or other means for selecting and
+                    dialing telephone numbers, or using an artificial or
+                    prerecorded voice message when a connection is completed,
+                    from Rocket Mortgage at the telephone number you provided,
+                    even if that telephone number is on a do-not-call list.
+                    Agreement to receive such calls or texts is not a condition
+                    of purchasing goods or services from us.
+                  </p>
+                  <p>
+                    <button class="btn btn-link" (click)="toggleShowMore()">
+                      show more
+                    </button>
+                  </p>
+                </div>
+              </div>
+              <div class="btn-container">
+                <button class="back" mat-button matStepperPrevious>Back</button>
+                <button
+                  class="next"
+                  [ngClass]="{
+                    'disable-next':
+                      !selectedOptions['phone_number'] || phoneNumber.invalid
+                  }"
+                  [disabled]="
+                    !selectedOptions['phone_number'] || phoneNumber.invalid
+                  "
+                  matStepperNext
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          }
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <div class="cont">
+            <p class="step-title">Phone Number</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Phone Number </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Phone Number"
+                  [formControl]="phoneNumber"
+                  (blur)="updateErrorMessage('phoneNumber')"
+                  required
+                />
+                <i class="fa-solid fa-phone-volume input-icon"></i>
+                <mat-error *ngIf="phoneNumber.invalid">{{
+                  phoneNumberErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row justify-content-center">
+              <div class="form-check col-3">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                  [(ngModel)]="check"
+                  [formControl]="verifiedBadge"
+                />
+                <label class="form-check-label mb-3" for="terms">
+                  I'd like to get text messages about promotions and ways to
+                  save
+                </label>
+                <small>
+                  Data rates may apply and message frequency varies. Reply STOP
+                  to unsubscribe or HELP for help.
+                </small>
+                <p
+                  class="mt-3"
+                  [style.max-height]="!showMore ? '100px' : 'fit-content'"
+                  [style.overflow]="'hidden'"
+                >
+                  By providing your contact info and clicking “Confirm and
+                  Continue” below, you agree to our Privacy Policy and Terms of
+                  Use, which includes your agreement to arbitrate claims related
+                  to the Telephone Consumer Protection Act. You also expressly
+                  consent by electronic signature to receive sales, marketing
+                  and other calls and texts, including those sent by any
+                  automated system or other means for selecting and dialing
+                  telephone numbers, or using an artificial or prerecorded voice
+                  message when a connection is completed, from Rocket Mortgage
+                  at the telephone number you provided, even if that telephone
+                  number is on a do-not-call list. Agreement to receive such
+                  calls or texts is not a condition of purchasing goods or
+                  services from us.
+                </p>
+                <p>
+                  <button class="btn btn-link" (click)="toggleShowMore()">
+                    show more
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['phone_number'] || phoneNumber.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['phone_number'] || phoneNumber.invalid
+                "
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        } @else {
+          <p class="step-title">Email Address</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Email Address </mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="email"
+                (blur)="updateErrorMessage('email')"
+                required
+              />
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <mat-error *ngIf="email.invalid">{{
+                emailErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next': !selectedOptions['email'] || email.invalid
+              }"
+              [disabled]="!selectedOptions['email'] || email.invalid"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        }
+      } @else {
+        <p class="step-title">Current Mailing Address</p>
+        <div class="card-container">
+          <mat-form-field style="width: 350px">
+            <mat-label>Current Mailing Address </mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="e.g. 250,000"
+              [formControl]="address"
+              (blur)="updateErrorMessage('address')"
+              required
+            />
+            <i class="fa-solid fa-location-dot input-icon"></i>
+            <mat-error *ngIf="address.invalid">{{
+              addressErrorMessage
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious>Back</button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next':
+                !selectedOptions['current_mailing_address'] || address.invalid
+            }"
+            [disabled]="
+              !selectedOptions['current_mailing_address'] || address.invalid
+            "
+            (click)="submitLead()"
+          >
+            Click to see your Result
+          </button>
+        </div>
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <div class="cont">
+              <p class="step-title">Phone Number</p>
+              <div class="card-container">
+                <mat-form-field style="width: 350px">
+                  <mat-label>Phone Number </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Phone Number"
+                    [formControl]="phoneNumber"
+                    (blur)="updateErrorMessage('phoneNumber')"
+                    required
+                  />
+                  <i class="fa-solid fa-phone-volume input-icon"></i>
+                  <mat-error *ngIf="phoneNumber.invalid">{{
+                    phoneNumberErrorMessage
+                  }}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row justify-content-center">
+                <div class="form-check col-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="terms"
+                    [(ngModel)]="check"
+                    [formControl]="verifiedBadge"
+                  />
+                  <label class="form-check-label mb-3" for="terms">
+                    I'd like to get text messages about promotions and ways to
+                    save
+                  </label>
+                  <small>
+                    Data rates may apply and message frequency varies. Reply
+                    STOP to unsubscribe or HELP for help.
+                  </small>
+                  <p
+                    class="mt-3"
+                    [style.max-height]="!showMore ? '100px' : 'fit-content'"
+                    [style.overflow]="'hidden'"
+                  >
+                    By providing your contact info and clicking “Confirm and
+                    Continue” below, you agree to our Privacy Policy and Terms
+                    of Use, which includes your agreement to arbitrate claims
+                    related to the Telephone Consumer Protection Act. You also
+                    expressly consent by electronic signature to receive sales,
+                    marketing and other calls and texts, including those sent by
+                    any automated system or other means for selecting and
+                    dialing telephone numbers, or using an artificial or
+                    prerecorded voice message when a connection is completed,
+                    from Rocket Mortgage at the telephone number you provided,
+                    even if that telephone number is on a do-not-call list.
+                    Agreement to receive such calls or texts is not a condition
+                    of purchasing goods or services from us.
+                  </p>
+                  <p>
+                    <button class="btn btn-link" (click)="toggleShowMore()">
+                      show more
+                    </button>
+                  </p>
+                </div>
+              </div>
+              <div class="btn-container">
+                <button class="back" mat-button matStepperPrevious>Back</button>
+                <button
+                  class="next"
+                  [ngClass]="{
+                    'disable-next':
+                      !selectedOptions['phone_number'] || phoneNumber.invalid
+                  }"
+                  [disabled]="
+                    !selectedOptions['phone_number'] || phoneNumber.invalid
+                  "
+                  matStepperNext
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          } @else {
+            <p class="step-title">Email Address</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Email Address </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="email"
+                  (blur)="updateErrorMessage('email')"
+                  required
+                />
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <mat-error *ngIf="email.invalid">{{
+                  emailErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next': !selectedOptions['email'] || email.invalid
+                }"
+                [disabled]="!selectedOptions['email'] || email.invalid"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          }
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <p class="step-title">Email Address</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Email Address </mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="email"
+                (blur)="updateErrorMessage('email')"
+                required
+              />
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <mat-error *ngIf="email.invalid">{{
+                emailErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next': !selectedOptions['email'] || email.invalid
+              }"
+              [disabled]="!selectedOptions['email'] || email.invalid"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        } @else {
+          <p class="step-title">Current Mailing Address</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Current Mailing Address </mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="address"
+                (blur)="updateErrorMessage('address')"
+                required
+              />
+              <i class="fa-solid fa-location-dot input-icon"></i>
+              <mat-error *ngIf="address.invalid">{{
+                addressErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next':
+                  !selectedOptions['current_mailing_address'] || address.invalid
+              }"
+              [disabled]="
+                !selectedOptions['current_mailing_address'] || address.invalid
+              "
+              (click)="submitLead()"
+            >
+              Click to see your Result
+            </button>
+          </div>
+        }
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <p class="step-title">Email Address</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Email Address </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="email"
+                  (blur)="updateErrorMessage('email')"
+                  required
+                />
+                <i class="fa-solid fa-envelope input-icon"></i>
+                <mat-error *ngIf="email.invalid">{{
+                  emailErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next': !selectedOptions['email'] || email.invalid
+                }"
+                [disabled]="!selectedOptions['email'] || email.invalid"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          } @else {
+            <p class="step-title">Current Mailing Address</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Current Mailing Address </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="address"
+                  (blur)="updateErrorMessage('address')"
+                  required
+                />
+                <i class="fa-solid fa-location-dot input-icon"></i>
+                <mat-error *ngIf="address.invalid">{{
+                  addressErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['current_mailing_address'] ||
+                    address.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['current_mailing_address'] || address.invalid
+                "
+                (click)="submitLead()"
+              >
+                Click to see your Result
+              </button>
+            </div>
+          }
+        } @else if (selectedOptions['employment_status'] === 'Employed') {
+          <p class="step-title">Current Mailing Address</p>
+          <div class="card-container">
+            <mat-form-field style="width: 350px">
+              <mat-label>Current Mailing Address </mat-label>
+              <input
+                matInput
+                type="text"
+                placeholder="e.g. 250,000"
+                [formControl]="address"
+                (blur)="updateErrorMessage('address')"
+                required
+              />
+              <i class="fa-solid fa-location-dot input-icon"></i>
+              <mat-error *ngIf="address.invalid">{{
+                addressErrorMessage
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="btn-container">
+            <button class="back" mat-button matStepperPrevious>Back</button>
+            <button
+              class="next"
+              [ngClass]="{
+                'disable-next':
+                  !selectedOptions['current_mailing_address'] || address.invalid
+              }"
+              [disabled]="
+                !selectedOptions['current_mailing_address'] || address.invalid
+              "
+              (click)="submitLead()"
+            >
+              Click to see your Result
+            </button>
+          </div>
+        }
+      }
+    </mat-step>
+    <mat-step>
+      @if (selectedOptions['home_loan_purpose'] === 'Buy a new home') {
+        @if (
+          convertNumber(selectedOptions['estimated_down_payment']) < 466465
+        ) {
+          @if (selectedOptions['employment_status'] === 'Employed') {
+            <p class="step-title">Current Mailing Address</p>
+            <div class="card-container">
+              <mat-form-field style="width: 350px">
+                <mat-label>Current Mailing Address </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="e.g. 250,000"
+                  [formControl]="address"
+                  (blur)="updateErrorMessage('address')"
+                  required
+                />
+                <i class="fa-solid fa-location-dot input-icon"></i>
+                <mat-error *ngIf="address.invalid">{{
+                  addressErrorMessage
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="btn-container">
+              <button class="back" mat-button matStepperPrevious>Back</button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next':
+                    !selectedOptions['current_mailing_address'] ||
+                    address.invalid
+                }"
+                [disabled]="
+                  !selectedOptions['current_mailing_address'] || address.invalid
+                "
+                (click)="submitLead()"
+              >
+                Click to see your Result
+              </button>
+            </div>
+          }
+        }
+      }
+    </mat-step>
   </mat-horizontal-stepper>
-  
+} @else {
+  <div class="end-cont">
+    <div>
+      <p class="title-end">Continue With An Expert</p>
+      <p>
+        Whether you're just getting started, or ready to close, we'll support
+        you every step of the way.
+      </p>
+      <p>
+        One of our licensed home loan experts will call you shortly to walk
+        through the next steps.
+      </p>
+      <p>
+        If you'd rather not wait, you can call us at (800) 443-9131 during our
+        regular business hours.
+      </p>
+
+      <ul>
+        <li>Monday - Friday, 8:00 a.m. - 10:00 p.m. ET</li>
+        <li>Saturday, 9:00 a.m. - 8:00 p.m. ET</li>
+        <li>Sunday, 10:00 a.m. - 7:00 p.m. ET</li>
+      </ul>
+    </div>
+  </div>
+}
