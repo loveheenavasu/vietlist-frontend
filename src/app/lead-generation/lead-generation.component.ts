@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatStepper, MatStepperModule } from '@angular/material/stepper'
 import { MatInputModule } from '@angular/material/input'
 import { LoanOptionCardComponent } from './loan-option-card/loan-option-card.component'
+import { FullPageLoaderService } from '../shared/utils'
 @Component({
   selector: 'app-lead-generation',
   standalone: true,
@@ -232,7 +233,7 @@ export class LeadGenerationComponent {
   totalSteps: number = 3
   public selectedOptions: { [key: string]: string } = {}
   showMore: boolean = false
-  notSubmitted: boolean = false
+  notSubmitted: boolean = true
   @ViewChild('stepper') private myStepper?: MatStepper
 
   toggleShowMore() {
@@ -277,7 +278,10 @@ export class LeadGenerationComponent {
 
   // public amount: FormGroup
 
-  constructor(private service: LeadgenerationService) {
+  constructor(
+    private service: LeadgenerationService,
+    private fullPageLoaderService: FullPageLoaderService,
+  ) {
     // this.amount = this.fb.group({
     //   purchasePrice: this.purchasePrice,
     //   downPaymentAmount: this.downPaymentAmount,
@@ -437,20 +441,7 @@ export class LeadGenerationComponent {
 
   selectOption({ option, key }: { option: string; key: string }) {
     this.selectedOptions[key] = option
-    console.log(this.selectedOptions, 'lll')
-  }
-
-  goBack(stepper: MatStepper) {
-    stepper.previous()
-  }
-
-  goForward(stepper: MatStepper) {
-    stepper.next()
-  }
-
-  isStepCompleted(step: string): boolean {
-    // Implement the logic to check if the step is completed
-    return !!this.selectedOptions[step]
+    // this.nextStep()
   }
 
   get progress(): number {
@@ -469,15 +460,24 @@ export class LeadGenerationComponent {
     }
   }
 
+  goBack() {
+    this.prevStep()
+  }
   submitLead() {
-    console.log(this.selectedOptions, 'options')
+    this.fullPageLoaderService.showLoader()
     this.service.CreateLead(this.selectedOptions).subscribe({
-      next: () => {},
-      error: () => {},
+      next: () => {
+        this.notSubmitted = false
+        this.fullPageLoaderService.hideLoader()
+      },
+      error: () => {
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 
   ngAfterViewInit() {
-    this.service.GetLeads().subscribe({ next: () => {} })
+    this.totalSteps = this.myStepper?.steps.length || 0
+    // this.service.GetLeads().subscribe({ next: () => {} })
   }
 }

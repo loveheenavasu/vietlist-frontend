@@ -25,13 +25,14 @@
 </div>
 <div class="btn-container">
   @if (key !== 'home_loan_purpose') {
-    <button class="back" mat-button matStepperPrevious>Back</button>
+    <button class="back" mat-button matStepperPrevious (click)="back()" >Back</button>
   }
   <button
     class="next"
     [ngClass]="{ 'disable-next': !selectedOptions[key] }"
     matStepperNext
     [disabled]="!selectedOptions[key]"
+    (click)="next()"
   >
     Next
   </button>

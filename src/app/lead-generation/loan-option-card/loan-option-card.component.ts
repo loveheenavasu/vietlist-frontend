@@ -18,8 +18,16 @@ export class LoanOptionCardComponent {
   @Input() selectedOptions: any
   @Input() key: any
   @Output() selectOption: EventEmitter<any> = new EventEmitter()
+  @Output() goBack: EventEmitter<any> = new EventEmitter()
+  @Output() nextStep: EventEmitter<any> = new EventEmitter()
 
   selectOptions(option: string, key: string) {
     this.selectOption.emit({ option, key })
+  }
+  back() {
+    this.goBack.emit()
+  }
+  next() {
+    this.nextStep.emit()
   }
 }
