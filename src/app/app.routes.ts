@@ -57,7 +57,8 @@ import { ForUsersComponent } from './landing-page/views/for-users/for-users.comp
 import { TermsComponent } from './landing-page/views/terms/terms.component'
 import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-policy.component'
 import { SitemapComponent } from './sitemap/sitemap.component'
-import { LeadGenerationComponent } from './lead-generation/lead-generation.component'
+import { LeadGenerationComponent } from './resell-system/lead-generation/lead-generation.component'
+import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -312,6 +313,10 @@ export default [
   {
     path: 'loan-application',
     loadComponent: () => LeadGenerationComponent,
+  },
+  {
+    path: 'lead-listing',
+    loadComponent: () => LeadListingComponent,
   },
   {
     path: '**',

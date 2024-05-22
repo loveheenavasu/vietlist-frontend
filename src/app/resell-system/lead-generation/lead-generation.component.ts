@@ -10,15 +10,15 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms'
-import { LeadgenerationService } from './leadgeneration.service'
+import { LeadgenerationService } from '../resell.service'
 import { MatButtonModule } from '@angular/material/button'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatStepper, MatStepperModule } from '@angular/material/stepper'
 import { MatInputModule } from '@angular/material/input'
 import { LoanOptionCardComponent } from './loan-option-card/loan-option-card.component'
-import { FullPageLoaderService } from '../shared/utils'
-import { AutocompleteComponent } from '../shared/utils/googleaddress'
+import { FullPageLoaderService } from '@vietlist/shared'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 @Component({
   selector: 'app-lead-generation',
   standalone: true,
@@ -39,195 +39,7 @@ import { AutocompleteComponent } from '../shared/utils/googleaddress'
   styleUrl: './lead-generation.component.scss',
 })
 export class LeadGenerationComponent {
-  firstStep = [
-    {
-      url: '/assets/icons/refinance-home.svg',
-      title: 'Refinance a home',
-      value: 'refinance_a_home',
-    },
-    {
-      url: '/assets/icons/buy-new-home.svg',
-      title: 'Buy a new home',
-      value: 'buy_a_new_home',
-    },
-    {
-      url: '/assets/icons/cashout.svg',
-      title: 'Take cash Out',
-      value: 'take_cash_out',
-    },
-  ]
-
-  secondStep = [
-    {
-      url: '/assets/icons/single-family.svg',
-      title: 'Single-Family',
-      value: 'single_family',
-    },
-    {
-      url: '/assets/icons/multi-family.svg',
-      title: 'Multifamily',
-      value: 'multifamily',
-    },
-    {
-      url: '/assets/icons/condominium.svg',
-      title: 'Condominium',
-      value: 'condominium',
-    },
-    {
-      url: '/assets/icons/manufactured.svg',
-      title: 'Manufactured',
-      value: 'manufactured',
-    },
-  ]
-  thirdStep = [
-    {
-      url: '/assets/icons/primary-residence.svg',
-      title: 'Primary Residence',
-      value: 'primary_residence',
-    },
-    {
-      url: '/assets/icons/secondary-home.svg',
-      title: 'Secondary Home',
-      value: 'secondary_home',
-    },
-    {
-      url: '/assets/icons/investment-property.svg',
-      title: 'Investment Property',
-      value: 'investment_property',
-    },
-  ]
-  fourthStep = [
-    {
-      url: '/assets/icons/signed-purchase-agreement.svg',
-      title: ' I signed a purchase agreement',
-      value: 'signed_purchase_agreement',
-    },
-    {
-      url: '/assets/icons/researching.svg',
-      title: 'Just researching',
-      value: 'researching',
-    },
-    {
-      url: '/assets/icons/buy-new-home.svg',
-      title: 'Looking at homes and listings',
-      value: 'looking_at_homes',
-    },
-    {
-      url: '/assets/icons/cashout.svg',
-      title: 'Offer Pending / Found a House',
-      value: 'offer_pending',
-    },
-  ]
-
-  yesNoStep = [
-    {
-      url: '/assets/icons/yes.svg',
-      title: 'Yes',
-      value: 'yes',
-    },
-    {
-      url: '/assets/icons/no.svg',
-      title: 'No',
-      value: 'no',
-    },
-  ]
-
-  creditProfileStep = [
-    {
-      url: '/assets/icons/excellent-star.svg',
-      title: `Excellent `,
-      subTitle: '720+',
-      value: 5,
-    },
-    {
-      url: '/assets/icons/good-star.svg',
-      title: `Good `,
-      subTitle: '660-719',
-      value: 4,
-    },
-    {
-      url: '/assets/icons/average-star.svg',
-      title: `Avg.`,
-      subTitle: ' 630-659',
-      value: 3,
-    },
-    {
-      url: '/assets/icons/below-average-star.svg',
-      title: `Below Avg. `,
-      subTitle: ' 580-619',
-      value: 2,
-    },
-    {
-      url: '/assets/icons/poor-star.svg',
-      title: `Poor`,
-      subTitle: '≤ 579',
-      value: 1,
-    },
-  ]
-
-  employmentStatus = [
-    {
-      url: '/assets/icons/employed.svg',
-      title: 'Employed',
-      value: 'employed',
-    },
-    {
-      url: '/assets/icons/self-employed.svg',
-      title: 'Self employed',
-      value: 'self_employed',
-    },
-    {
-      url: '/assets/icons/retired.svg',
-      title: 'Retired',
-      value: 'retired',
-    },
-    {
-      url: '/assets/icons/unemployed.svg',
-      title: 'Not Employed',
-      value: 'not_employed',
-    },
-  ]
-
-  refinanceReason = [
-    {
-      title: 'Lower my monthly payments',
-      value: 'lower_my_monthly_payment',
-    },
-    {
-      title: 'Pay off my mortgage faster',
-      value: 'pay_off_my_mortgage_faster',
-    },
-    {
-      title: 'Change my ARM loan to fixed',
-      value: 'change_my_ARM_loan_to_Fixed',
-    },
-    {
-      title: 'Browse current mortgages rates',
-      value: 'browse_current_mortgage_rates',
-    },
-    {
-      title: 'Take cash out',
-      value: 'take_cash_out',
-    },
-  ]
-  purchaseDate = [
-    {
-      title: 'Within 30 Days',
-      value: 'within_30_days',
-    },
-    {
-      title: '2-3 Months',
-      value: '2_3_months',
-    },
-    {
-      title: '4-5 Months',
-      value: '4_5_months',
-    },
-    {
-      title: '6+ Months',
-      value: '6+_months',
-    },
-  ]
+  steps: any
   direction: string = ''
   check: any
   public verifiedBadge = new FormControl(false)
@@ -479,6 +291,14 @@ export class LeadGenerationComponent {
       },
       error: () => {
         this.fullPageLoaderService.hideLoader()
+      },
+    })
+  }
+
+  ngOnInit() {
+    this.service.getLoanApplicationTitlesAndUrl().subscribe({
+      next: (res) => {
+        this.steps = res
       },
     })
   }

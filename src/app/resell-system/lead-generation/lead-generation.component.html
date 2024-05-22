@@ -12,7 +12,7 @@
   <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step>
       <app-loan-option-card
-        [steps]="firstStep"
+        [steps]="steps['firstStep']"
         [selectedOptions]="selectedOptions"
         key="home_loan_purpose"
         title="I'm looking to:"
@@ -23,7 +23,7 @@
     </mat-step>
     <mat-step>
       <app-loan-option-card
-        [steps]="secondStep"
+        [steps]="steps['secondStep']"
         [selectedOptions]="selectedOptions"
         key="home_description"
         title="Home Description"
@@ -34,7 +34,7 @@
     </mat-step>
     <mat-step>
       <app-loan-option-card
-        [steps]="thirdStep"
+        [steps]="steps['thirdStep']"
         [selectedOptions]="selectedOptions"
         key="property_use"
         title="Property Use"
@@ -46,7 +46,7 @@
     <mat-step>
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-loan-option-card
-          [steps]="fourthStep"
+          [steps]="steps['fourthStep']"
           [selectedOptions]="selectedOptions"
           key="home_buying_process"
           title="Where in the home buying process are you?"
@@ -96,7 +96,7 @@
         </div>
       } @else {
         <app-loan-option-card
-          [steps]="refinanceReason"
+          [steps]="steps['refinanceReason']"
           [selectedOptions]="selectedOptions"
           key="reason_to_refinance"
           title="Why do you want to Refinance?"
@@ -115,7 +115,7 @@
         <mat-step>
           <app-loan-option-card
             [isTextCard]="true"
-            [steps]="purchaseDate"
+            [steps]="steps['purchaseDate']"
             [selectedOptions]="selectedOptions"
             key="expected_home_purchase_date"
             title="When do you hope to purchase your new home?          "
@@ -129,7 +129,7 @@
     <mat-step>
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="first_time_homebuyer"
           title="Are you a first-time homebuyer?"
@@ -220,7 +220,7 @@
     <mat-step>
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="military_service_status"
           title="Active or previous U.S. military service?"
@@ -311,7 +311,7 @@
     <mat-step>
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="real_estate_agent_engagement"
           title="Are you currently working with a real estate agent?"
@@ -321,7 +321,7 @@
         ></app-loan-option-card>
       } @else {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="military_service_status"
           title="Active or previous U.S. military service?"
@@ -373,7 +373,7 @@
       } @else {
         <app-loan-option-card
           width="219px"
-          [steps]="creditProfileStep"
+          [steps]="steps['creditProfileStep']"
           [selectedOptions]="selectedOptions"
           key="your_credit_profile"
           title="Your Credit Profile?"
@@ -428,7 +428,7 @@
         </div>
       } @else {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="2nd_mortgage"
           title="Do you have a 2nd mortgage?"
@@ -444,7 +444,7 @@
           convertNumber(selectedOptions['estimated_down_payment']) < 466465
         ) {
           <app-loan-option-card
-            [steps]="yesNoStep"
+            [steps]="steps['yesNoStep']"
             [selectedOptions]="selectedOptions"
             key="down_payment_assistance"
             title="Are you interested in down payment assistance?"
@@ -455,7 +455,7 @@
         } @else {
           <app-loan-option-card
             width="219px"
-            [steps]="creditProfileStep"
+            [steps]="steps['creditProfileStep']"
             [selectedOptions]="selectedOptions"
             key="your_credit_profile"
             title="Your Credit Profile?"
@@ -466,7 +466,7 @@
         }
       } @else {
         <app-loan-option-card
-          [steps]="employmentStatus"
+          [steps]="steps['employmentStatus']"
           [selectedOptions]="selectedOptions"
           key="employment_status"
           title="Employment Status"
@@ -483,7 +483,7 @@
         ) {
           <app-loan-option-card
             width="219px"
-            [steps]="creditProfileStep"
+            [steps]="steps['creditProfileStep']"
             [selectedOptions]="selectedOptions"
             key="your_credit_profile"
             title="Your Credit Profile?"
@@ -493,7 +493,7 @@
           ></app-loan-option-card>
         } @else {
           <app-loan-option-card
-            [steps]="employmentStatus"
+            [steps]="steps['employmentStatus']"
             [selectedOptions]="selectedOptions"
             key="employment_status"
             title="Employment Status          "
@@ -504,7 +504,7 @@
         }
       } @else {
         <app-loan-option-card
-          [steps]="yesNoStep"
+          [steps]="steps['yesNoStep']"
           [selectedOptions]="selectedOptions"
           key="bankruptcy_status"
           title="Any bankruptcy in the past 3 years?"
@@ -520,7 +520,7 @@
           convertNumber(selectedOptions['estimated_down_payment']) < 466465
         ) {
           <app-loan-option-card
-            [steps]="employmentStatus"
+            [steps]="steps['employmentStatus']"
             [selectedOptions]="selectedOptions"
             key="employment_status"
             title="Employment Status          "
@@ -530,7 +530,7 @@
           ></app-loan-option-card>
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <app-loan-option-card
-            [steps]="yesNoStep"
+            [steps]="steps['yesNoStep']"
             [selectedOptions]="selectedOptions"
             key="employer_benefits"
             title="Are you receiving any benefits from your employer for this move?"
@@ -540,7 +540,7 @@
           ></app-loan-option-card>
         } @else {
           <app-loan-option-card
-            [steps]="yesNoStep"
+            [steps]="steps['yesNoStep']"
             [selectedOptions]="selectedOptions"
             key="bankruptcy_status"
             title="Any bankruptcy in the past 3 years?"
@@ -616,7 +616,7 @@
         ) {
           @if (selectedOptions['employment_status'] === 'employed') {
             <app-loan-option-card
-              [steps]="yesNoStep"
+              [steps]="steps['yesNoStep']"
               [selectedOptions]="selectedOptions"
               key="employer_benefits"
               title="Are you receiving any benefits from your employer for this move?"
@@ -626,7 +626,7 @@
             ></app-loan-option-card>
           } @else {
             <app-loan-option-card
-              [steps]="yesNoStep"
+              [steps]="steps['yesNoStep']"
               [selectedOptions]="selectedOptions"
               key="bankruptcy_status"
               title="Any bankruptcy in the past 3 years?"
@@ -637,7 +637,7 @@
           }
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <app-loan-option-card
-            [steps]="yesNoStep"
+            [steps]="steps['yesNoStep']"
             [selectedOptions]="selectedOptions"
             key="bankruptcy_status"
             title="Any bankruptcy in the past 3 years?"
@@ -805,7 +805,7 @@
         ) {
           @if (selectedOptions['employment_status'] === 'employed') {
             <app-loan-option-card
-              [steps]="yesNoStep"
+              [steps]="steps['yesNoStep']"
               [selectedOptions]="selectedOptions"
               key="bankruptcy_status"
               title="Any bankruptcy in the past 3 years?"

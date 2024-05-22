@@ -237,16 +237,28 @@
           </ngx-intl-tel-input>
         }
 
-        @if (selectedSignupType == userRole.broker) {
+        @if (
+          selectedSignupType == userRole.broker ||
+          selectedSignupType == userRole.realState
+        ) {
           <div class="col-12">
+            <label class="form-check-label"
+            >Address<span class="asterik">*</span></label
+          >
             <AutocompleteComponent
-            aria-placeholder='Address'
+              aria-placeholder="Address"
               class="direction-field"
               (setAddress)="getAddress($event)"
               adressType="geocode"
               [value]="direction"
             >
             </AutocompleteComponent>
+            <p
+            class="error-message"
+            *ngIf="isSubmitted && !direction "
+          >
+            Address is required.
+          </p>
           </div>
         }
 
@@ -270,7 +282,7 @@
           <button
             class="btn orange-background-btn-w-100"
             type="submit"
-            [disabled]="!signupForm.valid || !term_and_condition.value"
+            [disabled]="!signupForm.valid || !term_and_condition.value || !direction "
             (click)="handleRegistrationSubmission()"
           >
             <span *ngIf="!loader">Submit</span>

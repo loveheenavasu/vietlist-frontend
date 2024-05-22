@@ -67,12 +67,14 @@ export class RegisterComponent {
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
     { name: 'Broker', value: Roles.broker, checked: false },
+    { name: 'Real State', value: Roles.realState, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedSignupType: any
   public loader: boolean = false
   public isHidePassword: boolean = false
   public isHideConfirmPassword: boolean = false
+  public isSubmitted: boolean = false
   public rolesArray = (Object.keys(Roles) as Array<keyof typeof Roles>).map(
     (key) => ({
       value: Roles[key],
@@ -173,10 +175,12 @@ export class RegisterComponent {
   }
 
   getAddress(place: any) {
+    this.isSubmitted = false
     this.direction = place.formatted_address
   }
 
   public handleRegistrationSubmission() {
+    this.isSubmitted = true
     const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
       this.contact_details?.value?.dialCode,
     )
@@ -204,7 +208,10 @@ export class RegisterComponent {
         )
         body['country_code'] = this.contact_details.value.dialCode
       }
-      if (this.selectedSignupType === this.userRole.businessOwner) {
+      if (
+        this.selectedSignupType === this.userRole.broker ||
+        this.selectedSignupType === this.userRole.realState
+      ) {
         body['address'] = this.direction
       }
 
@@ -244,6 +251,13 @@ export class RegisterComponent {
             if (res.data.user.user_role == Roles.subscriber) {
               this.sessionServce.setAuthenticationStatusTrue(res.data.token)
               this.router.navigateByUrl('/manage-profile')
+            }
+            if (
+              res.data.user.user_role == Roles.broker ||
+              res.data.user.user_role == Roles.realState
+            ) {
+              this.sessionServce.setAuthenticationStatusTrue(res.data.token)
+              this.router.navigateByUrl('/')
             }
             this.allowNotification()
           }

@@ -11,10 +11,16 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class LeadgenerationService {
+  private loanApplication = '/assets/links/loan-application.json'
+
   constructor(
     private http: HttpClient,
     private authService: AuthenticationService,
   ) {}
+
+  getLoanApplicationTitlesAndUrl(): Observable<any[]> {
+    return this.http.get<any[]>(this.loanApplication)
+  }
 
   public CreateLead(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.CreateLead)
