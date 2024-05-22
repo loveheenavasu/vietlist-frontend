@@ -243,7 +243,7 @@ export class LeadGenerationComponent {
   }
 
   getAddress(place: any) {
-    this.direction = place.formatted_address
+    this.selectedOptions['current_mailing_address'] = place.formatted_address
   }
 
   public purchasePrice = new FormControl('', [

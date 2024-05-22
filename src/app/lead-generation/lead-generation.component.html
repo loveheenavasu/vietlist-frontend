@@ -110,7 +110,7 @@
     @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
       @if (
         selectedOptions['home_buying_process'] ===
-        'Looking at homes and listings'
+        'looking_at_homes'
       ) {
         <mat-step>
           <app-loan-option-card
@@ -766,7 +766,7 @@
               </p>
               <p>
                 <button class="btn btn-link" (click)="toggleShowMore()">
-                  show more
+                  {{showMore? "Show less":"Show more"}}
                 </button>
               </p>
             </div>
@@ -999,7 +999,7 @@
                 </p>
                 <p>
                   <button class="btn btn-link" (click)="toggleShowMore()">
-                    show more
+                    {{showMore? "Show less":"Show more"}}
                   </button>
                 </p>
               </div>
@@ -1192,7 +1192,7 @@
                   </p>
                   <p>
                     <button class="btn btn-link" (click)="toggleShowMore()">
-                      show more
+                      {{showMore? "Show less":"Show more"}}
                     </button>
                   </p>
                 </div>
@@ -1282,7 +1282,7 @@
                 </p>
                 <p>
                   <button class="btn btn-link" (click)="toggleShowMore()">
-                    show more
+                    {{showMore? "Show less":"Show more"}}
                   </button>
                 </p>
               </div>
@@ -1355,41 +1355,34 @@
         }
       } @else {
         <p class="step-title">Current Mailing Address</p>
-        <div class="card-container">
-          <mat-form-field style="width: 350px">
-            <mat-label>Current Mailing Address </mat-label>
-            <input
-              matInput
-              type="text"
-              placeholder="Address"
-              [formControl]="address"
-              (blur)="updateErrorMessage('address')"
-              required
-            />
-            <i class="fa-solid fa-location-dot input-icon"></i>
-            <mat-error *ngIf="address.invalid">{{
-              addressErrorMessage
-            }}</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="btn-container">
-          <button class="back" mat-button matStepperPrevious (click)="goBack()">
-            Back
-          </button>
-          <button
-            class="next"
-            [ngClass]="{
-              'disable-next':
-                !selectedOptions['current_mailing_address'] || address.invalid
-            }"
-            [disabled]="
-              !selectedOptions['current_mailing_address'] || address.invalid
-            "
-            (click)="submitLead()"
-          >
-            Click to see your Result
-          </button>
-        </div>
+      <div class="card-container">
+        <AutocompleteComponent
+        aria-placeholder="Address"
+        class="direction-field"
+        (setAddress)="getAddress($event)"
+        adressType="geocode"
+        [value]="direction"
+      >
+      </AutocompleteComponent>
+      </div>
+      <div class="btn-container">
+        <button class="back" mat-button matStepperPrevious (click)="goBack()">
+          Back
+        </button>
+        <button
+          class="next"
+          [ngClass]="{
+            'disable-next':
+              !selectedOptions['current_mailing_address'] 
+          }"
+          [disabled]="
+            !selectedOptions['current_mailing_address'] 
+          "
+          (click)="submitLead()"
+        >
+          Click to see your Result
+        </button>
+      </div>
       }
     </mat-step>
     <mat-step>
@@ -1456,7 +1449,7 @@
                   </p>
                   <p>
                     <button class="btn btn-link" (click)="toggleShowMore()">
-                      show more
+                      {{showMore? "Show less":"Show more"}}
                     </button>
                   </p>
                 </div>
@@ -1570,39 +1563,27 @@
         } @else {
           <p class="step-title">Current Mailing Address</p>
           <div class="card-container">
-            <!-- <mat-form-field style="width: 350px">
-              <mat-label>Current Mailing Address </mat-label> -->
-              <AutocompleteComponent
-                aria-placeholder="Address"
-                class="direction-field"
-                (setAddress)="getAddress($event)"
-                adressType="geocode"
-                [value]="direction"
-              >
-              </AutocompleteComponent>
-              <i class="fa-solid fa-location-dot input-icon"></i>
-              <mat-error *ngIf="address.invalid">{{
-                addressErrorMessage
-              }}</mat-error>
-            <!-- </mat-form-field> -->
+            <AutocompleteComponent
+            aria-placeholder="Address"
+            class="direction-field"
+            (setAddress)="getAddress($event)"
+            adressType="geocode"
+            [value]="direction"
+          >
+          </AutocompleteComponent>
           </div>
           <div class="btn-container">
-            <button
-              class="back"
-              mat-button
-              matStepperPrevious
-              (click)="goBack()"
-            >
+            <button class="back" mat-button matStepperPrevious (click)="goBack()">
               Back
             </button>
             <button
               class="next"
               [ngClass]="{
                 'disable-next':
-                  !selectedOptions['current_mailing_address'] || address.invalid
+                  !selectedOptions['current_mailing_address'] 
               }"
               [disabled]="
-                !selectedOptions['current_mailing_address'] || address.invalid
+                !selectedOptions['current_mailing_address'] 
               "
               (click)="submitLead()"
             >
@@ -1659,52 +1640,39 @@
             </div>
           } @else {
             <p class="step-title">Current Mailing Address</p>
-            <div class="card-container">
-              <mat-form-field style="width: 350px">
-                <mat-label>Current Mailing Address </mat-label>
-                <input
-                  matInput
-                  type="text"
-                  placeholder="Address"
-                  [formControl]="address"
-                  (blur)="updateErrorMessage('address')"
-                  required
-                />
-                <i class="fa-solid fa-location-dot input-icon"></i>
-                <mat-error *ngIf="address.invalid">{{
-                  addressErrorMessage
-                }}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="btn-container">
-              <button
-                class="back"
-                mat-button
-                matStepperPrevious
-                (click)="goBack()"
-              >
-                Back
-              </button>
-              <button
-                class="next"
-                [ngClass]="{
-                  'disable-next':
-                    !selectedOptions['current_mailing_address'] ||
-                    address.invalid
-                }"
-                [disabled]="
-                  !selectedOptions['current_mailing_address'] || address.invalid
-                "
-                (click)="submitLead()"
-              >
-                Click to see your Result
-              </button>
-            </div>
+      <div class="card-container">
+        <AutocompleteComponent
+        aria-placeholder="Address"
+        class="direction-field"
+        (setAddress)="getAddress($event)"
+        adressType="geocode"
+        [value]="direction"
+      >
+      </AutocompleteComponent>
+      </div>
+      <div class="btn-container">
+        <button class="back" mat-button matStepperPrevious (click)="goBack()">
+          Back
+        </button>
+        <button
+          class="next"
+          [ngClass]="{
+            'disable-next':
+              !selectedOptions['current_mailing_address'] 
+          }"
+          [disabled]="
+            !selectedOptions['current_mailing_address'] 
+          "
+          (click)="submitLead()"
+        >
+          Click to see your Result
+        </button>
+      </div>
           }
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <p class="step-title">Current Mailing Address</p>
           <div class="card-container">
-            <mat-form-field style="width: 350px">
+            <!-- <mat-form-field style="width: 350px">
               <mat-label>Current Mailing Address </mat-label>
               <AutocompleteComponent
                 aria-placeholder="Address"
@@ -1718,7 +1686,15 @@
               <mat-error *ngIf="address.invalid">{{
                 addressErrorMessage
               }}</mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
+            <AutocompleteComponent
+            aria-placeholder='Address'
+              class="direction-field"
+              (setAddress)="getAddress($event)"
+              adressType="geocode"
+              [value]="direction"
+            >
+            </AutocompleteComponent>
           </div>
           <div class="btn-container">
             <button
@@ -1753,47 +1729,34 @@
         ) {
           @if (selectedOptions['employment_status'] === 'employed') {
             <p class="step-title">Current Mailing Address</p>
-            <div class="card-container">
-              <mat-form-field style="width: 350px">
-                <mat-label>Current Mailing Address </mat-label>
-                <input
-                  matInput
-                  type="text"
-                  placeholder="Address"
-                  [formControl]="address"
-                  (blur)="updateErrorMessage('address')"
-                  required
-                />
-                <i class="fa-solid fa-location-dot input-icon"></i>
-                <mat-error *ngIf="address.invalid">{{
-                  addressErrorMessage
-                }}</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="btn-container">
-              <button
-                class="back"
-                mat-button
-                matStepperPrevious
-                (click)="goBack()"
-              >
-                Back
-              </button>
-              <button
-                class="next"
-                [ngClass]="{
-                  'disable-next':
-                    !selectedOptions['current_mailing_address'] ||
-                    address.invalid
-                }"
-                [disabled]="
-                  !selectedOptions['current_mailing_address'] || address.invalid
-                "
-                (click)="submitLead()"
-              >
-                Click to see your Result
-              </button>
-            </div>
+      <div class="card-container">
+        <AutocompleteComponent
+        aria-placeholder="Address"
+        class="direction-field"
+        (setAddress)="getAddress($event)"
+        adressType="geocode"
+        [value]="direction"
+      >
+      </AutocompleteComponent>
+      </div>
+      <div class="btn-container">
+        <button class="back" mat-button matStepperPrevious (click)="goBack()">
+          Back
+        </button>
+        <button
+          class="next"
+          [ngClass]="{
+            'disable-next':
+              !selectedOptions['current_mailing_address'] 
+          }"
+          [disabled]="
+            !selectedOptions['current_mailing_address'] 
+          "
+          (click)="submitLead()"
+        >
+          Click to see your Result
+        </button>
+      </div>
           }
         }
       }

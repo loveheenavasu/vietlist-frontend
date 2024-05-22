@@ -25,7 +25,7 @@ export class LeadgenerationService {
       formData.set(key, body[key])
     }
 
-    return this.http.post<any>(endpoint, formData, { headers: authToken })
+    return this.http.post<any>(endpoint, formData)
   }
   public GetLeads(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetLeads)
