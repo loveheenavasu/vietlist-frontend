@@ -146,7 +146,7 @@ export default [
       },
     ],
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner', 'subscriber'] },
+    data: { roles: ['business-owner', 'subscriber' , 'broker' , 'real-estate'] },
   },
   {
     path: 'preview-business/:id',
