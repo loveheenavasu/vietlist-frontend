@@ -27,7 +27,7 @@ import {
   PhoneNumberFormat,
   SearchCountryField,
 } from 'ngx-intl-tel-input'
-import { debounceTime, Subject } from 'rxjs'
+import { debounceTime, Subject, tap, throttleTime } from 'rxjs'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -118,6 +118,19 @@ export class RegisterComponent {
         validators: matchValidator('password', 'confirm_password'),
       },
     )
+
+    // this.contact_details!.valueChanges.pipe(
+    //   throttleTime(200),
+    //   tap((x)=>{
+    //     if(x?.number){
+    //       let nums = x.number.replace(/\D/g, '').match(/(\d{0,3})(\d{0,2})(\d{0,2})(\d{0,2})/);
+    //       if(nums) {
+    //         let masked = !nums[2] ? nums[1] : '' + nums[1] + ' ' + nums[2] + (nums[3] ? ' ' + nums[3] : '') + (nums[4] ? ' ' + nums[4] : '');
+    //         this.contact_details!.setValue(masked);
+    //       }
+    //     }
+
+    // })).subscribe((x: any) => { });
   }
 
   ngOnInit() {

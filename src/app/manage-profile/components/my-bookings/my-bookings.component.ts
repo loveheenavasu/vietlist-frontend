@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService, FullPageLoaderService, Roles } from '@vietlist/shared';
 import { EventService } from 'src/app/manage-event/service/event.service';
 import Swal from 'sweetalert2';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-my-bookings',
@@ -14,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrl: './my-bookings.component.scss'
 })
 export class MyBookingsComponent {
-
+  private destroy$ = new Subject<void>()
   public allBookingsArray : any[]=[]
   public postId:any
   
@@ -38,7 +39,7 @@ export class MyBookingsComponent {
   
   public fetchAllBookings(){
   this.fullpageoaderservice.showLoader()
-    this.eventService.getMyBooking().subscribe({
+    this.eventService.getMyBooking().pipe(takeUntil(this.destroy$)).subscribe({
       next:(res:any)=>{
         this.fullpageoaderservice.hideLoader()
         this.allBookingsArray = res.data
@@ -93,4 +94,10 @@ export class MyBookingsComponent {
 public goToDetails(id:any){
   this.router.navigate(['/booking-details/' , id])
 }
+
+ngOnDestroy(){
+this.destroy$.next()
+this.destroy$.complete()
+}
+
 }

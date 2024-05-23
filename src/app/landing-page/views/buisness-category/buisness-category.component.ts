@@ -8,6 +8,7 @@ import {
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { NavigationExtras, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { BusinessService } from 'src/app/manage-business/service/business.service'
 import { register } from 'swiper/element/bundle';
 
@@ -24,7 +25,7 @@ register()
 export class BuisnessCategoryComponent {
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
   @Input() homePageData?: any
-
+  public $destroy = new Subject<void>()
   public businessCat: any[] = []
   public businessCategoryContent?: any
   swiperParams = {
@@ -65,7 +66,7 @@ export class BuisnessCategoryComponent {
 
 
   getCategroies() {
-    this.businessService.getBusinessCat().subscribe({
+    this.businessService.getBusinessCat().pipe(takeUntil(this.$destroy)).subscribe({
       next: (res: any) => {
         this.businessCat = res.data
 
@@ -85,5 +86,10 @@ export class BuisnessCategoryComponent {
 
   public blogCat(){
     this.router.navigateByUrl('/business-categories')
+  }
+
+  ngOnDestroy(){
+    this.$destroy.next()
+    this.$destroy.complete()
   }
 }

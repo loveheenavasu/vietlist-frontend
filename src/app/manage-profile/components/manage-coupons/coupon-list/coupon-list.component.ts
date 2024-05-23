@@ -23,6 +23,7 @@ import { CouponService } from '../service/coupon.service'
 import Swal from 'sweetalert2'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-coupon-list',
@@ -58,7 +59,8 @@ export class CouponListComponent {
   public totalCount: number = 0
   public totalPages: number = 0
   public isLoading: boolean = false
-
+  private destroy$ = new Subject<void>()
+  
   constructor(
     private dialog: MatDialog,
     private couponService: CouponService,
@@ -158,7 +160,7 @@ export class CouponListComponent {
 
   public getCoupons() {
     this.fullpageloaderservice.showLoader()
-    this.couponService.getCoupon(this.postPerPage, this.currentPage).subscribe({
+    this.couponService.getCoupon(this.postPerPage, this.currentPage).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.couponsArr = res.data
         this.totalCount = res.total_count
@@ -227,6 +229,11 @@ export class CouponListComponent {
     this.dialog.open(ViewCouponComponent, {
       data: key,
     })
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
 
