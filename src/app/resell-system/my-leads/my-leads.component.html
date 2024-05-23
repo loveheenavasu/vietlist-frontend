@@ -1,0 +1,25 @@
+<div class="page-heading row">
+  <div class="col-12 d-flex align-items-center justify-content-between ">
+    <p class='m-0' >Purchased Leads</p>
+    <button (click)="navigateToListing()" >Buy More</button>
+  </div>
+</div>
+@if (!leads) {
+    <div class="text-center my-5">
+        <h4 class="no-records-found-2">No records found !</h4>
+     </div>
+} @else {
+    <div class="row">
+      @for (lead of leads; track $index) {
+        <div class="col-12 col-lg-6 p-3 position-relative ">
+          <app-lead-card
+            [lead]="lead"
+            actionName="View More"
+            (leadActions)="purchaseLead($event)"
+          ></app-lead-card>
+          <li class='fa-solid fa-download cursor-pointer download-icon' (click)="downloadLeadPdf(lead)" ></li>
+        </div>
+      }
+    </div>
+}
+

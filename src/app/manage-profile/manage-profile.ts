@@ -54,6 +54,15 @@ export class ManageProfileComponent {
   public role = Roles
   public currentPath: any
   public pageTitle: string = ''
+  BrokerMenu = [
+    'Edit Profile',
+    'Change Password',
+    'All Leads',
+    'My Purchases Leads',
+    'Leads transaction history',
+    'Delete Account',
+    'Settings',
+  ]
   constructor(
     private sidebarService: SidebarService,
     private sessionservice: AuthenticationService,
@@ -112,7 +121,6 @@ export class ManageProfileComponent {
     })
   }
 
-
   public setTitle() {
     switch (true) {
       case this.currentPath === '/manage-profile':
@@ -156,6 +164,12 @@ export class ManageProfileComponent {
         break
       case this.currentPath === '/analytics':
         this.pageTitle = 'Analytics'
+        break
+      case this.currentPath === '/manage-profile/my-purchased-leads':
+        this.pageTitle = 'My Purchased Leads'
+        break
+      case this.currentPath === '/manage-profile/leads-transaction-history':
+        this.pageTitle = 'Leads Purchased History'
         break
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
         const segments = this.currentPath.split('/')
@@ -245,6 +259,10 @@ export class ManageProfileComponent {
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics',
+            )
+          } else if (roleGet.user_role == Roles.broker) {
+            this.menuItems = this.sidebarMenu.filter((menu) =>
+              this.BrokerMenu.includes(menu.label),
             )
           } else if (
             this.userDetail.user_role == Roles.businessOwner &&

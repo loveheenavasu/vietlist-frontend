@@ -39,4 +39,24 @@ export class LeadgenerationService {
 
     return this.http.get<any>(endpoint, { headers: authToken })
   }
+  public GetLeadsByUserId(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.LeadsByUserId)
+    const authToken = this.authService.getAuthHeaders()
+
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+  public GetLeadsTransactionHistory(): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.LeadsTransactionHistory,
+    )
+    const authToken = this.authService.getAuthHeaders()
+
+    return this.http.get<any>(endpoint, { headers: authToken })
+  }
+  public GetLeadPdfDownloadUrl(leadId: string): Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.DownloadLeadPdf)
+    const authToken = this.authService.getAuthHeaders()
+    const params = new HttpParams().set('lead_id', leadId)
+    return this.http.get<any>(endpoint, { headers: authToken, params })
+  }
 }

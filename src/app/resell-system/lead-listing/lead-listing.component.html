@@ -1,5 +1,24 @@
 <section class="banner">
-    <div class="content">
-      <h1>Listing</h1>
+  <div class="content">
+    <h1>Listing</h1>
+  </div>
+</section>
+
+<div class="lead-container">
+  @if (!leads) {
+    <div class="text-center my-5">
+      <h4 class="no-records-found-2">No records found !</h4>
     </div>
-  </section>
+  } @else {
+    <div class="row">
+      @for (lead of leads; track $index) {
+        <div class="col-12 col-md-6 col-lg-4 p-3">
+          <app-lead-card
+            [lead]="lead"
+            (leadActions)="purchaseLead($event)"
+          ></app-lead-card>
+        </div>
+      }
+    </div>
+  }
+</div>

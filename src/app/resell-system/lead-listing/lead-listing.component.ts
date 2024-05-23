@@ -1,19 +1,40 @@
 import { Component } from '@angular/core'
 import { LeadgenerationService } from '../resell.service'
+import { FullPageLoaderService } from '@vietlist/shared'
+import { Router } from '@angular/router'
+import { LeadCardComponent } from '../lead-card/lead-card.component'
 @Component({
   selector: 'app-lead-listing',
   standalone: true,
-  imports: [],
+  imports: [LeadCardComponent],
   templateUrl: './lead-listing.component.html',
   styleUrl: './lead-listing.component.scss',
 })
 export class LeadListingComponent {
-  constructor(public service: LeadgenerationService) {}
+  constructor(
+    public service: LeadgenerationService,
+    private loader: FullPageLoaderService,
+    private router: Router,
+  ) {}
+  leads: any
+  purchaseLead(id: string) {
+    // lid is Lead id
+    this.router.navigate(['/booking-payment'], {
+      queryParams: {
+        Lid: id,
+      },
+    })
+  }
 
   ngOnInit(): void {
+    this.loader.showLoader()
     this.service.GetLeads().subscribe({
       next: (res) => {
-        console.log(res)
+        this.loader.hideLoader()
+        this.leads = res?.data
+      },
+      error: () => {
+        this.loader.hideLoader()
       },
     })
   }

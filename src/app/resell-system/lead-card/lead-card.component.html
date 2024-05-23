@@ -1,0 +1,38 @@
+
+  <div class="lead-card">
+    <div class="img-btn">
+      <img src="/assets/icons/buy-new-home.svg" alt="property" />
+      <div>
+        <button class="card-action" (click)="leadAction(lead?.id)">
+          {{ actionName ? actionName : 'Buy' }}
+        </button>
+      </div>
+    </div>
+    <p class="info">Info</p>
+    <div class="row row-gap-2 pb-2">
+      <div class="col-7 lead-info">Home Description <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead?.home_description] || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">Home Loan Purpose<span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead?.home_loan_purpose] || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">U.S. Military service <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead?.military_service_status] || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">Employment <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead.employment_status] || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">Bankruptcy <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead?.bankruptcy_status] || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">Credit Profile <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ keyToValue[lead?.your_credit_profile] || 'NA' }}
+      </div>
+    </div>
+  </div>

@@ -67,6 +67,7 @@ export enum Endpoints {
   GetCancelpolicy = 'get_cancellation_policy',
   CreateBookingPaymentIntent = 'create_event_booking_initial_intent',
   StripePaymentForBooking = 'stripe_payment_for_booking',
+  StripePaymentForLead = 'payment_for_brokers',
   SetEventBooking = 'set_event_booking',
   BookingDetails = 'get_booking_by_booking_id',
   BusinessBlog = 'get_all_business_blog_post',
@@ -118,4 +119,7 @@ export enum Endpoints {
   TermsAndLegal = 'get_data_by_slug',
   CreateLead = 'set_loan_inquiries',
   GetLeads = 'get_leads',
+  LeadsByUserId = 'leads_by_userid',
+  LeadsTransactionHistory = 'get_leads_transaction_history',
+  DownloadLeadPdf = 'download_lead_pdf',
 }

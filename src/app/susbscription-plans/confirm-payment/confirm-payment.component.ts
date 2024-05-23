@@ -68,6 +68,7 @@ export class ConfirmPaymentComponent {
   public isUserSubscribed: any
   public subscriptionCouponPrice: any
   public subscriptionCouponId: any
+  public leadId: any
 
   constructor(
     private stripeService: AngularStripeService,
@@ -85,7 +86,9 @@ export class ConfirmPaymentComponent {
   ) {
     this.route.queryParams.subscribe((params) => {
       this.eventIds = params
-
+      if (params['Lid']) {
+        this.leadId = params['Lid']
+      }
       console.log(this.eventIds, 'eventId')
       this.getEventDetails()
     })
@@ -295,11 +298,48 @@ export class ConfirmPaymentComponent {
       if (this.paymentMethod && this.eventIds?.numberOfBooking) {
         console.log('price available')
         this.confirmBookingPayment()
-      } else if (this.paymentMethod && !this.eventIds?.numberOfBooking) {
+      } else if (this.paymentMethod && this.leadId) {
+        this.confirmLeadPayment()
+      } else if (
+        this.paymentMethod &&
+        !this.eventIds?.numberOfBooking &&
+        !this.leadId
+      ) {
         console.log('price Not available')
         this.confirmSubscriptionPayment()
       }
     }
+  }
+
+  confirmLeadPayment() {
+    this.loaderService.showLoader()
+    let body = {
+      lead_id: this.leadId,
+      pm_data: {
+        id: this.paymentMethod?.payment_method,
+        billing_details: this.billingAddress,
+      },
+    }
+
+    this.eventService.stripeLeadPayment(body).subscribe({
+      next: (res: any) => {
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.router.navigate(['/thank-you'])
+        this.loaderService.hideLoader()
+      },
+      error: (err) => {
+        this.loaderService.hideLoader()
+      },
+    })
   }
 
   public confirmSubscriptionPayment() {

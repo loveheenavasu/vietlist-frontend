@@ -59,6 +59,8 @@ import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-po
 import { SitemapComponent } from './sitemap/sitemap.component'
 import { LeadGenerationComponent } from './resell-system/lead-generation/lead-generation.component'
 import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.component'
+import { MyLeadsComponent } from './resell-system/my-leads/my-leads.component'
+import { LeadsTransactionHistoryComponent } from './resell-system/leads-transaction-history/leads-transaction-history.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -144,9 +146,17 @@ export default [
         path: 'manage-coupons',
         loadComponent: () => CouponListComponent,
       },
+      {
+        path: 'my-purchased-leads',
+        loadComponent: () => MyLeadsComponent,
+      },
+      {
+        path: 'leads-transaction-history',
+        loadComponent: () => LeadsTransactionHistoryComponent,
+      },
     ],
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner', 'subscriber'] },
+    data: { roles: ['business-owner', 'subscriber', 'broker'] },
   },
   {
     path: 'preview-business/:id',

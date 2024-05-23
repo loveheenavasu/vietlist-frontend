@@ -55,6 +55,21 @@
     "url": "/analytics"
   },
   {
+    "label": "All Leads",
+    "icon": "fa-solid fa-file",
+    "url": "/lead-listing"
+  },
+  {
+    "label": "My Purchases Leads",
+    "icon": "fa-solid fa-file",
+    "url": "/manage-profile/my-purchased-leads"
+  },
+  {
+    "label": "Leads transaction history",
+    "icon": "fa-solid fa-history",
+    "url": "/manage-profile/leads-transaction-history"
+  },
+  {
     "label": "Cancellation Policies settings",
     "icon": "fa fa-times-circle",
     "url": "/manage-profile/cancellaton-policy"

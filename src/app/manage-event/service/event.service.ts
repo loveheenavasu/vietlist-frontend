@@ -14,7 +14,7 @@ export class EventService {
   constructor(
     private http: HttpClient,
     private sessionService: AuthenticationService,
-  ) { }
+  ) {}
 
   public getEventTags(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.EventTags)
@@ -85,10 +85,7 @@ export class EventService {
     return this.http.post(endpoint, body, { headers: authToken })
   }
 
-  public getReviewReply(
-    comment_parent: any,
-    post_id: any,
-  ): Observable<any> {
+  public getReviewReply(comment_parent: any, post_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetReviewReply)
     let queryParams = new HttpParams()
       .set('comment_parent', comment_parent)
@@ -97,27 +94,33 @@ export class EventService {
     return this.http.get<any>(endpoint, { params: queryParams })
   }
 
-
   public getAllBookings(event_id: any) {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.AllBookingsByEventId)
     const authToken: any = this.sessionService.getAuthHeaders()
-    let queryParams = new HttpParams()
-      .set('event_id', event_id)
+    let queryParams = new HttpParams().set('event_id', event_id)
     return this.http.get(endpoint, { headers: authToken, params: queryParams })
   }
 
   public createPaymentIntentForBooking() {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CreateBookingPaymentIntent)
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.CreateBookingPaymentIntent,
+    )
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post(endpoint, null, { headers: authToken })
   }
 
   public stripebookingPayment(body: any) {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.StripePaymentForBooking)
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.StripePaymentForBooking,
+    )
     const authToken: any = this.sessionService.getAuthHeaders()
     return this.http.post(endpoint, body, { headers: authToken })
   }
-
+  public stripeLeadPayment(body: any) {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.StripePaymentForLead)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post(endpoint, body, { headers: authToken })
+  }
   public addEventBooking(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetEventBooking)
     const authToken: any = this.sessionService.getAuthHeaders()
@@ -139,28 +142,28 @@ export class EventService {
   public getBookingDetails(booking_id: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.BookingDetails)
     const authToken: any = this.sessionService.getAuthHeaders()
-    let queryParams = new HttpParams()
-      .set('booking_id', booking_id)
+    let queryParams = new HttpParams().set('booking_id', booking_id)
     return this.http.get(endpoint, { headers: authToken, params: queryParams })
   }
 
   public getClaimBusinessLisiting(post_id: any): Observable<any> {
-    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetBusinessLisitingClaim)
+    const endpoint = GenericHelper.appendBaseUrl(
+      Endpoints.GetBusinessLisitingClaim,
+    )
     const authToken: any = this.sessionService.getAuthHeaders()
     const params = new HttpParams().set('post_id', post_id)
     return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
 
-  public applCoupon(body:any): Observable<any> {
+  public applCoupon(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.ApplyCoupon)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body , { headers: authToken})
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
 
-  public updateEventBooking(body:any): Observable<any> {
+  public updateEventBooking(body: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.UpdateEventBooking)
     const authToken: any = this.sessionService.getAuthHeaders()
-    return this.http.post<any>(endpoint, body , { headers: authToken})
+    return this.http.post<any>(endpoint, body, { headers: authToken })
   }
-
 }

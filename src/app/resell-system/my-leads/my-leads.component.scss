@@ -1,0 +1,32 @@
+.page-heading{
+    // display: flex;
+    // justify-content: space-between;
+
+    p{
+        font-size: 28px;
+        font-weight: 500;
+
+    }
+
+    button{
+        background-color: #ff9900;
+        color: #f5f7f9;
+        border: none;
+        padding: 9px 30px;
+        border-radius: 5px;
+    }
+}
+
+
+.no-records-found-2{
+    color:rgb(179, 179, 179);
+    text-align: center;
+    width:100%
+  }
+
+  .download-icon {
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    font-size: 18px;
+}

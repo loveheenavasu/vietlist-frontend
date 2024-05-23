@@ -1,37 +1,71 @@
 <section class="banner">
   <div class="content">
-    <h1>{{eventIds?.eventId ? 'Pay For Event' : 'Membership Checkout'}}</h1>
+    <h1>
+      @if (leadId) {
+        Pay For Lead
+      } @else if (eventIds?.eventId) {
+        Pay For Event
+      } @else {
+        Membership Checkout
+      }
+    </h1>
   </div>
 </section>
 
-<div  class="container-fluid g-0">
+<div class="container-fluid g-0">
   <div class="container">
     <div class="form-cnt">
-      <form #checkout="ngForm" (ngSubmit)="onSubmit(checkout)" class="checkout mt-4">
+      <form
+        #checkout="ngForm"
+        (ngSubmit)="onSubmit(checkout)"
+        class="checkout mt-4"
+      >
         <!-- @if(eventIds?.eventId){ -->
-          @if(!isUserSubscribed || eventIds?.eventId){
-          <label class="card-details">If you have any coupon code, please apply it below.</label>
-        <div class='coupon-container' >
-          <input class='coupon rounded' placeholder='Coupon code' type='text' name='coupon' [formControl]="coupon_code" required /> 
-          <button type='button' class='apply-btn' (click)="applyCoupon()">
-            @if(this.isApplyCoupon){
-              <app-loader></app-loader>
-            }@else{
-              Apply
+        @if (!leadId) {
+          @if (!isUserSubscribed || eventIds?.eventId) {
+            <label class="card-details"
+              >If you have any coupon code, please apply it below.</label
+            >
+            <div class="coupon-container">
+              <input
+                class="coupon rounded"
+                placeholder="Coupon code"
+                type="text"
+                name="coupon"
+                [formControl]="coupon_code"
+                required
+              />
+              <button type="button" class="apply-btn" (click)="applyCoupon()">
+                @if (this.isApplyCoupon) {
+                  <app-loader></app-loader>
+                } @else {
+                  Apply
+                }
+              </button>
+            </div>
+            @if (appliedCouponResponse) {
+              <label class="card-details" style="font-size: 18px"
+                >You have to pay ${{ appliedCouponResponse }} for
+                {{ eventIds.numberOfBooking }} booking(s).</label
+              >
             }
-          </button> 
-        </div>
-       @if(appliedCouponResponse){
-        <label class="card-details" style="font-size: 18px;">You have to pay ${{appliedCouponResponse}} for {{eventIds.numberOfBooking}} booking(s).</label>
-       }
 
-       @if(subscriptionCouponPrice){
-        <label class="card-details" style="font-size: 18px;">You have to pay ${{subscriptionCouponPrice}} after discount.</label>
-       }
-      }
-      <!-- } -->
-        <div class="form-row mt-4" [ngClass]="{'is-invalid': !billingAddressValid}">
-          <label for="billing-address-element" class="card-details">Billing Address</label>
+            @if (subscriptionCouponPrice) {
+              <label class="card-details" style="font-size: 18px"
+                >You have to pay ${{ subscriptionCouponPrice }} after
+                discount.</label
+              >
+            }
+          }
+        }
+        <!-- } -->
+        <div
+          class="form-row mt-4"
+          [ngClass]="{ 'is-invalid': !billingAddressValid }"
+        >
+          <label for="billing-address-element" class="card-details"
+            >Billing Address</label
+          >
           <div id="billing-address-element" #billingAddressElement></div>
         </div>
         <!-- <div class="form-row mt-4">
@@ -45,7 +79,12 @@
           <label for="card-info" class="card-details">Card Details</label>
           <div id="card-info" #cardInfo class="custom-card-element"></div>
 
-          <div id="card-errors" role="alert" *ngIf="error" class="error-message">
+          <div
+            id="card-errors"
+            role="alert"
+            *ngIf="error"
+            class="error-message"
+          >
             {{ error.message }}
           </div>
         </div>
