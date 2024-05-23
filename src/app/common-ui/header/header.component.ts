@@ -1,3 +1,4 @@
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { switchMap, catchError } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LoaderComponent } from 'src/app/common-ui';
@@ -29,6 +30,7 @@ import { errorMessageSubject } from '../../shared/utils/interceptor/errorhandler
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import {  EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { LanguageService } from 'src/app/shared/utils/services/language.service';
 
 @Component({
   selector: 'app-header',
@@ -49,7 +51,8 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
     ReactiveFormsModule,
     FormsModule,
     AutocompleteComponent,
-    LoaderComponent
+    LoaderComponent,
+    TranslateModule
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -99,7 +102,9 @@ export class HeaderComponent {
     private homeService: HomepageService,
     private profileService:ProfileService,
     private localStorage:LocalStorageService,
-    private destroyRef:DestroyRef
+    private destroyRef:DestroyRef,
+    private languageService:LanguageService,
+    private translateService: TranslateService
   ) {
     this.sessionservice.userDetailResponse.subscribe((res)=>{
       this.userDetail = res;
@@ -219,8 +224,11 @@ export class HeaderComponent {
     this.router.navigate([link])
   }
 
+  isLangugeDiv:boolean = false
   public toggleDropdown(event: Event) {
+    // alert('Hello')
     event.preventDefault()
+    this.isLangugeDiv  = true
   }
 
 
@@ -449,8 +457,14 @@ export class HeaderComponent {
     this.localStorage.removeData('isConsultationFormFilled')
   }
 
+
+  changeLanguage(language: any) {
+    // this.languageService.setLanguage(language);
+     this.translateService.use(language);
+    console.log(language , 'language')
+  }
+
   ngOnDestroy(): void {
-    // Unsubscribe from the interval subscription to avoid memory leaks
     if (this.notificationIntervalSubscription) {
       this.notificationIntervalSubscription.unsubscribe();
     }

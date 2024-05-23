@@ -16,6 +16,26 @@ img {
   height: 100% !important;
 }
 
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-gadget-simple {
+  background-color: orange;
+  border-left: 1px solid #eeeeee !important;
+  border-top: 1px solid #eeeeee !important;
+  border-bottom: 1px solid #eeeeee !important;
+  border-right: 1px solid #eeeeee !important;
+  font-size: 10pt;
+  display: inline-block;
+  padding-top: 1px;
+  padding-bottom: 2px;
+  cursor: pointer;
+  border-radius: 22px;
+  z-index:99999
+  // font-family: 'Roboto Slab';
+}
+
 .background_section {
   background: #FFFBF5;
   border-top: solid 1px rgba(16, 11, 11, 0.3294117647);

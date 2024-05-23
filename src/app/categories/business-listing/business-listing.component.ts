@@ -7,7 +7,7 @@ import { BusinessService } from '../../manage-business/service/business.service'
 import { NgClass } from '@angular/common'
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { Subscription } from 'rxjs'
+import { Subject, Subscription, takeUntil } from 'rxjs'
 import { FindBusinessParams, FindEventParams } from 'src/app/manage-business/service/business.interface'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
@@ -51,6 +51,7 @@ export class BusinessListingComponent {
   public currentPage: number = 1
   public isSearchingActive: boolean = false
   public isGlobal: any
+  private destroy$ = new Subject<void>()
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -85,7 +86,7 @@ export class BusinessListingComponent {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
     }
-    this.businessCategoriesService.ListingBusiness(params).subscribe({
+    this.businessCategoriesService.ListingBusiness(params).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessCategoriesArray = res.data
@@ -217,7 +218,6 @@ export class BusinessListingComponent {
     this.latitude = '';
     this.longitude = '';
     this.street = ''
-    // Reset category FormControl
     this.category.setValue(null);
     // Reset pagination and loader
     this.currentPage = 1;
@@ -226,4 +226,8 @@ export class BusinessListingComponent {
     this.getPublishBusinessData();
   }
 
+ngOnDestroy(){
+  this.destroy$.next()
+  this.destroy$.complete()
+}
 }

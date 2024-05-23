@@ -2,9 +2,13 @@
 %homepage-banner-button-styles {
   @at-root {
     %hbb-button-styles {
-      height: 46px;
+      height: auto;
+      padding-top: 10px;
+      padding-bottom:10px;
+      padding-right:10px;
+      padding-left:10px;
       border-radius: 4px;
-      width: 11em;
+      width: auto;
       font-weight: var(--font-weight-medium);
       font-size: 16px;
       line-height: 24px;

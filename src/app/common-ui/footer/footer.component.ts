@@ -8,6 +8,7 @@ import {
 } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router'
 import { AuthenticationService } from '@vietlist/shared'
+import { Subject, takeUntil } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import Swal from 'sweetalert2'
 
@@ -26,6 +27,7 @@ export class FooterComponent {
   email = 'example@example.com' // Replace with the recipient email address
   subject = 'Hello' // Replace with the email subject
   body = 'Hello, I hope you are doing well'
+  private destory$ = new Subject<void>()
 
   constructor(
     private footerContent: HomepageService,
@@ -55,8 +57,9 @@ export class FooterComponent {
   ngOnInit() {
     this.getFooterContent()
   }
+
   public getFooterContent() {
-    this.footerContent.footerContent().subscribe({
+    this.footerContent.footerContent().pipe(takeUntil(this.destory$)).subscribe({
       next: (res: any) => {
         this.footerPageContent = res.data
       },
@@ -110,4 +113,10 @@ export class FooterComponent {
     const googleMapsUrl = `https://www.google.com/maps?q=${encodeURIComponent(this.footerPageContent?.contact?.address)}`
     window.open(googleMapsUrl, '_blank')
   }
+
+  ngOnDestroy(){
+    this.destory$.next()
+    this.destory$.complete()
+  }
+  
 }

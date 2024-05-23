@@ -1,0 +1,22 @@
+<div class="popup">
+  <div class="close-btn" mat-dialog-close>Close</div>
+  <div class="p-5">
+    <h3>Choose Your Preferred Language</h3>
+    <p style="font-size: 16px; line-height: 30px; color: #8c8c8c">
+      Please select a language for your browsing experience on Vietlist.biz. We
+      will remember your choice for future visits!
+    </p>
+    <mat-select
+    class="vietlist-select"
+    placeholder="Select Language"
+    style="width:30%"
+    [formControl]="language"
+  >
+    <mat-option value="vi">Vietnamese</mat-option>
+    <mat-option value="en">English</mat-option>
+  </mat-select>
+   <div class="col-12 mt-4 mb-3">
+    <button class="btn submit-btn" (click)="submit()" [disabled]="!language.value">Submit</button>
+   </div>
+  </div>
+</div>

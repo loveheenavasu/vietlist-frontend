@@ -11,7 +11,7 @@ import {
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
-import { firstValueFrom } from 'rxjs'
+import { firstValueFrom, Subject, takeUntil } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
@@ -84,6 +84,8 @@ export class UserBlogDetailsComponent {
       init() {},
     },
   }
+  public destroy$ = new Subject<void>()
+  
   constructor(
     private IpService: ProfileService,
     private authentication: AuthenticationService,
@@ -344,7 +346,7 @@ export class UserBlogDetailsComponent {
   }
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs('10', '1').subscribe({
+    this.homeService.userBlogs('10', '1').pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         if (res) {
           this.loaderService.hideLoader()
@@ -544,5 +546,10 @@ export class UserBlogDetailsComponent {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 }

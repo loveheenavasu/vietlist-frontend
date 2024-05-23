@@ -5,6 +5,7 @@ import { EventService } from 'src/app/manage-event/service/event.service';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-my-events',
@@ -15,6 +16,8 @@ import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe';
 })
 export class MyEventsComponent {
   public eventsArray:any[]=[]
+  private $destroy = new Subject<void>()
+  
   constructor(private router:Router,private eventService:EventService , private fullpageloader:FullPageLoaderService){}
 
   ngOnInit(){
@@ -27,7 +30,7 @@ export class MyEventsComponent {
 
   public getAddedEvents(){
     this.fullpageloader.showLoader()
-    this.eventService.getEventsByUserId().subscribe({
+    this.eventService.getEventsByUserId().pipe(takeUntil(this.$destroy)).subscribe({
       next:(res:any)=>{
         this.eventsArray = res.data
         this.fullpageloader.hideLoader()
@@ -83,5 +86,10 @@ export class MyEventsComponent {
 
   public navigateToViewBooking(id:any){
     this.router.navigate(['/manage-profile/all-bookings' , id]);
+  }
+
+  ngOnDestroy(){
+    this.$destroy.next()
+    this.$destroy.complete()
   }
 }

@@ -8,7 +8,7 @@ import { FullPageLoaderService } from '@vietlist/shared';
 import { register } from 'swiper/element/bundle';
 import { ProfileService } from 'src/app/manage-profile/service/profile.service';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 
 register()
 @Component({
@@ -26,7 +26,8 @@ export class BusinessblogsComponent {
   public multipleAdId: string[] = []
   public ipAddress: any
   public totalCount: any
-
+  public destroy$ = new Subject<void>()
+  
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -107,7 +108,7 @@ export class BusinessblogsComponent {
 
   public getBusinessBlogsPost() {
     this.fullPageLoader.showLoader()
-    this.businessBlog.getAllBusinessBlog('12', this.count).subscribe({
+    this.businessBlog.getAllBusinessBlog('12', this.count).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         this.totalCount = res
         if (res && res.data) {
@@ -195,6 +196,11 @@ export class BusinessblogsComponent {
 
   public viewblogdetails(details: any) {
     this.router.navigate(['/business-blog-details/', details])
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
 }

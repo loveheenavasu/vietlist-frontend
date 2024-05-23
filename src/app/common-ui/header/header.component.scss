@@ -9,6 +9,15 @@
     position: relative;
 }
 
+
+.gtrans{
+    // position: absolute;
+    // top:0px;
+    // border:solid 1px red;
+}
+.goog-te-gadget-icon {
+    display: none !important;
+  }
 .badge {
     position: absolute;
     background-color: rgb(250 81 81 / 97%);
@@ -74,8 +83,8 @@
             align-items: center;
             justify-content: center;
             .nav-item {
-                font-size: 15px;
-                padding: 11px;
+                font-size: 14px;
+                padding: 10px;
                 font-weight: 400;
                 font-family: 'Roboto Slab';
                 cursor: pointer;
@@ -151,10 +160,6 @@
         box-shadow: 0px 4px 30px 0px rgba(20, 110, 180, 0.10);
         display: flex;
         align-items: center;
-
-        // justify-content: center;
-        // margin-right: 42px;
-        // margin-left: 30px;
         .nav-item {
             padding: 0px !important;
 
@@ -639,14 +644,14 @@ li.mat-mdc-menu-trigger.nav-item.active {
         .offcanvas {
             .offcanvas-body {
                 .list-item {
-                    width: 66%;
+                    width: 70%;
                     margin-right: 0.188rem;
                 }
 
             }
 
             .right-nav {
-                width: 25%;
+                width: 23%;
                 margin-left: 02.625rem;
             }
 

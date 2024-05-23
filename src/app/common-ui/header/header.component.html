@@ -7,7 +7,7 @@
     </div>
     <div class="sm-navbar d-flex">
       <div class="search-container-sm d-flex">
-        <div class="country-wrapper">
+        <!-- <div class="country-wrapper">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item dropdown">
@@ -18,19 +18,10 @@
                 <mat-menu #menu="matMenu">
                   <button mat-menu-item></button>
                 </mat-menu>
-
-                <!-- <span mat-button [matMenuTriggerFor]="menu">
-                      Menu
-                      <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
-                  </span>
-                  <mat-menu #menu="matMenu">
-                      <button mat-menu-item>Item 1</button>
-                      <button mat-menu-item>Item 2</button>
-                  </mat-menu> -->
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
         <div class="search-box">
           <div class="search-icon" (click)="handleSearchFiled()">
             <img src="/assets/icons/search-icon.svg" alt="search-icon" />
@@ -152,19 +143,20 @@
             <li class="nav-item" data-bs-dismiss="offcanvas">
               <span [routerLink]="['/resources']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Resources</span>
-              <!-- <span >Contact Us</span> -->
             </li>
           }
             <li class="nav-item" data-bs-dismiss="offcanvas" >
               <span [routerLink]="['/contact-us']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">Contact Us</span>
-              <!-- <span >Contact Us</span> -->
             </li>
-
+            
+            <li>
+              <div class="gtrans" id="google_translate_element"></div>
+            </li>
           </ul>
         </div>
 
-        <div class="country-wrapper small-screen-wrapper">
+        <!-- <div class="country-wrapper small-screen-wrapper">
           <div class="country-dropdown">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item dropdown" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
@@ -178,18 +170,10 @@
                   </button>
                 </mat-menu>
 
-                <!-- <span mat-button [matMenuTriggerFor]="menu">
-                        Menu
-                        <img src="/assets/Icon/arrow-down-sign-to-navigate.svg" alt="arrow" />
-                    </span>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>Item 1</button>
-                        <button mat-menu-item>Item 2</button>
-                    </mat-menu> -->
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
         <div class="right-nav">
           <div class="search-box small-screen-search-box" (click)="handleClick($event)">
             <div class="search-icon" (click)="handleSearchFiled()">

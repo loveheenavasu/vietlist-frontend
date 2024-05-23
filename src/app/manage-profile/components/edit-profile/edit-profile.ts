@@ -12,6 +12,7 @@ import {
   SearchCountryField,
 } from 'ngx-intl-tel-input-gg'
 import Swal from 'sweetalert2'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-edit-profile',
@@ -38,6 +39,8 @@ export class EditProfileComponent {
   public userDetails: any
   public isLoginSucess?: any
   public sidebarMenu: ProfileMenu[] = []
+  private destroy$ = new Subject<void>()
+
   constructor(
     private profileDetail: ProfileService,
     private router: Router,
@@ -50,7 +53,7 @@ export class EditProfileComponent {
 
   fetchProfileDetail() {
     this.loaderService.showLoader()
-    this.profileDetail.userDetails().subscribe({
+    this.profileDetail.userDetails().pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
         if (res) {
@@ -95,5 +98,10 @@ export class EditProfileComponent {
       },
       error: (err) => {},
     })
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 }

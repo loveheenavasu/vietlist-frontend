@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { Router, RouterLink } from '@angular/router'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-my-business',
@@ -26,6 +27,7 @@ export class MyBusinessComponent {
   public isPaginationVisible: boolean = false
   public totalCount: number = 0
   public totalPages: number = 0;
+  private destroy$ = new Subject<void>()
 
   constructor(
     private profileService: ProfileService,
@@ -44,7 +46,7 @@ export class MyBusinessComponent {
 
   getBusiness() {
     this.fullPageLoaderService.showLoader()
-    this.profileService.getBusinessByUserId(this.postPerPage , this.currentPage).subscribe({
+    this.profileService.getBusinessByUserId(this.postPerPage , this.currentPage).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.businessArray = res.data
@@ -90,7 +92,7 @@ export class MyBusinessComponent {
     })
   }
 
-  ngOnDestroy() {}
+
   public viewBusiness(postId: any) {
     this.router.navigate(['/preview-business', postId])
   }
@@ -98,7 +100,7 @@ export class MyBusinessComponent {
     this.router.navigateByUrl('/email-marketing')
   }
 
-  removeLocalstoagekey() {
+  public removeLocalstoagekey() {
     this.localStorage.removeData('postId')
     this.localStorage.removeData('isSubscriptionFormFilled')
     this.localStorage.removeData('isBusinessFormFilled')
@@ -107,14 +109,14 @@ export class MyBusinessComponent {
     this.router.navigateByUrl('/list-business')
   }
 
-  handlePageChange(event: number): void {
+  public handlePageChange(event: number): void {
     this.currentPage = event;
     // if(this.isPaginationClick){
       this.getBusiness()
     // }
     }
 
-    editBusiness(id:any){
+    public editBusiness(id:any){
       this.localStorage.saveData('isBusinessFormFilled', 'true')
       this.localStorage.saveData('isSubscriptionFormFilled', 'true')
       this.localStorage.saveData('isConsultationFormFilled', 'true')
@@ -122,5 +124,11 @@ export class MyBusinessComponent {
       this.router.navigate(['/edit-business' , id])
        this.localStorage.saveData('postId', id)
     }
+
+
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
   }
 

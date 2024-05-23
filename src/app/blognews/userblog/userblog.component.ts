@@ -6,6 +6,7 @@ import {
 } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
+import { Subject, takeUntil } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
@@ -23,7 +24,7 @@ export class UserblogComponent {
   public userdetails: any = []
   public categoery: any
   public totalCount: any
-
+  public destroy$ = new Subject<void>()
   /**
    *
    * @param authService
@@ -52,7 +53,7 @@ export class UserblogComponent {
 
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs('12', this.count, 'home').subscribe({
+    this.homeService.userBlogs('12', this.count, 'home').pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         this.totalCount = res
         console.log(res.data, 'res.data')
@@ -151,5 +152,10 @@ export class UserblogComponent {
   public viewuserdetails(details: any) {
     this.router.navigate(['/user-blog-details/', details?.blog_id])
     this.authService.BlogID.next(details?.blog_id)
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 }
