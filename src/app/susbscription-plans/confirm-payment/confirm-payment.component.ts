@@ -65,9 +65,9 @@ export class ConfirmPaymentComponent {
   public coupon_code = new FormControl('')
   public appliedCouponResponse: any
   public isApplyCoupon: boolean = false
-  public isUserSubscribed:any
-  public subscriptionCouponPrice:any;
-  public subscriptionCouponId:any;
+  public isUserSubscribed: any
+  public subscriptionCouponPrice: any
+  public subscriptionCouponId: any
 
   constructor(
     private stripeService: AngularStripeService,
@@ -81,7 +81,7 @@ export class ConfirmPaymentComponent {
     private eventService: EventService,
     private _activatedRoute: ActivatedRoute,
     private authService: AuthenticationService,
-    private planService:PlansService
+    private planService: PlansService,
   ) {
     this.route.queryParams.subscribe((params) => {
       this.eventIds = params
@@ -92,7 +92,7 @@ export class ConfirmPaymentComponent {
     this._activatedRoute.params.subscribe((res) => {
       this.createBookingIntent()
     })
-   this.isUserSubscribed =  this.authService.checkSubscriptionStatus()
+    this.isUserSubscribed = this.authService.checkSubscriptionStatus()
   }
 
   ngOnInit() {
@@ -276,9 +276,7 @@ export class ConfirmPaymentComponent {
         payment_method: {
           card: this.card,
         },
-
       },
-
     )
 
     if (error) {
@@ -306,7 +304,7 @@ export class ConfirmPaymentComponent {
 
   public confirmSubscriptionPayment() {
     this.loaderService.showLoader()
-    const body:any = {
+    const body: any = {
       level_id: this.planId,
       pm_data: {
         id: this.paymentMethod?.payment_method,
@@ -314,9 +312,9 @@ export class ConfirmPaymentComponent {
       },
     }
     if (this.subscriptionCouponPrice) {
-      body.coupon_price = this.subscriptionCouponPrice;
+      body.coupon_price = this.subscriptionCouponPrice
       body.code_id = this.subscriptionCouponId
-  }
+    }
     this.subscriptionService.confirmSubscription(body).subscribe({
       next: (res) => {
         this.loaderService.hideLoader()
@@ -355,76 +353,79 @@ export class ConfirmPaymentComponent {
 
   public applyCoupon() {
     this.isApplyCoupon = true
-    if(this.eventIds?.eventId){
-    const body = {
-      coupon_code: this.coupon_code.value,  
-      event_price: this.eventPrice,
-      event_id: this.eventIds?.eventId, 
-      number_of_booking:this.eventIds?.numberOfBooking
-    }
-    this.eventService.applCoupon(body).subscribe({
-      next: (res) => {
-        this.isApplyCoupon = false
-        if (res) {
-          this.updateEventBooking()
-        }
-        Swal.fire({
-          toast: true,
-          text: res.message,
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.isApplyCoupon = false
-        this.appliedCouponResponse = res?.data?.discount_price
-        const body = {
-          booking_id: this.eventIds.bookingId,
-          booking_price: this.appliedCouponResponse,
-        }
-        this.eventService.updateEventBooking(body).subscribe({
+    if (this.eventIds?.eventId) {
+      const body = {
+        coupon_code: this.coupon_code.value,
+        event_price: this.eventPrice,
+        event_id: this.eventIds?.eventId,
+        number_of_booking: this.eventIds?.numberOfBooking,
+      }
+      this.eventService.applCoupon(body).subscribe({
+        next: (res) => {
+          this.isApplyCoupon = false
+          if (res) {
+            this.updateEventBooking()
+          }
+          Swal.fire({
+            toast: true,
+            text: res.message,
+            animation: false,
+            icon: 'success',
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          })
+          this.isApplyCoupon = false
+          this.appliedCouponResponse = res?.data?.discount_price
+          const body = {
+            booking_id: this.eventIds.bookingId,
+            booking_price: this.appliedCouponResponse,
+          }
+          this.eventService.updateEventBooking(body).subscribe({
+            next: (res) => {
+              this.isApplyCoupon = false
+            },
+          })
+        },
+        error: (err) => {
+          this.isApplyCoupon = false
+          this.coupon_code.setValue('')
+          this.coupon_code.patchValue('')
+          this.coupon_code.patchValue(null)
+        },
+      })
+    } else {
+      this.planService
+        .applyCoupon(this.coupon_code.value, this.planId)
+        .subscribe({
           next: (res) => {
+            this.isApplyCoupon = true
+            this.subscriptionCouponPrice = res?.price
+            if (res) {
+              this.updateEventBooking()
+            }
+            Swal.fire({
+              toast: true,
+              text: res.message,
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+            })
             this.isApplyCoupon = false
+            this.appliedCouponResponse = res?.data?.discount_price
+          },
+          error: (err) => {
+            this.isApplyCoupon = false
+            this.coupon_code.setValue('')
+            this.coupon_code.patchValue('')
+            this.coupon_code.patchValue(null)
           },
         })
-      },
-      error: (err) => {
-        this.isApplyCoupon = false
-        this.coupon_code.setValue('')
-        this.coupon_code.patchValue('')
-        this.coupon_code.patchValue(null)
-      },
-    })
-  }else {
-    this.planService.applyCoupon(this.coupon_code.value , this.planId).subscribe({
-      next: (res) => {
-        this.isApplyCoupon = true
-        this.subscriptionCouponPrice = res?.price
-        if (res) {
-          this.updateEventBooking()
-        }
-        Swal.fire({
-          toast: true,
-          text: res.message,
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.isApplyCoupon = false
-        this.appliedCouponResponse = res?.data?.discount_price
-      },error:(err)=>{
-        this.isApplyCoupon = false
-        this.coupon_code.setValue('')
-        this.coupon_code.patchValue('')
-        this.coupon_code.patchValue(null)
-      }
-    })
-  }
+    }
   }
 
   public updateEventBooking() {}

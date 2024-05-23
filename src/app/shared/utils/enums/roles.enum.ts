@@ -4,4 +4,6 @@ export enum Roles {
   commissionSalesAgent = ' commission-sales-agent',
   contentContributor = 'content-contributor',
   moderator = 'moderator',
+  broker = 'broker',
+  realState = 'real-state',
 }

@@ -29,6 +29,11 @@ import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select'
 import { Router } from '@angular/router'
 // import moment from 'moment';
 import moment from 'moment-timezone'
+type DayName = 'Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su'
+interface Day {
+  name: DayName
+  times: { start: string; end: string }[]
+}
 @Component({
   selector: 'app-consultation-form',
   standalone: true,
@@ -49,10 +54,12 @@ export class ConsultationFormComponent {
   @ViewChild('uiContainer') uiContainer!: ElementRef
   @Output() consultationFormSubmit = new EventEmitter<void>()
   @Input() set consultationData(value: any) {
+    console.log(this.imagePreviews, 'uppppppp')
     this.imagePreviews = value?.image || []
+    console.log(this.imagePreviews, 'down')
     this.video_upload = value?.video_upload || []
     const Gethours = value?.business_hours
-    if (Gethours == 'false') {
+    if (!Gethours) {
       this.showTimeTable = false
     } else {
       this.showTimeTable = true
@@ -68,8 +75,9 @@ export class ConsultationFormComponent {
       this.selectedData = selectedTimeZone
     }
 
-    const hours = businessHours.flat()?.map((item: any) => [item])
-
+    const hours = this.combineMultipleTime(businessHours)
+      .flat()
+      ?.map((item: any) => [item])
     const formattedDays = hours?.map((day: any) => {
       const value = day?.map((item: any) => item)?.[0]?.split(' ')
       const times = value[1]?.split(',')
@@ -144,7 +152,7 @@ export class ConsultationFormComponent {
   public selectedWeek: string[] = []
   public isLastRemoved: boolean[] = []
   public imageUrlsArr: any[] = []
-  public days = [
+  public days: Day[] = [
     { name: 'Mo', times: [{ start: '', end: '' }] },
     { name: 'Tu', times: [{ start: '', end: '' }] },
     { name: 'We', times: [{ start: '', end: '' }] },
@@ -233,6 +241,28 @@ export class ConsultationFormComponent {
 
   ngAfterViewInit() {
     this.addData()
+  }
+
+  combineMultipleTime(time: string[]) {
+    let result: any[] = []
+    let dayName: Record<DayName, boolean> = {
+      Mo: true,
+      Tu: true,
+      We: true,
+      Th: true,
+      Fr: true,
+      Sa: true,
+      Su: true,
+    }
+    for (let index = 0; index < time.length; index++) {
+      const day = time[index].slice(0, 2) as DayName
+      if (dayName[day]) {
+        result.push(time[index])
+      } else {
+        result.push(`${result.pop()},${time[index]}`)
+      }
+    }
+    return result
   }
 
   parse(originalStr: string): any[] {
@@ -327,6 +357,28 @@ export class ConsultationFormComponent {
       this.selectedWeek.push(dayName)
       this.currentSelectedWeek = [...this.selectedWeek]
     }
+    this.isTimeNotValid()
+  }
+
+  hasEmptyTime(data: Day[]): boolean {
+    for (let day of data) {
+      for (let time of day.times) {
+        if (time.start === '' || time.end === '') {
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+  isTimeNotValid() {
+    let non24HourFilteredDayName = this.currentSelectedWeek.filter((day) => {
+      return !this.selected24HrDay.includes(day)
+    })
+    let non24HourFilteredDay = this.days.filter((day: any) =>
+      non24HourFilteredDayName.includes(day.name),
+    )
+    return this.hasEmptyTime(non24HourFilteredDay)
   }
 
   onSelect(event: any) {
@@ -477,7 +529,9 @@ export class ConsultationFormComponent {
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isImageUploading = false
+          console.log(this.imagePreviews, 'this.imagePreviews up')
           this.imagePreviews.push(res.image_url)
+          console.log(this.imagePreviews, 'this.imagePreviews down')
           if (
             this.imagePreviews.length >= maxImages &&
             this.vediosHide.level_id !== '3'
@@ -499,15 +553,20 @@ export class ConsultationFormComponent {
   public addTime(dayIndex: number) {
     this.days[dayIndex].times.push({ start: '', end: '' })
   }
+  selected24HrDay: any[] = []
 
-  onWeekSelect(dayName: string, event: Event) {
+  onWeekSelect(dayName: string, event: Event, dayIndex: number) {
     const checked = (event.target as HTMLInputElement).checked
 
     if (checked) {
       this.pushDay(dayName)
-      // this.selectedWeek.push(dayName)
+      this.selected24HrDay.push(dayName)
+      this.days[dayIndex].times = [{ start: '', end: '' }]
     } else {
       this.selectedWeek = this.selectedWeek.filter((day) => day !== dayName)
+      this.selected24HrDay = this.selected24HrDay.filter(
+        (day) => day !== dayName,
+      )
     }
     this.currentSelectedWeek = [...this.selectedWeek]
   }
@@ -525,17 +584,23 @@ export class ConsultationFormComponent {
     }
   }
 
-  checkHours(day: any) {
-    let { times } = day
-    if (!times[0].start && !times[0].end) {
-      return false
-    }
-    if (times[0].start === times[0].end) {
-      this.pushDay(day?.name)
+  checkHours(day: Day) {
+    let { times, name } = day
+    let isSelected = this.selected24HrDay.includes(name)
+    if (isSelected) {
       return true
     } else {
+      for (let index = 0; index < times?.length; index++) {
+        if (!times[index].start && !times[index].end) {
+          return false
+        }
+        if (times[index].start !== times[index].end) {
+          this.pushDay(day?.name)
+          return false
+        }
+      }
       this.pushDay(day?.name)
-      return false
+      return true
     }
   }
   pusDay(day: any) {
@@ -584,12 +649,23 @@ export class ConsultationFormComponent {
   }
 
   public addBusiness(): void {
+    if (this.isTimeNotValid()) {
+      Swal.fire({
+        toast: true,
+        text: 'Please select start and end time both.',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      return
+    }
     this.isLoader = true
     const selectedDaysData = this.days.filter((day) =>
       this.currentSelectedWeek.includes(day.name),
     )
-    console.log(this.currentSelectedWeek, 'this.selectedWeek')
-    console.log(selectedDaysData, 'selectedDaysData')
 
     const jsonData: { [key: string]: string[] } = {} // Use an object to group times by day
 
@@ -621,7 +697,7 @@ export class ConsultationFormComponent {
       }
     }
     console.log(selectedData, resultArray, 'lplplplplpl')
-    console.log(this.selectedData, 'polplplplplpl')
+    console.log(this.imagePreviews, 'this.imagePreviewsthis.imagePreviews')
 
     this.isLoader = true
     const body = {
@@ -667,7 +743,7 @@ export class ConsultationFormComponent {
         next: (res) => {
           this.isLoader = false
 
-          this.consultationFormSubmit.emit()
+          // this.consultationFormSubmit.emit()
           if (res) {
             this.consultationFormSubmit.emit()
             this.localstorage.saveData('isConsultationFormFilled', 'true')

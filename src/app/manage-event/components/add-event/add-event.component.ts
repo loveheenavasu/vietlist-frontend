@@ -236,7 +236,6 @@ export class AddEventComponent {
     this.userInfo = JSON.parse(loginData)
 
     this.recurringEvent.valueChanges.subscribe((res) => {
-      console.log(res, 'recurringEvent')
       this.checkValue = res
       const controlsToValidate = [
         // 'event_duration',
@@ -314,7 +313,6 @@ export class AddEventComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.userDetail = res.data.user
-        console.log(this.userDetail)
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')

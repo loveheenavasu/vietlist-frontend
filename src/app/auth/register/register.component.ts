@@ -27,7 +27,9 @@ import {
   PhoneNumberFormat,
   SearchCountryField,
 } from 'ngx-intl-tel-input'
-import { debounceTime, Subject, tap, throttleTime } from 'rxjs'
+import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { debounceTime, Subject } from 'rxjs'
+import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -43,6 +45,7 @@ import { debounceTime, Subject, tap, throttleTime } from 'rxjs'
     LoaderComponent,
     NgClass,
     NgxIntlTelInputModule,
+    AutocompleteComponent,
   ],
 
   templateUrl: './register.component.html',
@@ -58,18 +61,20 @@ export class RegisterComponent {
     CountryISO.UnitedKingdom,
   ]
 
-
   public defaultSelectedRole = Roles.businessOwner
   public userRole = Roles
   public signupType = [
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
+    { name: 'Broker', value: Roles.broker, checked: false },
+    { name: 'Real State', value: Roles.realState, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedSignupType: any
   public loader: boolean = false
   public isHidePassword: boolean = false
   public isHideConfirmPassword: boolean = false
+  public isSubmitted: boolean = false
   public rolesArray = (Object.keys(Roles) as Array<keyof typeof Roles>).map(
     (key) => ({
       value: Roles[key],
@@ -80,14 +85,13 @@ export class RegisterComponent {
   public business_type = new FormControl('')
   public contact_details = new FormControl()
 
-
   /**
-   * 
-   * @param router 
-   * @param fb 
-   * @param authService 
-   * @param localStorageServce 
-   * @param sessionServce 
+   *
+   * @param router
+   * @param fb
+   * @param authService
+   * @param localStorageServce
+   * @param sessionServce
    */
   constructor(
     public router: Router,
@@ -95,12 +99,21 @@ export class RegisterComponent {
     private authService: AuthService,
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
+    private profileService: ProfileService,
   ) {
-
     this.signupForm = this.fb.nonNullable.group(
       {
         username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+            ),
+          ],
+        ],
         email: [
           '',
           [
@@ -132,6 +145,7 @@ export class RegisterComponent {
 
     // })).subscribe((x: any) => { });
   }
+  direction: string = ''
 
   ngOnInit() {
     this.selectedSignupType = Roles.businessOwner
@@ -160,12 +174,31 @@ export class RegisterComponent {
     return false
   }
 
+  public allowNotification() {
+    const body = {
+      Login: 1,
+      Subscription: 1,
+      delete_account: 1,
+      business_listing: 1,
+    }
+
+    this.profileService.allowNotificationSetting(body).subscribe({
+      next: (res) => {},
+    })
+  }
+
+  getAddress(place: any) {
+    this.isSubmitted = false
+    this.direction = place.formatted_address
+  }
+
   public handleRegistrationSubmission() {
+    this.isSubmitted = true
     const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
       this.contact_details?.value?.dialCode,
     )
 
-    const body = {
+    const body: { [key: string]: any } = {
       username: this.signupForm.value.username,
       password: this.signupForm.value.password,
       business_type: this.signupForm.value.business_type,
@@ -188,6 +221,13 @@ export class RegisterComponent {
         )
         body['country_code'] = this.contact_details.value.dialCode
       }
+      if (
+        this.selectedSignupType === this.userRole.broker ||
+        this.selectedSignupType === this.userRole.realState
+      ) {
+        body['address'] = this.direction
+      }
+
       this.loader = true
       this.authService.register(body).subscribe({
         next: (res) => {
@@ -221,19 +261,24 @@ export class RegisterComponent {
             } else {
               this.router.navigateByUrl('/login')
             }
-            if (res.data.user.user_role == Roles.subscriber) {
+            if (res.data.user.user_role == Roles.subscriber || Roles.broker || Roles.realState) {
               this.sessionServce.setAuthenticationStatusTrue(res.data.token)
               this.router.navigateByUrl('/manage-profile')
             }
+            // if (
+            //   res.data.user.user_role == Roles.broker ||
+            //   res.data.user.user_role == Roles.realState
+            // ) {
+            //   this.sessionServce.setAuthenticationStatusTrue(res.data.token)
+            //   this.router.navigateByUrl('/')
+            // }
+            this.allowNotification()
           }
-
         },
         error: (err) => {
           this.loader = false
-
         },
       })
-
     } else {
       Swal.fire({
         toast: true,
@@ -246,7 +291,6 @@ export class RegisterComponent {
         timerProgressBar: true,
       })
     }
-
   }
 
   public changeSignupType() {
@@ -260,7 +304,6 @@ export class RegisterComponent {
       this.isHidePassword = true
     }
   }
-
 
   public hideConfirmPassword() {
     this.isHideConfirmPassword = !this.isHideConfirmPassword
@@ -277,5 +320,4 @@ export class RegisterComponent {
       ? null
       : event.charCode >= 48 && event.charCode <= 57
   }
-
 }

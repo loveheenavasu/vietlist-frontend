@@ -79,17 +79,39 @@ export class SubscriptionFormComponent {
     private businessService: BusinessService,
     private localstorage: LocalStorageService,
     private cdr: ChangeDetectorRef,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
   ) {
     this.subscriptionForm = this.fb.group({
-      facebook: ['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
-      twitter: ['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
-      instagram:['', [Validators.required , Validators.pattern(/^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i)]],
-
+      facebook: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      twitter: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      instagram: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
     })
     this.authService.userDetails.subscribe((res: any) => {
       this.hidefileds = res
-
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
@@ -102,7 +124,7 @@ export class SubscriptionFormComponent {
     this.isFormFilled = Boolean(isFormFIlled)
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
@@ -115,7 +137,6 @@ export class SubscriptionFormComponent {
     }
     this.displayImagePreviews()
   }
-
 
   displayImagePreviews() {
     this.isImageUploading = true
@@ -174,7 +195,7 @@ export class SubscriptionFormComponent {
             // })
           }
         },
-        error: (err) => { },
+        error: (err) => {},
       })
     } else {
       this.businessService.addBusiness(body).subscribe({
@@ -187,7 +208,7 @@ export class SubscriptionFormComponent {
             this.formSubmit.emit()
           }
         },
-        error: (err) => { },
+        error: (err) => {},
       })
     }
   }

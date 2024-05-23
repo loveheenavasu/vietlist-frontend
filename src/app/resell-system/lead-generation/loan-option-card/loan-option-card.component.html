@@ -1,0 +1,39 @@
+<p class="step-title">{{ title }}</p>
+<div
+  class="row card-container"
+  [ngClass]="{ 'column-card-container': isTextCard }"
+>
+  @for (step of steps; track $index) {
+    <div
+      class="card"
+      [ngStyle]="width && { width: width }"
+      [ngClass]="{
+        selected: selectedOptions[key] === step.value,
+        'text-card': isTextCard
+      }"
+      (click)="selectOptions(step.value, key)"
+    >
+      @if (step?.url) {
+        <img [src]="step?.url" alt="" />
+      }
+      <p>{{step.title}}</p>
+      @if (step.subTitle) {
+        <p>{{ step.subTitle }}</p>
+      }
+    </div>
+  }
+</div>
+<div class="btn-container">
+  @if (key !== 'home_loan_purpose') {
+    <button class="back" mat-button matStepperPrevious (click)="back()" >Back</button>
+  }
+  <button
+    class="next"
+    [ngClass]="{ 'disable-next': !selectedOptions[key] }"
+    matStepperNext
+    [disabled]="!selectedOptions[key]"
+    (click)="next()"
+  >
+    Next
+  </button>
+</div>

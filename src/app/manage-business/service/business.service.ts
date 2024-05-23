@@ -7,6 +7,10 @@ import {
 } from '@vietlist/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { BusinessCategoryResponse, TagsResponse } from './business.interface'
+type DayName = 'Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su'
+type DayNamee = {
+  [key: string]: string // Use an index signature to allow any string key
+}
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +21,7 @@ export class BusinessService {
   public isBusinessBioFormFilled = new BehaviorSubject<boolean>(false)
   public isBusinessFormFilled = new BehaviorSubject<boolean>(false)
   public isConsultationFormFilled = new BehaviorSubject<boolean>(false)
-  public dayName = {
+  public dayName: DayNamee = {
     Mo: 'Monday',
     Tu: 'Tuesday',
     We: 'Wednesday',
@@ -199,29 +203,65 @@ export class BusinessService {
 
   convertTo12Hour(time: string) {
     if (time.slice(0, 2) !== '00') {
-      const hour = parseInt(time.slice(0, 2))
+      const hour = time.slice(0, 2)
       const minute = time.slice(3, 5)
-      const period = hour >= 12 ? 'PM' : 'AM'
+      const period = parseInt(hour) >= 12 ? 'PM' : 'AM'
       const hour12 =
-        (this.format24To12 as { [key: number]: string })[hour] ||
-        hour.toString()
+        (this.format24To12 as { [key: number]: string })[parseInt(hour)] || hour
       return `${hour12}:${minute}${period}`
     } else {
       return time
     }
   }
 
-  hourFormat(time: string) {
-    let slicedTime: string = time.slice(3, time.length)
-    let day: keyof typeof this.dayName = time.slice(
-      0,
-      2,
-    ) as keyof typeof this.dayName
+  combineMultipleTime(time: string[]) {
+    let result: any[] = []
+    let dayName: Record<DayName, boolean> = {
+      Mo: true,
+      Tu: true,
+      We: true,
+      Th: true,
+      Fr: true,
+      Sa: true,
+      Su: true,
+    }
+    for (let index = 0; index < time.length; index++) {
+      const day = time[index].slice(0, 2) as DayName
+      if (dayName[day]) {
+        result.push(time[index])
+      } else if (time[index].slice(0, 3) !== 'UTC') {
+        result.push(`${result.pop()},${time[index]}`)
+      } else {
+        result.push(time[index])
+      }
+    }
+    return result
+  }
+  check24hour(time: string) {
+    let splitedTime = time.split('-')
+    if (time.trim() === '00:00-00:00') {
+      return true
+    } else if (splitedTime[0] === splitedTime[1]) {
+      return true
+    }
+    return false
+  }
 
-    if (slicedTime === '00:00-00:00') {
-      return ` <div class='col-4 text-nowrap' > ${this.dayName[day]} </div> <div class='col-7 text-nowrap '>24 Hours</div> `
-    } else if (this.dayName[day]) {
-      return ` <div class='col-4 text-nowrap'>  ${this.dayName[day]}</div> <div class='col-7 text-nowrap'>${this.convertTimeTo12HourFormat(slicedTime)}</div>`
+  hourFormat(time: string) {
+    let slicedTime = time.slice(3, time.length)
+    let day = time.slice(0, 2)
+    let splitTime = slicedTime.split(',')
+
+    if (this.dayName[day]) {
+      let time = ''
+      for (let index = 0; index < splitTime.length; index++) {
+        if (this.check24hour(splitTime[index])) {
+          time += '<div >24 Hours</div>'
+        } else {
+          time += `<div > ${this.convertTimeTo12HourFormat(splitTime[index])} </div>`
+        }
+      }
+      return `<div class="col-4">${this.dayName[day]}</div> <div class='col-7 d-flex gap-1 flex-column '> ${time} </div> `
     } else {
       return `<div class='col-12' > ${time} </div>`
     }
