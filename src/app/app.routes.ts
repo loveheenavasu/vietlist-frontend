@@ -59,6 +59,10 @@ import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-po
 import { SitemapComponent } from './sitemap/sitemap.component'
 import { LeadGenerationComponent } from './resell-system/lead-generation/lead-generation.component'
 import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.component'
+import { SyncedListingComponent } from './manage-profile/components/mls/synced-listing/synced-listing.component'
+import { ApiKeyComponent } from './manage-profile/components/mls/api-key/api-key.component'
+import { PropertyDetailsComponent } from './property-details/property-details.component'
+
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -144,9 +148,17 @@ export default [
         path: 'manage-coupons',
         loadComponent: () => CouponListComponent,
       },
+      {
+        path: 'all-synced-listing',
+        loadComponent: () => SyncedListingComponent,
+      },
+      {
+        path: 'synced-listings',
+        loadComponent: () => ApiKeyComponent,
+      },
     ],
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner', 'subscriber' , 'broker' , 'real-estate'] },
+    data: { roles: ['business-owner', 'subscriber', 'broker', 'real-estate'] },
   },
   {
     path: 'preview-business/:id',
@@ -207,6 +219,10 @@ export default [
   {
     path: 'user-blog-details/:id',
     loadComponent: () => UserBlogDetailsComponent,
+  },
+  {
+    path: 'property/:id',
+    loadComponent: () => PropertyDetailsComponent,
   },
   {
     path: 'business-blog',

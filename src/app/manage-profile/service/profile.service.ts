@@ -205,8 +205,36 @@ export class ProfileService {
     return this.http.get<any>(endpoint, { params:queryParams})
   }
 
-  public getIPAddress() {
 
+  public setMlsKey(body:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SetMlsKey)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, { headers: authToken })
+  }
+
+
+  public syncList(body:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.SyncList)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, {headers: authToken })
+  }
+
+
+  public getMLS(posts_per_page:any , page:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetMLSList)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('posts_per_page' , posts_per_page).set('page' , page)
+    return this.http.get<any>(endpoint, { headers: authToken , params:params})
+  }
+
+  public getMLSDataById(id:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetMLSDataById)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('id' , id)
+    return this.http.get<any>(endpoint, { headers: authToken , params:params})
+  }
+  
+  public getIPAddress() {
     // return this.http.get("https://api.ipify.org/?format=json")
     return this.http.get("https://jsonip.com/")
   }

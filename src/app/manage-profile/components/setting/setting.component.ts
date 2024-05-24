@@ -5,6 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import Swal from 'sweetalert2'
 import { ProfileService } from '../../service/profile.service'
 import { LoaderComponent } from 'src/app/common-ui'
+import { AuthenticationService, Roles } from '@vietlist/shared'
 
 @Component({
   selector: 'app-setting',
@@ -26,14 +27,19 @@ export class SettingComponent {
   public business_listing: boolean = true
   public profileView = new FormControl()
   public isLoader: boolean = false
-
+  public userDetails:any
+  public userRoles:any = Roles
   constructor(
     private profileService: ProfileService,
     private fullPageLoader: FullPageLoaderService,
+    private authService:AuthenticationService
   ) {}
 
   ngOnInit() {
     this.getAllowedNotification()
+    this.authService.userDetailResponse.subscribe((res)=>{
+      this.userDetails = res
+    })
   }
 
   valueChange(event: any) {

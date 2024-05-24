@@ -60,6 +60,16 @@
     "url": "/manage-profile/cancellaton-policy"
   },
   {
+    "label": "Synced Listings",
+    "icon": "fa fa-refresh",
+    "url": "/manage-profile/synced-listings"
+  },
+  {
+    "label": "All Synced Listing",
+    "icon": "fa fa-briefcase",
+    "url": "/manage-profile/all-synced-listing"
+  },
+  {
     "label": "Settings",
     "icon": "fa fa-cog",
     "url": "/manage-profile/setting"

@@ -237,7 +237,7 @@ export class HeaderComponent {
   }
 
   public profile() {
-    if (this.userRole == Roles.subscriber) {
+    if (this.userRole == Roles.subscriber || Roles.broker || Roles.realEstate) {
       this.router.navigateByUrl('/manage-profile')
     } else if (
       this.userRole == Roles.businessOwner &&

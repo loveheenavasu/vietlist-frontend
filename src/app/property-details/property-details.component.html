@@ -1,0 +1,46 @@
+<div class="container-fluid mt-5">
+  <div class="container user-blog-detail-cnt">
+    <div class="row">
+      <div class="col-12 my-3">
+        <div class="img-cnt">
+          <img
+            [src]="
+              propertyDetails?.imgsrc
+                ? propertyDetails?.imgsrc
+                : '/assets/image/no-image-new.jpeg'
+            "
+          />
+        </div>
+        <div class="main_content__ mt-3">
+            <h2 class="heading-title">{{propertyDetails?.title}}
+            </h2>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12 col-md-8">
+            <div class="profile-info-div-2 box-shadow">
+                <p><b>Home Status</b>: {{homestatus}}</p>
+                <p><b>Price</b>: {{propertyDetails?.price || 'NA'}}</p>
+                <p><b>Home Type</b>: {{hometype || 'NA'}}</p>
+                <p><b>Estimate Rent</b>: {{propertyDetails?.rentzestimate || 'NA'}}</p>
+                <p><b>Is Non Owner Occupied</b>:{{propertyDetails?.isnonowneroccupied == '1' ? 'Yes' : 'No'}}</p>
+                <p><b>Bathrooms</b>:{{propertyDetails?.bathrooms || 'NA'}}</p>
+                <p><b>Bedrooms</b>:{{propertyDetails?.bedrooms || 'NA'}}</p>
+                <p><b>Living Area size</b>: {{propertyDetails?.livingarea || 'NA'}}</p>
+                <p><b>LOT Area unit</b>: {{propertyDetails?.lotareaunit || 'NA'}}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="profile-info-div box-shadow  position-relative">
+                <h3>Address</h3>
+                <p><b>Country</b>: {{propertyDetails?.country_1 || 'NA'}}</p>
+                <p><b>City</b>: {{propertyDetails?.city_1 || 'NA'}}</p>
+                <p><b>State</b>: {{propertyDetails?.state || 'NA'}}</p>
+                <p><b>Zip</b>: {{propertyDetails?.zipcode || 'NA'}}</p>
+                <p><b>Street</b>: {{propertyDetails?.streetaddress || 'NA'}}</p>
+              </div>
+          </div>
+    </div>
+  </div>
+</div>

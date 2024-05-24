@@ -118,4 +118,8 @@ export enum Endpoints {
   TermsAndLegal = 'get_data_by_slug',
   CreateLead = 'set_loan_inquiries',
   GetLeads = 'get_leads',
+  SetMlsKey = 'set_mls_key',
+  SyncList = 'set_mls_data',
+  GetMLSList = 'get_mls_data_by_userid',
+  GetMLSDataById = 'get_mls_data_by_id'
 }
