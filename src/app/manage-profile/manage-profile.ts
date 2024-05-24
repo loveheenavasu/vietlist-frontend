@@ -295,7 +295,10 @@ export class ManageProfileComponent {
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics' &&
-                tab.label !== 'My Bookings',
+                tab.label !== 'My Bookings' &&
+                tab.label !== 'Leads transaction history' &&
+                tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Leads',
             )
           } else if (roleGet.user_role == 'subscriber') {
             return this.menuItems
