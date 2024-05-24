@@ -118,7 +118,7 @@ export class LoginComponent {
             res.data.user.status == UserStatus.Active
           ) {
             this.router.navigateByUrl('/manage-profile')
-          } else if (res.data.user.user_role == Roles.subscriber) {
+          } else if (res.data.user.user_role == Roles.subscriber || Roles.broker || Roles.realEstate) {
             this.router.navigateByUrl('/manage-profile')
           }
 

@@ -62,6 +62,10 @@ import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.
 import { MyLeadsComponent } from './resell-system/my-leads/my-leads.component'
 import { LeadsTransactionHistoryComponent } from './resell-system/leads-transaction-history/leads-transaction-history.component'
 import { ViewLeadComponent } from './resell-system/view-lead/view-lead.component'
+import { SyncedListingComponent } from './manage-profile/components/mls/synced-listing/synced-listing.component'
+import { ApiKeyComponent } from './manage-profile/components/mls/api-key/api-key.component'
+import { PropertyDetailsComponent } from './property-details/property-details.component'
+
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -155,9 +159,17 @@ export default [
         path: 'leads-transaction-history',
         loadComponent: () => LeadsTransactionHistoryComponent,
       },
+      {
+        path: 'all-synced-listing',
+        loadComponent: () => SyncedListingComponent,
+      },
+      {
+        path: 'synced-listings',
+        loadComponent: () => ApiKeyComponent,
+      },
     ],
     canActivate: [AuthGuard],
-    data: { roles: ['business-owner', 'subscriber', 'broker'] },
+    data: { roles: ['business-owner', 'subscriber', 'broker', 'real-estate'] },
   },
   {
     path: 'preview-business/:id',
@@ -218,6 +230,10 @@ export default [
   {
     path: 'user-blog-details/:id',
     loadComponent: () => UserBlogDetailsComponent,
+  },
+  {
+    path: 'property/:id',
+    loadComponent: () => PropertyDetailsComponent,
   },
   {
     path: 'business-blog',

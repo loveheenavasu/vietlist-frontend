@@ -12,6 +12,7 @@
       >
     </div>
   </div>
+  @if(userDetails?.user_role != userRoles.realEstate){
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
       <h5>Manage Subscription Notification</h5>
@@ -24,6 +25,7 @@
       >
     </div>
   </div>
+}
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
       <h5>Manage Delete Account Notification</h5>
@@ -36,6 +38,7 @@
       >
     </div>
   </div>
+  @if(userDetails?.user_role != userRoles.realEstate){
   <div class="row mt-4">
     <div class="col-12 col-md-12 col-lg-6">
       <h5>Manage Business Notification</h5>
@@ -48,6 +51,7 @@
       >
     </div>
   </div>
+}
   <div class="row mt-4 mx-1">
     <button class="btn orange-background-btn" (click)="allowNotification()">
       @if (isLoader) {

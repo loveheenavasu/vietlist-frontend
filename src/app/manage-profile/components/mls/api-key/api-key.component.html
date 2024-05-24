@@ -1,0 +1,39 @@
+<section>
+  <h3 class="dashboard-heading">Synced Listings</h3>
+  <form>
+    <div class="row mt-4">
+      <div class="col-12 col-md-9">
+        <div class="input-group">
+          <input
+            type="password"
+            class="input-control"
+            placeholder="Enter API Key"
+            [formControl]="mls_api_key"
+          />
+        </div>
+    </div>
+        <div class="col-12 col-md-3">
+          <button class="btn add-key" (click)="setKey()">Add key</button>
+        </div>
+  
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 col-md-9">
+        <AutocompleteComponent
+          aria-placeholder="Address"
+          class="direction-field"
+          (setAddress)="getAddress($event)"
+          adressType="geocode"
+          [value]="direction"
+        >
+        </AutocompleteComponent>
+    </div>
+        <div class="col-12 col-md-3">
+          <button class="btn sync-listing" (click)="sync()">
+            Sync Listings
+          </button>
+        </div>
+    
+    </div>
+  </form>
+</section>

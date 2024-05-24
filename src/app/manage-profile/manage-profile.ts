@@ -171,6 +171,12 @@ export class ManageProfileComponent {
       case this.currentPath === '/manage-profile/leads-transaction-history':
         this.pageTitle = 'Leads Purchased History'
         break
+      case this.currentPath === '/manage-profile/all-synced-listing':
+        this.pageTitle = 'All Synced Listings'
+        break
+      case this.currentPath === '/manage-profile/synced-listings':
+        this.pageTitle = 'Synced Listings'
+        break
       case this.currentPath.startsWith('/manage-profile/all-bookings/'):
         const segments = this.currentPath.split('/')
         if (segments.length === 4) {
@@ -258,7 +264,8 @@ export class ManageProfileComponent {
                 tab.label !== 'Cancellation Policies settings' &&
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
-                tab.label !== 'Analytics',
+                tab.label !== 'Analytics' &&
+                tab.label !== 'All Synced Listing',
             )
           } else if (roleGet.user_role == Roles.broker) {
             this.menuItems = this.sidebarMenu.filter((menu) =>
@@ -272,6 +279,24 @@ export class ManageProfileComponent {
               (tab) => tab.label !== 'Ads',
             )
             return this.menuItems
+          } else if (roleGet.user_role == Roles.realEstate) {
+            this.menuItems = this.sidebarMenu.filter(
+              (tab) =>
+                tab.label !== 'Ads' &&
+                tab.label !== 'My Business' &&
+                tab.label !== 'Subscriptions' &&
+                tab.label !== 'Billing Address' &&
+                tab.label !== 'Privacy' &&
+                tab.label !== 'Notifications' &&
+                tab.label !== 'Invoices' &&
+                tab.label !== 'Transactions' &&
+                tab.label !== 'Notifications Settings' &&
+                tab.label !== 'Cancellation Policies settings' &&
+                tab.label !== 'Events Management' &&
+                tab.label !== 'Manage Coupons' &&
+                tab.label !== 'Analytics' &&
+                tab.label !== 'My Bookings',
+            )
           } else if (roleGet.user_role == 'subscriber') {
             return this.menuItems
           } else {

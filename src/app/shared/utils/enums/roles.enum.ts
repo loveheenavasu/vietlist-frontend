@@ -5,5 +5,5 @@ export enum Roles {
   contentContributor = 'content-contributor',
   moderator = 'moderator',
   broker = 'broker',
-  realState = 'real-state',
+  realEstate = 'real-estate',
 }

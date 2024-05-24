@@ -67,7 +67,7 @@ export class RegisterComponent {
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
     { name: 'Broker', value: Roles.broker, checked: false },
-    { name: 'Real State', value: Roles.realState, checked: false },
+    { name: 'Real State', value: Roles.realEstate, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedSignupType: any
@@ -223,7 +223,7 @@ export class RegisterComponent {
       }
       if (
         this.selectedSignupType === this.userRole.broker ||
-        this.selectedSignupType === this.userRole.realState
+        this.selectedSignupType === this.userRole.realEstate
       ) {
         body['address'] = this.direction
       }
@@ -261,17 +261,17 @@ export class RegisterComponent {
             } else {
               this.router.navigateByUrl('/login')
             }
-            if (res.data.user.user_role == Roles.subscriber) {
+            if (res.data.user.user_role == Roles.subscriber || Roles.broker || Roles.realEstate) {
               this.sessionServce.setAuthenticationStatusTrue(res.data.token)
               this.router.navigateByUrl('/manage-profile')
             }
-            if (
-              res.data.user.user_role == Roles.broker ||
-              res.data.user.user_role == Roles.realState
-            ) {
-              this.sessionServce.setAuthenticationStatusTrue(res.data.token)
-              this.router.navigateByUrl('/')
-            }
+            // if (
+            //   res.data.user.user_role == Roles.broker ||
+            //   res.data.user.user_role == Roles.realEstate
+            // ) {
+            //   this.sessionServce.setAuthenticationStatusTrue(res.data.token)
+            //   this.router.navigateByUrl('/')
+            // }
             this.allowNotification()
           }
         },

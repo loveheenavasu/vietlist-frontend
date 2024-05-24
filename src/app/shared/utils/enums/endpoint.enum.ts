@@ -122,4 +122,8 @@ export enum Endpoints {
   LeadsByUserId = 'leads_by_userid',
   LeadsTransactionHistory = 'get_leads_transaction_history',
   DownloadLeadPdf = 'download_lead_pdf',
+  SetMlsKey = 'set_mls_key',
+  SyncList = 'set_mls_data',
+  GetMLSList = 'get_mls_data_by_userid',
+  GetMLSDataById = 'get_mls_data_by_id',
 }
