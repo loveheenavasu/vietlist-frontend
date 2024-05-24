@@ -61,6 +61,7 @@ import { LeadGenerationComponent } from './resell-system/lead-generation/lead-ge
 import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.component'
 import { MyLeadsComponent } from './resell-system/my-leads/my-leads.component'
 import { LeadsTransactionHistoryComponent } from './resell-system/leads-transaction-history/leads-transaction-history.component'
+import { ViewLeadComponent } from './resell-system/view-lead/view-lead.component'
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
 export default [
@@ -327,6 +328,10 @@ export default [
   {
     path: 'lead-listing',
     loadComponent: () => LeadListingComponent,
+  },
+  {
+    path: 'view-leads',
+    loadComponent: () => ViewLeadComponent,
   },
   {
     path: '**',

@@ -15,7 +15,7 @@
           <app-lead-card
             [lead]="lead"
             actionName="View More"
-            (leadActions)="purchaseLead($event)"
+            (leadActions)="viewLead($event)"
           ></app-lead-card>
           <li class='fa-solid fa-download cursor-pointer download-icon' (click)="downloadLeadPdf(lead)" ></li>
         </div>

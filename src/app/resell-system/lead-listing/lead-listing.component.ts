@@ -17,11 +17,11 @@ export class LeadListingComponent {
     private router: Router,
   ) {}
   leads: any
-  purchaseLead(id: string) {
+  purchaseLead(lead: any) {
     // lid is Lead id
     this.router.navigate(['/booking-payment'], {
       queryParams: {
-        Lid: id,
+        Lid: lead?.id,
       },
     })
   }

@@ -296,6 +296,7 @@ export class LeadGenerationComponent {
   }
 
   ngOnInit() {
+    this.selectedOptions['consent_to_send_text_message'] = 'no'
     this.service.getLoanApplicationTitlesAndUrl().subscribe({
       next: (res) => {
         this.steps = res
@@ -306,5 +307,12 @@ export class LeadGenerationComponent {
   ngAfterViewInit() {
     this.totalSteps = this.myStepper?.steps.length || 0
     // this.service.GetLeads().subscribe({ next: () => {} })
+  }
+
+  consernCheck() {
+    this.selectedOptions['consent_to_send_text_message'] = this.check
+      ? 'yes'
+      : 'no'
+    console.log(this.check, 'jjjj')
   }
 }

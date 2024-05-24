@@ -1,0 +1,65 @@
+@import '../../../assets/scss/banner';
+
+.lead-container {
+    padding: 50px 100px;
+}
+
+.lead-details {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    width: 100%;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.loan-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .card-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .card-header h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-bodyy{
+    row-gap: 10px;
+    // display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .key-value {
+    // width: 20%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  .label {
+    font-weight: bold;
+    display: block;
+  }
+  
+  .value {
+    display: block;
+  }
+  
+  .card-footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }

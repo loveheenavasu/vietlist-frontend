@@ -18,13 +18,10 @@ export class MyLeadsComponent {
     private router: Router,
   ) {}
   leads: any
-  purchaseLead(id: string) {
-    // lid is Lead id
-    // this.router.navigate(['/booking-payment'], {
-    //   queryParams: {
-    //     Lid: id,
-    //   },
-    // })
+  viewLead(lead: string) {
+    this.router.navigate(['/view-leads'], {
+      state: { data: lead },
+    })
   }
 
   downloadLeadPdf(lead: any) {

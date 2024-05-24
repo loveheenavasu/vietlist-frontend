@@ -1,0 +1,29 @@
+<section class="banner">
+  <div class="content">
+    <h1>Lead Detail</h1>
+  </div>
+</section>
+<div class="lead-container">
+  <div class="loan-card">
+    <div class="card-header">
+      <h2>Lead</h2>
+    </div>
+    <div class="card-body">
+      <div class="card-bodyy row">
+        @for (keys of allKeys; track $index) {
+          @if (data[keys.key]) {
+            <div class="key-value col-12 col-lg-3 col-md-4 col-sm-6 ">
+              <span class="label">{{ keys.title }}:</span>
+              <span class="value"> {{keyToValue[data[keys.key]] || data[keys.key] }} </span>
+            </div>
+          }
+        }
+      </div>
+    </div>
+    <div class="card-footer"> 
+        <span> <li class='fa-solid fa-phone'></li> {{data["phone_number"]}} </span>
+        <span> <li class='fa-solid fa-envelope'></li> {{data["email"]}} </span>
+        <span> <li class='fa-solid fa-location'></li> {{data["current_mailing_address"]}} </span>
+      </div>
+  </div>
+</div>
