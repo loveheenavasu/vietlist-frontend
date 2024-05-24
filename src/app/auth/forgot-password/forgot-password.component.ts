@@ -46,7 +46,9 @@ export class ForgotPasswordComponent {
     Validators.pattern('^[0-9]{4}$'), // Pattern to allow only 4 digits
   ])
   public otpToken: any
-  public password:any = new FormControl('', [Validators.required, Validators.minLength(6),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)])
+  public password:any = new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/
+  )])
   public hideOTP: boolean = true
   public loader: boolean = false
   public isResentOTP: boolean = false
