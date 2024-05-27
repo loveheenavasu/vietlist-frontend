@@ -13,7 +13,10 @@
         </div>
     </div>
         <div class="col-12 col-md-3">
-          <button class="btn add-key" (click)="setKey()">Add key</button>
+          <button class="btn add-key" (click)="setKey()">
+           <span *ngIf="!loader">Add Key </span>
+            <app-loader *ngIf="loader"></app-loader>
+          </button>
         </div>
   
     </div>

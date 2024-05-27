@@ -82,7 +82,12 @@
 <section>
   <app-claim-your-buisness [homePageData]="homePageData"></app-claim-your-buisness>
 </section>
-<section class="advertising">
+<section>
+  <app-choose-loan-type></app-choose-loan-type>
+</section>
+<br/>
+<br/>
+<section class="advertising mt-5">
   @if (showAdInFooter) {
   <swiper-container #footerSwiper class="mySwiper" init="false">
 

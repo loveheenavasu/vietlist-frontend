@@ -61,10 +61,10 @@ export class PropertyDetailsComponent {
         if (res) {
           console.log(res, 'propertDta')
           this.propertyDetails = res?.data[0]
-          const data = this.propertyDetails.homestatus.split('_')
-          this.homestatus = data.join(' ')
-          const data2 = this.propertyDetails.hometype.split('_')
-          this.hometype = data2.join(' ')
+          const data = this.propertyDetails?.homestatus?.split('_')
+          this.homestatus = data?.join(' ')
+          const data2 = this.propertyDetails?.hometype?.split('_')
+          this.hometype = data2?.join(' ')
           this.loaderService.hideLoader()
         }
       },
