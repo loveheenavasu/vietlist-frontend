@@ -27,17 +27,17 @@ export class SettingComponent {
   public business_listing: boolean = true
   public profileView = new FormControl()
   public isLoader: boolean = false
-  public userDetails:any
-  public userRoles:any = Roles
+  public userDetails: any
+  public userRoles: any = Roles
   constructor(
     private profileService: ProfileService,
     private fullPageLoader: FullPageLoaderService,
-    private authService:AuthenticationService
+    private authService: AuthenticationService,
   ) {}
 
   ngOnInit() {
     this.getAllowedNotification()
-    this.authService.userDetailResponse.subscribe((res)=>{
+    this.authService.userDetailResponse.subscribe((res) => {
       this.userDetails = res
     })
   }

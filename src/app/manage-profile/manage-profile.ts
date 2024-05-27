@@ -265,7 +265,10 @@ export class ManageProfileComponent {
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics' &&
-                tab.label !== 'All Synced Listing',
+                tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Leads transaction history' &&
+                tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Leads',
             )
           } else if (roleGet.user_role == Roles.broker) {
             this.menuItems = this.sidebarMenu.filter((menu) =>
@@ -301,9 +304,19 @@ export class ManageProfileComponent {
                 tab.label !== 'All Leads',
             )
           } else if (roleGet.user_role == 'subscriber') {
-            return this.menuItems
+            this.menuItems = this.sidebarMenu.filter(
+              (tab) =>
+                tab.label !== 'Leads transaction history' &&
+                tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Leads',
+            )
           } else {
-            return (this.menuItems = this.sidebarMenu)
+            this.menuItems = this.sidebarMenu.filter(
+              (tab) =>
+                tab.label !== 'Leads transaction history' &&
+                tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Leads',
+            )
           }
         })
         this.isMenuLoading = false
