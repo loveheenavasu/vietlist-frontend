@@ -108,10 +108,7 @@
       }
     </mat-step>
     @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
-      @if (
-        selectedOptions['home_buying_process'] ===
-        'looking_at_homes'
-      ) {
+      @if (selectedOptions['home_buying_process'] === 'looking_at_homes') {
         <mat-step>
           <app-loan-option-card
             [isTextCard]="true"
@@ -767,7 +764,7 @@
               </p>
               <p>
                 <button class="btn btn-link" (click)="toggleShowMore()">
-                  {{showMore? "Show less":"Show more"}}
+                  {{ showMore ? 'Show less' : 'Show more' }}
                 </button>
               </p>
             </div>
@@ -1001,7 +998,7 @@
                 </p>
                 <p>
                   <button class="btn btn-link" (click)="toggleShowMore()">
-                    {{showMore? "Show less":"Show more"}}
+                    {{ showMore ? 'Show less' : 'Show more' }}
                   </button>
                 </p>
               </div>
@@ -1195,7 +1192,7 @@
                   </p>
                   <p>
                     <button class="btn btn-link" (click)="toggleShowMore()">
-                      {{showMore? "Show less":"Show more"}}
+                      {{ showMore ? 'Show less' : 'Show more' }}
                     </button>
                   </p>
                 </div>
@@ -1286,7 +1283,7 @@
                 </p>
                 <p>
                   <button class="btn btn-link" (click)="toggleShowMore()">
-                    {{showMore? "Show less":"Show more"}}
+                    {{ showMore ? 'Show less' : 'Show more' }}
                   </button>
                 </p>
               </div>
@@ -1359,34 +1356,31 @@
         }
       } @else {
         <p class="step-title">Current Mailing Address</p>
-      <div class="card-container">
-        <AutocompleteComponent
-        aria-placeholder="Address"
-        class="direction-field"
-        (setAddress)="getAddress($event)"
-        adressType="geocode"
-        [value]="direction"
-      >
-      </AutocompleteComponent>
-      </div>
-      <div class="btn-container">
-        <button class="back" mat-button matStepperPrevious (click)="goBack()">
-          Back
-        </button>
-        <button
-          class="next"
-          [ngClass]="{
-            'disable-next':
-              !selectedOptions['current_mailing_address'] 
-          }"
-          [disabled]="
-            !selectedOptions['current_mailing_address'] 
-          "
-          (click)="submitLead()"
-        >
-          Click to see your Result
-        </button>
-      </div>
+        <div class="card-container">
+          <AutocompleteComponent
+            aria-placeholder="Address"
+            class="direction-field"
+            (setAddress)="getAddress($event)"
+            adressType="geocode"
+            [value]="direction"
+          >
+          </AutocompleteComponent>
+        </div>
+        <div class="btn-container">
+          <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            Back
+          </button>
+          <button
+            class="next"
+            [ngClass]="{
+              'disable-next': !selectedOptions['current_mailing_address']
+            }"
+            [disabled]="!selectedOptions['current_mailing_address']"
+            (click)="submitLead()"
+          >
+            Click to see your Result
+          </button>
+        </div>
       }
     </mat-step>
     <mat-step>
@@ -1454,7 +1448,7 @@
                   </p>
                   <p>
                     <button class="btn btn-link" (click)="toggleShowMore()">
-                      {{showMore? "Show less":"Show more"}}
+                      {{ showMore ? 'Show less' : 'Show more' }}
                     </button>
                   </p>
                 </div>
@@ -1569,27 +1563,29 @@
           <p class="step-title">Current Mailing Address</p>
           <div class="card-container">
             <AutocompleteComponent
-            aria-placeholder="Address"
-            class="direction-field"
-            (setAddress)="getAddress($event)"
-            adressType="geocode"
-            [value]="direction"
-          >
-          </AutocompleteComponent>
+              aria-placeholder="Address"
+              class="direction-field"
+              (setAddress)="getAddress($event)"
+              adressType="geocode"
+              [value]="direction"
+            >
+            </AutocompleteComponent>
           </div>
           <div class="btn-container">
-            <button class="back" mat-button matStepperPrevious (click)="goBack()">
+            <button
+              class="back"
+              mat-button
+              matStepperPrevious
+              (click)="goBack()"
+            >
               Back
             </button>
             <button
               class="next"
               [ngClass]="{
-                'disable-next':
-                  !selectedOptions['current_mailing_address'] 
+                'disable-next': !selectedOptions['current_mailing_address']
               }"
-              [disabled]="
-                !selectedOptions['current_mailing_address'] 
-              "
+              [disabled]="!selectedOptions['current_mailing_address']"
               (click)="submitLead()"
             >
               Click to see your Result
@@ -1645,34 +1641,36 @@
             </div>
           } @else {
             <p class="step-title">Current Mailing Address</p>
-      <div class="card-container">
-        <AutocompleteComponent
-        aria-placeholder="Address"
-        class="direction-field"
-        (setAddress)="getAddress($event)"
-        adressType="geocode"
-        [value]="direction"
-      >
-      </AutocompleteComponent>
-      </div>
-      <div class="btn-container">
-        <button class="back" mat-button matStepperPrevious (click)="goBack()">
-          Back
-        </button>
-        <button
-          class="next"
-          [ngClass]="{
-            'disable-next':
-              !selectedOptions['current_mailing_address'] 
-          }"
-          [disabled]="
-            !selectedOptions['current_mailing_address'] 
-          "
-          (click)="submitLead()"
-        >
-          Click to see your Result
-        </button>
-      </div>
+            <div class="card-container">
+              <AutocompleteComponent
+                aria-placeholder="Address"
+                class="direction-field"
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="direction"
+              >
+              </AutocompleteComponent>
+            </div>
+            <div class="btn-container">
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next': !selectedOptions['current_mailing_address']
+                }"
+                [disabled]="!selectedOptions['current_mailing_address']"
+                (click)="submitLead()"
+              >
+                Click to see your Result
+              </button>
+            </div>
           }
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <p class="step-title">Current Mailing Address</p>
@@ -1693,7 +1691,7 @@
               }}</mat-error>
             </mat-form-field> -->
             <AutocompleteComponent
-            aria-placeholder='Address'
+              aria-placeholder="Address"
               class="direction-field"
               (setAddress)="getAddress($event)"
               adressType="geocode"
@@ -1734,34 +1732,36 @@
         ) {
           @if (selectedOptions['employment_status'] === 'employed') {
             <p class="step-title">Current Mailing Address</p>
-      <div class="card-container">
-        <AutocompleteComponent
-        aria-placeholder="Address"
-        class="direction-field"
-        (setAddress)="getAddress($event)"
-        adressType="geocode"
-        [value]="direction"
-      >
-      </AutocompleteComponent>
-      </div>
-      <div class="btn-container">
-        <button class="back" mat-button matStepperPrevious (click)="goBack()">
-          Back
-        </button>
-        <button
-          class="next"
-          [ngClass]="{
-            'disable-next':
-              !selectedOptions['current_mailing_address'] 
-          }"
-          [disabled]="
-            !selectedOptions['current_mailing_address'] 
-          "
-          (click)="submitLead()"
-        >
-          Click to see your Result
-        </button>
-      </div>
+            <div class="card-container">
+              <AutocompleteComponent
+                aria-placeholder="Address"
+                class="direction-field"
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="direction"
+              >
+              </AutocompleteComponent>
+            </div>
+            <div class="btn-container">
+              <button
+                class="back"
+                mat-button
+                matStepperPrevious
+                (click)="goBack()"
+              >
+                Back
+              </button>
+              <button
+                class="next"
+                [ngClass]="{
+                  'disable-next': !selectedOptions['current_mailing_address']
+                }"
+                [disabled]="!selectedOptions['current_mailing_address']"
+                (click)="submitLead()"
+              >
+                Click to see your Result
+              </button>
+            </div>
           }
         }
       }
