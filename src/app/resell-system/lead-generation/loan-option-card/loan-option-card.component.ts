@@ -17,7 +17,7 @@ export class LoanOptionCardComponent {
   @Input() title: any
   @Input() selectedOptions: any
   @Input() key: any
-  @Output() selectOption: EventEmitter<any> = new EventEmitter()
+  @Output() selectOption = new EventEmitter<{ option: string; key: string }>()
   @Output() goBack: EventEmitter<any> = new EventEmitter()
   @Output() nextStep: EventEmitter<any> = new EventEmitter()
 

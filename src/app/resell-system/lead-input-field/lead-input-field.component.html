@@ -6,12 +6,12 @@
       matInput
       type="text"
       [placeholder]="placeholder"
-      [formControl]="formControl"
+      [formControl]="formControll"
       (blur)="updateMsg(errorMsgKey)"
       required
     />
     <i class="fa-solid fa-dollar-sign input-icon"></i>
-    <mat-error *ngIf="formControl.invalid">{{
+    <mat-error *ngIf="formControll.invalid">{{
       errorMsg
     }}</mat-error>
   </mat-form-field>
@@ -25,10 +25,10 @@
     class="next"
     [ngClass]="{
       'disable-next':
-        !selectedOptions[key] || formControl.invalid
+        !selectedOptions[key] || formControll.invalid
     }"
     [disabled]="
-      !selectedOptions[key] || formControl.invalid
+      !selectedOptions[key] || formControll.invalid
     "
     matStepperNext
     (click)="goForwardWard()"

@@ -22,7 +22,7 @@ import { MatStepperModule } from '@angular/material/stepper'
 export class LeadInputFieldComponent {
   @Input() title: any
   @Input() label: any
-  @Input() formControl: any
+  @Input() formControll: any
   @Input() selectedOptions: any
   @Input() key: any
   @Input() placeholder: any

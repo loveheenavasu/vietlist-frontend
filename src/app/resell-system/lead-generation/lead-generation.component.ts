@@ -267,7 +267,6 @@ export class LeadGenerationComponent {
 
   selectOption({ option, key }: { option: string; key: string }) {
     this.selectedOptions[key] = option
-    // this.nextStep()
   }
 
   get progress(): number {
@@ -320,6 +319,5 @@ export class LeadGenerationComponent {
     this.selectedOptions['consent_to_send_text_message'] = this.check
       ? 'yes'
       : 'no'
-    console.log(this.check, 'jjjj')
   }
 }
