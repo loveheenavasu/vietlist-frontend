@@ -24,6 +24,7 @@ import { CommonModule, Location, NgOptimizedImage } from '@angular/common'
 import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
+import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
 
 register()
 
@@ -42,6 +43,7 @@ register()
     TrendingServicesComponent,
     CtaVerifiedBusinessComponent,
     NgOptimizedImage,
+    ChooseLoanTypeComponent,
     CommonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -110,6 +112,7 @@ export class HomepageComponent {
     this.getHomePageContent()
     this.getIPAddress()
   }
+
 
   // ngAfterViewInit() {
   // this.showAdDataFetch()

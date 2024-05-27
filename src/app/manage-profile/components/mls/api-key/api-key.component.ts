@@ -1,3 +1,4 @@
+import { LoaderComponent } from './../../../../common-ui/loader/loader.component';
 import { ProfileService } from '../../../service/profile.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -5,11 +6,12 @@ import Swal from 'sweetalert2';
 import { AuthenticationService } from '@vietlist/shared';
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-api-key',
   standalone: true,
-  imports: [FormsModule , ReactiveFormsModule , AutocompleteComponent],
+  imports: [FormsModule , ReactiveFormsModule , AutocompleteComponent , LoaderComponent,NgIf],
   templateUrl: './api-key.component.html',
   styleUrl: './api-key.component.scss'
 })
@@ -17,6 +19,7 @@ export class ApiKeyComponent {
 public mls_api_key = new FormControl('')
 public userDetails : any;
 public  direction: any
+public loader:boolean = false;
 
 constructor(private profileService:ProfileService,private auth:AuthenticationService,private router:Router){
 this.auth.userDetailResponse.subscribe((res)=>{
@@ -33,11 +36,13 @@ public getAddress(place: any) {
 
 
 public setKey(){
+  this.loader = true
   this.profileService.setMlsKey({mls_api_key:this.mls_api_key.value}).subscribe({
     next:(res)=>{
       this.profileService.userDetails().subscribe({
         next:(res)=>{
           console.log(res ,'dewd')
+          this.loader = false
           this.auth.userDetailResponse.next(res.data.user)
         }
       })
@@ -53,7 +58,7 @@ public setKey(){
       })
     },
     error:(err)=>{
-
+      this.loader = false
     }
   })
 }

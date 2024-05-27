@@ -149,6 +149,7 @@ export class HeaderComponent {
   }
 
 
+  translatedText: string = '';
 
   ngOnInit() {
     this.sessionservice.OnLogOut.next(false)
@@ -157,6 +158,18 @@ export class HeaderComponent {
       this.fetchProfileDetail()
   
   }
+
+  const iframe:any = document.querySelector('#google_translate_element iframe');
+
+  if (iframe) {
+    const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const translatedTextElement = innerDoc.querySelector('.VIiyi > span');
+
+    if (translatedTextElement) {
+      this.translatedText = translatedTextElement.textContent;
+    }
+  } 
+console.log( this.translatedText , " this.translatedText")
 }
 
  

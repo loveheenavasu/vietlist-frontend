@@ -100,6 +100,7 @@ export class EventsComponent {
     }
     this.eventService.getPublishEvents(params).subscribe({
       next: (res) => {
+        console.log(res)
         this.eventsArray = res?.data.slice(0, 3)
         console.log(this.eventsArray, 'response')
       },
