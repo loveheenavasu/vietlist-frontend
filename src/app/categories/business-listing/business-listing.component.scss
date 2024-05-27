@@ -184,7 +184,7 @@
                     .listing-info {
                         font-size: 1rem;
                         min-height: 120px;
-
+                        overflow: hidden;
                         :host ::ng-deep p {
                             display: -webkit-box;
                             -webkit-box-orient: vertical;
