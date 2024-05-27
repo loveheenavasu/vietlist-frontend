@@ -1,0 +1,46 @@
+.step-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.card-container {
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+}
+
+.input-icon {
+  position: absolute;
+  right: -10px;
+  font-size: 20px;
+  top: 20px;
+}
+
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 4%;
+
+  .next {
+    background-color: #ff9900;
+    color: #f5f7f9;
+    border: none;
+    padding: 9px 30px;
+    border-radius: 5px;
+  }
+
+  .back {
+    border: 1.5px solid #ff9900;
+    padding: 9px 30px;
+    border-radius: 5px;
+    color: #ff9900;
+    background-color: white;
+  }
+}
+
+.disable-next {
+  background-color: #ff9900b0 !important;
+}

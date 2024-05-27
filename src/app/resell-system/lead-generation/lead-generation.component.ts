@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input'
 import { LoanOptionCardComponent } from './loan-option-card/loan-option-card.component'
 import { FullPageLoaderService } from '@vietlist/shared'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { LeadInputFieldComponent } from '../lead-input-field/lead-input-field.component'
 @Component({
   selector: 'app-lead-generation',
   standalone: true,
@@ -34,6 +35,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
     MatInputModule,
     LoanOptionCardComponent,
     AutocompleteComponent,
+    LeadInputFieldComponent,
   ],
   templateUrl: './lead-generation.component.html',
   styleUrl: './lead-generation.component.scss',
@@ -122,6 +124,7 @@ export class LeadGenerationComponent {
       this.selectedOptions['purchase_price'] = value?.replaceAll(',', '') + ''
       this.updateErrorMessage('purchasePrice')
     })
+
     this.estimatedHomeValue.valueChanges.subscribe((value) => {
       if (value !== null && value !== undefined) {
         const formattedValue = this.formatNumber(value)
@@ -204,6 +207,10 @@ export class LeadGenerationComponent {
     const numberValue = Number(value.replace(/,/g, ''))
     const formattedValue = numberValue.toLocaleString('en')
     return formattedValue
+  }
+
+  makeCall(phoneNumber: string) {
+    window.open(`tel:${phoneNumber}`)
   }
 
   message = {

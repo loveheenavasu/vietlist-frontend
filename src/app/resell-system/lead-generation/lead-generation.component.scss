@@ -144,13 +144,68 @@ input[type=number] {
     max-width: 400px;
   }
 
-  .title-end{
+  .title-end {
     text-align: center;
     font-size: 24px;
     font-weight: 600;
   }
 }
 
-.direction-field{
+.direction-field {
   width: 350px !important;
+}
+
+
+
+/* Layout and Spacing */
+.end-cont {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+
+  p {
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+}
+
+.title-end {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+ul {
+  margin-top: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .end-cont {
+    padding: 1rem;
+  }
+
+  .title-end {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animations and Transitions */
+.end-cont {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.end-cont:hover {
+  // opacity: 0.8;
+}
+
+.number{
+  color: blue;
+  cursor: pointer;
 }

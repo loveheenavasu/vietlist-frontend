@@ -1,36 +1,37 @@
-<p class="step-title">Estimated Home Value</p>
+<p class="step-title">{{title}}</p>
 <div class="card-container">
   <mat-form-field style="width: 350px">
-    <mat-label> Home value</mat-label>
+    <mat-label> {{label}}</mat-label>
     <input
       matInput
       type="text"
-      placeholder="e.g. 250,000"
-      [formControl]="estimatedHomeValue"
-      (blur)="updateErrorMessage('estimatedHomeValue')"
+      [placeholder]="placeholder"
+      [formControl]="formControl"
+      (blur)="updateMsg(errorMsgKey)"
       required
     />
     <i class="fa-solid fa-dollar-sign input-icon"></i>
-    <mat-error *ngIf="estimatedHomeValue.invalid">{{
-      estimatedHomeValueErrorMessage
+    <mat-error *ngIf="formControl.invalid">{{
+      errorMsg
     }}</mat-error>
   </mat-form-field>
 </div>
+<ng-template></ng-template>
 <div class="btn-container">
-  <button class="back" mat-button matStepperPrevious (click)="goBack()">
+  <button class="back" mat-button matStepperPrevious (click)="goBackWard()">
     Back
   </button>
   <button
     class="next"
     [ngClass]="{
       'disable-next':
-        !selectedOptions['estimated_home_value'] || estimatedHomeValue.invalid
+        !selectedOptions[key] || formControl.invalid
     }"
     [disabled]="
-      !selectedOptions['estimated_home_value'] || estimatedHomeValue.invalid
+      !selectedOptions[key] || formControl.invalid
     "
     matStepperNext
-    (click)="nextStep()"
+    (click)="goForwardWard()"
   >
     Next
   </button>

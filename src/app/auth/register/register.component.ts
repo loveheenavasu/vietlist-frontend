@@ -67,7 +67,7 @@ export class RegisterComponent {
     { name: 'Business', value: Roles.businessOwner, checked: true },
     { name: 'User', value: Roles.subscriber, checked: false },
     { name: 'Broker', value: Roles.broker, checked: false },
-    { name: 'Real State', value: Roles.realEstate, checked: false },
+    { name: 'Real Estate', value: Roles.realEstate, checked: false },
   ]
   public term_and_condition = new FormControl(false, Validators.required)
   public selectedSignupType: any
@@ -110,10 +110,10 @@ export class RegisterComponent {
             Validators.required,
             Validators.minLength(6),
             Validators.pattern(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/,
             ),
           ],
-        ],        
+        ],
         email: [
           '',
           [
@@ -261,7 +261,11 @@ export class RegisterComponent {
             } else {
               this.router.navigateByUrl('/login')
             }
-            if (res.data.user.user_role == Roles.subscriber || Roles.broker || Roles.realEstate) {
+            if (
+              res.data.user.user_role == Roles.subscriber ||
+              Roles.broker ||
+              Roles.realEstate
+            ) {
               this.sessionServce.setAuthenticationStatusTrue(res.data.token)
               this.router.navigateByUrl('/manage-profile')
             }
