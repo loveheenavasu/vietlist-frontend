@@ -409,7 +409,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     .show-search-Input {
         right: 50% !important;
         left: 50%;
-        transform: translate(-63%, -0%);
+        transform: translate(-43%, -0%);
     }
     .container-fluid {
         padding: 0px 20px !important;
@@ -489,11 +489,11 @@ li.mat-mdc-menu-trigger.nav-item.active {
         width: 40px;
     }
 
-    // .show-search-Input {
-    //     right: 50% !important;
-    //     left: 50%;
-    //     transform: translate(-63%, -0%);
-    // }
+    .show-search-Input {
+        right: 50% !important;
+        left: 50%;
+        transform: translate(-40%, -0%);
+    }
 }
 
 
