@@ -154,7 +154,7 @@
                   ></i>
                   {{ businessFormDetails?.business_email }}
                 </div>
-                <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='redirectToWhatsApp(businessFormDetails?.contact_phone)' >
+                <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='callNumber(businessFormDetails?.contact_phone)' >
                   <i
                     class="fa fa-phone"
                     aria-hidden="true"
@@ -1441,7 +1441,7 @@
                 {{ businessFormDetails?.business_email }}
               </span>
             </div>
-            <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='redirectToWhatsApp(businessFormDetails?.contact_phone)' >
+            <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='callNumber(businessFormDetails?.contact_phone)' >
               <i
                 class="fa fa-phone"
                 aria-hidden="true"

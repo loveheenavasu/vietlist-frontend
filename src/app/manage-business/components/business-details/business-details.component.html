@@ -173,7 +173,7 @@
                 ></i>
                 {{ eventDetails?.business_email }}
               </div>
-              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='redirectToWhatsApp(eventDetails?.contact_phone)' >
+              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='callNumber(eventDetails?.contact_phone)' >
                 <i
                   class="fa fa-phone"
                   aria-hidden="true"
@@ -2018,7 +2018,7 @@
                 ></i>
                 {{ eventDetails?.business_email }}
               </div>
-              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='redirectToWhatsApp(eventDetails?.contact_phone)' >
+              <div class="location link" *ngIf="eventDetails?.contact_phone" (click)='callNumber(eventDetails?.contact_phone)' >
                 <i
                   class="fa fa-phone"
                   aria-hidden="true"

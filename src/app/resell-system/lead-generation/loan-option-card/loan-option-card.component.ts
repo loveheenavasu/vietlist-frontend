@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatStepperModule } from '@angular/material/stepper'
 
@@ -20,9 +27,16 @@ export class LoanOptionCardComponent {
   @Output() selectOption = new EventEmitter<{ option: string; key: string }>()
   @Output() goBack: EventEmitter<any> = new EventEmitter()
   @Output() nextStep: EventEmitter<any> = new EventEmitter()
+  @ViewChild('titleRef') titleRef?: ElementRef
 
   selectOptions(option: string, key: string) {
     this.selectOption.emit({ option, key })
+    if (this.titleRef) {
+      this.titleRef.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
+    }
   }
   back() {
     this.goBack.emit()

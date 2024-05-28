@@ -23,7 +23,7 @@ export class FooterComponent {
   public footerPageContent?: any
   public newsLetterSubscribeForm!: FormGroup
   public userDetail: any
-  public isAuthenticated: boolean =false
+  public isAuthenticated: boolean = false
   email = 'example@example.com' // Replace with the recipient email address
   subject = 'Hello' // Replace with the email subject
   body = 'Hello, I hope you are doing well'
@@ -49,7 +49,7 @@ export class FooterComponent {
     this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
     })
-    this.sessionservice.isAuthenticated$.subscribe((res:any) => {
+    this.sessionservice.isAuthenticated$.subscribe((res: any) => {
       this.isAuthenticated = res
     })
   }
@@ -59,11 +59,14 @@ export class FooterComponent {
   }
 
   public getFooterContent() {
-    this.footerContent.footerContent().pipe(takeUntil(this.destory$)).subscribe({
-      next: (res: any) => {
-        this.footerPageContent = res.data
-      },
-    })
+    this.footerContent
+      .footerContent()
+      .pipe(takeUntil(this.destory$))
+      .subscribe({
+        next: (res: any) => {
+          this.footerPageContent = res.data
+        },
+      })
   }
 
   public subscribeEmailNewsletter() {
@@ -114,9 +117,12 @@ export class FooterComponent {
     window.open(googleMapsUrl, '_blank')
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destory$.next()
     this.destory$.complete()
   }
-  
+
+  callNumber(number: string) {
+    window.open(`tel:${number}`)
+  }
 }

@@ -726,7 +726,9 @@ export class PreviewBusinessComponent {
       this.getVideosList(this.postId, this.videoTab)
     })
   }
-
+  callNumber(number: string) {
+    window.open(`tel:${number}`)
+  }
   public deleteVideo(videoId: any) {
     Swal.fire({
       title: 'Do you really want to delete this video?',

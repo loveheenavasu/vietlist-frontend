@@ -901,6 +901,10 @@ export class BusinessDetailsComponent {
     }
   }
 
+  callNumber(number: string) {
+    window.open(`tel:${number}`)
+  }
+
   public getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(

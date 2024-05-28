@@ -37,7 +37,7 @@
             <div>
               <img src="/assets/icons/fluent_call-28-filled.svg" />
             </div>
-            <div class="links">
+            <div class="links" (click)="callNumber(footerPageContent?.contact?.phone_number)" >
               +1
               {{ footerPageContent?.contact?.phone_number }}
             </div>
