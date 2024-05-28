@@ -27,6 +27,7 @@ export class LeadInputFieldComponent {
   @Input() key: any
   @Input() placeholder: any
   @Input() errorMsg: any
+  @Input() icon: any
   @Input() errorMsgKey: any
   @Output() goBack = new EventEmitter<any>()
   @Output() nextStep = new EventEmitter<any>()

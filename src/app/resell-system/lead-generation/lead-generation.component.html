@@ -57,6 +57,7 @@
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <app-lead-input-field
           title="Estimated Home Value"
+          icon='dollar-sign'
           label="Home Value"
           errorMsgKey="estimatedHomeValue"
           placeholder="e.g. 250,000"
@@ -111,6 +112,7 @@
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <app-lead-input-field
           title="Please enter your mortgage balance"
+          icon='dollar-sign'
           label="Mortgage Balance"
           errorMsgKey="mortgageBalance"
           placeholder="e.g. 250,000"
@@ -125,6 +127,7 @@
       } @else {
         <app-lead-input-field
           title="Estimated Home Value"
+          icon='dollar-sign'
           label="Home Value"
           errorMsgKey="estimatedHomeValue"
           placeholder="e.g. 250,000"
@@ -152,6 +155,7 @@
       } @else if (selectedOptions['home_loan_purpose'] === 'take_cash_out') {
         <app-lead-input-field
           title="How much additional cash would you like to borrow?"
+          icon='dollar-sign'
           label="Additional Cash"
           errorMsgKey="additionalCash"
           placeholder="e.g. 250,000"
@@ -166,6 +170,7 @@
       } @else {
         <app-lead-input-field
           title="Please enter your mortgage balance"
+          icon='dollar-sign'
           label="Mortgage Balance"
           errorMsgKey="mortgageBalance"
           placeholder="e.g. 250,000"
@@ -206,6 +211,7 @@
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-lead-input-field
           title="Purchase price of the new home"
+          icon='dollar-sign'
           label="Purchase Price"
           errorMsgKey="purchasePrice"
           placeholder="e.g. 250,000"
@@ -234,6 +240,7 @@
       @if (selectedOptions['home_loan_purpose'] === 'buy_a_new_home') {
         <app-lead-input-field
           title="Estimated Down Payment"
+          icon='dollar-sign'
           label="Down Payment Amount"
           errorMsgKey="downPaymentAmount"
           [formControll]="downPaymentAmount"
@@ -531,6 +538,7 @@
         <div class="cont">
           <app-lead-input-field
             title="Phone Number"
+            icon='phone'
             label="Phone Number"
             errorMsgKey="phoneNumber"
             placeholder="Phone Number"
@@ -737,6 +745,7 @@
           <div class="cont">
             <app-lead-input-field
             title="Phone Number"
+            icon='phone'
             label="Phone Number"
             errorMsgKey="phoneNumber"
             placeholder="Phone Number"
@@ -799,6 +808,7 @@
       } @else {
         <app-lead-input-field
             title="Email Address"
+            icon='envelope'
             label="Email Address"
             errorMsgKey="email"
             placeholder="Email"
@@ -885,6 +895,7 @@
             <div class="cont">
               <app-lead-input-field
               title="Phone Number"
+              icon='phone'
               label="Phone Number"
               errorMsgKey="phoneNumber"
               placeholder="Phone Number"
@@ -948,6 +959,7 @@
           <div class="cont">
             <app-lead-input-field
             title="Phone Number"
+            icon='phone'
             label="Phone Number"
             errorMsgKey="phoneNumber"
             placeholder="Phone Number"
@@ -1009,6 +1021,7 @@
         } @else {
           <app-lead-input-field
           title="Email Address"
+          icon='envelope'
           label="Email Address"
           errorMsgKey="email"
           placeholder="Email"
@@ -1059,6 +1072,7 @@
             <div class="cont">
               <app-lead-input-field
               title="Phone Number"
+              icon='phone'
               label="Phone Number"
               errorMsgKey="phoneNumber"
               placeholder="Phone Number"
@@ -1120,6 +1134,7 @@
           } @else {
             <app-lead-input-field
             title="Email Address"
+            icon='envelope'
             label="Email Address"
             errorMsgKey="email"
             placeholder="Email"
@@ -1135,6 +1150,7 @@
         } @else if (selectedOptions['employment_status'] === 'employed') {
           <app-lead-input-field
           title="Email Address"
+          icon='envelope'
           label="Email Address"
           errorMsgKey="email"
           placeholder="Email"
@@ -1189,6 +1205,7 @@
           @if (selectedOptions['employment_status'] === 'employed') {
             <app-lead-input-field
             title="Email Address"
+            icon='envelope'
             label="Email Address"
             errorMsgKey="email"
             placeholder="Email"

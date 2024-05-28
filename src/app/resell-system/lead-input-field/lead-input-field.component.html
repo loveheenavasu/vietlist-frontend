@@ -10,7 +10,7 @@
       (blur)="updateMsg(errorMsgKey)"
       required
     />
-    <i class="fa-solid fa-dollar-sign input-icon"></i>
+    <i class="fa-solid input-icon" [ngClass]="'fa-' + icon + ' input-icon'" ></i>
     <mat-error *ngIf="formControll.invalid">{{
       errorMsg
     }}</mat-error>
