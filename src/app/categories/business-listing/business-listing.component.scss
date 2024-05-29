@@ -336,7 +336,10 @@
 
 
 @media(max-width: 766px) {
-
+    .icons-grid-list{
+        display: none;
+        visibility: hidden;
+    }
     .search {
         flex-direction: column;
 

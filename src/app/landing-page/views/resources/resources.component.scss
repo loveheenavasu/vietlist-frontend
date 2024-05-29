@@ -303,6 +303,10 @@
 }
 
 @media(max-width: 766px) {
+    .icons-grid-list{
+        display: none;
+        visibility: hidden;
+    }
     .container-fluid {
         padding: 10px;
     }

@@ -24,10 +24,12 @@ public loader:boolean = false;
 constructor(private profileService:ProfileService,private auth:AuthenticationService,private router:Router){
 this.auth.userDetailResponse.subscribe((res)=>{
   this.userDetails = res
+  console.log(this.userDetails  )
   if(this.userDetails?.mls_api_key){
   this.mls_api_key.setValue(this.userDetails.mls_api_key)
   }
 })
+
 }
 
 public getAddress(place: any) {
@@ -64,7 +66,7 @@ public setKey(){
 }
 
 public sync(){
-  this.profileService.syncList({location:this.direction}).subscribe({
+  this.profileService.syncList({location:this.userDetails?.address}).subscribe({
     next:(res)=>{
     
       Swal.fire({
