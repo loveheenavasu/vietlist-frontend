@@ -119,7 +119,7 @@ input[type=number] {
 
 .input-icon {
   position: absolute;
-  right: -10px;
+  left: -10px;
   font-size: 20px;
   top: 20px;
 }
@@ -208,4 +208,7 @@ li {
 .number{
   color: blue;
   cursor: pointer;
+}
+::ng-deep.mat-mdc-form-field-infix{
+  padding-left: 20px !important;
 }
