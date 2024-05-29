@@ -266,6 +266,7 @@ export class ManageProfileComponent {
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics' &&
                 tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Synced Listings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads',
@@ -279,7 +280,12 @@ export class ManageProfileComponent {
             this.userDetail.level_id == '1'
           ) {
             this.menuItems = this.sidebarMenu.filter(
-              (tab) => tab.label !== 'Ads',
+              (tab) =>
+                tab.label !== 'Ads' &&
+                tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Synced Listings'&&  tab.label !== 'Leads transaction history' &&
+                tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Leads',
             )
             return this.menuItems
           } else if (roleGet.user_role == Roles.realEstate) {
@@ -301,6 +307,8 @@ export class ManageProfileComponent {
                 tab.label !== 'My Bookings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
+                tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Synced Listings' &&
                 tab.label !== 'All Leads',
             )
           } else if (roleGet.user_role == 'subscriber') {
@@ -308,14 +316,18 @@ export class ManageProfileComponent {
               (tab) =>
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
-                tab.label !== 'All Leads',
+                tab.label !== 'All Leads' &&
+                tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Synced Listings',
             )
           } else {
             this.menuItems = this.sidebarMenu.filter(
               (tab) =>
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
-                tab.label !== 'All Leads',
+                tab.label !== 'All Leads' &&
+                tab.label !== 'All Synced Listing' &&
+                tab.label !== 'Synced Listings',
             )
           }
         })
