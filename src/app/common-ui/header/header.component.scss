@@ -297,6 +297,7 @@
 
 .nav-item {
     position: relative;
+    white-space: nowrap;
 }
 
 .nav-item:hover {
@@ -780,4 +781,8 @@ li.mat-mdc-menu-trigger.nav-item.active {
 
 :ng-deep.ng-select .ng-select-container .ng-value-container .ng-placeholder {
     color: #000 !important;
+}
+
+button{
+    white-space: nowrap;
 }
