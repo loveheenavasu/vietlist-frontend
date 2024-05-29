@@ -2,7 +2,7 @@ import { GlobalSubscriptionService } from './shared/utils/services/globalsubscri
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { ApplicationConfig, APP_INITIALIZER, importProvidersFrom } from '@angular/core'
 import { provideRouter, withInMemoryScrolling } from '@angular/router'
-
+                              
 import routes from './app.routes'
 import {
   provideClientHydration,

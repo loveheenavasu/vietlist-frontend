@@ -52,6 +52,20 @@
     </div>
   </div>
 }
+@if(userDetails?.user_role == userRoles.realEstate){
+  <div class="row mt-4">
+    <div class="col-12 col-md-12 col-lg-6">
+      <h5>Manage Listings Notification</h5>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6">
+      <mat-slide-toggle
+        (change)="valueChange('sync_listing')"
+        [(ngModel)]="sync_listing"
+        >On</mat-slide-toggle
+      >
+    </div>
+  </div>
+}
   <div class="row mt-4 mx-1">
     <button class="btn orange-background-btn" (click)="allowNotification()">
       @if (isLoader) {

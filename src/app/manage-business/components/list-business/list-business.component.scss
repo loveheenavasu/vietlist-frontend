@@ -292,3 +292,30 @@ span.ng-arrow-wrapper {
   height: 200px;
   overflow: auto;
 }
+
+
+@media only screen and (max-width:820px){
+#buddy-gsf-progressbar{
+  width: 90%;
+  overflow: auto;
+
+  strong{
+    font-size:8px;
+    font-weight:400
+  }
+}
+
+}
+
+
+@media only screen and (max-width:767px){
+  #buddy-gsf-progressbar{
+    width: 90%;
+    overflow: auto;
+  
+    strong{
+      display: none;
+    }
+  }
+  
+  }
