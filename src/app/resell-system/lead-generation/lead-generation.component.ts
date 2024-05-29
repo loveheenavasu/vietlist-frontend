@@ -81,7 +81,11 @@ export class LeadGenerationComponent {
     Validators.required,
     this.priceValidator(0, 10000000),
   ])
-  public email = new FormControl('', [Validators.required, Validators.email])
+  public email = new FormControl('', [
+    Validators.required,
+    Validators.email,
+    Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+  ])
   public address = new FormControl('', [Validators.required])
   public firstName = new FormControl('', [Validators.required])
   public lastName = new FormControl('', [Validators.required])
@@ -223,7 +227,7 @@ export class LeadGenerationComponent {
     additionalCash:
       'Please enter the additional amount of cash you would like to borrow.    ',
     phoneNumber: 'Please enter your phone number.      ',
-    email: 'Please enter your email address.    ',
+    email: 'Please enter your email address.',
     address: 'Please enter a valid address.    ',
   }
 
@@ -248,6 +252,8 @@ export class LeadGenerationComponent {
       errorMessage = `Amount must be greater than 50,000.`
     } else if (control.hasError('maxPurchasePrice')) {
       errorMessage = `Amount must be less than 10,000,000.`
+    } else if (control.hasError('pattern')) {
+      errorMessage = `Please enter a valid email address`
     }
     this[`${controlName}ErrorMessage`] = errorMessage
   }

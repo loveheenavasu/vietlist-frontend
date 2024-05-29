@@ -12,7 +12,7 @@
 
 .input-icon {
   position: absolute;
-  right: -10px;
+  left: -10px;
   font-size: 20px;
   top: 20px;
 }
@@ -43,4 +43,8 @@
 
 .disable-next {
   background-color: #ff9900b0 !important;
+}
+
+::ng-deep.mat-mdc-form-field-infix{
+  padding-left: 20px !important;
 }

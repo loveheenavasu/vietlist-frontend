@@ -27,12 +27,12 @@ export class LoanOptionCardComponent {
   @Output() selectOption = new EventEmitter<{ option: string; key: string }>()
   @Output() goBack: EventEmitter<any> = new EventEmitter()
   @Output() nextStep: EventEmitter<any> = new EventEmitter()
-  @ViewChild('titleRef') titleRef?: ElementRef
+  @ViewChild('element') element?: ElementRef
 
   selectOptions(option: string, key: string) {
     this.selectOption.emit({ option, key })
-    if (this.titleRef) {
-      this.titleRef.nativeElement.scrollIntoView({
+    if (this.element) {
+      this.element.nativeElement.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       })
