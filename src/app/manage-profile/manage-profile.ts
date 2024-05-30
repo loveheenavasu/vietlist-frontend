@@ -283,7 +283,8 @@ export class ManageProfileComponent {
               (tab) =>
                 tab.label !== 'Ads' &&
                 tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings'&&  tab.label !== 'Leads transaction history' &&
+                tab.label !== 'Synced Listings'&&  
+                tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads',
             )
@@ -307,11 +308,9 @@ export class ManageProfileComponent {
                 tab.label !== 'My Bookings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
-                tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings' &&
                 tab.label !== 'All Leads',
             )
-          } else if (roleGet.user_role == 'subscriber') {
+          } else if (roleGet.user_role == Roles.subscriber) {
             this.menuItems = this.sidebarMenu.filter(
               (tab) =>
                 tab.label !== 'Leads transaction history' &&
