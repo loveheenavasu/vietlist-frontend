@@ -64,14 +64,7 @@ export class SyncedListingComponent {
     this.router.navigate(['/property', Id])
   }
 
-  public removeLocalstoagekey() {
-    this.localStorage.removeData('postId')
-    this.localStorage.removeData('isSubscriptionFormFilled')
-    this.localStorage.removeData('isBusinessFormFilled')
-    this.localStorage.removeData('isBusinessBioFormFilled')
-    this.localStorage.removeData('isConsultationFormFilled')
-    this.router.navigateByUrl('/list-business')
-  }
+
 
   public handlePageChange(event: number): void {
     this.currentPage = event;

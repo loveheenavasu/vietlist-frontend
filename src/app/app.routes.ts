@@ -52,7 +52,7 @@ import { ResourcesComponent } from './landing-page/views/resources/resources.com
 import { CouponListComponent } from './manage-profile/components/manage-coupons/coupon-list/coupon-list.component'
 import { AnalyticsComponent } from './analytics'
 import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
-import { CalculatorMainComponent } from './calculator/calculator-main/calculator-main.component'
+import { CalculatorMainComponent } from './calculator-main/calculator-main.component'
 import { ForUsersComponent } from './landing-page/views/for-users/for-users.component'
 import { TermsComponent } from './landing-page/views/terms/terms.component'
 import { LegalPolicyComponent } from './landing-page/views/legal-policy/legal-policy.component'
@@ -65,6 +65,7 @@ import { ViewLeadComponent } from './resell-system/view-lead/view-lead.component
 import { SyncedListingComponent } from './manage-profile/components/mls/synced-listing/synced-listing.component'
 import { ApiKeyComponent } from './manage-profile/components/mls/api-key/api-key.component'
 import { PropertyDetailsComponent } from './property-details/property-details.component'
+import { PropertyListingsComponent } from './property-listings/property-listings.component'
 
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
@@ -202,6 +203,10 @@ export default [
   {
     path: 'find-business',
     loadComponent: () => FindBusinessComponent,
+  },
+  {
+    path:'properties',
+    loadComponent: () => PropertyListingsComponent,
   },
   {
     path: 'list-business',

@@ -1,0 +1,106 @@
+<section class="banner">
+    <div class="content">
+      <h1>Property Listings</h1>
+    </div>
+  </section>
+  <div class="container-fluid g-0">
+    <div class="lisiting-container mt-4">
+      <div class="layout-icon d-flex align-items-center icons-grid-list">
+        <div class="grid-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+          (click)="handleLayout('grid')">
+          <mat-icon>grid_on</mat-icon>
+        </div>
+        <div class="list-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
+          (click)="handleLayout('list')">
+          <mat-icon>view_list</mat-icon>
+        </div>
+      </div>
+      <div class="view-container">
+        @if (selectedLayout == 'grid') {
+        <div class="grid-view-container row">
+          @for (key of propertiesArr | paginate
+          : {
+          itemsPerPage: postPerPage,
+          currentPage: currentPage,
+          totalItems: totalCount
+          }; track $index) {
+          <div class="grid-card col-12 col-md-6 col-lg-4  onlarge_screen ">
+            <div class="listing-wrapper">
+              <div class="listing-img" (click)="gotToListing(key.post_id, true)">
+                <img
+                [src]="
+                  key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
+                "
+              />
+              </div>
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3 (click)="gotToListing(key.post_id, true)">
+                    {{ key.title }}
+                  </h3>
+                </div>
+                <div class="mt-2">
+                    <!-- } -->
+                    <button
+                      class="btn orange-background-btn mx-1"
+                      (click)="viewProperty(key.ID)"
+                    >
+                      View
+                    </button>
+                  </div>
+               
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+        } @else {
+        <div class="list-view-container">
+          @for (key of propertiesArr | paginate
+          : {
+          itemsPerPage: postPerPage,
+          currentPage: currentPage,
+          totalItems: totalCount
+          };
+          track $index) {
+          <div class="d-flex small-screen-view">
+            <div class="listing-img-container">
+              <div class="listing-img" (click)="gotToListing(key.post_id, true)">
+                <img
+                [src]="
+                  key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
+                "
+              />
+              </div>
+            </div>
+            <div class="listing-img-info">
+              <div class="listing-heading">
+                <h3 (click)="gotToListing(key.post_id, true)">{{ key.title }}</h3>
+              </div>
+            
+              <div class="mt-2">
+                <!-- } -->
+                <button
+                  class="btn orange-background-btn mx-1"
+                  (click)="viewProperty(key.ID)"
+                >
+                  View
+                </button>
+              </div>
+              
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-12 mt-5">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true" [maxSize]="5"
+          (pageChange)="handlePageChange($event)">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>

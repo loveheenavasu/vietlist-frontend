@@ -34,20 +34,21 @@ export class ChooseLoanTypeComponent {
   }
 
   public navigateOnSyncListing(){
-    if(this.isAuthenticated && this.userResponse?.user_role == Roles.realEstate){
-      this.router.navigateByUrl('/manage-profile/all-synced-listing')
-  }else{
-    Swal.fire({
-      toast: true,
-      text: 'You have to register as a Real Estate to access this page',
-      animation: false,
-      icon: 'warning',
-      position: 'top-right',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-    });
-  }
+  //   if(this.isAuthenticated && this.userResponse?.user_role == Roles.realEstate){
+  //     this.router.navigateByUrl('/manage-profile/all-synced-listing')
+  // }else{
+  //   Swal.fire({
+  //     toast: true,
+  //     text: 'You have to register as a Real Estate to access this page',
+  //     animation: false,
+  //     icon: 'warning',
+  //     position: 'top-right',
+  //     showConfirmButton: false,
+  //     timer: 3000,
+  //     timerProgressBar: true,
+  //   });
+  // }
+  this.router.navigateByUrl('/properties')
 }
 
 }

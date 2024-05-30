@@ -266,4 +266,10 @@ export class BusinessService {
       return `<div class='col-12' > ${time} </div>`
     }
   }
+
+  public getMlsData():Observable<any>{
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetMLSData)
+    return this.http.get<any>(endpoint)
+  }
+
 }
