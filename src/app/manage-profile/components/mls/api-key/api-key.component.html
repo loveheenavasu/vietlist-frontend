@@ -44,7 +44,8 @@
     </div> -->
         <div class="col-12">
           <button class="btn sync-listing" style="width:fit-content" (click)="sync()">
-            Sync Listings
+            <span *ngIf="!loader2">Sync Listings</span>
+            <app-loader *ngIf="loader2"></app-loader>
           </button>
         </div>
     

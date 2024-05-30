@@ -20,6 +20,7 @@ public mls_api_key = new FormControl('')
 public userDetails : any;
 public  direction: any
 public loader:boolean = false;
+public loader2:boolean = false;
 
 constructor(private profileService:ProfileService,private auth:AuthenticationService,private router:Router){
 this.auth.userDetailResponse.subscribe((res)=>{
@@ -66,9 +67,10 @@ public setKey(){
 }
 
 public sync(){
+  this.loader2 = true
   this.profileService.syncList({location:this.userDetails?.address}).subscribe({
     next:(res)=>{
-    
+      this.loader2 = false
       Swal.fire({
         toast: true,
         text: res.message,
@@ -83,7 +85,7 @@ public sync(){
       
     },
     error:(err)=>{
-
+      this.loader2 = false
     }
   })
 }
