@@ -25,9 +25,9 @@ public loader2:boolean = false;
 constructor(private profileService:ProfileService,private auth:AuthenticationService,private router:Router){
 this.auth.userDetailResponse.subscribe((res)=>{
   this.userDetails = res
-  console.log(this.userDetails , ":0090808" )
+  console.log(this.userDetails)
   if(this.userDetails?.mls_api_key){
-  this.mls_api_key.setValue(this.userDetails.mls_api_key)
+  this.mls_api_key.setValue(this.userDetails?.mls_api_key)
   }
 })
 

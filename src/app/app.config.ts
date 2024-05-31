@@ -31,15 +31,6 @@ const stripePublishKey = environment.stripe_publish_key
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    GlobalSubscriptionService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (globalSubscriptionService: GlobalSubscriptionService) => () => {
-        return globalSubscriptionService;
-      },
-      deps: [GlobalSubscriptionService],
-      multi: true
-    },
     provideRouter(
       routes,
       withInMemoryScrolling({

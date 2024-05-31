@@ -76,15 +76,10 @@ export class PropertyListingsComponent {
 
 
 
-  public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
-
-  }
-
+ 
   public handlePageChange(event: number) {
     this.currentPage = event
       this.getPropertiesData()
- 
   }
 
 

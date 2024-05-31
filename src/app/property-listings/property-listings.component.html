@@ -26,7 +26,7 @@
           }; track $index) {
           <div class="grid-card col-12 col-md-6 col-lg-4  onlarge_screen ">
             <div class="listing-wrapper">
-              <div class="listing-img" (click)="gotToListing(key.post_id, true)">
+              <div class="listing-img">
                 <img
                 [src]="
                   key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -35,7 +35,7 @@
               </div>
               <div class="listing-description">
                 <div class="listing-heading">
-                  <h3 (click)="gotToListing(key.post_id, true)">
+                  <h3>
                     {{ key.title }}
                   </h3>
                 </div>
@@ -65,7 +65,7 @@
           track $index) {
           <div class="d-flex small-screen-view">
             <div class="listing-img-container">
-              <div class="listing-img" (click)="gotToListing(key.post_id, true)">
+              <div class="listing-img" >
                 <img
                 [src]="
                   key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -75,7 +75,7 @@
             </div>
             <div class="listing-img-info">
               <div class="listing-heading">
-                <h3 (click)="gotToListing(key.post_id, true)">{{ key.title }}</h3>
+                <h3>{{ key.title }}</h3>
               </div>
             
               <div class="mt-2">

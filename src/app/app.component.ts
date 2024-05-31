@@ -80,6 +80,9 @@ export class AppComponent {
     // });
     this.authenticationService.isAuthenticated$.subscribe((res:any) => {
       this.isAuthenticated = res
+      if (this.isAuthenticated) {
+        this.fetchProfileDetail()
+      }
     })
     this.translateService.use('en')
 
@@ -131,6 +134,7 @@ export class AppComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.authenticationService.userDetailResponse.next(res?.data?.user)
+        console.log(res , "RESPONSE APP TS")
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
