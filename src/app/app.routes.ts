@@ -1,3 +1,4 @@
+import { AddRealEstateBusinessComponent } from './add-real-estate-business/add-real-estate-business.component';
 import { ResourceDetailComponent } from './landing-page/views/resource-detail/resource-detail.component'
 import { BusinessBlogDetailsComponent } from './blognews/business-blog-details/business-blog-details.component'
 
@@ -353,6 +354,10 @@ export default [
   {
     path: 'view-leads',
     loadComponent: () => ViewLeadComponent,
+  },
+  {
+    path:'complete-profile',
+    loadComponent:()=>AddRealEstateBusinessComponent
   },
   {
     path: '**',
