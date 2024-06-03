@@ -48,15 +48,15 @@
                       View
                     </button>
                     <mat-card-footer>
-                      <div class="footer d-flex">
-                        <div class="profile-image">
+                      <div class="footer  d-flex" >
+                        <div class="profile-image cursor-pointer " (click)="viewAgentDetails(key.user_detail?.user_id)"  >
                           @if (key.user_detail?.user_image) {
                           <img [src]="key.user_detail?.user_image" alt="profile-image" />
                           } @else {
                           <img src="/assets/image/no_profile.webp" alt="profile-image" />
                           }
                         </div>
-                        <div class="user-detail">
+                        <div class="user-detail cursor-pointer " (click)="viewAgentDetails(key.user_detail?.user_id)"  >
                           <h5>{{ key.user_detail?.first_name}} {{key.user_detail?.last_name}}</h5>
                           <p> Property Real Estate Agent </p>
                         </div>
@@ -102,6 +102,21 @@
                   View
                 </button>
               </div>
+              <mat-card-footer>
+                <div class="footer  d-flex" >
+                  <div class="profile-image cursor-pointer " (click)="viewAgentDetails(key.user_detail?.user_id)"  >
+                    @if (key.user_detail?.user_image) {
+                    <img [src]="key.user_detail?.user_image" alt="profile-image" />
+                    } @else {
+                    <img src="/assets/image/no_profile.webp" alt="profile-image" />
+                    }
+                  </div>
+                  <div class="user-detail cursor-pointer " (click)="viewAgentDetails(key.user_detail?.user_id)"  >
+                    <h5>{{ key.user_detail?.first_name}} {{key.user_detail?.last_name}}</h5>
+                    <p> Property Real Estate Agent </p>
+                  </div>
+                </div>
+              </mat-card-footer>
               
             </div>
           </div>

@@ -85,6 +85,9 @@ export class PropertyListingsComponent {
   public viewProperty(Id: any) {
     this.router.navigate(['/property', Id])
   }
+  public viewAgentDetails(Id: any) {
+    this.router.navigate(['/agent-details', Id])
+  }
 
   ngOnDestroy() {
     this.destroy$.next()

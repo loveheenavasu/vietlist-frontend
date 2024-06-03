@@ -126,5 +126,6 @@ export enum Endpoints {
   SyncList = 'set_mls_data',
   GetMLSList = 'get_mls_data_by_userid',
   GetMLSDataById = 'get_mls_data_by_id',
-  GetMLSData = 'get_All_mls_data'
+  GetMLSData = 'get_All_mls_data',
+  GetRealEstateAgentDetails = 'get_realestate_userdetails',
 }

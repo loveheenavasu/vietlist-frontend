@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import { AutocompleteComponent } from '../shared/utils/googleaddress'
 import Swal from 'sweetalert2'
-
+import { AgentService } from './agent.service'
+import { MatDialog } from '@angular/material/dialog'
+import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
+import { FullPageLoaderService } from '../shared/utils'
+import { ActivatedRoute } from '@angular/router'
 @Component({
   selector: 'app-agent-details',
   standalone: true,
@@ -18,6 +22,7 @@ export class AgentDetailComponent {
   body = 'Hello, I hope you are doing well '
   activeTab: string = 'profile'
   public map: google.maps.Map | null = null // Declare and initialize the map property
+  private geocoder?: google.maps.Geocoder
   directionStreet: any
   state: any
   country: any
@@ -27,7 +32,22 @@ export class AgentDetailComponent {
   directionLongitude: any
   currentAddress: any
   isDistanceLoading: any
-  constructor(private cd: ChangeDetectorRef) {}
+  businessHour: any
+  businessAddress: any
+  additionalContactInformation: any
+  agentId: any
+  constructor(
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef,
+    private service: AgentService,
+    private loader: FullPageLoaderService,
+    private _activatedRoute: ActivatedRoute,
+  ) {
+    this._activatedRoute.params.subscribe((res) => {
+      console.log(res, 'response')
+      this.agentId = res['id']
+    })
+  }
 
   public openGoogleMapss(address: string) {
     console.log(address, 'address')
@@ -86,8 +106,8 @@ export class AgentDetailComponent {
     if (mapElement !== null) {
       this.map = new google.maps.Map(mapElement, {
         center: {
-          lat: this.latitude,
-          lng: this.longitude,
+          lat: this.businessAddress.latitude,
+          lng: this.businessAddress.longitude,
         },
         zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -133,10 +153,7 @@ export class AgentDetailComponent {
       if (status === 'OK') {
         if (results[0]) {
           this.currentAddress = results[0].formatted_address
-          // Update input field value here
           this.directionStreet = this.currentAddress
-          // Optionally, you can also trigger change detection manually
-          // this.cd.detectChanges();
         } else {
         }
       } else {
@@ -216,6 +233,36 @@ export class AgentDetailComponent {
     }
   }
 
+  mage = [
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://images.unsplash.com/photo-1716908520076-4acd8a09f537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHx8',
+    'https://via.placeholder.com/300',
+    'https://via.placeholder.com/300',
+  ]
+
+  public openDialog(imageData: any, index: number) {
+    console.log('click os work', imageData, index)
+    if (this.dialog) {
+      this.dialog.open(ImageModalSwiperComponent, {
+        maxWidth: '100vw',
+        maxHeight: '100vh',
+        height: '100%',
+        width: '100%',
+        panelClass: 'full-screen-modal',
+        data: { images: imageData, index },
+      })
+    }
+  }
+
   public degreesToRadians(degrees: number): number {
     return degrees * (Math.PI / 180)
   }
@@ -239,5 +286,44 @@ export class AgentDetailComponent {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     const distance = earthRadius * c
     return distance // Distance in kilometers
+  }
+
+  private geocodeAddress(address: string): void {
+    if (this.geocoder) {
+      this.geocoder.geocode({ address: address }, (results, status) => {
+        if (status === 'OK') {
+          this.latitude = results[0].geometry.location.lat()
+          console.log(results, 'kskskks')
+          this.longitude = results[0].geometry.location.lng()
+          this.cd.detectChanges()
+          this.initMap()
+        } else {
+          console.error(
+            'Geocode was not successful for the following reason: ' + status,
+          )
+        }
+      })
+    }
+  }
+
+  ngOnInit() {
+    this.loader.showLoader()
+    this.geocoder = new google.maps.Geocoder()
+    this.service.GetRealStateAgentDetails(this.agentId).subscribe({
+      next: (res) => {
+        this.loader.hideLoader()
+        this.agentDetails = res?.data
+        let addressOnMap = res?.data?.business_address || res?.data?.address
+        this.geocodeAddress(addressOnMap)
+        let hour = JSON.parse(res?.business_hours)
+        this.businessHour = Object.keys(hour).map((day) => ({
+          day,
+          timing: hour[day],
+        }))
+      },
+      error: (err) => {
+        this.loader.hideLoader()
+      },
+    })
   }
 }
