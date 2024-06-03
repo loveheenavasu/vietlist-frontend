@@ -128,4 +128,6 @@ export enum Endpoints {
   GetMLSDataById = 'get_mls_data_by_id',
   GetMLSData = 'get_All_mls_data',
   GetRealEstateAgentDetails = 'get_realestate_userdetails',
+  CompleteReatEstateProfile = 'realestate_complete_profile',
+  GetRealEstateDetails = 'get_realestate_userdetails',
 }

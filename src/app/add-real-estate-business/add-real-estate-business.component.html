@@ -1,0 +1,422 @@
+<section class="banner">
+  <div class="content">
+    <h1>Complete Profile</h1>
+  </div>
+</section>
+<div class="container my-5">
+  <div class="main-card">
+    <form [formGroup]="CompleteProfile">
+      <section class="my-4">
+        <div class="row my-4 px-2">
+          <div class="col-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+            >Company Logo <span class="asterik">*</span></label
+          >
+          </div>
+          <div class="col-12 col-lg-8">
+            <ngx-dropzone
+            (change)="onSelectLogo($event)"
+            [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
+            [maxFileSize]="2097152"
+          >
+            <ngx-dropzone-label *ngIf="!isImageLoading"
+              ><i class="fa fa-upload" aria-hidden="true"></i> Drag and Drop
+              here or Browse a file (Allowed .png, .png, .png, .jpeg , .jpg.
+              .webp)</ngx-dropzone-label
+            >
+            <div class="loader" *ngIf="isImageLoading"></div>
+          </ngx-dropzone>
+          <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
+
+          <div class="main_images mt-3">
+            <div class="images__">
+              @for (preview of businessLogoUrl; track $index) {
+                <div class="removeImage">
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
+                </div>
+                <img
+                  *ngIf="preview"
+                  [src]="preview"
+                  alt="Image Preview"
+                  width="150"
+                  height="150"
+                />
+              } @empty {
+                <!-- <img
+                  *ngIf="businessFormDetails?.logo"
+                  [src]="businessFormDetails.logo"
+                  alt="Image Preview"
+                  width="150"
+                  height="150"
+                /> -->
+              }
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="row my-4 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Business Description <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <textarea
+              style="height: 10rem"
+              rows="30"
+              class="input-control"
+              placeholder="Enter Business description"
+              [formControl]="business_description"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="row my-4 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Business Hours <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <div>
+              <table class="table table-striped table-striped-columns-order">
+                <thead class="table-heading">
+                  <tr>
+                    <th>Day</th>
+                    <th>Open 24 HOURS</th>
+                    <th colspan="2">Opening Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngFor="let day of days; let dayIndex = index">
+                    <tr>
+                      <td>{{ day.name }}</td>
+                      <td>
+                        <!-- <i class="fa fa-dot-circle-o" aria-hidden="true"></i> -->
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            [value]="day.name"
+                            id="terms"
+                            (change)="onWeekSelect(day.name, $event, dayIndex)"
+                            [checked]="checkHours(day)"
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <ng-container
+                          *ngFor="let time of day.times; let timeIndex = index"
+                        >
+                          <div class="row">
+                            <div class="col-10 d-flex">
+                              <div>
+                                <input
+                                  [disabled]="
+                                    selected24HrDay.includes(day.name)
+                                  "
+                                  [(ngModel)]="day.times[timeIndex].start"
+                                  (ngModelChange)="
+                                    onChange(
+                                      $event,
+                                      day.times[timeIndex].end,
+                                      day.name
+                                    )
+                                  "
+                                  class="input-control"
+                                  type="time"
+                                  placeholder="Start Time"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="day.times[timeIndex].start"
+                                />
+                              </div>
+                              <div>
+                                <input
+                                  [disabled]="
+                                    selected24HrDay.includes(day.name)
+                                  "
+                                  [(ngModel)]="day.times[timeIndex].end"
+                                  (ngModelChange)="
+                                    onChange(
+                                      $event,
+                                      day.times[timeIndex].start,
+                                      day.name
+                                    )
+                                  "
+                                  class="input-control"
+                                  type="time"
+                                  placeholder="End Time"
+                                  [ngModelOptions]="{ standalone: true }"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-2">
+                              <i
+                                class="fa fa-minus-circle"
+                                aria-hidden="true"
+                                (click)="removeTime(dayIndex, timeIndex)"
+                              ></i>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </td>
+                      <td>
+                        <div class="row">
+                          <div class="col">
+                            <i
+                              class="fa fa-plus-circle"
+                              aria-hidden="true"
+                              (click)="addTime(dayIndex)"
+                            ></i>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+
+                  <tr>
+                    <th style="text-align: center; vertical-align: middle">
+                      Timezone:
+                    </th>
+                    <td colspan="4">
+                      <ng-select
+                        class="select2-selection"
+                        [items]="formattedData"
+                        bindLabel="label"
+                        bindValue="label"
+                        placeholder="Select your timezone.."
+                        [groupBy]="'value'"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="selectedData"
+                      >
+                      </ng-select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="opening-hours">
+              <span>Select your business opening/operating hours.</span>
+            </div>
+          </div>
+        </div>
+       
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Additional Contact Information <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <ngx-intl-tel-input
+            #countryList
+            [cssClass]="'input-control'"
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="CountryISO.UnitedStates"
+            [phoneValidation]="true"
+            [separateDialCode]="true"
+            [numberFormat]="PhoneNumberFormat.National"
+            name="phone"
+            [formControl]="contact_details"
+          >
+          </ngx-intl-tel-input>
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Business Address<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-lg-8">
+            <AutocompleteComponent
+              aria-placeholder="Address"
+              class="direction-field"
+              (setAddress)="getAddress($event)"
+              adressType="geocode"
+              [value]="direction"
+            >
+            </AutocompleteComponent>
+            <!-- <p class="error-message" *ngIf="isSubmitted && !direction">
+              Address is required.
+            </p> -->
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Country<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Choose a country..."
+              [(ngModel)]="country"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Region<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Select region or type a new one"
+              [(ngModel)]="state"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >City<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Select city or type a new one"
+              [(ngModel)]="city"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Zip/Post Code<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              type="text"
+              placeholder="Enter zip code"
+              [(ngModel)]="zipcode"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </div>
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Latitude <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              [(ngModel)]="latitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Longitude <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <input
+              class="input-control"
+              [(ngModel)]="longitude"
+              [ngModelOptions]="{ standalone: true }"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div class="row my-4 px-2 align-items-center">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label class="listing-form-label"
+              >Services Offered <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <mat-chip-grid #chipGrid aria-label="Enter services">
+         
+              <input placeholder="Press enter to add service"
+              class="input-control"
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)"/>
+            </mat-chip-grid>
+            <br/>
+            @for (service of services; track service) {
+              <mat-chip-row
+                (removed)="remove(service)"
+                >
+                {{service}}
+                <button matChipRemove [attr.aria-label]="'remove ' + service.name">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            }
+          </div>
+        </div>
+        <div class="row my-3 px-2">
+          <div class="col-12">
+            <!--a dropzone-->
+            <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
+            <div class="row">
+              <div class="col-sm-2 col-md-12">
+                <label for="" class="listing-form-label mb-2">Gallery Images</label>
+              </div>
+              <div class="col-sm-10 col-md-12 upload-instruction"></div>
+            </div>
+            <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'" [maxFileSize]="2097152" >
+              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
+                or
+                Browse a file</ngx-dropzone-label>
+              <div *ngIf="isImageUploading" class="loader"></div>
+            </ngx-dropzone>
+             <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
+            <div class="main_images">
+              @for (preview of imagePreviews; track $index) {
+      
+              <div class="images__" *ngIf="preview">
+                <div class="removeImage">
+                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItems($index)"></i>
+                </div>
+                <img [src]="preview" alt="Image Preview" width="150" height="150" />
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+        <div style="width: 100%; text-align: end">
+          <button type="button" class="btn orange-background-btn ms-auto" (click)="submit()">
+            Submit
+          </button>
+        </div>
+      </section>
+    </form>
+  </div>
+</div>

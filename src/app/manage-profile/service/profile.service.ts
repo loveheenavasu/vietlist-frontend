@@ -234,6 +234,20 @@ export class ProfileService {
     return this.http.get<any>(endpoint, { headers: authToken , params:params})
   }
   
+  public completeRealEstateProfile(body:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.CompleteReatEstateProfile)
+    const authToken: any = this.sessionService.getAuthHeaders()
+    return this.http.post<any>(endpoint, body, {headers: authToken })
+  }
+
+  public getRealEstateProfileDetails(user_id:any):Observable<any> {
+    const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetRealEstateDetails)
+    // const authToken: any = this.sessionService.getAuthHeaders()
+    const params = new HttpParams().set('user_id' , user_id)
+    return this.http.get<any>(endpoint, { params:params})
+  }
+  
+
   public getIPAddress() {
     // return this.http.get("https://api.ipify.org/?format=json")
     return this.http.get("https://jsonip.com/")
