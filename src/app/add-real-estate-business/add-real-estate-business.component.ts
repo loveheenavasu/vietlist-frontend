@@ -511,24 +511,23 @@ export class AddRealEstateBusinessComponent {
     }
   }
 
-
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
-      if (this.files.length > 20) {
-        console.log('upload 20 images ')
-        Swal.fire({
-          toast: true,
-          text: 'You can upload only 20 images',
-          animation: false,
-          icon: 'error',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        return
-      }
-  
+    if (this.files.length > 20) {
+      console.log('upload 20 images ')
+      Swal.fire({
+        toast: true,
+        text: 'You can upload only 20 images',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
+      return
+    }
+
     this.displayImagePreviews()
   }
 
@@ -562,9 +561,7 @@ export class AddRealEstateBusinessComponent {
           console.log(this.imagePreviews, 'this.imagePreviews up')
           this.imagePreviews.push(res.image_url)
           console.log(this.imagePreviews, 'this.imagePreviews down')
-          if (
-            this.imagePreviews.length >= maxImages 
-          ) {
+          if (this.imagePreviews.length >= maxImages) {
             this.isImageUploading = false
           }
         },
@@ -611,14 +608,28 @@ export class AddRealEstateBusinessComponent {
         businessHours = `${JSON.stringify(resultArray)},[]`
       }
     }
+    console.log(businessHours, 'businessHours')
     const body = {
       company_logo: this.businessLogoUrl.join(),
-      additional_contact_information: {contact:this.contact_details?.value?.e164Number , instagram:"test" , facebook:"test" , twitter:"twitter" , additionalEmail:"test@mail.com"},
+      additional_contact_information: {
+        contact: this.contact_details?.value?.e164Number,
+        instagram: 'test',
+        facebook: 'test',
+        twitter: 'twitter',
+        additionalEmail: 'test@mail.com',
+      },
       business_description: this.business_description.value,
-      business_address: {fullAddress:this.fullAddress , state:this.state , city:this.city , country:this.country , latitude:this.latitude , longitude:this.longitude},
+      business_address: {
+        fullAddress: this.fullAddress,
+        state: this.state,
+        city: this.city,
+        country: this.country,
+        latitude: this.latitude,
+        longitude: this.longitude,
+      },
       services_offered: this.services,
-      business_hours: !this.showTimeTable ? null : businessHours,
-      gallery_images:this.imagePreviews
+      business_hours: businessHours,
+      gallery_images: this.imagePreviews,
     }
     console.log(body, 'body')
     this.profileServce.completeRealEstateProfile(body).subscribe({
@@ -633,12 +644,9 @@ export class AddRealEstateBusinessComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-         this.router.navigateByUrl('/manage-profile')
+        this.router.navigateByUrl('/manage-profile')
       },
-      error:(err)=>{
-
-      }
+      error: (err) => {},
     })
-   
   }
 }

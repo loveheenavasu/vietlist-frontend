@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { ImageModalSwiperComponent } from 'src/app/manage-event/components/image-modal-swiper/image-modal-swiper.component'
 import { FullPageLoaderService } from '../shared/utils'
 import { ActivatedRoute } from '@angular/router'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
+
 @Component({
   selector: 'app-agent-details',
   standalone: true,
@@ -36,12 +38,15 @@ export class AgentDetailComponent {
   businessAddress: any
   additionalContactInformation: any
   agentId: any
+  public openingHour: any[] = []
+
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
     private service: AgentService,
     private loader: FullPageLoaderService,
     private _activatedRoute: ActivatedRoute,
+    public businessService: BusinessService,
   ) {
     this._activatedRoute.params.subscribe((res) => {
       console.log(res, 'response')
@@ -306,7 +311,28 @@ export class AgentDetailComponent {
     }
   }
 
-  ngOnInit() {
+  parse(originalStr: string) {
+    if (originalStr) {
+      const cleanedStr = originalStr.replace(/\\|"/g, '')
+      // Convert the cleaned string to a valid JSON string
+      const validJsonStr = `[${cleanedStr
+        .split('][')
+        .map(
+          (arr) =>
+            `${arr
+              .split(',')
+              .map((val) => `"${val.replaceAll(']', '').replaceAll('[', '')}"`)
+              .join(',')}`,
+        )
+        .join(',')}]`
+      let arr = JSON.parse(validJsonStr)
+      let utc = arr[arr.length - 2] + ' ' + arr[arr.length - 1]
+      arr.splice(arr.length - 2, 2)
+      arr.push(utc)
+      return arr
+    }
+  }
+  getAgentDetails() {
     this.loader.showLoader()
     this.geocoder = new google.maps.Geocoder()
     this.service.GetRealStateAgentDetails(this.agentId).subscribe({
@@ -315,15 +341,18 @@ export class AgentDetailComponent {
         this.agentDetails = res?.data
         let addressOnMap = res?.data?.business_address || res?.data?.address
         this.geocodeAddress(addressOnMap)
-        let hour = JSON.parse(res?.business_hours)
-        this.businessHour = Object.keys(hour).map((day) => ({
-          day,
-          timing: hour[day],
-        }))
+        if (true) {
+          this.openingHour = this.businessService.combineMultipleTime(
+            this.parse(res?.business_hours),
+          )
+        }
       },
       error: (err) => {
         this.loader.hideLoader()
       },
     })
+  }
+  ngOnInit() {
+    this.getAgentDetails()
   }
 }

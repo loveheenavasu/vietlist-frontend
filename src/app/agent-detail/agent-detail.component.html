@@ -323,26 +323,30 @@
             </div>
           </div>
         }
-        @if (businessHour) {
-          <div class="profile-info-div mt-3 px-0" style="padding: 9%">
-            <div
-              class="d-block text-center text-md-left d-md-flex p-3 timing-cont"
-            >
-              <span style="font-size: 22px; font-weight: 600; color: black"
-                >Operating Hours :</span
+        @if (openingHour && openingHour.length) {
+          @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
+            <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+              <div
+                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
               >
-              <div class="media-body">
-                <p *ngFor="let time of businessHour" class="mt-0">
-                  @if (time != 'null' && time != 'undefined') {
-                    <div class="row">
-                      <div class="col-6">{{ time.day }}</div>
-                      <div class="col-6">{{ time.timing }}</div>
-                    </div>
-                  }
-                </p>
+                <span style="font-size: 22px; font-weight: 600; color: black"
+                  >Business Open Hours :</span
+                >
+                <div class="media-body">
+                  <p *ngFor="let time of openingHour" class="mt-0">
+                    @if (time != 'null' && time != "undefined") {
+                      <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
+                    }
+                  </p>
+                  <!-- <p> -->
+                    <!-- <div class="hour-container row ">
+                      <div class='col-4' > sunday </div> <div class='col-4' ><div> 1231231</div> <div> 8989797</div> <div> 8989797</div></div>
+                    </div> -->
+                  <!-- </p> -->
+                </div>
               </div>
             </div>
-          </div>
+          }
         }
       </div>
     </div>
