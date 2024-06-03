@@ -443,3 +443,35 @@
 ::ng-deep.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
     color: var(--primary-color-mustard) !important;
 }
+
+.footer {
+    padding-top: 22px;
+
+    .profile-image {
+        align-self: center;
+        img {
+            border-radius: 50%;
+            height: 35px !important ;
+            width: 35px;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .user-detail {
+        margin-left: 32px;
+        padding-top: 10px;
+        // display: flex;
+        // align-items: center;
+
+        h5 {
+            font-size: 14px;
+            color: var(--dark-grey);
+        }
+
+        p {
+            font-size: 12px;
+            color: #6C757D;
+        }
+    }
+}

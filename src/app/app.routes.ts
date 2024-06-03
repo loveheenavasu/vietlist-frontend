@@ -66,6 +66,7 @@ import { SyncedListingComponent } from './manage-profile/components/mls/synced-l
 import { ApiKeyComponent } from './manage-profile/components/mls/api-key/api-key.component'
 import { PropertyDetailsComponent } from './property-details/property-details.component'
 import { PropertyListingsComponent } from './property-listings/property-listings.component'
+import { AgentDetailComponent } from './agent-detail/agent-detail.component'
 
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 
@@ -205,7 +206,7 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path:'properties',
+    path: 'properties',
     loadComponent: () => PropertyListingsComponent,
   },
   {
@@ -353,6 +354,10 @@ export default [
   {
     path: 'view-leads',
     loadComponent: () => ViewLeadComponent,
+  },
+  {
+    path: 'agent-details/:id',
+    loadComponent: () => AgentDetailComponent,
   },
   {
     path: '**',

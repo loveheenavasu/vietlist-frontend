@@ -40,25 +40,60 @@
     <div class="row mt-2">
       <div class="col-12 col-md-8">
         <div class="profile-info-div-2 box-shadow">
-          <p><i class="fa-solid fa-home"></i> <b>Home Status</b>: {{homestatus}}</p>
-          <p><i class="fa-solid fa-dollar-sign"></i> <b>Price</b>: {{propertyDetails?.price || 'NA'}}</p>
-          <p><i class="fa-solid fa-building"></i> <b>Home Type</b>: {{hometype || 'NA'}}</p>
-          <p><i class="fa-solid fa-calculator"></i> <b>Estimate Rent</b>: {{propertyDetails?.rentzestimate || 'NA'}}</p>
-          <p><i class="fa-solid fa-user-alt-slash"></i> <b>Is Non Owner Occupied</b>: {{propertyDetails?.isnonowneroccupied == '1' ? 'Yes' : 'No'}}</p>
-          <p><i class="fa-solid fa-bath"></i> <b>Bathrooms</b>: {{propertyDetails?.bathrooms || 'NA'}}</p>
-          <p><i class="fa-solid fa-bed"></i> <b>Bedrooms</b>: {{propertyDetails?.bedrooms || 'NA'}}</p>
-          <p><i class="fa-solid fa-ruler-combined"></i> <b>Living Area size</b>: {{propertyDetails?.livingarea || 'NA'}}</p>
-          <p><i class="fa-solid fa-map-marker-alt"></i> <b>LOT Area unit</b>: {{propertyDetails?.lotareaunit || 'NA'}}</p>
+          @if (homestatus) {
+            <p><i class="fa-solid fa-home"></i> <b>Home Status</b>: {{homestatus}}</p>
+          }
+          @if(propertyDetails?.price ){
+            <p><i class="fa-solid fa-dollar-sign"></i> <b>Price</b>: {{propertyDetails?.price }}</p>
+          }@if (hometype ) {
+            <p><i class="fa-solid fa-building"></i> <b>Home Type</b>: {{hometype }}</p>
+          }@if (propertyDetails?.rentzestimate) {
+            <p><i class="fa-solid fa-calculator"></i> <b>Estimate Rent</b>: {{propertyDetails?.rentzestimate}}</p>
+          }@if (propertyDetails?.isnonowneroccupied ) {
+            <p><i class="fa-solid fa-user-alt-slash"></i> <b>Is Non Owner Occupied</b>: {{propertyDetails?.isnonowneroccupied == '1' ? 'Yes' : 'No'}}</p>
+          }
+          @if (propertyDetails?.bathrooms) {
+            <p><i class="fa-solid fa-bath"></i> <b>Bathrooms</b>: {{propertyDetails?.bathrooms}}</p>
+          }
+          @if (propertyDetails?.bedrooms) {
+            <p><i class="fa-solid fa-bed"></i> <b>Bedrooms</b>: {{propertyDetails?.bedrooms}}</p>
+          }@if (propertyDetails?.livingarea) {
+            <p><i class="fa-solid fa-ruler-combined"></i> <b>Living Area size</b>: {{propertyDetails?.livingarea}}</p>
+          }@if (propertyDetails?.lotareaunit ) {
+            <p><i class="fa-solid fa-map-marker-alt"></i> <b>LOT Area unit</b>: {{propertyDetails?.lotareaunit }}</p>
+          }
         </div>
       </div>
       <div class="col-12 col-md-4">
         <div class="profile-info-div box-shadow position-relative">
+          @if (propertyDetails?.user_detail?.first_name || propertyDetails?.user_detail?.last_name) {
+            <h3>{{propertyDetails?.user_detail?.first_name +' '+ propertyDetails?.user_detail?.last_name}}</h3>
+          }
+          @if (propertyDetails?.user_detail?.email) {
+            <p><i class="fa-solid fa-envelope"></i>{{propertyDetails?.user_detail?.email}}</p>
+          }
+          @if (propertyDetails?.user_detail?.contact) {
+            <p><i class="fa-solid fa-phone"></i>{{propertyDetails?.user_detail?.contact}}</p>
+          }
+          @if (propertyDetails?.user_detail?.address) {
+            <p><i class="fa-solid fa-road"></i>{{propertyDetails?.user_detail?.address}}</p>
+          }
+        </div>
+        <div class="profile-info-div box-shadow position-relative">
           <h3><i class="fa-solid fa-map-signs"></i> Address</h3>
-          <p><i class="fa-solid fa-flag-usa"></i> <b>Country</b>: {{propertyDetails?.country_1 || 'NA'}}</p>
-          <p><i class="fa-solid fa-city"></i> <b>City</b>: {{propertyDetails?.city_1 || 'NA'}}</p>
-          <p><i class="fa-solid fa-map"></i> <b>State</b>: {{propertyDetails?.state || 'NA'}}</p>
-          <p><i class="fa-solid fa-mail-bulk"></i> <b>Zip</b>: {{propertyDetails?.zipcode || 'NA'}}</p>
-          <p><i class="fa-solid fa-road"></i> <b>Street</b>: {{propertyDetails?.streetaddress || 'NA'}}</p>
+          @if (propertyDetails?.country_1) {
+            <p><i class="fa-solid fa-flag-usa"></i> <b>Country</b>: {{propertyDetails?.country_1}}</p>
+          }@if (propertyDetails?.city_1) {
+            <p><i class="fa-solid fa-city"></i> <b>City</b>: {{propertyDetails?.city_1}}</p>
+          }
+          @if (propertyDetails?.state) {
+            <p><i class="fa-solid fa-map"></i> <b>State</b>: {{propertyDetails?.state}}</p>
+          }@if (propertyDetails?.zipcode ) {
+            <p><i class="fa-solid fa-mail-bulk"></i> <b>Zip</b>: {{propertyDetails?.zipcode }}</p>
+          }@if (propertyDetails?.streetaddress) {
+            <p><i class="fa-solid fa-road"></i> <b>Street</b>: {{propertyDetails?.streetaddress}}</p>
+          }
+
         </div>
       </div>
           <div class="col-12 mt-3">

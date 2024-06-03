@@ -1,0 +1,414 @@
+<section class="banner" style="position: relative">
+    <div class="content" style="width: 100%">
+      <h1 style="text-transform: uppercase">
+        {{ agentDetails?.post_title }}
+      </h1>
+      <div class="elementor-divider">
+        <span class="elementor-divider-separator"> </span>
+      </div>
+    </div>
+    <div class="iconDirection">
+      <span class="elementor-grid-item" style="background: #3b5998">
+        <a
+          href="{{ agentDetails?.facebook }}"
+          style="padding: 3px"
+          class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+          target="_blank"
+        >
+          <i
+            class="fa-brands fa-facebook-f size_icon"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+      <span class="elementor-grid-item" style="background: #1da1f2">
+        <a
+          href="{{ agentDetails?.twitter }}"
+          class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+          target="_blank"
+        >
+          <i
+            class="fa-brands fa-twitter size_icon"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+      <span class="elementor-grid-item size_icon" style="background: #818a91">
+        <a
+          href="{{ agentDetails?.website }}"
+          class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+          target="_blank"
+        >
+          <i
+            class="fa fa-link"
+            aria-hidden="true"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+      <span class="elementor-grid-item">
+        <a
+          [href]="agentDetails?.instagram"
+          class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+          target="_blank"
+        >
+          <i
+            class="fa-brands fa-instagram size_icon"
+            aria-hidden="true"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+      <span class="elementor-grid-item" style="background: #0073a4">
+        <a
+          class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+          href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
+          target="_blank"
+        >
+          <i
+            class="fas fa-directions size_icon"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+    </div>
+  </section>
+  
+  <div class="koko">
+    <div class="section-container">
+      <ul class="list-items">
+        <li
+          (click)="scrollTo('profile')"
+          [class.actives]="activeTab === 'profile'"
+        >
+          <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
+          Information
+        </li>
+        <li
+          *ngIf="
+            agentDetails?.owner_name ||
+            agentDetails?.business_historybackground ||
+            agentDetails?.mission__vision
+          "
+          (click)="scrollTo('bio')"
+          [class.active]="activeTab === 'bio'"
+        >
+          <span> <i class="fa fa-user" aria-hidden="true"></i></span>
+          Business Bio
+        </li>
+        <li
+          *ngIf="
+            agentDetails?.consultation_booking_link ||
+            agentDetails?.consultation_mode ||
+            agentDetails?.consultation_description
+          "
+          (click)="scrollTo('booking')"
+          [class.active]="activeTab === 'booking'"
+        >
+          <span>
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
+          ></span>
+          Booking & Consultation
+        </li>
+        <li
+          *ngIf="agentDetails?.image"
+          (click)="scrollTo('photo')"
+          [class.active]="activeTab === 'photo'"
+        >
+          <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span>
+          Photos
+        </li>
+        <li
+          (click)="scrollTo('videoss')"
+          [class.active]="activeTab === 'videoss'"
+        >
+          <span> <i class="fa fa-video" aria-hidden="true"></i></span>
+          Videos
+        </li>
+        <li
+          (click)="scrollTo('mapView')"
+          [class.active]="activeTab === 'mapView'"
+        >
+          <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
+        </li>
+        <li
+          *ngIf="agentDetails?.faq"
+          (click)="scrollTo('faq')"
+          [class.active]="activeTab === 'faq'"
+        >
+          <span> <i class="fa fa-" aria-hidden="true"></i> </span> FAQ
+        </li>
+        <li
+          *ngIf="agentDetails?.upload_certificates"
+          (click)="scrollTo('certificate')"
+          [class.active]="activeTab === 'certificate'"
+        >
+          <span> <i class="fa fa-" aria-hidden="true"></i> </span> Certifications
+        </li>
+      </ul>
+    </div>
+  </div>
+  <section class="background_section">
+    <div class="container">
+      <div class="row mt-2 pt-4" id="profile">
+        <div class="col-12 col-md-12 col-lg-8">
+          <h3 class="event-page-headings">
+            <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
+            Description
+          </h3>
+          <hr />
+          <p class='text-break' >{{ agentDetails?.post_content }}</p>
+  
+          <div class="sub-heading">
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Category
+            </h3>
+            <p *ngFor="let category of agentDetails?.post_category">
+              {{ category?.name }}
+            </p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Default Category
+            </h3>
+            <p>{{ agentDetails?.default_category?.name }}</p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Tags
+            </h3>
+          </div>
+          <div class="tag-container">
+            <p
+              *ngFor="let tags of agentDetails?.post_tags"
+              class="tag-creation"
+            >
+              {{ tags?.name }}
+            </p>
+          </div>
+          @if (
+            agentDetails?.owner_name ||
+            agentDetails?.business_historybackground ||
+            agentDetails?.mission__vision
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
+              id="bio"
+            >
+              <h3 class="headingg">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Business Bio
+              </h3>
+              <hr class="hr" />
+  
+              <div class="contentt">
+                <h3 class="event-page-headings">Owner / Manager Name</h3>
+                <p>{{ agentDetails?.owner_name }}</p>
+              </div>
+  
+              <div class="contentt">
+                <h3 class="event-page-headings">Business History / Background</h3>
+                <p>{{ agentDetails?.business_historybackground }}</p>
+              </div>
+  
+              <div class="contentt">
+                <h3 class="event-page-headings">Mission & Vission</h3>
+                <p>{{ agentDetails?.mission__vision }}</p>
+              </div>
+            </div>
+          }
+          @if (
+            agentDetails?.consultation_booking_link ||
+            agentDetails?.consultation_mode ||
+            agentDetails?.consultation_description
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
+              id="booking"
+            >
+              <h3 class="headingg">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Booking & Consultation
+              </h3>
+              <hr class="hr" />
+  
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Booking Link</h3>
+                <p>
+                  <a
+                    [href]="agentDetails?.consultation_booking_link"
+                    target="_blank"
+                    style="
+                      color: #38ccff;
+                      font-size: 14px;
+                      font-weight: 500;
+                      text-decoration: none;
+                    "
+                  >
+                    {{ agentDetails?.consultation_booking_link }}</a
+                  >
+                </p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Mode</h3>
+                <p>{{ agentDetails?.consultation_mode }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Description</h3>
+                <p>{{ agentDetails?.consultation_description }}</p>
+              </div>
+            </div>
+          }
+
+
+          <div class="row my-4" id="mapView">
+            <div class="col-12 col-md-12 col-lg-12">
+              <h3 class="event-page-headings">
+                <i
+                  class="fa fa-globe"
+                  aria-hidden="true"
+                  style="font-size: 24px"
+                ></i>
+                &nbsp;Map
+              </h3>
+              <hr />
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12 mt-3">
+              <div id="map" style="height: 300px; width: 100%"></div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12">
+              <div class="d-flex">
+                <div class="flex-grow-1 position-relative">
+                  <AutocompleteComponent
+                    class="direction-field"
+                    (setAddress)="getAddress($event)"
+                    adressType="geocode"
+                    [value]="directionStreet"
+                  >
+                  </AutocompleteComponent>
+                  <div class="location-icon">
+                    <i
+                      class="fa-solid fa-location-arrow"
+                      (click)="getCurrentLocation()"
+                      style="cursor: pointer"
+                    ></i>
+                  </div>
+                </div>
+                <div class="">
+                  <button class="btn get-direction-btn" (click)="getDistance()">
+                    Get Directions
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="distanceToEvent">
+            <div class="col-12 col-lg-12">
+              <label style="color: black" for="">Distance (Km)</label>
+              <p style="font-weight: 500; font-size: 18px; color: black">
+                {{ distanceToEvent }} Km in {{ timeEstimate }}
+              </p>
+            </div>
+          </div>
+          @if (agentDetails?.faq) {
+            <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
+              <h3 class="event-page-headings">
+                <i
+                  class="fa fa-quetion"
+                  aria-hidden="true"
+                  style="font-size: 24px"
+                ></i>
+                FAQ
+              </h3>
+              <hr />
+              <p>{{ agentDetails?.faq }}</p>
+            </div>
+          }
+  
+
+        </div>
+        <div class="col-12 col-md-12 col-lg-4 mt-3">
+          <div class="profile-info-div mt-3 position-relative">
+            <h3>Contact Info</h3>
+            <div class="logo-containerr">
+              <img [src]="agentDetails?.logo" alt="" />
+            </div>
+            <div class="social-link">
+              <div class="location link" *ngIf="agentDetails?.street" (click)='openGoogleMapss(agentDetails?.street)' >
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ agentDetails?.street }}
+                </span>
+              </div>
+              <div class="location link" *ngIf="agentDetails?.business_email" (click)='redirectToMail(agentDetails?.business_email)' >
+                <i
+                  class="fa fa-envelope"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ agentDetails?.business_email }}
+                </span>
+              </div>
+              <div class="location link" *ngIf="agentDetails?.contact_phone" (click)='callNumber(agentDetails?.contact_phone)' >
+                <i
+                  class="fa fa-phone"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ agentDetails?.contact_phone }}
+                </span>
+              </div>
+  
+              <!-- <div class="location">
+                  <i
+                    class="fa fa-link"
+                    aria-hidden="true"
+                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                  ></i>
+                  <a
+                    href=""
+                    target="_blank"
+                    style="
+                      color: #38ccff;
+                      font-size: 14px;
+                      font-weight: 500;
+                      text-decoration: none;
+                    "
+                  >
+                    {{ agentDetails?.website }}
+                  </a>
+                </div> -->
+            </div>
+          </div>
+          <!-- @if (openingHour && openingHour.length) {
+            @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
+              <div class="profile-info-div mt-3" style="padding: 9%">
+                <div
+                  class="d-block text-center text-md-left d-md-flex p-3  timing-cont"
+                >
+                  <span style="font-size: 22px; font-weight: 600; color: black"
+                    >Business Open Hours :</span
+                  >
+                  <div class="media-body">
+                    <p *ngFor="let time of openingHour" class="mt-0">
+                      @if (time != 'null' && time != "undefined") {
+                        <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
+                      }
+                    </p>
+                  </div>
+                </div>
+              </div>
+            }
+          } -->
+        </div>
+      </div>
+    </div>
+  </section>

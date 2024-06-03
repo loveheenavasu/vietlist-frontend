@@ -1,18 +1,19 @@
-import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSelectModule } from '@angular/material/select';
-import { Router } from '@angular/router';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgClass } from '@angular/common'
+import { Component } from '@angular/core'
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms'
+import { MatIconModule } from '@angular/material/icon'
+import { MatSelectModule } from '@angular/material/select'
+import { Router } from '@angular/router'
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 
-import { NgxPaginationModule } from 'ngx-pagination';
-import { Subscription, Subject, takeUntil } from 'rxjs';
-import { LoaderComponent } from '../common-ui';
-import { BusinessService } from '../manage-business/service/business.service';
-import { FullPageLoaderService} from '../shared/utils';
-import { AutocompleteComponent } from '../shared/utils/googleaddress';
-import { scrollToTop } from '../shared/utils/windowScrolls';
+import { NgxPaginationModule } from 'ngx-pagination'
+import { Subscription, Subject, takeUntil } from 'rxjs'
+import { LoaderComponent } from '../common-ui'
+import { BusinessService } from '../manage-business/service/business.service'
+import { FullPageLoaderService } from '../shared/utils'
+import { AutocompleteComponent } from '../shared/utils/googleaddress'
+import { scrollToTop } from '../shared/utils/windowScrolls'
+import { MatCardFooter } from '@angular/material/card'
 
 @Component({
   selector: 'app-property-listings',
@@ -27,9 +28,10 @@ import { scrollToTop } from '../shared/utils/windowScrolls';
     MatSelectModule,
     NgbRatingModule,
     NgxPaginationModule,
+    MatCardFooter,
   ],
   templateUrl: './property-listings.component.html',
-  styleUrl: './property-listings.component.scss'
+  styleUrl: './property-listings.component.scss',
 })
 export class PropertyListingsComponent {
   public selectedLayout: string = 'grid'
@@ -47,12 +49,10 @@ export class PropertyListingsComponent {
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
-      this.getPropertiesData()
-
+    this.getPropertiesData()
   }
 
   public handleLayout(layout: string) {
@@ -61,35 +61,33 @@ export class PropertyListingsComponent {
 
   getPropertiesData() {
     this.fullPageLoaderService.showLoader()
-    this.businessCategoriesService.getMlsData().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
-        this.fullPageLoaderService.hideLoader()
-        this.propertiesArr = res.data
-        this.totalCount = res.total_count
-        scrollToTop()
-      },
-      error: (err) => {
-        this.fullPageLoaderService.hideLoader()
-      }
-    })
+    this.businessCategoriesService
+      .getMlsData()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res: any) => {
+          this.fullPageLoaderService.hideLoader()
+          this.propertiesArr = res.data
+          this.totalCount = res.total_count
+          scrollToTop()
+        },
+        error: (err) => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
   }
 
-
-
- 
   public handlePageChange(event: number) {
     this.currentPage = event
-      this.getPropertiesData()
+    this.getPropertiesData()
   }
-
 
   public viewProperty(Id: any) {
     this.router.navigate(['/property', Id])
   }
 
-
-ngOnDestroy(){
-  this.destroy$.next()
-  this.destroy$.complete()
-}
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 }
