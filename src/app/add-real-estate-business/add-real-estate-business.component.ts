@@ -87,6 +87,32 @@ export class AddRealEstateBusinessComponent {
   ]
   public contact_details = new FormControl()
   public business_description = new FormControl()
+  public instagram = new FormControl( '',
+  [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ],)
+  public facebook = new FormControl( '',
+  [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ],)
+  public twitter = new FormControl( '',
+  [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ],)
+  public additionalEmail = new FormControl('',[
+    Validators.required,
+    Validators.email,
+    Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+  ],)
   public minDate = new Date()
   public maxDate: any
   public latitude: number = 0
@@ -139,7 +165,8 @@ export class AddRealEstateBusinessComponent {
   public services: any[] = []
   public announcer = inject(LiveAnnouncer)
   public imagePreviews: any[] = []
-
+  public userDetails:any;
+  
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -151,6 +178,10 @@ export class AddRealEstateBusinessComponent {
     private cd: ChangeDetectorRef,
     private profileServce: ProfileService,
   ) {
+
+    this.authService.userDetailResponse.subscribe((res)=>{
+      this.userDetails = res
+    })
     // Now, you can use timezone-related functions safely
     const timeZoneNames = moment?.tz?.names()
     timeZoneNames?.forEach((timeZone) => {
@@ -613,14 +644,14 @@ export class AddRealEstateBusinessComponent {
     }
     const body = {
       company_logo: this.businessLogoUrl.join(),
-      additional_contact_information: {contact:this.contact_details?.value?.e164Number , instagram:"test" , facebook:"test" , twitter:"twitter" , additionalEmail:"test@mail.com"},
+      additional_contact_information: {contact:this.contact_details?.value?.e164Number , instagram:this.instagram.value , facebook:this.facebook.value , twitter:this.twitter.value , additionalEmail:this.additionalEmail.value},
       business_description: this.business_description.value,
-      business_address: {fullAddress:this.fullAddress , state:this.state , city:this.city , country:this.country , latitude:this.latitude , longitude:this.longitude},
+      business_address: {fullAddress:this.fullAddress , state:this.state , zip:this.zipcode ,city:this.city , country:this.country , latitude:this.latitude , longitude:this.longitude},
       services_offered: this.services,
       business_hours: !this.showTimeTable ? null : businessHours,
       gallery_images:this.imagePreviews
     }
-    console.log(body, 'body')
+
     this.profileServce.completeRealEstateProfile(body).subscribe({
       next: (res) => {
         Swal.fire({
@@ -641,4 +672,28 @@ export class AddRealEstateBusinessComponent {
     })
    
   }
+
+
+
+  public getRealEstateUserDetails(){
+    this.profileServce.getRealEstateProfileDetails(this.userDetails?.ID).subscribe({
+      next:(res)=>{
+          this.business_description.setValue(res?.data.business_description)
+          this.contact_details.setValue(res?.data.additional_contact_information?.contact)
+          this.instagram.setValue(res?.data?.additional_contact_information?.instagram)
+          this.facebook.setValue(res?.data?.additional_contact_information?.facebook)
+          this.twitter.setValue(res?.data?.additional_contact_information?.twitter)
+          this.additionalEmail.setValue(res?.data?.additional_contact_information?.additionalEmail)
+          this.direction = res?.data?.business_address?.fullAddress
+          this.latitude = res?.data?.business_address?.latitude
+          this.longitude = res?.data?.business_address?.longitude
+          this.zipcode = res?.data?.business_address?.zip
+          this.state = res?.data?.business_address?.state
+          this.city = res?.data?.business_address?.city
+          this.country = res?.data?.business_address?.country
+        console.log(res , "Response")
+      }
+    })
+  }
+
 }
