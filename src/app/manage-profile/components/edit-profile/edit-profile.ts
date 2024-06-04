@@ -1,8 +1,9 @@
+import { AddRealEstateBusinessComponent } from './../../../add-real-estate-business/add-real-estate-business.component';
 import { Component } from '@angular/core'
 import { ProfileService } from '../../service/profile.service'
-import { FormsModule } from '@angular/forms'
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { AuthenticationService, ProfileMenu } from '@vietlist/shared'
+import { AuthenticationService, ProfileMenu, Roles } from '@vietlist/shared'
 import { CommonModule, NgIf } from '@angular/common'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 import {
@@ -17,7 +18,7 @@ import { Subject, takeUntil } from 'rxjs'
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgxIntlTelInputModule , NgIf],
+  imports: [FormsModule, CommonModule, NgxIntlTelInputModule , NgIf , ReactiveFormsModule , AddRealEstateBusinessComponent],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })
@@ -30,7 +31,8 @@ export class EditProfileComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-
+  public realEstateDetails:any;
+  public isrealEstateDetails:boolean = false
   public email!: string //
   public userName: string = ''
   public last_name: string = ''
@@ -39,8 +41,11 @@ export class EditProfileComponent {
   public userDetails: any
   public isLoginSucess?: any
   public sidebarMenu: ProfileMenu[] = []
+  public role = Roles
   private destroy$ = new Subject<void>()
-
+  public business_description = new FormControl('')
+  public additionalContact = new FormControl('')
+  public isClickedOnCompleteProfile:boolean = false
   constructor(
     private profileDetail: ProfileService,
     private router: Router,
@@ -49,6 +54,7 @@ export class EditProfileComponent {
   ) {}
   ngOnInit() {
     this.fetchProfileDetail()
+
   }
 
   fetchProfileDetail() {
@@ -57,6 +63,8 @@ export class EditProfileComponent {
       next: (res) => {
         this.loaderService.hideLoader()
         if (res) {
+          this.userDetails = res.data.user
+          this.getRealEstateUserDetails()
           this.email = res.data.user.user_email ? res.data.user.user_email : ' '
           this.userName = res.data?.user?.user_nicename
           this.last_name = res.data?.user?.last_name
@@ -100,6 +108,29 @@ export class EditProfileComponent {
     })
   }
 
+  public completeProfile(){
+   this.isClickedOnCompleteProfile = true
+  }
+
+  public getRealEstateUserDetails(){
+    this.profileDetail.getRealEstateProfileDetails(this.userDetails?.ID).subscribe({
+      next:(res)=>{
+        this.realEstateDetails = res?.data;
+        if(!this.realEstateDetails.business_description){
+          this.isrealEstateDetails = false
+        }else{
+          this.isrealEstateDetails = true
+          this.business_description.setValue(this.realEstateDetails?.business_description)
+          this.additionalContact.setValue(this.realEstateDetails?.additional_contact_information)
+        }
+        console.log(res , "Response")
+      }
+    })
+  }
+
+  public editAdditionalInfo(){
+    this.router.navigateByUrl('/complete-profile')
+  }
   ngOnDestroy(){
     this.destroy$.next()
     this.destroy$.complete()

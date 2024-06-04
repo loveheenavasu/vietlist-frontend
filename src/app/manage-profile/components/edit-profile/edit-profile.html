@@ -18,12 +18,22 @@
     </div>
     <div class="form-group">
       <div class="col-12">
-        <input type="text" class="input-control" [(ngModel)]="first_name" placeholder="Enter Your First Name" />
+        <input
+          type="text"
+          class="input-control"
+          [(ngModel)]="first_name"
+          placeholder="Enter Your First Name"
+        />
       </div>
     </div>
     <div class="form-group">
       <div class="col-12">
-        <input type="text" class="input-control" [(ngModel)]="last_name" placeholder="Enter Your Last Name"/>
+        <input
+          type="text"
+          class="input-control"
+          [(ngModel)]="last_name"
+          placeholder="Enter Your Last Name"
+        />
       </div>
     </div>
     <div class="form-group" *ngIf="userDetails?.role == 'business-owner'">
@@ -51,12 +61,40 @@
       </div>
     </div>
     <div class="form-group">
+      @if(userDetails?.user_role === role.realEstate && !isrealEstateDetails){
+
+      <button
+        class="btn orange-background-btn-w-100"
+        (click)="completeProfile()"
+      >
+        Complete Your Profile
+      </button>
+      }@else if(userDetails?.user_role === role.realEstate && isrealEstateDetails ){
       <button
         class="btn orange-background-btn-w-100"
         (click)="handleUpdateUser()"
       >
         Update Profile
       </button>
+      }@else{
+        <button
+        class="btn orange-background-btn-w-100"
+        (click)="handleUpdateUser()"
+      >
+        Update Profile
+      </button>
+      }
     </div>
+    <br />
+    
+    @if(isrealEstateDetails || isClickedOnCompleteProfile){
+      <hr class="mt-4"/>
+    <ng-container>
+      <h4 class="dashboard-heading" style="font-size: 24px; margin-top: 0.75em">
+        Additional Details 
+      </h4>
+      <app-add-real-estate-business></app-add-real-estate-business>
+    </ng-container>
+    }
   </div>
 </section>
