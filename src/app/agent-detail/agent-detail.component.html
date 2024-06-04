@@ -84,8 +84,8 @@
         (click)="scrollTo('profile')"
         [class.actives]="activeTab === 'profile'"
       >
-        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
-        Information
+        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> 
+        About Us
       </li>
       <li
         *ngIf="agentDetails?.gallery_images"
@@ -339,7 +339,7 @@
                 class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
               >
                 <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+                  >Hours of Operation:</span
                 >
                 <div class="media-body">
                   <p *ngFor="let time of openingHour" class="mt-0">
