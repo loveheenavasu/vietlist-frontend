@@ -656,3 +656,9 @@ a:visited {
     width: 24px;
     text-align: center;
 }
+.agent-name{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}

@@ -336,12 +336,12 @@
           @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
             <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
               <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+                class="d-block text-center text-md-left d-md-flex p-3 timing-cont"
               >
-                <span style="font-size: 22px; font-weight: 600; color: black"
+                <span style="font-size: 22px; font-weight: 600; color: black; text-align: start;"
                   >Hours of Operation:</span
                 >
-                <div class="media-body">
+                <div class="media-body p-0">
                   <p *ngFor="let time of openingHour" class="mt-0">
                     @if (time != 'null' && time != "undefined") {
                       <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
