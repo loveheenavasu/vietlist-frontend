@@ -449,6 +449,7 @@
              @if(service.length !== 0){
               <mat-chip-row
               (removed)="remove(service)"
+              style="margin-left: 10px;"
               >
               {{service}}
               <button matChipRemove [attr.aria-label]="'remove ' + service.name">
