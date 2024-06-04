@@ -5,9 +5,9 @@
 </section> -->
 <div class="container">
   <div class="main-card">
-    <form [formGroup]="CompleteProfile">
+    <form >
       <section class="my-4">
-        <div class="row my-4">
+        <div class="row my-3">
           <div class="col-12 col-lg-12">
             <label for="name" class="listing-form-label"
             >Company Logo <span class="asterik">*</span></label
@@ -74,7 +74,7 @@
         <div class="row my-4 px-2">
           <div class="col-12 col-md-12 col-lg-12">
             <label for="name" class="listing-form-label"
-              >Business Hours <span class="asterik">*</span></label
+              >Business Hours </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -238,7 +238,16 @@
             >Additional Email <span class="asterik">*</span></label
           >
             <div class="col-12">
-              <input type="text" class="input-control" [formControl]="additionalEmail" />
+              <input type="text" class="input-control" [formControl]="additionalEmail" placeholder="Enter email"/>
+              @if (
+                additionalEmail?.touched &&
+                additionalEmail?.hasError('required')
+              ) {
+                <span class="error-message">Email is required</span>
+              }
+              @if (additionalEmail?.hasError('pattern')) {
+                <span class="error-message">Enter valid email</span>
+              }
             </div>
 
         </div>
@@ -252,7 +261,7 @@
             <input
               class="input-control"
               placeholder="Enter Facebook url"
-              formControlName="facebook"
+              [formControl]="facebook"
             />
             <div *ngIf="facebook?.invalid && facebook?.touched" class="error-message">
               Please enter a valid link.
@@ -269,7 +278,7 @@
             <input
               class="input-control"
               placeholder="Enter Instagram url"
-              formControlName="instagram"
+              [formControl]="instagram"
             />
             <div *ngIf="instagram?.invalid && instagram?.touched" class="error-message">
               Please enter a valid link.
@@ -286,7 +295,7 @@
             <input
               class="input-control"
               placeholder="Enter Twitter url"
-              formControlName="twitter"
+              [formControl]="twitter"
             />
             <div *ngIf="twitter?.invalid && twitter?.touched" class="error-message">
               Please enter a valid link.
@@ -395,6 +404,7 @@
               [(ngModel)]="latitude"
               [ngModelOptions]="{ standalone: true }"
               readonly
+              placeholder="Latitude"
             />
           </div>
         </div>
@@ -411,6 +421,7 @@
               [(ngModel)]="longitude"
               [ngModelOptions]="{ standalone: true }"
               readonly
+              placeholder="Longitude"
             />
           </div>
         </div>
@@ -433,15 +444,18 @@
                      (matChipInputTokenEnd)="add($event)"/>
             </mat-chip-grid>
             <br/>
+            
             @for (service of services; track service) {
+             @if(service.length !== 0){
               <mat-chip-row
-                (removed)="remove(service)"
-                >
-                {{service}}
-                <button matChipRemove [attr.aria-label]="'remove ' + service.name">
-                  <mat-icon>cancel</mat-icon>
-                </button>
-              </mat-chip-row>
+              (removed)="remove(service)"
+              >
+              {{service}}
+              <button matChipRemove [attr.aria-label]="'remove ' + service.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+             }
             }
           </div>
         </div>
@@ -451,7 +465,7 @@
             <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
             <div class="row">
               <div class="col-sm-2 col-md-12">
-                <label for="" class="listing-form-label mb-2">Gallery Images</label>
+                <label for="" class="listing-form-label mb-2">Gallery Images <span class="asterik">*</span></label>
               </div>
               <div class="col-sm-10 col-md-12 upload-instruction"></div>
             </div>
@@ -476,8 +490,9 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn" style="width:100%" (click)="submit()">
-            Submit
+          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !facebook.value || !businessLogoUrl.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
+            <span *ngIf="!isLoader">Submit</span>
+            <app-loader *ngIf="isLoader"></app-loader>
           </button>
         </div>
       </section>

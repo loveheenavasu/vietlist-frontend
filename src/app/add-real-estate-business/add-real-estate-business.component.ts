@@ -93,6 +93,7 @@ export class AddRealEstateBusinessComponent {
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
+  public isLoader:boolean = false
   public facebook = new FormControl('', [
     Validators.required,
     Validators.pattern(
@@ -105,7 +106,7 @@ export class AddRealEstateBusinessComponent {
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
-  public additionalEmail = new FormControl('', [
+  public additionalEmail:any = new FormControl('', [
     Validators.required,
     Validators.email,
     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
@@ -145,7 +146,7 @@ export class AddRealEstateBusinessComponent {
     { name: 'Sa', times: [{ start: '', end: '' }] },
     { name: 'Su', times: [{ start: '', end: '' }] },
   ]
-  public CompleteProfile: FormGroup
+  public CompleteProfile!: FormGroup
   public formattedData!: any[]
   public selected24HrDay: any[] = []
   public showTimeTable: boolean = false
@@ -159,7 +160,7 @@ export class AddRealEstateBusinessComponent {
   public imageUrl: any
   public addOnBlur = true
   readonly separatorKeysCodes: any = [ENTER, COMMA] as const
-  public services: any[] = []
+  public services:any[] = []
   public announcer = inject(LiveAnnouncer)
   public imagePreviews: any[] = []
   public userDetails: any
@@ -177,6 +178,7 @@ export class AddRealEstateBusinessComponent {
   ) {
     this.authService.userDetailResponse.subscribe((res) => {
       this.userDetails = res
+      this.getRealEstateUserDetails()
     })
     // Now, you can use timezone-related functions safely
     const timeZoneNames = moment?.tz?.names()
@@ -199,26 +201,7 @@ export class AddRealEstateBusinessComponent {
     })
 
     this.isLastRemoved = new Array<boolean>(this.days.length).fill(false)
-    this.CompleteProfile = this.fb.group({
-      consultation_booking_link: [
-        '',
-        Validators.pattern(
-          /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
-        ),
-      ],
-      consultation_mode: [''],
-      consultation_description: ['', [Validators.maxLength(254)]],
-      services_list: ['', [Validators.maxLength(254)]],
-      price: [''],
-      video_url: [
-        '',
-        Validators.pattern(
-          /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
-        ),
-      ],
-      business_hours: [''],
-      special_offers: ['', Validators.required],
-    })
+
     this.formatData()
   }
 
@@ -604,6 +587,7 @@ export class AddRealEstateBusinessComponent {
   }
 
   public submit() {
+    this.isLoader = true
     const selectedDaysData = this.days.filter((day) =>
       this.currentSelectedWeek.includes(day.name),
     )
@@ -637,7 +621,7 @@ export class AddRealEstateBusinessComponent {
     }
     console.log(businessHours, 'businessHours')
     const body = {
-      company_logo: this.businessLogoUrl.join(),
+      company_logo: this.businessLogoUrl,
       additional_contact_information: {
         contact: this.contact_details?.value?.e164Number,
         instagram: this.instagram.value,
@@ -659,7 +643,6 @@ export class AddRealEstateBusinessComponent {
       business_hours: businessHours,
       gallery_images: this.imagePreviews,
     }
-
     this.profileServce.completeRealEstateProfile(body).subscribe({
       next: (res) => {
         Swal.fire({
@@ -672,9 +655,12 @@ export class AddRealEstateBusinessComponent {
           timer: 3000,
           timerProgressBar: true,
         })
-        this.router.navigateByUrl('/manage-profile')
+        this.isLoader = false
+        this.getRealEstateUserDetails()
       },
-      error: (err) => {},
+      error: (err) => {
+        this.isLoader = false
+      },
     })
   }
 
@@ -706,6 +692,15 @@ export class AddRealEstateBusinessComponent {
           this.state = res?.data?.business_address?.state
           this.city = res?.data?.business_address?.city
           this.country = res?.data?.business_address?.country
+          this.businessLogoUrl = res?.data?.company_logo
+          if(res?.data?.services_offered.length){
+            this.services = res?.data?.services_offered
+          }
+          if(res?.data?.gallery_images.length){
+            this.imagePreviews = res?.data?.gallery_images
+          }
+         
+         
           console.log(res, 'Response')
         },
       })
