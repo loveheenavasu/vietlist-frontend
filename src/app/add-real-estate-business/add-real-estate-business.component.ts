@@ -93,7 +93,7 @@ export class AddRealEstateBusinessComponent {
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
-  public isLoader:boolean = false
+  public isLoader: boolean = false
   public facebook = new FormControl('', [
     Validators.required,
     Validators.pattern(
@@ -106,7 +106,7 @@ export class AddRealEstateBusinessComponent {
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
-  public additionalEmail:any = new FormControl('', [
+  public additionalEmail: any = new FormControl('', [
     Validators.required,
     Validators.email,
     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
@@ -160,7 +160,7 @@ export class AddRealEstateBusinessComponent {
   public imageUrl: any
   public addOnBlur = true
   readonly separatorKeysCodes: any = [ENTER, COMMA] as const
-  public services:any[] = []
+  public services: any[] = []
   public announcer = inject(LiveAnnouncer)
   public imagePreviews: any[] = []
   public userDetails: any
@@ -462,7 +462,6 @@ export class AddRealEstateBusinessComponent {
     this.files.push(...event.addedFiles)
     const formData = new FormData()
     for (var i = 0; i < this.files.length; i++) {
-      console.log(this.files[i], 'this.files[i]')
       formData.append('file[]', this.files[i])
     }
     this.displayBusinessLogo()
@@ -484,7 +483,6 @@ export class AddRealEstateBusinessComponent {
           this.isImageLoading = false
           this.imageUrl = res.image_url
           this.businessLogoUrl = [res.image_url] // Replace old preview with new one
-          console.log(this.businessLogoUrl, 'businessLogo')
         },
         error: (err: any) => {
           // Handle errors
@@ -524,7 +522,6 @@ export class AddRealEstateBusinessComponent {
   onSelectImage(event: any) {
     this.files = [...event.addedFiles]
     if (this.files.length > 20) {
-      console.log('upload 20 images ')
       Swal.fire({
         toast: true,
         text: 'You can upload only 20 images',
@@ -568,9 +565,7 @@ export class AddRealEstateBusinessComponent {
       this.businessService.uploadMedia(file).subscribe({
         next: (res: any) => {
           this.isImageUploading = false
-          console.log(this.imagePreviews, 'this.imagePreviews up')
           this.imagePreviews.push(res.image_url)
-          console.log(this.imagePreviews, 'this.imagePreviews down')
           if (this.imagePreviews.length >= maxImages) {
             this.isImageUploading = false
           }
@@ -608,7 +603,6 @@ export class AddRealEstateBusinessComponent {
       const times = jsonData[day] ? jsonData[day].join(',') : ''
       return `${day} ${times}`
     })
-    console.log(resultArray, 'resultArray')
 
     const selectedData = this.formatTimezone([this.selectedData])
     let businessHours = null
@@ -619,7 +613,6 @@ export class AddRealEstateBusinessComponent {
         businessHours = `${JSON.stringify(resultArray)},[]`
       }
     }
-    console.log(businessHours, 'businessHours')
     const body = {
       company_logo: this.businessLogoUrl,
       additional_contact_information: {
@@ -693,15 +686,46 @@ export class AddRealEstateBusinessComponent {
           this.city = res?.data?.business_address?.city
           this.country = res?.data?.business_address?.country
           this.businessLogoUrl = res?.data?.company_logo
-          if(res?.data?.services_offered.length){
+          if (res?.data?.services_offered.length) {
             this.services = res?.data?.services_offered
           }
-          if(res?.data?.gallery_images.length){
+          if (res?.data?.gallery_images.length) {
             this.imagePreviews = res?.data?.gallery_images
           }
-         
-         
-          console.log(res, 'Response')
+
+          if (res?.data?.business_hours) {
+            let businessHours = this.parse(res?.data?.business_hours)
+            // this.showTimeTable = true;
+            let selectedTimeZone = this.changeTimeZoneFormat(
+              businessHours.pop(),
+            )
+            if (selectedTimeZone) {
+              this.selectedData = selectedTimeZone
+            }
+            const hours = this.combineMultipleTime(businessHours)
+              .flat()
+              ?.map((item: any) => [item])
+            const formattedDays = hours?.map((day: any) => {
+              const value = day?.map((item: any) => item)?.[0]?.split(' ')
+              const times = value[1]?.split(',')
+              return {
+                name: value?.[0],
+                times: times?.map((time: string) => {
+                  return {
+                    start: time?.split('-')?.[0] || '',
+                    end: time?.split('-')?.[1] || '',
+                  }
+                }),
+              }
+            })
+            this.days?.forEach((day) => {
+              formattedDays?.forEach((newDay: any) => {
+                if (day?.name === newDay?.name) {
+                  day.times = newDay?.times
+                }
+              })
+            })
+          }
         },
       })
   }

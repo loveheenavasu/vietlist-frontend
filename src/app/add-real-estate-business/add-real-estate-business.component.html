@@ -29,7 +29,7 @@
           <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
 
           <div class="main_images mt-3">
-            <div class="images__">
+            <div class="images__" *ngIf="businessLogoUrl" >
               @for (preview of businessLogoUrl; track $index) {
                 <div class="removeImage">
                   <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
@@ -94,68 +94,27 @@
                       <td>
                         <!-- <i class="fa fa-dot-circle-o" aria-hidden="true"></i> -->
                         <div class="form-check">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            [value]="day.name"
-                            id="terms"
-                            (change)="onWeekSelect(day.name, $event, dayIndex)"
-                            [checked]="checkHours(day)"
-                          />
+                          <input class="form-check-input" type="checkbox" [value]="day.name" id="terms"
+                            (change)="onWeekSelect(day.name, $event,dayIndex)" [checked]="checkHours(day)" />
                         </div>
                       </td>
                       <td>
-                        <ng-container
-                          *ngFor="let time of day.times; let timeIndex = index"
-                        >
+                        <ng-container *ngFor="let time of day.times; let timeIndex = index">
                           <div class="row">
                             <div class="col-10 d-flex">
                               <div>
                                 <input
-                                  [disabled]="
-                                    selected24HrDay.includes(day.name)
-                                  "
-                                  [(ngModel)]="day.times[timeIndex].start"
-                                  (ngModelChange)="
-                                    onChange(
-                                      $event,
-                                      day.times[timeIndex].end,
-                                      day.name
-                                    )
-                                  "
-                                  class="input-control"
-                                  type="time"
-                                  placeholder="Start Time"
-                                  [ngModelOptions]="{ standalone: true }"
-                                  [(ngModel)]="day.times[timeIndex].start"
-                                />
+                                [disabled]="selected24HrDay.includes(day.name)" [(ngModel)]="day.times[timeIndex].start" (ngModelChange)='onChange($event,day.times[timeIndex].end,day.name)' class="input-control" type="time" placeholder="Start Time"
+                                  [ngModelOptions]="{ standalone: true }" [(ngModel)]="day.times[timeIndex].start" />
                               </div>
                               <div>
                                 <input
-                                  [disabled]="
-                                    selected24HrDay.includes(day.name)
-                                  "
-                                  [(ngModel)]="day.times[timeIndex].end"
-                                  (ngModelChange)="
-                                    onChange(
-                                      $event,
-                                      day.times[timeIndex].start,
-                                      day.name
-                                    )
-                                  "
-                                  class="input-control"
-                                  type="time"
-                                  placeholder="End Time"
-                                  [ngModelOptions]="{ standalone: true }"
-                                />
+                                [disabled]="selected24HrDay.includes(day.name)"[(ngModel)]="day.times[timeIndex].end" (ngModelChange)='onChange($event,day.times[timeIndex].start,day.name)' class="input-control" type="time" placeholder="End Time"
+                                  [ngModelOptions]="{ standalone: true }"  />
                               </div>
                             </div>
                             <div class="col-2">
-                              <i
-                                class="fa fa-minus-circle"
-                                aria-hidden="true"
-                                (click)="removeTime(dayIndex, timeIndex)"
-                              ></i>
+                              <i class="fa fa-minus-circle" aria-hidden="true" (click)="removeTime(dayIndex, timeIndex)"></i>
                             </div>
                           </div>
                         </ng-container>
@@ -163,32 +122,21 @@
                       <td>
                         <div class="row">
                           <div class="col">
-                            <i
-                              class="fa fa-plus-circle"
-                              aria-hidden="true"
-                              (click)="addTime(dayIndex)"
-                            ></i>
+                            <i class="fa fa-plus-circle" aria-hidden="true" (click)="addTime(dayIndex)"></i>
                           </div>
                         </div>
                       </td>
                     </tr>
                   </ng-container>
-
+      
                   <tr>
                     <th style="text-align: center; vertical-align: middle">
                       Timezone:
                     </th>
                     <td colspan="4">
-                      <ng-select
-                        class="select2-selection"
-                        [items]="formattedData"
-                        bindLabel="label"
-                        bindValue="label"
-                        placeholder="Select your timezone.."
-                        [groupBy]="'value'"
-                        [ngModelOptions]="{ standalone: true }"
-                        [(ngModel)]="selectedData"
-                      >
+                      <ng-select class="select2-selection" [items]="formattedData" bindLabel="label" bindValue="label"
+                        placeholder="Select your timezone.." [groupBy]="'value'" [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="selectedData">
                       </ng-select>
                     </td>
                   </tr>
@@ -490,7 +438,7 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !facebook.value || !businessLogoUrl.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
+          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !facebook.value || !businessLogoUrl?.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
             <span *ngIf="!isLoader">Submit</span>
             <app-loader *ngIf="isLoader"></app-loader>
           </button>
