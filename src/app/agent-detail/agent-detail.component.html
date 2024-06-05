@@ -9,12 +9,12 @@
   </div>
   <div class="iconDirection">
     <span
-      *ngIf="additionalContactInformation?.facebook"
+      *ngIf="agentDetails?.additional_contact_information?.facebook"
       class="elementor-grid-item"
       style="background: #3b5998"
     >
       <a
-        href="{{ additionalContactInformation?.facebook }}"
+        href="{{ agentDetails?.additional_contact_information?.facebook }}"
         style="padding: 3px"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
         target="_blank"
@@ -26,12 +26,12 @@
       ></a>
     </span>
     <span
-      *ngIf="additionalContactInformation?.twitter"
+      *ngIf="agentDetails?.additional_contact_information?.twitter"
       class="elementor-grid-item"
       style="background: #1da1f2"
     >
       <a
-        href="{{ additionalContactInformation?.twitter }}"
+        href="{{ agentDetails?.additional_contact_information?.twitter }}"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
         target="_blank"
       >
@@ -42,11 +42,11 @@
       ></a>
     </span>
     <span
-      *ngIf="additionalContactInformation?.instagram"
+      *ngIf="agentDetails?.additional_contact_information?.instagram"
       class="elementor-grid-item"
     >
       <a
-        [href]="additionalContactInformation?.instagram"
+        [href]="agentDetails?.additional_contact_information?.instagram"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
         target="_blank"
       >
@@ -58,14 +58,14 @@
       ></a>
     </span>
     <span
-      *ngIf="businessAddress?.fullAddress"
+      *ngIf="agentDetails?.business_address?.fullAddress"
       class="elementor-grid-item"
       style="background: #0073a4"
     >
       <a
         class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
         target="_blank"
-        (click)="openGoogleMapss(businessAddress?.fullAddress)"
+        (click)="openGoogleMapss(agentDetails?.business_address?.fullAddress)"
       >
         <i
           class="fas fa-directions size_icon"
@@ -84,8 +84,8 @@
         (click)="scrollTo('profile')"
         [class.actives]="activeTab === 'profile'"
       >
-        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
-        Information
+        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> 
+        About Us
       </li>
       <li
         *ngIf="agentDetails?.gallery_images"
@@ -96,7 +96,7 @@
         Photos
       </li>
       <li
-        *ngIf="businessAddress?.longitude && businessAddress?.latitude"
+        *ngIf="longitude && longitude"
         (click)="scrollTo('mapView')"
         [class.active]="activeTab === 'mapView'"
       >
@@ -137,14 +137,23 @@
             {{ agentDetails?.description }}
           </p>
         }
-        <div class="tag-container">
+        @if (agentDetails?.services_offered) {
+          <h3 class="event-page-headings">
+            <i
+              class="fa fa-handshake"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i>
+            Business offered
+          </h3>
+          <hr />
           <p
-            *ngFor="let offer of agentDetails?.services_offered"
-            class="tag-creation"
-          >
-            {{ offer }}
-          </p>
-        </div>
+          *ngFor="let offer of agentDetails?.services_offered"
+          class="tag-creation"
+        >
+          {{ offer }}
+        </p>
+        }
         @if (agentDetails?.gallery_images) {
           <div class="row my-4" id="photo">
             <div class="col-12 col-md-12 col-lg-12">
@@ -181,7 +190,7 @@
             </div>
           </div>
         }
-        @if (businessAddress?.longitude && businessAddress?.latitude) {
+        @if (longitude && latitude) {
           <div class="row my-4" id="mapView">
             <div class="col-12 col-md-12 col-lg-12">
               <h3 class="event-page-headings">
@@ -241,12 +250,12 @@
         @if (
           agentDetails?.company_logo ||
           agentDetails?.address ||
-          businessAddress?.fullAddress ||
+          agentDetails?.business_address?.fullAddress ||
           agentDetails?.email ||
-          additionalContactInformation?.contact ||
+          agentDetails?.additional_contact_information?.contact ||
           agentDetails?.primary_phone_no
         ) {
-          <div class="profile-info-div mt-3 position-relative">
+          <div class="profile-info-div mt-3 position-relative box-shadow ">
             <h3>Contact Info</h3>
             <div class="logo-containerr">
               <img [src]="agentDetails?.company_logo" alt="" />
@@ -267,15 +276,15 @@
               </div>
               <div
                 class="location link"
-                *ngIf="businessAddress?.fullAddress"
-                (click)="openGoogleMapss(businessAddress?.fullAddress)"
+                *ngIf="agentDetails?.business_address?.fullAddress"
+                (click)="openGoogleMapss(agentDetails?.business_address?.fullAddress)"
               >
                 <i
                   class="fa-solid fa-map-marked"
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
                 ></i>
                 <span>
-                  {{ businessAddress?.fullAddress }}
+                  {{ agentDetails?.business_address?.fullAddress }}
                 </span>
               </div>
               <div
@@ -294,8 +303,8 @@
               </div>
               <div
                 class="location link"
-                *ngIf="additionalContactInformation?.contact"
-                (click)="callNumber(additionalContactInformation?.contact)"
+                *ngIf="agentDetails?.additional_contact_information?.contact"
+                (click)="callNumber(agentDetails?.additional_contact_information?.contact)"
               >
                 <i
                   class="fa fa-phone"
@@ -303,7 +312,7 @@
                   style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
                 ></i>
                 <span>
-                  {{ additionalContactInformation?.contact }}
+                  {{ agentDetails?.additional_contact_information?.contact }}
                 </span>
               </div>
               <div
@@ -327,12 +336,12 @@
           @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
             <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
               <div
-                class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+                class="d-block text-center text-md-left d-md-flex p-3 timing-cont"
               >
-                <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+                <span style="font-size: 22px; font-weight: 600; color: black; text-align: start;"
+                  >Hours of Operation:</span
                 >
-                <div class="media-body">
+                <div class="media-body p-0">
                   <p *ngFor="let time of openingHour" class="mt-0">
                     @if (time != 'null' && time != "undefined") {
                       <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>

@@ -35,8 +35,6 @@ export class AgentDetailComponent {
   currentAddress: any
   isDistanceLoading: any
   businessHour: any
-  businessAddress: any
-  additionalContactInformation: any
   agentId: any
   public openingHour: any[] = []
 
@@ -49,7 +47,6 @@ export class AgentDetailComponent {
     public businessService: BusinessService,
   ) {
     this._activatedRoute.params.subscribe((res) => {
-      console.log(res, 'response')
       this.agentId = res['id']
     })
   }
@@ -111,8 +108,8 @@ export class AgentDetailComponent {
     if (mapElement !== null) {
       this.map = new google.maps.Map(mapElement, {
         center: {
-          lat: this.businessAddress.latitude,
-          lng: this.businessAddress.longitude,
+          lat: this.latitude,
+          lng: this.longitude,
         },
         zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -340,10 +337,16 @@ export class AgentDetailComponent {
         this.loader.hideLoader()
         this.agentDetails = res?.data
         let addressOnMap = res?.data?.business_address || res?.data?.address
-        this.geocodeAddress(addressOnMap)
-        if (true) {
+        let { latitude, longitude } = res?.data?.business_address
+        if (longitude && latitude) {
+          this.latitude = latitude
+          this.longitude = longitude
+          this.cd.detectChanges()
+          this.initMap()
+        }
+        if (res?.data?.business_hours) {
           this.openingHour = this.businessService.combineMultipleTime(
-            this.parse(res?.business_hours),
+            this.parse(res?.data?.business_hours),
           )
         }
       },

@@ -62,7 +62,7 @@ export class PropertyListingsComponent {
   getPropertiesData() {
     this.fullPageLoaderService.showLoader()
     this.businessCategoriesService
-      .getMlsData()
+      .getMlsData(this.currentPage , this.postPerPage)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: any) => {
