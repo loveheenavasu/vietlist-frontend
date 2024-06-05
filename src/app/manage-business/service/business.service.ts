@@ -267,9 +267,12 @@ export class BusinessService {
     }
   }
 
-  public getMlsData():Observable<any>{
+  public getMlsData(page_no:any , posts_per_page:any):Observable<any>{
+    const params = new HttpParams()
+    .set('page_no', page_no)
+    .set('posts_per_page',posts_per_page)
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetMLSData)
-    return this.http.get<any>(endpoint)
+    return this.http.get<any>(endpoint , {params:params})
   }
 
 }
