@@ -98,7 +98,7 @@ export class BusinessDetailsComponent {
   public isReplycomFieldOpen: boolean = false
   public replyIndex: number = -1
   public replyIndexshow: number = -1
-  public isAuthentecate!: boolean
+  public isAuthentecate: boolean = true
   public slectedvalue: boolean = false
   public storValues: any
   public userDetail: any
@@ -194,23 +194,6 @@ export class BusinessDetailsComponent {
       email: ['', Validators.required],
     })
 
-    this.sessionService.isAuthenticated$.subscribe((res: any) => {
-      if (res) {
-        this.isAuthentecate = res
-        const controlsToValidate = ['comment_author_email', 'comment_author']
-
-        controlsToValidate.forEach((controlName) => {
-          const control = this.reviewForm.get(controlName)
-          if (!res) {
-            control?.setValidators(Validators.required)
-          } else {
-            control?.clearValidators()
-          }
-          control?.updateValueAndValidity()
-        })
-      }
-    })
-
     this._activatedRoute.params.subscribe((res) => {
       this.postId = res['id']
     })
@@ -301,6 +284,23 @@ export class BusinessDetailsComponent {
   }
 
   ngOnInit() {
+    this.sessionService.isAuthenticated$.subscribe((res: any) => {
+      if (res) {
+        console.log(res, 'resssssss')
+        this.isAuthentecate = res
+        const controlsToValidate = ['comment_author_email', 'comment_author']
+
+        controlsToValidate.forEach((controlName) => {
+          const control = this.reviewForm.get(controlName)
+          if (!res) {
+            control?.setValidators(Validators.required)
+          } else {
+            control?.clearValidators()
+          }
+          control?.updateValueAndValidity()
+        })
+      }
+    })
     this.getIntegrationVideo()
     // this.getBusinessCat()
     if (
