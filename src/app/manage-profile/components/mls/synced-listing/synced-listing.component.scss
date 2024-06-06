@@ -254,6 +254,12 @@
     margin: 8px 3px;
   }
   
+  @media(max-width:920px){
+    .grid-list-icon{
+        display: none!important;
+        visibility: hidden;
+    }
+}
 @media(max-width: 766px) {
 
     .search {
