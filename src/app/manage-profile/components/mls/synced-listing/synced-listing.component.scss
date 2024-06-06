@@ -255,7 +255,9 @@
   }
   
 @media(max-width: 766px) {
-
+.list-grid-icon{
+    display: none !important;
+}
     .search {
         flex-direction: column;
 
