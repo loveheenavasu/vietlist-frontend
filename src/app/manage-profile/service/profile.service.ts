@@ -200,7 +200,7 @@ export class ProfileService {
     const authToken: any = this.sessionService.getAuthHeaders()
     const params = new HttpParams()
       .set('posts_per_page', posts_per_page)
-      .set('page', page)
+      .set('page_no', page)
     return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
 

@@ -91,7 +91,7 @@
                   <ng-container *ngFor="let day of days; let dayIndex = index">
                     <tr>
                       <td>{{ day.name }}</td>
-                      <td>
+                      <td class='check-box-24-hr' >
                         <!-- <i class="fa fa-dot-circle-o" aria-hidden="true"></i> -->
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" [value]="day.name" id="terms"

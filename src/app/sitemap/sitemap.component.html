@@ -6,10 +6,10 @@
 
 <div class="sitemap-container">
   <div class="links-container">
-    <div class="row">
+    <div class="d-flex flex-wrap gap-5">
         @for (item of links; track $index) {
-            <div class="col-3 my-3 ">
-              <span class='module-title' > {{item.module}} </span>
+            <div class="my-3 link-card ">
+              <span class='module-title text-nowrap' > {{item.module}} </span>
               <ul class='p-0 list-unstyled mt-2 ' >
                 @for (link of item.links; track $index) {
                     <li class='links' (click)="router.navigateByUrl(link.url)" > {{link.name}} </li>

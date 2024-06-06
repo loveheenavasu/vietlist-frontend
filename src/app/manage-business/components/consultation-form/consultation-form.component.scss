@@ -113,3 +113,9 @@ video{
 ::ng-deep.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
     color: var(--primary-color-mustard) !important;
 }
+
+@media(max-width:400px){
+  .check-box-24-hr{
+    width: 48px;
+  }
+}
