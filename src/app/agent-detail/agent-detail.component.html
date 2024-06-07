@@ -109,7 +109,7 @@
   <div class="container">
     <div class="row mt-2 pt-4" id="profile">
       <div class="col-12 col-md-12 col-lg-8">
-        @if (agentDetails?.business_description) {
+        <!-- @if (agentDetails?.business_description) { -->
           <h3 class="event-page-headings">
             <i
               class="fa fa-home"
@@ -120,10 +120,10 @@
           </h3>
           <hr />
           <p class="text-break">
-            {{ agentDetails?.business_description }}
+            {{ agentDetails?.business_description || 'Not Found'}}
           </p>
-        }
-        @if (agentDetails?.description) {
+        <!-- } -->
+        <!-- @if (agentDetails?.description) { -->
           <h3 class="event-page-headings">
             <i
               class="fa fa-home"
@@ -134,9 +134,9 @@
           </h3>
           <hr />
           <p class="text-break">
-            {{ agentDetails?.description }}
+            {{ agentDetails?.description || 'Not Found'}}
           </p>
-        }
+        <!-- } -->
         @if (agentDetails?.services_offered) {
           <h3 class="event-page-headings">
             <i
@@ -151,7 +151,8 @@
           *ngFor="let offer of agentDetails?.services_offered"
           class="tag-creation"
         >
-          {{ offer }}
+          {{ offer}}
+          
         </p>
         }
         @if (agentDetails?.gallery_images) {
