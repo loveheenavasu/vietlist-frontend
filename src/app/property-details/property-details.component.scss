@@ -119,7 +119,14 @@ img {
 }
 
 .container {
-   margin-top:8em
+   margin-top:4em
+}
+
+@media(max-width:490px) {
+    .container{
+        margin-top:0em
+    }
+
 }
 
 .content___info {
@@ -292,6 +299,10 @@ img {
                 }
             }
         }
+    }
+
+    .blog-banner{
+        margin: 0;
     }
 
 }
