@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-view-lead',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './view-lead.component.html',
   styleUrl: './view-lead.component.scss',
 })
@@ -135,7 +136,5 @@ export class ViewLeadComponent {
     this.data = navigation?.extras?.state?.['data']
   }
 
-  ngOnInit(): void {
-    console.log(this.data)
-  }
+  ngOnInit(): void {}
 }

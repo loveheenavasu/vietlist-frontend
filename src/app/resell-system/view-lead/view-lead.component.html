@@ -10,20 +10,25 @@
     </div>
     <div class="card-body">
       <div class="card-bodyy row">
-        @for (keys of allKeys; track $index) {
-          @if (data[keys.key]) {
-            <div class="key-value col-6 col-lg-3 col-md-4 col-sm-6 ">
-              <span class="label">{{ keys.title }}:</span>
-              <span class="value"> {{keyToValue[data[keys.key]] || data[keys.key] }} </span>
-            </div>
+        @if (data) {
+
+          @for (keys of allKeys; track $index) {
+            @if (data[keys.key]) {
+              <div class="key-value col-6 col-lg-3 col-md-4 col-sm-6 ">
+                <span class="label">{{ keys.title }}:</span>
+                <span class="value"> {{keyToValue[data[keys.key]] || data[keys.key] }} </span>
+              </div>
+            }
           }
+        }@else {
+          <span> No data found! </span>
         }
       </div>
     </div>
     <div class="card-footer"> 
-        <span> <li class='fa-solid fa-phone'></li> {{data["phone_number"]}} </span>
-        <span> <li class='fa-solid fa-envelope'></li> {{data["email"]}} </span>
-        <span> <li class='fa-solid fa-location'></li> {{data["current_mailing_address"]}} </span>
+        <span *ngIf="data['phone_number']" > <li class='fa-solid fa-phone'></li> {{data["phone_number"]}} </span>
+        <span *ngIf="data['email']" > <li class='fa-solid fa-envelope'></li> {{data["email"]}} </span>
+        <span *ngIf="data['current_mailing_address']" > <li class='fa-solid fa-location'></li> {{data["current_mailing_address"]}} </span>
       </div>
   </div>
 </div>
