@@ -176,7 +176,10 @@ export class ResourcesComponent {
     })
   }
 
-  openBooks(book: any) {
-    window.location = book?.ebook_link
+  openBooks(book:any) {
+    if (book && book.ebook_link) {
+      window.open(book.ebook_link, '_blank');
+    }
   }
+  
 }
