@@ -35,7 +35,6 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LanguageService } from 'src/app/shared/utils/services/language.service'
-import { TranslateService as ts } from 'src/app/translte.service'
 declare global {
   interface Window {
     google: any
@@ -115,7 +114,6 @@ export class HeaderComponent {
     private destroyRef: DestroyRef,
     private languageService: LanguageService,
     private translateService: TranslateService,
-    private trans: ts,
   ) {
     this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
@@ -501,7 +499,6 @@ export class HeaderComponent {
   }
 
   ngAfterViewInit() {
-    this.trans.loadGoogleTranslate()
     this.loadGoogleTranslate()
   }
 }
