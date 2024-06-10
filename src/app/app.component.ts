@@ -1,6 +1,6 @@
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ErrorHandlerInterceptor } from '@vietlist/shared';
+import { MatDialog } from '@angular/material/dialog'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { ErrorHandlerInterceptor } from '@vietlist/shared'
 import { NgIf } from '@angular/common'
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
@@ -23,14 +23,14 @@ import { Observable } from 'rxjs'
 import { initializeApp } from 'firebase/app'
 import Swal from 'sweetalert2'
 import { ProfileService } from './manage-profile/service/profile.service'
-import { ChooseLanguageComponent } from './choose-language/choose-language.component';
+import { ChooseLanguageComponent } from './choose-language/choose-language.component'
 
 initializeApp(environment.firebaseConfig)
 declare namespace google {
   namespace translate {
     class TranslateElement {
-      static InlineLayout: any;
-      constructor(options: any, containerId: string);
+      static InlineLayout: any
+      constructor(options: any, containerId: string)
     }
   }
 }
@@ -45,7 +45,7 @@ declare namespace google {
     FullPageLoader,
     NgIf,
     PageNotFoundComponent,
-    TranslateModule
+    TranslateModule,
   ],
   template: `
     <app-header></app-header>
@@ -61,7 +61,7 @@ export class AppComponent {
   title = 'vietlist-frontend'
   public loaderVisible: boolean = false
   public isNotFoundPage: boolean = false
-  public isAuthenticated:boolean = false
+  public isAuthenticated: boolean = false
 
   constructor(
     private loaderService: FullPageLoaderService,
@@ -71,23 +71,21 @@ export class AppComponent {
     private oneSignal: OneSignal,
     private notificationService: NotificationService,
     private profileService: ProfileService,
-    private translateService:TranslateService,
-    public dialog:MatDialog
-    
+    private translateService: TranslateService,
+    public dialog: MatDialog,
   ) {
     // this.oneSignal.init({
     //   appId: "18528e71-bbe6-4933-b43a-0a4903923181",
     // });
-    this.authenticationService.isAuthenticated$.subscribe((res:any) => {
+    this.authenticationService.isAuthenticated$.subscribe((res: any) => {
       this.isAuthenticated = res
       if (this.isAuthenticated) {
         this.fetchProfileDetail()
       }
     })
     this.translateService.use('en')
-
   }
-  
+
   ngOnInit() {
     this.translateService.use('en')
     this.loaderService.getLoaderVisibility().subscribe((res) => {
@@ -96,8 +94,6 @@ export class AppComponent {
     if (this.isAuthenticated) {
       this.fetchProfileDetail()
     }
-    // console.log("Hello APp")
-    // this.openLanguageDialog()
   }
 
   public requestPermission() {
@@ -105,20 +101,15 @@ export class AppComponent {
     getToken(messaging, { vapidKey: environment.firebaseConfig.vapidKey })
       .then((currentToken) => {
         if (currentToken) {
-        
         } else {
-         
         }
       })
-      .catch((err) => {
-        
-      })
+      .catch((err) => {})
   }
 
   public listen() {
     const messaging = getMessaging()
     onMessage(messaging, (payload) => {
-      
       this.message = payload
       this.notificationService.showNotification(payload)
       Swal.fire({
@@ -129,12 +120,11 @@ export class AppComponent {
     })
   }
 
-
   public fetchProfileDetail() {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.authenticationService.userDetailResponse.next(res?.data?.user)
-        console.log(res , "RESPONSE APP TS")
+        console.log(res, 'RESPONSE APP TS')
       },
       error: (err: any) => {
         this.router.navigateByUrl('/login')
@@ -144,51 +134,5 @@ export class AppComponent {
 
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
-  }
-
-public openLanguageDialog() {
-    const dialogRef = this.dialog.open(ChooseLanguageComponent);
-
-    dialogRef.componentInstance.languageSelected.subscribe((selectedLanguage: string) => {
-      this.loadGoogleTranslateScript(selectedLanguage);
-      console.log('Selected Language:', selectedLanguage);
-    });
-  }
-
-  private loadGoogleTranslateScript(language: string) {
-    const scriptId = 'google-translate-script';
-    let scriptElement:any = document.getElementById(scriptId);
-
-    if (scriptElement) {
-      scriptElement.remove();
-    }
-
-    scriptElement = document.createElement('script');
-    scriptElement.id = scriptId;
-    scriptElement.type = 'text/javascript';
-    scriptElement.src = `//translate.google.com/translate_a/element.js?sl=vi&cb=googleTranslateElementInit`;
-    let windoww:any = window
-    windoww['googleTranslateElementInit'] = () => {
-      new google.translate.TranslateElement({ pageLanguage: language || 'en', includedLanguages: 'en,vi'}, 'google_translate_element');
-    };
-
-    document.body.appendChild(scriptElement);
-    // this.googleScriptUrl()
-  }
-
-  private googleScriptUrl() {
-    const scriptId = 'google-url-script';
-    let scriptElement:any = document.getElementById(scriptId);
-
-    if (scriptElement) {
-      scriptElement.remove();
-    }
-
-    scriptElement = document.createElement('script');
-    scriptElement.id = scriptId;
-    scriptElement.type = 'text/javascript';
-    scriptElement.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
-    
-    document.body.appendChild(scriptElement);
   }
 }
