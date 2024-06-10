@@ -173,6 +173,9 @@
               <input type="number" class="input-control" placeholder="Number of bookings"
                 [formControl]="number_of_booking" />
             </div>
+            <div *ngIf="number_of_booking.errors?.['maxNumber']">
+              <span class='text-danger' >The number of bookings cannot be greater than {{ number_of_booking.errors?.['maxNumber'].max }}.</span>
+            </div>
             <div class="mt-3">
               <div class="form-group">
                 <div class="form-check">
@@ -185,7 +188,9 @@
               </div>
             </div>
             <div class="mt-3">
-              <button class="btn orange-background-btn-w-100" (click)="handleBookingNow(eventDetails.price)">
+              <button 
+              [disabled]="!this.booking_date.value || !this.number_of_booking.value || !this.term_and_condition.value || number_of_booking.invalid"
+              class="btn orange-background-btn-w-100" (click)="handleBookingNow(eventDetails.price)">
                 @if(isBookingLoader){
                 <app-loader></app-loader>
                 }@else{
@@ -828,7 +833,10 @@
                 <input type="number" class="input-control" placeholder="Number of bookings"
                   [formControl]="number_of_booking" min="1" />
               </div>
-              @if(numberofBookingPrice){
+              <div *ngIf="number_of_booking.errors?.['maxNumber']">
+                <span class='text-danger' >The number of bookings cannot be greater than {{ number_of_booking.errors?.['maxNumber'].max }}.</span>
+              </div>
+              @if(numberofBookingPrice && number_of_booking?.value){
               <div>
                 <h4 class="event-date mt-3">Total Price: $ {{numberofBookingPrice}} for {{number_of_booking.value}}
                   bookings.</h4>
@@ -847,7 +855,7 @@
               </div>
               <div class="mt-3">
                 <button class="btn orange-background-btn-w-100"
-                  [disabled]="!this.booking_date.value || !this.number_of_booking.value || !this.term_and_condition.value"
+                  [disabled]="!this.booking_date.value || !this.number_of_booking.value || !this.term_and_condition.value || number_of_booking.invalid"
                   (click)="handleBookingNow(eventDetails)">
                   @if(isBookingLoader){
                   <app-loader></app-loader>

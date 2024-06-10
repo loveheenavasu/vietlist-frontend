@@ -280,7 +280,7 @@
             class="btn orange-background-btn-w-100"
             type="submit"
             [disabled]="
-              !signupForm.valid || !term_and_condition.value || !direction
+              checkFormValid()
             "
             (click)="handleRegistrationSubmission()"
           >

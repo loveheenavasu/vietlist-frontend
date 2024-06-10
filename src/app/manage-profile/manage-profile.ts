@@ -57,6 +57,7 @@ export class ManageProfileComponent {
   BrokerMenu = [
     'Edit Profile',
     'Change Password',
+    'My Bookings',
     'All Leads',
     'My Purchases Leads',
     'Leads transaction history',
@@ -283,7 +284,7 @@ export class ManageProfileComponent {
               (tab) =>
                 tab.label !== 'Ads' &&
                 tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings'&&  
+                tab.label !== 'Synced Listings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads',
@@ -305,7 +306,6 @@ export class ManageProfileComponent {
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics' &&
-                tab.label !== 'My Bookings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads',
