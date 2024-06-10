@@ -96,8 +96,7 @@ export class AppComponent {
     if (this.isAuthenticated) {
       this.fetchProfileDetail()
     }
-    // console.log("Hello APp")
-    // this.openLanguageDialog()
+
   }
 
   public requestPermission() {
@@ -146,49 +145,8 @@ export class AppComponent {
     this.changeDetector.detectChanges()
   }
 
-public openLanguageDialog() {
-    const dialogRef = this.dialog.open(ChooseLanguageComponent);
 
-    dialogRef.componentInstance.languageSelected.subscribe((selectedLanguage: string) => {
-      this.loadGoogleTranslateScript(selectedLanguage);
-      console.log('Selected Language:', selectedLanguage);
-    });
-  }
 
-  private loadGoogleTranslateScript(language: string) {
-    const scriptId = 'google-translate-script';
-    let scriptElement:any = document.getElementById(scriptId);
 
-    if (scriptElement) {
-      scriptElement.remove();
-    }
-
-    scriptElement = document.createElement('script');
-    scriptElement.id = scriptId;
-    scriptElement.type = 'text/javascript';
-    scriptElement.src = `//translate.google.com/translate_a/element.js?sl=vi&cb=googleTranslateElementInit`;
-    let windoww:any = window
-    windoww['googleTranslateElementInit'] = () => {
-      new google.translate.TranslateElement({ pageLanguage: language || 'en', includedLanguages: 'en,vi'}, 'google_translate_element');
-    };
-
-    document.body.appendChild(scriptElement);
-    // this.googleScriptUrl()
-  }
-
-  private googleScriptUrl() {
-    const scriptId = 'google-url-script';
-    let scriptElement:any = document.getElementById(scriptId);
-
-    if (scriptElement) {
-      scriptElement.remove();
-    }
-
-    scriptElement = document.createElement('script');
-    scriptElement.id = scriptId;
-    scriptElement.type = 'text/javascript';
-    scriptElement.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
-    
-    document.body.appendChild(scriptElement);
-  }
+  
 }
