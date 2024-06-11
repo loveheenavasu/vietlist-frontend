@@ -837,7 +837,7 @@
                   [formControl]="number_of_booking" min="1" />
               </div>
               <div *ngIf="number_of_booking.errors?.['maxNumber']">
-                <span class='text-danger' >The number of bookings cannot be greater than {{ number_of_booking.errors?.['maxNumber'].max }}.</span>
+                <span class='text-danger' >You can't book more than {{ number_of_booking.errors?.['maxNumber'].max }} events</span>
               </div>
               @if(numberofBookingPrice && number_of_booking.value){
               <div>
