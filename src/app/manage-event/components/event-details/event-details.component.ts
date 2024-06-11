@@ -393,6 +393,7 @@ export class EventDetailsComponent {
   }
 
   public eventUserId: any
+  public totalBookingLeft: any
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
@@ -415,12 +416,22 @@ export class EventDetailsComponent {
         } else {
           this.isDateMatched = false
         }
+        let numberOfBooking = Number(res?.data?.[0].number_of_bookings)
+        let numberOfBookedEvent = Number(
+          res?.booking_detail?.total_number_of_booking,
+        )
+        if (numberOfBookedEvent > numberOfBooking) {
+          this.totalBookingLeft = 0
+        } else {
+          this.totalBookingLeft = numberOfBooking - numberOfBookedEvent
+        }
+        console.log(this.totalBookingLeft, 'totalBookingLeft')
         this.number_of_booking = new FormControl('', [
           Validators.required,
-          this.maxNumberValidator(Number(res?.data?.[0].number_of_bookings)),
+          this.maxNumberValidator(this.totalBookingLeft),
         ])
+
         this.number_of_booking.valueChanges.subscribe((res) => {
-          console.log(this.numberofBookingPrice)
           if (res) {
             this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
           }

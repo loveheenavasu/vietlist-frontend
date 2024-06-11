@@ -594,8 +594,8 @@ export class AddEventComponent {
       country: this.country,
       zip: this.zipcode,
       post_content: this.addEventForm.value.event_description,
-      featured_image: this.levelOneImageArr?.url,
-      attachment_id: this.levelOneImageArr?.attachment_id,
+      // featured_image: this.levelOneImageArr?.url,
+      // attachment_id: this.levelOneImageArr?.attachment_id,
       street: this.fullAddress,
       mapview: this.addEventForm.value.mapview,
       is_bookable_: this.isBookable.value ? 1 : 0,
@@ -612,6 +612,10 @@ export class AddEventComponent {
           this.addEventForm.value.booking_end_date,
           'yyyy-MM-dd',
         ) ?? '',
+    }
+    if (this.levelOneImageArr?.url) {
+      ;(body['featured_image'] = this.levelOneImageArr?.url),
+        (body[' attachment_id'] = this.levelOneImageArr?.attachment_id)
     }
     const formData = new FormData()
     Object.entries(body).forEach(([key, value]) => {
