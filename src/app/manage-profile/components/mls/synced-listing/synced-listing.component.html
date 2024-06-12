@@ -21,7 +21,7 @@
     </div>
     <div class="view-container">
       @if (selectedLayout == 'grid') {
-        <div class="grid-view-container row">
+        <div class="grid-view-container row  ">
           @for (
             key of properties
               | paginate
@@ -32,7 +32,7 @@
                   };
             track $index
           ) {
-            <div class="grid-card col-lg-5">
+            <div class="grid-card col-lg-5 fixHeight ">
               <div class="listing-img" (click)="viewProperty(key.ID)" >
                 <img
                   [src]="
@@ -97,7 +97,7 @@
           @for (key of properties; track $index) {
             <div class="d-flex small-screen-view">
               <div class="listing-img-container">
-                <div class="listing-img" (click)="viewProperty(key.ID)" >
+                <div class="listing-img" style='height: 150px;'  (click)="viewProperty(key.ID)" >
                   <img
                     [src]="
                       key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
