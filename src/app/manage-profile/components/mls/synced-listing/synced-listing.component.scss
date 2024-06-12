@@ -2,7 +2,7 @@
 @import "../../../../../assets/scss/banner";
 
 
-  
+
 
 ::ng-deep.ngx-pagination .current {
     background: var(--primary-color-orange) !important;
@@ -113,159 +113,169 @@
             padding-top: 1.25rem;
 
             .grid-card {
-                margin-right:1.5rem;
-                border-radius:2px;
+                margin-right: 1.5rem;
+                border-radius: 2px;
                 margin-bottom: 1.5rem;
                 padding: 0px;
                 box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
             }
-                .listing-img {
-                    height: 240px;
-                    position: relative;
 
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        border-top-right-radius: 4px;
-                        border-top-left-radius: 4px;
-                    }
+            .listing-img {
+                height: 240px;
+                position: relative;
 
-                    .badge{
-                        position: absolute;
-                        left: 0;
-                    }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-top-right-radius: 4px;
+                    border-top-left-radius: 4px;
                 }
 
-                .listing-description {
-                    padding: 1.25rem;
-                    color: #232f3e;
-
-                    .listing-heading {
-                        margin-bottom: 0.5rem;
-                        height: 1.5em;
-                        h3 {
-                            font-size: 1.25rem;
-                            cursor: pointer;
-                        }
-                        h3:hover {
-                            text-decoration: underline;
-                        }
-                    }
-
-                    .listing-info {
-                        font-size: 1rem;
-                        height:3rem;
-                    }
-
-                    .listing-rating {
-                        padding: 1.25em 0rem;
-                    }
+                .badge {
+                    position: absolute;
+                    left: 0;
                 }
             }
 
-            .list-view-container {
-                width: 100%;
-                height: 100%;
+            .listing-description {
+                padding: 1.25rem;
+                padding-bottom: 0px;
+                color: #232f3e;
 
-                .d-flex {
-                    margin-bottom: 1.875rem;
+                .listing-heading {
+                    margin-bottom: 0.5rem;
+                    height: 1.5em;
+
+                    h3 {
+                        font-size: 1.25rem;
+                    }
+
+                    // h3:hover {
+                    //     text-decoration: underline;
+                    // }
                 }
 
-                .listing-img-container {
-                    width: 29%;
-                    position: relative;
-                    .listing-img {
-
-                        img {
-                            border-top-right-radius: 4px;
-                            border-top-left-radius: 4px;
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                    }
-
+                .listing-info {
+                    font-size: 1rem;
+                    height: 3rem;
                 }
 
-                .listing-img-info {
-                    width: 71%;
-                    padding: 1.25rem;
-                    color: #232f3e;
-
-                    .listing-heading {
-                        h3 {
-                            font-size: 1.25rem;
-                            cursor: pointer;
-                        }
-                        h3:hover {
-                            text-decoration: underline;
-                        }
-                    }
-
-                    .listing-info{
-                        height: 100px;
-                    }
-
-                    .listing-rating {
-                        padding: 0.625rem;
-                    }
+                .listing-rating {
+                    padding: 1.25em 0rem;
                 }
             }
         }
-    
+
+        .list-view-container {
+            width: 100%;
+            height: 100%;
+
+            .d-flex {
+                margin-bottom: 1.875rem;
+            }
+
+            .listing-img-container {
+                width: 29%;
+                position: relative;
+
+                .listing-img {
+
+                    img {
+                        border-top-right-radius: 4px;
+                        border-top-left-radius: 4px;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+            }
+
+            .listing-img-info {
+                width: 71%;
+                padding-inline-start: 1.25rem;
+                color: #232f3e;
+
+                .listing-heading {
+                    h3 {
+                        font-size: 1.25rem;
+                        // cursor: pointer;
+                    }
+
+                    // h3:hover {
+                    //     text-decoration: underline;
+                    // }
+                }
+
+                .listing-info {
+                    height: 100px;
+                }
+
+                .listing-rating {
+                    padding: 0.625rem;
+                }
+            }
+        }
+    }
+
 }
 
-.badge{
+.badge {
     background-color: rgb(202, 0, 0);
     position: absolute;
-    top:0;
-    padding:8px;
-    border-radius:1px
+    top: 0;
+    padding: 8px;
+    border-radius: 1px
 }
+
 /* CSS to align "No records found" message */
 .grid-view-container {
     position: relative;
-  }
-  
-  .no-records-found {
+}
+
+.no-records-found {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color:rgb(179, 179, 179)
-  }
-  
+    color: rgb(179, 179, 179)
+}
 
-  .footer {
+
+.footer {
     // display: flex;
     // justify-content: space-between; /* Distribute items along the main axis */
-    align-items: center; /* Align items vertically */
+    align-items: center;
+    /* Align items vertically */
     height: auto;
-  }
-  
-  .footer i {
-    margin-right: 8px; /* Add some space between icon and border */
-    cursor:pointer
-  }
-  
-  .icons {
+    padding-inline-start: 1.25rem;
+}
+
+.footer i {
+    margin-right: 8px;
+    /* Add some space between icon and border */
+    cursor: pointer
+}
+
+.icons {
     display: flex;
-  }
-  
-  .email-marketing{
+}
+
+.email-marketing {
     background-color: #f3993e;
     width: fit-content;
-    padding: 5px 10px;
+    padding: 8px 33px;
     color: #fff;
     border-radius: 5px;
-    margin: 8px 3px;
-  }
-  
-@media(max-width: 766px) {
-.list-grid-icon{
-    display: none !important;
+    margin: 8px 0px;
 }
+
+@media(max-width: 766px) {
+    .list-grid-icon {
+        display: none !important;
+    }
+
     .search {
         flex-direction: column;
 
@@ -306,12 +316,13 @@
         }
     }
 }
+
 .heading_____ {
     display: flex;
     justify-content: space-between;
 }
 
-.listing-heading{
+.listing-heading {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -337,8 +348,26 @@
 }
 
 
-@media (min-width:992px){
-    .fixHeight{
-        height: 380px;
+@media (min-width:992px) {
+    .fixHeight {
+        height: 429px;
+    }
+
+    .listing-description {
+        height: 120px;
+    }
+}
+
+@media (min-width:768px) and (max-width:992px) {
+
+    .listing-description {
+        height: 103px;
+    }
+}
+
+@media(max-width:766px) {
+    .listing-img-info {
+        padding-top: 1.25rem !important;
+        padding-left: 0px !important ;
     }
 }

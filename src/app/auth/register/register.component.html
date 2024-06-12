@@ -205,9 +205,9 @@
                 appFormControlValidation
                 [validationMsgId]="'business-type-msg'"
               >
-                <mat-option value="retail">Retail</mat-option>
-                <mat-option value="restaurant">Restaurant</mat-option>
-                <mat-option value="restaurant">Service</mat-option>
+              @for (key of category; track $index) {
+                <mat-option [value]="key.id">{{ key.name }}</mat-option>
+              }
               </mat-select>
             </div>
           </div>

@@ -30,6 +30,7 @@ import {
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { debounceTime, Subject } from 'rxjs'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -100,6 +101,7 @@ export class RegisterComponent {
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
     private profileService: ProfileService,
+    private businessService: BusinessService,
   ) {
     this.signupForm = this.fb.nonNullable.group(
       {
@@ -148,8 +150,10 @@ export class RegisterComponent {
   direction: string = ''
 
   ngOnInit() {
+    this.getBusinessCat()
     this.selectedSignupType = Roles.businessOwner
   }
+  category: any
 
   checkFormValid() {
     const isFormInvalid =
@@ -166,6 +170,15 @@ export class RegisterComponent {
     }
 
     return false
+  }
+
+  public getBusinessCat() {
+    this.businessService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        this.category = res.data
+      },
+      error: (err) => {},
+    })
   }
 
   public handleSignupTypeSelection(value: any) {

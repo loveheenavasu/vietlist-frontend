@@ -103,7 +103,7 @@
 
                 .listing-wrapper {
                     box-shadow: 0 3px 15px #00000012;
-                    height: 415px;
+                    height: 463px;
                     border-radius: 10px;
                 }
 
@@ -172,15 +172,15 @@
 
                         h3 {
                             font-size: 1.25rem;
-                            cursor: pointer;
+                           
                             text-transform: capitalize;
                             text-overflow: ellipsis;
                             white-space: nowrap;
                         }
 
-                        h3:hover {
-                            text-decoration: underline;
-                        }
+                        // h3:hover {
+                        //     text-decoration: underline;
+                        // }
                     }
 
                     .listing-info {
@@ -297,15 +297,15 @@
                 .listing-heading {
                     h3 {
                         font-size: 1.25rem;
-                        cursor: pointer;
+                        // cursor: pointer;
                         text-transform: capitalize;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                     }
 
-                    h3:hover {
-                        text-decoration: underline;
-                    }
+                    // h3:hover {
+                    //     text-decoration: underline;
+                    // }
                 }
 
                 .listing-rating {
