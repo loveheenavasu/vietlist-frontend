@@ -44,11 +44,11 @@
             <p><i class="fa-solid fa-home"></i> <b>Home Status</b>: {{homestatus}}</p>
           }
           @if(propertyDetails?.price ){
-            <p><i class="fa-solid fa-dollar-sign"></i> <b>Price</b>: {{propertyDetails?.price }}</p>
+            <p><i class="fa-solid fa-dollar-sign"></i> <b>Price</b>: {{ propertyService.formatToUSD(propertyDetails?.price) }}</p>
           }@if (hometype ) {
             <p><i class="fa-solid fa-building"></i> <b>Home Type</b>: {{hometype }}</p>
           }@if (propertyDetails?.rentzestimate) {
-            <p><i class="fa-solid fa-calculator"></i> <b>Estimate Rent</b>: {{propertyDetails?.rentzestimate}}</p>
+            <p><i class="fa-solid fa-calculator"></i> <b>Estimate Rent</b>: {{ propertyService.formatToUSD(propertyDetails?.rentzestimate)}}</p>
           }@if (propertyDetails?.isnonowneroccupied ) {
             <p><i class="fa-solid fa-user-alt-slash"></i> <b>Is Non Owner Occupied</b>: {{propertyDetails?.isnonowneroccupied == '1' ? 'Yes' : 'No'}}</p>
           }
@@ -81,17 +81,16 @@
         </div>
         <div class="profile-info-div box-shadow position-relative">
           <h3><i class="fa-solid fa-map-signs"></i> Address</h3>
-          @if (propertyDetails?.country_1) {
-            <p><i class="fa-solid fa-flag-usa"></i> <b>Country</b>: {{propertyDetails?.country_1}}</p>
-          }@if (propertyDetails?.city_1) {
+          @if (propertyDetails?.streetaddress) {
+            <p><i class="fa-solid fa-road"></i> <b>Street</b>: {{propertyDetails?.streetaddress}}</p>
+          }
+      @if (propertyDetails?.city_1) {
             <p><i class="fa-solid fa-city"></i> <b>City</b>: {{propertyDetails?.city_1}}</p>
           }
           @if (propertyDetails?.state) {
             <p><i class="fa-solid fa-map"></i> <b>State</b>: {{propertyDetails?.state}}</p>
           }@if (propertyDetails?.zipcode ) {
             <p><i class="fa-solid fa-mail-bulk"></i> <b>Zip</b>: {{propertyDetails?.zipcode }}</p>
-          }@if (propertyDetails?.streetaddress) {
-            <p><i class="fa-solid fa-road"></i> <b>Street</b>: {{propertyDetails?.streetaddress}}</p>
           }
 
         </div>

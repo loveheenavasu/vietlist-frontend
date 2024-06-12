@@ -15,7 +15,7 @@ import { Subject, firstValueFrom, takeUntil } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
-
+import { PropertyService } from '../property-listings/property.service'
 @Component({
   selector: 'app-property-details',
   standalone: true,
@@ -55,6 +55,7 @@ export class PropertyDetailsComponent {
     private router: Router,
     private profile: ProfileService,
     private cd: ChangeDetectorRef,
+    public propertyService: PropertyService,
   ) {
     this.isAuthenticated = this.authentication.isAuthenticated()
     this._activatedRoute.params.subscribe((res) => {
@@ -114,7 +115,6 @@ export class PropertyDetailsComponent {
     this.profile.getMLSDataById(this.propId).subscribe({
       next: (res) => {
         if (res) {
-          console.log(res, 'propertDta')
           this.propertyDetails = res?.data[0]
           this.propertyImages = [res.data[0]?.imgsrc].flat()
           this.showSwiper()

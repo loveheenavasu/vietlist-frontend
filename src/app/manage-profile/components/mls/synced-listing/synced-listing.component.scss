@@ -146,6 +146,10 @@
                         height: 1.5em;
                         h3 {
                             font-size: 1.25rem;
+                            cursor: pointer;
+                        }
+                        h3:hover {
+                            text-decoration: underline;
                         }
                     }
 
@@ -192,6 +196,10 @@
                     .listing-heading {
                         h3 {
                             font-size: 1.25rem;
+                            cursor: pointer;
+                        }
+                        h3:hover {
+                            text-decoration: underline;
                         }
                     }
 
@@ -307,4 +315,23 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.listing-img:hover {
+    img {
+        filter: brightness(0.7);
+        cursor: pointer;
+    }
+
+    .linking-icon {
+        position: absolute;
+        display: block;
+        right: 48%;
+        top: 50%;
+
+        i {
+            color: #f2f2f2;
+            font-size: 1.5rem;
+        }
+    }
 }
