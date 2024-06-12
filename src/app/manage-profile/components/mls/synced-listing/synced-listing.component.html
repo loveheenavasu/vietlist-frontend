@@ -107,8 +107,10 @@
               </div>
 
               <div class="listing-img-info">
-                <div class="listing-heading" (click)="viewProperty(key.ID)" >
-                  <h3>{{ key.title }}</h3>
+                <div class="listing-heading"  >
+                  <h3 (click)="viewProperty(key.ID)" >
+                    {{ propertyService.formatToUSD(key.price) }}
+                  </h3>
                 </div>
                 <div class="d-flex gap-2 flex-wrap cursor-pointer " style='height: 50px;' (click)="viewProperty(key.ID)" >
                   @if (key?.bedrooms) {
@@ -134,14 +136,14 @@
 
                 </div>
 
-                <div>
+                <!-- <div>
                   <button
                     class="btn orange-background-btn mx-1"
                     (click)="viewProperty(key.ID)"
                   >
                     View
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
           }
