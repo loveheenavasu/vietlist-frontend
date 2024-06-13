@@ -68,4 +68,11 @@
   .lead-container {
     padding-inline: 20px;
   }
+  
+}
+@media (max-width: 855px) {
+  .card-footer {
+  gap: 11px;
+  }
+
 }

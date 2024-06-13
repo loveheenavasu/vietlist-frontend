@@ -30,6 +30,7 @@ import {
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { debounceTime, Subject } from 'rxjs'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
+import { BusinessService } from 'src/app/manage-business/service/business.service'
 
 @Component({
   selector: 'app-register:not(p)',
@@ -100,6 +101,7 @@ export class RegisterComponent {
     private localStorageServce: LocalStorageService,
     private sessionServce: AuthenticationService,
     private profileService: ProfileService,
+    private businessService: BusinessService,
   ) {
     this.signupForm = this.fb.nonNullable.group(
       {
@@ -148,7 +150,35 @@ export class RegisterComponent {
   direction: string = ''
 
   ngOnInit() {
+    this.getBusinessCat()
     this.selectedSignupType = Roles.businessOwner
+  }
+  category: any
+
+  checkFormValid() {
+    const isFormInvalid =
+      !this.signupForm.valid || !this.term_and_condition.value
+    const isBrokerOrRealEstate = [Roles.broker, Roles.realEstate].includes(
+      this.selectedSignupType,
+    )
+    const noDirection = !this.direction
+    if (isFormInvalid) {
+      return true
+    }
+    if (isBrokerOrRealEstate && noDirection) {
+      return true
+    }
+
+    return false
+  }
+
+  public getBusinessCat() {
+    this.businessService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        this.category = res.data
+      },
+      error: (err) => {},
+    })
   }
 
   public handleSignupTypeSelection(value: any) {
@@ -193,6 +223,21 @@ export class RegisterComponent {
   }
 
   public handleRegistrationSubmission() {
+    if ([Roles.broker, Roles.realEstate].includes(this.selectedSignupType)) {
+      if (!this.direction) {
+        Swal.fire({
+          toast: true,
+          text: 'Please fill the address field',
+          animation: false,
+          icon: 'error',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        return
+      }
+    }
     this.isSubmitted = true
     const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
       this.contact_details?.value?.dialCode,
@@ -206,9 +251,9 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: parseInt(
-        formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
-      ),
+      // contact_details: parseInt(
+      //   formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
+      // ),
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
       country_code: this.contact_details.value?.dialCode,

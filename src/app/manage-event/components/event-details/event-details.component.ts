@@ -18,11 +18,14 @@ import { NgxDropzoneModule } from 'ngx-dropzone'
 // import { Lightbox } from 'ngx-lightbox';
 
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
@@ -70,7 +73,9 @@ export class EventDetailsComponent {
   public selectedDates: Date[] = []
   public isDesabledform: boolean = false
   public booking_date: any = new FormControl('')
-  public number_of_booking = new FormControl('')
+  // public number_of_booking = new FormControl('',[this.maxNumberValidator(20)])
+  public number_of_booking!: FormControl
+
   public loader: boolean = false
   public footerPageContent?: any
   public reviewForm!: FormGroup
@@ -130,6 +135,7 @@ export class EventDetailsComponent {
   public eventEndDate: any
   public claimedBusinessStatus: any
   public userDetailId: any
+
   /**
    *
    *
@@ -199,14 +205,17 @@ export class EventDetailsComponent {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
     })
-
-    this.number_of_booking.valueChanges.subscribe((res) => {
-      if (res) {
-        this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
-      }
-    })
   }
 
+  maxNumberValidator(max: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value
+      if (value !== null && value > max) {
+        return { maxNumber: { max } }
+      }
+      return null
+    }
+  }
   ngOnInit() {
     if (
       this._activatedRoute.snapshot.routeConfig?.path?.includes(
@@ -384,6 +393,7 @@ export class EventDetailsComponent {
   }
 
   public eventUserId: any
+  public totalBookingLeft: any
   public getEventDetails() {
     this.fullPageLoaderService.showLoader()
     this.eventService.getEventDetailsByPostId(this.postId).subscribe({
@@ -406,7 +416,26 @@ export class EventDetailsComponent {
         } else {
           this.isDateMatched = false
         }
+        let numberOfBooking = Number(res?.data?.[0].number_of_bookings)
+        let numberOfBookedEvent = Number(
+          res?.booking_detail?.total_number_of_booking,
+        )
+        if (numberOfBookedEvent > numberOfBooking) {
+          this.totalBookingLeft = 0
+        } else {
+          this.totalBookingLeft = numberOfBooking - numberOfBookedEvent
+        }
+        console.log(this.totalBookingLeft, 'totalBookingLeft')
+        this.number_of_booking = new FormControl('', [
+          Validators.required,
+          this.maxNumberValidator(this.totalBookingLeft),
+        ])
 
+        this.number_of_booking.valueChanges.subscribe((res) => {
+          if (res) {
+            this.numberofBookingPrice = Number(res) * Number(this.eventPrice)
+          }
+        })
         ;(this.eventDetails = res?.data[0] || 'NA'),
           (this.eventLocation = this.eventDetails?.street)
         this.overllRating = Number(res.data[0].overall_rating)

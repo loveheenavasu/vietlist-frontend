@@ -61,7 +61,7 @@
       </div>
     </div>
     <div class="form-group">
-      @if(userDetails?.user_role === role.realEstate && !isrealEstateDetails){
+      @if((userDetails?.user_role === role.realEstate || userDetails?.user_role.role.broker) && !isrealEstateDetails){
 
       <button
         class="btn orange-background-btn-w-100"
@@ -69,7 +69,7 @@
       >
         Complete Your Profile
       </button>
-      }@else if(userDetails?.user_role === role.realEstate && isrealEstateDetails ){
+      }@else if((userDetails?.user_role === role.realEstate || userDetails?.user_role.role.broker) && !isrealEstateDetails && isrealEstateDetails ){
       <button
         class="btn orange-background-btn-w-100"
         (click)="handleUpdateUser()"

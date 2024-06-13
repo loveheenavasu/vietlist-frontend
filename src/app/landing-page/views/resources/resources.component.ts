@@ -82,7 +82,7 @@ export class ResourcesComponent {
 
   public onTabClick(tab: any) {
     this.resourceArr = []
-    this.activeTab = tab  
+    this.activeTab = tab
     this.isPaginationClick = false
     this.currentPage = 1
     this.selectedLayout = 'grid'
@@ -92,8 +92,8 @@ export class ResourcesComponent {
       this.getWebinarData()
     } else {
       this.isWebinarView = false
-      if(this.activeTab){
-      this.getResourcesData(this.activeTab)
+      if (this.activeTab) {
+        this.getResourcesData(this.activeTab)
       }
     }
   }
@@ -105,7 +105,7 @@ export class ResourcesComponent {
       .subscribe({
         next: (res: any) => {
           this.resourceArr = res.data
-          if(this.resourceArr){
+          if (this.resourceArr) {
             this.fullPageLoaderService.hideLoader()
           }
           this.totalCount = res.total_count
@@ -176,9 +176,15 @@ export class ResourcesComponent {
     })
   }
 
+<<<<<<< HEAD
   openBooks(book:any) {
     if (book && book.ebook_link) {
       window.open(book.ebook_link, '_blank');
+=======
+  openBooks(book: any) {
+    if (book && book.ebook_link) {
+      window.open(book.ebook_link, '_blank')
+>>>>>>> 1661880b0b420a8c8ebaff77e8ad15e1c34b650c
     }
   }
   
