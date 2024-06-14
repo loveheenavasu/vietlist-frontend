@@ -7,10 +7,10 @@ import {
   ViewChild,
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
-import { NavigationExtras, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { NavigationExtras, Router } from '@angular/router'
+import { Subject, takeUntil } from 'rxjs'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
-import { register } from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle'
 
 register()
 
@@ -42,16 +42,16 @@ export class BuisnessCategoryComponent {
       },
       1500: {
         slidesPerView: 6,
-      }
+      },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   constructor(
     private businessService: BusinessService,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
   ) {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
@@ -64,14 +64,16 @@ export class BuisnessCategoryComponent {
     this.getCategroies()
   }
 
-
   getCategroies() {
-    this.businessService.getBusinessCat().pipe(takeUntil(this.$destroy)).subscribe({
-      next: (res: any) => {
-        this.businessCat = res.data
-
-      },
-    })
+    this.businessService
+      .getBusinessCat()
+      .pipe(takeUntil(this.$destroy))
+      .subscribe({
+        next: (res: any) => {
+          console.log(res?.data, 'cate data')
+          this.businessCat = res.data
+        },
+      })
   }
 
   public getTrustedHTML(htmlString: string): SafeHtml {
@@ -84,11 +86,11 @@ export class BuisnessCategoryComponent {
     }
   }
 
-  public blogCat(){
+  public blogCat() {
     this.router.navigateByUrl('/business-categories')
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.$destroy.next()
     this.$destroy.complete()
   }

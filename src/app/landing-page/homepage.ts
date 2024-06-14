@@ -26,6 +26,7 @@ import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
 import { InfoCardComponent } from '../commom-ui/info-card/info-card.component'
+import { BusinessService } from '../manage-business/service/business.service'
 register()
 
 @Component({
@@ -65,42 +66,7 @@ export class HomepageComponent {
   public ipAddress: any
   public collectionAd: any
 
-  cardData: any = [
-    [
-      {
-        icon: '/assets/icons/nail.svg',
-        shopName: 'Nail Salon',
-      },
-      {
-        icon: '/assets/icons/restaurant.svg',
-        shopName: 'Restaurants snd Eateries',
-      },
-      {
-        icon: '/assets/icons/women.svg',
-        shopName: 'Hair Salon & beauty parlor',
-      },
-      {
-        icon: '/assets/icons/coffee.svg',
-        shopName: 'Coffee Shop',
-      },
-      {
-        icon: '/assets/icons/bakery-shop.svg',
-        shopName: 'Bakeries',
-      },
-      {
-        icon: '/assets/icons/food.svg',
-        shopName: 'Grocery Store',
-      },
-      {
-        icon: '/assets/icons/shop.svg',
-        shopName: 'Tailors and Sewing Shops',
-      },
-      {
-        icon: '/assets/icons/jewelry.svg',
-        shopName: 'Tailors and Sewing Shops',
-      },
-    ],
-  ]
+  cardData: any = []
   title: string = 'Discover Elite Business Categories!'
   btnText: string = 'List your Business'
   subTitle: string =
@@ -134,6 +100,7 @@ export class HomepageComponent {
     private IpService: ProfileService,
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
+    private businessService: BusinessService,
   ) {
     // this.getHomePageContent()
     // this.subscribeToRouterEvents()
@@ -153,6 +120,7 @@ export class HomepageComponent {
     // this.showAdDataFetch()
     this.getHomePageContent()
     this.getIPAddress()
+    this.getCategroies()
   }
 
   // ngAfterViewInit() {
@@ -164,7 +132,6 @@ export class HomepageComponent {
     this.homePageContent.showAD().subscribe({
       next: (res: any) => {
         this.adDetails = res.data
-        console.log(res.data, 'sknksnksnknskn')
         if (this.adDetails) {
           setTimeout(() => {
             if (this.swiper && this.swiper.nativeElement) {
@@ -179,6 +146,29 @@ export class HomepageComponent {
         this.showAdHomePage()
       },
     })
+  }
+
+  getCategroies() {
+    this.businessService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        const itemsPerGroup = 8
+        const numberOfGroups = Math.ceil(res?.data.length / itemsPerGroup)
+
+        for (let i = 0; i < numberOfGroups; i++) {
+          const start = i * itemsPerGroup
+          const end = start + itemsPerGroup
+          const group = res?.data.slice(start, end)
+          this.cardData.push(group)
+        }
+        // this.businessCat = res.data
+      },
+    })
+  }
+
+  public handleCategory(item: any) {
+    if (item) {
+      this.router.navigate(['/find-business/', item?.id])
+    }
   }
 
   // public getIPAdress() {

@@ -52,15 +52,17 @@
   </div>
   }
 </div>
-<!-- <section>
+<section>
   <app-buisness-category [homePageData]="homePageData"></app-buisness-category>
-</section> -->
+</section>
 <section>
   <app-info-card
   [cardData]='cardData'
   [title]="title"
   [btnText]='btnText'
   [subTitle]='subTitle'
+  (cardAction)='handleCategory($event)'
+  (btnAction)='listBusiness()'
   ></app-info-card>
 </section>
 <section>
