@@ -25,7 +25,7 @@ import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
-
+import { InfoCardComponent } from '../commom-ui/info-card/info-card.component'
 register()
 
 @Component({
@@ -45,6 +45,7 @@ register()
     NgOptimizedImage,
     ChooseLoanTypeComponent,
     CommonModule,
+    InfoCardComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './homepage.html',
@@ -112,7 +113,6 @@ export class HomepageComponent {
     this.getHomePageContent()
     this.getIPAddress()
   }
-
 
   // ngAfterViewInit() {
   // this.showAdDataFetch()
