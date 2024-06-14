@@ -1,17 +1,33 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, Input } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core'
 
 @Component({
   selector: 'app-info-card',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './info-card.component.html',
   styleUrl: './info-card.component.scss',
 })
 export class InfoCardComponent {
-  @Input() title: string = 'Discover Elite Business Categories!'
-  @Input() btnText: string = 'List your Business'
-  @Input() subTitle: string =
-    'Navigate the Spectrum of Opportunities: Dive into our diverse business categories to find precisely what you’re seeking, all under the trustedumbrella of Vietlist.biz.'
-  @Input() cardData: any = Array.apply(null, Array(8))
+  @Input() title!: string
+  @Input() btnText!: string
+  @Input() subTitle!: string
+  @Input() cardData: any
+  currentEllipsisId: string = 'slide0'
+
+  slide(id: string) {
+    console.log(id)
+    this.currentEllipsisId = id
+    let element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }
 }

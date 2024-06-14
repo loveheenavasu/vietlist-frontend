@@ -6,20 +6,34 @@
     </p>
     <button class="card-action-btn">{{ btnText }}</button>
   </div>
-  <swiper-container
-    #busniessCategoriesSwiper
-    init="false"
-    class="info-cards-container row"
-  >
-    @for (item of cardData; track $index) {
-      <swiper-slide>
-        <div class="col-6 col-md-4 col-lg-3 p-2 d-flex justify-content-center">
-          <div class="info-card">
-            <img src="/assets/icons/jewelry.svg" alt="" />
-            <span> kitchen </span>
+  <div class="info-cards-container">
+    @for (items of cardData; track $index) {
+      <div class="col-12 row slide-padding" [id]="'slide' + $index">
+        @for (item of items; track $index) {
+          <div
+            class="col-6 col-md-4 col-lg-3 p-2 d-flex justify-content-center"
+          >
+            <div class="info-card">
+              <div class="image-container">
+                <img [src]="item?.icon" alt="" />
+              </div>
+              <span> {{ item?.shopName }} </span>
+            </div>
           </div>
-        </div>
-      </swiper-slide>
+        }
+      </div>
     }
-  </swiper-container>
+  </div>
+  <div class="btn-container py-5">
+    @for (item of cardData; track $index) {
+      <span
+        [ngClass]="{
+          'selected-ellipsis': currentEllipsisId === 'slide' + $index
+        }"
+        class="bullet-ellipsis"
+        (click)="slide('slide' + $index)"
+      >
+      </span>
+    }
+  </div>
 </div>

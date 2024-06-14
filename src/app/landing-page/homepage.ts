@@ -65,6 +65,47 @@ export class HomepageComponent {
   public ipAddress: any
   public collectionAd: any
 
+  cardData: any = [
+    [
+      {
+        icon: '/assets/icons/nail.svg',
+        shopName: 'Nail Salon',
+      },
+      {
+        icon: '/assets/icons/restaurant.svg',
+        shopName: 'Restaurants snd Eateries',
+      },
+      {
+        icon: '/assets/icons/women.svg',
+        shopName: 'Hair Salon & beauty parlor',
+      },
+      {
+        icon: '/assets/icons/coffee.svg',
+        shopName: 'Coffee Shop',
+      },
+      {
+        icon: '/assets/icons/bakery-shop.svg',
+        shopName: 'Bakeries',
+      },
+      {
+        icon: '/assets/icons/food.svg',
+        shopName: 'Grocery Store',
+      },
+      {
+        icon: '/assets/icons/shop.svg',
+        shopName: 'Tailors and Sewing Shops',
+      },
+      {
+        icon: '/assets/icons/jewelry.svg',
+        shopName: 'Tailors and Sewing Shops',
+      },
+    ],
+  ]
+  title: string = 'Discover Elite Business Categories!'
+  btnText: string = 'List your Business'
+  subTitle: string =
+    'Navigate the Spectrum of Opportunities: Dive into our diverse business categories to find precisely what you’re seeking, all under the trustedumbrella of Vietlist.biz.'
+
   swiperParams = {
     slidesPerView: 1,
     pagination: {
