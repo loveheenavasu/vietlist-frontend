@@ -1,3 +1,4 @@
+import { TopRealEstateAgentsComponent } from './views/top-real-estate-agents/top-real-estate-agents.component';
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
@@ -25,6 +26,7 @@ import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
+import { TopRestaurantsComponent } from './views/top-restaurants/top-restaurants.component';
 
 register()
 
@@ -44,6 +46,8 @@ register()
     CtaVerifiedBusinessComponent,
     NgOptimizedImage,
     ChooseLoanTypeComponent,
+    TopRealEstateAgentsComponent,
+    TopRestaurantsComponent,
     CommonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

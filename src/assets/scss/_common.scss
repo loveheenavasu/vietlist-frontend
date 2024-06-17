@@ -1,4 +1,9 @@
 //Common Styles//
+
+.form-bg-color{
+  background-color: #FEFCEF
+}
+
 %homepage-banner-button-styles {
   @at-root {
     %hbb-button-styles {
@@ -33,6 +38,7 @@
       font-size: 32px;
       font-weight: var(--font-weight-semibold);
       color: var(--dark-grey);
+      
       text-align: center;
       font-family: 'Roboto';
     }
@@ -44,7 +50,8 @@
     %ssh-styles {
       font-size: 16px;
       font-weight: var(--font-weight-normal);
-      color: var(--dark-grey);
+      // color: var(--dark-grey);
+      color: #1b649d;
       margin-top: 15px;
       text-align: center;
     }
@@ -64,6 +71,14 @@
   padding: 10px 42px;
   color: var(--light-grey-2)
 }
+
+.black-btn{
+  background: #0000;
+  color:#fff;
+  width: fit-content;
+  padding: 10px 7em;
+}
+
 
 .orange-background-btn-w-100 {
   background: var(--primary-color-orange);
@@ -109,19 +124,25 @@
 }
 
 .input-control {
+  // width: 100%;
+  // background: #f5f5f5;
+  // border: solid 1px #80808030;
+  // height: 40px;
+  // padding: 10px;
+  // border-radius: 4px
   width: 100%;
   background: #f5f5f5;
-  border: solid 1px #80808030;
+  border: solid 1px #0000 !important;
   height: 40px;
   padding: 10px;
-  border-radius: 4px
-
+  border-radius: 2px;
+  outline:solid 2px #0000
 }
 
 .input-control:focus {
   // background: #e8f1fe!important;
   outline: solid 2px var(--primary-color-orange);
-  border: none
+  // border: none
 }
 
 textarea {

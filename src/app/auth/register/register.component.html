@@ -4,15 +4,25 @@
       <h1>Register</h1>
     </div>
   </section>
+</div>
+<div class="container-fluid form-bg-color py-5">
+  <div class="row my-4">
+    <div class="col-12">
+      <h2 class="text-center form-heading" style="font-family: Poppins">
+        Consistent innovation and adaptation are the seeds <br />
+        for sustainable business growth.
+      </h2>
+    </div>
+  </div>
 
-  <form [formGroup]="signupForm">
-    <div class="container">
+  <div class="row my-5">
+    <form [formGroup]="signupForm">
       <div class="form-cnt">
         <div class="row">
           <div class="col-12">
             <h1 class="text-center form-heading">Sign Up</h1>
           </div>
-          <div class="col-12 m-auto text-center">
+          <div class="col-12 m-auto text-center my-4">
             <mat-radio-group
               aria-label="Select an option"
               [ngModel]="defaultSelectedRole"
@@ -31,128 +41,155 @@
             </mat-radio-group>
           </div>
         </div>
-        <div class="col-12 mt-4">
-          <div class="form-group">
+        <div class="row mt-3">
+          <div class="col-12 col-md-3">
             <label class="form-check-label"
               >First Name <span class="asterik">*</span></label
             >
-            <input
-              class="input-control"
-              type="text"
-              placeholder="First name"
-              formControlName="first_name"
-              appFormControlValidation
-              [validationMsgId]="'first-name-msg'"
-            />
           </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label class="form-check-label"
-              >Last Name <span class="asterik">*</span></label
-            >
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Last name"
-              formControlName="last_name"
-              appFormControlValidation
-              [validationMsgId]="'last-name-msg'"
-            />
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label class="form-check-label"
-              >Username <span class="asterik">*</span></label
-            >
-            <input
-              class="input-control"
-              type="text"
-              placeholder="Username"
-              formControlName="username"
-              appFormControlValidation
-              [validationMsgId]="'business-required-msg'"
-            />
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label class="form-check-label"
-              >Email<span class="asterik">*</span></label
-            >
-            <input
-              class="input-control"
-              type="email"
-              formControlName="email"
-              placeholder="Email"
-            />
-            @if (
-              signupForm.get('email')?.touched &&
-              signupForm.get('email')?.hasError('required')
-            ) {
-              <span class="error-message">Email is required</span>
-            }
-            @if (signupForm.get('email')?.hasError('pattern')) {
-              <span class="error-message">Enter valid email</span>
-            }
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-group">
-            <label class="form-check-label"
-              >Password<span class="asterik">*</span></label
-            >
-            <div class="input-group">
+          <div class="col-12 col-md-9">
+            <div class="form-group">
               <input
                 class="input-control"
-                [type]="!isHidePassword ? 'password' : 'text'"
-                formControlName="password"
-                placeholder="Password"
+                type="text"
+                placeholder="First name"
+                formControlName="first_name"
+                appFormControlValidation
+                [validationMsgId]="'first-name-msg'"
+                
               />
-              <span
-                class="input-group-text"
-                id="basic-addon1"
-                (click)="hidePassword()"
-              >
-                <i
-                  *ngIf="!isHidePassword"
-                  class="fa fa-eye-slash"
-                  aria-hidden="true"
-                  style="color: #6c757d"
-                ></i>
-                <i
-                  *ngIf="isHidePassword"
-                  class="fa fa-eye"
-                  aria-hidden="true"
-                  style="color: #6c757d"
-                ></i>
-              </span>
             </div>
-            @if (
-              signupForm.get('password')?.touched &&
-              signupForm.get('password')?.hasError('pattern')
-            ) {
-              <span class="error-message"
-                >Password must contain uppercase , lowercase , number & special
-                character</span
-              >
-            }
-            @if (
-              signupForm.get('password')?.touched &&
-              signupForm.get('password')?.hasError('minlength')
-            ) {
-              <p class="error-message">Minimum length should be 6</p>
-            }
           </div>
         </div>
 
-        <div class="col-12">
-          <div class="form-group mt-3">
-            <div class="col-12">
-              <label class="form-check-label"
-                >Confirm Password<span class="asterik">*</span></label
-              >
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Last Name <span class="asterik">*</span></label
+            >
+          </div>
+
+          <div class="col-12 col-md-9">
+            <div class="form-group">
+              <input
+                class="input-control"
+                type="text"
+                placeholder="Last name"
+                formControlName="last_name"
+                appFormControlValidation
+                [validationMsgId]="'last-name-msg'"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Username <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
+            <div class="form-group">
+              <input
+                class="input-control"
+                type="text"
+                placeholder="Username"
+                formControlName="username"
+                appFormControlValidation
+                [validationMsgId]="'business-required-msg'"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Email<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
+            <div class="form-group">
+              <input
+                class="input-control"
+                type="email"
+                formControlName="email"
+                placeholder="Email"
+              />
+              @if (
+                signupForm.get('email')?.touched &&
+                signupForm.get('email')?.hasError('required')
+              ) {
+                <span class="error-message">Email is required</span>
+              }
+              @if (signupForm.get('email')?.hasError('pattern')) {
+                <span class="error-message">Enter valid email</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Password<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
+            <div class="form-group">
+              <div class="input-group">
+                <input
+                  class="input-control"
+                  [type]="!isHidePassword ? 'password' : 'text'"
+                  formControlName="password"
+                  placeholder="Password"
+                />
+                <span
+                  class="input-group-text"
+                  id="basic-addon1"
+                  (click)="hidePassword()"
+                >
+                  <i
+                    *ngIf="!isHidePassword"
+                    class="fa fa-eye-slash"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
+                  <i
+                    *ngIf="isHidePassword"
+                    class="fa fa-eye"
+                    aria-hidden="true"
+                    style="color: #6c757d"
+                  ></i>
+                </span>
+              </div>
+              @if (
+                signupForm.get('password')?.touched &&
+                signupForm.get('password')?.hasError('pattern')
+              ) {
+                <span class="error-message"
+                  >Password must contain uppercase , lowercase , number &
+                  special character</span
+                >
+              }
+              @if (
+                signupForm.get('password')?.touched &&
+                signupForm.get('password')?.hasError('minlength')
+              ) {
+                <p class="error-message">Minimum length should be 6</p>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Confirm Password<span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
+            <div class="form-group">
               <div class="input-group">
                 <input
                   class="input-control"
@@ -179,25 +216,18 @@
                   ></i>
                 </span>
               </div>
-              <p
-                class="error-message"
-                *ngIf="
-                  (signupForm.get('confirm_password')?.touched ||
-                    signupForm.get('confirm_password')?.dirty) &&
-                  signupForm.get('confirm_password')?.errors
-                "
-              >
-                Confirm Password doesn't match with Password.
-              </p>
             </div>
           </div>
         </div>
+
         @if (selectedSignupType == userRole.businessOwner) {
-          <div class="col-12">
-            <div class="form-group">
+          <div class="row">
+            <div class="col-12 col-md-3">
               <label class="form-check-label"
                 >Business Type<span class="asterik">*</span></label
               >
+            </div>
+            <div class="col-12 col-md-9">
               <mat-select
                 class="vietlist-select"
                 placeholder="Business type"
@@ -205,90 +235,103 @@
                 appFormControlValidation
                 [validationMsgId]="'business-type-msg'"
               >
-              @for (key of category; track $index) {
-                <mat-option [value]="key.id">{{ key.name }}</mat-option>
-              }
+                @for (key of category; track $index) {
+                  <mat-option [value]="key.id">{{ key.name }}</mat-option>
+                }
               </mat-select>
             </div>
           </div>
-          <label class="form-check-label"
-            >Phone Number<span class="asterik">*</span></label
-          >
 
-          <ngx-intl-tel-input
-            #countryList
-            [cssClass]="'input-control'"
-            [preferredCountries]="preferredCountries"
-            [enableAutoCountrySelect]="true"
-            [enablePlaceholder]="true"
-            [searchCountryFlag]="true"
-            [searchCountryField]="[
-              SearchCountryField.Iso2,
-              SearchCountryField.Name
-            ]"
-            [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.UnitedStates"
-            [phoneValidation]="true"
-            [separateDialCode]="true"
-            [numberFormat]="PhoneNumberFormat.National"
-            name="phone"
-            [formControl]="contact_details"
-          >
-          </ngx-intl-tel-input>
+          <div class="row mt-3">
+            <div class="col-12 col-md-3">
+              <label class="form-check-label"
+                >Phone Number<span class="asterik">*</span></label
+              >
+            </div>
+            <div class="col-12 col-md-9">
+              <ngx-intl-tel-input
+                #countryList
+                [cssClass]="'input-control'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.UnitedStates"
+                [phoneValidation]="true"
+                [separateDialCode]="true"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone"
+                [formControl]="contact_details"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </div>
         }
 
         @if (
           selectedSignupType == userRole.broker ||
           selectedSignupType == userRole.realEstate
         ) {
-          <div class="col-12">
-            <label class="form-check-label"
-              >Address<span class="asterik">*</span></label
-            >
-            <AutocompleteComponent
-              aria-placeholder="Address"
-              class="direction-field"
-              (setAddress)="getAddress($event)"
-              adressType="geocode"
-              [value]="direction"
-            >
-            </AutocompleteComponent>
-            <p class="error-message" *ngIf="isSubmitted && !direction">
-              Address is required.
-            </p>
+          <div class="row mt-3">
+            <div class="col-12 col-md-3">
+              <label class="form-check-label"
+                >Address<span class="asterik">*</span></label
+              >
+            </div>
+            <div class="col-12 col-md-9">
+              <AutocompleteComponent
+                aria-placeholder="Address"
+                class="direction-field"
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="direction"
+              >
+              </AutocompleteComponent>
+              <p class="error-message" *ngIf="isSubmitted && !direction">
+                Address is required.
+              </p>
+            </div>
           </div>
         }
 
-        <div class="col-12 mt-2">
-          <div class="form-group">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="terms"
-                [formControl]="term_and_condition"
-              />
-              <label class="form-check-label" for="terms">
-                Accept Terms & Conditions
-              </label>
+        <div class="row">
+          <div class="col-12 col-md-3"></div>
+          <div class="col-12 col-md-9">
+            <div class="form-group mt-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="terms"
+                  [formControl]="term_and_condition"
+                />
+                <label class="form-check-label" for="terms">
+                  Accept Terms & Conditions
+                </label>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-12">
-          <button
-            class="btn orange-background-btn-w-100"
-            type="submit"
-            [disabled]="
-              checkFormValid()
-            "
-            (click)="handleRegistrationSubmission()"
-          >
-            <span *ngIf="!loader">Submit</span>
-            <app-loader *ngIf="loader"></app-loader>
-          </button>
+        <div class="col-12 my-5">
+          <div class="submit-btn">
+            <button
+              class="btn black-btn"
+              style="background-color: #000"
+              [disabled]="checkFormValid()"
+              (click)="handleRegistrationSubmission()"
+            >
+              <span *ngIf="!loader">Submit</span>
+              <app-loader *ngIf="loader"></app-loader>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

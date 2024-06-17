@@ -1,6 +1,6 @@
 @import "../scss/common.scss";
 
-.banner {
+.footer-banner {
   height: 365px;
   width: 100%;
   position: relative;
@@ -25,12 +25,15 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    margin-top: 92px;
+    font-family: Poppins;
+    font-size: 30px;
+    width: 70%;
+    margin:4em auto auto auto;
 
     h1{
       font-weight: var(--font-weight-medium);
       color: var(--light-grey);
-      font-size: 3rem;
+      font-size:28px
 
     }
 

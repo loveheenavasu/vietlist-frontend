@@ -4,8 +4,18 @@
       <h1>Login</h1>
     </div>
   </section>
+</div>
+<div class="container-fluid form-bg-color py-5">
+  <div class="row my-5">
+    <div class="col-12">
+      <h2 class="text-center form-heading" style="font-family: Poppins">
+        Consistent innovation and adaptation are the seeds <br />
+        for sustainable business growth.
+      </h2>
+    </div>
+  </div>
 
-  <div class="container justify-content-center">
+  <div class="row my-5">
     <form [formGroup]="loginForm">
       <div class="form-cnt">
         <div class="row">
@@ -14,31 +24,65 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-12">
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Email or Username <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
             <div class="form-group">
-              <label for="" class="form-check-label">Email or Username <span class="asterik">*</span></label>
-              <input type="text" class="input-control" placeholder="Username or Email" formControlName="username"
-                appFormControlValidation [validationMsgId]="'username-required-msg'" />
+              <input
+                type="text"
+                class="input-control"
+                placeholder="Username or Email"
+                formControlName="username"
+                appFormControlValidation
+                [validationMsgId]="'username-required-msg'"
+              />
             </div>
           </div>
-          <div class="col-12">
-            <label for="" class="form-check-label">Password <span class="asterik">*</span></label>
+          <div class="col-12 col-md-3">
+            <label class="form-check-label"
+              >Password <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-9">
             <div class="input-group">
-              <input [type]="!isHidePassword ? 'password' : 'text'" class="input-control pwd-control"
-                formControlName="password" placeholder="Password" />
-              <span class="input-group-text" id="basic-addon1" (click)="hidePassword()">
-                <i *ngIf="!isHidePassword" class="fa fa-eye-slash" aria-hidden="true" style="color: #6c757d"></i>
-                <i *ngIf="isHidePassword" class="fa fa-eye" aria-hidden="true" style="color: #6c757d"></i>
+              <input
+                [type]="!isHidePassword ? 'password' : 'text'"
+                class="input-control pwd-control"
+                formControlName="password"
+                placeholder="Password"
+              />
+              <span
+                class="input-group-text"
+                id="basic-addon1"
+                (click)="hidePassword()"
+              >
+                <i
+                  *ngIf="!isHidePassword"
+                  class="fa fa-eye-slash"
+                  aria-hidden="true"
+                  style="color: #6c757d"
+                ></i>
+                <i
+                  *ngIf="isHidePassword"
+                  class="fa fa-eye"
+                  aria-hidden="true"
+                  style="color: #6c757d"
+                ></i>
               </span>
             </div>
-          </div>
-
-          <div class="col-12 mt-3">
-            <div class="form-group">
+            <div class="form-group my-4">
               <div class="d-flex">
                 <div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="remember" />
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="remember"
+                    />
                     <label class="form-check-label" for="remember">
                       Remember me
                     </label>
@@ -51,19 +95,46 @@
             </div>
           </div>
           <div class="col-12">
-            <button class="btn orange-background-btn-w-100" [disabled]="!loginForm.valid || loader " (click)="login()">
-              <span *ngIf="!loader">Submit</span>
-              <app-loader *ngIf="loader"></app-loader>
-            </button>
+            <div class="submit-btn">
+              <button
+                class="btn black-btn"
+                style="background-color: #000"
+                [disabled]="!loginForm.valid || loader"
+                (click)="login()"
+              >
+                <span *ngIf="!loader">Submit</span>
+                <app-loader *ngIf="loader"></app-loader>
+              </button>
+            </div>
           </div>
           <div class="mt-3">
             <p class="new-to-vietlist">
               New to Vietlist?
-              <span class="create-account" (click)="navigateToRegister()">Create account</span>
+              <span class="create-account" (click)="navigateToRegister()"
+                >Create account</span
+              >
             </p>
           </div>
         </div>
       </div>
     </form>
   </div>
+</div>
+<div class="container-fluid g-0">
+  <section
+    class="footer-banner top-banner"
+    style="background-image: url('../../../assets/image/login-footer-bg.svg')"
+  >
+    <div class="content">
+      <h1 class="login-footer-banner-bg">
+        Experience exponential growth and unlock your business's full potential
+        with Vietlist's strategic tools and unparalleled support.
+      </h1>
+      <div class="submit-btn mt-4">
+        <button class="btn black-btn" style="background-color: #000" (click)="signUpforSuccess()">
+          Sign up for Success
+        </button>
+      </div>
+    </div>
+  </section>
 </div>

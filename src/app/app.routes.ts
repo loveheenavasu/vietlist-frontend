@@ -364,6 +364,7 @@ export default [
     path: 'agent-details/:id',
     loadComponent: () => AgentDetailComponent,
   },
+
   {
     path: '**',
     loadComponent: () => PageNotFoundComponent,

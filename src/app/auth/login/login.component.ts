@@ -147,4 +147,8 @@ export class LoginComponent {
       this.isHidePassword = true
     }
   }
+
+  public signUpforSuccess(){
+    this.router.navigateByUrl('/register')
+  }
 }

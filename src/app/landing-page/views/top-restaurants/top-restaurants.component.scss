@@ -1,0 +1,103 @@
+@import "../../../../assets/scss/common.scss";
+
+.main-container {
+
+  margin-top: 8.5rem;
+  margin-bottom: 6rem;
+}
+
+.heading {
+  width: 56%
+}
+
+h1 {
+  @extend %sh-styles;
+  font-size: 32px !important;
+
+
+}
+
+p {
+  @extend %ssh-styles
+}
+
+.heading {
+  @extend %shm-styles
+}
+
+.real-estate-agents {
+  text-align: center;
+  padding: 2rem 0;
+  width: 85%;
+  margin: 0 auto;
+
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .agent-card {
+    border: 1px solid #ddd;
+    // padding: 1rem;
+    text-align: left;
+    background-color: #fff;
+  }
+
+  .agent-img {
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+
+    img {
+      width: 100%;
+      height: 100%;
+      // border-radius: 5px;
+      // margin-bottom: 1rem;
+    }
+  }
+
+.agent-content{
+  color:#000;
+  text-align: center;
+  padding:0 1em;
+  margin-top:20px;
+  h3{
+  font-size:20px;
+  }
+  p{
+    font-size: 16px;
+    color:#fff;
+    text-align: center;
+  }
+}
+
+.view-profile-div{
+  width:fit-content;
+  margin: 0 auto;
+
+  button{
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background-color: #fff;
+    color: #000;
+    // border: none;
+    border-radius: 0px;
+    border:solid 2px #000;
+   
+    cursor: pointer;
+  }
+}
+  .view-more-agents {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background-color: #000;
+    color: #fff;
+    border-radius: 0px;
+    cursor: pointer;
+  }
+
+  .view-more-agents {
+    margin-top: 2rem;
+  }
+}

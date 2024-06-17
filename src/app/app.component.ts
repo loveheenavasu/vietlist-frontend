@@ -94,10 +94,6 @@ export class AppComponent {
     if (this.isAuthenticated) {
       this.fetchProfileDetail()
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 1661880b0b420a8c8ebaff77e8ad15e1c34b650c
   }
 
   public requestPermission() {
@@ -139,12 +135,6 @@ export class AppComponent {
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges()
   }
-<<<<<<< HEAD
-
-
-
-
-  
-=======
->>>>>>> 1661880b0b420a8c8ebaff77e8ad15e1c34b650c
 }
+
+

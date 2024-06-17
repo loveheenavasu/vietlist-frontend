@@ -10,14 +10,14 @@
     <div class="row">
       @for (plan of subscriptionPlans; track $index) {
       <div class="col-12 col-md-12 col-lg-4 ">
-        <div class="subscription-plan-cnt">
+        <div class="subscription-plan-cnt plan-{{ $index + 1 }}">
           <div class="plan-content">
             @if (plan.pouplar) {
             <div class="ribbon"><span>Popular</span></div>
             }
             <div class="plan-header">
               <h2>{{ plan.name }}</h2>
-              <div class="d-flex align-items-center flex-wrap">
+              <div class="d-flex align-items-center justify-content-center flex-wrap">
                 <div>
                   <h1>
                     <span [innerHTML]="plan.currency.symbol"></span>{{ plan.billing_amount }}
@@ -37,7 +37,7 @@
               </ul>
             </div>
             <div class="plan-action">
-              <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(plan.id)" [disabled]="userDetails?.level_id === plan.id">
+              <button class="btn black-btn" style="background-color: #000;padding-right: 5em;padding-left:5em ;" (click)="navigateToConfirmPayment(plan.id)" [disabled]="userDetails?.level_id === plan.id">
                 {{userDetails?.level_id === plan.id ? 'Active' : 'Choose Plan'}}
               </button>
             </div>

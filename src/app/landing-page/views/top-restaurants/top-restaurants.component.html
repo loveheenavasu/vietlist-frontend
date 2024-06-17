@@ -1,0 +1,28 @@
+<div class="container-fluid main-container">
+    <div class="heading">
+      <h1>Top Restaurants</h1>
+      <p>
+        Navigate the Spectrum of Opportunities: Dive into our diverse business categories to find precisely what you’re seeking, all under the trusted.
+      </p>
+    </div>
+  <div class="real-estate-agents">
+  
+      <div class="agent-grid">
+        <div *ngFor="let agent of agents" class="agent-card">
+          <div class="agent-img">
+            <img  src="https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250" alt="{{ agent.name }}">
+          </div>
+          <div class="agent-content">
+            <h3>{{ agent.name }}</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+            <p>Phnoe No.-{{ agent.phone }}</p>
+          </div>
+           <div class="view-profile-div">
+            <button class="btn view-more-agents">View Profile</button>
+           </div>
+        </div>
+      </div>
+    
+      <button class="btn view-more-agents">View More Agents</button>
+    </div>
+    </div>

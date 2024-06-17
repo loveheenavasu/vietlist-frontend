@@ -34,22 +34,38 @@ p {
 .heading {
     @extend %shm-styles
 }
+// #B6BDC6 #E3C7AF
+/* Custom margin classes */
+.subscription-plan-cnt.plan-1 {
+  margin-top: 0; /* Adjust as needed */
+}
+
+.subscription-plan-cnt.plan-2 {
+  margin-top: 6em; /* Adjust as needed */
+}
+
+.subscription-plan-cnt.plan-3 {
+  margin-top: 11em; /* Adjust as needed */
+}
 
 .subscription-plan-cnt {
     width: 100%;
-    box-shadow: 0px 0px 20px #00000026;
-    border: 3px solid transparent;
-    border-radius: 12px;
+    // box-shadow: 0px 0px 20px #00000026;
+    // border: 3px solid transparent;
+    border:none;
+    border-radius: 2px;
     transition: all 0.3s ease-in-out;
     height: auto;
     position: relative;
     cursor: pointer;
+    background-image: linear-gradient(to bottom, #B6BDC6, #E3C7AF);
+    padding: 0.75em 0 1em 0;
 
-    &:hover {
-        border: solid 3px var(--primary-color-orange);
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        transform: translateY(-5px);
-    }
+    // &:hover {
+    //     border: solid 3px var(--primary-color-orange);
+    //     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    //     transform: translateY(-5px);
+    // }
 
     .plan-content {
         padding: 0px;
@@ -77,69 +93,76 @@ p {
 
 
     .plan-header {
-        padding: 8px 10px;
-        width: 92%;
+        padding: 0px 10px;
+        width: 100%;
         margin: 10px auto;
         border-radius: 4px;
         // display: flex;
         // flex-direction: column;
+        text-align: center;
         // align-items: center;
 
         h2 {
             font-weight: var(--font-weight-semibold);
-            font-size: 24px;
+            font-size: 35px;
             width: 100%;
-            color: var(--primary-color-blue) !important;
+            // color: var(--primary-color-blue) !important;
+            color:#000;
             transition: color 0.1s ease-in-out;
         }
 
         h1 {
             font-weight: var(--font-weight-semibold);
             font-size: 64px;
-            text-align: left;
-            color: var(--primary-color-blue);
+            text-align: center;
+            // color: var(--primary-color-blue);
+            color:#000;
             margin-top: 16px;
             transition: color 0.1s ease-in-out;
 
             span {
                 font-size: 32px;
-                color: #146EB4;
+                // color: #146EB4;
+                font-weight: var(--font-weight-semibold);
+                color:#000;
+                text-align: center;
             }
 
         }
 
         span {
             font-size: 20px;
-            color: #146EB4;
+            // color: #146EB4;
+            color:#000;
             margin-left: 4px;
             transition: color 0.1s ease-in-out;
         }
     }
 
-    &:hover .plan-header {
-        background-color: var(--primary-color-blue);
+    // &:hover .plan-header {
+    //     background-color: var(--primary-color-blue);
 
-        h1 {
-            color: var(--light-grey);
+    //     h1 {
+    //         color: var(--light-grey);
 
-            span {
-                color: var(--light-grey);
-            }
-        }
+    //         span {
+    //             color: var(--light-grey);
+    //         }
+    //     }
 
-        span {
-            color: var(--light-grey)
-        }
+    //     span {
+    //         color: var(--light-grey)
+    //     }
 
-        h2 {
-            color: var(--light-grey) !important
-        }
+    //     h2 {
+    //         color: var(--light-grey) !important
+    //     }
 
-    }
+    // }
 
     .plan-list {
         // height: auto;
-        height: 28.438rem;
+        height: 34rem;
         overflow: auto;
         padding: 0 0.625rem;
         margin-bottom: 1.25rem;
@@ -154,7 +177,7 @@ p {
             margin-bottom: 22px;
             font-size: 15px;
             font-weight: var(--font-weight-normal);
-            color: #555;
+            color: #000;
             display: flex;
 
             i {
@@ -237,6 +260,7 @@ p {
         align-items: center;
     }
 }
+
 @media screen and (max-width: 768px) {
 
     .main-container {
@@ -261,6 +285,18 @@ p {
         width: 100% !important;
 
     }
+
+    .subscription-plan-cnt.plan-1 {
+        margin-top: 0; /* Adjust as needed */
+      }
+      
+      .subscription-plan-cnt.plan-2 {
+        margin-top: 0; /* Adjust as needed */
+      }
+      
+      .subscription-plan-cnt.plan-3 {
+        margin-top: 0; /* Adjust as needed */
+      }
 
     .col-12.col-md-6.col-lg-4.popular-card {
         margin-top: 10% !important;
