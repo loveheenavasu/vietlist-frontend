@@ -1,4 +1,4 @@
-import { TopRealEstateAgentsComponent } from './views/top-real-estate-agents/top-real-estate-agents.component';
+
 import { NavigationEnd, Router } from '@angular/router'
 import { PlanComponent } from './../susbscription-plans/index'
 import { CardSwiperComponent } from './../common-ui/swipers/components/card-swiper'
@@ -46,7 +46,6 @@ register()
     CtaVerifiedBusinessComponent,
     NgOptimizedImage,
     ChooseLoanTypeComponent,
-    TopRealEstateAgentsComponent,
     TopRestaurantsComponent,
     CommonModule,
   ],
