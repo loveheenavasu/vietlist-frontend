@@ -130,4 +130,5 @@ export enum Endpoints {
   GetRealEstateAgentDetails = 'get_realestate_userdetails',
   CompleteReatEstateProfile = 'realestate_complete_profile',
   GetRealEstateDetails = 'get_realestate_userdetails',
+  GetPropertyDetails = 'get_mls_detail_data_using_zpid',
 }

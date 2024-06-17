@@ -112,9 +112,12 @@ export class PropertyDetailsComponent {
   public hometype: any
   public getPropertyDetails() {
     this.loaderService.showLoader()
-    this.profile.getMLSDataById(this.propId).subscribe({
+    this.propertyService.GetPropertyDetails(this.propId).subscribe({
+      // apito get property details with zpid
+      // this.profile.getMLSDataById(this.propId).subscribe({  old api to get property details
       next: (res) => {
         if (res) {
+          console.log(res)
           this.propertyDetails = res?.data[0]
           this.propertyImages = [res.data[0]?.imgsrc].flat()
           this.showSwiper()

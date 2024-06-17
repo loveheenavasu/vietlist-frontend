@@ -26,7 +26,7 @@
           }; track $index) {
           <div class="grid-card col-12 col-md-6 col-lg-4  onlarge_screen ">
             <div class="listing-wrapper">
-              <div class="listing-img" (click)="viewProperty(key.ID)" >
+              <div class="listing-img" (click)="viewProperty(key?.zpid)" >
                 <img
                 [src]="
                   key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -79,7 +79,7 @@
                     <mat-card-footer>
                       <button
                       class="btn orange-background-btn"
-                      (click)="viewProperty(key.ID)"
+                      (click)="viewProperty(key.zpid)"
                     >
                       View 
                     </button>
