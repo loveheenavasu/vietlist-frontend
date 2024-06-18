@@ -30,7 +30,10 @@
     <div class="listing-title">
       <span class="listing-price">${{ propertyDetails?.price }}</span>
       <span class="listing-address">{{propertyDetails?.city}}, {{propertyDetails?.state}} , {{ propertyDetails?.abbreviatedAddress}}</span><br/>
-      <div class="est-payment">
+      <div class="for-sale">
+        {{homestatus}}
+      </div>
+      <div class="est-payment mt-3">
         $ {{propertyDetails?.price}}
       </div>
     </div>
@@ -45,14 +48,11 @@
         </div>
       </div>
      
-      <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button>
+      <!-- <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button> -->
     </div>
   </div>
   <div class="listing-details">
     <div class="d-flex">
-      <div class="listing-details-item">
-        {{propertyDetails?.bathrooms}} Bathroom(s)
-      </div>
       <div class="listing-details-item">
         {{propertyDetails?.bathrooms}} Bath(s)
       </div>
@@ -69,7 +69,7 @@
         {{homestatus}}
       </div>
       <div class="listing-details-item">
-        {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
+       $ {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
       </div>
     </div>
   </div>
@@ -78,6 +78,23 @@
 
   <div class="listing-description">
     <p>{{ propertyDetails?.description }}</p>
+  </div>
+  <br>
+  <h2>Facts & Features</h2>
+  <br>
+  <div>
+    <h5>Living Area</h5>
+    <p>Dimesnion: {{propertyDetails?.livingArea}} sqft</p>
+  </div>
+
+  <div class="row">
+    @for(key of propertyDetails?.hugePhotos;track $index){
+    <div class="col-12 col-md-4 my-3">
+     <div class="img-cnt-2">
+      <img [src]="key.url"/>
+     </div>
+    </div>
+  }
   </div>
   <div class="col-12 mt-3">
     <div id="map" style="height: 300px; width: 100%"></div> 
