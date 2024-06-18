@@ -102,7 +102,7 @@
           track $index) {
           <div class="d-flex small-screen-view">
             <div class="listing-img-container">
-              <div class="listing-img" (click)="viewProperty(key.ID)">
+              <div class="listing-img" (click)="viewProperty(key.zpid)">
                 <img
                 [src]="
                   key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -156,10 +156,10 @@
                     </div>
                   </div>
                 </mat-card-footer>
-                <!-- } -->z
+                <!-- } -->
                 <button
                   class="btn orange-background-btn "
-                  (click)="viewProperty(key.ID)"
+                  (click)="viewProperty(key.zpid)"
                 >
                   View
                 </button>

@@ -25,6 +25,30 @@ import { PropertyService } from '../property-listings/property.service'
   styleUrl: './property-details.component.scss',
 })
 export class PropertyDetailsComponent {
+  listing = {
+    price: 324999,
+    address: '8514 N 46th St, Tampa, FL 33617',
+    estPayment: 1959,
+    beds: 4,
+    baths: 2,
+    sqft: 1728,
+    features: [
+      'Single family residence',
+      'Built in 1958',
+      '0.60 Acres',
+      '1 Attached garage space',
+      '$188 price/sqft'
+    ],
+    description: 'Welcome to 8514 N 46th... this beautiful home offers a ton of potential, with 1,728 square feet of elegant living space, four spacious bedrooms and two stylish bathrooms. Nestled on a double oversized lot, this property boasts a private pool perfect for cooling off on hot summer days. The backyard is...',
+    agent: {
+      name: 'Mike Davis',
+      imageUrl: '' // Replace with actual image URL
+    },
+    source: {
+      name: 'Stellar MLS',
+      mlsId: 'T3530263'
+    }
+  };
   public propId: any
   public userdetails: any
   public propertyDetails: any
@@ -33,7 +57,7 @@ export class PropertyDetailsComponent {
   public map: google.maps.Map | null = null
   public latitude: any
   public longitude: any
-  public propertyImages: string[] = []
+  public propertyImages: any[] = []
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
   public blogSwiperParams = {
@@ -118,15 +142,17 @@ export class PropertyDetailsComponent {
       next: (res) => {
         if (res) {
           console.log(res)
-          this.propertyDetails = res?.data[0]
-          this.propertyImages = [res.data[0]?.imgsrc].flat()
-          this.showSwiper()
-          const data = this.propertyDetails?.homestatus?.split('_')
+          this.propertyDetails = res?.data
+          // this.propertyImages = [res.data[0]?.imgsrc].flat()
+          this.propertyImages = res.data.big
+          console.log(this.propertyImages , "pppppp")
+          const data = this.propertyDetails?.homeStatus?.split('_')
           this.homestatus = data?.join(' ')
-          const data2 = this.propertyDetails?.hometype?.split('_')
+          const data2 = this.propertyDetails?.homeType?.split('_')
           this.hometype = data2?.join(' ')
-          this.latitude = Number(this.propertyDetails?.latitude_1)
-          this.longitude = Number(this.propertyDetails?.longitude_1)
+          console.log(this.homestatus , this.hometype)
+          this.latitude = Number(this.propertyDetails?.latitude)
+          this.longitude = Number(this.propertyDetails?.longitude)
           this.loaderService.hideLoader()
           this.cd.detectChanges()
           this.initMap()

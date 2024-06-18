@@ -1,103 +1,88 @@
-<div class="container-fluid mt-5">
-  <div class="container user-blog-detail-cnt">
-    <div class="row">
-      <div class="col-12 my-3">
-        <!-- <div class="img-cnt">
-          <img
-            [src]="
-              propertyDetails?.imgsrc
-                ? propertyDetails?.imgsrc
-                : '/assets/image/no-image-new.jpeg'
-            "
-          />
-        </div> -->
-        <div class="blog-bannerr">
-          <swiper-container #blogSwiper class="mySwiper" init="false">
-            @for (key of propertyImages; track $index) {
-            <swiper-slide>
-              <div class="banner-img"
-                style="background-image: url({{key}})">
-                <!-- <div class="banner-text ">
-                  <h3>{{key?.title}}</h3>
-                  <p>
-                    {{key?.description}}
-                  </p>
-                </div> -->
-              </div>
-            </swiper-slide>
-            }
-          </swiper-container>
-        </div>
+<div class="container-fluid">
+<div class="bg-image">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      @for (key of propertyImages; track $index) {
+      <div class="carousel-item active">
+        <img class="d-block w-100" [src]="key?.url" alt="First slide">
       </div>
-      <div class="col-12">
-
-        <div class="main_content__ mt-3">
-          <h2 class="heading-title">{{propertyDetails?.title}}
-          </h2>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col-12 col-md-7 col-lg-8 ">
-        <div class="profile-info-div-2 box-shadow">
-          @if (homestatus) {
-            <p><i class="fa-solid fa-home"></i> <b>Home Status</b>: {{homestatus}}</p>
-          }
-          @if(propertyDetails?.price ){
-            <p><i class="fa-solid fa-dollar-sign"></i> <b>Price</b>: {{ propertyService.formatToUSD(propertyDetails?.price) }}</p>
-          }@if (hometype ) {
-            <p><i class="fa-solid fa-building"></i> <b>Home Type</b>: {{hometype }}</p>
-          }@if (propertyDetails?.rentzestimate) {
-            <p><i class="fa-solid fa-calculator"></i> <b>Estimate Rent</b>: {{ propertyService.formatToUSD(propertyDetails?.rentzestimate)}}</p>
-          }@if (propertyDetails?.isnonowneroccupied ) {
-            <p><i class="fa-solid fa-user-alt-slash"></i> <b>Is Non Owner Occupied</b>: {{propertyDetails?.isnonowneroccupied == '1' ? 'Yes' : 'No'}}</p>
-          }
-          @if (propertyDetails?.bathrooms) {
-            <p><i class="fa-solid fa-bath"></i> <b>Bathrooms</b>: {{propertyDetails?.bathrooms}}</p>
-          }
-          @if (propertyDetails?.bedrooms) {
-            <p><i class="fa-solid fa-bed"></i> <b>Bedrooms</b>: {{propertyDetails?.bedrooms}}</p>
-          }@if (propertyDetails?.livingarea) {
-            <p><i class="fa-solid fa-ruler-combined"></i> <b>Living Area size</b>: {{propertyDetails?.livingarea}}</p>
-          }@if (propertyDetails?.lotareaunit ) {
-            <p><i class="fa-solid fa-map-marker-alt"></i> <b>LOT Area unit</b>: {{propertyDetails?.lotareaunit }}</p>
-          }
-        </div>
-      </div>
-      <div class="col-12 col-md-5 col-lg-4 ">
-        <div class="profile-info-div box-shadow position-relative ">
-          @if (propertyDetails?.user_detail?.first_name || propertyDetails?.user_detail?.last_name) {
-            <h3  (click)="viewAgentDetails(propertyDetails.user_detail?.user_id)" class='agent-name'   >{{propertyDetails?.user_detail?.first_name}} {{propertyDetails?.user_detail?.last_name}}</h3>
-          }
-          @if (propertyDetails?.user_detail?.email) {
-            <p class='text-nowrap' ><i class="fa-solid fa-envelope"></i>{{propertyDetails?.user_detail?.email}}</p>
-          }
-          @if (propertyDetails?.user_detail?.contact) {
-            <p class='text-nowrap' ><i class="fa-solid fa-phone"></i>{{propertyDetails?.user_detail?.contact}}</p>
-          }
-          @if (propertyDetails?.user_detail?.address) {
-            <p><i class="fa-solid fa-road"></i>{{propertyDetails?.user_detail?.address}}</p>
-          }
-        </div>
-        <div class="profile-info-div box-shadow position-relative">
-          <h3><i class="fa-solid fa-map-signs"></i> Address</h3>
-          @if (propertyDetails?.streetaddress) {
-            <p><i class="fa-solid fa-road"></i> <b>Street</b>: {{propertyDetails?.streetaddress}}</p>
-          }
-      @if (propertyDetails?.city_1) {
-            <p><i class="fa-solid fa-city"></i> <b>City</b>: {{propertyDetails?.city_1}}</p>
-          }
-          @if (propertyDetails?.state) {
-            <p><i class="fa-solid fa-map"></i> <b>State</b>: {{propertyDetails?.state}}</p>
-          }@if (propertyDetails?.zipcode ) {
-            <p><i class="fa-solid fa-mail-bulk"></i> <b>Zip</b>: {{propertyDetails?.zipcode }}</p>
-          }
-
-        </div>
-      </div>
-          <div class="col-12 mt-3">
-            <div id="map" style="height: 300px; width: 100%"></div> 
-          </div>
-    </div>
+    }
+      
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
 </div>
+</div>
+
+<div class="home-listing">
+  <div class="listing-header">
+    <div class="listing-title">
+      <span class="listing-price">${{ propertyDetails?.price }}</span>
+      <span class="listing-address">{{propertyDetails?.city}}, {{propertyDetails?.state}} , {{ propertyDetails?.abbreviatedAddress}}</span><br/>
+      <div class="est-payment">
+        $ {{propertyDetails?.price}}
+      </div>
+    </div>
+    <div class="listing-agent">
+      <div class="d-flex">
+        <div>
+          <img [src]="propertyDetails?.attributionInfo?.providerLogo"  />
+        </div>
+        <div class="mx-3">
+          <p><b>Listed by</b></p>
+          <span>{{ propertyDetails?.attributionInfo?.agentName}}</span>
+        </div>
+      </div>
+     
+      <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button>
+    </div>
+  </div>
+  <div class="listing-details">
+    <div class="d-flex">
+      <div class="listing-details-item">
+        {{propertyDetails?.bathrooms}} Bathroom(s)
+      </div>
+      <div class="listing-details-item">
+        {{propertyDetails?.bathrooms}} Bath(s)
+      </div>
+      <div class="listing-details-item">
+        {{propertyDetails?.bedrooms}} Bedroom(s)
+      </div>
+      <div class="listing-details-item">
+        {{ propertyDetails?.lotSize }} sqft lot
+      </div>
+      <div class="listing-details-item">
+        {{propertyDetails?.propertyTypeDimension}}
+      </div>
+      <div class="listing-details-item">
+        {{homestatus}}
+      </div>
+      <div class="listing-details-item">
+        {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <div class="listing-description">
+    <p>{{ propertyDetails?.description }}</p>
+  </div>
+  <div class="col-12 mt-3">
+    <div id="map" style="height: 300px; width: 100%"></div> 
+  </div>
+</div>
+
+
+
