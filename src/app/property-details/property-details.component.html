@@ -1,88 +1,89 @@
 <div class="container-fluid">
-<div class="bg-image">
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      @for (key of propertyImages; track $index) {
-      <div class="carousel-item active">
-        <img class="d-block w-100" [src]="key?.url" alt="First slide">
-      </div>
-    }
-      
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-</div>
+  <div class="bg-image">
+    <ngb-carousel
+      #carousel
+      [interval]="5500"
+      [pauseOnHover]="pauseOnHover"
+      [pauseOnFocus]="pauseOnFocus"
+      (slide)="onSlide($event)"
+    >
+      @for (img of propertyImages; track img; let i = $index) {
+        <ng-template ngbSlide>
+          <div
+            class="picsum-img-wrapper"
+          >
+            <div class="slide-show-container">
+              <div class="slide-image-container" [id]="'slideShow' + i">
+                <img [src]="img?.url" alt="My image {{ i + 1 }} description" />
+              </div>
+              <li 
+              [ngClass]="isPlaying  ? 'fa-pause': 'fa-play'"
 
-<div class="home-listing">
-  <div class="listing-header">
-    <div class="listing-title">
-      <span class="listing-price">${{ propertyDetails?.price }}</span>
-      <span class="listing-address">{{propertyDetails?.city}}, {{propertyDetails?.state}} , {{ propertyDetails?.abbreviatedAddress}}</span><br/>
-      <div class="est-payment">
-        $ {{propertyDetails?.price}}
+              class="fa  toggle-slide-show " (click)="toggleSlideShow('slideShow' + i)" ></li>
+            </div>
+          </div>
+        </ng-template>
+      }
+    </ngb-carousel>
+  </div>
+
+  <div class="home-listing">
+    <div class="listing-header">
+      <div class="listing-title">
+        <span class="listing-price">${{ propertyDetails?.price }}</span>
+        <span class="listing-address"
+          >{{ propertyDetails?.city }}, {{ propertyDetails?.state }} ,
+          {{ propertyDetails?.abbreviatedAddress }}</span
+        ><br />
+        <div class="est-payment">$ {{ propertyDetails?.price }}</div>
+      </div>
+      <div class="listing-agent">
+        <div class="d-flex">
+          <div>
+            <img [src]="propertyDetails?.attributionInfo?.providerLogo" />
+          </div>
+          <div class="mx-3">
+            <p><b>Listed by</b></p>
+            <span>{{ propertyDetails?.attributionInfo?.agentName }}</span>
+          </div>
+        </div>
+
+        <button class="contact-agent">
+          Contact {{ propertyDetails?.attributionInfo?.agentName }}
+        </button>
       </div>
     </div>
-    <div class="listing-agent">
+    <div class="listing-details">
       <div class="d-flex">
-        <div>
-          <img [src]="propertyDetails?.attributionInfo?.providerLogo"  />
+        <div class="listing-details-item">
+          {{ propertyDetails?.bathrooms }} Bathroom(s)
         </div>
-        <div class="mx-3">
-          <p><b>Listed by</b></p>
-          <span>{{ propertyDetails?.attributionInfo?.agentName}}</span>
+        <div class="listing-details-item">
+          {{ propertyDetails?.bathrooms }} Bath(s)
         </div>
-      </div>
-     
-      <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button>
-    </div>
-  </div>
-  <div class="listing-details">
-    <div class="d-flex">
-      <div class="listing-details-item">
-        {{propertyDetails?.bathrooms}} Bathroom(s)
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.bathrooms}} Bath(s)
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.bedrooms}} Bedroom(s)
-      </div>
-      <div class="listing-details-item">
-        {{ propertyDetails?.lotSize }} sqft lot
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.propertyTypeDimension}}
-      </div>
-      <div class="listing-details-item">
-        {{homestatus}}
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
+        <div class="listing-details-item">
+          {{ propertyDetails?.bedrooms }} Bedroom(s)
+        </div>
+        <div class="listing-details-item">
+          {{ propertyDetails?.lotSize }} sqft lot
+        </div>
+        <div class="listing-details-item">
+          {{ propertyDetails?.propertyTypeDimension }}
+        </div>
+        <div class="listing-details-item">
+          {{ homestatus }}
+        </div>
+        <div class="listing-details-item">
+          {{ propertyDetails?.monthlyHoaFee }} Monthly HOA fee
+        </div>
       </div>
     </div>
-  </div>
 
- 
-
-  <div class="listing-description">
-    <p>{{ propertyDetails?.description }}</p>
-  </div>
-  <div class="col-12 mt-3">
-    <div id="map" style="height: 300px; width: 100%"></div> 
+    <div class="listing-description">
+      <p>{{ propertyDetails?.description }}</p>
+    </div>
+    <div class="col-12 mt-3">
+      <div id="map" style="height: 300px; width: 100%"></div>
+    </div>
   </div>
 </div>
-
-
-
