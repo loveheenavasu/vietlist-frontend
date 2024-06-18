@@ -25,92 +25,79 @@
     </ngb-carousel>
   </div>
 
-<div class="home-listing">
-  <div class="listing-header">
-    <div class="listing-title">
-      <span class="listing-price">${{ propertyDetails?.price }}</span>
-      <span class="listing-address">{{propertyDetails?.city}}, {{propertyDetails?.state}} , {{ propertyDetails?.abbreviatedAddress}}</span><br/>
-      <div class="for-sale">
-        {{homestatus}}
+  <div class="home-listing">
+    <div class="listing-header">
+      <div class="listing-title">
+        <span class="listing-price">${{ propertyDetails?.price }}</span>
+        <span class="listing-address">{{propertyDetails?.city}}, {{propertyDetails?.state}} , {{ propertyDetails?.abbreviatedAddress}}</span><br/>
+        <div class="for-sale">
+          {{homestatus}}
+        </div>
+        <div class="est-payment mt-3">
+          $ {{propertyDetails?.price}}
+        </div>
       </div>
-      <div class="est-payment mt-3">
-        $ {{propertyDetails?.price}}
+      <div class="listing-agent">
+        <div class="d-flex">
+          <div>
+            <img [src]="propertyDetails?.attributionInfo?.providerLogo"  />
+          </div>
+          <div class="mx-3">
+            <p><b>Listed by</b></p>
+            <span>{{ propertyDetails?.attributionInfo?.agentName}}</span>
+          </div>
+        </div>
+       
+        <!-- <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button> -->
       </div>
     </div>
     <div class="listing-details">
-      <div class="d-flex">
+      <div class="d-flex flex-wrap gap-2 ">
         <div class="listing-details-item">
-          {{ propertyDetails?.bathrooms }} Bathroom(s)
+          {{propertyDetails?.bathrooms}} Bath(s)
         </div>
         <div class="listing-details-item">
-          {{ propertyDetails?.bathrooms }} Bath(s)
-        </div>
-        <div class="listing-details-item">
-          {{ propertyDetails?.bedrooms }} Bedroom(s)
+          {{propertyDetails?.bedrooms}} Bedroom(s)
         </div>
         <div class="listing-details-item">
           {{ propertyDetails?.lotSize }} sqft lot
         </div>
         <div class="listing-details-item">
-          {{ propertyDetails?.propertyTypeDimension }}
+          {{propertyDetails?.propertyTypeDimension}}
         </div>
         <div class="listing-details-item">
-          {{ homestatus }}
+          {{homestatus}}
         </div>
         <div class="listing-details-item">
-          {{ propertyDetails?.monthlyHoaFee }} Monthly HOA fee
+         $ {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
         </div>
       </div>
-     
-      <!-- <button class="contact-agent" >Contact {{propertyDetails?.attributionInfo?.agentName}}</button> -->
     </div>
-  </div>
-  <div class="listing-details">
-    <div class="d-flex">
-      <div class="listing-details-item">
-        {{propertyDetails?.bathrooms}} Bath(s)
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.bedrooms}} Bedroom(s)
-      </div>
-      <div class="listing-details-item">
-        {{ propertyDetails?.lotSize }} sqft lot
-      </div>
-      <div class="listing-details-item">
-        {{propertyDetails?.propertyTypeDimension}}
-      </div>
-      <div class="listing-details-item">
-        {{homestatus}}
-      </div>
-      <div class="listing-details-item">
-       $ {{propertyDetails?.monthlyHoaFee}} Monthly HOA fee
-      </div>
+  
+   
+  
+    <div class="listing-description">
+      <p>{{ propertyDetails?.description }}</p>
     </div>
-  </div>
-
- 
-
-  <div class="listing-description">
-    <p>{{ propertyDetails?.description }}</p>
-  </div>
-  <br>
-  <h2>Facts & Features</h2>
-  <br>
-  <div>
-    <h5>Living Area</h5>
-    <p>Dimesnion: {{propertyDetails?.livingArea}} sqft</p>
-  </div>
-
-  <div class="row">
-    @for(key of propertyDetails?.hugePhotos;track $index){
-    <div class="col-12 col-md-4 my-3">
-     <div class="img-cnt-2">
-      <img [src]="key.url"/>
-     </div>
+    <br>
+    <h2>Facts & Features</h2>
+    <br>
+    <div>
+      <h5>Living Area</h5>
+      <p>Dimesnion: {{propertyDetails?.livingArea}} sqft</p>
     </div>
-  }
-  </div>
-  <div class="col-12 mt-3">
-    <div id="map" style="height: 300px; width: 100%"></div> 
+  
+    <div class="row">
+      @for(key of propertyDetails?.hugePhotos;track $index){
+      <div class="col-12 col-md-4 my-3">
+       <div class="img-cnt-2">
+        <img [src]="key.url"/>
+       </div>
+      </div>
+    }
+    </div>
+    <div class="col-12 mt-3">
+      <div id="map" style="height: 300px; width: 100%"></div> 
+    </div>
   </div>
 </div>
