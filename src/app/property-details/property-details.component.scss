@@ -1096,3 +1096,18 @@ a:visited {
     }
 
 }
+
+.provider-logo-container{
+
+    width: 80px;
+    height: 80px;
+    position: relative;
+    img{
+        width: 100%;
+        height: 100% !important;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+}
