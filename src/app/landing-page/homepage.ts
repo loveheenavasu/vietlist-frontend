@@ -25,9 +25,10 @@ import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
-import { InfoCardComponent } from '../commom-ui/info-card/info-card.component'
+import { InfoCardComponent } from '../common-ui/info-card/info-card.component'
 import { BusinessService } from '../manage-business/service/business.service'
 import { InsauranceAgentComponent } from './views/insaurance-agent/insaurance-agent.component'
+import { ServicesCardComponent } from '../common-ui/services-card/services-card.component'
 register()
 
 @Component({
@@ -49,6 +50,7 @@ register()
     CommonModule,
     InfoCardComponent,
     InsauranceAgentComponent,
+    ServicesCardComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './homepage.html',
