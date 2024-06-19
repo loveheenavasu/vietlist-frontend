@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common'
+import { CommonModule, Location } from '@angular/common'
 import {
   ChangeDetectorRef,
   Component,
@@ -103,6 +103,7 @@ export class PropertyDetailsComponent {
     private cd: ChangeDetectorRef,
     public propertyService: PropertyService,
     private carouselConfig: NgbCarouselConfig,
+    private location: Location,
   ) {
     this.isAuthenticated = this.authentication.isAuthenticated()
     this._activatedRoute.params.subscribe((res) => {
@@ -235,7 +236,7 @@ export class PropertyDetailsComponent {
         }
       },
       error: (err) => {
-        this.loaderService.hideLoader()
+        this.location.back()
       },
     })
   }
