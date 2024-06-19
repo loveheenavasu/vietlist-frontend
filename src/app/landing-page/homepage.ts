@@ -27,6 +27,7 @@ import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
 import { InfoCardComponent } from '../commom-ui/info-card/info-card.component'
 import { BusinessService } from '../manage-business/service/business.service'
+import { InsauranceAgentComponent } from './views/insaurance-agent/insaurance-agent.component'
 register()
 
 @Component({
@@ -47,6 +48,7 @@ register()
     ChooseLoanTypeComponent,
     CommonModule,
     InfoCardComponent,
+    InsauranceAgentComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './homepage.html',

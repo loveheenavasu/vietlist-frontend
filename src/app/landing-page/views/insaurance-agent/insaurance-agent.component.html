@@ -1,0 +1,59 @@
+<div class="row flex-column-reverse flex-xl-row " style="padding: 5%; background-color: #f6f6f6">
+  <div class="col-xl-4 col-12 add-banner flex-xl-column "  >
+    <div class="header-info">
+      <span class="add-date"> 12.03.23 </span>
+      <span class="add-title"> enjoy the experience </span>
+      <span class="add-sub-title"> Put text here </span>
+    </div>
+    <div class="banner-img-cont">
+      <img src="/assets/image/add-banner.png" alt="" />
+    </div>
+    <div class="header-info">
+      <span class="add-date">
+        +100 <br />
+        Destination
+      </span>
+      <span class="add-contact">
+        <li class="fa fa-phone"></li>
+        +5252525252525
+      </span>
+      <span class="add-contact">
+        <li class="fa fa-envelope"></li>
+        test amil
+      </span>
+      <span class="add-web-link">
+      www.website.com
+      </span>
+    </div>
+  </div>
+  <div class="col-xl-8 text-center d-flex flex-column align-items-center">
+    <div class="title-container">
+      <h1>Insurance Agents</h1>
+      <span
+        >It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout.</span
+      >
+    </div>
+
+    @for (item of arr; track $index) {
+      <div
+        class="profile-card"
+        [ngClass]="{ 'flex-row-reverse': $index % 2 !== 0 }"
+      >
+        <div class="img-container">
+          <img src="/assets/image/pfp.png" alt="" />
+        </div>
+        <div class="pfp-card" [ngClass]="{ 'end-items': $index % 2 !== 0 }">
+          <p>suman Kumar</p>
+          <span>
+            {{ textHelper.truncated(agengtDecs, 240) }}
+          </span>
+          <p class="phone">+91 8989898989</p>
+          <button>View Profile</button>
+        </div>
+      </div>
+      <div *ngIf="$index !== arr.length - 1" class="hr-line"></div>
+    }
+    <button class="view-more">View More Agents</button>
+  </div>
+</div>

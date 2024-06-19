@@ -1,0 +1,153 @@
+.profile-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    text-align: start;
+
+    .img-container {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+
+    .pfp-card {
+        width: 80%;
+
+        p {
+            font-size: 17px;
+            font-weight: 700;
+            margin-block: 17px;
+        }
+
+        .phone {
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        button {
+            border: 2px solid black;
+            background: white;
+            padding: 8px 25px;
+            font-weight: 700;
+        }
+    }
+
+}
+
+.title-container {
+    padding-bottom: 6%;
+    width: 65%;
+
+    span {
+        font-weight: 500;
+    }
+}
+
+.hr-line {
+    width: 90%;
+    background: #f99a00;
+    height: 1.5px;
+    margin-top: 5%;
+}
+
+
+.end-items {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.view-more {
+    background: black;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 5%;
+}
+
+.add-banner {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 5%;
+    // background-color: #ff9e01;
+    justify-content: space-between;
+
+    .banner-img-cont {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+@media (min-width:1200px) {
+
+    .banner-img-cont {
+        height: 100%;
+
+    }
+
+}
+
+.header-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+    text-align: center;
+    background: #ff9e01;
+    padding: 20px;
+    gap: 16px;
+
+
+    .add-date {
+        background: black;
+        color: white;
+        padding: 5px 9px;
+        letter-spacing: 3px;
+        font-size: 0.8em;
+    }
+
+    .add-title {
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        width: 70%;
+        font-weight: 700;
+        font-size: 1em;
+    }
+
+    .add-sub-title {
+        font-size: 0.7em;
+    }
+
+    .add-contact {
+        font-size: 12px;
+        font-weight: 200;
+    }
+
+    .add-web-link {
+        font-size: 1em;
+        letter-spacing: 5px;
+    }
+}
