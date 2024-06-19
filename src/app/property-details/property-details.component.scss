@@ -3,6 +3,214 @@
 @import "../../assets/scss/ads";
 
 
+.home-listing {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.listing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.listing-title {
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-price {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.listing-address {
+    font-size: 18px;
+    color: rgb(42, 42, 51);
+}
+
+.listing-agent {
+
+    align-items: center;
+    border: solid 1px rgb(159, 159, 159);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 2em 3em
+}
+
+.listing-agent img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.contact-agent {
+    background-color: #1985e3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contact-button:hover {
+    background-color: #23527c;
+}
+
+.listing-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.listing-details-left {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.img-cnt-2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    img{
+        max-height: 300px;
+    }
+}
+
+.for-sale {
+    background-color: rgb(233, 233, 233);
+    width: fit-content;
+    border-radius: 2px;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.est-payment {
+    align-items: center;
+    background-color: rgb(228, 242, 255);
+    border-radius: 4px;
+    width: fit-content;
+    padding: 12px;
+    margin-right: 10px;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 500
+}
+
+
+.listing-details-item {
+    // display: flex;
+    // align-items: center;
+    // margin-bottom: 10px;
+    align-items: center;
+    background-color: rgb(246, 246, 250);
+    border-radius: 4px;
+    width: fit-content;
+    padding: 12px;
+    margin-right: 10px;
+    font-family: Poppins;
+    font-size: 14px;
+}
+
+.listing-details-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.listing-details-value {
+    font-size: 16px;
+}
+
+.get-pre-qualified {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.listing-details-right {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.listing-features {
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-feature {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.listing-feature-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.listing-description {
+    margin-bottom: 20px;
+}
+
+.read-more {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.listing-source {
+    display: flex;
+    align-items: center;
+}
+
+.listing-source img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.request-tour {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.tour-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tour-description {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
 .blog-bannerr {
     margin-bottom: 32px;
     height: 14em;
@@ -211,7 +419,13 @@ img {
 }
 
 .container-fluid {
+    padding-inline: 90px;
     padding-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-direction: column;
+
 
     .cta-description {
         width: 55%;
@@ -319,11 +533,11 @@ img {
 
 
 
-@media screen and (max-width: 820px){
+@media screen and (max-width: 820px) {
     .blog-bannerr {
-                // height: 0px !important;
-                // margin-bottom: 15rem !important;
-            }
+        // height: 0px !important;
+        // margin-bottom: 15rem !important;
+    }
 }
 
 @media(min-width:1500px) {
@@ -760,4 +974,125 @@ a:visited {
     &:hover {
         text-decoration: underline;
     }
+}
+
+.bg-image {
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+
+.toggle-slide-show {
+    position: absolute;
+    bottom: 18px;
+    left: 12%;
+    font-size: 25px;
+    color:white;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.slide-show-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide-image-container {
+    width: 120%;
+    height: 100%;
+    animation: slide 7s infinite linear;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-17%);
+        /* Adjust this value based on the width difference */
+    }
+}
+
+:host ::ng-deep {
+    .carousel {
+        // height: 50vh;
+        margin-top: 8%;
+
+        img {
+            width: 100%;
+            height: 600px !important;
+        }
+    }
+
+    .carousel-item {
+        /* Force to always be block */
+        // display: block !important;
+        // z-index: 1;
+        // position: absolute;
+        // transform: translateX(100%);
+        opacity: 0.7;
+        transition: opacity 1s ease-in-out;
+        visibility: hidden;
+    }
+
+    .carousel-control-prev{
+        width: 12%;
+    }
+
+    .carousel-indicators{
+        max-width: 884px;
+    overflow: hidden;
+    }
+
+    .carousel-item.active {
+        // position: relative;
+        transform: translateX(0);
+        visibility: visible;
+        opacity: 1;
+    }
+
+}
+
+
+
+
+@media(max-width:1000px) {
+    :host ::ng-deep .carousel-indicators {
+        display: none;
+    }
+
+    :host ::ng-deep .carousel {
+        // height: 50vh;
+        margin-top: 8%;
+
+        img {
+            width: 100%;
+            height: 400px !important;
+        }
+    }
+
+}
+
+@media(max-width:768px) {
+
+    .container-fluid{
+        padding-inline: 27px;
+    }
+
+    :host ::ng-deep .carousel {
+
+        img {
+            width: 100%;
+            height: 300px !important;
+        }
+    }
+
 }
