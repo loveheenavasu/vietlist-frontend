@@ -1,0 +1,20 @@
+<div class="carousel-container">
+  <h1>{{ title }}</h1>
+  <p>{{ subTitle }}</p>
+  <button class="white-btn p-2 my-3 ">{{ btnName }}</button>
+  <div class="arrow-carousel">
+    <div class="arrow-carousel-content">
+      @for (item of cardData; track $index) {
+        <div class="carousel-card-container" id="carousel-item">
+          <div class="image-container">
+            <img src="/assets/image/pfp.png" alt="" />
+          </div>
+        </div>
+      }
+    </div>
+    <div class="carousel-control my-2 ">
+      <img (click)="scroll('left')" src="/assets/image/backward-arrow.svg" alt="" />
+      <img (click)="scroll('right')" src="/assets/image/forward-arrow.svg" alt="" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+.carousel-container {
+    text-align: center;
+    padding: 5%;
+}
+
+.arrow-carousel {
+    width: 100%;
+
+}
+
+.arrow-carousel-content {
+    display: flex;
+    overflow: hidden;
+}
+
+.carousel-card-container {
+    height: 300px;
+    min-width: 30%;
+    display: flex;
+    justify-self: center;
+    
+    .image-container {
+        padding-block: 2%;
+        padding-inline: 10%;
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+}
+
+.carousel-control{
+    
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    img{
+        width: 30px;
+        cursor: pointer;
+    }
+}

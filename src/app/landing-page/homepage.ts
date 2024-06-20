@@ -29,6 +29,7 @@ import { InfoCardComponent } from '../common-ui/info-card/info-card.component'
 import { BusinessService } from '../manage-business/service/business.service'
 import { InsauranceAgentComponent } from './views/insaurance-agent/insaurance-agent.component'
 import { ServicesCardComponent } from '../common-ui/services-card/services-card.component'
+import { ArraowCarouselComponent } from '../common-ui/arraow-carousel/arraow-carousel.component'
 register()
 
 @Component({
@@ -51,6 +52,7 @@ register()
     InfoCardComponent,
     InsauranceAgentComponent,
     ServicesCardComponent,
+    ArraowCarouselComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './homepage.html',

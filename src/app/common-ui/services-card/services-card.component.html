@@ -7,10 +7,10 @@
     <span> {{ subTitle }} </span>
   </div>
 
-  <div class="card-container">
+  <div class="card-container row">
 
     @for (item of cardData; track $index) {
-      <div class="service-card">
+      <div class="service-card col-xl-6 col-12 ">
         <div class="img-container">
           <img src="/assets/image/pfp.png" alt="" />
         </div>
@@ -26,9 +26,11 @@
         </div>
       </div>
     }
-    <button class='view-more-btn' >
-      View More
-    </button>
+    <div class="d-flex">
+      <button class='view-more-btn' >
+        View More
+      </button>
+    </div>
 
   </div>
 </div>

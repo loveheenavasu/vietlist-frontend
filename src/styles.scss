@@ -370,3 +370,18 @@ ngx-intl-tel-input input[disabled] {
 .cursor-pointer{
   cursor: pointer;
 }
+
+.white-btn {
+  border: 2px solid black;
+  background: white;
+  font-weight: 600;
+}
+
+.black-btn{
+  background: black;
+    border: none;
+    color: white;
+    // padding: 10px 20px;
+    margin-top: 5%;
+    margin-inline: auto;
+}
