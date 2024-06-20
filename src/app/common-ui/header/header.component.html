@@ -245,23 +245,15 @@
           </mat-menu>
           <div class="btn-container">
             <div class="login-btn">
-              <button data-bs-dismiss="offcanvas" type=" button" class="btn"
+              <button data-bs-dismiss="offcanvas" type=" button" class="btn" style="background-color: #000;color:#fff"
                 (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
-              <!-- @if(isAuthenticated){
-                <button type=" button" class="btn" (click)="onLogout()">
-                  {{'Logout'}}
-                </button>
-              }@else {
-                <button type=" button" class="btn" routerLink="/login">
-                  {{'Login' }}
-                </button>
-              } -->
+           
 
             </div>
             <div class="sign-up-btn">
-              <button data-bs-dismiss="offcanvas" type="button" class="btn"
+              <button data-bs-dismiss="offcanvas" type="button" class="btn" style="background-color: #fff;color:#000;border:solid 1px #000"
                 (click)="isAuthenticated ? profile() : signup()">
                 {{ isAuthenticated ? 'Profile' : 'Sign Up' }}
               </button>

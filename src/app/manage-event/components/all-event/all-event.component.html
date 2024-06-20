@@ -1,12 +1,23 @@
-<section class="banner">
+<section class="banner" style="background-image: url('/assets/image/all-event-banner-new.png')">
   <div class="content">
-    <h1>All Events</h1>
+    <h1>
+      <b style="font-size: 40px">Mark Your Calendars</b> <br />
+      Step into the vibrant world of Vietlist.biz events.
+    </h1>
   </div>
 </section>
-<div class="container-fluid g-0">
+<section style="background-color: #f6f6f6;">
+<div class="container-fluid main-container g-0">
+  <div class="heading">
+    <h1>Upcoming Events</h1>
+    <p>
+      Whether it’s networking, seminars, or cultural festivities, stay updated
+      with events that connect and enrich our community
+    </p>
+  </div>
   <div class="row search-fields mt-4">
     <div class="d-flex">
-      <div class="flex-grow-1 mx-1 ">
+      <div class="flex-grow-1 mx-1">
         <mat-select class="vietlist-select" placeholder="Category" [formControl]="category">
           @for (key of event_category; track $index) {
           <mat-option [value]="key.id">{{ key?.name }}</mat-option>
@@ -26,205 +37,34 @@
         </div>
       </div>
       <div class="mx-1 btn-wrapper">
-        <button class="btn search-btn" (click)="clearFilters()">
+        <button class="btn black-bg-btn" style="padding: 7px 2em" (click)="clearFilters()">
           Clear Filters
         </button>
       </div>
     </div>
   </div>
 
-  <div class="lisiting-container mt-4">
-    <div class="layout-icon d-flex align-items-center icons-grid-list">
-      <div class="grid-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-        (click)="handleLayout('grid')">
-        <mat-icon>grid_on</mat-icon>
+  <div class="main-event">
+    <div class="d-flex">
+      <div>
+        
       </div>
-      <div class="list-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
-        (click)="handleLayout('list')">
-        <mat-icon>view_list</mat-icon>
-      </div>
-      <!-- <div class="mx-1">
-            <mat-select>
-                <mat-option></mat-option>
-            </mat-select>
-        </div> -->
-    </div>
-    <div class="view-container">
-      @if (selectedLayout == 'grid') {
-      <div class="grid-view-container row">
-        @for (
-        key of publishEventsArray
-        | paginate
-        : {
-        itemsPerPage: postPerPage,
-        currentPage: currentPage,
-        totalItems: totalCount
-        };
-        track $index
-        ) {
-        <div class="grid-card col-12 col-md-6 col-lg-4  ">
-          <div class="event-wrapper">
-            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)"
-              [style.background-image]="'url(' + (key.featured_image ? key.featured_image : '/assets/image/no-image.webp') + ')'">
-              <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
-              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
-              } @else {
-              <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
-              } -->
-
-            </div>
-            <div class="listing-description">
-              <div class="listing-heading">
-                <h3 (click)="gotToEventDetails(key.post_id, true)" [innerHtml]="key?.post_title | truncateHtml : 42">
-                  <!-- {{ key.post_title }} -->
-                </h3>
-              </div>
-              <div class="listing-info">
-                <li class="post-content"  [innerHtml]="key?.post_content | truncateHtml:84"></li>
-                @if(key?.event_dates?.start_date || key?.event_dates?.end_date ){
-
-                  <li>
-                    <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                    {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
-                    'longDate'}}
-                    <!-- {{formatDate(key?.event_dates?.start_time)}} -
-                    {{formatDate( key?.event_dates?.end_time)}} -->
-                  </li>
-                }
-                @if (key?.event_dates?.start_time||key?.event_dates?.end_time) {
-                  <li>
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    Starts From: {{formatDate(key?.event_dates?.start_time)}} -
-                    Ends: {{formatDate( key?.event_dates?.end_time)}}
-                  </li>
-                }
-              </div>
-              <!-- <div class="lisiting-package">
-                    <span>$ Package : Free Business</span>
-                  </div> -->
-              <!-- @if (key?.rating_count) {
-            <div class="listing-rating">
-              <div class="d-flex">
-                @if (key?.rating_count >= 1) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 2) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 3) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 4) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count > 4) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-              </div>
-            </div>
-            } -->
-            </div>
-          </div>
-        </div>
-        }
-      </div>
-      } @else {
-      <div class="list-view-container">
-        @for (
-        key of publishEventsArray
-        | paginate
-        : {
-        itemsPerPage: postPerPage,
-        currentPage: currentPage,
-        totalItems: totalCount
-        };
-        track $index
-        ) {
-        <div class="d-flex small-screen-view">
-          <div class="listing-img-container" (click)="gotToEventDetails(key.post_id, true)">
-            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)">
-              <!-- <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" /> -->
-              @if (key && key.featured_image && key.featured_image.length > 0) {
-              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
-              } @else {
-              <img src="/assets/image/no-image.webp" alt="no-image" />
-              }
-            </div>
-          </div>
-          <div class="listing-img-info">
-            <div class="listing-heading" (click)="gotToEventDetails(key.post_id, true)">
-              <h3 [innerHtml]="key?.post_title | truncateHtml:84">
-                <!-- {{ key.post_title }} -->
-              </h3>
-            </div>
-            <div class="listing-info">
-              <li [innerHtml]="key?.post_content | truncateHtml:84"></li>
-              @if(key?.event_dates?.start_date || key?.event_dates?.end_date ){
-
-                <li>
-                  <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                  {{ key?.event_dates?.start_date | date: 'longDate' }} - {{key?.event_dates?.end_date | date:
-                  'longDate'}}
-                  <!-- {{formatDate(key?.event_dates?.start_time)}} -
-                  {{formatDate( key?.event_dates?.end_time)}} -->
-                </li>
-              }
-              @if (key?.event_dates?.start_time||key?.event_dates?.end_time) {
-                <li>
-                  <i class="fa fa-clock-o" aria-hidden="true"></i>
-                  Starts From: {{formatDate(key?.event_dates?.start_time)}} -
-                  Ends: {{formatDate( key?.event_dates?.end_time)}}
-                </li>
-              }
-            </div>
-            <!-- <div class="lisiting-package">
-                    <span>$ Package : Free Business</span>
-                  </div> -->
-            @if (key?.rating_count) {
-            <div class="listing-rating">
-              <div class="d-flex">
-                @if (key?.rating_count >= 1) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 2) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 3) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count >= 4) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-                @if (key?.rating_count > 4) {
-                <i class="fa fa-star" aria-hidden="true" style="color: rgb(155, 155, 155); font-size: 17px"></i>
-                }
-              </div>
-            </div>
-            }
-          </div>
-        </div>
-        }
-      </div>
-      }
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12 mt-5">
-      <pagination-controls 
-      previousLabel="Prev" 
-      nextLabel="Next" 
-      [responsive]="true" 
-      [maxSize]="5" 
-      (pageChange)="handlePageChange($event)">
-  </pagination-controls>
-      <!-- <pagination-controls *ngIf="totalPages > 1"
-        previousLabel="Prev"
-        nextLabel="Next"
-        [responsive]="true"
-        (pageChange)="handlePageChange($event)"></pagination-controls> -->
-      <!-- <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-        (pageChange)="handlePageChange($event)"></pagination-controls> -->
+  <div class="real-estate-agents">
+    <div class="agent-grid">
+      @for (key of publishEventsArray; track $index) {
+      <app-card [title]="key.post_title" [imageUrl]="
+            key.featured_image
+              ? key.featured_image
+              : '/assets/image/no-image.webp'
+          " [description]="key.post_content" [buttonText]="'View Details'">
+      </app-card>
+      }
+    </div>
+    <div class="my-2">
+      <button class="btn black-border-btn">Load More</button>
     </div>
   </div>
 </div>
+</section>

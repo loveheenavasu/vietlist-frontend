@@ -27,6 +27,9 @@ import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
 import { TopRestaurantsComponent } from './views/top-restaurants/top-restaurants.component';
+import { TopRealEstateAgentsComponent } from './views/top-real-estate-agents/top-real-estate-agents.component'
+import { FeaturedJobsComponent } from './views/featured-jobs/featured-jobs.component'
+import { MorgageBrokerComponent } from './views/morgage-broker/morgage-broker.component'
 
 register()
 
@@ -47,6 +50,9 @@ register()
     NgOptimizedImage,
     ChooseLoanTypeComponent,
     TopRestaurantsComponent,
+    TopRealEstateAgentsComponent,
+    FeaturedJobsComponent,
+    MorgageBrokerComponent,
     CommonModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

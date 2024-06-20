@@ -7,12 +7,13 @@ import { MatSelectModule } from '@angular/material/select'
 import { Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { Subscription } from 'rxjs'
+import { Subject, Subscription, takeUntil } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
 import Swal from 'sweetalert2'
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
+import { CardComponent } from 'src/app/shared/utils/components/card/card.component'
 
 @Component({
   selector: 'app-all-event',
@@ -28,6 +29,7 @@ import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
     MatSelectModule,
     NgxPaginationModule,
     NgIf,
+    CardComponent,
     TruncateHtmlPipe
   ],
   templateUrl: './all-event.component.html',
@@ -57,8 +59,10 @@ export class AllEventComponent {
   public isPaginationVisible: boolean = false
   public totalCount: number = 0
   public totalPages: number = 0
+  public destroy$ = new Subject<void>()
+  public isSearching: boolean = false
 
-  isSearching: boolean = false
+  
   constructor(
     private eventService: EventService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -70,6 +74,7 @@ export class AllEventComponent {
     this.getPublishEventData()
     this.getEventCat()
   }
+
 
   public handleLayout(layout: string) {
     this.selectedLayout = layout
@@ -85,7 +90,6 @@ export class AllEventComponent {
   }
 
   formatDate(time: string): string {
-    // Manually append today's date before formatting
     if (time) {
       const today = new Date()
       const formattedTime = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${time}`
@@ -109,33 +113,7 @@ export class AllEventComponent {
     }
   }
 
-  // public getPublishEventData() {
-  //   this.fullPageLoaderService.showLoader()
-  //   // var browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  //   var browserTimezone = this.getBrowserTimezone();
-  //   const params: FindEventParams = {}
-  //   const postPerPage = this.postPerPage
-  //   if (postPerPage) {
-  //     params['posts_per_page'] = postPerPage
-  //   }
-  //   if (this.currentPage) {
-  //     params['page_no'] = this.currentPage
-  //   }
-  //   if (browserTimezone) {
-  //     params['timezone'] = browserTimezone
-  //   }
-  //   this.eventService.getPublishEvents(params).subscribe({
-  //     next: (res: any) => {
-  //       this.fullPageLoaderService.hideLoader()
-  //       this.publishEventsArray = res.data
-  //       this.totalCount = res.total_count
-  //       this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
-  //       console.log(res)
-  //       console.log(this.publishEventsArray)
-  //     },
-  //   })
-  // }
-
+  
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''
@@ -163,91 +141,12 @@ export class AllEventComponent {
     this.longitude = place.geometry.location.lng()
   }
 
-  // public searchBusiness() {
-  //   this.currentPage = 1;
-  //   if (!this.category.value && !this.fullAddress && !this.postTitle.value) {
-  //     Swal.fire({
-  //       toast: true,
-  //       text: 'Please fill either category or address',
-  //       animation: false,
-  //       icon: 'error',
-  //       position: 'top-right',
-  //       showConfirmButton: false,
-  //       timer: 3000,
-  //       timerProgressBar: true,
-  //     })
-  //     return
-  //   }
-  //   this.fullPageLoaderService.showLoader()
-  //   var browserTimezone = this.getBrowserTimezone();
-  //   const post_category = this.category.value
-  //   const postPerPage = this.postPerPage
-  //   const params: FindEventParams = {}
-  //   if (post_category) {
-  //     params['post_category'] = post_category
-  //   }
-  //   if (this.postTitle.value) {
-  //     params['post_title'] = this.postTitle.value
-  //   }
-  //   if (postPerPage) {
-  //     params['posts_per_page'] = postPerPage
-  //   }
-  //   if (this.currentPage) {
-  //     params['page_no'] = this.currentPage
-  //   }
-  //   if (this.city) {
-  //     params['city'] = this.city
-  //   }
-  //   if (this.state) {
-  //     params['region'] = this.state
-  //   }
-  //   if (this.fullAddress) {
-  //     params['street'] = this.fullAddress
-  //   }
-  //   if (this.zipcode) {
-  //     params['zip'] = this.zipcode
-  //   }
-  //   if (this.country) {
-  //     params['country'] = this.country
-  //   }
-  //   if (browserTimezone) {
-  //     params['timezone'] = browserTimezone
-  //   }
-
-  //   this.eventService.findEvents(params).subscribe({
-  //     next: (res: any) => {
-  //       this.isLoader = false
-  //       this.isPaginationClick = false
-  //       this.isPaginationVisible = true
-  //       this.fullPageLoaderService.hideLoader()
-  //       this.publishEventsArray = res.data
-  //       this.totalCount = res.total_count
-  //       this.totalPages = Math.ceil(this.totalCount / this.postPerPage);
-
-  //       console.log(res)
-  //     },
-  //     error: (err: any) => {
-  //       this.isLoader = false
-  //     },
-  //   })
-  // }
-
   public gotToEventDetails(id: any, isGlobal: any) {
     this.router.navigate(['/event-details', id], {
       queryParams: { isGlobal: isGlobal },
     })
   }
 
-  // public handlePageChange(event: number): void {
-  //   this.isPaginationClick = true
-  //   this.currentPage = event
-
-  //   if (this.category.value) {
-  //     this.searchBusiness()
-  //   } else {
-  //     this.getPublishEventData()
-  //   }
-  // }
 
   public clearFilters(): void {
     // Clear local variables
@@ -267,10 +166,10 @@ export class AllEventComponent {
     this.currentPage = 1
     this.isPaginationVisible = false
     this.isLoader = true
-
     // Retrieve events again
     this.getPublishEventData()
   }
+
 
   getPublishEventData(): void {
     this.isSearching = false // Reset search flag
@@ -281,12 +180,11 @@ export class AllEventComponent {
       timezone: this.getBrowserTimezone(),
     }
 
-    this.eventService.getPublishEvents(params).subscribe({
+    this.eventService.getPublishEvents(params).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
         this.publishEventsArray = res.data
         this.totalCount = res.total_count
-        console.log(res, 'events')
         this.calculateTotalPages()
       },
       error: (err: any) => {
@@ -360,5 +258,9 @@ export class AllEventComponent {
     } else {
       this.getPublishEventData()
     }
+  }
+
+  ngOnDestroy(){
+
   }
 }

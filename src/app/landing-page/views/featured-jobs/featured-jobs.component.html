@@ -1,6 +1,6 @@
 <div class="container-fluid main-container">
     <div class="heading">
-      <h1>Top Restaurants</h1>
+      <h1>Featured Job Listings</h1>
       <p>
         Navigate the Spectrum of Opportunities: Dive into our diverse business categories to find precisely what you’re seeking, all under the trusted.
       </p>
@@ -10,7 +10,7 @@
       <div class="agent-grid">
         <div *ngFor="let agent of agents" class="agent-card">
           <div class="agent-img">
-            <img  [src]="agent.image" alt="{{ agent.name }}">
+            <img  src="https://images.pexels.com/photos/927451/pexels-photo-927451.jpeg?cs=srgb&dl=pexels-olly-927451.jpg&fm=jpg" alt="{{ agent.name }}">
           </div>
           <div class="agent-content">
             <h3>{{ agent.name }}</h3>
@@ -22,7 +22,8 @@
            </div>
         </div>
       </div>
+    
       <br/>
-      <button class="btn view-more-agents">View More Restaurants</button>
+      <button class="btn view-more-agents">View More Jobs</button>
     </div>
     </div>

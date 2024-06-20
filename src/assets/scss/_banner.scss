@@ -1,10 +1,10 @@
 @import "../scss/common.scss";
 
 .banner {
-  height: 365px;
+  height: 520px;
   width: 100%;
   position: relative;
-  background-image: url('/assets/resgister-banner-img.jpeg');
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,13 +31,14 @@
       font-weight: var(--font-weight-medium);
       color: var(--light-grey);
       font-size: 3rem;
-
+      font-family: Poppins;
     }
 
     p {
       font-weight: var(--font-weight-normal);
       color: var(--light-grey);
       font-size: 20px;
+      font-family: Poppins;
     }
   }
 }

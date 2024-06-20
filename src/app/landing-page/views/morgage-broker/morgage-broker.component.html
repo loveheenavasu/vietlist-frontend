@@ -1,14 +1,14 @@
 <div class="container-fluid main-container">
     <div class="heading">
-      <h1>Top Restaurants</h1>
-      <p>
+      <h1 style="color:#fff">Mortgage Brokers</h1>
+      <p style="color:#fff">
         Navigate the Spectrum of Opportunities: Dive into our diverse business categories to find precisely what you’re seeking, all under the trusted.
       </p>
     </div>
   <div class="real-estate-agents">
   
       <div class="agent-grid">
-        <div *ngFor="let agent of agents" class="agent-card">
+        <div *ngFor="let agent of agents" class="agent-card" style="background-color: #cdd9ec;">
           <div class="agent-img">
             <img  [src]="agent.image" alt="{{ agent.name }}">
           </div>
@@ -18,11 +18,14 @@
             <p>Phnoe No.-{{ agent.phone }}</p>
           </div>
            <div class="view-profile-div">
-            <button class="btn view-more-agents">View Profile</button>
+            <button class="btn black-btn" style="background-color: #000;color:#fff">View Profile</button>
            </div>
         </div>
       </div>
       <br/>
-      <button class="btn view-more-agents">View More Restaurants</button>
+      <button class="btn view-more-agents" style="background-color: #fff;
+      color: #000;
+      border-radius: 0px;
+      border:solid 2px #000;">View More Brokers</button>
     </div>
     </div>

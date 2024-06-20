@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-top-restaurants',
+  selector: 'app-morgage-broker',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './top-restaurants.component.html',
-  styleUrl: './top-restaurants.component.scss'
+  templateUrl: './morgage-broker.component.html',
+  styleUrl: './morgage-broker.component.scss'
 })
-export class TopRestaurantsComponent {
+export class MorgageBrokerComponent {
   agents = [
     {
       name: 'Suman kumar',
