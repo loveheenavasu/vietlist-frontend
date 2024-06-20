@@ -8,10 +8,27 @@
   </div>
 
   <div class="card-container">
-    <div class="service-card">
+
+    @for (item of cardData; track $index) {
+      <div class="service-card">
         <div class="img-container">
-            <img src="/assets/image/pfp.png" alt="">
+          <img src="/assets/image/pfp.png" alt="" />
         </div>
-    </div>
+        <div class="card-infoo">
+          <p class='card-titlee'>Suman Kumar</p>
+          <p>
+            {{
+              textHelperService.truncated("Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ratione maxime esse.",84)
+            }}
+          </p>
+          <p class='phone' > +91 8787878989</p>
+          <button>View Profile</button>
+        </div>
+      </div>
+    }
+    <button class='view-more-btn' >
+      View More
+    </button>
+
   </div>
 </div>
