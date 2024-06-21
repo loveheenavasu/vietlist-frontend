@@ -14,7 +14,7 @@ import { FullPageLoaderService } from '../shared/utils'
 import { AutocompleteComponent } from '../shared/utils/googleaddress'
 import { scrollToTop } from '../shared/utils/windowScrolls'
 import { MatCardFooter } from '@angular/material/card'
-
+import { PropertyService } from './property.service'
 @Component({
   selector: 'app-property-listings',
   standalone: true,
@@ -49,6 +49,7 @@ export class PropertyListingsComponent {
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
+    public propertyService: PropertyService,
   ) {}
 
   ngOnInit() {
@@ -57,12 +58,17 @@ export class PropertyListingsComponent {
 
   public handleLayout(layout: string) {
     this.selectedLayout = layout
+
+  }
+
+  removeUnderScore(text:string){
+    return text?.split('_').join(' ')
   }
 
   getPropertiesData() {
     this.fullPageLoaderService.showLoader()
     this.businessCategoriesService
-      .getMlsData(this.currentPage , this.postPerPage)
+      .getMlsData(this.currentPage, this.postPerPage)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: any) => {

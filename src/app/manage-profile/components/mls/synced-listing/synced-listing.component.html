@@ -32,8 +32,8 @@
                   };
             track $index
           ) {
-            <div class="grid-card col-lg-5">
-              <div class="listing-img">
+            <div class="grid-card col-lg-5 fixHeight ">
+              <div class="listing-img" (click)="viewProperty(key.zpid)" >
                 <img
                   [src]="
                     key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -53,7 +53,7 @@
                   <div>
                     <button
                       class="btn email-marketing"
-                      (click)="viewProperty(key.ID)"
+                      (click)="viewProperty(key.zpid)"
                     >
                       View
                     </button>
@@ -74,7 +74,7 @@
           @for (key of properties; track $index) {
             <div class="d-flex small-screen-view">
               <div class="listing-img-container">
-                <div class="listing-img">
+                <div class="listing-img" style='height: 150px;'  (click)="viewProperty(key.zpid)" >
                   <img
                     [src]="
                       key.imgsrc ? key.imgsrc : 'assets/image/no-image-new.jpeg'
@@ -92,7 +92,7 @@
                   <!-- } -->
                   <button
                     class="btn orange-background-btn mx-1"
-                    (click)="viewProperty(key.ID)"
+                    (click)="viewProperty(key.zpid)"
                   >
                     View
                   </button>
