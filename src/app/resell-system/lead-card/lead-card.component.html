@@ -34,5 +34,14 @@
       <div class="col-5 text-overflow">
         {{ keyToValue[lead?.your_credit_profile] || 'NA' }}
       </div>
+      <div class="col-7 lead-info">Location <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ lead?.current_mailing_address || 'NA' }}
+      </div>
+      <div class="col-7 lead-info">Date <span>:</span></div>
+      <div class="col-5 text-overflow">
+        {{ extractDate(lead?.updated_at) || 'NA' }}
+      </div>
+
     </div>
   </div>

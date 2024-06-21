@@ -30,9 +30,19 @@ export class LeadCardComponent {
     not_employed: 'Not Employed',
     yes: 'Yes',
     no: 'No',
+ 
+  }
+
+  constructor(){
+    console.log(this.lead)
   }
 
   leadAction(id: string) {
     this.leadActions.emit(id)
   }
+
+  extractDate(timestamp:any) {
+    return timestamp.split(' ')[0]; // Splitting by space and taking the first part
+}
+
 }

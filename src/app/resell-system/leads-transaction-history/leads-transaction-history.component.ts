@@ -24,6 +24,8 @@ export class LeadsTransactionHistoryComponent {
     'Payment Type',
     'Card Type',
     'Charge Id',
+    'Location',
+    'Date & Time'
   ]
 
   ngOnInit(): void {
@@ -38,4 +40,6 @@ export class LeadsTransactionHistoryComponent {
       },
     })
   }
+
+
 }
