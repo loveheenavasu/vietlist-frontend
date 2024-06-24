@@ -1,10 +1,15 @@
 @import "../../../../assets/scss/common";
-@import "../../../../assets/scss/banner";
+@import "../../../../assets/scss/banner.scss";
+@import "../../../../assets/scss/heading.scss";
+@import "../../../../assets/scss/variables/color.scss";
 
 .container-fluid{
-    margin-top:5em;
+    background-color:var(--bg-color) !important;
+    padding:4em;
 }
 
 .termsData{
-    padding:20px 40px
+    padding:40px;
+    background-color: #fff;
+    border-radius: 5px;
 }

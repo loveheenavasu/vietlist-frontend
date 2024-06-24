@@ -2,180 +2,192 @@
 </div> -->
 <div class="container-fluid g-0 links-cnt desktop-footer">
   <!-- <div class="container"> -->
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-5 d-flex align-items-center logo-img">
-      <img
-        src="/assets/icons/brand-logo.svg"
-        alt="Logo"
-        style="cursor: pointer"
-        (click)="gotohome()"
-      />
+  <div class="container">
+
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4 d-flex align-items-center logo-img">
+        <img
+          src="/assets/icons/brand-logo.svg"
+          alt="Logo"
+          style="cursor: pointer"
+          (click)="gotohome()"
+        />
+      </div>
+      <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
+        <h3>Quick Links</h3>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center"></div>
+      <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
+        <h3 class="newsletter-heading">Newsletter Subscribe</h3>
+      </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center">
-      <h3>Quick Links</h3>
-    </div>
-    <div class="col-12 col-md-6 col-lg-2 d-flex align-items-center"></div>
-    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-center">
-      <h3 class="newsletter-heading">Newsletter Subscribe</h3>
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12 col-md-6 col-lg-5">
-      <ul>
-        <li>
-          <div class="d-flex info-wrapper">
-            <div>
-              <img src="/assets/icons/mdi_location-radius.svg" />
-            </div>
-            <div class="links" (click)="openGoogleMaps()">
-              {{ footerPageContent?.contact?.address }}
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="d-flex info-wrapper">
-            <div>
-              <img src="/assets/icons/fluent_call-28-filled.svg" />
-            </div>
-            <div class="links" (click)="callNumber(footerPageContent?.contact?.phone_number)" >
-              +1
-              {{ footerPageContent?.contact?.phone_number }}
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="d-flex info-wrapper">
-            <div>
-              <img src="/assets/icons/ri_whatsapp-fill.svg" />
-            </div>
-            <div style="cursor: pointer;" class="links" (click)="redirectToWhatsApp()">
-              +1
-              {{ footerPageContent?.contact?.phone_number }}
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="d-flex info-wrapper">
-            <div>
-              <img src="/assets/icons/email.svg" />
-            </div>
-            <div class="links" (click)="redirectToMail()">
-              {{ footerPageContent?.contact?.email }}
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div class="social-link">
+    <div class="row mt-3">
+      <div class="col-12 col-md-6 col-lg-4">
         <ul>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.facebook"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/FacebookIcon.svg"
-                alt="facbook-logo"
-              />
-            </a>
+            <div class="d-flex info-wrapper">
+              <div>
+                <img src="/assets/icons/mdi_location-radius.svg" />
+              </div>
+              <div class="links" (click)="openGoogleMaps()">
+                <app-skeleton-loading *ngIf="isLoading"></app-skeleton-loading>
+                {{ footerPageContent?.contact?.address }}
+              </div>
+            </div>
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.linkedin"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/LinkedinIcon.svg"
-                alt="linkedin-logo"
-              />
-            </a>
+            <div class="d-flex info-wrapper">
+              <div>
+                <img src="/assets/icons/fluent_call-28-filled.svg" />
+              </div>
+              <div class="links" (click)="callNumber(footerPageContent?.contact?.phone_number)" >
+                +1
+                <app-skeleton-loading *ngIf="isLoading"></app-skeleton-loading>
+                {{ footerPageContent?.contact?.phone_number }}
+              </div>
+            </div>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/TwitterIcon.svg"
-                alt="twitter-logo"
-              />
-            </a>
+            <div class="d-flex info-wrapper">
+              <div>
+                <img src="/assets/icons/ri_whatsapp-fill.svg" />
+              </div>
+              <div style="cursor: pointer;" class="links" (click)="redirectToWhatsApp()">
+                +1
+                <app-skeleton-loading *ngIf="isLoading"></app-skeleton-loading>
+                {{ footerPageContent?.contact?.phone_number }}
+              </div>
+            </div>
           </li>
           <li>
-            <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
-              <img
-                src="/assets/icons/Social-Link/YoutubeIcon.svg"
-                alt="youtube-logo"
-              />
-            </a>
+            <div class="d-flex info-wrapper">
+              <div>
+                <img src="/assets/icons/email.svg" />
+              </div>
+              <div class="links" (click)="redirectToMail()">
+                <app-skeleton-loading *ngIf="isLoading"></app-skeleton-loading>
+                {{ footerPageContent?.contact?.email }}
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="social-link">
+          <ul>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.facebook"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/FacebookIcon.svg"
+                  alt="facbook-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.linkedin"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/LinkedinIcon.svg"
+                  alt="linkedin-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a [href]="footerPageContent?.social_link?.twitter" target="_blank">
+                <img
+                  src="/assets/icons/Social-Link/TwitterIcon.svg"
+                  alt="twitter-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a [href]="footerPageContent?.social_link?.youtube" target="_blank">
+                <img
+                  src="/assets/icons/Social-Link/YoutubeIcon.svg"
+                  alt="youtube-logo"
+                />
+              </a>
+            </li>
+            <li>
+              <a
+                [href]="footerPageContent?.social_link?.pinterest"
+                target="_blank"
+              >
+                <img
+                  src="/assets/icons/Social-Link/PrinterestIcon.svg"
+                  alt="pinterest-logo"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul>
+          @if (userDetail?.level_id == '3' && isAuthenticated ) {
+            <li class="links" (click)="navigateTo('/resources')">Resources</li>
+          }
+          <li class="links" (click)="navigateTo('/for-users')">For User</li>
+          <li class="links" (click)="navigateTo('/for-business')">
+            For Businesses
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul>
+          <li class="links" (click)="navigateTo('/faq')">FAQ</li>
+          <li class="links" (click)="navigateTo('/sitemap')">Sitemap</li>
+          <li class="links" (click)="navigateTo('/legal-policy')">
+            Legal Policy
+          </li>
+          <li class="links" (click)="navigateTo('/terms-conditions')">
+            Terms & Conditions
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <ul>
+          <li>
+            <form [formGroup]="newsLetterSubscribeForm">
+              <div class="d-flex">
+                <div>
+                  <input
+                    type="text"
+                    class="newsletter"
+                    formControlName="email"
+                    placeholder="Email Address"
+                  />
+                </div>
+                <div>
+                  <button
+                    class="btn orange-background-btn enter-btn"
+                    (click)="subscribeEmailNewsletter()"
+                  >
+                    &#8594;
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li class="mt-4" style="text-align: justify;word-break: break-all;">
+            Subscribe to our newsletter for the latest business insights, news, and exclusive updates. Be a part of our growing community.
           </li>
           <li>
-            <a
-              [href]="footerPageContent?.social_link?.pinterest"
-              target="_blank"
-            >
-              <img
-                src="/assets/icons/Social-Link/PrinterestIcon.svg"
-                alt="pinterest-logo"
-              />
-            </a>
+            <div class="gtrans" id="google_translate_element"></div>
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-2">
-      <ul>
-        @if (userDetail?.level_id == '3' && isAuthenticated ) {
-          <li class="links" (click)="navigateTo('/resources')">Resources</li>
-        }
-        <li class="links" (click)="navigateTo('/for-users')">For User</li>
-        <li class="links" (click)="navigateTo('/for-business')">
-          For Businesses
-        </li>
-      </ul>
-    </div>
-    <div class="col-12 col-md-6 col-lg-2">
-      <ul>
-        <li class="links" (click)="navigateTo('/faq')">FAQ</li>
-        <li class="links" (click)="navigateTo('/sitemap')">Sitemap</li>
-        <li class="links" (click)="navigateTo('/legal-policy')">
-          Legal Policy
-        </li>
-        <li class="links" (click)="navigateTo('/terms-conditions')">
-          Terms & Conditions
-        </li>
-      </ul>
-    </div>
-    <div class="col-12 col-md-6 col-lg-3">
-      <ul>
-        <li>
-          <form [formGroup]="newsLetterSubscribeForm">
-            <div class="d-flex">
-              <div>
-                <input
-                  type="text"
-                  class="newsletter"
-                  formControlName="email"
-                  placeholder="Email Address"
-                />
-              </div>
-              <div>
-                <button
-                  class="btn orange-background-btn enter-btn"
-                  (click)="subscribeEmailNewsletter()"
-                >
-                  &#8594;
-                </button>
-              </div>
-            </div>
-          </form>
-        </li>
-        <li class="mt-4">
-          Subscribe to our newsletter for the latest business insights, news, and exclusive updates. Be a part of our growing community.
-        </li>
-        <li>
-          <div class="gtrans" id="google_translate_element"></div>
-        </li>
-      </ul>
-    </div>
   </div>
+
+<div class="girl-img">
+  <img src="/assets/image/footer-girl.png"/>
 </div>
+</div>
+
 
 <!-- Mobile View screen footer -->
 <div class="container-fluid g-0 links-cnt mobile-view-footer">

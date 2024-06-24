@@ -1,6 +1,24 @@
 @import "../../../assets/scss/common";
 
+.container-fluid{
+    background-color: #f1ceb1;
+    padding:3em 2em;
+    position: relative;
+}
 
+.girl-img{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 21%;
+    height: 470px;
+    object-fit: cover;
+}
+
+.container{
+    background-color: #f3eed4;
+    padding:2em;
+}
 
 .sale-cnt {
     height: 373px;
@@ -20,7 +38,7 @@
     }
 
     .decsription {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: var(--font-weight-light);
         margin-left: 2.5em;
     }
@@ -45,7 +63,7 @@ ul {
 
     li {
         margin-bottom: 20px;
-        font-size: 16px;
+        font-size: 15px;
         color: var(--dark-grey);
         font-weight: var(--font-weight-light);
         height: auto;
@@ -85,7 +103,7 @@ ul {
     padding: 20px 20px;
 
     h3 {
-        font-size: 22px;
+        font-size: 20px;
         font-weight: var(--font-weight-semibold);
         color: var(--dark-grey);
         padding-left: 2rem;

@@ -1,0 +1,21 @@
+@import "../scss/common";
+
+.heading {
+    width: 56%
+  }
+  
+  h1 {
+    @extend %sh-styles ;
+    font-size: 32px !important;
+  
+  
+  }
+  
+  p {
+    @extend %ssh-styles
+  }
+  
+  .heading {
+    @extend %shm-styles
+  }
+  

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core'
 import {
   FormBuilder,
@@ -11,11 +12,12 @@ import { AuthenticationService } from '@vietlist/shared'
 import { Subject, takeUntil } from 'rxjs'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import Swal from 'sweetalert2'
+import { SkeletonLoadingComponent } from '../skeleton-loading/skeleton-loading.component'
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink ,SkeletonLoadingComponent , NgIf],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
@@ -24,11 +26,11 @@ export class FooterComponent {
   public newsLetterSubscribeForm!: FormGroup
   public userDetail: any
   public isAuthenticated: boolean = false
-  email = 'example@example.com' // Replace with the recipient email address
-  subject = 'Hello' // Replace with the email subject
-  body = 'Hello, I hope you are doing well'
+  public email = 'example@example.com' // Replace with the recipient email address
+  public subject = 'Hello' // Replace with the email subject
+  public body = 'Hello, I hope you are doing well'
   private destory$ = new Subject<void>()
-
+  public isLoading:boolean= true
   constructor(
     private footerContent: HomepageService,
     private fb: FormBuilder,
@@ -65,6 +67,7 @@ export class FooterComponent {
       .subscribe({
         next: (res: any) => {
           this.footerPageContent = res.data
+          this.isLoading = false
         },
       })
   }

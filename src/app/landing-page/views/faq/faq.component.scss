@@ -1,5 +1,64 @@
 @import "../../../../assets/scss/banner";
+@import "../../../../assets/scss/heading.scss";
 
 .container-fluid{
-    padding:0 3rem;
+    // padding:0 4em;
+}
+
+
+.heading-card{
+padding:4em;
+}
+
+.faq-content{
+    padding:4em;
+}
+
+.faq-answer{
+    text-align: left;
+    color:#000
+}
+
+.faq-type-card{
+    cursor:pointer;
+    .card-img{
+        height:250px;
+        width:100%;
+        object-fit: cover;
+
+        img{
+            width: 100%;
+            height:100%
+        }
+
+    
+    }
+}
+
+.card-name{
+    background-color: #fff !important;
+    border-bottom:solid 2px rgb(255, 153, 0);
+    padding:1em 0;
+    h4{
+        color:#000;
+        text-align:center;
+        font-size:18px;
+        margin:0px;
+        padding:0px
+    }
+}
+
+.active{
+    .card-name{
+        background-color: #000 !important;
+        border-bottom:solid 2px rgb(255, 153, 0);
+        padding:1em 0;
+        h4{
+            color:#fff;
+            text-align:center;
+            font-size:18px;
+            margin:0px;
+            padding:0px
+        }
+    }  
 }
