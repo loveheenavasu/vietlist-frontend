@@ -9,19 +9,17 @@
           <i class="fa fa-calendar-o"></i>
           <mat-datepicker #picker></mat-datepicker>
         </div>
-        <div>
-            <button class="btn orange-background-btn" (click)="clearFilter()">
-              Clear Filter
-            </button>
-        </div>
       </div>
       <div class="mx-2">
-        <button (click)="navigateToListing()" >Buy More</button>
+        <button class="btn orange-background-btn" (click)="clearFilter()">
+          Clear Filter
+        </button>
+        <button (click)="navigateToListing()" class="mx-2" >Buy More</button>
       </div>
     </div>
   </div>
 </div>
-@if (!leads) {
+@if (!leads.length) {
     <div class="text-center my-5">
         <h4 class="no-records-found-2">No records found !</h4>
      </div>
