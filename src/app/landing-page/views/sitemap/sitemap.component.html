@@ -1,0 +1,40 @@
+<section
+  class="banner top-banner"
+  style="background-image: url('/assets/image/sitemap-banner.png')"
+>
+  <div class="content">
+    <h1>
+      <b>Navigate with Ease</b> <br />
+      Discover Our Comprehensive Site Map
+    </h1>
+  </div>
+</section>
+
+<div class="container-fluid g-0" style="background-color: #f6f6f6;">
+  <section class="heading-card">
+    <div class="heading">
+      <h1>Frequently Asked Questions</h1>
+      <p >
+        Dive into our curated collection of articles, insights, and updates designed to engage and empower the Vietlist.biz community.
+      </p>
+    </div>
+  </section>
+  </div>
+<div class="sitemap-container">
+  <div class="links-container">
+    <div class="d-flex flex-wrap gap-5">
+      @for (item of links; track $index) {
+        <div class="my-3 link-card">
+          <span class="module-title text-nowrap"> {{ item.module }} </span>
+          <ul class="p-0 list-unstyled mt-2">
+            @for (link of item.links; track $index) {
+              <li class="links" (click)="router.navigateByUrl(link.url)">
+                {{ link.name }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</div>

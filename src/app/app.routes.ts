@@ -54,7 +54,7 @@ import { AnalyticsComponent } from './analytics'
 import { EmailMarketingComponent } from './email-marketing/email-marketing.component'
 import { CalculatorMainComponent } from './calculator-main/calculator-main.component'
 import { ForUsersComponent } from './landing-page/views/for-users/for-users.component'
-import { SitemapComponent } from './sitemap/sitemap.component'
+
 import { LeadGenerationComponent } from './resell-system/lead-generation/lead-generation.component'
 import { LeadListingComponent } from './resell-system/lead-listing/lead-listing.component'
 import { MyLeadsComponent } from './resell-system/my-leads/my-leads.component'
@@ -65,7 +65,7 @@ import { ApiKeyComponent } from './manage-profile/components/mls/api-key/api-key
 import { PropertyDetailsComponent } from './property-details/property-details.component'
 import { PropertyListingsComponent } from './property-listings/property-listings.component'
 import { AgentDetailComponent } from './agent-detail/agent-detail.component'
-import { FaqComponent, LegalPolicyComponent, TermsComponent } from './landing-page/views'
+import { FaqComponent, LegalPolicyComponent, SitemapComponent, TermsComponent } from './landing-page/views'
 
 // import { LoginGuard } from './shared/utils/guard/login.guard'
 

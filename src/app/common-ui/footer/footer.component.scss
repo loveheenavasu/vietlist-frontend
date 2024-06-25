@@ -98,9 +98,9 @@ ul {
 }
 
 .links-cnt {
-    // margin-top:4.5%;
+
     border-top: solid 1px #cacaca;
-    padding: 20px 20px;
+    padding:3.5em 1.5em;
 
     h3 {
         font-size: 20px;
@@ -127,6 +127,12 @@ ul {
 
 .mobile-view-footer {
     display: none
+}
+
+@media screen and (max-width:1025px){
+    .container-fluid{
+        background-color: #f3eed4 !important;
+    }
 }
 
 @media screen and (max-width:991px) {
