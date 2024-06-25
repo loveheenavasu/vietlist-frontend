@@ -30,3 +30,13 @@
     bottom: 5%;
     font-size: 18px;
 }
+
+.input-group {
+    position: relative;
+  
+    .fa.fa-calendar-o {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }

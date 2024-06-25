@@ -1,7 +1,19 @@
 <div class="page-heading row">
   <div class="col-12 d-flex align-items-center justify-content-between ">
     <p class='m-0' >Purchased Leads</p>
-    <button (click)="navigateToListing()" >Buy More</button>
+    <div class="d-flex">
+      <div>
+        <div class="input-group">
+          <input matInput [matDatepicker]="picker" [formControl]="date" placeholder="Filter by date" class="input-control" (click)="picker.open()"
+           />
+          <i class="fa fa-calendar-o"></i>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+      <div class="mx-2">
+        <button (click)="navigateToListing()" >Buy More</button>
+      </div>
+    </div>
   </div>
 </div>
 @if (!leads) {
@@ -9,7 +21,7 @@
         <h4 class="no-records-found-2">No records found !</h4>
      </div>
 } @else {
-    <div class="row">
+    <div class="row mt-4">
       @for (lead of leads; track $index) {
         <div class="col-12 col-lg-6 p-3 position-relative ">
           <app-lead-card

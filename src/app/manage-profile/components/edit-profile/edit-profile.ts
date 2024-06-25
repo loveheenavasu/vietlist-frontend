@@ -37,7 +37,7 @@ export class EditProfileComponent {
   public userName: string = ''
   public last_name: string = ''
   public first_name: string = ''
-  public contact_details: string = ''
+  public contact_details: any = new FormControl('')
   public userDetails: any
   public isLoginSucess?: any
   public sidebarMenu: ProfileMenu[] = []
@@ -79,6 +79,7 @@ export class EditProfileComponent {
   }
 
   handleUpdateUser() {
+    
     this.loaderService.showLoader()
     const body = {
       user_email: this.email,
@@ -86,9 +87,10 @@ export class EditProfileComponent {
       user_image: '',
       first_name: this.first_name,
       last_name: this.last_name,
-      country: this.contact_details,
+      contact: this.contact_details?.e164Number,
     }
-    console.log('check update', body)
+    console.log('check update', this.contact_details.e164Number
+     , body)
     this.profileDetail.userProfileUpdate(body).subscribe({
       next: (res) => {
         this.sessionservice.userDetailResponse.next(res.data.user)

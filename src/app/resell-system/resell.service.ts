@@ -33,18 +33,28 @@ export class LeadgenerationService {
 
     return this.http.post<any>(endpoint, formData)
   }
-  public GetLeads(): Observable<any> {
+  public GetLeads(filter_by_date?: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.GetLeads)
     const authToken = this.authService.getAuthHeaders()
+    let params = new HttpParams()
+    if (filter_by_date) {
+      params = params.set('filter_by_date', filter_by_date)
+    }
 
-    return this.http.get<any>(endpoint, { headers: authToken })
+    return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
-  public GetLeadsByUserId(): Observable<any> {
+
+  public GetLeadsByUserId(filter_by_date?: any): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(Endpoints.LeadsByUserId)
     const authToken = this.authService.getAuthHeaders()
+    let params = new HttpParams()
+    if (filter_by_date) {
+      params = params.set('filter_by_date', filter_by_date)
+    }
 
-    return this.http.get<any>(endpoint, { headers: authToken })
+    return this.http.get<any>(endpoint, { headers: authToken, params: params })
   }
+
   public GetLeadsTransactionHistory(): Observable<any> {
     const endpoint = GenericHelper.appendBaseUrl(
       Endpoints.LeadsTransactionHistory,

@@ -36,7 +36,8 @@
         />
       </div>
     </div>
-    <div class="form-group" *ngIf="userDetails?.role == 'business-owner'">
+    @if(userDetails?.user_role === role.businessOwner){
+    <div class="form-group">
       <div class="col-12">
         <ngx-intl-tel-input
           [cssClass]="'input-control'"
@@ -60,6 +61,7 @@
         </ngx-intl-tel-input>
       </div>
     </div>
+  }
     <div class="form-group">
       @if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails){
 

@@ -11,3 +11,13 @@
     text-align: center;
     width:100%
   }
+
+  .input-group {
+    position: relative;
+  
+    .fa.fa-calendar-o {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
