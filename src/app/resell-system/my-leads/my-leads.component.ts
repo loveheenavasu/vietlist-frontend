@@ -119,6 +119,11 @@ export class MyLeadsComponent {
     this.router.navigateByUrl('/lead-listing')
   }
 
+  public clearFilter(){
+    this.fetchLeads()
+    this.date.setValue('')
+  }
+  
   // ngOnInit(): void {
   //   this.loader.showLoader()
   //   this.service.GetLeadsByUserId(this.date).subscribe({

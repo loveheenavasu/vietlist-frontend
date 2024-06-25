@@ -33,6 +33,8 @@ export class LeadListingComponent {
       if (selectedDate) {
         const formattedDate = this.formatDate(selectedDate);
         this.fetchLeads(formattedDate);
+      } else{
+        this.fetchLeads()
       }
     });
     
@@ -87,5 +89,11 @@ export class LeadListingComponent {
         },
       })
     }
+  }
+
+
+  public clearFilter(){
+    this.fetchLeads()
+    this.date.setValue('')
   }
 }

@@ -1,6 +1,11 @@
 <section>
   <h3 class="dashboard-heading">Edit Profile</h3>
-  <div class="row mt-5">
+  @if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails && !checkBehaviour){
+  <div class="row mt-4 mx-1">
+    <div class="alert alert-danger">  Your profile is incomplete. <span style="text-decoration: underline;font-weight:bold;cursor:pointer"    (click)="completeProfile()"> Click here to complete it</span></div>
+  </div>
+}
+  <div class="row mt-3">
     <div class="form-group">
       <div class="col-12">
         <input type="text" class="input-control" [(ngModel)]="email" readonly />
@@ -63,7 +68,7 @@
     </div>
   }
     <div class="form-group">
-      @if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails){
+      <!-- @if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails){
 
       <button
         class="btn orange-background-btn-w-100"
@@ -71,7 +76,8 @@
       >
         Complete Your Profile
       </button>
-      }@else if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails){
+      } -->
+      @if((userDetails?.user_role === role.realEstate || userDetails?.user_role === role.broker) && !isrealEstateDetails){
       <button
         class="btn orange-background-btn-w-100"
         (click)="handleUpdateUser()"

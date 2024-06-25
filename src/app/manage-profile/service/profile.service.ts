@@ -5,12 +5,13 @@ import {
   Endpoints,
   GenericHelper,
 } from '@vietlist/shared'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
+  public isProfileComplete = new BehaviorSubject<any>(false)
   constructor(
     private http: HttpClient,
     private sessionService: AuthenticationService,

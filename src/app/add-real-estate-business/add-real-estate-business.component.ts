@@ -649,6 +649,7 @@ export class AddRealEstateBusinessComponent {
           timerProgressBar: true,
         })
         this.isLoader = false
+        this.profileServce.isProfileComplete.next(true)
         this.getRealEstateUserDetails()
       },
       error: (err) => {

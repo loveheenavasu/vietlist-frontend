@@ -46,12 +46,17 @@ export class EditProfileComponent {
   public business_description = new FormControl('')
   public additionalContact = new FormControl('')
   public isClickedOnCompleteProfile:boolean = false
+  public checkBehaviour:any
   constructor(
     private profileDetail: ProfileService,
     private router: Router,
     private loaderService: FullPageLoaderService,
     private sessionservice: AuthenticationService,
-  ) {}
+  ) {
+    this.profileDetail.isProfileComplete.subscribe((res)=>{
+      this.checkBehaviour = res
+    })
+  }
   ngOnInit() {
     this.fetchProfileDetail()
 

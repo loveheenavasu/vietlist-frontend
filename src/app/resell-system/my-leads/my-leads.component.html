@@ -9,6 +9,11 @@
           <i class="fa fa-calendar-o"></i>
           <mat-datepicker #picker></mat-datepicker>
         </div>
+        <div>
+            <button class="btn orange-background-btn" (click)="clearFilter()">
+              Clear Filter
+            </button>
+        </div>
       </div>
       <div class="mx-2">
         <button (click)="navigateToListing()" >Buy More</button>
