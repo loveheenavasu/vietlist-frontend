@@ -38,114 +38,7 @@
       }
       
     </section>
-    <!-- <div class="section-container">
-        <ul class="list-items">
-          <li (click)="scrollTo('profile')" [class.actives]="activeTab === 'profile'">
-            <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
-          </li>
-          <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'">
-            <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Photos
-          </li>
-          <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'">
-            <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
-          </li>
-          <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'">
-            <span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews
-          </li>
-        </ul>
-      </div> -->
-  
-    <!-- <div class="koko">
-      <div class="section-container">
-        <ul class="list-items">
-          <li
-            (click)="scrollTo('profile')"
-            [class.actives]="activeTab === 'profile'"
-          >
-            <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
-            Information
-          </li>
-          <li
-            *ngIf="
-              eventDetails?.owner_name ||
-              eventDetails?.business_historybackground ||
-              eventDetails?.mission__vision
-            "
-            (click)="scrollTo('bio')"
-            [class.active]="activeTab === 'bio'"
-          >
-            <span> <i class="fa fa-user" aria-hidden="true"></i></span>
-            Business Bio
-          </li>
-          <li
-            *ngIf="
-              eventDetails?.consultation_booking_link ||
-              eventDetails?.consultation_mode ||
-              eventDetails?.consultation_description
-            "
-            (click)="scrollTo('booking')"
-            [class.active]="activeTab === 'booking'"
-          >
-            <span>
-              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
-            ></span>
-            Booking & Consultation
-          </li>
-          <li
-            *ngIf="eventDetails?.image"
-            (click)="scrollTo('photo')"
-            [class.active]="activeTab === 'photo'"
-          >
-            <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span>
-            Photos
-          </li>
-          <li
-            *ngIf="videoUrl?.length"
-            (click)="scrollTo('videoss')"
-            [class.active]="activeTab === 'videoss'"
-          >
-            <span> <i class="fa fa-video" aria-hidden="true"></i></span>
-            Videos
-          </li>
-          <li
-            *ngIf="eventInfo"
-            (click)="scrollTo('event-promo')"
-            [class.active]="activeTab === 'event-promo'"
-          >
-            <span> <i class="fa-solid fa-microphone"></i></span>
-            Event & Promotions
-          </li>
-          <li
-            (click)="scrollTo('mapView')"
-            [class.active]="activeTab === 'mapView'"
-          >
-            <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
-          </li>
-          <li
-            *ngIf="eventDetails?.faq"
-            (click)="scrollTo('faq')"
-            [class.active]="activeTab === 'faq'"
-          >
-            <span> <i class="fa fa-" aria-hidden="true"></i> </span> FAQ
-          </li>
-          <li
-            *ngIf="eventDetails?.upload_certificates"
-            (click)="scrollTo('certificate')"
-            [class.active]="activeTab === 'certificate'"
-          >
-            <span> <i class="fa fa-" aria-hidden="true"></i> </span>
-            Certifications
-          </li>
-          <li
-            (click)="scrollTo('review')"
-            [class.active]="activeTab === 'review'"
-          >
-            <span> <i class="fa fa-comments" aria-hidden="true"></i> </span>
-            Reviews
-          </li>
-        </ul>
-      </div>
-    </div> -->
+   
   
     <section class="background_section">
       <div class="container">
@@ -227,6 +120,111 @@
                     <!-- <span class="elementor-screen-only">Phone</span> -->
                     <i
                       class="fa-brands fa-instagram size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item">
+                  <a
+                    [href]="eventDetails?.pinterest"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-pinterest size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: green;">
+                  <a
+                    [href]="eventDetails?.whatsapp"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-whatsapp size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: rgb(8, 66, 227);">
+                  <a
+                    [href]="eventDetails?.whatsapp"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-linkedin size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: rgb(0, 0, 0);">
+                  <a
+                    [href]="eventDetails?.tiktok"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-tiktok size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: rgb(164, 6, 6);">
+                  <a
+                    [href]="eventDetails?.youtube"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-youtube size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #fff"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: rgb(255, 228, 21);">
+                  <a
+                    [href]="eventDetails?.snapchat"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-snapchat size_icon"
+                      aria-hidden="true"
+                      style="font-size: 20px; color: #000"
+                    ></i
+                  ></a>
+                </div>
+                <div class="elementor-grid-item" style="background-color: rgb(255, 40, 21);">
+                  <a
+                    [href]="eventDetails?.reddit"
+                    target="_blank"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <!-- <span class="elementor-screen-only">Phone</span> -->
+                    <i
+                      class="fa-brands fa-reddit size_icon"
                       aria-hidden="true"
                       style="font-size: 20px; color: #fff"
                     ></i
@@ -574,7 +572,7 @@
               <!-- <div class="profile-info-divs mt-4" id="event-promo">
                 <h3 style="color: black" class="event-heading">Event Detail</h3>
                 <div class="info-cont">
-                  <div class="event-venuee" *ngIf="businessFormDetails?.street">
+                  <div class="event-venuee" *ngIf="eventDetails?.street">
                     <div class="icon">
                       <i
                         class="fa-solid fa-location-dot"
@@ -586,7 +584,7 @@
                       ></i>
                     </div>
                     <div class="info">
-                      {{ businessFormDetails?.street }}
+                      {{ eventDetails?.street }}
                     </div>
                   </div>
                   <div class="event-venuee" *ngIf="eventDetails?.booking_start_date">
@@ -1094,79 +1092,161 @@
         </div>
       </div>
       @if (checkIsClaimButtonVisible(eventDetails, userDetail)) {
-        <div class="iconDirection__">
+        <div class="iconDirection_">
           <button class="cliam__" (click)="claimlisting(eventDetails)">
             Claim Business
           </button>
         </div>
       }
-      <div class="iconDirection">
-        @if (eventDetails?.facebook) {
-          <div class="elementor-grid-item" style="background: #3b5998">
-            <a
-              [href]="eventDetails?.facebook"
-              target="_blank"
-              class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-              target="_blank"
-            >
-              <!-- <span class="elementor-screen-only">Phone</span> -->
-              <i
-                class="fa-brands fa-facebook-f"
-                aria-hidden="true"
-                style="font-size: 20px; color: #fff"
-              ></i
-            ></a>
-          </div>
-        }
-        @if (eventDetails?.twitter) {
-          <div class="elementor-grid-item" style="background: #1da1f2">
-            <a
-              [href]="eventDetails?.twitter"
-              target="_blank"
-              class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-              target="_blank"
-            >
-              <!-- <span class="elementor-screen-only">Phone</span> -->
-              <i
-                class="fa-brands fa-twitter"
-                aria-hidden="true"
-                style="font-size: 20px; color: #fff"
-              ></i
-            ></a>
-          </div>
-        }
-        <div class="elementor-grid-item">
+      <div class="iconDirection mt-3">
+        <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
           <a
-            [href]="eventDetails?.instagram"
-            target="_blank"
+            href="{{ eventDetails?.whatsapp }}"
+            style="padding: 3px"
             class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
             target="_blank"
           >
-            <!-- <span class="elementor-screen-only">Phone</span> -->
+            <i
+              class="fa-brands fa-whatsapp size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: red">
+          <a
+            href="{{ eventDetails?.youtube }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+          <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
+        </span>
+        <span class="elementor-grid-item" style="background: #3b5998">
+          <a
+            href="{{ eventDetails?.facebook }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-facebook-f size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: red">
+          <a
+            href="{{ eventDetails?.pinterest }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-pinterest size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
+          <a
+            href="{{ eventDetails?.tiktok }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+          <i class="fa-brands fa-tiktok size_icon" style="font-size: 18px; color: #fff"></i>
+    
+        </a>
+        </span>
+        <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
+          <a
+            href="{{ eventDetails?.pinterest }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-linkedin size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
+          <a
+            href="{{ eventDetails?.snapchat }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-snapchat size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
+          <a
+            href="{{ eventDetails?.reddit }}"
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-reddit-square size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item" style="background: #1da1f2">
+          <a
+            href="{{ eventDetails?.twitter }}"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-twitter size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item size_icon" style="background: #818a91">
+          <a
+            href="{{ eventDetails?.website }}"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa fa-link"
+              aria-hidden="true"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+        <span class="elementor-grid-item">
+          <a
+            [href]="eventDetails?.instagram"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
             <i
               class="fa-brands fa-instagram size_icon"
               aria-hidden="true"
-              style="font-size: 20px; color: #fff"
+              style="font-size: 18px; color: #fff"
             ></i
           ></a>
-        </div>
-        <div
-          class="elementor-grid-item"
-          style="background: #0073a4"
-          (click)="openGoogleMaps()"
-        >
+        </span>
+        <span class="elementor-grid-item" style="background: #0073a4">
           <a
             class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
             href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
             target="_blank"
           >
-            <!-- <span class="elementor-screen-only">Directions</span> -->
             <i
               class="fas fa-directions size_icon"
-              style="font-size: 20px; color: #fff"
+              style="font-size: 18px; color: #fff"
             ></i
           ></a>
-        </div>
+        </span>
       </div>
     </section>
     <!-- <div class="section-container">

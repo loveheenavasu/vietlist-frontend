@@ -406,9 +406,7 @@ export class ListBusinessComponent {
             contact_phone: this.businessFormDetails?.contact_phone
               ? this.businessFormDetails?.contact_phone
               : 'NA',
-            website: this.businessFormDetails?.website
-              ? this.businessFormDetails?.website
-              : 'Na',
+            website: this.businessFormDetails?.website,
             mapview: this.businessFormDetails?.mapview
               ? this.businessFormDetails?.mapview
               : 'NA',

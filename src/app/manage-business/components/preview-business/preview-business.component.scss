@@ -21,6 +21,17 @@
   padding-bottom: 28px;
 }
 
+.fab .fa-tiktok {
+  color: #111111;
+  filter: drop-shadow(-5px -5px 0 #24f6f0) contrast(150%) brightness(110%);
+  z-index: -1;
+}
+
+.fab .fa-tiktok::after {
+  filter: drop-shadow(5px 5px 0 #F70250) contrast(150%) brightness(110%);
+  z-index: -1;
+}
+
 .add_btn {
   text-align: right;
   padding-bottom: 28px;

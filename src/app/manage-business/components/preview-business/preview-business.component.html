@@ -18,115 +18,9 @@
         </div>
 
       </div>
-      <!-- @if (checkIsClaimButtonVisible(businessFormDetails, userDetail)) {
-        <div class="iconDirection__">
-          <button class="cliam__" (click)="claimlisting(businessFormDetails)">
-            Claim Business
-          </button>
-        </div>
-      } -->
-      
+
     </section>
-    <!-- <div class="section-container">
-        <ul class="list-items">
-          <li (click)="scrollTo('profile')" [class.actives]="activeTab === 'profile'">
-            <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Profile
-          </li>
-          <li (click)="scrollTo('photo')" [class.active]="activeTab === 'photo'">
-            <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span> Photos
-          </li>
-          <li (click)="scrollTo('mapView')" [class.active]="activeTab === 'mapView'">
-            <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
-          </li>
-          <li (click)="scrollTo('review')" [class.active]="activeTab === 'review'">
-            <span> <i class="fa fa-comments" aria-hidden="true"></i> </span> Reviews
-          </li>
-        </ul>
-      </div> -->
-  
-    <!-- <div class="koko"> -->
-      <!-- <div class="section-container">
-        <ul class="list-items">
-          <li
-            (click)="scrollTo('profile')"
-            [class.actives]="activeTab === 'profile'"
-          >
-            <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
-            Information
-          </li>
-          <li
-            *ngIf="
-              businessFormDetails?.owner_name ||
-              businessFormDetails?.business_historybackground ||
-              businessFormDetails?.mission__vision
-            "
-            (click)="scrollTo('bio')"
-            [class.active]="activeTab === 'bio'"
-          >
-            <span> <i class="fa fa-user" aria-hidden="true"></i></span>
-            Business Bio
-          </li>
-          <li
-            *ngIf="
-              businessFormDetails?.consultation_booking_link ||
-              businessFormDetails?.consultation_mode ||
-              businessFormDetails?.consultation_description
-            "
-            (click)="scrollTo('booking')"
-            [class.active]="activeTab === 'booking'"
-          >
-            <span>
-              <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
-            ></span>
-            Booking & Consultation
-          </li>
-          <li
-            *ngIf="businessFormDetails?.image"
-            (click)="scrollTo('photo')"
-            [class.active]="activeTab === 'photo'"
-          >
-            <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span>
-            Photos
-          </li>
-          <li
-            (click)="scrollTo('videoss')"
-            [class.active]="activeTab === 'videoss'"
-          >
-            <span> <i class="fa fa-video" aria-hidden="true"></i></span>
-            Videos
-          </li>
-          <li
-            *ngIf="eventDetails"
-            (click)="scrollTo('event-promo')"
-            [class.active]="activeTab === 'event-promo'"
-          >
-            <span> <i class="fa-solid fa-microphone"></i></span>
-            Event & Promotions
-          </li>
-          <li
-            (click)="scrollTo('mapView')"
-            [class.active]="activeTab === 'mapView'"
-          >
-            <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
-          </li>
-          <li
-            *ngIf="businessFormDetails?.faq"
-            (click)="scrollTo('faq')"
-            [class.active]="activeTab === 'faq'"
-          >
-            <span> <i class="fa fa-" aria-hidden="true"></i> </span> FAQ
-          </li>
-          <li
-            *ngIf="businessFormDetails?.upload_certificates"
-            (click)="scrollTo('certificate')"
-            [class.active]="activeTab === 'certificate'"
-          >
-            <span> <i class="fa fa-" aria-hidden="true"></i> </span>
-            Certifications
-          </li>
-        </ul>
-      </div> -->
-    <!-- </div> -->
+
   
     <section class="background_section">
       <div class="container">
@@ -163,7 +57,29 @@
                   {{ businessFormDetails?.contact_phone }}
                 </div>
               </div>
-              <div class="iconDirections">
+              <div class="iconDirection">
+                <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
+                  <a
+                    href="{{ businessFormDetails?.whatsapp }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <i
+                      class="fa-brands fa-whatsapp size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
+                </span>
+                <span class="elementor-grid-item" style="background: red">
+                  <a
+                    href="{{ businessFormDetails?.youtube }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                  <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
+                </span>
                 <span class="elementor-grid-item" style="background: #3b5998">
                   <a
                     href="{{ businessFormDetails?.facebook }}"
@@ -173,6 +89,69 @@
                   >
                     <i
                       class="fa-brands fa-facebook-f size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
+                </span>
+                <span class="elementor-grid-item" style="background: red">
+                  <a
+                    href="{{ businessFormDetails?.pinterest }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <i
+                      class="fa-brands fa-pinterest size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
+                </span>
+                <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
+                  <a
+                    href="{{ businessFormDetails?.tiktok }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                  <i class="fa-brands fa-tiktok size_icon" style="font-size: 18px; color: #fff"></i>
+            
+                </a>
+                </span>
+                <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
+                  <a
+                    href="{{ businessFormDetails?.pinterest }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <i
+                      class="fa-brands fa-linkedin size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
+                </span>
+                <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
+                  <a
+                    href="{{ businessFormDetails?.snapchat }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <i
+                      class="fa-brands fa-snapchat size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
+                </span>
+                <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
+                  <a
+                    href="{{ businessFormDetails?.reddit }}"
+                    style="padding: 3px"
+                    class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+                    target="_blank"
+                  >
+                    <i
+                      class="fa-brands fa-reddit-square size_icon"
                       style="font-size: 18px; color: #fff"
                     ></i
                   ></a>
@@ -791,6 +770,28 @@
     </div>
   </div>
   <div class="iconDirection">
+    <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
+      <a
+        href="{{ businessFormDetails?.whatsapp }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-whatsapp size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
+    </span>
+    <span class="elementor-grid-item" style="background: red">
+      <a
+        href="{{ businessFormDetails?.youtube }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+      <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
+    </span>
     <span class="elementor-grid-item" style="background: #3b5998">
       <a
         href="{{ businessFormDetails?.facebook }}"
@@ -800,6 +801,69 @@
       >
         <i
           class="fa-brands fa-facebook-f size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
+    </span>
+    <span class="elementor-grid-item" style="background: red">
+      <a
+        href="{{ businessFormDetails?.pinterest }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-pinterest size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
+    </span>
+    <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
+      <a
+        href="{{ businessFormDetails?.tiktok }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+      <i class="fa-brands fa-tiktok size_icon" style="font-size: 18px; color: #fff"></i>
+
+    </a>
+    </span>
+    <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
+      <a
+        href="{{ businessFormDetails?.pinterest }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-linkedin size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
+    </span>
+    <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
+      <a
+        href="{{ businessFormDetails?.snapchat }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-snapchat size_icon"
+          style="font-size: 18px; color: #fff"
+        ></i
+      ></a>
+    </span>
+    <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
+      <a
+        href="{{ businessFormDetails?.reddit }}"
+        style="padding: 3px"
+        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+        target="_blank"
+      >
+        <i
+          class="fa-brands fa-reddit-square size_icon"
           style="font-size: 18px; color: #fff"
         ></i
       ></a>
