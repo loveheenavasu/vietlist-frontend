@@ -93,6 +93,49 @@ export class AddRealEstateBusinessComponent {
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
+  public linkedIn = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public youTube= new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public pinterest = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public snapchat = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public tikTok = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public whatsApp = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+  public reddit = new FormControl('', [
+    Validators.required,
+    Validators.pattern(
+      /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+    ),
+  ])
+
   public isLoader: boolean = false
   public facebook = new FormControl('', [
     Validators.required,
@@ -621,6 +664,13 @@ export class AddRealEstateBusinessComponent {
         facebook: this.facebook.value,
         twitter: this.twitter.value,
         additionalEmail: this.additionalEmail.value,
+        snapchat:this.snapchat.value,
+         tikTok:this.tikTok.value,
+         reddit:this.reddit.value,
+         whatsApp:this.whatsApp.value,
+         youTube:this.youTube.value,
+         linkedIn:this.linkedIn.value,
+         pinterest:this.pinterest.value
       },
       business_description: this.business_description.value,
       business_address: {
@@ -675,6 +725,27 @@ export class AddRealEstateBusinessComponent {
           )
           this.twitter.setValue(
             res?.data?.additional_contact_information?.twitter,
+          )
+          this.tikTok.setValue(
+            res?.data?.additional_contact_information?.tikTok,
+          )
+          this.snapchat.setValue(
+            res?.data?.additional_contact_information?.snapchat,
+          )
+          this.pinterest.setValue(
+            res?.data?.additional_contact_information?.pinterest,
+          )
+          this.linkedIn.setValue(
+            res?.data?.additional_contact_information?.linkedIn,
+          )
+          this.whatsApp.setValue(
+            res?.data?.additional_contact_information?.whatsApp,
+          )
+          this.youTube.setValue(
+            res?.data?.additional_contact_information?.youTube,
+          )
+          this.reddit.setValue(
+            res?.data?.additional_contact_information?.reddit,
           )
           this.additionalEmail.setValue(
             res?.data?.additional_contact_information?.additionalEmail,

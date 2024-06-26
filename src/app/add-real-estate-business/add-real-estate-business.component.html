@@ -250,8 +250,132 @@
             </div>
           </div>
         </div>
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Reddit <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter Reddit url"
+              [formControl]="reddit"
+            />
+            <div *ngIf="reddit?.invalid && reddit?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Whatsapp <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter Whatsapp url"
+              [formControl]="whatsApp"
+            />
+            <div *ngIf="whatsApp?.invalid && whatsApp?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >LinkedIn <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter LinkedIn url"
+              [formControl]="linkedIn"
+            />
+            <div *ngIf="linkedIn?.invalid && linkedIn?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Youtube <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter Youtube url"
+              [formControl]="youTube"
+            />
+            <div *ngIf="youTube?.invalid && youTube?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Snapchat <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter Snapchat url"
+              [formControl]="snapchat"
+            />
+            <div *ngIf="snapchat?.invalid && snapchat?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
 
 
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Pinterest <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter pinterest url"
+              [formControl]="pinterest"
+            />
+            <div *ngIf="pinterest?.invalid && pinterest?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
+
+        <div class="row my-3 px-2">
+          <div class="col-12 col-md-12 col-lg-4">
+            <label for="name" class="listing-form-label"
+              >Tiktok <span class="asterik">*</span></label
+            >
+          </div>
+          <div class="col-12 col-md-12 col-lg-12">
+            <input
+              class="input-control"
+              placeholder="Enter pinterest url"
+              [formControl]="tikTok"
+            />
+            <div *ngIf="tikTok?.invalid && tikTok?.touched" class="error-message">
+              Please enter a valid link.
+            </div>
+          </div>
+        </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-12">
             <label class="listing-form-label"
@@ -439,7 +563,7 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !facebook.value || !businessLogoUrl?.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
+          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !youTube.value || !linkedIn.value || !pinterest.value || !whatsApp.value || !snapchat.value || !tikTok.value || !reddit.value || !facebook.value || !businessLogoUrl?.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
             <span *ngIf="!isLoader">Submit</span>
             <app-loader *ngIf="isLoader"></app-loader>
           </button>

@@ -60,6 +60,13 @@ export class SubscriptionFormComponent {
       facebook: value?.facebook,
       instagram: value?.instagram,
       twitter: value?.twitter,
+      linkedin: value?.linkedin,
+      youtube: value?.youtube,
+      pinterest: value?.pinterest,
+      snapchat: value?.snapchat,
+      tiktok: value?.tiktok,
+      whatsapp: value?.whatsapp,
+      reddit: value?.reddit,
     })
   }
   public checkdvalue: any
@@ -109,6 +116,72 @@ export class SubscriptionFormComponent {
           ),
         ],
       ],
+
+      tiktok: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+
+      youtube: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      whatsapp: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      reddit: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      snapchat: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      linkedin: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+      pinterest: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
+          ),
+        ],
+      ],
+
     })
     this.authService.userDetails.subscribe((res: any) => {
       this.hidefileds = res
@@ -174,6 +247,13 @@ export class SubscriptionFormComponent {
       facebook: this.subscriptionForm.value.facebook,
       twitter: this.subscriptionForm.value.twitter,
       instagram: this.subscriptionForm.value.instagram,
+      youtube: this.subscriptionForm.value.youtube,
+      linkedin: this.subscriptionForm.value.linkedin,
+      snapchat: this.subscriptionForm.value.snapchat,
+      tiktok: this.subscriptionForm.value.tiktok,
+      pinterest: this.subscriptionForm.value.pinterest,
+      reddit: this.subscriptionForm.value.reddit,
+      whatsapp: this.subscriptionForm.value.whatsapp,
       verification_upload: this.imageUrl,
       verified_badge: this.verifiedBadge.value ? 1 : 0,
     }

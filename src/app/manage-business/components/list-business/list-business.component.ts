@@ -381,7 +381,7 @@ export class ListBusinessComponent {
           console.log(res, 'getApiResponse')
           this.businessFormDetails = res?.data?.[0] || null
 
-          this.tags = this.businessFormDetails?.post_tags.map(
+          this.tags = this.businessFormDetails?.post_tags?.map(
             (tag: any) => tag.id,
           )
           this.uploadMediaUrl = this.businessFormDetails?.logo
