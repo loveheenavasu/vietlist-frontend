@@ -48,8 +48,8 @@ export class BusinessBioComponent {
   ) {
     this.businessBioForm = this.fb.group({
       owner_name: ['', Validators.required],
-      business_historybackground: [''],
-      mission__vision: ['' , [Validators.maxLength(254)]],
+      business_historybackground: ['' , [Validators.required]],
+      mission__vision: ['' , [Validators.required , Validators.maxLength(254)]],
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
