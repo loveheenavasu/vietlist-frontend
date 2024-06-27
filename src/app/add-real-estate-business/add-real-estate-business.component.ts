@@ -207,7 +207,7 @@ export class AddRealEstateBusinessComponent {
   public announcer = inject(LiveAnnouncer)
   public imagePreviews: any[] = []
   public userDetails: any
-
+  public companyName = new FormControl('' ,  Validators.required,)
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -672,6 +672,7 @@ export class AddRealEstateBusinessComponent {
          linkedIn:this.linkedIn.value,
          pinterest:this.pinterest.value
       },
+      company_name:this.companyName.value,
       business_description: this.business_description.value,
       business_address: {
         fullAddress: this.fullAddress,
@@ -714,6 +715,7 @@ export class AddRealEstateBusinessComponent {
       .subscribe({
         next: (res) => {
           this.business_description.setValue(res?.data.business_description)
+          this.companyName.setValue(res?.data?.company_name)
           this.contact_details.setValue(
             res?.data.additional_contact_information?.contact,
           )
