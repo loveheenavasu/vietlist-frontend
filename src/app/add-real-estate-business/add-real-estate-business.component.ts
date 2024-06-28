@@ -84,6 +84,7 @@ export class AddRealEstateBusinessComponent {
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
   public PhoneNumberFormat = PhoneNumberFormat
+  public getstreet: any
   public preferredCountries: CountryISO[] = [
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
@@ -263,6 +264,14 @@ export class AddRealEstateBusinessComponent {
     }
   }
 
+    
+  onChangeNumber(event: any) {
+    const phoneNumber = this.contact_details.value?.number;
+    console.log(phoneNumber , 'phoneNumber  ')
+   this.contact_details.setValue(phoneNumber)
+  }
+
+
   emailMatchValidator(control: AbstractControl): ValidationErrors | null {
     const additionalEmail = control.value;
     return additionalEmail && additionalEmail === this.userEmail ? { emailMatch: true } : null;
@@ -402,6 +411,7 @@ export class AddRealEstateBusinessComponent {
       this.selectedWeek.push(dayName)
       this.currentSelectedWeek = [...this.selectedWeek]
     }
+
     this.isTimeNotValid()
   }
 

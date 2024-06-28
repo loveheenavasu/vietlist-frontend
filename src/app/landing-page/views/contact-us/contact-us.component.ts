@@ -105,14 +105,16 @@ export class ContactUsComponent {
     this.getstreet = value?.value
   }
 
+  
   onChange(event: any) {
     const phoneNumber = this.contactus.value.phone_number.number
     const phoneControl = this.contactus.get('phone_number')
-
     if (phoneControl && phoneNumber) {
       phoneControl.setValue(phoneNumber)
     }
   }
+
+
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
     this.state = ''

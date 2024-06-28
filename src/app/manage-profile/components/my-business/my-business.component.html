@@ -186,7 +186,7 @@
                 {{ key.post_content.length > 240 ? (key.post_content.slice(0, 237) + '...') : key.post_content }}
               </p>
             </div>
-            <div>
+            <div class="list-button">
               <button class="btn orange-background-btn mx-1"  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
                 Email Marketing
               </button>

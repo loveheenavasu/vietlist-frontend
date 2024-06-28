@@ -94,8 +94,7 @@ export class EditProfileComponent {
       last_name: this.last_name,
       contact: this.contact_details?.e164Number,
     }
-    console.log('check update', this.contact_details.e164Number
-     , body)
+
     this.profileDetail.userProfileUpdate(body).subscribe({
       next: (res) => {
         this.sessionservice.userDetailResponse.next(res.data.user)
@@ -130,7 +129,7 @@ export class EditProfileComponent {
           this.business_description.setValue(this.realEstateDetails?.business_description)
           this.additionalContact.setValue(this.realEstateDetails?.additional_contact_information)
         }
-        console.log(res , "Response")
+       
       }
     })
   }

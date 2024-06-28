@@ -171,6 +171,7 @@
             <ngx-intl-tel-input
             #countryList
             [cssClass]="'input-control'"
+            [maxlength]="15"
             [preferredCountries]="preferredCountries"
             [enableAutoCountrySelect]="true"
             [enablePlaceholder]="true"
@@ -185,6 +186,7 @@
             [separateDialCode]="true"
             [numberFormat]="PhoneNumberFormat.National"
             name="phone"
+            (focusout)="onChangeNumber($event)"
             [formControl]="contact_details"
           >
           </ngx-intl-tel-input>

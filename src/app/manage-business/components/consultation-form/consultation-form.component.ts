@@ -405,9 +405,7 @@ export class ConsultationFormComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-      console.log(
-        'Image files are not allowed. Please upload only video files.',
-      )
+    
     }
 
     // Handle the uploaded video files

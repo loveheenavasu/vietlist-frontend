@@ -254,6 +254,12 @@
     margin: 8px 3px;
   }
   
+  @media(max-width:1024px){
+    .list-button{
+        margin-top:35px;
+    }
+  }
+
 @media(max-width: 766px) {
     .icons-grid-list{
         display: none;
