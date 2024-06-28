@@ -1,11 +1,13 @@
 import { NgClass, NgFor, NgIf, JsonPipe } from '@angular/common'
-import { ChangeDetectorRef, Component, inject, Renderer2 } from '@angular/core'
+import { ChangeDetectorRef, Component, inject, Input, Renderer2 } from '@angular/core'
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms'
 import { MatCardModule } from '@angular/material/card'
@@ -77,6 +79,7 @@ interface Day {
   styleUrl: './add-real-estate-business.component.scss',
 })
 export class AddRealEstateBusinessComponent {
+  @Input() userEmail: any = '';
   public separateDialCode = true
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
@@ -88,49 +91,49 @@ export class AddRealEstateBusinessComponent {
   public contact_details = new FormControl()
   public business_description = new FormControl()
   public instagram = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public linkedIn = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public youTube= new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public pinterest = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public snapchat = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public tikTok = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public whatsApp = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public reddit = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
@@ -138,21 +141,22 @@ export class AddRealEstateBusinessComponent {
 
   public isLoader: boolean = false
   public facebook = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public twitter = new FormControl('', [
-    Validators.required,
+
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public additionalEmail: any = new FormControl('', [
-    Validators.required,
+
     Validators.email,
     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+    this.emailMatchValidator.bind(this)
   ])
   public minDate = new Date()
   public maxDate: any
@@ -246,6 +250,22 @@ export class AddRealEstateBusinessComponent {
     this.isLastRemoved = new Array<boolean>(this.days.length).fill(false)
 
     this.formatData()
+  }
+
+  public ngOnInit(){
+     console.log(this.userEmail); 
+     this.additionalEmail?.setValidators([
+      Validators.email,
+      this.emailMatchValidator(this.userEmail)
+    ]);
+    if(this.additionalEmail.value == this.userEmail){
+      alert('You can;t use same regisered email')
+    }
+  }
+
+  emailMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const additionalEmail = control.value;
+    return additionalEmail && additionalEmail === this.userEmail ? { emailMatch: true } : null;
   }
 
   public getAddress(place: any) {

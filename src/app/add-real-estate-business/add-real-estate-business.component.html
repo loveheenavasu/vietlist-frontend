@@ -204,6 +204,10 @@
               ) {
                 <span class="error-message">Email is required</span>
               }
+              @if(additionalEmail?.hasError('emailMatch'))
+              {
+                <span class="error-message">Additional email cannot be the same as the user email.</span>
+              }
               @if (additionalEmail?.hasError('pattern')) {
                 <span class="error-message">Enter valid email</span>
               }
@@ -213,7 +217,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Facebook <span class="asterik">*</span></label
+              >Facebook </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -230,7 +234,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Instagram <span class="asterik">*</span></label
+              >Instagram </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -247,7 +251,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label class="listing-form-label"
-              >Twitter <span class="asterik">*</span></label
+              >Twitter </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -264,7 +268,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Reddit <span class="asterik">*</span></label
+              >Reddit</label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -282,7 +286,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Whatsapp <span class="asterik">*</span></label
+              >Whatsapp </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -300,7 +304,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >LinkedIn <span class="asterik">*</span></label
+              >LinkedIn </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -318,7 +322,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Youtube <span class="asterik">*</span></label
+              >Youtube</label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -336,7 +340,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Snapchat <span class="asterik">*</span></label
+              >Snapchat </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -355,7 +359,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Pinterest <span class="asterik">*</span></label
+              >Pinterest </label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -373,7 +377,7 @@
         <div class="row my-3 px-2">
           <div class="col-12 col-md-12 col-lg-4">
             <label for="name" class="listing-form-label"
-              >Tiktok <span class="asterik">*</span></label
+              >Tiktok</label
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
@@ -574,7 +578,7 @@
           </div>
         </div>
         <div style="width: 100%; text-align: end">
-          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!instagram.value || !twitter.value || !youTube.value || !linkedIn.value || !pinterest.value || !whatsApp.value || !snapchat.value || !tikTok.value || !reddit.value || !facebook.value || !businessLogoUrl?.length || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
+          <button type="button" class="btn orange-background-btn" style="width:100%" [disabled]="!businessLogoUrl?.length || additionalEmail.value === userEmail || !additionalEmail.value || !contact_details.value || !latitude || !longitude || !zipcode || !city || !state || !country || !imagePreviews.length" (click)="submit()">
             <span *ngIf="!isLoader">Submit</span>
             <app-loader *ngIf="isLoader"></app-loader>
           </button>

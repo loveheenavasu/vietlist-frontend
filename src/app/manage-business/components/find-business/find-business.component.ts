@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
 import { ChangeDetectorRef, Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { CommonModule } from '@angular/common'
+import { CommonModule, JsonPipe } from '@angular/common'
 import { BusinessService } from '../../service/business.service'
 import { FullPageLoaderService } from '@vietlist/shared'
 import {
@@ -45,6 +45,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
     FormsModule,
     AutocompleteComponent,
     NgbRatingModule,
+    JsonPipe
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -318,11 +319,11 @@ export class FindBusinessComponent {
     })
   }
 
-  public onCategoryChange() {
-    this.categoriesValue = this.findBusinessForm.value.post_category
-    this.searchBusiness()
-    this.getDefaultCat()
-  }
+  // public onCategoryChange() {
+  //   this.categoriesValue = this.findBusinessForm.value.post_category
+  //   this.searchBusiness()
+  //   this.getDefaultCat()
+  // }
 
   public getDefaultCat() {
     this.businessCategoriesService
@@ -377,6 +378,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
+        console.log(this.findBusinessData , "findBusinessData")
         this.categoryDetails = res.category_data
         this.latitude = []
         this.longitude = []

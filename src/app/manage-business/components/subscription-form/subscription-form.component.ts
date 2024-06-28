@@ -120,7 +120,7 @@ export class SubscriptionFormComponent {
       tiktok: [
         '',
         [
-          Validators.required,
+
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -130,7 +130,7 @@ export class SubscriptionFormComponent {
       youtube: [
         '',
         [
-          Validators.required,
+
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -139,7 +139,7 @@ export class SubscriptionFormComponent {
       whatsapp: [
         '',
         [
-          Validators.required,
+  
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -148,7 +148,7 @@ export class SubscriptionFormComponent {
       reddit: [
         '',
         [
-          Validators.required,
+       
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -157,7 +157,7 @@ export class SubscriptionFormComponent {
       snapchat: [
         '',
         [
-          Validators.required,
+
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -166,7 +166,7 @@ export class SubscriptionFormComponent {
       linkedin: [
         '',
         [
-          Validators.required,
+
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -175,7 +175,7 @@ export class SubscriptionFormComponent {
       pinterest: [
         '',
         [
-          Validators.required,
+ 
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
