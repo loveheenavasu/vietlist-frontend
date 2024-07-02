@@ -19,8 +19,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common'
 import { ProfileService } from './service/profile.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { SkeletonLoadingComponent } from '../common-ui/skeleton-loading/skeleton-loading.component'
-import { getMessaging, getToken } from 'firebase/messaging'
-import { environment } from 'src/environments/environment.development'
+
 
 @Component({
   selector: 'app-manage-profile',
@@ -59,6 +58,7 @@ export class ManageProfileComponent {
     'Change Password',
     'All Leads',
     'My Purchases Leads',
+    'My Bookings',
     'Leads transaction history',
     'Delete Account',
     'Settings',
@@ -286,7 +286,8 @@ export class ManageProfileComponent {
                 tab.label !== 'Synced Listings'&&  
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
-                tab.label !== 'All Leads',
+                tab.label !== 'All Leads' && 
+                tab.label !== 'My Bookings'
             )
             return this.menuItems
           } else if (roleGet.user_role == Roles.realEstate) {
@@ -305,7 +306,6 @@ export class ManageProfileComponent {
                 tab.label !== 'Events Management' &&
                 tab.label !== 'Manage Coupons' &&
                 tab.label !== 'Analytics' &&
-                tab.label !== 'My Bookings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads',
@@ -326,7 +326,8 @@ export class ManageProfileComponent {
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads' &&
                 tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings',
+                tab.label !== 'Synced Listings'&&
+                tab.label !== 'My Bookings'
             )
           }
         })

@@ -21,6 +21,7 @@ import { AuthenticationService } from './services'
       class="input-control"
       type="text"
       [(ngModel)]="autocompleteInput"
+      (input)="checkValue($event)"
       #addresstext
       style="padding: 12px 20px; border: 1px solid #ccc;"
     />
@@ -48,6 +49,18 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.getPlaceAutocomplete()
+  }
+
+
+
+  public checkValue(event: any) {
+    if (!event.target.value) {
+      this.autocompleteInput = ''
+      this.setAddress.emit(null)
+      this.setAddress.emit('')
+
+    }
+ 
   }
 
 
@@ -116,6 +129,7 @@ export class AutocompleteComponent implements OnInit, AfterViewInit {
         }
       } else {
         console.log('Geocoder failed due to:', status)
+
       }
     })
   }

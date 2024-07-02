@@ -15,9 +15,17 @@
         </button>
       </div>
     </div>
-
-    <div class="explaining-platform-banner">
-      <img src="/assets/image/explaining-platform-banner.svg" alt="banner" />
+    <div class="explaining-platform-banner px-3">
+      <video #videoPlayer width="100%" height="400">
+        <source [src]="homePageData?.video_section?.video_url" type="video/mp4">
+      </video>
+      <div class="video-controls">
+        <button (click)="togglePlayPause()" class="btn" style="background-color:#000;color:#fff">
+          {{ isPlaying ? 'Pause' : 'Play' }}
+        </button>
+      </div>
     </div>
+    
+    
   </div>
 </section>

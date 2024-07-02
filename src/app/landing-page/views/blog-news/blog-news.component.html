@@ -1,94 +1,107 @@
-<section>
-  <div class="blog-news-container container-fluid g-0 row">
-    <div class="text-center heading-small-screen">
+<section class="py-4">
+  <div class="blog-news-container container g-0 py-3">
+    <div class="heading">
       <h1>{{ homePageData?.blog_section?.title }}</h1>
       <p>
         {{ homePageData?.blog_section?.description }}
       </p>
-      <button class="btn orange-background-btn">
+    </div>
+    <div class="explore-more-btn">
+      <button class="btn orange-background-btn" (click)="blog()">
         {{ homePageData?.blog_section?.view_all_articles }}
       </button>
     </div>
-    <div class="blog-article col-12 col-md-12 col-lg-9">
-      <div class="heading text-center">
-        <h1>{{ homePageData?.blog_section?.title }}</h1>
-        <p>
-          {{ homePageData?.blog_section?.description }}
-        </p>
-        <button class="btn orange-background-btn" (click)="blog()">{{ homePageData?.blog_section?.view_all_articles }}</button>
+    <div class="row">
+      <div class="col-12 col-md-8 mt-5">
+        <div class="row">
+          @for (item of blogData; track $index) {
+            <div class="col-12 col-md-12 col-lg-6">
+              <div class="blog-card">
+                <mat-card>
+                  <mat-card-header>
+                    <div class="img" (click)="viewBlogDetail(item)">
+                      @if (item.featured_image) {
+                        <img [src]="item.featured_image" />
+                      } @else {
+                        <img
+                          src="/assets/image/no-image.webp"
+                          alt="blog-image"
+                        />
+                      }
+                    </div>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <span class="date">{{ item.post_date }}</span>
+                    <div class="title">
+                      <h2 (click)="viewBlogDetail(item)">
+                        {{ item.blog_title }}
+                      </h2>
+                    </div>
+                    <div class="description" [innerHTML]="item.blog_desc"></div>
+                    <mat-divider></mat-divider>
+                  </mat-card-content>
+
+                  <mat-card-footer>
+                    <div class="footer d-flex">
+                      <div class="profile-image">
+                        @if (item.author_detail?.user_image) {
+                          <img
+                            [src]="item.author_detail?.user_image"
+                            alt="profile-image"
+                          />
+                        } @else {
+                          <img
+                            src="/assets/image/no_profile.webp"
+                            alt="profile-image"
+                          />
+                        }
+                      </div>
+                      <div class="user-detail">
+                        <h5>
+                          {{ item.author_detail?.first_name }}
+                          {{ item.author_detail?.last_name }}
+                        </h5>
+                        <p>{{ item.author_detail?.user_info }}</p>
+                      </div>
+                    </div>
+                  </mat-card-footer>
+                </mat-card>
+              </div>
+            </div>
+          }
+        </div>
       </div>
-      <div class="blog-card">
-        @for (item of blogData; track $index) {
-        <mat-card class="blog-wrapper">
-          <mat-card-header>
-            <div class="img" (click)="viewBlogDetail(item)">
-              @if (item.featured_image) {
-              <img [src]="item.featured_image" />
-              } @else {
-              <img src="/assets/image/no-image.webp" alt="blog-image" />
-              }
-
-            </div>
-          </mat-card-header>
-          <mat-card-content>
-            <span class="date">{{ item.post_date }}</span>
-            <div class="title">
-
-              <h2 (click)="viewBlogDetail(item)">{{ item.blog_title }}</h2>
-            </div>
-            <div class="description" [innerHTML]=" item.blog_desc">
-
-            </div>
-            <mat-divider></mat-divider>
-          </mat-card-content>
-
-          <mat-card-footer>
-            <div class="footer d-flex">
-              <div class="profile-image">
-                @if (item.author_detail?.user_image) {
-                <img [src]="item.author_detail?.user_image" alt="profile-image" />
-                } @else {
-                <img src="/assets/image/no_profile.webp" alt="profile-image" />
+      <div class="col-12 col-md-4 mt-5">
+        <div style="height: 100%">
+          @if (blogAd) {
+            <div class="swiper-div">
+              <swiper-container #blogSwiper class="mySwiper" init="false">
+                @for (key of blogAd; track $index) {
+                  <swiper-slide>
+                    <div
+                      class="banner-img"
+                      (click)="CountClickStats(key?.id, key?.space_id)"
+                      style="background-image: url({{ key?.img }})"
+                    >
+                      <div class="banner-text overlay">
+                        <h3>{{ key?.title }}</h3>
+                        <p class="banner-slide-des">
+                          {{ key?.description }}
+                        </p>
+                        @if (key?.url) {
+                          <button class="btn" (click)="getUrl(key?.url)">
+                            Explore
+                          </button>
+                        }
+                      </div>
+                    </div>
+                  </swiper-slide>
                 }
-              </div>
-              <div class="user-detail">
-                <h5>{{ item.author_detail?.first_name}} {{item.author_detail?.last_name}}</h5>
-                <p>{{ item.author_detail?.user_info }}</p>
-              </div>
+              </swiper-container>
             </div>
-          </mat-card-footer>
-        </mat-card>
-        }
+          }
+        </div>
       </div>
-    </div>
-    <div class="blog-banner col-12 col-md-12 col-lg-3">
-      <!-- <div class="cross">
-        <img src="/assets/icons/cross-icon.svg" alt="cross-icon" />
-      </div> -->
-      @if (blogAd) {
-      <swiper-container #blogSwiper class="mySwiper" init="false">
-
-        @for (key of blogAd; track $index) {
-        <swiper-slide>
-          <div class="banner-img" (click)="CountClickStats(key?.id,key?.space_id)"
-            style="background-image: url({{key?.img}})">
-            <div class="banner-text overlay ">
-              <h3>{{key?.title}}</h3>
-              <p>
-                {{key?.description}}
-              </p>
-              @if (key?.url) {
-              <button class="btn" (click)="getUrl(key?.url)">
-                Explore
-              </button>
-              }
-            </div>
-          </div>
-        </swiper-slide>
-        }
-      </swiper-container>
-
-      }
     </div>
   </div>
 </section>

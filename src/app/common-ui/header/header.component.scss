@@ -304,18 +304,7 @@
     color: var(--primary-color-orange);
 }
 
-// .nav-item:hover::after {
-//     content: "";
-//     position: absolute;
-//     bottom: 0;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     width: 6px;
-//     height: 6px;
 
-//     background-color: var(--primary-color-orange);
-//     border-radius: 50%;
-// }
 
 li.mat-mdc-menu-trigger.nav-item.active {
     color: var(--primary-color-orange);
@@ -324,8 +313,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
 /* Add the following CSS to your styles */
 .show-translation {
     float: left;
-    /* or any other positioning you desire */
-    /* Add additional styling as needed */
+   
 }
 
 /* Notification list styling */
@@ -334,7 +322,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     height: auto;
     max-height: 25rem;
     overflow: auto;
-
+    width:fit-content;
     p {
         font-size: 13px
     }

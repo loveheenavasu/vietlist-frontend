@@ -219,3 +219,68 @@ swiper-container::part(button-prev) {
 swiper-container::part(container) {
     position: initial;
 }
+
+
+@media screen and (max-width:1024px){
+    .container-fluid {
+        .cta-verfied-image {
+            .image-container {
+                .mySwiper {
+                        .verified-logo {
+                            position: absolute;
+                            top:20px;
+                            right: 8px;
+                            width: 20%;
+                            height: 23%;
+                        }
+    
+                    }
+                }
+            }
+    }
+}
+
+@media (max-width:768px) {
+    .container-fluid {
+  
+  
+      .heading {
+        width: 100%;
+  
+        h1 {
+          font-size: 2.4rem;
+        }
+  
+        p {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  
+    swiper-container {
+      height: 35rem;
+      width: 90% !important;
+    }
+  
+    .Categories-swiper-container {
+      padding-bottom: 0px;
+    }
+  
+    .card-heading {
+      font-size: 1.6rem;
+    }
+  
+    swiper-container::part(button-next) {
+      color: #F89705 !important;
+      right: -3.4rem !important;
+      width: 35px !important;
+      height: 35px !important;
+    }
+  
+    swiper-container::part(button-prev) {
+      color: #F89705 !important;
+      left: -3.4rem !important;
+      width: 35px !important;
+      height: 35px !important;
+    }
+  } 

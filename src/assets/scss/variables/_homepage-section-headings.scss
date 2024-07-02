@@ -1,0 +1,38 @@
+@import "../common";
+
+.heading {
+    width: 53.43%;
+    margin-bottom: 16px
+  }
+
+  h1 {
+    @extend %sh-styles;
+    font-family: 'Roboto';
+  }
+
+  p {
+    @extend %ssh-styles;
+    font-family: 'Roboto';
+  }
+
+  ;
+
+  .heading {
+    @extend %shm-styles;
+  }
+
+  .explore-more-btn {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      padding: 0.75rem 2.625rem;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      color: var(--primary-color-orange);
+      border: 1px solid #F89705;
+      background-color: var(--white);
+    }
+  }

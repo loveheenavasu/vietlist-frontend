@@ -115,9 +115,19 @@ export class HomepageComponent {
 
 
   // ngAfterViewInit() {
-  // this.showAdDataFetch()
-
+  //   setTimeout(() => {
+  //     if (this.swiper && this.swiper.nativeElement) {
+  //       const swiperEl = this.swiper.nativeElement;
+  //       const swiper = new swiper(swiperEl, this.swiperParams);
+  //     }
+  
+  //     if (this.swiperFooter && this.swiperFooter.nativeElement) {
+  //       const swiperFooterEl = this.swiperFooter.nativeElement;
+  //       const swiperFooter = new Swiper(swiperFooterEl, this.footerSwiperParams);
+  //     }
+  //   });
   // }
+  
 
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({

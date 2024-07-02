@@ -45,7 +45,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
     FormsModule,
     AutocompleteComponent,
     NgbRatingModule,
-    JsonPipe
+    JsonPipe,
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -378,7 +378,7 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
-        console.log(this.findBusinessData , "findBusinessData")
+        console.log(this.findBusinessData, 'findBusinessData')
         this.categoryDetails = res.category_data
         this.latitude = []
         this.longitude = []
@@ -449,6 +449,13 @@ export class FindBusinessComponent {
   }
 
   public getAddress(place: any) {
+    if (place === null) {
+      this.street = null
+    } else {
+      // Update street with the new address value if needed
+      this.street = place.formatted_address || ''
+    }
+
     this.fullAddress = place.formatted_address
     this.state = ''
     this.country = ''
