@@ -9,7 +9,17 @@
     position: relative;
 }
 
+/* Example CSS */
+.mat-menu-panel {
+    z-index: 1200; /* Adjust as needed */
+  }
+  
 
+  /* Example CSS */
+.offcanvas {
+    z-index: 1050; /* Ensure this is higher than other content but lower than modal dialogs */
+  }
+  
 .gtrans{
     // position: absolute;
     // top:0px;

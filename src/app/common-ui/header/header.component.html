@@ -52,7 +52,7 @@
         @if(isAuthenticated){
           <div class="bell-icon-div mobile" [matMenuTriggerFor]="notification">
             <i class="fa fa-bell" aria-hidden="true"></i>
-            <div class="badge" [matMenuTriggerFor]="notification" *ngIf="notificationsDetails != '0'">{{notificationsDetails}}</div>
+            <div class="badge" *ngIf="notificationsDetails != '0'">{{notificationsDetails}}</div>
           </div>
         }
       </div>
@@ -247,16 +247,7 @@
                 (click)="isAuthenticated ? onLogout() : login()">
                 {{ isAuthenticated ? 'Logout' : 'Login' }}
               </button>
-              <!-- @if(isAuthenticated){
-                <button type=" button" class="btn" (click)="onLogout()">
-                  {{'Logout'}}
-                </button>
-              }@else {
-                <button type=" button" class="btn" routerLink="/login">
-                  {{'Login' }}
-                </button>
-              } -->
-
+      
             </div>
             <div class="sign-up-btn">
               <button data-bs-dismiss="offcanvas" type="button" class="btn"
