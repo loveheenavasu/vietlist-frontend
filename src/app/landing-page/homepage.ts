@@ -25,7 +25,7 @@ import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
-
+import Swiper from 'swiper';
 register()
 
 @Component({
@@ -53,6 +53,9 @@ register()
 export class HomepageComponent {
   @ViewChild('adSwiper') swiper!: ElementRef
   @ViewChild('footerSwiper') swiperFooter!: ElementRef
+  adSwiperInstance: Swiper | null = null;
+  footerSwiperInstance: Swiper | null = null;
+
   logos: string[] = ['logo1.png', 'logo2.png', 'logo3.png']
   homePageData?: any
   currentLogoIndex = 0
@@ -68,6 +71,9 @@ export class HomepageComponent {
     slidesPerView: 1,
     pagination: {
       clickable: true,
+    },
+    autoplay: {
+      delay: 6000,
     },
     slidesPreview: 1,
     on: {
@@ -108,25 +114,19 @@ export class HomepageComponent {
   }
 
   ngOnInit() {
-    // this.showAdDataFetch()
+    this.showAdDataFetch()
     this.getHomePageContent()
     this.getIPAddress()
   }
 
 
-  // ngAfterViewInit() {
-  //   setTimeout(() => {
-  //     if (this.swiper && this.swiper.nativeElement) {
-  //       const swiperEl = this.swiper.nativeElement;
-  //       const swiper = new swiper(swiperEl, this.swiperParams);
-  //     }
-  
-  //     if (this.swiperFooter && this.swiperFooter.nativeElement) {
-  //       const swiperFooterEl = this.swiperFooter.nativeElement;
-  //       const swiperFooter = new Swiper(swiperFooterEl, this.footerSwiperParams);
-  //     }
-  //   });
-  // }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      if (this.swiper && this.swiper.nativeElement) {
+        this.adSwiperInstance = new Swiper(this.swiper.nativeElement, this.swiperParams);
+      }
+    });
+  }
   
 
   public showAdDataFetch() {
