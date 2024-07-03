@@ -523,7 +523,7 @@
             >
           </div>
           <div class="col-12 col-md-12 col-lg-12">
-            <mat-chip-grid #chipGrid aria-label="Enter services">
+            <mat-chip-grid #chipGrid aria-label="Enter services" >
          
               <input placeholder="Press enter to add service"
               class="input-control"
@@ -539,6 +539,7 @@
               <mat-chip-row
               (removed)="remove(service)"
               style="margin-left: 10px;"
+              class="my-2"
               >
               {{service}}
               <button matChipRemove [attr.aria-label]="'remove ' + service.name">

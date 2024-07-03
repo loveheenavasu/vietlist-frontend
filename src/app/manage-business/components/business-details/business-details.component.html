@@ -110,6 +110,7 @@
                     ></a>
                   </div>
                 }
+                @if (eventDetails?.instagram) {
                 <div class="elementor-grid-item">
                   <a
                     [href]="eventDetails?.instagram"
@@ -125,6 +126,8 @@
                     ></i
                   ></a>
                 </div>
+                }
+                @if (eventDetails?.pinterest) {
                 <div class="elementor-grid-item">
                   <a
                     [href]="eventDetails?.pinterest"
@@ -140,6 +143,8 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.whatsapp) {
                 <div class="elementor-grid-item" style="background-color: green;">
                   <a
                     [href]="eventDetails?.whatsapp"
@@ -155,9 +160,11 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.linkedin) {
                 <div class="elementor-grid-item" style="background-color: rgb(8, 66, 227);">
                   <a
-                    [href]="eventDetails?.whatsapp"
+                    [href]="eventDetails?.linkedin"
                     target="_blank"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -170,6 +177,8 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.tiktok) {
                 <div class="elementor-grid-item" style="background-color: rgb(0, 0, 0);">
                   <a
                     [href]="eventDetails?.tiktok"
@@ -185,6 +194,8 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.youtube) {
                 <div class="elementor-grid-item" style="background-color: rgb(164, 6, 6);">
                   <a
                     [href]="eventDetails?.youtube"
@@ -200,6 +211,8 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.snapchat) {
                 <div class="elementor-grid-item" style="background-color: rgb(255, 228, 21);">
                   <a
                     [href]="eventDetails?.snapchat"
@@ -215,6 +228,8 @@
                     ></i
                   ></a>
                 </div>
+              }
+              @if (eventDetails?.reddit) {
                 <div class="elementor-grid-item" style="background-color: rgb(255, 40, 21);">
                   <a
                     [href]="eventDetails?.reddit"
@@ -230,6 +245,7 @@
                     ></i
                   ></a>
                 </div>
+              }
                 <div
                   class="elementor-grid-item"
                   style="background: #0073a4"
@@ -1098,7 +1114,9 @@
           </button>
         </div>
       }
+
       <div class="iconDirection mt-3">
+        @if(eventDetails?.whatsapp){
         <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
           <a
             href="{{ eventDetails?.whatsapp }}"
@@ -1112,6 +1130,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.youtube){
         <span class="elementor-grid-item" style="background: red">
           <a
             href="{{ eventDetails?.youtube }}"
@@ -1121,6 +1141,8 @@
           >
           <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
         </span>
+      }
+      @if(eventDetails?.facebook){
         <span class="elementor-grid-item" style="background: #3b5998">
           <a
             href="{{ eventDetails?.facebook }}"
@@ -1134,6 +1156,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.pinterest){
         <span class="elementor-grid-item" style="background: red">
           <a
             href="{{ eventDetails?.pinterest }}"
@@ -1147,6 +1171,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.tiktok){
         <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
           <a
             href="{{ eventDetails?.tiktok }}"
@@ -1158,9 +1184,11 @@
     
         </a>
         </span>
+      }
+      @if(eventDetails?.linkedin){
         <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
           <a
-            href="{{ eventDetails?.pinterest }}"
+            href="{{ eventDetails?.linkedin }}"
             style="padding: 3px"
             class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
             target="_blank"
@@ -1171,6 +1199,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.snapchat){
         <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
           <a
             href="{{ eventDetails?.snapchat }}"
@@ -1184,6 +1214,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.reddit){
         <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
           <a
             href="{{ eventDetails?.reddit }}"
@@ -1197,6 +1229,8 @@
             ></i
           ></a>
         </span>
+      }
+      @if(eventDetails?.twitter){
         <span class="elementor-grid-item" style="background: #1da1f2">
           <a
             href="{{ eventDetails?.twitter }}"
@@ -1209,6 +1243,7 @@
             ></i
           ></a>
         </span>
+      }
         <span class="elementor-grid-item size_icon" style="background: #818a91">
           <a
             href="{{ eventDetails?.website }}"
@@ -1222,6 +1257,7 @@
             ></i
           ></a>
         </span>
+        @if(eventDetails?.instagram){
         <span class="elementor-grid-item">
           <a
             [href]="eventDetails?.instagram"
@@ -1235,6 +1271,7 @@
             ></i
           ></a>
         </span>
+      }
         <span class="elementor-grid-item" style="background: #0073a4">
           <a
             class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
@@ -1248,6 +1285,7 @@
           ></a>
         </span>
       </div>
+
     </section>
     <!-- <div class="section-container">
         <ul class="list-items">

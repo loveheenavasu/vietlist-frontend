@@ -58,6 +58,7 @@
                 </div>
               </div>
               <div class="iconDirection">
+                @if(businessFormDetails?.whatsapp){
                 <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
                   <a
                     href="{{ businessFormDetails?.whatsapp }}"
@@ -71,6 +72,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.youtube){
                 <span class="elementor-grid-item" style="background: red">
                   <a
                     href="{{ businessFormDetails?.youtube }}"
@@ -80,6 +83,8 @@
                   >
                   <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
                 </span>
+              }
+              @if(businessFormDetails?.facebook){
                 <span class="elementor-grid-item" style="background: #3b5998">
                   <a
                     href="{{ businessFormDetails?.facebook }}"
@@ -93,6 +98,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.pinterest){
                 <span class="elementor-grid-item" style="background: red">
                   <a
                     href="{{ businessFormDetails?.pinterest }}"
@@ -106,6 +113,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.tiktok){
                 <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
                   <a
                     href="{{ businessFormDetails?.tiktok }}"
@@ -117,9 +126,11 @@
             
                 </a>
                 </span>
+              }
+              @if(businessFormDetails?.linkedin){
                 <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
                   <a
-                    href="{{ businessFormDetails?.pinterest }}"
+                    href="{{ businessFormDetails?.linkedin }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -130,6 +141,8 @@
                     ></i
                   ></a>
                 </span>
+              }    
+               @if(businessFormDetails?.snapchat){
                 <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
                   <a
                     href="{{ businessFormDetails?.snapchat }}"
@@ -143,6 +156,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.reddit){
                 <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
                   <a
                     href="{{ businessFormDetails?.reddit }}"
@@ -156,6 +171,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.twitter){
                 <span class="elementor-grid-item" style="background: #1da1f2">
                   <a
                     href="{{ businessFormDetails?.twitter }}"
@@ -168,6 +185,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.website){
                 <span class="elementor-grid-item size_icon" style="background: #818a91">
                   <a
                     href="{{ businessFormDetails?.website }}"
@@ -181,6 +200,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+              @if(businessFormDetails?.instagram){
                 <span class="elementor-grid-item">
                   <a
                     [href]="businessFormDetails?.instagram"
@@ -194,6 +215,8 @@
                     ></i
                   ></a>
                 </span>
+              }
+             
                 <span class="elementor-grid-item" style="background: #0073a4">
                   <a
                     class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
@@ -770,6 +793,7 @@
     </div>
   </div>
   <div class="iconDirection">
+         @if(businessFormDetails?.whatsapp){
     <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
       <a
         href="{{ businessFormDetails?.whatsapp }}"
@@ -783,6 +807,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.whatsapp){
     <span class="elementor-grid-item" style="background: red">
       <a
         href="{{ businessFormDetails?.youtube }}"
@@ -792,6 +818,8 @@
       >
       <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
     </span>
+    }
+      @if(businessFormDetails?.facebook){
     <span class="elementor-grid-item" style="background: #3b5998">
       <a
         href="{{ businessFormDetails?.facebook }}"
@@ -805,6 +833,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.pinterest){
     <span class="elementor-grid-item" style="background: red">
       <a
         href="{{ businessFormDetails?.pinterest }}"
@@ -818,6 +848,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.tiktok){
     <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
       <a
         href="{{ businessFormDetails?.tiktok }}"
@@ -829,9 +861,11 @@
 
     </a>
     </span>
+  }
+  @if(businessFormDetails?.linkedin){
     <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
       <a
-        href="{{ businessFormDetails?.pinterest }}"
+        href="{{ businessFormDetails?.linkedin }}"
         style="padding: 3px"
         class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
         target="_blank"
@@ -842,6 +876,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.snapchat){
     <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
       <a
         href="{{ businessFormDetails?.snapchat }}"
@@ -855,6 +891,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.reddit){
     <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
       <a
         href="{{ businessFormDetails?.reddit }}"
@@ -868,6 +906,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.twitter){
     <span class="elementor-grid-item" style="background: #1da1f2">
       <a
         href="{{ businessFormDetails?.twitter }}"
@@ -880,6 +920,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.website){
     <span class="elementor-grid-item size_icon" style="background: #818a91">
       <a
         href="{{ businessFormDetails?.website }}"
@@ -893,6 +935,8 @@
         ></i
       ></a>
     </span>
+  }
+  @if(businessFormDetails?.instagram){
     <span class="elementor-grid-item">
       <a
         [href]="businessFormDetails?.instagram"
@@ -906,6 +950,8 @@
         ></i
       ></a>
     </span>
+  }
+
     <span class="elementor-grid-item" style="background: #0073a4">
       <a
         class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
@@ -918,6 +964,7 @@
         ></i
       ></a>
     </span>
+
   </div>
 </section>
 

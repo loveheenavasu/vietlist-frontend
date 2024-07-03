@@ -206,6 +206,41 @@ export class BenefitsOfJoiningComponent {
     this.router.navigateByUrl('/login')
   }
 
+  // addBusiness() {
+  //   console.log('check ---->', Roles.subscriber)
+  //   if (this.userRole == Roles.subscriber) {
+  //     console.log('check1 ---->')
+  //     this.router.navigateByUrl('/register')
+  //   } else if (
+  //     this.userRole == Roles.businessOwner &&
+  //     !this.subscriptionStatus
+  //   ) {
+  //     // console.log("check2")
+  //     console.log('check2 ---->')
+  //     Swal.fire({
+  //       toast: true,
+  //       text: 'Please choose plan',
+  //       animation: false,
+  //       icon: 'error',
+  //       position: 'top-right',
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //       timerProgressBar: true,
+  //     })
+  //     this.router.navigateByUrl('/subscription-plans')
+  //   } else if (
+  //     this.userRole == Roles.businessOwner &&
+  //     this.subscriptionStatus
+  //   ) {
+  //     console.log('check3 ---->')
+  //     this.router.navigateByUrl('/list-business')
+  //   } else if (!this.userRole) {
+  //     console.log('check3 ---->')
+
+  //     this.router.navigateByUrl('/login')
+  //   }
+  // }
+
   addBusiness() {
     console.log('check ---->', Roles.subscriber)
     if (this.userRole == Roles.subscriber) {
@@ -215,11 +250,10 @@ export class BenefitsOfJoiningComponent {
       this.userRole == Roles.businessOwner &&
       !this.subscriptionStatus
     ) {
-      // console.log("check2")
       console.log('check2 ---->')
       Swal.fire({
         toast: true,
-        text: 'Please choose plan',
+        text: 'Please choose a plan',
         animation: false,
         icon: 'error',
         position: 'top-right',
@@ -235,11 +269,33 @@ export class BenefitsOfJoiningComponent {
       console.log('check3 ---->')
       this.router.navigateByUrl('/list-business')
     } else if (!this.userRole) {
-      console.log('check3 ---->')
-
+      console.log('check4 ---->')
+      Swal.fire({
+        toast: true,
+        text: 'You are not authorized for this action',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
       this.router.navigateByUrl('/login')
+    } else {
+      // This block will execute if none of the above conditions are met
+      Swal.fire({
+        toast: true,
+        text: 'You are not authorized for this action',
+        animation: false,
+        icon: 'error',
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      })
     }
   }
+  
   ngOnDestroy() {
     clearInterval(this.intervalId);
   }

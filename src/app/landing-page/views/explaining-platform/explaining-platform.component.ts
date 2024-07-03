@@ -1,10 +1,11 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
+import { SafeUrlPipe } from 'src/app/shared/utils/safe.pipe';
 
 @Component({
   selector: 'app-explaining-platform',
   standalone: true,
-  imports: [],
+  imports: [SafeUrlPipe],
   templateUrl: './explaining-platform.component.html',
   styleUrl: './explaining-platform.component.scss',
 })
@@ -17,6 +18,8 @@ export class ExplainingPlatformComponent {
 
   ngOnInit() {
   }
+
+ 
 
   togglePlayPause() {
     const videoPlayer = this.videoPlayerRef.nativeElement as HTMLVideoElement;

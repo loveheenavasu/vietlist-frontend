@@ -260,6 +260,12 @@
     }
   }
 
+  @media(max-width:910px){
+    .list-button{
+        margin-top:35px;
+    }
+  }
+
 @media(max-width: 766px) {
     .icons-grid-list{
         display: none;
