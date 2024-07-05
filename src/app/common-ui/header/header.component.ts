@@ -36,6 +36,12 @@ import { EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LanguageService } from 'src/app/shared/utils/services/language.service'
 
+declare global {
+  interface Window {
+    google: any
+  }
+}
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -420,6 +426,39 @@ export class HeaderComponent {
     }
   }
 
+  loadGoogleTranslate() {
+    const checkGoogleTranslate = () => {
+      if (
+        window.google &&
+        window.google.translate &&
+        window.google.translate.TranslateElement
+      ) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            includedLanguages: 'en,vi',
+            layout:
+              window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          'google_translate_element',
+        )
+        console.log(
+          document.getElementsByClassName('VIpgJd-ZVi9od-xl07Ob-lTBxed'),
+          'nnnjnjn',
+        )
+        let anchorTag = document.getElementsByClassName(
+          'VIpgJd-ZVi9od-xl07Ob-lTBxed',
+        )[0]
+        anchorTag.addEventListener('click', function (event) {
+          event.preventDefault()
+        })
+      } else {
+        setTimeout(checkGoogleTranslate, 100)
+      }
+    }
+    checkGoogleTranslate()
+  }
+
   notificationsDetails: any
   public getNotifications() {
     this.isNotificationLoading = true
@@ -458,5 +497,8 @@ export class HeaderComponent {
       this.notificationIntervalSubscription.unsubscribe()
     }
     this.stopNotificationInterval()
+  }
+  ngAfterViewInit() {
+    this.loadGoogleTranslate()
   }
 }

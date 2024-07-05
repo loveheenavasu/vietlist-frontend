@@ -1,5 +1,4 @@
 <div class="container-fluid g-0">
-  
   <!-- <div class="search row">
       <div class="search-input col">
         <div class="input-group">
@@ -36,65 +35,82 @@
     </div> -->
   <div class="heading_____">
     <h3 class="dashboard-heading">Business Listing</h3>
-    <button class="btn orange-background-btn mx-1" (click)="removeLocalstoagekey()">
+    <button
+      class="btn orange-background-btn mx-1"
+      (click)="removeLocalstoagekey()"
+    >
       Add New Business
     </button>
   </div>
 
   <div class="lisiting-container mt-3">
     <div class="layout-icon d-flex align-items-center icons-grid-list">
-      <div class="grid-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
-        (click)="handleLayout('grid')">
+      <div
+        class="grid-layout-icon d-flex align-items-center"
+        [ngClass]="{ 'active-layout': selectedLayout == 'grid' }"
+        (click)="handleLayout('grid')"
+      >
         <mat-icon>grid_on</mat-icon>
       </div>
-      <div class="list-layout-icon d-flex align-items-center" [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
-        (click)="handleLayout('list')">
+      <div
+        class="list-layout-icon d-flex align-items-center"
+        [ngClass]="{ 'active-layout': selectedLayout == 'list' }"
+        (click)="handleLayout('list')"
+      >
         <mat-icon>view_list</mat-icon>
       </div>
     </div>
     <div class="view-container">
       @if (selectedLayout == 'grid') {
-      <div class="grid-view-container row">
-        @for (key of businessArray | paginate
-        : {
-        itemsPerPage: postPerPage,
-        currentPage: currentPage,
-        totalItems: totalCount
-        }; track $index) {
-        <div class="grid-card col-lg-5">
-          @if (key?.image?.includes("") || key?.image == null) {
-          <div class="listing-img">
-            <img src="../../../../assets/image/no-image.webp" />
-            <div class="badge" *ngIf="key?.final_submission == '0'">
-              Pending
-            </div>
-          </div>
-          } @else {
-          <div class="listing-img">
-            <img [src]="key.image[0]" />
-            <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
+        <div class="grid-view-container row">
+          @for (
+            key of businessArray
+              | paginate
+                : {
+                    itemsPerPage: postPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalCount
+                  };
+            track $index
+          ) {
+            <div class="grid-card col-lg-5">
+              @if (key?.image?.includes('') || key?.image == null) {
+                <div class="listing-img">
+                  <img src="../../../../assets/image/no-image.webp" />
+                  <div class="badge" *ngIf="key?.final_submission == '0'">
+                    Pending
+                  </div>
+                </div>
+              } @else {
+                <div class="listing-img">
+                  <img [src]="key.image[0]" />
+                  <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
               Pending
             </div> -->
-          </div>
-          }
-   
-          <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
+                </div>
+              }
+
+              <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
           Pending
         </div> -->
-          
-          <div class="listing-description">
-            <div class="listing-heading">
-              <h3 [innerHtml]="key?.post_title | truncateHtml: 85">
-                <!-- {{ key.post_title }} -->
-              </h3>
-            </div>
-            <div class="listing-info">
-              <p>
-                {{ key.post_content.length > 200 ? (key.post_content.slice(0, 198) + '....') : key.post_content }}
-              </p>
-            </div>
-            
-            <!-- <div class="row justify-content-center ">
+
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3 [innerHtml]="key?.post_title | truncateHtml: 85">
+                    <!-- {{ key.post_title }} -->
+                  </h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{
+                      key.post_content.length > 200
+                        ? key.post_content.slice(0, 198) + '....'
+                        : key.post_content
+                    }}
+                  </p>
+                </div>
+
+                <!-- <div class="row justify-content-center ">
 
               <div class="col-5">
                 <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
@@ -114,49 +130,91 @@
                 
               </div>
             </div> -->
-            <!-- <div class="row justify-content-center mt-2 ">
+                <!-- <div class="row justify-content-center mt-2 ">
               <button class="btn orange-background-btn mx-1" (click)="emailMarketing(key.post_id)">
                 Email Marketing
               </button>
             </div> -->
-          </div>
-          <div class="footer mx-2">
-            <div class="d-flex">
-              <div>
-                <button class="btn email-marketing" (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">Email marketing</button>
-                <button class="btn email-marketing"  (click)="viewBusiness(key.post_id)">View</button>
-                <button class="btn email-marketing"  (click)="editBusiness(key.post_id)">Edit</button>
-                <button class="btn email-marketing"  (click)="deleteBusiness(key.post_id)">Delete</button>
               </div>
-              <!-- <div class="ms-auto">
+              <div class="footer mx-2">
+                <div class="d-flex">
+                  <div>
+                    <button
+                      class="btn email-marketing"
+                      (click)="emailMarketing(key.post_id)"
+                      *ngIf="key?.final_submission == '1'"
+                    >
+                      Email marketing
+                    </button>
+                    <button
+                      class="btn email-marketing"
+                      (click)="viewBusiness(key.post_id)"
+                    >
+                      View
+                    </button>
+                    <button
+                      class="btn email-marketing"
+                      (click)="editBusiness(key.post_id)"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn email-marketing"
+                      (click)="deleteBusiness(key.post_id)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <!-- <div class="ms-auto">
                 <div class="icons">
                   <i class="fa fa-eye" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="viewBusiness(key.post_id)"></i>
                   <i class="fa fa-pencil" aria-hidden="true" style="color:rgb(50, 50, 50)" (click)="editBusiness(key.post_id)"></i>
                   <i class="fa fa-trash-o" aria-hidden="true" style="color:rgb(255, 70, 19)" (click)="deleteBusiness(key.post_id)"></i>
                   </div>
               </div> -->
-            </div>
-          </div>
-        </div> 
-        }
-
-        @if (!businessArray.length) {
-        <div class="grid-view-container row mt-5">
-          <h4 class="no-records-found text-center">No records found</h4>
-        </div>
-        }
-      </div>
-      } @else {
-      <div class="list-view-container">
-        @for (key of businessArray; track $index) {
-        <div class="d-flex small-screen-view">
-          <div class="listing-img-container">
-               @if(key?.image?.includes("") || key?.image == null){
-                <div class="listing-img">
-                  <img src="../../../../assets/image/No-image-found.jpeg" />
                 </div>
-                }@else{
-                  <div class="listing-img" >
+              </div>
+            </div>
+          }
+
+          @if (!businessArray.length) {
+            <div class="grid-view-container row mt-5">
+              <h4 class="no-records-found text-center">No records found</h4>
+            </div>
+          }
+        </div>
+        <div class="row">
+          <div class="col-md-12 mt-5">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              [responsive]="true"
+              [maxSize]="5"
+              (pageChange)="handlePageChange($event)"
+            >
+            </pagination-controls>
+          </div>
+        </div>
+      } @else {
+        <div class="list-view-container">
+          @for (
+            key of businessArray
+              | paginate
+                : {
+                    itemsPerPage: postPerPage,
+                    currentPage: currentPage,
+                    totalItems: totalCount
+                  };
+            track $index
+          ) {
+            <div class="d-flex small-screen-view">
+              <div class="listing-img-container">
+                @if (key?.image?.includes('') || key?.image == null) {
+                  <div class="listing-img">
+                    <img src="../../../../assets/image/No-image-found.jpeg" />
+                  </div>
+                } @else {
+                  <div class="listing-img">
                     <img [src]="key.image[0]" />
                   </div>
                 }
@@ -170,54 +228,69 @@
                       <img [src]="key.image[0]" />
                     </div>
                   } -->
-                  @if(key?.final_submission == '0'){
-                    <div class="badge">
-                    Pending
-                  </div>
-                    }
-          </div>
-        
-          <div class="listing-img-info">
-            <div class="listing-heading">
-              <h3>{{ key.post_title }}</h3>
+                @if (key?.final_submission == '0') {
+                  <div class="badge">Pending</div>
+                }
+              </div>
+
+              <div class="listing-img-info">
+                <div class="listing-heading">
+                  <h3>{{ key.post_title }}</h3>
+                </div>
+                <div class="listing-info">
+                  <p>
+                    {{
+                      key.post_content.length > 240
+                        ? key.post_content.slice(0, 237) + '...'
+                        : key.post_content
+                    }}
+                  </p>
+                </div>
+                <div class="list-button">
+                  <button
+                    class="btn email-marketing"
+                    (click)="emailMarketing(key.post_id)"
+                    *ngIf="key?.final_submission == '1'"
+                  >
+                    Email Marketing
+                  </button>
+                  <button
+                    class="btn email-marketing"
+                    (click)="deleteBusiness(key.post_id)"
+                  >
+                    Delete
+                  </button>
+                  <!-- } -->
+                  <button
+                    class="btn email-marketing"
+                    (click)="viewBusiness(key.post_id)"
+                  >
+                    View
+                  </button>
+                  <button
+                    class="btn email-marketing"
+                    (click)="editBusiness(key.post_id)"
+                  >
+                    Edit
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="listing-info">
-              <p>
-                {{ key.post_content.length > 240 ? (key.post_content.slice(0, 237) + '...') : key.post_content }}
-              </p>
-            </div>
-            <div class="list-button">
-              <button class="btn email-marketing "  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
-                Email Marketing
-              </button>
-            <button class="btn email-marketing" (click)="deleteBusiness(key.post_id)">
-              Delete
-            </button>
-            <!-- } -->
-            <button class="btn email-marketing" (click)="viewBusiness(key.post_id)">
-              View 
-            </button>
-            <button class="btn email-marketing" (click)="editBusiness(key.post_id)">
-              Edit
-            </button>
-            </div>
+          }
+        </div>
+        <div class="row">
+          <div class="col-md-12 mt-5">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              [responsive]="true"
+              [maxSize]="5"
+              (pageChange)="handlePageChange($event)"
+            >
+            </pagination-controls>
           </div>
         </div>
-        }
-      </div>
       }
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 mt-5">
-      <pagination-controls 
-      previousLabel="Prev" 
-      nextLabel="Next" 
-      [responsive]="true" 
-      [maxSize]="4" 
-      (pageChange)="handlePageChange($event)">
-  </pagination-controls>
     </div>
   </div>
 </div>
