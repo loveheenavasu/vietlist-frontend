@@ -187,17 +187,17 @@
               </p>
             </div>
             <div class="list-button">
-              <button class="btn orange-background-btn mx-1"  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
+              <button class="btn email-marketing "  (click)="emailMarketing(key.post_id)" *ngIf="key?.final_submission == '1'">
                 Email Marketing
               </button>
-            <button class="btn orange-background-btn" (click)="deleteBusiness(key.post_id)">
+            <button class="btn email-marketing" (click)="deleteBusiness(key.post_id)">
               Delete
             </button>
             <!-- } -->
-            <button class="btn orange-background-btn mx-1" (click)="viewBusiness(key.post_id)">
+            <button class="btn email-marketing" (click)="viewBusiness(key.post_id)">
               View 
             </button>
-            <button class="btn orange-background-btn mx-1 my-1" (click)="editBusiness(key.post_id)">
+            <button class="btn email-marketing" (click)="editBusiness(key.post_id)">
               Edit
             </button>
             </div>

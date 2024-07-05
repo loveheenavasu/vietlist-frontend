@@ -122,17 +122,18 @@
         padding-bottom: 22px;
 
         .profile-image {
+
             img {
                 border-radius: 50%;
-                height: 80px;
-                width: 80px;
+                height: 60px;
+                width: 60px;
                 object-fit: cover;
                 object-position: center;
             }
         }
 
         .user-detail {
-            margin-left: 32px;
+            // margin-left: 32px;
             padding-top: 10px;
 
             h5 {
@@ -235,3 +236,16 @@
         }
     }
 }
+
+
+
+mat-card-content{
+    padding: 0px 15px!important;
+}
+
+mat-card-footer{
+    padding: 0px 10px!important;
+
+}
+
+// :host ::ng-deep

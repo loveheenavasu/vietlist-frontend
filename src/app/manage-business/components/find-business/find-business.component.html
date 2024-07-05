@@ -5,7 +5,7 @@
 </section> -->
 
 <div class="container-fluid g-0">
-  <div class="row">
+  <div class="row m-0  ">
     <div class="col-12 col-md-12 col-lg-6 mt-4">
       <div style="height: 100vh; width: 100%;">
         <div id="map"></div>
@@ -194,7 +194,7 @@
                   <h2 (click)="gotToListing(item.post_id, true)">
                     <a routerLink="#" routerLinkActive="router-link-active">{{ item.post_title }}</a>
                   </h2>
-                  <span [innerHTML]="item.post_content"></span>
+                  <span > {{item.post_content?.length > 140 ? item.post_content.slice(0,140) +'...':item.post_content }} </span>
                 </div>
                 <div class="business-list-package">
                   <p>$ Package : Free Business</p>
