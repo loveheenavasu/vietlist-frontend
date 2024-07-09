@@ -14,6 +14,7 @@ export class ExplainingPlatformComponent {
 
   @ViewChild('videoPlayer') videoPlayerRef!: ElementRef
   isPlaying: boolean = false
+  isLoading: boolean = false
   constructor(private router: Router) {}
 
   ngOnInit() {}
@@ -36,10 +37,14 @@ export class ExplainingPlatformComponent {
     }
   }
 
-  handleVideoError(event: Event) {
-    console.error('Video failed to load', event)
+  handleVideoLoad() {
+    this.isLoading = false
   }
 
+  handleVideoError(event: Event) {
+    this.isLoading = false
+    console.error('Video failed to load', event)
+  }
   public navigatetOnBusiness() {
     this.router.navigateByUrl('/business-listing')
   }
