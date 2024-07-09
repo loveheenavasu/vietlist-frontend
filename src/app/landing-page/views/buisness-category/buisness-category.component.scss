@@ -1,5 +1,7 @@
 @import "../../../../assets/scss/common";
 
+@import "../trending-services/trending-services.component.scss";
+
 .buisness-cat {
   padding-top: 6rem;
 }
@@ -121,7 +123,7 @@ swiper-container {
   width:90%;
   // height: 100%;
   margin: 2.625rem auto;
-  position: relative;
+  // position: relative;
 }
 
 swiper-slide {
