@@ -442,10 +442,6 @@ export class HeaderComponent {
           },
           'google_translate_element',
         )
-        console.log(
-          document.getElementsByClassName('VIpgJd-ZVi9od-xl07Ob-lTBxed'),
-          'nnnjnjn',
-        )
         let anchorTag = document.getElementsByClassName(
           'VIpgJd-ZVi9od-xl07Ob-lTBxed',
         )[0]

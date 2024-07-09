@@ -31,11 +31,9 @@ export class BuisnessCategoryComponent {
 
   swiperParams = {
     slidesPerView: 1,
-    spaceBetween: 30,
     navigation: true,
-    slidesPreview: 1,
+    spaceBetween: 30,
     disableOnInteraction: false,
-
     breakpoints: {
       768: {
         slidesPerView: 2,
