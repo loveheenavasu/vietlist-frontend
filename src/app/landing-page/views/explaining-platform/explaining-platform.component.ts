@@ -23,10 +23,12 @@ export class ExplainingPlatformComponent {
     const videoPlayer = this.videoPlayerRef.nativeElement as HTMLVideoElement
 
     if (videoPlayer.paused) {
+      this.isLoading = true
       videoPlayer
         .play()
         .then(() => {
           this.isPlaying = true
+          this.isLoading = false
         })
         .catch((error) => {
           console.error('Error playing video:', error)
