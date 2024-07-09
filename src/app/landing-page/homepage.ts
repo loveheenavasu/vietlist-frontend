@@ -117,7 +117,6 @@ export class HomepageComponent {
     this.showAdDataFetch()
     this.getHomePageContent()
     this.getIPAddress()
-    console.log('new changs')
   }
 
   ngAfterViewInit(): void {
