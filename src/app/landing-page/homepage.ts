@@ -25,7 +25,7 @@ import { Subscription, firstValueFrom, interval, repeat, take } from 'rxjs'
 import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
-import Swiper from 'swiper';
+import Swiper from 'swiper'
 register()
 
 @Component({
@@ -53,8 +53,8 @@ register()
 export class HomepageComponent {
   @ViewChild('adSwiper') swiper!: ElementRef
   @ViewChild('footerSwiper') swiperFooter!: ElementRef
-  adSwiperInstance: Swiper | null = null;
-  footerSwiperInstance: Swiper | null = null;
+  adSwiperInstance: Swiper | null = null
+  footerSwiperInstance: Swiper | null = null
 
   logos: string[] = ['logo1.png', 'logo2.png', 'logo3.png']
   homePageData?: any
@@ -117,17 +117,19 @@ export class HomepageComponent {
     this.showAdDataFetch()
     this.getHomePageContent()
     this.getIPAddress()
+    console.log('new changs')
   }
-
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       if (this.swiper && this.swiper.nativeElement) {
-        this.adSwiperInstance = new Swiper(this.swiper.nativeElement, this.swiperParams);
+        this.adSwiperInstance = new Swiper(
+          this.swiper.nativeElement,
+          this.swiperParams,
+        )
       }
-    });
+    })
   }
-  
 
   public showAdDataFetch() {
     this.homePageContent.showAD().subscribe({
