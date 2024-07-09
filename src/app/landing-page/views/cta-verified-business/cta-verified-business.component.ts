@@ -25,15 +25,11 @@ export class CtaVerifiedBusinessComponent {
   @Input() homePageData?: any
   public verfiedBusiness?: any
 
-
-  constructor(private businessCategoriesService: BusinessService,
-    private fullPageLoaderService: FullPageLoaderService, private router: Router) {
-    setTimeout(() => {
-      const swiperEl = this.swiper.nativeElement
-      Object.assign(swiperEl, this.swiperParams)
-      swiperEl.initialize()
-    })
-  }
+  constructor(
+    private businessCategoriesService: BusinessService,
+    private fullPageLoaderService: FullPageLoaderService,
+    private router: Router,
+  ) {}
 
   swiperParams = {
     slidesPerView: 1,
@@ -44,17 +40,20 @@ export class CtaVerifiedBusinessComponent {
       768: {
         slidesPerView: 2,
         spaceBetween: 20,
+        navigation: true,
       },
       1388: {
         slidesPerView: 4,
         spaceBetween: 20,
+        navigation: true,
       },
       1920: {
         slidesPerView: 5,
+        navigation: true,
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
 
@@ -62,55 +61,65 @@ export class CtaVerifiedBusinessComponent {
     this.getPublishBusinessData()
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const swiperEl = this.swiper.nativeElement
+      Object.assign(swiperEl, this.swiperParams)
+      swiperEl.initialize()
+    })
+  }
+
   public verifiedImage: {
     image: string
     verified_logo: string
   }[] = [
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image: '/assets/image/cta-verified-img1.svg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-    ]
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image: '/assets/image/cta-verified-img1.svg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+  ]
 
   public getPublishBusinessData() {
     this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {
       posts_per_page: 10,
       page_no: 1,
-      verified_data: '1'
+      verified_data: '1',
     }
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        console.log("check verfied data", res)
+        console.log('check verfied data', res)
         this.verfiedBusiness = res.data
       },
     })
   }
 
   public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
-
+    this.router.navigate(['/business-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
 
   public handleVerfiedBusiness(isGlobal: any) {
-    this.router.navigate(['/business-listing'], { queryParams: { isGlobal: isGlobal } });
+    this.router.navigate(['/business-listing'], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
-
 }
