@@ -64,15 +64,12 @@ export class TrendingServicesComponent {
       768: {
         slidesPerView: 2,
         spaceBetween: 20,
-        navigation: true,
       },
       1388: {
         slidesPerView: 4,
-        navigation: true,
       },
       1500: {
         slidesPerView: 5,
-        navigation: true,
       },
     },
     on: {

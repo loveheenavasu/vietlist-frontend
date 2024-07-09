@@ -28,23 +28,23 @@ export class BuisnessCategoryComponent {
   public $destroy = new Subject<void>()
   public businessCat: any[] = []
   public businessCategoryContent?: any
+
   swiperParams = {
     slidesPerView: 1,
     spaceBetween: 30,
     navigation: true,
     slidesPreview: 1,
+    disableOnInteraction: false,
+
     breakpoints: {
       768: {
         slidesPerView: 2,
-        navigation: true,
       },
       1200: {
         slidesPerView: 5,
-        navigation: true,
       },
       1500: {
         slidesPerView: 6,
-        navigation: true,
       },
     },
     on: {
