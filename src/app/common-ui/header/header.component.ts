@@ -5,7 +5,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
-import { Component, DestroyRef, HostListener } from '@angular/core'
+import { Component, DestroyRef, HostListener, Renderer2 } from '@angular/core'
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -39,6 +39,7 @@ import { LanguageService } from 'src/app/shared/utils/services/language.service'
 declare global {
   interface Window {
     google: any
+    googleTranslateElementInit: () => void
   }
 }
 
@@ -115,6 +116,7 @@ export class HeaderComponent {
     private destroyRef: DestroyRef,
     private languageService: LanguageService,
     private translateService: TranslateService,
+    private renderer: Renderer2,
   ) {
     this.sessionservice.userDetailResponse.subscribe((res) => {
       this.userDetail = res
@@ -426,34 +428,38 @@ export class HeaderComponent {
     }
   }
 
+  loadGoogleTranslateScript() {
+    const script = this.renderer.createElement('script')
+    script.type = 'text/javascript'
+    script.src =
+      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+    this.renderer.appendChild(document.body, script)
+    window['googleTranslateElementInit'] = () => this.loadGoogleTranslate()
+  }
+
   loadGoogleTranslate() {
-    // const checkGoogleTranslate = () => {
-    //   if (
-    //     window.google &&
-    //     window.google.translate &&
-    //     window.google.translate.TranslateElement
-    //   ) {
+    if (window['google'] && window['google'].translate) {
+      new window['google'].translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,vi',
+          layout:
+            window['google'].translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        'google_translate_element',
+      )
 
-    //   } else {
-    //     setTimeout(checkGoogleTranslate, 100)
-    //   }
-    // }
-    // checkGoogleTranslate()
-    new window.google.translate.TranslateElement(
-      {
-        pageLanguage: 'en',
-        includedLanguages: 'en,vi',
-        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-      },
-      'google_translate_element',
-    )
-
-    let anchorTag = document.getElementsByClassName(
-      'VIpgJd-ZVi9od-xl07Ob-lTBxed',
-    )[0]
-    anchorTag.addEventListener('click', function (event) {
-      event.preventDefault()
-    })
+      const anchorTag = document.getElementsByClassName(
+        'VIpgJd-ZVi9od-xl07Ob-lTBxed',
+      )[0]
+      if (anchorTag) {
+        anchorTag.addEventListener('click', function (event) {
+          event.preventDefault()
+        })
+      }
+    } else {
+      console.error('Google Translate script is not loaded.')
+    }
   }
 
   notificationsDetails: any
@@ -496,6 +502,6 @@ export class HeaderComponent {
     this.stopNotificationInterval()
   }
   ngAfterViewInit() {
-    this.loadGoogleTranslate()
+    this.loadGoogleTranslateScript()
   }
 }
