@@ -427,32 +427,33 @@ export class HeaderComponent {
   }
 
   loadGoogleTranslate() {
-    const checkGoogleTranslate = () => {
-      if (
-        window.google &&
-        window.google.translate &&
-        window.google.translate.TranslateElement
-      ) {
-        new window.google.translate.TranslateElement(
-          {
-            pageLanguage: 'en',
-            includedLanguages: 'en,vi',
-            layout:
-              window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          },
-          'google_translate_element',
-        )
-        let anchorTag = document.getElementsByClassName(
-          'VIpgJd-ZVi9od-xl07Ob-lTBxed',
-        )[0]
-        anchorTag.addEventListener('click', function (event) {
-          event.preventDefault()
-        })
-      } else {
-        setTimeout(checkGoogleTranslate, 100)
-      }
-    }
-    checkGoogleTranslate()
+    // const checkGoogleTranslate = () => {
+    //   if (
+    //     window.google &&
+    //     window.google.translate &&
+    //     window.google.translate.TranslateElement
+    //   ) {
+
+    //   } else {
+    //     setTimeout(checkGoogleTranslate, 100)
+    //   }
+    // }
+    // checkGoogleTranslate()
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'en',
+        includedLanguages: 'en,vi',
+        layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+      },
+      'google_translate_element',
+    )
+
+    let anchorTag = document.getElementsByClassName(
+      'VIpgJd-ZVi9od-xl07Ob-lTBxed',
+    )[0]
+    anchorTag.addEventListener('click', function (event) {
+      event.preventDefault()
+    })
   }
 
   notificationsDetails: any
