@@ -17,8 +17,10 @@ export class ClaimYourBuisnessComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
 
-  constructor(private router: Router, private sessionService: AuthenticationService) {
-
+  constructor(
+    private router: Router,
+    private sessionService: AuthenticationService,
+  ) {
     this.sessionService.userRole.subscribe((res) => {
       this.userRole = res
     })
@@ -32,57 +34,55 @@ export class ClaimYourBuisnessComponent {
     // Adjust content layout based on the window size
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   public buisnessFacility = [
     {
       title: 'Boost Your Visibility',
-      icon: '/assets/icons/boost.svg',
+      icon: '/assets/image/boost.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Own Your Listing',
-      icon: '/assets/icons/own-listing.svg',
+      icon: '/assets/image/own-listing.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Increased Credibility',
-      icon: '/assets/icons/Increased-Credibility 1.svg',
+      icon: '/assets/image/Increased-Credibility 1.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Get Valuable Insights',
-      icon: '/assets/icons/dependable 1.svg',
+      icon: '/assets/image/dependable 1.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Promote Special Offers',
-      icon: '/assets/icons/promote.svg',
+      icon: '/assets/image/promote.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'Customer Engagement',
-      icon: '/assets/icons/customer.svg',
+      icon: '/assets/image/customer.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
     {
       title: 'SEO Boost',
-      icon: '/assets/icons/seo.svg',
+      icon: '/assets/image/seo.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },
 
     {
       title: 'Community Support',
-      icon: '/assets/icons/community-support.svg',
+      icon: '/assets/image/community-support.png',
       description:
         'Get found by thousands of potential customers looking for businesses like yours.',
     },

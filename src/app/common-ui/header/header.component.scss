@@ -43,11 +43,12 @@
 
 .container-fluid {
 
+    .logo-container {
     .navbar-brand {
-        .logo-container {
             .brand-logo {
                 width: 216px;
                 height: 78px;
+                mix-blend-mode: multiply !important ;
             }
         }
 
