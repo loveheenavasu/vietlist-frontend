@@ -137,7 +137,7 @@
               </div>
               <div class="business-title">
                 <h2 (click)="gotToListing(item.post_id, true)">{{ item.post_title }}</h2>
-                <span [innerHtml]="item.post_content"></span>
+                <span> {{item.post_content?.length > 200 ? item.post_content.slice(0,200) +'...':item.post_content }}</span>
               </div>
               <div class="business-package">
                 <p>$ Package : Free Business</p>
