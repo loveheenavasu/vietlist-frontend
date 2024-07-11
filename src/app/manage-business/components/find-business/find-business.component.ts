@@ -136,7 +136,6 @@ export class FindBusinessComponent {
       next: (result) => {
         this.bannerBlog = result?.data.shift()
         this.userBlogs = result?.data
-        console.log(this.bannerBlog, this.userBlogs, 'kokoko')
       },
       error: (err) => {},
     })
@@ -148,7 +147,6 @@ export class FindBusinessComponent {
 
   ngOnInit() {
     this.getUserBlogs()
-    this.getPublishBusinessData()
     // this.getIPAdress()
     this.getIPAddress()
     // this.initMap()
@@ -202,7 +200,6 @@ export class FindBusinessComponent {
   public async getIPAddress(): Promise<string> {
     try {
       const res: any = await firstValueFrom(this.IpService.getIPAddress())
-      console.log('RESPONSEEE', res.ip)
       this.ipAddress = res.ip
       this.fetchSearchAd()
       return res.ip
@@ -286,7 +283,6 @@ export class FindBusinessComponent {
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
         this.fullPageLoaderService.hideLoader()
-        console.log('check res', res.data)
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         this.maxPrice = res.max_price
@@ -299,7 +295,7 @@ export class FindBusinessComponent {
             this.longitude.push(obj.longitude)
           }
         })
-        console.log('check lat', this.latitude, this.longitude)
+        this.cdr.detectChanges()
         this.initMap()
       },
     })
@@ -309,7 +305,6 @@ export class FindBusinessComponent {
     this.businessCategoriesService.getBusinessCat().subscribe({
       next: (res: any) => {
         this.businessCat = res.data
-        console.log(this.businessCat, 'businessCat')
         if (res && this.route.snapshot.paramMap.has('id')) {
           const categoryId = Number(this.route.snapshot.paramMap.get('id'))
           this.findBusinessForm.get('post_category')?.setValue(categoryId)
@@ -341,7 +336,6 @@ export class FindBusinessComponent {
     this.fullPageLoaderService.showLoader()
     const post_category = this.findBusinessForm.value.post_category
     const price = this.slidervalue
-    const postPerPage = 2
     const params: FindBusinessParams = {}
     if (post_category) {
       params['post_category'] = post_category
@@ -349,11 +343,17 @@ export class FindBusinessComponent {
     if (price) {
       params['price'] = price
     }
-    if (postPerPage) {
-      params['posts_per_page'] = postPerPage
+    if (this.postPerPage) {
+      params['posts_per_page'] = this.postPerPage
     }
     if (this.currentPage) {
-      params['page_no'] = this.currentPage
+      if (this.postPerPage) {
+        if (callFrom === 'pagination') {
+          params['page_no'] = this.currentPage
+        } else {
+          params['page_no'] = 1
+        }
+      }
     }
     if (this.city) {
       params['city'] = this.city
@@ -378,7 +378,6 @@ export class FindBusinessComponent {
         this.isPaginationVisible = true
         this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
-        console.log(this.findBusinessData, 'findBusinessData')
         this.categoryDetails = res.category_data
         this.latitude = []
         this.longitude = []
@@ -386,7 +385,6 @@ export class FindBusinessComponent {
           if (obj.latitude && obj.longitude) {
             this.latitude.push(obj.latitude)
             this.longitude.push(obj.longitude)
-            console.log('check lat', this.latitude, this.longitude)
           }
         })
         this.initMap()
@@ -416,6 +414,10 @@ export class FindBusinessComponent {
   public updatePrice(event: any) {
     this.price = event.value
     this.slidervalue = this.slidervalue
+  }
+
+  ngAfterViewInit() {
+    this.getPublishBusinessData()
   }
 
   public initMap() {

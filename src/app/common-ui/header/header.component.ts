@@ -452,6 +452,10 @@ export class HeaderComponent {
       const anchorTag = document.getElementsByClassName(
         'VIpgJd-ZVi9od-xl07Ob-lTBxed',
       )[0]
+      const popup = document.getElementById('goog-gt-tt')
+      if (popup) {
+        popup.remove()
+      }
       if (anchorTag) {
         anchorTag.addEventListener('click', function (event) {
           event.preventDefault()
@@ -493,6 +497,14 @@ export class HeaderComponent {
     // this.languageService.setLanguage(language);
     this.translateService.use(language)
     console.log(language, 'language')
+  }
+
+  navigateToAddEvent() {
+    if (this.isAuthenticated) {
+      this.router.navigateByUrl('/add-event')
+    } else {
+      this.router.navigateByUrl('/login')
+    }
   }
 
   ngOnDestroy(): void {

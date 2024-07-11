@@ -130,7 +130,7 @@
                 <button mat-menu-item [routerLink]="['/events']">
                   <span>All Events</span>
                 </button>
-                <button mat-menu-item [routerLink]="['/add-event']">
+                <button mat-menu-item (click)="navigateToAddEvent()" >
                   <span>Add Event</span>
                 </button>
                 <button mat-menu-item *ngIf="userRole == roles.businessOwner &&isAuthenticated "
