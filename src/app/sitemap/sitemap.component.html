@@ -6,9 +6,9 @@
 
 <div class="sitemap-container">
   <div class="links-container">
-    <div class="d-flex flex-wrap gap-5">
+    <div class="row">
         @for (item of links; track $index) {
-            <div class="my-3 link-card ">
+            <div class="  col-lg-2 col-md-4 col-6 text-center my-3 link-card ">
               <span class='module-title text-nowrap' > {{item.module}} </span>
               <ul class='p-0 list-unstyled mt-2 ' >
                 @for (link of item.links; track $index) {

@@ -31,7 +31,7 @@ register()
     ReactiveFormsModule,
     FormsModule,
     LoaderComponent,
-    SearchComponentComponent
+    SearchComponentComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './trending-services.component.html',
@@ -73,14 +73,21 @@ export class TrendingServicesComponent {
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   constructor(
     private businessService: BusinessService,
     private fullPageloader: FullPageLoaderService,
-    private router: Router
-  ) {
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    this.getTrendingCategroies()
+    // this.trendingHeaderContent = this.homePageData
+    this.getBusinessCat()
+  }
+  ngAfterViewInit() {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -88,16 +95,10 @@ export class TrendingServicesComponent {
     })
   }
 
-  ngOnInit() {
-    this.getTrendingCategroies()
-    // this.trendingHeaderContent = this.homePageData
-    this.getBusinessCat()
-  }
-
   onCategorySelected(selectedCategory: any) {
     if (selectedCategory) {
-      let formattedName = selectedCategory.name.replace(/&/g, ' ');
-      formattedName = formattedName.replace(/\s+/g, '-');
+      let formattedName = selectedCategory.name.replace(/&/g, ' ')
+      formattedName = formattedName.replace(/\s+/g, '-')
       // const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
       // this.router.navigate(['/find-business', formattedName], queryParams);
       this.router.navigate(['/find-business/', selectedCategory?.id])
@@ -117,7 +118,7 @@ export class TrendingServicesComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -176,7 +177,7 @@ export class TrendingServicesComponent {
 
         this.businessCat = res.data
       },
-      error: (error) => { },
+      error: (error) => {},
     })
   }
 

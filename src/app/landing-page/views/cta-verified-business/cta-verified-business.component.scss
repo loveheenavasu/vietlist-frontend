@@ -91,8 +91,8 @@
 }
 
 swiper-container {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    // height: 100%;
     margin: 20px auto;
 }
 
@@ -185,39 +185,23 @@ swiper-container::part(bullet) {
     }
 
     swiper-container {
-        height: 407px;
-        margin: 0px !important;
-    }
-
-    swiper-container::part(button-next) {
+        width: 90% !important;
+    
+      }
+    
+      swiper-container::part(button-next) {
         color: #F89705 !important;
-        right: -1rem !important;
+        right: -3.4rem !important;
         width: 35px !important;
         height: 35px !important;
-    }
-
-    swiper-container::part(button-prev) {
+      }
+    
+      swiper-container::part(button-prev) {
         color: #F89705 !important;
-        left: -1rem !important;
+        left: -3.4rem !important;
         width: 35px !important;
         height: 35px !important;
-    }
-}
-
-swiper-container::part(button-next) {
-    color: #F89705 !important;
-    right: -4rem;
-
-}
-
-swiper-container::part(button-prev) {
-    color: #F89705 !important;
-    left: -4rem;
-
-}
-
-swiper-container::part(container) {
-    position: initial;
+      }
 }
 
 
@@ -257,10 +241,7 @@ swiper-container::part(container) {
       }
     }
   
-    swiper-container {
-      height: 35rem;
-      width: 90% !important;
-    }
+    
   
     .Categories-swiper-container {
       padding-bottom: 0px;
@@ -270,17 +251,38 @@ swiper-container::part(container) {
       font-size: 1.6rem;
     }
   
-    swiper-container::part(button-next) {
-      color: #F89705 !important;
-      right: -3.4rem !important;
-      width: 35px !important;
-      height: 35px !important;
-    }
-  
-    swiper-container::part(button-prev) {
-      color: #F89705 !important;
-      left: -3.4rem !important;
-      width: 35px !important;
-      height: 35px !important;
-    }
+    swiper-container {
+        width: 90% !important;
+    
+      }
+    
+      swiper-container::part(button-next) {
+        color: #F89705 !important;
+        right: -3.4rem !important;
+        width: 35px !important;
+        height: 35px !important;
+      }
+    
+      swiper-container::part(button-prev) {
+        color: #F89705 !important;
+        left: -3.4rem !important;
+        width: 35px !important;
+        height: 35px !important;
+      }
   } 
+
+  swiper-container::part(button-next) {
+    color: #F89705 !important;
+    right: -4rem;
+  
+  }
+  
+  swiper-container::part(button-prev) {
+    color: #F89705 !important;
+    left: -4rem;
+  
+  }
+  
+  swiper-container::part(container) {
+    position: initial;
+  }

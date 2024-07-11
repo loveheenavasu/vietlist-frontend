@@ -7,10 +7,10 @@ import {
   ViewChild,
 } from '@angular/core'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
-import { NavigationExtras, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { NavigationExtras, Router } from '@angular/router'
+import { Subject, takeUntil } from 'rxjs'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
-import { register } from 'swiper/element/bundle';
+import { register } from 'swiper/element/bundle'
 
 register()
 
@@ -28,11 +28,12 @@ export class BuisnessCategoryComponent {
   public $destroy = new Subject<void>()
   public businessCat: any[] = []
   public businessCategoryContent?: any
+
   swiperParams = {
     slidesPerView: 1,
-    spaceBetween: 30,
     navigation: true,
-    slidesPreview: 1,
+    spaceBetween: 30,
+    disableOnInteraction: false,
     breakpoints: {
       768: {
         slidesPerView: 2,
@@ -42,17 +43,23 @@ export class BuisnessCategoryComponent {
       },
       1500: {
         slidesPerView: 6,
-      }
+      },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   constructor(
     private businessService: BusinessService,
     private sanitizer: DomSanitizer,
-    private router: Router
-  ) {
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    this.getCategroies()
+  }
+
+  ngAfterViewInit() {
     setTimeout(() => {
       const swiperEl = this.swiper.nativeElement
       Object.assign(swiperEl, this.swiperParams)
@@ -60,18 +67,15 @@ export class BuisnessCategoryComponent {
     })
   }
 
-  ngOnInit() {
-    this.getCategroies()
-  }
-
-
   getCategroies() {
-    this.businessService.getBusinessCat().pipe(takeUntil(this.$destroy)).subscribe({
-      next: (res: any) => {
-        this.businessCat = res.data
-
-      },
-    })
+    this.businessService
+      .getBusinessCat()
+      .pipe(takeUntil(this.$destroy))
+      .subscribe({
+        next: (res: any) => {
+          this.businessCat = res.data
+        },
+      })
   }
 
   public getTrustedHTML(htmlString: string): SafeHtml {
@@ -84,11 +88,11 @@ export class BuisnessCategoryComponent {
     }
   }
 
-  public blogCat(){
+  public blogCat() {
     this.router.navigateByUrl('/business-categories')
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.$destroy.next()
     this.$destroy.complete()
   }

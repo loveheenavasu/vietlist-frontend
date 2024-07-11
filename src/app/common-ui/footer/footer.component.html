@@ -271,7 +271,10 @@
         <li>
           <h3 class="mobile-view-quick-links">Quick Links</h3>
         </li>
-        <li class="links" (click)="navigateTo('/resources')">Resources</li>
+        @if (userDetail?.level_id == '3' && isAuthenticated ) {
+          <li class="links" (click)="navigateTo('/resources')">Resources</li>
+        }
+        <!-- <li class="links" (click)="navigateTo('/resources')">Resources</li> -->
         <li class="links" (click)="navigateTo('/for-users')">For User</li>
         <li class="links" (click)="navigateTo('/for-business')">
           For Businesses

@@ -1,5 +1,6 @@
 @import "../../../../assets/scss/common";
 
+
 .buisness-cat {
   padding-top: 6rem;
 }
@@ -118,10 +119,10 @@
 }
 
 swiper-container {
-  width: 100%;
-  height: 100%;
-  margin: 2.625rem auto;
-  position: relative;
+  width:90%;
+  // height: 100%;
+  margin: 20px auto;
+  // position: relative;
 }
 
 swiper-slide {
@@ -151,7 +152,7 @@ swiper-slide {
   }
 
   swiper-container {
-    height: 35rem;
+    // height: 35rem;
     width: 90% !important;
   }
 
@@ -184,13 +185,13 @@ swiper-slide {
 // }
 swiper-container::part(button-next) {
   color: #F89705 !important;
-  right: -2.813rem;
+  right: -4rem;
 
 }
 
 swiper-container::part(button-prev) {
   color: #F89705 !important;
-  left: -2.813rem;
+  left: -4rem;
 
 }
 

@@ -1,4 +1,4 @@
-<section class="py-4">
+<section class="py-4 overflow-hidden">
   <div class="blog-news-container container g-0 py-3">
     <div class="heading">
       <h1>{{ homePageData?.blog_section?.title }}</h1>
@@ -12,7 +12,7 @@
       </button>
     </div>
     <div class="row">
-      <div class="col-12 col-md-8 mt-5">
+      <div class="col-12 col-lg-8 mt-5">
         <div class="row px-3">
           @for (item of blogData; track $index) {
             <div class="col-12 col-sm-6 col-md-6">
@@ -42,7 +42,7 @@
                   </mat-card-content>
 
                   <mat-card-footer>
-                    <div class="footer d-flex">
+                    <div class="footer d-flex align-items-center gap-3">
                       <div class="profile-image">
                         @if (item.author_detail?.user_image) {
                           <img
@@ -71,7 +71,7 @@
           }
         </div>
       </div>
-      <div class="col-12 col-md-4 mt-5">
+      <div class="col-12 col-lg-4 mt-5">
         <div style="height: 100%">
           @if (blogAd) {
             <div class="swiper-div">

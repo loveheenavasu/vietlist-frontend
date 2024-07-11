@@ -370,3 +370,7 @@ ngx-intl-tel-input input[disabled] {
 .cursor-pointer{
   cursor: pointer;
 }
+
+input, textarea, select {
+  font-size: 16px !important ;
+}

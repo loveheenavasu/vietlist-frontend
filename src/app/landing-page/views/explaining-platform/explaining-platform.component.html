@@ -16,8 +16,9 @@
       </div>
     </div>
     <div class="explaining-platform-banner px-3">
-      <video #videoPlayer width="100%" height="400">
-        <source [src]="homePageData?.video_section?.video_url | safeUrl" type="video/mp4">
+      <video #videoPlayer width="100%" height="400" >
+        <source src="assets/dummy.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
       <div class="video-controls">
         <button (click)="togglePlayPause()" class="btn" style="background-color:#000;color:#fff">

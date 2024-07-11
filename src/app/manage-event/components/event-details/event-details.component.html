@@ -802,15 +802,13 @@
           <!-- @if(userDetail?.user_role === role.subscriber || !isAuthentecate){ -->
 
           <div *ngIf="!businessListing" class="profile-info-div" >
-            @if (isDesabledform) {
+            @if (isDesabledform || !totalBookingLeft) {
             <div class="warning-message">
               <mat-icon>warning</mat-icon>
-              <span class="message">{{ 'Booking has been closed'}}</span>
+              <span class="message">{{ isDesabledform?'Booking has been closed' :'Bookings are at full capacity'}}</span>
             </div>
             }
-  
-     
-            <div class="endBooking" [ngClass]="isDesabledform ? 'disabled-div':''">
+            <div class="endBooking" [ngClass]="isDesabledform || !totalBookingLeft ? 'disabled-div':''">
               <h3>Book Now</h3>
               @if(!isDateMatched){
               <div class="input-group mt-4">

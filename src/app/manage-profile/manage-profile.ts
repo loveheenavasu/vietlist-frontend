@@ -20,7 +20,6 @@ import { ProfileService } from './service/profile.service'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { SkeletonLoadingComponent } from '../common-ui/skeleton-loading/skeleton-loading.component'
 
-
 @Component({
   selector: 'app-manage-profile',
   standalone: true,
@@ -283,11 +282,11 @@ export class ManageProfileComponent {
               (tab) =>
                 tab.label !== 'Ads' &&
                 tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings'&&  
+                tab.label !== 'Synced Listings' &&
                 tab.label !== 'Leads transaction history' &&
                 tab.label !== 'My Purchases Leads' &&
-                tab.label !== 'All Leads' && 
-                tab.label !== 'My Bookings'
+                tab.label !== 'All Leads' &&
+                tab.label !== 'My Bookings',
             )
             return this.menuItems
           } else if (roleGet.user_role == Roles.realEstate) {
@@ -326,8 +325,8 @@ export class ManageProfileComponent {
                 tab.label !== 'My Purchases Leads' &&
                 tab.label !== 'All Leads' &&
                 tab.label !== 'All Synced Listing' &&
-                tab.label !== 'Synced Listings'&&
-                tab.label !== 'My Bookings'
+                tab.label !== 'Synced Listings',
+              // tab.label !== 'My Bookings'
             )
           }
         })
