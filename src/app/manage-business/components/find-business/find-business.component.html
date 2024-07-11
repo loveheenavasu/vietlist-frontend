@@ -128,11 +128,12 @@
             <div class="business-info">
               <div class="d-flex justify-content-center profile-wrapper">
                 <div class="business-profile-img">
-                  @if (item.image.includes("")) {
+                  <!-- @if (item.image.includes("")) {
                   <img src="/assets/image/no_profile.webp" alt="business-logo" />
                   } @else {
                   <img [src]="item.logo" alt="business-logo" />
-                  }
+                  } -->
+                  <img [src]="item.logo ? item.logo : 'assets/image/no-image-new.jpeg'"/>
                 </div>
               </div>
               <div class="business-title">
