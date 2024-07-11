@@ -58,7 +58,7 @@ export class FindBusinessComponent {
   public businessCat: BusinessCategoryResponse[] = []
   public findBusinessData: any[] = []
   public loader: boolean = false
-  public postPerPage: number = 2
+  public postPerPage: number = 3
   public currentPage: number = 1
   public isPaginationClick: boolean = false
   public isPaginationVisible: boolean = false
