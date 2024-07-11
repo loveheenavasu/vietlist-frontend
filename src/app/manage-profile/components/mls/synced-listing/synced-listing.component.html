@@ -61,6 +61,7 @@
                 </div>
               </div>
             </div>
+          
           }
 
           @if (!properties.length) {
@@ -69,9 +70,29 @@
             </div>
           }
         </div>
+        @if(properties.length !== 0){
+          <div class="row">
+            <div class="col-md-12 mt-5">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                [responsive]="true"
+                [maxSize]="6"
+                (pageChange)="handlePageChange($event)"
+              >
+              </pagination-controls>
+            </div>
+          </div>
+        }
       } @else {
         <div class="list-view-container">
-          @for (key of properties; track $index) {
+          @for (key of properties | paginate
+          : {
+              itemsPerPage: postPerPage,
+              currentPage: currentPage,
+              totalItems: totalCount
+            };
+      track $index) {
             <div class="d-flex small-screen-view">
               <div class="listing-img-container">
                 <div class="listing-img" style='height: 150px;'  (click)="viewProperty(key.zpid)" >
@@ -99,23 +120,26 @@
                 </div>
               </div>
             </div>
+          
+        
           }
         </div>
+        @if(properties.length !== 0){
+          <div class="row">
+            <div class="col-md-12 mt-5">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                [responsive]="true"
+                [maxSize]="6"
+                (pageChange)="handlePageChange($event)"
+              >
+              </pagination-controls>
+            </div>
+          </div>
+        }
       }
     </div>
   </div>
-@if(properties.length !== 0){
-  <div class="row">
-    <div class="col-md-12 mt-5">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        [responsive]="true"
-        [maxSize]="6"
-        (pageChange)="handlePageChange($event)"
-      >
-      </pagination-controls>
-    </div>
-  </div>
-}
+
 </div>
