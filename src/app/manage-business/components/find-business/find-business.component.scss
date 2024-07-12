@@ -1,9 +1,9 @@
 @import "../../../../assets/scss/common.scss";
 @import "../../../../assets/scss/banner";
 
-#map{
-    width:100%;
-    height:100%;
+#map {
+    width: 100%;
+    height: 100%;
 }
 
 .container-fluid {
@@ -94,7 +94,8 @@
 }
 
 .category-listing-wrapper {
-    height: calc(100vh - 310px);
+    // height: calc(100vh - 310px);
+    // height: 100%;
     overflow: scroll;
 }
 
@@ -152,6 +153,12 @@
     }
 }
 
+@media (max-width: 767px) {
+    .business-profile-img{
+        top: -5.81rem !important ;
+    }
+}
+
 .business-info {
     height: 155px;
     padding: 0.5em;
@@ -179,6 +186,7 @@
     }
 
     .business-title {
+        margin-top: 5% !important ;
         h2 {
             font-size: 1.25rem;
             color: #232f3e;
@@ -564,12 +572,12 @@
     }
 }
 
-@media screen and (min-width:1500px) {
-    .category-listing-wrapper {
-        height: calc(100vh - 380px);
-        overflow: scroll;
-    }
-}
+// @media screen and (min-width:1500px) {
+//     .category-listing-wrapper {
+//         height: calc(100vh - 380px);
+//         overflow: scroll;
+//     }
+// }
 
 ::ng-deep.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after,
 .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-indeterminate::after {
@@ -581,9 +589,18 @@
 }
 
 
-@media screen and (max-width:540px){
-    #map{
-        width:100vw;
-        height:100%
+@media screen and (max-width:540px) {
+    #map {
+        width: 100vw;
+        height: 100%
     }
+}
+
+.find-business-control {
+    max-height: 1310px;
+    height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // gap: 5%;
 }

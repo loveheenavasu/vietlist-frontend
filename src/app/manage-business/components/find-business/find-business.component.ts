@@ -423,28 +423,32 @@ export class FindBusinessComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
-      for (let i = 0; i < this.latitude.length; i++) {
-        this.map = new google.maps.Map(mapElement, {
-          center: {
-            lat: parseFloat(this.latitude[i]),
-            lng: parseFloat(this.longitude[i]),
-          },
-          zoom: 13,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-        })
-      }
+      // Initialize the map with a default center
+      this.map = new google.maps.Map(mapElement, {
+        center: { lat: 0, lng: 0 },
+        zoom: 2,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      })
+
+      const bounds = new google.maps.LatLngBounds()
 
       // Loop through latitude and longitude arrays to create markers
       for (let i = 0; i < this.latitude.length; i++) {
+        const position = {
+          lat: parseFloat(this.latitude[i]),
+          lng: parseFloat(this.longitude[i]),
+        }
+
         const marker = new google.maps.Marker({
-          position: {
-            lat: parseFloat(this.latitude[i]),
-            lng: parseFloat(this.longitude[i]),
-          },
-          map: this.map || undefined,
+          position: position,
+          map: this.map,
           title: 'Marker Title',
         })
+
+        bounds.extend(position)
       }
+
+      this.map.fitBounds(bounds)
     } else {
       console.error('Map element not found.')
     }
