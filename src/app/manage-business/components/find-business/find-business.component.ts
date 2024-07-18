@@ -276,7 +276,7 @@ export class FindBusinessComponent {
   getPublishBusinessData() {
     this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {
-      posts_per_page: 4,
+      posts_per_page: this.postPerPage,
       page_no: this.currentPage,
     }
 
