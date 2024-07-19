@@ -109,7 +109,13 @@
       <div class="row mt-5 category-listing-wrapper">
         @if (selectedLayout == 'grid') {
         <div class="col-12">
-          @for (item of findBusinessData; track $index) {
+          @for (item of findBusinessData| paginate
+          : {
+          itemsPerPage: postPerPage,
+          currentPage: currentPage,
+          totalItems: totalCount
+          };
+          track $index) {
           <div class="grid-view-card">
             <div class="business-img" (click)="gotToListing(item.post_id, true)">
               <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
