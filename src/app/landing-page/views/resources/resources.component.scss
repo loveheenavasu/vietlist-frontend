@@ -67,8 +67,8 @@
 
 ::ng-deep.ngx-pagination a:hover,
 .ngx-pagination button:hover {
-    background-color: var(--primary-color-orange) !important;
-    color: var(--white) !important;
+    background-color: transparent !important;
+    // color: var(--white) !important;
 }
 
 
