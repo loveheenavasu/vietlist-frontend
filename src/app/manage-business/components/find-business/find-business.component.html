@@ -119,7 +119,7 @@
           <div class="grid-view-card">
             <div class="business-img" (click)="gotToListing(item.post_id, true)">
               <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
-              @if (item.image.includes("")) {
+              @if (item.image?.includes("")) {
               <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
               } @else {
               <img [src]="item.image" alt="business-img" />
