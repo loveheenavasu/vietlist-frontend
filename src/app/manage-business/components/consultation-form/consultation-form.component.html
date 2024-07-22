@@ -105,7 +105,10 @@
           > -->
         </div>
       </div>
-      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'" [maxFileSize]="2097152" >
+      <ngx-dropzone (change)="onSelectImage($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'" [maxFileSize]="2097152" 
+      [multiple]="false"
+      >
+
         <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
           or
           Browse a file</ngx-dropzone-label>
