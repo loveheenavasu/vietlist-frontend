@@ -81,7 +81,7 @@
                     <div
                       class="banner-img"
                       (click)="CountClickStats(key?.id, key?.space_id)"
-                      style="background-image: url({{ key?.img }})"
+                      [style.background]="'url(' + key?.img + ')'"
                     >
                       <div class="banner-text overlay">
                         <h3>{{ key?.title }}</h3>
