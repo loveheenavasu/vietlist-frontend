@@ -1,21 +1,28 @@
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Component } from '@angular/core';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { HomepageService } from '../landing-page/views/service/homepage.service';
-import { NgClass, NgIf } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { Component } from '@angular/core'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { HomepageService } from '../landing-page/views/service/homepage.service'
+import { NgClass, NgIf } from '@angular/common'
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
-import { FullPageLoaderService } from '../shared/utils';
-import { Router } from '@angular/router';
+import { FullPageLoaderService } from '../shared/utils'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-notification-page',
   standalone: true,
-  imports: [MatSlideToggleModule, MatTooltipModule, NgClass,
-    ReactiveFormsModule, FormsModule, LoaderComponent, NgIf],
+  imports: [
+    MatSlideToggleModule,
+    MatTooltipModule,
+    NgClass,
+    ReactiveFormsModule,
+    FormsModule,
+    LoaderComponent,
+    NgIf,
+  ],
   templateUrl: './notification-page.component.html',
-  styleUrl: './notification-page.component.scss'
+  styleUrl: './notification-page.component.scss',
 })
 export class NotificationPageComponent {
   public notificationArr: any[] = []
@@ -25,52 +32,50 @@ export class NotificationPageComponent {
   public totalCount?: any
   public count = 1
 
-  constructor(private notification: HomepageService,
+  constructor(
+    private notification: HomepageService,
     private fullPageLoaderService: FullPageLoaderService,
-    private router: Router,) { }
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getNotifications()
   }
 
   onAllMarkRead() {
-
-      const body = {
-        read_type: this.toggleState?'all_read':'all_unread'
-      }
-      this.notification.notificationStatus(body).subscribe({
-        next: (res) => {
-          Swal.fire({
-            toast: true,
-            text: res.message,
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-          this.getNotifications();
-        },
-        error: (res) => {
-
-        }
-      })
+    const body = {
+      read_type: this.toggleState ? 'all_read' : 'all_unread',
     }
-  
+    this.notification.notificationStatus(body).subscribe({
+      next: (res) => {
+        Swal.fire({
+          toast: true,
+          text: res.message,
+          animation: false,
+          icon: 'success',
+          position: 'top-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+        })
+        this.getNotifications()
+      },
+      error: (res) => {},
+    })
+  }
 
   markAsArchive(item: any) {
-    console.log("mark as archieve", item.id)
+    console.log('mark as archieve', item.id)
     this.fullPageLoaderService.showLoader()
     if (item.id) {
       const body = {
         read_type: 'archive',
-        id: item.id
+        id: item.id,
       }
       this.notification.notificationStatus(body).subscribe({
         next: (res) => {
-          console.log("check res", res)
-          this.getNotifications();
+          console.log('check res', res)
+          this.getNotifications()
           this.fullPageLoaderService.hideLoader()
           Swal.fire({
             toast: true,
@@ -82,11 +87,8 @@ export class NotificationPageComponent {
             timer: 3000,
             timerProgressBar: true,
           })
-
         },
-        error: (res) => {
-
-        }
+        error: (res) => {},
       })
     }
   }
@@ -96,11 +98,11 @@ export class NotificationPageComponent {
     if (item.id) {
       const body = {
         read_type: 'unarchive',
-        id: item.id
+        id: item.id,
       }
       this.notification.notificationStatus(body).subscribe({
         next: (res) => {
-          this.getNotifications();
+          this.getNotifications()
           this.fullPageLoaderService.hideLoader()
           Swal.fire({
             toast: true,
@@ -112,117 +114,123 @@ export class NotificationPageComponent {
             timer: 3000,
             timerProgressBar: true,
           })
-
         },
-        error: (res) => {
-
-        }
+        error: (res) => {},
       })
     }
   }
   public loadMore() {
     this.count++
     this.fullPageLoaderService.showLoader()
-    let notificationType;
+    let notificationType
     if (this.activeTab != 'all') {
       notificationType = this.activeTab
     }
-    this.notification.getNotification({ limit: 10, page_no: this.count, notification_type: notificationType }).subscribe({
-      next: (res: any) => {
-        if (res && res.data) {
-          if (Array.isArray(res.data)) {
-            Array.prototype.push.apply(this.notificationArr, res.data);
-          } else {
-            this.notificationArr.push(res.data);
+    this.notification
+      .getNotification({
+        limit: 10,
+        page_no: this.count,
+        notification_type: notificationType,
+      })
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.data) {
+            if (Array.isArray(res.data)) {
+              Array.prototype.push.apply(this.notificationArr, res.data)
+            } else {
+              this.notificationArr.push(res.data)
+            }
+            this.fullPageLoaderService.hideLoader()
           }
-          this.fullPageLoaderService.hideLoader();
-        }
-      },
-      error: (res: any) => {
-        this.loader = false
-        this.fullPageLoaderService.hideLoader();
-      }
-    });
+        },
+        error: (res: any) => {
+          this.loader = false
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
   }
 
   getNotifications(notificationType?: string) {
     // console.log("check the archieve", notificationType)
-
+    this.fullPageLoaderService.showLoader()
     this.loader = true
     if (notificationType == 'archive') {
       this.notification.getNotification({ archive: 1, limit: 10 }).subscribe({
         next: (res: any) => {
-
-          this.loader = false
-          this.notificationArr = res?.data;
-          this.totalCount = +res?.total_count
-          
-        },
-        error: (res: any) => {
-          this.loader = false
-
-        }
-      });
-    } else {
-      this.notification.getNotification({ notification_type: notificationType, limit: 10 }).subscribe({
-        next: (res: any) => {
           this.loader = false
           this.notificationArr = res?.data
           this.totalCount = +res?.total_count
-          if(this.totalCount == 0){
-            this.toggleState = true
-        }else{
-          this.toggleState = false
-        }
+          this.fullPageLoaderService.hideLoader()
         },
-        error: (err: any) => {
+        error: (res: any) => {
           this.loader = false
-        }
-      });
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
+    } else {
+      this.notification
+        .getNotification({ notification_type: notificationType, limit: 10 })
+        .subscribe({
+          next: (res: any) => {
+            this.fullPageLoaderService.hideLoader()
+            this.loader = false
+            this.notificationArr = res?.data
+            this.totalCount = +res?.total_count
+            if (this.totalCount == 0) {
+              this.toggleState = true
+            } else {
+              this.toggleState = false
+            }
+          },
+          error: (err: any) => {
+            this.fullPageLoaderService.hideLoader()
+            this.loader = false
+          },
+        })
     }
   }
 
-
   onTabClick(tab: string) {
     this.activeTab = tab
-    let notificationType: string = tab ?? '';
+    let notificationType: string = tab ?? ''
     if (notificationType == 'all') {
-      this.getNotifications();
+      this.getNotifications()
     } else {
-      this.getNotifications(notificationType);
+      this.getNotifications(notificationType)
     }
   }
 
   goToPage(item: any) {
-    console.log("check", item)
-    if (item.notification_type == 'business_listing' || item.notification_type == 'claim_business') {
-      this.router.navigate(['/business-details', item.id]);
+    if (
+      item.notification_type == 'business_listing' ||
+      item.notification_type == 'claim_business'
+    ) {
+      this.router.navigate(['/business-details', item.id])
+      this.router.navigate(['/business-details', item.id], {
+        queryParams: { isGlobal: true },
+      })
     } else if (item.notification_type == 'event_booking') {
-      this.router.navigate(['/event-details', item.id]);
+      this.router.navigate(['/event-details', item.id])
     }
     const body = {
       read_type: 'single_read',
-      id: item?.id
+      id: item?.id,
     }
     this.notification.notificationStatus(body).subscribe({
       next: (res) => {
-        console.log("check res", res)
-        Swal.fire({
-          toast: true,
-          text: res.message,
-          animation: false,
-          icon: 'success',
-          position: 'top-right',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-        })
-        this.getNotifications();
+        // Swal.fire({
+        //   toast: true,
+        //   text: res.message,
+        //   animation: false,
+        //   icon: 'success',
+        //   position: 'top-right',
+        //   showConfirmButton: false,
+        //   timer: 3000,
+        //   timerProgressBar: true,
+        // })
+        this.getNotifications()
       },
-      error: (res) => {
-
-      }
+      error: (res) => {},
     })
   }
-
 }
