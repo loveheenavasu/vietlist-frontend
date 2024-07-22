@@ -89,6 +89,13 @@
 }
 
 
+@media (max-width:1170px){
+    .container-fluid {
+padding: 2rem;
+    }    
+}
+
+
 .container-fluid {
     max-width: 1170px;
     margin-left: auto;

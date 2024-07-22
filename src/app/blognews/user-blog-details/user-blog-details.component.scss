@@ -36,9 +36,9 @@
     /* Ensures the image takes the full width of its container */
     height: auto;
     /* Allows the height to adjust proportionally based on the width */
-    max-width: 60px;
+    max-width: 60px !important ;
     /* Sets a maximum width for the image */
-    max-height: 60px;
+    max-height: 60px !important ;
     /* Sets a maximum height for the image */
 }
 
