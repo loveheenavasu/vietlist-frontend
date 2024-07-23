@@ -1,69 +1,91 @@
 <section class="banner" style="position: relative">
   <div class="content" style="width: 100%">
-    <h1 style="text-transform: uppercase">
-      Preview Your Booking
-    </h1>
-
+    <h1 style="text-transform: uppercase">Preview Your Booking</h1>
   </div>
-
 </section>
 <div class="section-container">
   <ul class="list-items">
-    @if(bookingInfo?.event_desc){
-    <li (click)="scrollTo('Description')" [class.active]="activeTab === 'Description'">
-      <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Description
-    </li>
+    @if (bookingInfo?.event_desc) {
+      <li
+        (click)="scrollTo('Description')"
+        [class.active]="activeTab === 'Description'"
+      >
+        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Description
+      </li>
     }
-    <li (click)="scrollTo('event-details')" [class.active]="activeTab === 'event-details'">
-      <span> <i class="fa fa-calendar-o" aria-hidden="true"></i></span> Booking Details
+    <li
+      (click)="scrollTo('event-details')"
+      [class.active]="activeTab === 'event-details'"
+    >
+      <span> <i class="fa fa-calendar-o" aria-hidden="true"></i></span> Booking
+      Details
     </li>
-    <li (click)="scrollTo('transaction')" [class.active]="activeTab === 'transaction'">
-      <span> <i class="fa fa-dollar" aria-hidden="true"></i></span> Transaction History
+    <li
+      (click)="scrollTo('transaction')"
+      [class.active]="activeTab === 'transaction'"
+    >
+      <span> <i class="fa fa-dollar" aria-hidden="true"></i></span> Transaction
+      History
     </li>
   </ul>
 </div>
 
 <section class="background_section">
   <div class="container">
-    @if(bookingInfo?.event_desc){
-    <div class="row mt-2 pt-4" id="Description">
-      <div class="col-12 col-md-12 col-lg-12">
-        <h3 class="event-page-heading">
-          <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
-          Description
-        </h3>
-        <hr />
-        <p>{{bookingInfo?.event_desc}}</p>
+    @if (bookingInfo?.event_desc) {
+      <div class="row mt-2 pt-4" id="Description">
+        <div class="col-12 col-md-12 col-lg-12">
+          <h3 class="event-page-heading">
+            <i
+              class="fa fa-home"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i>
+            Description
+          </h3>
+          <hr />
+          <p>{{ bookingInfo?.event_desc }}</p>
+        </div>
       </div>
-
-    </div>
     }
     <div class="row mt-2 pt-4" id="event-details">
       <div class="col-12 col-md-12 col-lg-12">
         <h3 class="event-page-heading">
-          <i class="fa fa-calendar-o" aria-hidden="true" style="font-size: 24px"></i>
+          <i
+            class="fa fa-calendar-o"
+            aria-hidden="true"
+            style="font-size: 24px"
+          ></i>
           Booking Details
         </h3>
         <hr />
-        <p>Number of Bookings : {{bookingInfo?.number_of_booking}}</p>
-        <p>Booking Price : ${{bookingPrice}}</p>
-        <p>Booking Status : {{bookingInfo?.booking_status}}</p>
-        <p>Booking By: {{bookingInfo?.first_name}} {{bookingInfo?.last_name}}</p>
-        <p>Amount After Discount: ${{bookingInfo?.booking_transection[0].total_amount}}</p>
+        <p>Number of Bookings : {{ bookingInfo?.number_of_booking }}</p>
+        <p>Booking Price : ${{ bookingPrice }}</p>
+        <p>Booking Status : {{ bookingInfo?.booking_status | capitalize }}</p>
+        <p>
+          Booking By: {{ bookingInfo?.first_name }} {{ bookingInfo?.last_name }}
+        </p>
+        <p>
+          Amount After Discount: ${{
+            bookingInfo?.booking_transection[0].total_amount
+          }}
+        </p>
       </div>
-
     </div>
     <div class="row mt-2 pt-4" id="transaction">
       <div class="col-12 col-md-12 col-lg-12">
         <h3 class="event-page-heading">
-          <i class="fa fa-dollar" aria-hidden="true" style="font-size: 24px"></i>
+          <i
+            class="fa fa-dollar"
+            aria-hidden="true"
+            style="font-size: 24px"
+          ></i>
           Transaction History
         </h3>
         <hr />
         <div class="table-responsive">
           <table>
             <thead>
-
               <tr>
                 <th>Booking Id</th>
                 <th>Event Id</th>
@@ -72,27 +94,34 @@
                 <th>Number of Booking</th>
                 <th>Total Amount</th>
               </tr>
-
             </thead>
             <tbody>
-              <!-- @for(key of bookingInfo?.booking_transection ; track $index){ -->
-              <tr>
-                <td>{{bookingInfo?.booking_transection[0].booking_id}}</td>
-                <td>{{bookingInfo?.booking_transection[0].event_id}}</td>
-                  <td [innerHtml]="bookingInfo?.event_title | truncateHtml:22"></td>
-                <td>$ {{bookingInfo?.booking_transection[0]?.price}}</td>
-                <td>{{bookingInfo?.number_of_booking}}</td>
-                <td>${{bookingInfo?.booking_transection[0]?.total_amount}}</td>
-
-                <!-- Add more data cells as needed -->
-              </tr>
-              <!-- } -->
-              <!-- Add more rows of data as needed -->
+              @if (bookingInfo?.booking_transection?.length) {
+                @for (key of bookingInfo?.booking_transection; track $index) {
+                  <tr>
+                    <td>{{ key?.booking_id }}</td>
+                    <td>{{ key?.event_id }}</td>
+                    <td
+                      [innerHtml]="bookingInfo?.event_title | truncateHtml: 22"
+                    ></td>
+                    <td>$ {{ key?.price }}</td>
+                    <td>{{ bookingInfo?.number_of_booking }}</td>
+                    <td>${{ key?.total_amount }}</td>
+                  </tr>
+                }
+              } @else {
+                <tr>
+                  <td colspan="6">
+                    <div class="text-center my-5">
+                      <h4 class="no-records-found-2">No records found !</h4>
+                    </div>
+                  </td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
       </div>
-
     </div>
   </div>
 </section>

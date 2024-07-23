@@ -1,5 +1,10 @@
 import { MatSelectModule } from '@angular/material/select'
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
@@ -8,7 +13,10 @@ import { NgClass } from '@angular/common'
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { Subject, Subscription, takeUntil } from 'rxjs'
-import { FindBusinessParams, FindEventParams } from 'src/app/manage-business/service/business.interface'
+import {
+  FindBusinessParams,
+  FindEventParams,
+} from 'src/app/manage-business/service/business.interface'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxPaginationModule } from 'ngx-pagination'
@@ -33,7 +41,7 @@ import { AuthenticationService } from '@vietlist/shared'
 })
 export class BusinessListingComponent {
   public selectedLayout: string = 'grid'
-  public businessCategoriesArray: any[] = []
+  public businessCategoriesArray: any[] | any = []
   public subscription!: Subscription
   public street: any
   public state: any
@@ -45,7 +53,7 @@ export class BusinessListingComponent {
   public latitude: any
   public isLoader: boolean = false
   public post_category: any[] = []
-  public category = new FormControl('')
+  public category = new FormControl('', Validators.required)
   public totalCount: number = 0
   public postPerPage: number = 12
   public currentPage: number = 1
@@ -58,11 +66,10 @@ export class BusinessListingComponent {
     private fullPageLoaderService: FullPageLoaderService,
     private router: Router,
     private _activatedRoute: ActivatedRoute,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
   ) {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
-     
     })
   }
 
@@ -86,17 +93,20 @@ export class BusinessListingComponent {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
     }
-    this.businessCategoriesService.ListingBusiness(params).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res: any) => {
-        this.fullPageLoaderService.hideLoader()
-        this.businessCategoriesArray = res.data
-        this.totalCount = res.total_count
-        scrollToTop()
-      },
-      error: (err) => {
-        this.fullPageLoaderService.hideLoader()
-      }
-    })
+    this.businessCategoriesService
+      .ListingBusiness(params)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res: any) => {
+          this.fullPageLoaderService.hideLoader()
+          this.businessCategoriesArray = res.data
+          this.totalCount = res.total_count
+          scrollToTop()
+        },
+        error: (err) => {
+          this.fullPageLoaderService.hideLoader()
+        },
+      })
   }
 
   public getVerfiedBusiness() {
@@ -105,7 +115,7 @@ export class BusinessListingComponent {
     const params: FindEventParams = {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
-      verified_data: '1'
+      verified_data: '1',
     }
     this.businessCategoriesService.ListingBusiness(params).subscribe({
       next: (res: any) => {
@@ -121,7 +131,7 @@ export class BusinessListingComponent {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
 
@@ -153,6 +163,9 @@ export class BusinessListingComponent {
   }
 
   public search() {
+    if (this.category.invalid && !this.fullAddress) {
+      return
+    }
     this.isLoader = true
     this.isSearchingActive = true
     const postPerPage = this.postPerPage
@@ -181,21 +194,32 @@ export class BusinessListingComponent {
     if (this.currentPage) {
       params['page_no'] = this.currentPage
     }
+    let iterableParams = Object.entries(params)
+    console.log(iterableParams, 'kkkkkkk')
+    if (!iterableParams.length) {
+      return
+    }
+    for (let [_, value] of iterableParams) {
+      if (!value) {
+        return
+      }
+    }
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res) => {
         this.isLoader = false
 
         this.businessCategoriesArray = res.data
-        this.totalCount = res.total_count;
+        this.totalCount = res.total_count
       },
-      error: (error) => { },
+      error: (error) => {},
     })
   }
 
   public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], { queryParams: { isGlobal: isGlobal } });
-
+    this.router.navigate(['/business-details', id], {
+      queryParams: { isGlobal: isGlobal },
+    })
   }
 
   public handlePageChange(event: number) {
@@ -210,24 +234,24 @@ export class BusinessListingComponent {
   public clearFilters(): void {
     // Clear local variables
     this.authenticationService.clearLocationValue.next(true)
-    this.fullAddress = '';
-    this.state = '';
-    this.country = '';
-    this.city = '';
-    this.zipcode = '';
-    this.latitude = '';
-    this.longitude = '';
+    this.fullAddress = ''
+    this.state = ''
+    this.country = ''
+    this.city = ''
+    this.zipcode = ''
+    this.latitude = ''
+    this.longitude = ''
     this.street = ''
-    this.category.setValue(null);
+    this.category.setValue(null)
     // Reset pagination and loader
-    this.currentPage = 1;
+    this.currentPage = 1
     // this.isPaginationVisible = false;
     // Retrieve events again
-    this.getPublishBusinessData();
+    this.getPublishBusinessData()
   }
 
-ngOnDestroy(){
-  this.destroy$.next()
-  this.destroy$.complete()
-}
+  ngOnDestroy() {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
 }
