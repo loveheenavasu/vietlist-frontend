@@ -160,6 +160,7 @@
   
             <div class="input-group mt-4">
               <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" class="input-control"
+              placeholder='Select a Date'
                 (click)="picker2.open()" [formControl]="booking_date" />
               <i class="fa fa-calendar-o"></i>
               <mat-datepicker #picker2></mat-datepicker>
@@ -813,6 +814,7 @@
               @if(!isDateMatched){
               <div class="input-group mt-4">
                 <input matInput [matDatepicker]="picker2" [matDatepickerFilter]="dateFilter" class="input-control"
+                placeholder='Select a Date'
                   (click)="picker2.open()" [formControl]="booking_date" [disabled]="isDesabledform" />
                 <i class="fa fa-calendar-o"></i>
                 <mat-datepicker #picker2></mat-datepicker>
