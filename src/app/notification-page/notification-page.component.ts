@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
 import { FullPageLoaderService } from '../shared/utils'
 import { Router } from '@angular/router'
+import { capitalize } from '../shared/capitalize'
 
 @Component({
   selector: 'app-notification-page',
@@ -50,7 +51,7 @@ export class NotificationPageComponent {
       next: (res) => {
         Swal.fire({
           toast: true,
-          text: res.message,
+          text: capitalize(res.message),
           animation: false,
           icon: 'success',
           position: 'top-right',
