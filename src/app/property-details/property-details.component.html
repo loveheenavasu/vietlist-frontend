@@ -40,11 +40,11 @@
       <div class="listing-agent">
         <div class="d-flex">
           <div class='provider-logo-container' >
-            <img [src]="propertyDetails?.attributionInfo?.providerLogo"  />
+            <img [src]="propertyDetails?.attributionInfo?.providerLogo? propertyDetails?.attributionInfo?.providerLogo: 'assets/image/no-image-new.jpeg'"/>
           </div>
           <div class="mx-3">
             <p><b>Listed by</b></p>
-            <span>{{ propertyDetails?.attributionInfo?.agentName}}</span>
+            <span>{{ propertyDetails?.attributionInfo?.agentName || "NA" }}</span>
           </div>
         </div>
        
