@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="col-12 col-md-2">
-      <button class="btn orange-background-btn" (click)="clearFilter()">
+      <button class="btn orange-background-btn" (click)="clearFilter()" [disabled]="date.invalid" >
         Clear Filter
       </button>
     </div>
