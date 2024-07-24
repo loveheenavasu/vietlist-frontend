@@ -132,7 +132,7 @@
               </div>
             </div>
             <div class="business-info">
-              <div class="d-flex justify-content-center profile-wrapper">
+              <div class="d-flex justify-content-end profile-wrapper justify-content-sm-center ">
                 <div class="business-profile-img">
                   <!-- @if (item.image.includes("")) {
                   <img src="/assets/image/no_profile.webp" alt="business-logo" />
@@ -142,7 +142,7 @@
                   <img [src]="item.logo ? item.logo : 'assets/image/no-image-new.jpeg'"/>
                 </div>
               </div>
-              <div class="business-title">
+              <div class="business-tile">
                 <h2 (click)="gotToListing(item.post_id, true)">{{ item.post_title }}</h2>
                 <span> {{item.post_content?.length > 200 ? item.post_content.slice(0,200) +'...':item.post_content }}</span>
               </div>

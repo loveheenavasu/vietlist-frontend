@@ -23,7 +23,7 @@ export class MyBookingsComponent {
   public allBookingsArray: any[] = []
   public postId: any
   public statusColor: any = {
-    cancelled: 'Danger',
+    cancelled: 'Danger-light',
     closed: 'Danger',
     active: 'Success',
   }
