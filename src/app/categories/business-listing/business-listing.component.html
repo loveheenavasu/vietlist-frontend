@@ -39,7 +39,9 @@
         </div>
       </div>
       <div class="mx-1 btn-wrapper">
-        <button class="btn search-btn" (click)="clearFilters()">
+        <button class="btn search-btn"
+        [disabled]="category.invalid && !fullAddress "
+        (click)="clearFilters()">
           Clear Filters
         </button>
       </div>
