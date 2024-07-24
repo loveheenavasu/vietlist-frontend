@@ -4,10 +4,18 @@ import { LeadgenerationService } from '../resell.service'
 import { FullPageLoaderService } from '@vietlist/shared'
 import { Router } from '@angular/router'
 import { LeadCardComponent } from '../lead-card/lead-card.component'
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker'
+import {
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+} from '@angular/material/datepicker'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
 @Component({
   selector: 'app-my-leads',
   standalone: true,
@@ -18,15 +26,15 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
     MatInputModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './my-leads.component.html',
   styleUrl: './my-leads.component.scss',
 })
 export class MyLeadsComponent {
-  public date = new FormControl('')
+  public date = new FormControl('', Validators.required)
   public leads: any
-  
+
   constructor(
     public service: LeadgenerationService,
     private loader: FullPageLoaderService,
@@ -35,59 +43,53 @@ export class MyLeadsComponent {
 
   ngOnInit(): void {
     // Initially fetch leads without a date
-    this.fetchLeads();
-    this.date.valueChanges.subscribe((selectedDate:any) => {
+    this.fetchLeads()
+    this.date.valueChanges.subscribe((selectedDate: any) => {
       if (selectedDate) {
-        const formattedDate = this.formatDate(selectedDate);
-        this.fetchLeads(formattedDate);
+        const formattedDate = this.formatDate(selectedDate)
+        this.fetchLeads(formattedDate)
       }
-    });
-    
+    })
   }
-
 
   private formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = this.padNumber(date.getMonth() + 1);
-    const day = this.padNumber(date.getDate());
-    return `${year}-${month}-${day}`;
+    const year = date.getFullYear()
+    const month = this.padNumber(date.getMonth() + 1)
+    const day = this.padNumber(date.getDate())
+    return `${year}-${month}-${day}`
   }
-
 
   private padNumber(num: number): string {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, '0')
   }
 
-
-
-  fetchLeads(res?:any) {
+  fetchLeads(res?: any) {
     if (this.date) {
-      this.loader.showLoader();
+      this.loader.showLoader()
       this.service.GetLeadsByUserId(res).subscribe({
         next: (res) => {
-          this.loader.hideLoader();
-          this.leads = res?.data || [];
+          this.loader.hideLoader()
+          this.leads = res?.data || []
         },
         error: () => {
-          this.loader.hideLoader();
+          this.loader.hideLoader()
           // Handle error fetching leads
-        }
-      });
-    }else{
+        },
+      })
+    } else {
       this.service.GetLeadsByUserId().subscribe({
         next: (res) => {
-          this.loader.hideLoader();
-          this.leads = res?.data || [];
+          this.loader.hideLoader()
+          this.leads = res?.data || []
         },
         error: () => {
-          this.loader.hideLoader();
+          this.loader.hideLoader()
           // Handle error fetching leads
-
-        }
-      });
+        },
+      })
     }
   }
-  
+
   viewLead(lead: string) {
     this.router.navigate(['/view-leads'], {
       state: { data: lead },
@@ -119,11 +121,11 @@ export class MyLeadsComponent {
     this.router.navigateByUrl('/lead-listing')
   }
 
-  public clearFilter(){
+  public clearFilter() {
     this.fetchLeads()
     this.date.setValue('')
   }
-  
+
   // ngOnInit(): void {
   //   this.loader.showLoader()
   //   this.service.GetLeadsByUserId(this.date).subscribe({

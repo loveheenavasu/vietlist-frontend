@@ -1,8 +1,7 @@
-<div class="page-heading row">
-  <div class="col-12 d-flex align-items-center justify-content-between ">
-    <p class='m-0' >Purchased Leads</p>
-    <div class="d-flex">
-      <div>
+<div class="page-heading row row-gap-3 ">
+  <!-- <div class="col-12 d-flex align-items-center justify-content-between "> -->
+    <p class='m-0 col-xl-4 col-12 ' >Purchased Leads</p>
+      <div class='col-sm-4 col-12' >
         <div class="input-group">
           <input matInput [matDatepicker]="picker" [formControl]="date" placeholder="Filter by date" class="input-control" (click)="picker.open()"
            />
@@ -10,15 +9,14 @@
           <mat-datepicker #picker></mat-datepicker>
         </div>
       </div>
-      <div class="mx-2">
-        <button class="btn orange-background-btn" (click)="clearFilter()">
+      <div class="col-sm-4 col-12 d-flex ">
+        <button class="btn orange-background-btn text-nowrap " (click)="clearFilter()" [disabled]="date.invalid" >
           Clear Filter
         </button>
-        <button (click)="navigateToListing()" class="mx-2" >Buy More</button>
+        <button (click)="navigateToListing()" class="mx-2 text-nowrap " >Buy More</button>
       </div>
     </div>
-  </div>
-</div>
+<!-- </div> -->
 @if (!leads.length) {
     <div class="text-center my-5">
         <h4 class="no-records-found-2">No records found !</h4>
