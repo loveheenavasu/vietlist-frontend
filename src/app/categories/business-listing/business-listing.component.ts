@@ -189,9 +189,9 @@ export class BusinessListingComponent {
 
   public search(callFrom?: string) {
     console.log('hello worls')
-    if (this.findBusinessForm.invalid && !this.fullAddress) {
-      return
-    }
+    // if (!this.fullAddress) {
+    //   return
+    // }
     const post_title = this.findBusinessForm.value.post_title
     if (callFrom == 'btn') {
       this.isLoader = true
@@ -225,16 +225,16 @@ export class BusinessListingComponent {
     if (this.currentPage) {
       params['page_no'] = this.currentPage
     }
-    let iterableParams = Object.entries(params)
-    console.log(iterableParams, 'kkkkkkk')
-    if (!iterableParams.length) {
-      return
-    }
-    for (let [_, value] of iterableParams) {
-      if (!value) {
-        return
-      }
-    }
+    // let iterableParams = Object.entries(params)
+    // console.log(iterableParams, 'kkkkkkk')
+    // if (!iterableParams.length) {
+    //   return
+    // }
+    // for (let [_, value] of iterableParams) {
+    //   if (!value) {
+    //     return
+    //   }
+    // }
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res) => {

@@ -195,11 +195,11 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business/:title',
+    path: 'find-business/:title/:id',
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business-location/:title',
+    path: 'find-business-location/:title/:id',
     loadComponent: () => FindBusinessComponent,
   },
   {

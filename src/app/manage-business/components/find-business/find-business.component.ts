@@ -93,7 +93,8 @@ export class FindBusinessComponent {
   public ratingMax: string = '5'
   bannerBlog: any
   userBlogs: any
-
+  post_title: any
+  category_id: any
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -106,12 +107,16 @@ export class FindBusinessComponent {
   ) {
     this.findBusinessForm = this.fb.group({
       post_title: [''],
+      post_category: [''],
       hours: [''],
       address: [''],
       model: [''],
       price: [''],
       slidervalue: [''],
     })
+
+    this.post_title = this.route.snapshot.paramMap.get('title')
+    this.category_id = this.route.snapshot.paramMap.get('id')
 
     this.route.queryParams.subscribe((params) => {
       this.country = params['country']
@@ -131,6 +136,19 @@ export class FindBusinessComponent {
       // You can also use these parameters to perform any actions or logic in your component
       // For example, you can call a method to fetch data based on these parameters
       // this.searchBusiness()
+    })
+  }
+
+  public getBusinessCat() {
+    this.businessCategoriesService.getBusinessCat().subscribe({
+      next: (res: any) => {
+        this.businessCat = res.data
+        if (res && this.category_id) {
+          const categoryId = Number(this.category_id)
+          this.findBusinessForm.get('post_category')?.setValue(categoryId)
+          this.searchBusiness()
+        }
+      },
     })
   }
 
@@ -315,9 +333,13 @@ export class FindBusinessComponent {
 
     // this.fullPageLoaderService.showLoader()
     const post_title = this.findBusinessForm.value.post_title
+    const post_category = this.findBusinessForm.value.post_category
     const price = this.slidervalue
     const params: FindBusinessParams = {}
     params['post_title'] = post_title || ''
+    if (post_category) {
+      params['post_category'] = post_category
+    }
     if (price) {
       params['price'] = price
     }
@@ -404,6 +426,7 @@ export class FindBusinessComponent {
     // this.getIPAdress()
     this.getIPAddress()
     // this.initMap()
+    console.log(this.route.snapshot.paramMap, 'this.route.snapshot.paramMap')
 
     if (
       this.country ||
@@ -411,11 +434,19 @@ export class FindBusinessComponent {
       this.city ||
       this.street ||
       this.zipcode ||
-      this.route.snapshot.paramMap.has('title')
+      this.route.snapshot.paramMap.has('title') ||
+      this.route.snapshot.paramMap.has('id')
     ) {
-      const title = this.route.snapshot.paramMap.get('title')
-      this.findBusinessForm.get('post_title')?.setValue(title)
-      this.debouncedSearchBusiness()
+      this.findBusinessForm.get('post_title')?.setValue(this.post_title || null)
+      this.findBusinessForm
+        .get('post_category')
+        ?.setValue(this.category_id || null)
+
+      if (this.category_id) {
+        this.getBusinessCat()
+      } else {
+        this.debouncedSearchBusiness()
+      }
     } else {
       this.getPublishBusinessData()
     }

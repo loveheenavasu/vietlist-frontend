@@ -7,7 +7,6 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatSelectModule } from '@angular/material/select'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { NavigationExtras, Router } from '@angular/router'
-import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-search-component',
@@ -19,14 +18,13 @@ import { CommonModule } from '@angular/common'
     ReactiveFormsModule,
     MatSelectModule,
     NgSelectModule,
-    CommonModule,
   ],
   templateUrl: './search-component.component.html',
   styleUrl: './search-component.component.scss',
 })
 export class SearchComponentComponent {
-  // @Input() post_category?: any
-  // @Output() categorySelected = new EventEmitter<any>();
+  @Input() post_category?: any
+  @Output() categorySelected = new EventEmitter<any>()
   public street: any
   public state: any
   public country: any
@@ -40,7 +38,7 @@ export class SearchComponentComponent {
   public businessCategoriesArray: any[] = []
   // public post_category: any[] = []
   public filteredOptions: any[] = []
-  public post_title: any
+  public selectedCategory: any
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -53,12 +51,12 @@ export class SearchComponentComponent {
     return item.name.toLowerCase().indexOf(term) > -1
   }
 
-  // onCategoryChange() {
-  //   if (this.selectedCategory) {
-  //     this.categorySelected.emit(this.selectedCategory);
-  //     console.log("check selected cat", this.selectedCategory)
-  //   }
-  // }
+  onCategoryChange() {
+    if (this.selectedCategory) {
+      this.categorySelected.emit(this.selectedCategory)
+      console.log('check selected cat', this.selectedCategory)
+    }
+  }
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -86,6 +84,7 @@ export class SearchComponentComponent {
     if (this.fullAddress) {
       // let formattedName = selectedCategory.name.replace(/&/g, ' ');
       // formattedName = formattedName.replace(/\s+/g, '-');
+      console.log('check full address', this.fullAddress)
       // const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
       const location = this.fullAddress
       // Construct query parameters
@@ -96,21 +95,14 @@ export class SearchComponentComponent {
         street: this.fullAddress,
         zip: this.zipcode,
       }
-      if (this.post_title) {
-        this.router.navigate(['/find-business-location', this.post_title], {
-          queryParams: addressParams,
-        })
-      } else {
-        this.router.navigate(['/find-business-location'], {
-          queryParams: addressParams,
-        })
-      }
+      this.router.navigate(['/find-business-location', '', ''], {
+        queryParams: addressParams,
+      })
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
   public search() {
-    if (!this.post_title && !this.fullAddress) return
-    this.router.navigate(['/find-business', this.post_title])
+    this.router.navigateByUrl('/find-business')
   }
 }

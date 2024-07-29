@@ -48,20 +48,25 @@
           <div class="row mt-3">
             <div class="d-flex col-6">
               <div class="mx-2 w-100">
-                <!-- <mat-select class="vietlist-select" placeholder="Category"
+                @if(category_id){
+                  <mat-select class="vietlist-select" placeholder="Category"
                   formControlName="post_category">
                   <mat-option>--Select category--</mat-option>
                   @for (key of businessCat; track $index) {
                   <mat-option [value]="key.id">{{ key.name }}</mat-option>
                   }
-                </mat-select> -->
-                <input
+                </mat-select>
+                }@else {
+                  <input
                   type="text"
                   class="text-input"
                   placeholder="Enter business name"
                   formControlName="post_title"
                   (ngModelChange)="onChange($event)"
                 />
+                }
+               
+                
               </div>
             </div>
             <div class="col-6">
@@ -128,7 +133,7 @@
 
       <!---GRID VIEW----->
       <div class="row mt-5 category-listing-wrapper">
-        @if (!findBusinessData?.length && !loader ) {
+        @if (!findBusinessData?.length && !isSkeltonLoader ) {
           <div class='text-center my-5 ' >
             <h4 class="no-records-found-2">No records found !</h4>
           </div>

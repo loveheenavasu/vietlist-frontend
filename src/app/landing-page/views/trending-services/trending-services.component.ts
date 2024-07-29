@@ -95,15 +95,15 @@ export class TrendingServicesComponent {
     })
   }
 
-  // onCategorySelected(selectedCategory: any) {
-  //   if (selectedCategory) {
-  //     // let formattedName = selectedCategory.name.replace(/&/g, ' ')
-  //     // formattedName = formattedName.replace(/\s+/g, '-')
-  //     // const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
-  //     // this.router.navigate(['/find-business', formattedName], queryParams);
-  //     this.router.navigate(['/find-business/', selectedCategory])
-  //   }
-  // }
+  onCategorySelected(selectedCategory: any) {
+    if (selectedCategory) {
+      let formattedName = selectedCategory.name.replace(/&/g, ' ')
+      formattedName = formattedName.replace(/\s+/g, '-')
+      // const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
+      // this.router.navigate(['/find-business', formattedName], queryParams);
+      this.router.navigate(['/find-business/', '', selectedCategory?.id])
+    }
+  }
 
   getTrendingCategroies() {
     this.businessService.trendingBusiness().subscribe({
@@ -183,7 +183,7 @@ export class TrendingServicesComponent {
 
   public selectedTrendingCatergory(item: any) {
     if (item) {
-      this.router.navigate(['/find-business/', item?.id])
+      this.router.navigate(['/find-business/', '', item?.id])
     }
   }
 }

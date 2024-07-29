@@ -22,7 +22,7 @@ import { NavigationExtras, Router } from '@angular/router'
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    SearchComponentComponent
+    SearchComponentComponent,
   ],
   templateUrl: './business-categories.component.html',
   styleUrl: './business-categories.component.scss',
@@ -45,8 +45,8 @@ export class BusinessCategories {
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getBusinessCategories()
@@ -69,7 +69,7 @@ export class BusinessCategories {
 
   onCategorySelected(selectedCategory: any) {
     if (selectedCategory) {
-      this.router.navigate(['/find-business/', selectedCategory?.id])
+      this.router.navigate(['/find-business/', '', selectedCategory?.id])
     }
   }
 
@@ -78,11 +78,9 @@ export class BusinessCategories {
       next: (res: any) => {
         this.post_category = res.data
       },
-      error: (err) => { },
+      error: (err) => {},
     })
   }
-
-
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -139,7 +137,7 @@ export class BusinessCategories {
 
         this.businessCategoriesArray = res.data
       },
-      error: (error) => { },
+      error: (error) => {},
     })
   }
   ngOnDestroy() {

@@ -315,7 +315,7 @@ export class HeaderComponent {
 
   public handleSearch() {
     if (this.post_title) {
-      this.router.navigate(['/find-business/', this.post_title])
+      this.router.navigate(['/find-business', this.post_title, ''])
     } else {
       this.router.navigateByUrl('/find-business')
     }
@@ -355,7 +355,6 @@ export class HeaderComponent {
     if (this.fullAddress) {
       // let formattedName = selectedCategory.name.replace(/&/g, ' ');
       // formattedName = formattedName.replace(/\s+/g, '-');
-      console.log('check full address', this.fullAddress)
       // const queryParams: NavigationExtras = { queryParams: { id: this.fullAddress } };
       const location = this.fullAddress
       // Construct query parameters
@@ -367,11 +366,11 @@ export class HeaderComponent {
         zip: this.zipcode,
       }
       if (this.post_title) {
-        this.router.navigate(['/find-business-location', this.post_title], {
+        this.router.navigate(['/find-business-location', this.post_title, ''], {
           queryParams: addressParams,
         })
       } else {
-        this.router.navigate(['/find-business-location'], {
+        this.router.navigate(['/find-business-location', '', ''], {
           queryParams: addressParams,
         })
       }

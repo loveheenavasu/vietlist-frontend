@@ -1,33 +1,21 @@
 <div class="row search-fields mt-4">
-  <div class="d-flex">
-    <div class="category-search">
-      <!-- <ng-select [items]="post_category" bindLabel="name" placeholder="Category"
+    <div class="d-flex">
+        <div class="category-search">
+            <ng-select [items]="post_category" bindLabel="name" placeholder="Category"
                 [ngModelOptions]="{ standalone: true }" [(ngModel)]="selectedCategory" [searchFn]="customSearch"
                 (change)="onCategoryChange()">
-            </ng-select> -->
-      <input
-        type="text"
-        class="text-input"
-        placeholder="Enter business name"
-        [(ngModel)]="post_title"
-      />
+            </ng-select>
+        </div>
+        <div class="address-input">
+            <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+            </AutocompleteComponent>
+        </div>
+        <div class="search-btn-wrapper">
+            <div class="search-btn" (click)="search()">
+
+                <i class="fa fa-search" aria-hidden="true"></i>
+
+            </div>
+        </div>
     </div>
-    <div class="address-input">
-      <AutocompleteComponent
-        (setAddress)="getAddress($event)"
-        adressType="geocode"
-        [value]="street"
-      >
-      </AutocompleteComponent>
-    </div>
-    <div class="search-btn-wrapper">
-      <div
-        class="search-btn"
-        (click)="search()"
-        [ngClass]="{ 'disabled-search': !post_title && !fullAddress }"
-      >
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </div>
-    </div>
-  </div>
 </div>

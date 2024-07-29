@@ -84,7 +84,7 @@ export class BuisnessCategoryComponent {
 
   public handleCategory(item: any) {
     if (item) {
-      this.router.navigate(['/find-business/', item?.id])
+      this.router.navigate(['/find-business/', '', item?.id])
     }
   }
 
