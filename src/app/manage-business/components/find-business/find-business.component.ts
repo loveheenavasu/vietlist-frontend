@@ -311,6 +311,7 @@ export class FindBusinessComponent {
     if (callFrom == 'btn') {
       this.loader = true
     }
+    this.isSkeltonLoader = true
 
     // this.fullPageLoaderService.showLoader()
     const post_title = this.findBusinessForm.value.post_title
