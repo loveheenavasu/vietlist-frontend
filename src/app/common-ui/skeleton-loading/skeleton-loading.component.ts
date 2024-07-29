@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core'
   standalone: true,
   imports: [],
   template: `<div>
-    <span class="skeleton-loader"></span>
+    <span class="skeleton-loader" [style.height]="height"></span>
   </div>`,
   styles: `
     .skeleton-loader {
@@ -35,5 +35,5 @@ import { Component, Input } from '@angular/core'
   `,
 })
 export class SkeletonLoadingComponent {
-
+  @Input() height: string = ''
 }

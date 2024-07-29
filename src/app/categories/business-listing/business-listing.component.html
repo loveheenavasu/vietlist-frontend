@@ -82,7 +82,7 @@
                 <div class="listing-wrapper">
                   <div
                     class="listing-img"
-                    (click)="gotToListing(key.post_id, true)"
+                    (click)="gotToListing(key, true)"
                   >
                     @if (key.image?.length > 0) {
                       <img [src]="key.image[0]" alt="business-listing" />
@@ -111,7 +111,7 @@
                   </div>
                   <div class="listing-description">
                     <div class="listing-heading">
-                      <h3 (click)="gotToListing(key.post_id, true)">
+                      <h3 (click)="gotToListing(key, true)">
                         {{ key.post_title }}
                       </h3>
                     </div>
@@ -192,7 +192,7 @@
                 <div class="listing-img-container">
                   <div
                     class="listing-img"
-                    (click)="gotToListing(key.post_id, true)"
+                    (click)="gotToListing(key, true)"
                   >
                     @if (key.image?.length > 0) {
                       <img [src]="key.image[0]" alt="business-listing" />
@@ -222,7 +222,7 @@
                 </div>
                 <div class="listing-img-info">
                   <div class="listing-heading">
-                    <h3 (click)="gotToListing(key.post_id, true)">
+                    <h3 (click)="gotToListing(key, true)">
                       {{ key.post_title }}
                     </h3>
                   </div>

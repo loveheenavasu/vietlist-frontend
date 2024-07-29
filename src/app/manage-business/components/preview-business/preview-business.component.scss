@@ -474,6 +474,12 @@ span.elementor-grid-item {
   z-index: 2;
 }
 
+.social-cont{
+  display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
 .login-btn {
   .btn {
     font-size: 16px;

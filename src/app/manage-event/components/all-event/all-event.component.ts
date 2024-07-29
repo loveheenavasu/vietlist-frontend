@@ -13,6 +13,7 @@ import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { EventService } from '../../service/event.service'
 import Swal from 'sweetalert2'
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
+import { createSlug } from 'src/app/shared/helper'
 
 @Component({
   selector: 'app-all-event',
@@ -28,7 +29,7 @@ import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
     MatSelectModule,
     NgxPaginationModule,
     NgIf,
-    TruncateHtmlPipe
+    TruncateHtmlPipe,
   ],
   templateUrl: './all-event.component.html',
   styleUrl: './all-event.component.scss',
@@ -232,9 +233,12 @@ export class AllEventComponent {
   //   })
   // }
 
-  public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToEventDetails(item: any, isGlobal: boolean) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/event-details', slug], {
+      state: { id: item?.post_id, isGlobal },
     })
   }
 

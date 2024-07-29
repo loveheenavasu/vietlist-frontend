@@ -22,6 +22,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 import { AuthenticationService } from '@vietlist/shared'
+import { createSlug } from 'src/app/shared/helper'
 @Component({
   selector: 'app-business-listing',
   standalone: true,
@@ -216,9 +217,12 @@ export class BusinessListingComponent {
     })
   }
 
-  public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToListing(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/business-details', slug], {
+      state: { isGlobal, id: item?.post_id },
     })
   }
 

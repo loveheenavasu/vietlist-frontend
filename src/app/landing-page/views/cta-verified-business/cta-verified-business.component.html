@@ -18,7 +18,7 @@
       <swiper-container #busniessCategoriesSwiper class="mySwiper" init="false">
         @for (item of verfiedBusiness; track $index) {
         <swiper-slide>
-          <div class="image" (click)="gotToListing(item.post_id, true)">
+          <div class="image" (click)="gotToListing(item, true)">
             @if (item.image?.length > 0) {
             <img [src]="item.image[0]" alt="verfied-image" />
             } @else {

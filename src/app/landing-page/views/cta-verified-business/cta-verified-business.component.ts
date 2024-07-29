@@ -9,6 +9,7 @@ import { Router } from '@angular/router'
 import { FullPageLoaderService } from '@vietlist/shared'
 import { FindEventParams } from 'src/app/manage-business/service/business.interface'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
+import { createSlug } from 'src/app/shared/helper'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -108,9 +109,12 @@ export class CtaVerifiedBusinessComponent {
     })
   }
 
-  public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToListing(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/business-details', slug], {
+      state: { isGlobal, id: item?.post_id },
     })
   }
 

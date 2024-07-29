@@ -64,7 +64,7 @@
         ) {
         <div class="grid-card col-12 col-md-6 col-lg-4  ">
           <div class="event-wrapper">
-            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)"
+            <div class="listing-img" (click)="gotToEventDetails(key, true)"
               [style.background-image]="'url(' + (key.featured_image ? key.featured_image : '/assets/image/no-image.webp') + ')'">
               <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
               <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
@@ -75,7 +75,7 @@
             </div>
             <div class="listing-description">
               <div class="listing-heading">
-                <h3 (click)="gotToEventDetails(key.post_id, true)" [innerHtml]="key?.post_title | truncateHtml : 42">
+                <h3 (click)="gotToEventDetails(key, true)" [innerHtml]="key?.post_title | truncateHtml : 42">
                   <!-- {{ key.post_title }} -->
                 </h3>
               </div>
@@ -141,18 +141,18 @@
         track $index
         ) {
         <div class="d-flex small-screen-view">
-          <div class="listing-img-container" (click)="gotToEventDetails(key.post_id, true)">
-            <div class="listing-img" (click)="gotToEventDetails(key.post_id, true)">
+          <div class="listing-img-container" (click)="gotToEventDetails(key, true)">
+            <div class="listing-img" (click)="gotToEventDetails(key, true)">
               <!-- <img *ngIf="key && key.featured_image && key.featured_image.length > 0" [src]="key?.featured_image[0]" /> -->
               @if (key && key.featured_image && key.featured_image.length > 0) {
-              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
+              <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key, true)" />
               } @else {
               <img src="/assets/image/no-image.webp" alt="no-image" />
               }
             </div>
           </div>
           <div class="listing-img-info">
-            <div class="listing-heading" (click)="gotToEventDetails(key.post_id, true)">
+            <div class="listing-heading" (click)="gotToEventDetails(key, true)">
               <h3 [innerHtml]="key?.post_title | truncateHtml:84">
                 <!-- {{ key.post_title }} -->
               </h3>

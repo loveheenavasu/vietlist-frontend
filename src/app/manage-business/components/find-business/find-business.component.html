@@ -5,21 +5,24 @@
 </section> -->
 
 <div class="container-fluid g-0">
-  <div class="row m-0  ">
-    <div class="col-12 col-md-12 col-lg-6 p-0 px-md-3" style='max-height: 1310px; overflow: hidden; height: 80vh;' >
-      <div style="height: 100%; width: 100%;">
+  <div class="row m-0">
+    <div
+      class="col-12 col-md-12 col-lg-6 p-0 px-md-3"
+      style="max-height: 1310px; overflow: hidden; height: 80vh"
+    >
+      <div style="height: 100%; width: 100%">
         <div id="map"></div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-6 find-business-control "   >
+    <div class="col-sm-12 col-md-12 col-lg-6 find-business-control">
       <div class="row">
         <div class="d-flex bd-highlight">
           <div class="p-2 flex-grow-1 bd-highlight">
-            <h2>{{categoryDetails?.name || 'Find Business'}}</h2>
+            <h2>{{ categoryDetails?.name || 'Find Business' }}</h2>
             @if (categoryDetails?.description) {
-            <div class="description">
-              <p>{{categoryDetails?.description}}</p>
-            </div>
+              <div class="description">
+                <p>{{ categoryDetails?.description }}</p>
+              </div>
             }
           </div>
           <div class="p-2 bd-highlight">
@@ -38,34 +41,40 @@
               </button>
             </mat-menu>
           </div>
-   
         </div>
       </div>
       <div class="form-container">
         <form [formGroup]="findBusinessForm">
           <div class="row mt-3">
-            <div class="d-flex col-6 " >
+            <div class="d-flex col-6">
               <div class="mx-2 w-100">
-               
-                <mat-select class="vietlist-select" placeholder="Category"
+                <!-- <mat-select class="vietlist-select" placeholder="Category"
                   formControlName="post_category">
                   <mat-option>--Select category--</mat-option>
                   @for (key of businessCat; track $index) {
                   <mat-option [value]="key.id">{{ key.name }}</mat-option>
                   }
-                </mat-select>
+                </mat-select> -->
+                <input
+                  type="text"
+                  class="text-input"
+                  placeholder="Enter business name"
+                  formControlName="post_title"
+                  (ngModelChange)="onChange($event)"
+                />
               </div>
-             
             </div>
-            <div class=" col-6 ">
-              <AutocompleteComponent (setAddress)="getAddress($event)" adressType="geocode" [value]="street">
+            <div class="col-6">
+              <AutocompleteComponent
+                (setAddress)="getAddress($event)"
+                adressType="geocode"
+                [value]="street"
+              >
               </AutocompleteComponent>
             </div>
           </div>
           <div class="row mt-3">
-            <div class="d-flex">
-        
-            </div>
+            <div class="d-flex"></div>
           </div>
         </form>
         <div class="row mt-3">
@@ -76,13 +85,20 @@
                   <label>Choose price</label>
                 </div>
                 <div class="pe-2">
-                  <label>Price : ${{slideValueStart}} - $ {{ slidervalue }}</label>
+                  <label
+                    >Price : ${{ slideValueStart }} - $ {{ slidervalue }}</label
+                  >
                 </div>
               </div>
-              <mat-slider (change)="updatePrice($event)" [max]="maxPrice" [min]="minPrice" discrete="true">
+              <mat-slider
+                (change)="updatePrice($event)"
+                [max]="maxPrice"
+                [min]="minPrice"
+                discrete="true"
+              >
                 <!-- <input matSliderStartThumb formControlName="slidervalue" #slider /> -->
-                <input matSliderStartThumb [(ngModel)]="slideValueStart">
-                <input matSliderEndThumb [(ngModel)]="slidervalue">
+                <input matSliderStartThumb [(ngModel)]="slideValueStart" />
+                <input matSliderEndThumb [(ngModel)]="slidervalue" />
               </mat-slider>
             </div>
           </div>
@@ -90,204 +106,313 @@
         <div class="find-btn">
           <button class="btn search-button" (click)="searchBusiness()">
             @if (isPaginationClick) {
-            <span>Find</span>
+              <span>Find</span>
             } @else if (!loader) {
-            <span>Find</span>
+              <span>Find</span>
             } @else {
-            <app-loader></app-loader>
+              <app-loader></app-loader>
             }
           </button>
         </div>
       </div>
-      <div class="col-md-12 mt-5">
-        <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-          (pageChange)="handlePageChange($event)"
+      @if (findBusinessData?.length) {
+        <div class="col-md-12 mt-5">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            [responsive]="true"
+            (pageChange)="handlePageChange($event)"
           ></pagination-controls>
-      </div>
+        </div>
+      }
 
       <!---GRID VIEW----->
       <div class="row mt-5 category-listing-wrapper">
-        @if (selectedLayout == 'grid') {
-        <div class="col-12">
-          @for (item of findBusinessData| paginate
-          : {
-          itemsPerPage: postPerPage,
-          currentPage: currentPage,
-          totalItems: totalCount
-          };
-          track $index) {
-          <div class="grid-view-card">
-            <div class="business-img" (click)="gotToListing(item.post_id, true)">
-              <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
-              @if (item.image?.includes("")) {
-              <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
-              } @else {
-              <img [src]="item.image" alt="business-img" />
-              }
-              <div class="linking-icon">
-                <i class="fa fa-link" aria-hidden="true"></i>
-              </div>
-              <div class="category-name">
-                <span [innerHTML]="item.default_category.name"></span>
-              </div>
-            </div>
-            <div class="business-info">
-              <div class="d-flex justify-content-end profile-wrapper justify-content-sm-center ">
-                <div class="business-profile-img">
-                  <!-- @if (item.image.includes("")) {
-                  <img src="/assets/image/no_profile.webp" alt="business-logo" />
-                  } @else {
-                  <img [src]="item.logo" alt="business-logo" />
-                  } -->
-                  <img [src]="item.logo ? item.logo : 'assets/image/no-image-new.jpeg'"/>
-                </div>
-              </div>
-              <div class="business-tile">
-                <h2 (click)="gotToListing(item.post_id, true)">{{ item.post_title }}</h2>
-                <span> {{item.post_content?.length > 200 ? item.post_content.slice(0,200) +'...':item.post_content }}</span>
-              </div>
-              <div class="business-package">
-                <p>$ Package : Free Business</p>
-              </div>
-              <div class="business-rating">
-                <ng-template #t let-fill="fill">
-                  <span class="star" [class.full]="fill === 100">
-                    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-                  </span>
-                </ng-template>
-                <ngb-rating [rate]="item.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-                <!-- <div class="d-flex">
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </div> -->
-              </div>
-            </div>
+        @if (!findBusinessData?.length && !loader ) {
+          <div class='text-center my-5 ' >
+            <h4 class="no-records-found-2">No records found !</h4>
           </div>
-          }
-        </div>
-        } @else {
-        <div class="col-12">
-          @for (
-          item of findBusinessData
-          | paginate
-          : {
-          itemsPerPage: postPerPage,
-          currentPage: currentPage,
-          totalItems: totalCount
-          };
-          track $index
-          ) {
-          <div class="list-view-card mb-5">
-            <div class="business-list-wrapper d-flex">
-              <div class="business-list-img" (click)="gotToListing(item.post_id, true)">
-                @if (item?.image?.includes("") || item?.image == null) {
-                <img src="/assets/image/No-image-found.jpeg" alt="business-img-" />
-                } @else {
-                <img [src]="item?.image" alt="business-img" />
-                }
-                <div class="linking-icon">
-                  <i class="fa fa-link" aria-hidden="true"></i>
-                </div>
-                @if (item.default_category?.name) {
-                <div class="category-name">
-                  <span [innerHTML]="item.default_category?.name"></span>
-                </div>
-                }
-              </div>
-              <div class="business-list-info">
-                <div class="business-list-title">
-                  <h2 (click)="gotToListing(item.post_id, true)">
-                    <a routerLink="#" routerLinkActive="router-link-active">{{ item.post_title }}</a>
-                  </h2>
-                  <span > {{item.post_content?.length > 140 ? item.post_content.slice(0,140) +'...':item.post_content }} </span>
-                </div>
-                <div class="business-list-package">
-                  <p>$ Package : Free Business</p>
-                </div>
-                <div class="business-list-rating">
-                  <ng-template #t let-fill="fill">
-                    <span class="star" [class.full]="fill === 100">
-                      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
-                    </span>
-                  </ng-template>
-                  <ngb-rating [rate]="item.overall_rating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
-                  <!-- <div class="d-flex">
+        }
+        @if (selectedLayout == 'grid') {
+          <div class="col-12">
+            @if (!loader) {
+              @for (
+                item of findBusinessData
+                  | paginate
+                    : {
+                        itemsPerPage: postPerPage,
+                        currentPage: currentPage,
+                        totalItems: totalCount
+                      };
+                track $index
+              ) {
+                <div class="grid-view-card">
+                  <div class="business-img" (click)="gotToListing(item, true)">
+                    <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
+                    @if (item.image?.includes('')) {
+                      <img
+                        src="/assets/image/No-image-found.jpeg"
+                        alt="business-img-"
+                      />
+                    } @else {
+                      <img [src]="item.image" alt="business-img" />
+                    }
+                    <div class="linking-icon">
+                      <i class="fa fa-link" aria-hidden="true"></i>
+                    </div>
+                    <div class="category-name">
+                      <span [innerHTML]="item.default_category.name"></span>
+                    </div>
+                  </div>
+                  <div class="business-info">
+                    <div
+                      class="d-flex justify-content-end profile-wrapper justify-content-sm-center"
+                    >
+                      <div class="business-profile-img">
+                        <!-- @if (item.image.includes("")) {
+                    <img src="/assets/image/no_profile.webp" alt="business-logo" />
+                    } @else {
+                    <img [src]="item.logo" alt="business-logo" />
+                    } -->
+                        <img
+                          [src]="
+                            item.logo
+                              ? item.logo
+                              : 'assets/image/no-image-new.jpeg'
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="business-tile">
+                      <h2 (click)="gotToListing(item, true)">
+                        {{ item.post_title }}
+                      </h2>
+                      <span>
+                        {{
+                          item.post_content?.length > 200
+                            ? item.post_content.slice(0, 200) + '...'
+                            : item.post_content
+                        }}</span
+                      >
+                    </div>
+                    <div class="business-package">
+                      <p>$ Package : Free Business</p>
+                    </div>
+                    <div class="business-rating">
+                      <ng-template #t let-fill="fill">
+                        <span class="star" [class.full]="fill === 100">
+                          <span class="half" [style.width.%]="fill"
+                            >&#9733;</span
+                          >&#9733;
+                        </span>
+                      </ng-template>
+                      <ngb-rating
+                        [rate]="item.overall_rating"
+                        [starTemplate]="t"
+                        [readonly]="true"
+                        [max]="5"
+                      ></ngb-rating>
+                      <!-- <div class="d-flex">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                     <i class="fa fa-star" aria-hidden="true"></i>
                   </div> -->
+                    </div>
+                  </div>
+                </div>
+              }
+            } @else {
+              <div class="row">
+                <div class="col-4">
+                  <app-skeleton-loading height="200px"></app-skeleton-loading>
+                </div>
+                <div class="col-6 d-flex flex-column gap-3">
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
                 </div>
               </div>
-            </div>
+            }
           </div>
-          }
-        </div>
+        } @else {
+          <div class="col-12">
+            @if (!loader) {
+              @for (
+                item of findBusinessData
+                  | paginate
+                    : {
+                        itemsPerPage: postPerPage,
+                        currentPage: currentPage,
+                        totalItems: totalCount
+                      };
+                track $index
+              ) {
+                <div class="list-view-card mb-5">
+                  <div class="business-list-wrapper d-flex">
+                    <div
+                      class="business-list-img"
+                      (click)="gotToListing(item, true)"
+                    >
+                      @if (item?.image?.includes('') || item?.image == null) {
+                        <img
+                          src="/assets/image/No-image-found.jpeg"
+                          alt="business-img-"
+                        />
+                      } @else {
+                        <img [src]="item?.image" alt="business-img" />
+                      }
+                      <div class="linking-icon">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                      </div>
+                      @if (item.default_category?.name) {
+                        <div class="category-name">
+                          <span
+                            [innerHTML]="item.default_category?.name"
+                          ></span>
+                        </div>
+                      }
+                    </div>
+                    <div class="business-list-info">
+                      <div class="business-list-title">
+                        <h2 (click)="gotToListing(item, true)">
+                          <a
+                            routerLink="#"
+                            routerLinkActive="router-link-active"
+                            >{{ item.post_title }}</a
+                          >
+                        </h2>
+                        <span>
+                          {{
+                            item.post_content?.length > 140
+                              ? item.post_content.slice(0, 140) + '...'
+                              : item.post_content
+                          }}
+                        </span>
+                      </div>
+                      <div class="business-list-package">
+                        <p>$ Package : Free Business</p>
+                      </div>
+                      <div class="business-list-rating">
+                        <ng-template #t let-fill="fill">
+                          <span class="star" [class.full]="fill === 100">
+                            <span class="half" [style.width.%]="fill"
+                              >&#9733;</span
+                            >&#9733;
+                          </span>
+                        </ng-template>
+                        <ngb-rating
+                          [rate]="item.overall_rating"
+                          [starTemplate]="t"
+                          [readonly]="true"
+                          [max]="5"
+                        ></ngb-rating>
+                        <!-- <div class="d-flex">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                  </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            } @else {
+              <div class="row">
+                <div class="col-4">
+                  <app-skeleton-loading height="200px"></app-skeleton-loading>
+                </div>
+                <div class="col-6 d-flex flex-column gap-3">
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
+                  <app-skeleton-loading height="20px"></app-skeleton-loading>
+                </div>
+              </div>
+            }
+          </div>
         }
       </div>
     </div>
     <div class="col-12 section">
-
       <div class="wrapper">
-        @if(searchPageAd){
-        <div class="img-banner"
-          (click)="CountClickStats(searchPageAd[currentIndex]?.id,searchPageAd[currentIndex]?.space_id)"
-          style="background-image: url({{searchPageAd[currentIndex]?.img}})">
-          <div class="a-text d-flex justify-content-center p-2">
-            <div class="a-title">
-              <h1>{{searchPageAd[currentIndex]?.title}}</h1>
+        @if (searchPageAd) {
+          <div
+            class="img-banner"
+            (click)="
+              CountClickStats(
+                searchPageAd[currentIndex]?.id,
+                searchPageAd[currentIndex]?.space_id
+              )
+            "
+            style="background-image: url({{searchPageAd[currentIndex]?.img}})"
+          >
+            <div class="a-text d-flex justify-content-center p-2">
+              <div class="a-title">
+                <h1>{{ searchPageAd[currentIndex]?.title }}</h1>
+              </div>
+              <div class="a-desc">
+                <p>{{ searchPageAd[currentIndex]?.description }}</p>
+              </div>
+              @if (searchPageAd[currentIndex]?.url) {
+                <div
+                  class="explore-more-btn btn"
+                  (click)="getUrl(searchPageAd[currentIndex]?.url)"
+                >
+                  Explore
+                </div>
+              }
             </div>
-            <div class="a-desc">
-              <p>{{searchPageAd[currentIndex]?.description}}</p>
-            </div>
-            @if(searchPageAd[currentIndex]?.url){
-            <div class="explore-more-btn btn" (click)="getUrl(searchPageAd[currentIndex]?.url)">
-              Explore
-            </div>
-            }
           </div>
-        </div>
         }
       </div>
-
     </div>
     <div class="col-12 carrer-professional">
       <div class="business-inner-wrapper d-flex">
         <div class="carrer-professional-img">
           <div class="img-wrapper">
-            <img [src]='bannerBlog?.featured_image' alt="carrer-professional" />
+            <img [src]="bannerBlog?.featured_image" alt="carrer-professional" />
 
             <div class="img-over-text">
               <div class="d-flex align-items-end text-container">
                 <div>
                   <div class="title mb-2">
-                    <span> {{bannerBlog?.blog_category}} </span>
+                    <span> {{ bannerBlog?.blog_category }} </span>
                   </div>
                   <div class="img-over-heading">
                     <h3>
-              {{bannerBlog?.blog_title}}
+                      {{ bannerBlog?.blog_title }}
                     </h3>
                   </div>
                   <div class="d-flex">
                     <div class="delivered-by">
                       <div class="d-flex align-items-center">
-                        <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2">By {{bannerBlog?.author_detail.first_name }} {{bannerBlog?.author_detail.last_name}}</span>
+                        <i
+                          class="fa fa-user-circle-o pe-2"
+                          aria-hidden="true"
+                        ></i>
+                        <span class="pe-2"
+                          >By {{ bannerBlog?.author_detail.first_name }}
+                          {{ bannerBlog?.author_detail.last_name }}</span
+                        >
                       </div>
                     </div>
                     <div class="deliver-date">
                       <div class="d-flex align-items-center">
                         <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2"> {{bannerBlog?.post_date}} </span>
+                        <span class="pe-2"> {{ bannerBlog?.post_date }} </span>
                       </div>
                     </div>
                   </div>
                   <div class="read-more">
-                    <button class="btn" (click)="viewuserdetails(bannerBlog?.blog_id)" >Read More</button>
+                    <button
+                      class="btn"
+                      (click)="viewuserdetails(bannerBlog?.blog_id)"
+                    >
+                      Read More
+                    </button>
                   </div>
                 </div>
               </div>
@@ -296,33 +421,52 @@
         </div>
         <div class="carrer-professional-list">
           @for (item of userBlogs; track $index) {
-
-            <div class="list-container" (click)="viewuserdetails(item?.blog_id)" >
+            <div
+              class="list-container"
+              (click)="viewuserdetails(item?.blog_id)"
+            >
               <div class="d-flex">
                 <div class="list-img">
-                  <img [src]='item?.featured_image ?item?.featured_image  :"/assets/image/No-image-found.jpeg"' alt="list-image" />
+                  <img
+                    [src]="
+                      item?.featured_image
+                        ? item?.featured_image
+                        : '/assets/image/No-image-found.jpeg'
+                    "
+                    alt="list-image"
+                  />
                 </div>
                 <div class="list-info">
                   <div class="title">
-                    <span> {{item?.blog_category}} </span>
+                    <span> {{ item?.blog_category }} </span>
                   </div>
                   <div class="list-heading">
                     <h3>
-                      {{ item?.blog_title.length > 100 ? (item?.blog_title.slice(0, 97) + '...') : item?.blog_title }}
+                      {{
+                        item?.blog_title.length > 100
+                          ? item?.blog_title.slice(0, 97) + '...'
+                          : item?.blog_title
+                      }}
                       <!-- {{item?.blog_title}} -->
                     </h3>
                   </div>
                   <div class="d-flex">
                     <div class="delivered-by">
                       <div class="d-flex align-items-center">
-                        <i class="fa fa-user-circle-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2">By {{item?.author_detail.first_name }} {{item?.author_detail.last_name}}</span>
+                        <i
+                          class="fa fa-user-circle-o pe-2"
+                          aria-hidden="true"
+                        ></i>
+                        <span class="pe-2"
+                          >By {{ item?.author_detail.first_name }}
+                          {{ item?.author_detail.last_name }}</span
+                        >
                       </div>
                     </div>
                     <div class="deliver-date">
                       <div class="d-flex align-items-center">
                         <i class="fa fa-calendar-o pe-2" aria-hidden="true"></i>
-                        <span class="pe-2">{{item?.post_date}}</span>
+                        <span class="pe-2">{{ item?.post_date }}</span>
                       </div>
                     </div>
                   </div>

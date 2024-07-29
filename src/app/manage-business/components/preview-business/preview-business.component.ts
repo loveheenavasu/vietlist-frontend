@@ -33,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { VideoPlayComponent } from '../../video-play/video-play.component'
 import { AddVideoComponent } from 'src/app/manage-event/components/add-video/add-video.component'
+import { createSlug } from 'src/app/shared/helper'
 // import { MatDialogRef, , MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-preview-business',
@@ -239,9 +240,12 @@ export class PreviewBusinessComponent {
     })
   }
 
-  public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToEventDetails(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/event-details', slug], {
+      state: { id: item?.post_id, isGlobal },
     })
   }
 

@@ -152,6 +152,19 @@ ngx-intl-tel-input input {
   font-size: 18px;
 }
 
+.text-input{
+  width: 100%;
+    height: 100%;
+    background: whitesmoke;
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+.text-input:focus{
+  outline: #ff9900;
+}
+
 ngx-intl-tel-input.ng-invalid.ng-touched input {
   border: 1px solid #c0392b;
 }
@@ -378,4 +391,10 @@ ngx-intl-tel-input input[disabled] {
 
 input, textarea, select {
   font-size: 16px !important ;
+}
+
+
+.disabled-search{
+  background: #ffbd72 !important;
+  cursor: default !important ;
 }

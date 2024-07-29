@@ -195,11 +195,11 @@ export default [
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business/:id',
+    path: 'find-business/:title',
     loadComponent: () => FindBusinessComponent,
   },
   {
-    path: 'find-business-location',
+    path: 'find-business-location/:title',
     loadComponent: () => FindBusinessComponent,
   },
   {
@@ -273,7 +273,7 @@ export default [
     loadComponent: () => AllEventComponent,
   },
   {
-    path: 'event-details/:id',
+    path: 'event-details/:slug',
     loadComponent: () => EventDetailsComponent,
   },
   {

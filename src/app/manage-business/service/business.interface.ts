@@ -21,6 +21,7 @@ export interface FindBusinessParams {
   zip?: string
   country?: string
   post_category?: string
+  post_title?: string
   price?: any
   posts_per_page?: any
   page_no?: any

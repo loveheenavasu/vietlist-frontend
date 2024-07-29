@@ -181,6 +181,11 @@ export class EventDetailsComponent {
     this.sessionService.userDetailResponse.subscribe((res) => {
       this.userDetailId = res
     })
+
+    const navigation = this.router.getCurrentNavigation()
+    this.postId = navigation?.extras?.state?.['id']
+    this.isGlobal = navigation?.extras?.state?.['isGlobal']
+
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
         this.isAuthentecate = res
@@ -199,12 +204,13 @@ export class EventDetailsComponent {
       }
     })
 
-    this._activatedRoute.params.subscribe((res) => {
-      this.postId = res['id']
-    })
-    this._activatedRoute.queryParams.subscribe((res) => {
-      this.isGlobal = res['isGlobal']
-    })
+    // this._activatedRoute.params.subscribe((res) => {
+    //   this.postId = res['id']
+    // })
+
+    // this._activatedRoute.queryParams.subscribe((res) => {
+    //   this.isGlobal = res['isGlobal']
+    // })
   }
 
   maxNumberValidator(max: number): ValidatorFn {

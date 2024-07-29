@@ -9,7 +9,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { FullPageLoaderService } from '../shared/utils'
 import { Router } from '@angular/router'
 import { capitalize } from '../shared/capitalize'
-
+import { createSlug } from '../shared/helper'
 @Component({
   selector: 'app-notification-page',
   standalone: true,
@@ -202,16 +202,18 @@ export class NotificationPageComponent {
   }
 
   goToPage(item: any) {
+    let slug = item?.slug ? item.slug : createSlug(item.id, item.post_title)
     if (
       item.notification_type == 'business_listing' ||
       item.notification_type == 'claim_business'
     ) {
-      this.router.navigate(['/business-details', item.id])
-      this.router.navigate(['/business-details', item.id], {
-        queryParams: { isGlobal: true },
+      this.router.navigate(['/business-details', slug], {
+        state: { isGlobal: true, id: item?.id },
       })
     } else if (item.notification_type == 'event_booking') {
-      this.router.navigate(['/event-details', item.id])
+      this.router.navigate(['/event-details', slug], {
+        state: { id: item?.id },
+      })
     }
     const body = {
       read_type: 'single_read',

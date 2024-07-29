@@ -397,7 +397,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     font-style: italic;
 }
 
-@media(min-width:1200px) {
+@media(min-width:1400px) {
     .sm-navbar {
         .search-container-sm {
             display: none !important
@@ -512,7 +512,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     }
 }
 
-@media (min-width:769px) and (max-width:1200px) {
+@media (min-width:769px) and (max-width:1400px) {
     .container-fluid {
         .search-container-sm {
             width: 30% !important;
@@ -521,7 +521,7 @@ li.mat-mdc-menu-trigger.nav-item.active {
     }
 }
 
-@media (max-width:1200px) {
+@media (max-width:1400px) {
     .container-fluid {
         .offcanvas {
             .offcanvas-body {

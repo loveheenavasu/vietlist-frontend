@@ -10,6 +10,7 @@ import {
 } from '@angular/core'
 import { Router } from '@angular/router'
 import { EventService } from 'src/app/manage-event/service/event.service'
+import { createSlug } from 'src/app/shared/helper'
 import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 
 @Component({
@@ -74,9 +75,12 @@ export class EventsComponent {
     window.open(url, '_blank')
   }
 
-  public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToEventDetails(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/event-details', slug], {
+      state: { id: item?.post_id, isGlobal },
     })
   }
 

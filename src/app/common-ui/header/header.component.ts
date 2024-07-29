@@ -35,6 +35,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LanguageService } from 'src/app/shared/utils/services/language.service'
+import { createSlug } from 'src/app/shared/helper'
 
 declare global {
   interface Window {
@@ -77,7 +78,7 @@ export class HeaderComponent {
   public userRole: string = ''
   public subscriptionStatus: boolean = false
   public currentRoute: any
-  public selectedCategory: any
+  public post_title: any
   public post_category: any[] = []
   public street: any
   public state: any
@@ -305,15 +306,19 @@ export class HeaderComponent {
     term = term.toLowerCase()
     return item.name.toLowerCase().indexOf(term) > -1
   }
-  public onCategoryChange() {
-    if (this.selectedCategory) {
-      this.router.navigate(['/find-business/', this.selectedCategory?.id])
-      this.selectedCategory = null
-    }
-  }
+  // public onCategoryChange() {
+  //   if (this.selectedCategory) {
+  //     this.router.navigate(['/find-business/', post_title])
+  //     this.selectedCategory = null
+  //   }
+  // }
 
   public handleSearch() {
-    this.router.navigateByUrl('/find-business')
+    if (this.post_title) {
+      this.router.navigate(['/find-business/', this.post_title])
+    } else {
+      this.router.navigateByUrl('/find-business')
+    }
   }
 
   public navigatetoNotifications() {
@@ -361,9 +366,15 @@ export class HeaderComponent {
         street: this.fullAddress,
         zip: this.zipcode,
       }
-      this.router.navigate(['/find-business-location'], {
-        queryParams: addressParams,
-      })
+      if (this.post_title) {
+        this.router.navigate(['/find-business-location', this.post_title], {
+          queryParams: addressParams,
+        })
+      } else {
+        this.router.navigate(['/find-business-location'], {
+          queryParams: addressParams,
+        })
+      }
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
@@ -407,13 +418,24 @@ export class HeaderComponent {
     this.homeService.notificationStatus(body).subscribe({
       next: (res) => {
         this.notifcationStatus = res
+        let slug = item?.slug
+          ? item.slug
+          : createSlug(item?.id, item?.post_title)
         if (
           item.notification_type == 'business_listing' ||
           item.notification_type == 'claim_business'
         ) {
-          this.router.navigate(['/business-details', item.id])
+          this.router.navigate(['/business-details', slug], {
+            state: {
+              id: item.id,
+            },
+          })
         } else if (item.notification_type == 'event_booking') {
-          this.router.navigate(['/event-details', item.id])
+          this.router.navigate(['/event-details', slug], {
+            state: {
+              id: item.id,
+            },
+          })
         }
       },
     })

@@ -44,6 +44,7 @@ import { ForgotPasswordComponent } from 'src/app/auth'
 import { TabsModule } from 'ngx-bootstrap/tabs'
 import { EmailMarketingServiceService } from 'src/app/email-marketing/service/email-marketing-service.service'
 import { VideoPlayComponent } from '../../video-play/video-play.component'
+import { createSlug } from 'src/app/shared/helper'
 
 // NgxStarRatingModule
 @Component({
@@ -194,12 +195,15 @@ export class BusinessDetailsComponent {
       email: ['', Validators.required],
     })
 
-    this._activatedRoute.params.subscribe((res) => {
-      this.postId = res['id']
-    })
-    this._activatedRoute.queryParams.subscribe((res) => {
-      this.isGlobal = res['isGlobal']
-    })
+    // this._activatedRoute.params.subscribe((res) => {
+    //   this.postId = res['id']
+    // })
+    // this._activatedRoute.queryParams.subscribe((res) => {
+    //   this.isGlobal = res['isGlobal']
+    // })
+    const navigation = this.router.getCurrentNavigation()
+    this.postId = navigation?.extras?.state?.['id']
+    this.isGlobal = navigation?.extras?.state?.['isGlobal']
 
     this.number_of_booking.valueChanges.subscribe((res) => {
       if (res) {
@@ -277,9 +281,12 @@ export class BusinessDetailsComponent {
     })
   }
 
-  public gotToEventDetails(id: any, isGlobal: any) {
-    this.router.navigate(['/event-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToEventDetails(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+    this.router.navigate(['/event-details', slug], {
+      state: { id: item?.post_id, isGlobal },
     })
   }
 
@@ -303,18 +310,9 @@ export class BusinessDetailsComponent {
     })
     this.getIntegrationVideo()
     // this.getBusinessCat()
-    if (
-      this._activatedRoute.snapshot.routeConfig?.path?.includes(
-        'business-details',
-      )
-    ) {
-      if (this.postId) {
-        this.businessListing = true
-        this.getBusinessFormDetails()
-      }
-    } else if (
-      this._activatedRoute.snapshot.routeConfig?.path?.includes('event-details')
-    ) {
+    if (this.postId) {
+      this.businessListing = true
+      this.getBusinessFormDetails()
     }
 
     if (this.postId) {

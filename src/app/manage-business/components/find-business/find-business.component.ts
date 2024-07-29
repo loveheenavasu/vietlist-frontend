@@ -28,7 +28,8 @@ import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
-
+import { createSlug, debounce } from 'src/app/shared/helper'
+import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 @Component({
   selector: 'app-find-business',
   standalone: true,
@@ -46,6 +47,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
     AutocompleteComponent,
     NgbRatingModule,
     JsonPipe,
+    SkeletonLoadingComponent,
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -102,7 +104,7 @@ export class FindBusinessComponent {
     private router: Router,
   ) {
     this.findBusinessForm = this.fb.group({
-      post_category: [''],
+      post_title: [''],
       hours: [''],
       address: [''],
       model: [''],
@@ -127,7 +129,7 @@ export class FindBusinessComponent {
 
       // You can also use these parameters to perform any actions or logic in your component
       // For example, you can call a method to fetch data based on these parameters
-      this.searchBusiness()
+      // this.searchBusiness()
     })
   }
 
@@ -143,29 +145,6 @@ export class FindBusinessComponent {
   public viewuserdetails(blog_id: any) {
     this.router.navigate(['/user-blog-details/', blog_id])
     // this.authService.BlogID.next(details?.blog_id)
-  }
-
-  ngOnInit() {
-    this.getUserBlogs()
-    // this.getIPAdress()
-    this.getIPAddress()
-    // this.initMap()
-
-    if (
-      this.country ||
-      this.state ||
-      this.city ||
-      this.street ||
-      this.zipcode
-    ) {
-      this.searchBusiness()
-    }
-
-    this.getBusinessCat()
-
-    // this.searchBusiness()
-    this.findBusinessForm.controls['slidervalue'].setValue(0)
-    // this.fetchSearchAd()
   }
 
   public fetchSearchAd() {
@@ -301,24 +280,17 @@ export class FindBusinessComponent {
     })
   }
 
-  public getBusinessCat() {
-    this.businessCategoriesService.getBusinessCat().subscribe({
-      next: (res: any) => {
-        this.businessCat = res.data
-        if (res && this.route.snapshot.paramMap.has('id')) {
-          const categoryId = Number(this.route.snapshot.paramMap.get('id'))
-          this.findBusinessForm.get('post_category')?.setValue(categoryId)
-          this.searchBusiness()
-        }
-      },
-    })
+  debounce = (fn: any, delay = 1000) => {
+    let timerId: any = null
+    return (...args: any) => {
+      clearTimeout(timerId)
+      timerId = setTimeout(() => fn(...args), delay)
+    }
   }
-
-  // public onCategoryChange() {
-  //   this.categoriesValue = this.findBusinessForm.value.post_category
-  //   this.searchBusiness()
-  //   this.getDefaultCat()
-  // }
+  private debouncedSearchBusiness = this.debounce(
+    () => this.searchBusiness(),
+    700,
+  )
 
   public getDefaultCat() {
     this.businessCategoriesService
@@ -330,16 +302,18 @@ export class FindBusinessComponent {
       })
   }
 
+  onChange(e: any) {
+    this.debouncedSearchBusiness()
+  }
+
   public searchBusiness(callFrom?: any) {
     this.loader = true
 
-    this.fullPageLoaderService.showLoader()
-    const post_category = this.findBusinessForm.value.post_category
+    // this.fullPageLoaderService.showLoader()
+    const post_title = this.findBusinessForm.value.post_title
     const price = this.slidervalue
     const params: FindBusinessParams = {}
-    if (post_category) {
-      params['post_category'] = post_category
-    }
+    params['post_title'] = post_title || ''
     if (price) {
       params['price'] = price
     }
@@ -370,13 +344,12 @@ export class FindBusinessComponent {
     if (this.country) {
       params['country'] = this.country
     }
-
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
         this.loader = false
         this.isPaginationClick = false
         this.isPaginationVisible = true
-        this.fullPageLoaderService.hideLoader()
+        // this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         this.latitude = []
@@ -404,7 +377,7 @@ export class FindBusinessComponent {
     this.isPaginationClick = true
     this.currentPage = event
 
-    if (this.findBusinessForm.value.post_category) {
+    if (this.findBusinessForm.value.post_title) {
       this.searchBusiness('pagination')
     } else {
       this.getPublishBusinessData()
@@ -417,7 +390,26 @@ export class FindBusinessComponent {
   }
 
   ngAfterViewInit() {
-    this.getPublishBusinessData()
+    this.getUserBlogs()
+    // this.getIPAdress()
+    this.getIPAddress()
+    // this.initMap()
+
+    if (
+      this.country ||
+      this.state ||
+      this.city ||
+      this.street ||
+      this.zipcode ||
+      this.route.snapshot.paramMap.has('title')
+    ) {
+      const title = this.route.snapshot.paramMap.get('title')
+      this.findBusinessForm.get('post_title')?.setValue(title)
+      this.debouncedSearchBusiness()
+    } else {
+      this.getPublishBusinessData()
+    }
+    this.findBusinessForm.controls['slidervalue'].setValue(0)
   }
 
   public initMap() {
@@ -484,6 +476,7 @@ export class FindBusinessComponent {
         }
       })
     })
+    this.debouncedSearchBusiness()
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
@@ -491,9 +484,13 @@ export class FindBusinessComponent {
     window.open(url, '_blank')
   }
 
-  public gotToListing(id: any, isGlobal: any) {
-    this.router.navigate(['/business-details', id], {
-      queryParams: { isGlobal: isGlobal },
+  public gotToListing(item: any, isGlobal: any) {
+    let slug = item?.slug
+      ? item.slug
+      : createSlug(item?.post_id, item?.post_title)
+
+    this.router.navigate(['/business-details', slug], {
+      state: { isGlobal, id: item?.post_id },
     })
   }
 
