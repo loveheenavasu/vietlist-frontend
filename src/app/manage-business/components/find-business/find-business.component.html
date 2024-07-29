@@ -104,7 +104,7 @@
           </div>
         </div>
         <div class="find-btn">
-          <button class="btn search-button" (click)="searchBusiness()">
+          <button class="btn search-button" (click)="searchBusiness('btn')">
             @if (isPaginationClick) {
               <span>Find</span>
             } @else if (!loader) {
@@ -135,7 +135,7 @@
         }
         @if (selectedLayout == 'grid') {
           <div class="col-12">
-            @if (!loader) {
+            @if (!isSkeltonLoader) {
               @for (
                 item of findBusinessData
                   | paginate
@@ -238,7 +238,7 @@
           </div>
         } @else {
           <div class="col-12">
-            @if (!loader) {
+            @if (!isSkeltonLoader) {
               @for (
                 item of findBusinessData
                   | paginate

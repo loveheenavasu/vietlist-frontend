@@ -60,6 +60,7 @@ export class FindBusinessComponent {
   public businessCat: BusinessCategoryResponse[] = []
   public findBusinessData: any[] = []
   public loader: boolean = false
+  public isSkeltonLoader: boolean = false
   public postPerPage: number = 3
   public currentPage: number = 1
   public isPaginationClick: boolean = false
@@ -307,7 +308,9 @@ export class FindBusinessComponent {
   }
 
   public searchBusiness(callFrom?: any) {
-    this.loader = true
+    if (callFrom == 'btn') {
+      this.loader = true
+    }
 
     // this.fullPageLoaderService.showLoader()
     const post_title = this.findBusinessForm.value.post_title
@@ -346,7 +349,10 @@ export class FindBusinessComponent {
     }
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res: any) => {
-        this.loader = false
+        if (callFrom == 'btn') {
+          this.loader = false
+        }
+        this.isSkeltonLoader = false
         this.isPaginationClick = false
         this.isPaginationVisible = true
         // this.fullPageLoaderService.hideLoader()
@@ -368,7 +374,10 @@ export class FindBusinessComponent {
         }
       },
       error: (err: any) => {
-        this.loader = false
+        if (callFrom == 'btn') {
+          this.loader = false
+        }
+        this.isSkeltonLoader = false
       },
     })
   }

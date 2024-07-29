@@ -1,6 +1,8 @@
 import { MatSelectModule } from '@angular/material/select'
 import {
+  FormBuilder,
   FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
@@ -9,7 +11,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { FullPageLoaderService } from 'src/app/shared/utils/services/loader.service'
 import { BusinessService } from '../../manage-business/service/business.service'
-import { NgClass } from '@angular/common'
+import { CommonModule, NgClass } from '@angular/common'
 import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { Subject, Subscription, takeUntil } from 'rxjs'
@@ -23,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination'
 import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 import { AuthenticationService } from '@vietlist/shared'
 import { createSlug } from 'src/app/shared/helper'
+import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 @Component({
   selector: 'app-business-listing',
   standalone: true,
@@ -36,7 +39,10 @@ import { createSlug } from 'src/app/shared/helper'
     MatSelectModule,
     NgbRatingModule,
     NgxPaginationModule,
+    CommonModule,
+    SkeletonLoadingComponent,
   ],
+
   templateUrl: './business-listing.component.html',
   styleUrl: './business-listing.component.scss',
 })
@@ -53,14 +59,15 @@ export class BusinessListingComponent {
   public longitude: any
   public latitude: any
   public isLoader: boolean = false
-  public post_category: any[] = []
-  public category = new FormControl('', Validators.required)
+  public isSkeltonLoader: boolean = false
+  // public post_title: any[] = []
   public totalCount: number = 0
   public postPerPage: number = 12
   public currentPage: number = 1
   public isSearchingActive: boolean = false
   public isGlobal: any
   private destroy$ = new Subject<void>()
+  public findBusinessForm!: FormGroup
 
   constructor(
     private businessCategoriesService: BusinessService,
@@ -68,9 +75,13 @@ export class BusinessListingComponent {
     private router: Router,
     private _activatedRoute: ActivatedRoute,
     private authenticationService: AuthenticationService,
+    private fb: FormBuilder,
   ) {
     this._activatedRoute.queryParams.subscribe((res) => {
       this.isGlobal = res['isGlobal']
+    })
+    this.findBusinessForm = this.fb.group({
+      post_title: ['', Validators.required],
     })
   }
 
@@ -80,7 +91,7 @@ export class BusinessListingComponent {
     } else {
       this.getPublishBusinessData()
     }
-    this.getBusinessCat()
+    // this.getBusinessCat()
   }
 
   public handleLayout(layout: string) {
@@ -127,13 +138,26 @@ export class BusinessListingComponent {
     })
   }
 
-  public getBusinessCat() {
-    this.businessCategoriesService.getBusinessCat().subscribe({
-      next: (res: any) => {
-        this.post_category = res.data
-      },
-      error: (err) => {},
-    })
+  // public getBusinessCat() {
+  //   this.businessCategoriesService.getBusinessCat().subscribe({
+  //     next: (res: any) => {
+  //       this.post_category = res.data
+  //     },
+  //     error: (err) => {},
+  //   })
+  // }
+  debounce = (fn: any, delay = 1000) => {
+    let timerId: any = null
+    return (...args: any) => {
+      clearTimeout(timerId)
+      timerId = setTimeout(() => fn(...args), delay)
+    }
+  }
+  private debouncedSearchBusiness = this.debounce(() => this.search(), 700)
+
+  onChange(e: any) {
+    console.log('helllllllll')
+    this.debouncedSearchBusiness()
   }
 
   public getAddress(place: any) {
@@ -163,11 +187,16 @@ export class BusinessListingComponent {
     this.longitude = place.geometry.location.lng()
   }
 
-  public search() {
-    if (this.category.invalid && !this.fullAddress) {
+  public search(callFrom?: string) {
+    console.log('hello worls')
+    if (this.findBusinessForm.invalid && !this.fullAddress) {
       return
     }
-    this.isLoader = true
+    const post_title = this.findBusinessForm.value.post_title
+    if (callFrom == 'btn') {
+      this.isLoader = true
+    }
+    this.isSkeltonLoader = true
     this.isSearchingActive = true
     const postPerPage = this.postPerPage
     const params: FindBusinessParams = {}
@@ -186,9 +215,10 @@ export class BusinessListingComponent {
     if (this.country) {
       params['country'] = this.country
     }
-    if (this.category.value) {
-      params['post_category'] = this.category.value
-    }
+    params['post_title'] = post_title || ''
+    // if (this.category.value) {
+    //   params['post_category'] = this.category.value
+    // }
     if (postPerPage) {
       params['posts_per_page'] = postPerPage
     }
@@ -208,12 +238,20 @@ export class BusinessListingComponent {
 
     this.businessCategoriesService.findBusiness(params).subscribe({
       next: (res) => {
-        this.isLoader = false
+        if (callFrom == 'btn') {
+          this.isLoader = false
+        }
+        this.isSkeltonLoader = false
 
         this.businessCategoriesArray = res.data
         this.totalCount = res.total_count
       },
-      error: (error) => {},
+      error: (error) => {
+        if (callFrom == 'btn') {
+          this.isLoader = false
+        }
+        this.isSkeltonLoader = false
+      },
     })
   }
 
@@ -246,7 +284,8 @@ export class BusinessListingComponent {
     this.latitude = ''
     this.longitude = ''
     this.street = ''
-    this.category.setValue(null)
+    this.findBusinessForm.controls['post_title'].setValue(null)
+
     // Reset pagination and loader
     this.currentPage = 1
     // this.isPaginationVisible = false;
