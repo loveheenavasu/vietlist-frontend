@@ -10,6 +10,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { NavigationExtras, Router } from '@angular/router'
 import { Subject, takeUntil } from 'rxjs'
 import { BusinessService } from 'src/app/manage-business/service/business.service'
+import { clearSavedFilter } from 'src/app/shared/helper'
 import { register } from 'swiper/element/bundle'
 
 register()
@@ -83,8 +84,13 @@ export class BuisnessCategoryComponent {
   }
 
   public handleCategory(item: any) {
+    clearSavedFilter()
     if (item) {
-      this.router.navigate(['/find-business/', '', item?.id])
+      this.router.navigate(['/find-business'], {
+        state: {
+          id: item?.id,
+        },
+      })
     }
   }
 

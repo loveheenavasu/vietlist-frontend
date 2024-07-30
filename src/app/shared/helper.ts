@@ -9,3 +9,19 @@ export const debounce = (fn: any, delay = 1000) => {
     timerId = setTimeout(() => fn(...args), delay)
   }
 }
+
+export function clearSavedFilter() {
+  let valuesForLocalStorageKey = [
+    'city',
+    'state',
+    'zipcode',
+    'country',
+    'fullAddress',
+    'price',
+    'slidervalue',
+    'street',
+    'post_category',
+    'post_title',
+  ]
+  valuesForLocalStorageKey.forEach((key) => localStorage.removeItem(key))
+}

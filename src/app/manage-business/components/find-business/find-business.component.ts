@@ -5,7 +5,7 @@ import { ChangeDetectorRef, Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { CommonModule, JsonPipe } from '@angular/common'
 import { BusinessService } from '../../service/business.service'
-import { FullPageLoaderService } from '@vietlist/shared'
+import { FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
 import {
   FormBuilder,
   FormGroup,
@@ -95,6 +95,16 @@ export class FindBusinessComponent {
   userBlogs: any
   post_title: any
   category_id: any
+  valuesForLocalStorageKey = [
+    'city',
+    'state',
+    'zipcode',
+    'country',
+    'fullAddress',
+    'price',
+    'slidervalue',
+    'street',
+  ]
   constructor(
     private businessCategoriesService: BusinessService,
     private fullPageLoaderService: FullPageLoaderService,
@@ -104,6 +114,7 @@ export class FindBusinessComponent {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router,
+    private localStorage: LocalStorageService,
   ) {
     this.findBusinessForm = this.fb.group({
       post_title: [''],
@@ -111,32 +122,23 @@ export class FindBusinessComponent {
       hours: [''],
       address: [''],
       model: [''],
-      price: [''],
-      slidervalue: [''],
+      price: ['23'],
+      slidervalue: ['100'],
     })
 
-    this.post_title = this.route.snapshot.paramMap.get('title')
-    this.category_id = this.route.snapshot.paramMap.get('id')
+    const navigation = this.router.getCurrentNavigation()
+    console.log(navigation?.extras?.state, 'navigation?.extras?.state')
+    this.category_id = navigation?.extras?.state?.['id']
+    this.post_title = navigation?.extras?.state?.['title']
+    this.country = navigation?.extras?.state?.['country']
+    this.state = navigation?.extras?.state?.['state']
+    this.city = navigation?.extras?.state?.['city']
+    this.street = navigation?.extras?.state?.['street']
+    this.zipcode = navigation?.extras?.state?.['zip']
 
-    this.route.queryParams.subscribe((params) => {
-      this.country = params['country']
-      this.street = params['state']
-      this.city = params['city']
-      this.street = params['street']
-      this.zipcode = params['zip']
-      this.street = this.street
-
-      // Now you can use these parameters as needed
-      // console.log('Country:', country);
-      // console.log('State:', state);
-      // console.log('City:', city);
-      // console.log('Street:', street);
-      // console.log('Zip:', zip);
-
-      // You can also use these parameters to perform any actions or logic in your component
-      // For example, you can call a method to fetch data based on these parameters
-      // this.searchBusiness()
-    })
+    // this.route.queryParams.subscribe((params) => {
+    //   this.street = this.street
+    // })
   }
 
   public getBusinessCat() {
@@ -272,7 +274,7 @@ export class FindBusinessComponent {
   }
 
   getPublishBusinessData() {
-    this.fullPageLoaderService.showLoader()
+    // this.fullPageLoaderService.showLoader()
     const params: FindEventParams = {
       posts_per_page: this.postPerPage,
       page_no: this.currentPage,
@@ -296,20 +298,23 @@ export class FindBusinessComponent {
         this.cdr.detectChanges()
         this.initMap()
       },
+      error: () => {
+        this.fullPageLoaderService.hideLoader()
+      },
     })
   }
 
-  debounce = (fn: any, delay = 1000) => {
-    let timerId: any = null
-    return (...args: any) => {
-      clearTimeout(timerId)
-      timerId = setTimeout(() => fn(...args), delay)
-    }
-  }
-  private debouncedSearchBusiness = this.debounce(
-    () => this.searchBusiness(),
-    700,
-  )
+  // debounce = (fn: any, delay = 1000) => {
+  //   let timerId: any = null
+  //   return (...args: any) => {
+  //     clearTimeout(timerId)
+  //     timerId = setTimeout(() => fn(...args), delay)
+  //   }
+  // }
+  // private debouncedSearchBusiness = this.debounce(
+  //   () => this.searchBusiness(),
+  //   700,
+  // )
 
   public getDefaultCat() {
     this.businessCategoriesService
@@ -321,22 +326,22 @@ export class FindBusinessComponent {
       })
   }
 
-  onChange(e: any) {
-    this.debouncedSearchBusiness()
-  }
+  // onChange(e: any) {
+  //   this.debouncedSearchBusiness()
+  // }
 
   public searchBusiness(callFrom?: any) {
     if (callFrom == 'btn') {
       this.loader = true
     }
     this.isSkeltonLoader = true
-
-    // this.fullPageLoaderService.showLoader()
     const post_title = this.findBusinessForm.value.post_title
     const post_category = this.findBusinessForm.value.post_category
     const price = this.slidervalue
     const params: FindBusinessParams = {}
-    params['post_title'] = post_title || ''
+    if (post_title) {
+      params['post_title'] = post_title
+    }
     if (post_category) {
       params['post_category'] = post_category
     }
@@ -378,7 +383,7 @@ export class FindBusinessComponent {
         this.isSkeltonLoader = false
         this.isPaginationClick = false
         this.isPaginationVisible = true
-        // this.fullPageLoaderService.hideLoader()
+        this.fullPageLoaderService.hideLoader()
         this.findBusinessData = res.data
         this.categoryDetails = res.category_data
         this.latitude = []
@@ -397,6 +402,7 @@ export class FindBusinessComponent {
         }
       },
       error: (err: any) => {
+        this.fullPageLoaderService.hideLoader()
         if (callFrom == 'btn') {
           this.loader = false
         }
@@ -419,38 +425,6 @@ export class FindBusinessComponent {
   public updatePrice(event: any) {
     this.price = event.value
     this.slidervalue = this.slidervalue
-  }
-
-  ngAfterViewInit() {
-    this.getUserBlogs()
-    // this.getIPAdress()
-    this.getIPAddress()
-    // this.initMap()
-    console.log(this.route.snapshot.paramMap, 'this.route.snapshot.paramMap')
-
-    if (
-      this.country ||
-      this.state ||
-      this.city ||
-      this.street ||
-      this.zipcode ||
-      this.route.snapshot.paramMap.has('title') ||
-      this.route.snapshot.paramMap.has('id')
-    ) {
-      this.findBusinessForm.get('post_title')?.setValue(this.post_title || null)
-      this.findBusinessForm
-        .get('post_category')
-        ?.setValue(this.category_id || null)
-
-      if (this.category_id) {
-        this.getBusinessCat()
-      } else {
-        this.debouncedSearchBusiness()
-      }
-    } else {
-      this.getPublishBusinessData()
-    }
-    this.findBusinessForm.controls['slidervalue'].setValue(0)
   }
 
   public initMap() {
@@ -517,7 +491,7 @@ export class FindBusinessComponent {
         }
       })
     })
-    this.debouncedSearchBusiness()
+    // this.debouncedSearchBusiness()
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
@@ -526,6 +500,7 @@ export class FindBusinessComponent {
   }
 
   public gotToListing(item: any, isGlobal: any) {
+    console.log('hello')
     let slug = item?.slug
       ? item.slug
       : createSlug(item?.post_id, item?.post_title)
@@ -535,8 +510,100 @@ export class FindBusinessComponent {
     })
   }
 
+  getAndBindLocalStorageData() {
+    let savedPostTitle = this.localStorage.getData('post_title')
+    let savedCategoryId = this.localStorage.getData('post_category')
+
+    if (this.category_id || savedCategoryId) {
+      this.findBusinessForm
+        .get('post_category')
+        ?.setValue(Number(this.category_id || savedCategoryId))
+      this.category_id = Number(this.category_id || savedCategoryId)
+      this.localStorage.removeData('post_title')
+    } else {
+      this.findBusinessForm.controls['post_title'].setValue(
+        this.post_title || savedPostTitle,
+      )
+      this.localStorage.removeData('post_category')
+    }
+
+    for (let i = 0; i < this.valuesForLocalStorageKey.length; i++) {
+      const key = this.valuesForLocalStorageKey[i] as keyof this
+      // if we are getting address from params then ignore the local storage
+      if (!this[key]) {
+        this[key] = this.localStorage.getData(key as string)
+      }
+    }
+    this.findBusinessForm.controls['slidervalue'].setValue(
+      Number(this.localStorage.getData('slidervalue')),
+    )
+    this.findBusinessForm.controls['price'].setValue(
+      this.localStorage.getData('price'),
+    )
+  }
+
+  ngAfterViewInit() {
+    this.fullPageLoaderService.showLoader()
+    this.getUserBlogs()
+    // this.getIPAdress()
+    this.getIPAddress()
+    // this.initMap()
+    // console.log(this.route.snapshot.paramMap, 'this.route.snapshot.paramMap')
+    this.getAndBindLocalStorageData()
+    if (
+      this.country ||
+      this.state ||
+      this.city ||
+      this.street ||
+      this.zipcode ||
+      this.post_title ||
+      this.category_id ||
+      this.findBusinessForm.get('post_category')?.value ||
+      this.findBusinessForm.get('post_title')?.value
+    ) {
+      console.log('hello')
+      // if (this.post_title) {
+      //   // this.findBusinessForm.get('post_title')?.setValue(this.post_title)
+      // }
+      if (this.category_id) {
+        console.log('hello2')
+        // this.findBusinessForm.get('post_category')?.setValue(this.category_id)
+        this.getBusinessCat()
+      } else {
+        this.searchBusiness()
+      }
+    } else {
+      this.getPublishBusinessData()
+    }
+
+    // this.findBusinessForm.controls['slidervalue'].setValue(0)
+  }
+
   ngOnDestroy() {
-    // Unsubscribe from the interval subscription if it exists
+    for (let i = 0; i < this.valuesForLocalStorageKey.length; i++) {
+      const key = this.valuesForLocalStorageKey[i] as keyof this
+      console.log(this[key] as string, 'valueess')
+      if (this[key]) {
+        this.localStorage.saveData(key as string, this[key] as string)
+      }
+    }
+    if (this.findBusinessForm.get('post_title')?.value) {
+      this.localStorage.saveData(
+        'post_title',
+        this.findBusinessForm.get('post_title')?.value,
+      )
+    }
+    if (this.findBusinessForm.get('post_category')?.value) {
+      this.localStorage.saveData(
+        'post_category',
+        this.findBusinessForm.get('post_category')?.value,
+      )
+    }
+    // console.log(this.city, 'this.city')
+    // console.log(this.state, 'this.state')
+    // console.log(this.fullAddress, 'this.fulladde')
+    // console.log(this.zipcode, 'this.zip')
+    // console.log(this.country, 'this.country')
     if (this.intervalSubscription) {
       this.intervalSubscription.unsubscribe()
     }

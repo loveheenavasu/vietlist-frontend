@@ -146,19 +146,19 @@ export class BusinessListingComponent {
   //     error: (err) => {},
   //   })
   // }
-  debounce = (fn: any, delay = 1000) => {
-    let timerId: any = null
-    return (...args: any) => {
-      clearTimeout(timerId)
-      timerId = setTimeout(() => fn(...args), delay)
-    }
-  }
-  private debouncedSearchBusiness = this.debounce(() => this.search(), 700)
+  // debounce = (fn: any, delay = 1000) => {
+  //   let timerId: any = null
+  //   return (...args: any) => {
+  //     clearTimeout(timerId)
+  //     timerId = setTimeout(() => fn(...args), delay)
+  //   }
+  // }
+  // private debouncedSearchBusiness = this.debounce(() => this.search(), 700)
 
-  onChange(e: any) {
-    console.log('helllllllll')
-    this.debouncedSearchBusiness()
-  }
+  // onChange() {
+  //   console.log('helllllllll')
+  //   this.debouncedSearchBusiness()
+  // }
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -188,7 +188,6 @@ export class BusinessListingComponent {
   }
 
   public search(callFrom?: string) {
-    console.log('hello worls')
     // if (!this.fullAddress) {
     //   return
     // }
@@ -215,7 +214,9 @@ export class BusinessListingComponent {
     if (this.country) {
       params['country'] = this.country
     }
-    params['post_title'] = post_title || ''
+    if (post_title) {
+      params['post_title'] = post_title
+    }
     // if (this.category.value) {
     //   params['post_category'] = this.category.value
     // }

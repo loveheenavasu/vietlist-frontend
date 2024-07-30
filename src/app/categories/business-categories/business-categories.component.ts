@@ -10,6 +10,7 @@ import { LoaderComponent, SearchComponentComponent } from 'src/app/common-ui'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { NavigationExtras, Router } from '@angular/router'
+import { clearSavedFilter } from 'src/app/shared/helper'
 
 @Component({
   selector: 'app-business-categories',
@@ -69,7 +70,12 @@ export class BusinessCategories {
 
   onCategorySelected(selectedCategory: any) {
     if (selectedCategory) {
-      this.router.navigate(['/find-business/', '', selectedCategory?.id])
+      clearSavedFilter()
+      this.router.navigate(['/find-business'], {
+        state: {
+          id: selectedCategory?.id,
+        },
+      })
     }
   }
 

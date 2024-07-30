@@ -7,6 +7,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatSelectModule } from '@angular/material/select'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { NavigationExtras, Router } from '@angular/router'
+import { clearSavedFilter } from 'src/app/shared/helper'
 
 @Component({
   selector: 'app-search-component',
@@ -95,14 +96,18 @@ export class SearchComponentComponent {
         street: this.fullAddress,
         zip: this.zipcode,
       }
-      this.router.navigate(['/find-business-location', '', ''], {
-        queryParams: addressParams,
+      clearSavedFilter()
+      this.router.navigate(['/find-business-location'], {
+        state: {
+          ...addressParams,
+        },
       })
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()
   }
   public search() {
+    clearSavedFilter()
     this.router.navigateByUrl('/find-business')
   }
 }

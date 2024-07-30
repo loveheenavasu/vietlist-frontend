@@ -26,6 +26,8 @@ import { register } from 'swiper/element/bundle'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import { ChooseLoanTypeComponent } from './views/choose-loan-type/choose-loan-type.component'
 import Swiper from 'swiper'
+import { LocalStorageService } from '@vietlist/shared'
+import { clearSavedFilter } from '../shared/helper'
 register()
 
 @Component({
@@ -96,8 +98,7 @@ export class HomepageComponent {
     private router: Router,
     private homePageContent: HomepageService,
     private IpService: ProfileService,
-    private zone: NgZone,
-    private cdr: ChangeDetectorRef,
+    private localStorage: LocalStorageService,
   ) {
     // this.getHomePageContent()
     // this.subscribeToRouterEvents()
@@ -293,6 +294,20 @@ export class HomepageComponent {
   }
 
   public findBusiness() {
+    // let valuesForLocalStorageKey = [
+    //   'city',
+    //   'state',
+    //   'zipcode',
+    //   'country',
+    //   'fullAddress',
+    //   'price',
+    //   'slidervalue',
+    //   'street',
+    //   'post_category',
+    //   'post_title',
+    // ]
+    // valuesForLocalStorageKey.forEach((key) => this.localStorage.removeData(key))
+    clearSavedFilter()
     this.router.navigateByUrl('/find-business')
   }
 

@@ -35,7 +35,7 @@ import { HomepageService } from 'src/app/landing-page/views/service/homepage.ser
 import { EMPTY, interval, Subscription } from 'rxjs'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { LanguageService } from 'src/app/shared/utils/services/language.service'
-import { createSlug } from 'src/app/shared/helper'
+import { clearSavedFilter, createSlug } from 'src/app/shared/helper'
 
 declare global {
   interface Window {
@@ -314,8 +314,13 @@ export class HeaderComponent {
   // }
 
   public handleSearch() {
+    clearSavedFilter()
     if (this.post_title) {
-      this.router.navigate(['/find-business', this.post_title, ''])
+      this.router.navigate(['/find-business'], {
+        state: {
+          title: this.post_title,
+        },
+      })
     } else {
       this.router.navigateByUrl('/find-business')
     }
@@ -365,15 +370,13 @@ export class HeaderComponent {
         street: this.fullAddress,
         zip: this.zipcode,
       }
-      if (this.post_title) {
-        this.router.navigate(['/find-business-location', this.post_title, ''], {
-          queryParams: addressParams,
-        })
-      } else {
-        this.router.navigate(['/find-business-location', '', ''], {
-          queryParams: addressParams,
-        })
-      }
+      clearSavedFilter()
+      this.router.navigate(['/find-business-location'], {
+        state: {
+          title: this.post_title,
+          ...addressParams,
+        },
+      })
     }
     this.latitude = place.geometry.location.lat()
     this.longitude = place.geometry.location.lng()

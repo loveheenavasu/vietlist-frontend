@@ -17,6 +17,7 @@ import { register } from 'swiper/element'
 import { AutocompleteComponent } from 'src/app/shared/utils/googleaddress'
 import { FindBusinessParams } from 'src/app/manage-business/service/business.interface'
 import { NavigationExtras, Router } from '@angular/router'
+import { clearSavedFilter } from 'src/app/shared/helper'
 register()
 
 @Component({
@@ -101,7 +102,12 @@ export class TrendingServicesComponent {
       formattedName = formattedName.replace(/\s+/g, '-')
       // const queryParams: NavigationExtras = { queryParams: { id: selectedCategory?.id } };
       // this.router.navigate(['/find-business', formattedName], queryParams);
-      this.router.navigate(['/find-business/', '', selectedCategory?.id])
+      clearSavedFilter()
+      this.router.navigate(['/find-business'], {
+        state: {
+          id: selectedCategory?.id,
+        },
+      })
     }
   }
 
@@ -182,8 +188,13 @@ export class TrendingServicesComponent {
   }
 
   public selectedTrendingCatergory(item: any) {
+    clearSavedFilter()
     if (item) {
-      this.router.navigate(['/find-business/', '', item?.id])
+      this.router.navigate(['/find-business'], {
+        state: {
+          id: item?.id,
+        },
+      })
     }
   }
 }
