@@ -417,7 +417,10 @@ export class FindBusinessComponent {
     this.isPaginationClick = true
     this.currentPage = event
 
-    if (this.findBusinessForm.value.post_title) {
+    if (
+      this.findBusinessForm.value.post_title ||
+      this.findBusinessForm.value.post_category
+    ) {
       this.searchBusiness('pagination')
     } else {
       this.getPublishBusinessData()
