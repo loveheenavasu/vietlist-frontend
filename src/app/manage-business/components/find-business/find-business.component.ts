@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { CommonModule, JsonPipe } from '@angular/common'
 import { BusinessService } from '../../service/business.service'
 import { FullPageLoaderService, LocalStorageService } from '@vietlist/shared'
+
 import {
   FormBuilder,
   FormGroup,
@@ -30,6 +31,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap'
 import { createSlug, debounce } from 'src/app/shared/helper'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
 @Component({
   selector: 'app-find-business',
   standalone: true,
@@ -48,6 +50,7 @@ import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/ske
     NgbRatingModule,
     JsonPipe,
     SkeletonLoadingComponent,
+    TruncateHtmlPipe,
   ],
   templateUrl: './find-business.component.html',
   styleUrl: './find-business.component.scss',
@@ -122,12 +125,11 @@ export class FindBusinessComponent {
       hours: [''],
       address: [''],
       model: [''],
-      price: ['23'],
-      slidervalue: ['100'],
+      price: [''],
+      slidervalue: [''],
     })
 
     const navigation = this.router.getCurrentNavigation()
-    console.log(navigation?.extras?.state, 'navigation?.extras?.state')
     this.category_id = navigation?.extras?.state?.['id']
     this.post_title = navigation?.extras?.state?.['title']
     this.country = navigation?.extras?.state?.['country']
@@ -511,18 +513,18 @@ export class FindBusinessComponent {
   }
 
   getAndBindLocalStorageData() {
-    let savedPostTitle = this.localStorage.getData('post_title')
-    let savedCategoryId = this.localStorage.getData('post_category')
+    const savedPostTitle = this.localStorage.getData('post_title')
+    const savedCategoryId = this.localStorage.getData('post_category')
 
     if (this.category_id || savedCategoryId) {
       this.findBusinessForm
         .get('post_category')
-        ?.setValue(Number(this.category_id || savedCategoryId))
-      this.category_id = Number(this.category_id || savedCategoryId)
+        ?.setValue(Number(savedCategoryId || this.category_id))
+      this.category_id = Number(savedCategoryId || this.category_id)
       this.localStorage.removeData('post_title')
     } else {
       this.findBusinessForm.controls['post_title'].setValue(
-        this.post_title || savedPostTitle,
+        savedPostTitle || this.post_title,
       )
       this.localStorage.removeData('post_category')
     }
@@ -582,7 +584,6 @@ export class FindBusinessComponent {
   ngOnDestroy() {
     for (let i = 0; i < this.valuesForLocalStorageKey.length; i++) {
       const key = this.valuesForLocalStorageKey[i] as keyof this
-      console.log(this[key] as string, 'valueess')
       if (this[key]) {
         this.localStorage.saveData(key as string, this[key] as string)
       }
@@ -599,6 +600,7 @@ export class FindBusinessComponent {
         this.findBusinessForm.get('post_category')?.value,
       )
     }
+
     // console.log(this.city, 'this.city')
     // console.log(this.state, 'this.state')
     // console.log(this.fullAddress, 'this.fulladde')

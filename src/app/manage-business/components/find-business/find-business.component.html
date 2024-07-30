@@ -20,8 +20,8 @@
           <div class="p-2 flex-grow-1 bd-highlight">
             <h2>{{ categoryDetails?.name || 'Find Business' }}</h2>
             @if (categoryDetails?.description) {
-              <div class="description">
-                <p>{{ categoryDetails?.description }}</p>
+              <div class="description ">
+                <p class='mb-0' [innerHTML]="categoryDetails?.description | truncateHtml: 88" ></p>
               </div>
             }
           </div>
