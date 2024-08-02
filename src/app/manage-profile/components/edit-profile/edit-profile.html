@@ -45,6 +45,8 @@
     <div class="form-group">
       <div class="col-12">
         <ngx-intl-tel-input
+        #phoneEle
+        [selectedCountryISO]="selectedCountry"
           [cssClass]="'input-control'"
           [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true"
@@ -55,7 +57,6 @@
           SearchCountryField.Name
         ]"
           [selectFirstCountry]="false"
-          [selectedCountryISO]="CountryISO.India"
           [maxLength]="15"
           [phoneValidation]="true"
           [separateDialCode]="true"

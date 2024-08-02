@@ -1,6 +1,10 @@
 <section class="banner">
   <div class="content">
-    <h1>{{isParamsId  ? businessFormDetails?.post_title : 'Showcase Your Business'}}</h1>
+    <h1>
+      {{
+        isParamsId ? businessFormDetails?.post_title : 'Showcase Your Business'
+      }}
+    </h1>
   </div>
 </section>
 <div class="container my-5">
@@ -88,11 +92,13 @@
               formControlName="post_title"
               placeholder="Enter the title of your business"
             />
-                      @if (
+            @if (
               businessInfoForm.get('post_title')?.touched &&
               businessInfoForm.get('post_title')?.hasError('maxlength')
             ) {
-              <span class="error-message">Maximum 90 characters are allowed.</span>
+              <span class="error-message"
+                >Maximum 90 characters are allowed.</span
+              >
             }
           </div>
         </div>
@@ -327,25 +333,38 @@
               >Contact Details <span class="asterik">*</span></label
             >
           </div>
-            <div class="col-12 col-md-12 col-lg-8">
-              <ngx-intl-tel-input
-              #countryList [cssClass]="'input-control'" [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
-                    SearchCountryField.Iso2,
-                    SearchCountryField.Name
-                  ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true"
-              [separateDialCode]="true" [numberFormat]="PhoneNumberFormat.National" name="phone"
-                formControlName="contact_phone"
-                (click)="checkInput($event)"
-              >
-              </ngx-intl-tel-input>
-              @if (
-                businessInfoForm.get('contact_phone')?.touched &&
-                businessInfoForm.get('contact_phone')?.hasError('validatePhoneNumber')
-              ) {
-                <span class="error-message">Invalid phone number.</span>
-              }
-            </div>
+          <div class="col-12 col-md-12 col-lg-8">
+            <ngx-intl-tel-input
+              #phoneEle
+              [selectedCountryISO]="selectedCountry"
+              [cssClass]="'input-control'"
+              [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              [selectFirstCountry]="false"
+              [phoneValidation]="true"
+              [separateDialCode]="true"
+              [numberFormat]="PhoneNumberFormat.National"
+
+              name="phone"
+              formControlName="contact_phone"
+              (click)="checkInput($event)"
+            >
+            </ngx-intl-tel-input>
+            @if (
+              businessInfoForm.get('contact_phone')?.touched &&
+              businessInfoForm
+                .get('contact_phone')
+                ?.hasError('validatePhoneNumber')
+            ) {
+              <span class="error-message">Invalid phone number.</span>
+            }
+          </div>
         </div>
         <div class="row my-4 px-2 align-items-center">
           <div class="col-12 col-md-12 col-lg-4">
@@ -380,9 +399,15 @@
               placeholder="Enter the website url"
               formControlName="website"
             />
-              <div *ngIf="businessInfoForm.get('website')?.invalid && businessInfoForm.get('website')?.touched" class="error-message">
-                Please enter a valid link.
-              </div>
+            <div
+              *ngIf="
+                businessInfoForm.get('website')?.invalid &&
+                businessInfoForm.get('website')?.touched
+              "
+              class="error-message"
+            >
+              Please enter a valid link.
+            </div>
           </div>
         </div>
         <div class="row px-2 my-3">
@@ -401,13 +426,19 @@
               >
               <div class="loader" *ngIf="isImageLoading"></div>
             </ngx-dropzone>
-            <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
+            <p style="color: rgb(87, 87, 87)">
+              Maximum file size for each image: 2MB
+            </p>
 
             <div class="main_images mt-3">
               <div class="images__">
                 @for (preview of businessLogoUrl; track $index) {
                   <div class="removeImage">
-                    <i class="fa fa-times-circle" aria-hidden="true" (click)="removeItem($index)"></i>
+                    <i
+                      class="fa fa-times-circle"
+                      aria-hidden="true"
+                      (click)="removeItem($index)"
+                    ></i>
                   </div>
                   <img
                     *ngIf="preview"
@@ -453,7 +484,7 @@
             </div> -->
           </div>
         </div>
-        <div class="row my-3 px-2"  *ngIf="vediosHide?.level_id =='1'">
+        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id == '1'">
           <div class="col-12">
             <!--a dropzone-->
             <!--to allow dropping content that is not [dndDraggable] set dndAllowExternal to true-->
@@ -461,86 +492,87 @@
               <div class="col-sm-2 col-md-12">
                 <label for="" class="listing-form-label mb-2">Images</label>
               </div>
-              <div class="col-sm-10 col-md-12 upload-instruction">
-              </div>
+              <div class="col-sm-10 col-md-12 upload-instruction"></div>
             </div>
-            <ngx-dropzone (change)="onSelectImages($event)" [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"   [maxFileSize]="2097152" 
-            [multiple]="false"
+            <ngx-dropzone
+              (change)="onSelectImages($event)"
+              [accept]="'.png,.png,.png , .webp , .jpeg , .jpg'"
+              [maxFileSize]="2097152"
+              [multiple]="false"
             >
-              <ngx-dropzone-label *ngIf="!isImageUploading"><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop here
-                or
-                Browse a file (You can upload only 5 images)</ngx-dropzone-label>
+              <ngx-dropzone-label *ngIf="!isImageUploading"
+                ><i class="fa fa-upload" aria-hidden="true"></i> Drap and Drop
+                here or Browse a file (You can upload only 5
+                images)</ngx-dropzone-label
+              >
               <div *ngIf="isImageUploading" class="loader"></div>
-            
             </ngx-dropzone>
-            <p style="color:rgb(87, 87, 87)">Maximum file size for each image: 2MB</p>
+            <p style="color: rgb(87, 87, 87)">
+              Maximum file size for each image: 2MB
+            </p>
             <div class="main_images">
               @for (preview of levelOneImageArr; track $index) {
-      
-              <div class="images__" *ngIf="preview">
-                <div class="removeImage">
-                  <i class="fa fa-times-circle" aria-hidden="true" (click)="removeImageItem($index)"></i>
+                <div class="images__" *ngIf="preview">
+                  <div class="removeImage">
+                    <i
+                      class="fa fa-times-circle"
+                      aria-hidden="true"
+                      (click)="removeImageItem($index)"
+                    ></i>
+                  </div>
+                  <img
+                    [src]="preview"
+                    alt="Image Preview"
+                    width="150"
+                    height="150"
+                  />
                 </div>
-                <img [src]="preview" alt="Image Preview" width="150" height="150" />
-              </div>
               }
             </div>
           </div>
         </div>
-     
-        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id =='1'">
+
+        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id == '1'">
           <div class="col-12 col-md-12 col-lg-12"></div>
           <div class="col-12 col-md-12 col-lg-12">
-            <mat-checkbox class="event-checkbox" [formControl]="term_and_condition">Terms & Conditions <span
-                class="asterik">*</span></mat-checkbox>
+            <mat-checkbox
+              class="event-checkbox"
+              [formControl]="term_and_condition"
+              >Terms & Conditions <span class="asterik">*</span></mat-checkbox
+            >
           </div>
         </div>
-        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id =='1'">
+        <div class="row my-3 px-2" *ngIf="vediosHide?.level_id == '1'">
           <div class="col-12 col-md-12 col-lg-12">
-            <re-captcha (resolved)="resolved($event)" siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
-            [formControl]="recaptcha"></re-captcha>
+            <re-captcha
+              (resolved)="resolved($event)"
+              siteKey="6Ld3tncpAAAAAGSNia7DxJ9CpAIHl9FEDYItJR-W"
+              [formControl]="recaptcha"
+            ></re-captcha>
           </div>
         </div>
-        <div style="width: 100%; text-align: end" *ngIf="vediosHide?.level_id == '1'" >
+        <div
+          style="width: 100%; text-align: end"
+          *ngIf="vediosHide?.level_id == '1'"
+        >
           <button
             type="button"
             class="btn orange-background-btn ms-auto mx-2"
             *ngIf="businessFormDetails?.final_submission != '1'"
             [disabled]="
-            !businessInfoForm.valid ||
-            !country ||
-            !zipcode ||
-            !state ||
-            !city ||
-            !tags ||
-            !term_and_condition.value ||
-            !recaptcha.value
-          "
-          (click)="previewBusiness()"
+              !businessInfoForm.valid ||
+              !country ||
+              !zipcode ||
+              !state ||
+              !city ||
+              !tags ||
+              !term_and_condition.value ||
+              !recaptcha.value
+            "
+            (click)="previewBusiness()"
           >
-            
-            <span >Preview</span>
+            <span>Preview</span>
           </button>
-          <button
-          type="button"
-          class="btn orange-background-btn ms-auto"
-          [disabled]="
-            !businessInfoForm.valid ||
-            !country ||
-            !zipcode ||
-            !state ||
-            !city ||
-            !tags ||
-            !term_and_condition.value ||
-            !recaptcha.value
-          "
-          (click)="addBusiness()"
-        >
-          <app-loader *ngIf="isloader"></app-loader
-          ><span *ngIf="!isloader">Final Submit</span>
-        </button>
-        </div>
-        <div style="width: 100%; text-align: end" *ngIf="vediosHide?.level_id !== '1'" >
           <button
             type="button"
             class="btn orange-background-btn ms-auto"
@@ -550,7 +582,30 @@
               !zipcode ||
               !state ||
               !city ||
-              !tags 
+              !tags ||
+              !term_and_condition.value ||
+              !recaptcha.value
+            "
+            (click)="addBusiness()"
+          >
+            <app-loader *ngIf="isloader"></app-loader
+            ><span *ngIf="!isloader">Final Submit</span>
+          </button>
+        </div>
+        <div
+          style="width: 100%; text-align: end"
+          *ngIf="vediosHide?.level_id !== '1'"
+        >
+          <button
+            type="button"
+            class="btn orange-background-btn ms-auto"
+            [disabled]="
+              !businessInfoForm.valid ||
+              !country ||
+              !zipcode ||
+              !state ||
+              !city ||
+              !tags
             "
             (click)="addBusiness()"
           >
@@ -564,7 +619,7 @@
     @if (businessFormDetails?.business_email && vediosHide?.level_id !== '1') {
       <section>
         <app-subscription-form
-        ngSkipHydration
+          ngSkipHydration
           (formSubmit)="getBusinessFormDetails(postId)"
           [subscriptionData]="businessFormDetails"
         ></app-subscription-form>
@@ -574,7 +629,7 @@
     @if (businessFormDetails && businessFormDetails?.twitter) {
       <section class="my-4">
         <app-business-bio
-        ngSkipHydration
+          ngSkipHydration
           (buinessFormSubmit)="getBusinessFormDetails(postId)"
           [businessbioData]="businessFormDetails"
         ></app-business-bio>
@@ -584,7 +639,7 @@
     @if (businessFormDetails && businessFormDetails?.owner_name) {
       <section class="my-4">
         <app-consultation-form
-        ngSkipHydration
+          ngSkipHydration
           (consultationFormSubmit)="getBusinessFormDetails(postId)"
           [consultationData]="businessFormDetails"
         ></app-consultation-form>
@@ -592,10 +647,13 @@
     }
 
     @if (businessFormDetails && businessFormDetails?.special_offers) {
-      <app-promotions-form ngSkipHydration   (promotionFormSubmit)="getBusinessFormDetails(postId)"
-      [promotionData]="businessFormDetails"></app-promotions-form>
+      <app-promotions-form
+        ngSkipHydration
+        (promotionFormSubmit)="getBusinessFormDetails(postId)"
+        [promotionData]="businessFormDetails"
+      ></app-promotions-form>
     }
-   
+
     <!-- <app-promotions-form></app-promotions-form> -->
     <!-- @if (businessFormDetails && businessFormDetails?.owner_name) { -->
     <!-- <section class="my-4">

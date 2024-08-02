@@ -6,7 +6,7 @@ import { BusinessCategoryResponse } from './../../service/business.interface'
 import { MatSelectModule } from '@angular/material/select'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatCardModule } from '@angular/material/card'
-import { ChangeDetectorRef, Component } from '@angular/core'
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
 import {
   FormBuilder,
   FormControl,
@@ -28,6 +28,7 @@ import {
   PhoneNumberFormat,
   SearchCountryField,
 } from 'ngx-intl-tel-input-gg'
+
 import { BusinessService } from '../../service/business.service'
 import {
   AuthenticationService,
@@ -40,6 +41,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { NgxDropzoneModule } from 'ngx-dropzone'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
+import { Country } from 'ngx-intl-tel-input-gg/lib/model/country.model'
 
 @Component({
   selector: 'app-list-business',
@@ -138,6 +140,9 @@ export class ListBusinessComponent {
   public hidemapview!: boolean
   public hideVedioupload!: boolean
   public isImageLoading: boolean = false
+  @ViewChild('phoneEle') phoneEle: any
+  selectedCountry: CountryISO = CountryISO.UnitedStates
+
   /**
    *
    * @param _formBuilder
@@ -187,21 +192,22 @@ export class ListBusinessComponent {
       if (res?.id) {
         console.log(res.id, 'id')
         this.isParamsId = true
-        this.getBusinessFormDetails(res?.id)
+        this.postId = Number(res.id)
+        this.localStoragePostId = Number(res.id)
       }
     })
-    this.businessService.storePostId.subscribe((res) => {
-      this.postId = res
-    })
-    const id = localStorageService.getData('postId')
-    this.postId = Number(id)
+    // this.businessService.storePostId.subscribe((res) => {
+    //   this.postId = res
+    // })
+    // const id = localStorageService.getData('postId')
+    // this.postId = Number(id)
 
-    const postId = localStorageService.getData('postId')
-    this.localStoragePostId = Number(postId)
+    // const postId = localStorageService.getData('postId')
+    // this.localStoragePostId = Number(postId)
 
-    this.businessService.storePostId.subscribe((res) => {
-      this.localStoragePostId = res
-    })
+    // this.businessService.storePostId.subscribe((res) => {
+    //   this.localStoragePostId = res
+    // })
 
     this.businessService.isBusinessFormFilled.subscribe((res) => {
       this.isFormFilled = res
@@ -227,9 +233,6 @@ export class ListBusinessComponent {
     })
     this.getBusinessCat()
 
-    if (this.postId) {
-      this.getBusinessFormDetails(this.postId)
-    }
     this.getTags()
     this.initMap()
   }
@@ -285,7 +288,6 @@ export class ListBusinessComponent {
           this.isImageLoading = false
           this.imageUrl = res.image_url
           this.businessLogoUrl = [res.image_url] // Replace old preview with new one
-          console.log(this.businessLogoUrl, "businessLogo")
         },
         error: (err: any) => {
           // Handle errors
@@ -371,6 +373,17 @@ export class ListBusinessComponent {
     this.initMap()
   }
 
+  setCountryByDialCode(dialCode: string) {
+    dialCode = dialCode.replace('+', '')
+    const allCountries = this.phoneEle.allCountries
+    const country = allCountries.find((c: Country) => c.dialCode === dialCode)
+
+    if (country) {
+      this.selectedCountry = country.iso2 as CountryISO
+      this.cd.detectChanges()
+    }
+  }
+
   public getBusinessFormDetails(postId: any) {
     this.fullPageLoader.showLoader()
     this.businessService
@@ -378,12 +391,14 @@ export class ListBusinessComponent {
       .subscribe({
         next: (res) => {
           this.fullPageLoader.hideLoader()
-          console.log(res, 'getApiResponse')
           this.businessFormDetails = res?.data?.[0] || null
+          this.setCountryByDialCode(this.businessFormDetails?.country_code)
 
-          this.tags = this.businessFormDetails?.post_tags?.map(
-            (tag: any) => tag.id,
-          )
+          if (this.businessFormDetails?.post_tags?.length) {
+            this.tags = this.businessFormDetails?.post_tags?.map(
+              (tag: any) => tag.id,
+            )
+          }
           this.uploadMediaUrl = this.businessFormDetails?.logo
           if (this.uploadMediaUrl) {
             this.isFilesPresent = true
@@ -498,9 +513,8 @@ export class ListBusinessComponent {
     this.isloader = true
     const body: any = {
       post_title: this.businessInfoForm.value.post_title,
-      contact_phone: parseInt(
-        this.businessInfoForm.value.contact_phone?.e164Number,
-      ),
+      contact_phone: this.businessInfoForm.value.contact_phone?.nationalNumber,
+
       business_email: this.businessInfoForm.value.business_email,
       post_category: this.businessInfoForm.value.post_category.join(', '),
       default_category: this.businessInfoForm.value.default_category,
@@ -516,20 +530,21 @@ export class ListBusinessComponent {
       street: this.fullAddress,
       logo: this.businessLogoUrl[0],
       mapview: this.businessInfoForm.value.mapview,
+      country_code: this.businessInfoForm.value.contact_phone?.dialCode,
+
       // image: this.levelOneImageArr ? this.levelOneImageArr ,
     }
-      if (this.userDetailsLevel_id.level_id === '1') {
-    // Add image to the body when level_id is 1
-    body.image = this.levelOneImageArr;
-  }
+    if (this.userDetailsLevel_id.level_id === '1') {
+      // Add image to the body when level_id is 1
+      body.image = this.levelOneImageArr
+    }
 
     if (this.isFormFilled || this.postId || this.isParamsId) {
       this.isloader = true
       const updatebody: any = {
         post_title: this.businessInfoForm.value.post_title,
-        contact_phone: parseInt(
-          this.businessInfoForm.value.contact_phone?.e164Number,
-        ),
+        contact_phone:
+          this.businessInfoForm.value.contact_phone?.nationalNumber,
         business_email: this.businessInfoForm.value.business_email,
         post_category: this.businessInfoForm.value.post_category.join(', '),
         default_category: this.businessInfoForm.value.default_category,
@@ -548,6 +563,7 @@ export class ListBusinessComponent {
         post_id: this.localStoragePostId
           ? this.localStoragePostId
           : this.postId,
+        country_code: this.businessInfoForm.value.contact_phone?.dialCode,
       }
       this.businessService.updateBusiness(updatebody).subscribe({
         next: (res) => {
@@ -593,6 +609,7 @@ export class ListBusinessComponent {
         },
       })
     } else if (!this.isFormFilled) {
+      console.log('3')
       this.businessService.addBusiness(body).subscribe({
         next: (res) => {
           this.isloader = false
@@ -614,8 +631,13 @@ export class ListBusinessComponent {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.postId) {
+      this.getBusinessFormDetails(this.postId)
+    }
+  }
+
   public previewBusiness(val?: any) {
-    console.log('click on preview button')
     console.log(this.isFormFilled, this.postId, 'Preview button')
     const body: any = {
       post_title: this.businessInfoForm.value.post_title,

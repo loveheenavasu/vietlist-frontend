@@ -194,9 +194,6 @@ export class RegisterComponent {
 
   public handleRegistrationSubmission() {
     this.isSubmitted = true
-    const formattedPhoneNumber = this.contact_details?.value?.e164Number?.split(
-      this.contact_details?.value?.dialCode,
-    )
 
     const body: { [key: string]: any } = {
       username: this.signupForm.value.username,
@@ -206,9 +203,7 @@ export class RegisterComponent {
       first_name: this.signupForm.value.first_name,
       last_name: this.signupForm.value.last_name,
       confirm_password: this.signupForm.value.confirm_password,
-      contact_details: parseInt(
-        formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
-      ),
+      contact_details: this.contact_details?.value?.nationalNumber,
       role: this.selectedSignupType,
       term_and_condition: this.term_and_condition.value,
       country_code: this.contact_details.value?.dialCode,
@@ -216,9 +211,6 @@ export class RegisterComponent {
     if (this.signupForm.valid && this.term_and_condition) {
       if (this.selectedSignupType === this.userRole.businessOwner) {
         body['business_type'] = this.business_type.value
-        body['contact_details'] = parseInt(
-          formattedPhoneNumber?.length ? formattedPhoneNumber[1] : '',
-        )
         body['country_code'] = this.contact_details.value.dialCode
       }
       if (

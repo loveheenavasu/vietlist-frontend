@@ -353,7 +353,7 @@
               Description
             </h3>
             <hr />
-              <p class='text-break' >{{ eventDetails?.post_content }}</p>
+              <p class='text-break   ' [innerHTML]="eventDetails?.post_content "  ></p>
   
             <div class="sub-heading">
               <h3 class="event-page-headings">
@@ -1115,7 +1115,7 @@
         </div>
       }
 
-      <div class="iconDirection mt-3 d-flex justify-content-center justify-content-md-end position-static me-md-5 mb-2 m-0" style='width: 90%;height: 15%; overflow: scroll;' >
+      <div class="iconDirection mt-3 d-flex justify-content-center justify-content-md-end position-static me-md-5 mb-2 m-0" style='width: 90%;height: 15%; overflow: scroll; z-index: 1; ' >
         @if(eventDetails?.whatsapp){
         <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
           <a
@@ -1409,7 +1409,7 @@
               Description
             </h3>
             <hr />
-            <p class='text-break' >{{ eventDetails?.post_content }}</p>
+            <p class='text-break' [innerHTML]="eventDetails?.post_content"  ></p>
   
             <div class="sub-heading">
               <h3 class="event-page-headings">
