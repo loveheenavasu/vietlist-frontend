@@ -1,5 +1,5 @@
-import { AddRealEstateBusinessComponent } from './../../../add-real-estate-business/add-real-estate-business.component';
-import { Component } from '@angular/core'
+import { AddRealEstateBusinessComponent } from './../../../add-real-estate-business/add-real-estate-business.component'
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core'
 import { ProfileService } from '../../service/profile.service'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -14,11 +14,19 @@ import {
 } from 'ngx-intl-tel-input-gg'
 import Swal from 'sweetalert2'
 import { Subject, takeUntil } from 'rxjs'
+import { Country } from 'ngx-intl-tel-input-gg/lib/model/country.model'
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgxIntlTelInputModule , NgIf , ReactiveFormsModule , AddRealEstateBusinessComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    NgxIntlTelInputModule,
+    NgIf,
+    ReactiveFormsModule,
+    AddRealEstateBusinessComponent,
+  ],
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss',
 })
@@ -31,8 +39,8 @@ export class EditProfileComponent {
     CountryISO.UnitedStates,
     CountryISO.UnitedKingdom,
   ]
-  public realEstateDetails:any;
-  public isrealEstateDetails:boolean = false
+  public realEstateDetails: any
+  public isrealEstateDetails: boolean = false
   public email!: string //
   public userName: string = ''
   public last_name: string = ''
@@ -45,46 +53,53 @@ export class EditProfileComponent {
   private destroy$ = new Subject<void>()
   public business_description = new FormControl('')
   public additionalContact = new FormControl('')
-  public isClickedOnCompleteProfile:boolean = false
-  public checkBehaviour:any
+  public isClickedOnCompleteProfile: boolean = false
+  public checkBehaviour: any
+  selectedCountry: CountryISO = CountryISO.UnitedStates
+  @ViewChild('phoneEle') phoneEle: any
+
   constructor(
     private profileDetail: ProfileService,
     private router: Router,
     private loaderService: FullPageLoaderService,
     private sessionservice: AuthenticationService,
+    private cd: ChangeDetectorRef,
   ) {
-    this.profileDetail.isProfileComplete.subscribe((res)=>{
+    this.profileDetail.isProfileComplete.subscribe((res) => {
       this.checkBehaviour = res
     })
   }
   ngOnInit() {
     this.fetchProfileDetail()
-
   }
 
   fetchProfileDetail() {
     this.loaderService.showLoader()
-    this.profileDetail.userDetails().pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res) => {
-        this.loaderService.hideLoader()
-        if (res) {
-          this.userDetails = res.data.user
-          this.getRealEstateUserDetails()
-          this.email = res.data.user.user_email ? res.data.user.user_email : ' '
-          this.userName = res.data?.user?.user_nicename
-          this.last_name = res.data?.user?.last_name
-          this.first_name = res.data?.user?.first_name
-          this.contact_details = res.data?.user?.contact
-        }
-      },
-      error: (err: any) => {
-        this.router.navigateByUrl('/login')
-      },
-    })
+    this.profileDetail
+      .userDetails()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.loaderService.hideLoader()
+          if (res) {
+            this.userDetails = res.data.user
+            this.getRealEstateUserDetails()
+            this.email = res.data.user.user_email
+              ? res.data.user.user_email
+              : ' '
+            this.userName = res.data?.user?.user_nicename
+            this.last_name = res.data?.user?.last_name
+            this.first_name = res.data?.user?.first_name
+            this.contact_details = res.data?.user?.contact
+          }
+        },
+        error: (err: any) => {
+          this.router.navigateByUrl('/login')
+        },
+      })
   }
 
   handleUpdateUser() {
-    
     this.loaderService.showLoader()
     const body = {
       user_email: this.email,
@@ -92,7 +107,8 @@ export class EditProfileComponent {
       user_image: '',
       first_name: this.first_name,
       last_name: this.last_name,
-      contact: this.contact_details?.e164Number,
+      contact: this.contact_details?.nationalNumber,
+      country_code: this.contact_details?.dialCode,
     }
 
     this.profileDetail.userProfileUpdate(body).subscribe({
@@ -114,30 +130,46 @@ export class EditProfileComponent {
     })
   }
 
-  public completeProfile(){
-   this.isClickedOnCompleteProfile = true
+  public completeProfile() {
+    this.isClickedOnCompleteProfile = true
   }
 
-  public getRealEstateUserDetails(){
-    this.profileDetail.getRealEstateProfileDetails(this.userDetails?.ID).subscribe({
-      next:(res)=>{
-        this.realEstateDetails = res?.data;
-        if(!this.realEstateDetails.business_description){
-          this.isrealEstateDetails = false
-        }else{
-          this.isrealEstateDetails = true
-          this.business_description.setValue(this.realEstateDetails?.business_description)
-          this.additionalContact.setValue(this.realEstateDetails?.additional_contact_information)
-        }
-       
-      }
-    })
+  setCountryByDialCode(dialCode: string) {
+    dialCode = dialCode.replace('+', '')
+    const allCountries = this.phoneEle.allCountries
+    const country = allCountries.find((c: Country) => c.dialCode === dialCode)
+
+    if (country) {
+      this.selectedCountry = country.iso2 as CountryISO
+      this.cd.detectChanges()
+    }
   }
 
-  public editAdditionalInfo(){
+  public getRealEstateUserDetails() {
+    this.profileDetail
+      .getRealEstateProfileDetails(this.userDetails?.ID)
+      .subscribe({
+        next: (res) => {
+          this.realEstateDetails = res?.data
+          if (!this.realEstateDetails.business_description) {
+            this.isrealEstateDetails = false
+          } else {
+            this.isrealEstateDetails = true
+            this.business_description.setValue(
+              this.realEstateDetails?.business_description,
+            )
+            this.additionalContact.setValue(
+              this.realEstateDetails?.additional_contact_information,
+            )
+          }
+        },
+      })
+  }
+
+  public editAdditionalInfo() {
     this.router.navigateByUrl('/complete-profile')
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
   }
