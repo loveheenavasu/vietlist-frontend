@@ -291,6 +291,7 @@ export class ListBusinessComponent {
         },
         error: (err: any) => {
           // Handle errors
+          this.isImageLoading = false
         },
       })
     }
