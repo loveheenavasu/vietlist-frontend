@@ -115,6 +115,9 @@ export class ConsultationFormComponent {
     controls.forEach((control) => {
       this.ConsultationForm.get(control)?.patchValue(value?.[control] || '')
     })
+    this.ConsultationForm.get('business_hours')?.patchValue(
+      value?.['business_hours'] ? true : false,
+    )
   }
   @ViewChild('select') select!: NgSelectComponent
   public searchTerm: string = ''
@@ -405,7 +408,6 @@ export class ConsultationFormComponent {
         timer: 3000,
         timerProgressBar: true,
       })
-    
     }
 
     // Handle the uploaded video files
@@ -414,19 +416,9 @@ export class ConsultationFormComponent {
       this.isVideoUploading = true
       reader.onload = () => {
         const videoUrl = reader.result as string
-        // const video: HTMLVideoElement = document.createElement('video')
-        // this.video_upload = video.src
         this.businessService.uploadMedia(this.filess[0]).subscribe({
           next: (res: any) => {
             this.isVideoUploading = false
-            //   if (this.video_upload && this.video_upload.length > 0) {
-            //     this.video_upload.shift(); // Remove the element at index 0
-            // }
-
-            // // Append res.image_url to the video_upload array
-            // if (res.image_url) {
-            //     this.video_upload = [...this.video_upload, res.image_url];
-            // }
             this.video_upload = [res.image_url]
 
             this.vediosUrl = [...this.vediosUrl, res.image_url]
