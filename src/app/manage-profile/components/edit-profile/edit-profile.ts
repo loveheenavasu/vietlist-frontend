@@ -69,10 +69,8 @@ export class EditProfileComponent {
       this.checkBehaviour = res
     })
   }
-  ngOnInit() {
-    this.fetchProfileDetail()
-  }
 
+  loading = true
   fetchProfileDetail() {
     this.loaderService.showLoader()
     this.profileDetail
@@ -80,6 +78,7 @@ export class EditProfileComponent {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
+          this.loading = false
           this.loaderService.hideLoader()
           if (res) {
             this.userDetails = res.data.user
@@ -90,10 +89,12 @@ export class EditProfileComponent {
             this.userName = res.data?.user?.user_nicename
             this.last_name = res.data?.user?.last_name
             this.first_name = res.data?.user?.first_name
+            this.setCountryByDialCode(res.data?.user?.country_code)
             this.contact_details = res.data?.user?.contact
           }
         },
         error: (err: any) => {
+          this.loading = false
           this.router.navigateByUrl('/login')
         },
       })
@@ -136,6 +137,7 @@ export class EditProfileComponent {
 
   setCountryByDialCode(dialCode: string) {
     dialCode = dialCode.replace('+', '')
+    console.log(this.phoneEle, 'this.phoneEle')
     const allCountries = this.phoneEle.allCountries
     const country = allCountries.find((c: Country) => c.dialCode === dialCode)
 
@@ -169,6 +171,11 @@ export class EditProfileComponent {
   public editAdditionalInfo() {
     this.router.navigateByUrl('/complete-profile')
   }
+
+  ngAfterViewInit() {
+    this.fetchProfileDetail()
+  }
+
   ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()

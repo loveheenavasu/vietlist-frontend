@@ -41,12 +41,11 @@
         />
       </div>
     </div>
-    @if(userDetails?.user_role === role.businessOwner){
+    @if(userDetails?.user_role === role.businessOwner || loading){
     <div class="form-group">
       <div class="col-12">
         <ngx-intl-tel-input
-        #phoneEle
-        [selectedCountryISO]="selectedCountry"
+          #phoneEle
           [cssClass]="'input-control'"
           [preferredCountries]="preferredCountries"
           [enableAutoCountrySelect]="true"
@@ -63,6 +62,7 @@
           [numberFormat]="PhoneNumberFormat.National"
           name="phone"
           [(ngModel)]="contact_details"
+          [selectedCountryISO]="selectedCountry"
         >
         </ngx-intl-tel-input>
       </div>
