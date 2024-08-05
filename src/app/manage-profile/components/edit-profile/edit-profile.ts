@@ -137,7 +137,6 @@ export class EditProfileComponent {
 
   setCountryByDialCode(dialCode: string) {
     dialCode = dialCode.replace('+', '')
-    console.log(this.phoneEle, 'this.phoneEle')
     const allCountries = this.phoneEle.allCountries
     const country = allCountries.find((c: Country) => c.dialCode === dialCode)
 

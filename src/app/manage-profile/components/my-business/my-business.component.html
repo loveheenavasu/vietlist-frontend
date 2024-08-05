@@ -91,12 +91,7 @@
                   </h3>
                 </div>
                 <div class="listing-info">
-                  <p>
-                    {{
-                      key.post_content.length > 200
-                        ? key.post_content.slice(0, 198) + '....'
-                        : key.post_content
-                    }}
+                  <p [innerHTML]="key.post_content |truncateHtml: 200" >
                   </p>
                 </div>
 
@@ -228,12 +223,7 @@
                   <h3>{{ key.post_title }}</h3>
                 </div>
                 <div class="listing-info">
-                  <p>
-                    {{
-                      key.post_content.length > 240
-                        ? key.post_content.slice(0, 237) + '...'
-                        : key.post_content
-                    }}
+                  <p [innerHTML]="key.post_content |truncateHtml: 200" >
                   </p>
                 </div>
                 <div class="list-button">

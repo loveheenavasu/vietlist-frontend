@@ -170,24 +170,23 @@
           </div>
           <div class="col-12 col-md-12 col-lg-12">
             <ngx-intl-tel-input
-            #countryList
+            #phoneEle
             [cssClass]="'input-control'"
-            [maxlength]="15"
             [preferredCountries]="preferredCountries"
             [enableAutoCountrySelect]="true"
             [enablePlaceholder]="true"
             [searchCountryFlag]="true"
             [searchCountryField]="[
-              SearchCountryField.Iso2,
-              SearchCountryField.Name
-            ]"
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
             [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.UnitedStates"
+            [maxLength]="15"
             [phoneValidation]="true"
             [separateDialCode]="true"
             [numberFormat]="PhoneNumberFormat.National"
             name="phone"
-            (focusout)="onChangeNumber($event)"
+            [selectedCountryISO]="selectedCountry"
             [formControl]="contact_details"
           >
           </ngx-intl-tel-input>

@@ -151,6 +151,20 @@ export class RegisterComponent {
     this.selectedSignupType = Roles.businessOwner
   }
 
+  handleValidation() {
+    const isBasicInvalid =
+      !this.signupForm.valid || !this.term_and_condition.value
+    const isBrokerOrRealEstate =
+      this.selectedSignupType === this.userRole.broker ||
+      this.selectedSignupType === this.userRole.realEstate
+
+    if (isBrokerOrRealEstate) {
+      return isBasicInvalid || !this.direction
+    }
+
+    return isBasicInvalid
+  }
+
   public handleSignupTypeSelection(value: any) {
     this.selectedSignupType = value
   }

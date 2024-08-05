@@ -26,6 +26,8 @@ import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 import { AuthenticationService } from '@vietlist/shared'
 import { createSlug } from 'src/app/shared/helper'
 import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
+import { TruncateHtmlPipe } from 'src/app/shared/utils/truncate.pipe'
+
 @Component({
   selector: 'app-business-listing',
   standalone: true,
@@ -41,6 +43,7 @@ import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/ske
     NgxPaginationModule,
     CommonModule,
     SkeletonLoadingComponent,
+    TruncateHtmlPipe,
   ],
 
   templateUrl: './business-listing.component.html',

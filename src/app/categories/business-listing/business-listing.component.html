@@ -130,13 +130,8 @@
                     <div class="listing-info">
                       <!-- <p [innerHTML]=" key.post_content">
                 </p> -->
-                      <p>
-                        {{
-                          key.post_content.length > 240
-                            ? key.post_content.slice(0, 237) + '...'
-                            : key.post_content
-                        }}
-                      </p>
+                <p [innerHTML]="key.post_content |truncateHtml: 200" >
+                </p>
                     </div>
                     <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>
@@ -252,13 +247,8 @@
                     <div class="listing-info">
                       <!-- <p [innerHTML]=" key.post_content">
               </p> -->
-                      <p>
-                        {{
-                          key.post_content.length > 240
-                            ? key.post_content.slice(0, 237) + '...'
-                            : key.post_content
-                        }}
-                      </p>
+              <p [innerHTML]="key.post_content |truncateHtml: 200" >
+              </p>
                     </div>
                     <!-- <div class="lisiting-package">
                   <span>$ Package : Free Business</span>

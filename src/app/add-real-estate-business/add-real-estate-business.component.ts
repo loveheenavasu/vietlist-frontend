@@ -1,5 +1,12 @@
 import { NgClass, NgFor, NgIf, JsonPipe } from '@angular/common'
-import { ChangeDetectorRef, Component, inject, Input, Renderer2 } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  Renderer2,
+  ViewChild,
+} from '@angular/core'
 import {
   AbstractControl,
   FormBuilder,
@@ -40,6 +47,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { LiveAnnouncer } from '@angular/cdk/a11y'
 import { ProfileService } from '../manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
+import { Country } from 'ngx-intl-tel-input-gg/lib/model/country.model'
 type DayName = 'Mo' | 'Tu' | 'We' | 'Th' | 'Fr' | 'Sa' | 'Su'
 interface Day {
   name: DayName
@@ -79,7 +87,7 @@ interface Day {
   styleUrl: './add-real-estate-business.component.scss',
 })
 export class AddRealEstateBusinessComponent {
-  @Input() userEmail: any = '';
+  @Input() userEmail: any = ''
   public separateDialCode = true
   public SearchCountryField = SearchCountryField
   public CountryISO = CountryISO
@@ -92,49 +100,41 @@ export class AddRealEstateBusinessComponent {
   public contact_details = new FormControl()
   public business_description = new FormControl()
   public instagram = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public linkedIn = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
-  public youTube= new FormControl('', [
-
+  public youTube = new FormControl('', [
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public pinterest = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public snapchat = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public tikTok = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public whatsApp = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public reddit = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
@@ -142,22 +142,19 @@ export class AddRealEstateBusinessComponent {
 
   public isLoader: boolean = false
   public facebook = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public twitter = new FormControl('', [
-
     Validators.pattern(
       /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
     ),
   ])
   public additionalEmail: any = new FormControl('', [
-
     Validators.email,
     Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-    this.emailMatchValidator.bind(this)
+    this.emailMatchValidator.bind(this),
   ])
   public minDate = new Date()
   public maxDate: any
@@ -212,7 +209,11 @@ export class AddRealEstateBusinessComponent {
   public announcer = inject(LiveAnnouncer)
   public imagePreviews: any[] = []
   public userDetails: any
-  public companyName = new FormControl('' ,  Validators.required,)
+  public companyName = new FormControl('', Validators.required)
+  selectedCountry: CountryISO = CountryISO.UnitedStates
+
+  @ViewChild('phoneEle') phoneEle: any
+
   constructor(
     private http: HttpClient,
     private renderer: Renderer2,
@@ -226,7 +227,7 @@ export class AddRealEstateBusinessComponent {
   ) {
     this.authService.userDetailResponse.subscribe((res) => {
       this.userDetails = res
-      this.getRealEstateUserDetails()
+      // this.getRealEstateUserDetails()
     })
     // Now, you can use timezone-related functions safely
     const timeZoneNames = moment?.tz?.names()
@@ -253,28 +254,39 @@ export class AddRealEstateBusinessComponent {
     this.formatData()
   }
 
-  public ngOnInit(){
-     console.log(this.userEmail); 
-     this.additionalEmail?.setValidators([
+  public ngOnInit() {
+    console.log(this.userEmail)
+    this.additionalEmail?.setValidators([
       Validators.email,
-      this.emailMatchValidator(this.userEmail)
-    ]);
-    if(this.additionalEmail.value == this.userEmail){
+      this.emailMatchValidator(this.userEmail),
+    ])
+    if (this.additionalEmail.value == this.userEmail) {
       alert('You can;t use same regisered email')
     }
   }
 
-    
-  onChangeNumber(event: any) {
-    const phoneNumber = this.contact_details.value?.number;
-    console.log(phoneNumber , 'phoneNumber  ')
-   this.contact_details.setValue(phoneNumber)
+  setCountryByDialCode(dialCode: string) {
+    dialCode = dialCode.replace('+', '')
+    const allCountries = this.phoneEle.allCountries
+    const country = allCountries.find((c: Country) => c.dialCode === dialCode)
+
+    if (country) {
+      this.selectedCountry = country.iso2 as CountryISO
+      this.cd.detectChanges()
+    }
   }
 
+  onChangeNumber(event: any) {
+    const phoneNumber = this.contact_details.value?.number
+    console.log(phoneNumber, 'phoneNumber  ')
+    this.contact_details.setValue(phoneNumber)
+  }
 
   emailMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const additionalEmail = control.value;
-    return additionalEmail && additionalEmail === this.userEmail ? { emailMatch: true } : null;
+    const additionalEmail = control.value
+    return additionalEmail && additionalEmail === this.userEmail
+      ? { emailMatch: true }
+      : null
   }
 
   public getAddress(place: any) {
@@ -689,20 +701,21 @@ export class AddRealEstateBusinessComponent {
     const body = {
       company_logo: this.businessLogoUrl,
       additional_contact_information: {
-        contact: this.contact_details?.value?.e164Number,
+        contact: this.contact_details?.value?.nationalNumber,
+        country_code: this.contact_details.value?.dialCode,
         instagram: this.instagram.value,
         facebook: this.facebook.value,
         twitter: this.twitter.value,
         additionalEmail: this.additionalEmail.value,
-        snapchat:this.snapchat.value,
-         tikTok:this.tikTok.value,
-         reddit:this.reddit.value,
-         whatsApp:this.whatsApp.value,
-         youTube:this.youTube.value,
-         linkedIn:this.linkedIn.value,
-         pinterest:this.pinterest.value
+        snapchat: this.snapchat.value,
+        tikTok: this.tikTok.value,
+        reddit: this.reddit.value,
+        whatsApp: this.whatsApp.value,
+        youTube: this.youTube.value,
+        linkedIn: this.linkedIn.value,
+        pinterest: this.pinterest.value,
       },
-      company_name:this.companyName.value,
+      company_name: this.companyName.value,
       business_description: this.business_description.value,
       business_address: {
         fullAddress: this.fullAddress,
@@ -739,11 +752,19 @@ export class AddRealEstateBusinessComponent {
     })
   }
 
+  ngAfterViewInit() {
+    this.getRealEstateUserDetails()
+  }
+
   public getRealEstateUserDetails() {
     this.profileServce
       .getRealEstateProfileDetails(this.userDetails?.ID)
       .subscribe({
         next: (res) => {
+          this.setCountryByDialCode(
+            res?.data.additional_contact_information?.country_code,
+          )
+
           this.business_description.setValue(res?.data.business_description)
           this.companyName.setValue(res?.data?.company_name)
           this.contact_details.setValue(
