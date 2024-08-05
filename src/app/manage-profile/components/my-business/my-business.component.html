@@ -74,26 +74,16 @@
             track $index
           ) {
             <div class="grid-card col-lg-5">
-              @if (key?.image?.includes('') || key?.image == null) {
-                <div class="listing-img">
+              <div class="listing-img">
+                @if (key?.image?.includes('') || key?.image == null) {
                   <img src="../../../../assets/image/no-image.webp" />
-                  <div class="badge" *ngIf="key?.final_submission == '0'">
-                    Pending
-                  </div>
-                </div>
-              } @else {
-                <div class="listing-img">
+                } @else {
                   <img [src]="key.image[0]" />
-                  <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
-              Pending
-            </div> -->
-                </div>
-              }
-
-              <!-- <div class="badge" *ngIf="key?.final_submission == '0'">
-          Pending
-        </div> -->
-
+                }
+                @if (key?.post_status === 'pending') {
+                  <div class="badge">Pending</div>
+                }
+              </div>
               <div class="listing-description">
                 <div class="listing-heading">
                   <h3 [innerHtml]="key?.post_title | truncateHtml: 85">
@@ -228,7 +218,7 @@
                       <img [src]="key.image[0]" />
                     </div>
                   } -->
-                @if (key?.final_submission == '0') {
+                @if (key?.post_status === 'pending') {
                   <div class="badge">Pending</div>
                 }
               </div>
