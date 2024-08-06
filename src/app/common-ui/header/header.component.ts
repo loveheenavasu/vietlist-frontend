@@ -391,6 +391,10 @@ export class HeaderComponent {
           const body = {
             limit: 10,
           }
+
+          if (!this.localStorage.getData('loginInfo')) {
+            this.stopNotificationInterval()
+          }
           return this.homeService.getNotification(body).pipe(
             catchError(() => {
               this.isNotificationLoading = false
@@ -446,7 +450,6 @@ export class HeaderComponent {
   private stopNotificationInterval(): void {
     if (this.notificationIntervalSubscription) {
       this.notificationIntervalSubscription.unsubscribe()
-      console.log('Notification interval stopped.')
       this.notificationsArr = []
       this.notificationsDetails = ''
     }
