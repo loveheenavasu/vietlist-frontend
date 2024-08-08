@@ -32,7 +32,7 @@ export class PlanComponent {
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
     private profileService: ProfileService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.fetchSubscriptionPlanData()
@@ -56,7 +56,7 @@ export class PlanComponent {
         this.subscriptionPlans = plansArray
         this.planId = res.data.id
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
@@ -75,11 +75,19 @@ export class PlanComponent {
   }
 
   navigateToConfirmPayment(id: any) {
-    this.freePlanId = id;
+    this.freePlanId = id
     if (id === '1') {
-      this.handleFreePlan();
+      this.handleFreePlan()
     } else {
-      if (!this.isAuthenticated || this.userDetails?.user_role !== Roles.businessOwner) {
+      console.log(!this.isAuthenticated, '!this.isAuthenticated')
+      console.log(
+        this.userDetails?.user_role !== Roles.businessOwner,
+        ' this.userDetails?.user_role !== Roles.businessOwner',
+      )
+      if (
+        !this.isAuthenticated ||
+        this.userDetails?.user_role !== Roles.businessOwner
+      ) {
         Swal.fire({
           toast: true,
           text: 'You have to register as a Business Owner to purchase a plan',
@@ -89,14 +97,13 @@ export class PlanComponent {
           showConfirmButton: false,
           timer: 3000,
           timerProgressBar: true,
-        });
-        this.router.navigateByUrl('/login');
+        })
+        this.router.navigateByUrl('/login')
       } else {
-        this.router.navigate(['/confirm-payment', id]);
+        this.router.navigate(['/confirm-payment', id])
       }
     }
   }
-  
 
   handleFreePlan() {
     this.loaderService.showLoader()
@@ -105,7 +112,6 @@ export class PlanComponent {
     }
     this.subscriptionService.freePlanSubscription(body).subscribe({
       next: (res) => {
-
         this.loaderService.hideLoader()
         this.fetchProfileDetail()
         if (res.data?.status == UserStatus.Active) {
@@ -140,7 +146,7 @@ export class PlanComponent {
     this.profileService.userDetails().subscribe({
       next: (res) => {
         this.userDetails = res.data?.user
-        console.log(this.userDetails,"userDetails")
+        console.log(this.userDetails, 'userDetails')
         this.sessionService.userDetails.next(this.userDetails)
         this.sessionService.userDetailResponse.next(this.userDetails)
       },
