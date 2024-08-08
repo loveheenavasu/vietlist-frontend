@@ -216,6 +216,7 @@ export class EventDetailsComponent {
   maxNumberValidator(max: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value
+      console.log(value, 'kkkkk')
       if (value !== null && value > max) {
         return { maxNumber: { max } }
       }
@@ -431,6 +432,8 @@ export class EventDetailsComponent {
         } else {
           this.totalBookingLeft = numberOfBooking - numberOfBookedEvent
         }
+        console.log(this.totalBookingLeft, 'this.totalBookingLeft')
+
         this.number_of_booking = new FormControl('', [
           Validators.required,
           this.maxNumberValidator(this.totalBookingLeft),
