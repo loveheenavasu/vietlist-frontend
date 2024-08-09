@@ -89,7 +89,8 @@ export class PreviewBusinessComponent {
   public openingHour: any[] = []
   public isVideoTypeLoading: boolean = true
   public isLoading: boolean = false
-  subject = 'Hello' // Replace with the email subject
+  subject = 'Hello'
+  mapView = 'default'
   body = 'Hello, I hope you are doing well '
   // public mainTabOption: any
   @ViewChild('secondDialog', { static: true }) secondDialog!: TemplateRef<any>
@@ -221,6 +222,7 @@ export class PreviewBusinessComponent {
         this.logo = res?.data[0]?.logo
         this.latitude = Number(this.businessFormDetails.latitude)
         this.longitude = Number(this.businessFormDetails.longitude)
+        this.mapView = this.businessFormDetails?.mapview
         this.cd.detectChanges()
         this.initMap()
         // this.post_title = this.businessFormDetails.post_title ? this.businessFormDetails.post_title : 'NA',
@@ -231,8 +233,6 @@ export class PreviewBusinessComponent {
         // this.mapview=this.businessFormDetails.mapview ? this.businessFormDetails.mapview : 'NA',
         // this.post_category=this.businessFormDetails.post_category?.map((category: any) => category?.id),
         // this.default_category= this.businessFormDetails.default_category ? this.businessFormDetails.default_category.id : 'NA'
-
-        this.initMap()
       },
       error: (err) => {
         this.isLoading = false
@@ -266,13 +266,30 @@ export class PreviewBusinessComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
+      let mapTypeId: google.maps.MapTypeId
+
+      switch (this.mapView.toLowerCase()) {
+        case 'satellite':
+          mapTypeId = google.maps.MapTypeId.SATELLITE
+          break
+        case 'hybrid':
+          mapTypeId = google.maps.MapTypeId.HYBRID
+          break
+        case 'terrain':
+          mapTypeId = google.maps.MapTypeId.TERRAIN
+          break
+        default:
+          mapTypeId = google.maps.MapTypeId.ROADMAP
+          break
+      }
+
       this.map = new google.maps.Map(mapElement, {
         center: {
           lat: this.latitude,
           lng: this.longitude,
         },
         zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: mapTypeId,
       })
 
       if (this.latitude && this.longitude) {
@@ -287,7 +304,7 @@ export class PreviewBusinessComponent {
         })
       }
     } else {
-      console.error('Map element not found.')
+      console.error('Map element not found')
     }
   }
 

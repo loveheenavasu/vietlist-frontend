@@ -7,11 +7,12 @@ import { PlansService } from '../service/plan.service'
 import { FullPageLoaderService, Roles, UserStatus } from '@vietlist/shared'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
+import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 
 @Component({
   selector: 'app-plan',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SkeletonLoadingComponent],
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.scss',
 })
@@ -25,6 +26,7 @@ export class PlanComponent {
   public isAuthenticated: boolean = false
   public freePlanId: any
   public userDetails: any
+  public loader = false
   constructor(
     private subscriptionService: PlansService,
     private sanitizer: DomSanitizer,
@@ -32,6 +34,7 @@ export class PlanComponent {
     private sessionService: AuthenticationService,
     private loaderService: FullPageLoaderService,
     private profileService: ProfileService,
+    private fullPageLoader: FullPageLoaderService,
   ) {}
 
   ngOnInit() {
@@ -79,9 +82,8 @@ export class PlanComponent {
     if (id === '1') {
       this.handleFreePlan()
     } else {
-      console.log(!this.isAuthenticated, '!this.isAuthenticated')
       console.log(
-        this.userDetails?.user_role !== Roles.businessOwner,
+        this.userDetails?.user_role,
         ' this.userDetails?.user_role !== Roles.businessOwner',
       )
       if (
@@ -143,15 +145,17 @@ export class PlanComponent {
   }
 
   public fetchProfileDetail() {
+    this.loader = true
     this.profileService.userDetails().subscribe({
       next: (res) => {
+        this.loader = false
         this.userDetails = res.data?.user
         console.log(this.userDetails, 'userDetails')
         this.sessionService.userDetails.next(this.userDetails)
         this.sessionService.userDetailResponse.next(this.userDetails)
       },
       error: (err: any) => {
-        this.loaderService.hideLoader()
+        this.loader = false
       },
     })
   }

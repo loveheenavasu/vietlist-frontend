@@ -10,39 +10,43 @@
     <div class="row">
       @for (plan of subscriptionPlans; track $index) {
       <div class="col-12 col-md-12 col-lg-4 ">
-        <div class="subscription-plan-cnt">
-          <div class="plan-content">
-            @if (plan.pouplar) {
-            <div class="ribbon"><span>Popular</span></div>
-            }
-            <div class="plan-header">
-              <h2>{{ plan.name }}</h2>
-              <div class="d-flex align-items-center flex-wrap">
-                <div>
-                  <h1>
-                    <span [innerHTML]="plan.currency.symbol"></span>{{ plan.billing_amount }}
-                  </h1>
+        @if(!loader){
+          <div class="subscription-plan-cnt">
+            <div class="plan-content">
+              @if (plan.pouplar) {
+              <div class="ribbon"><span>Popular</span></div>
+              }
+              <div class="plan-header">
+                <h2>{{ plan.name }}</h2>
+                <div class="d-flex align-items-center flex-wrap">
+                  <div>
+                    <h1>
+                      <span [innerHTML]="plan.currency.symbol"></span>{{ plan.billing_amount }}
+                    </h1>
+                  </div>
+                  <div class="ml-2"><span>/per Month</span></div>
                 </div>
-                <div class="ml-2"><span>/per Month</span></div>
+              </div>
+              <div class="plan-list">
+                <ul>
+                  @for (
+                  item of getDescriptionItems(plan.description);
+                  track $index
+                  ) {
+                  <li><span class="tick-icon"></span> {{ item }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="plan-action">
+                <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(plan.id)" [disabled]="userDetails?.level_id === plan.id">
+                  {{userDetails?.level_id === plan.id ? 'Active' : 'Choose Plan'}}
+                </button>
               </div>
             </div>
-            <div class="plan-list">
-              <ul>
-                @for (
-                item of getDescriptionItems(plan.description);
-                track $index
-                ) {
-                <li><span class="tick-icon"></span> {{ item }}</li>
-                }
-              </ul>
-            </div>
-            <div class="plan-action">
-              <button class="btn orange-background-btn" (click)="navigateToConfirmPayment(plan.id)" [disabled]="userDetails?.level_id === plan.id">
-                {{userDetails?.level_id === plan.id ? 'Active' : 'Choose Plan'}}
-              </button>
-            </div>
           </div>
-        </div>
+        }@else{
+          <app-skeleton-loading height="500px" ></app-skeleton-loading>
+        }
       </div>
       }
     </div>

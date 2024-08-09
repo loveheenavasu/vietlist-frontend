@@ -143,6 +143,7 @@ export class BusinessDetailsComponent {
   public maxDate: any
   public openingHour: any[] = []
   subject = 'Hello' // Replace with the email subject
+  mapView = 'default' // Replace with the email subject
   body = 'Hello, I hope you are doing well'
   isLoading: boolean = false
 
@@ -502,6 +503,7 @@ export class BusinessDetailsComponent {
         }
         ;(this.latitude = Number(this.eventDetails?.latitude)),
           (this.longitude = Number(this.eventDetails?.longitude))
+        this.mapView = this.eventDetails?.mapview
         this.cd.detectChanges()
         this.initMap()
       },
@@ -602,13 +604,31 @@ export class BusinessDetailsComponent {
   public initMap() {
     const mapElement = document.getElementById('map')
     if (mapElement !== null) {
+      let mapTypeId: google.maps.MapTypeId
+
+      switch (this.mapView.toLowerCase()) {
+        case 'satellite':
+          mapTypeId = google.maps.MapTypeId.SATELLITE
+          break
+        case 'hybrid':
+          mapTypeId = google.maps.MapTypeId.HYBRID
+          break
+        case 'terrain':
+          mapTypeId = google.maps.MapTypeId.TERRAIN
+          break
+
+        default:
+          mapTypeId = google.maps.MapTypeId.ROADMAP
+          break
+      }
+
       this.map = new google.maps.Map(mapElement, {
         center: {
           lat: this.latitude,
           lng: this.longitude,
         },
         zoom: 13,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: mapTypeId,
       })
 
       if (this.latitude && this.longitude) {
@@ -623,6 +643,7 @@ export class BusinessDetailsComponent {
         })
       }
     } else {
+      console.error('Map element not found')
     }
   }
 

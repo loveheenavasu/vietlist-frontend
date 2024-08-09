@@ -129,16 +129,6 @@ export class ConfirmPaymentComponent {
               const elements = stripe.elements({ appearance })
               this.card = elements.create('card', { hidePostalCode: true })
               this.card.mount(this.cardInfo.nativeElement)
-              const billingAddressOptions = {
-                classes: {
-                  base: 'stripe-address-element',
-                },
-                placeholder: 'Enter your billing address',
-                mode: 'billing',
-              }
-              // this.billingAddressElements = elements.create(
-              //   'address',
-              //   billingAddressOptions,
               this.billingAddressElements = elements.create('address', {
                 mode: 'shipping',
 
@@ -152,14 +142,6 @@ export class ConfirmPaymentComponent {
                     country: this.billingDetails?.pmpro_bcountry,
                     postal_code: this.billingDetails?.pmpro_bzipcode,
                   },
-                  // address: {
-                  //   line1: this.billingDetails?.pmpro_baddress1,
-                  //   line2: this.billingDetails?.pmpro_baddress2,
-                  //   city: this.billingDetails?.pmpro_bcity,
-                  //   state: this.billingDetails?.pmpro_bstate,
-                  //   postal_code: this.billingAddress?.pmpro_bzipcode,
-                  //   country: this.billingAddress?.pmpro_bcountry,
-                  // },
                 },
               })
               this.billingAddressElements.mount('#billing-address-element')

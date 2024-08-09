@@ -31,10 +31,10 @@
             }
           </div>
           <div class="mx-4">
-            <h1 class="event-title" [innerHtml]="key?.post_title | truncateHtml:42">
+            <h1 class="event-title " [innerHtml]="key?.post_title | truncateHtml:42">
               <!-- {{key?.post_title }} -->
             </h1>
-            <p class="event-description" [innerHtml]="key?.post_content | truncateHtml:84">
+            <p class="event-description text-break " [innerHtml]="key?.post_content | truncateHtml:250">
               <!-- {{key?.post_content}} -->
             </p>
           </div>

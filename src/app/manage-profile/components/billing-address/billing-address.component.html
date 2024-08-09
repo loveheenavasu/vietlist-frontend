@@ -21,6 +21,7 @@
         <AutocompleteComponent
           (setAddress)="getAddress($event)"
           adressType="geocode"
+          [value]="street"
         ></AutocompleteComponent>
       </div>
     </div>
@@ -87,7 +88,8 @@
  
         <div class="col-12">
             <label class="listing-form-label">Phone Number</label>
-          <ngx-intl-tel-input
+            <ngx-intl-tel-input
+            #phoneEle
             [cssClass]="'input-control'"
             [preferredCountries]="preferredCountries"
             [enableAutoCountrySelect]="true"
@@ -98,14 +100,13 @@
             SearchCountryField.Name
           ]"
             [selectFirstCountry]="false"
-            [selectedCountryISO]="CountryISO.India"
             [maxLength]="15"
             [phoneValidation]="true"
             [separateDialCode]="true"
             [numberFormat]="PhoneNumberFormat.National"
             name="phone"
+            [selectedCountryISO]="selectedCountry"
             [(ngModel)]="contact_details"
-            [ngModelOptions]="{ standalone: true }"
           >
           </ngx-intl-tel-input>
         </div>
@@ -159,6 +160,7 @@
         <button
           class="btn orange-background-btn-w-100"
           (click)="addBillingAddress()"
+          [disabled]="!this.street|| billingInfo.invalid  "
         >
         @if(isLoader){
             <app-loader></app-loader>
