@@ -7,14 +7,20 @@
 <div class="container-fluid g-0">
   <div class="row m-0">
     <div
+      class="col-12 col-md-12 col-lg-12 p-0 px-md-3"
+
+      style="max-height: 1310px; overflow: hidden; height: 60vh"
+    >
+    <!-- <div
       class="col-12 col-md-12 col-lg-6 p-0 px-md-3"
       style="max-height: 1310px; overflow: hidden; height: 80vh"
-    >
+    > -->
       <div style="height: 100%; width: 100%">
         <div id="map"></div>
       </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-6 find-business-control">
+    <!-- <div class="col-sm-12 col-md-12 col-lg-6 find-business-control"> -->
+    <div class="col-sm-12 col-md-12 col-lg-12 find-business-control">
       <div class="row">
         <div class="d-flex bd-highlight">
           <div class="p-2 flex-grow-1 bd-highlight">
@@ -138,7 +144,7 @@
           </div>
         }
         @if (selectedLayout == 'grid') {
-          <div class="col-12">
+          <!-- <div class="col-4"> -->
             @if (!isSkeltonLoader) {
               @for (
                 item of findBusinessData
@@ -150,7 +156,7 @@
                       };
                 track $index
               ) {
-                <div class="grid-view-card">
+                <div class="grid-view-card col-lg-4  col-12">
                   <div class="business-img" (click)="gotToListing(item, true)">
                     <!-- <img src="/assets/image/grid-image1.jpeg" alt="business-img" /> -->
                     @if (item.image?.includes('')) {
@@ -173,11 +179,6 @@
                       class="d-flex justify-content-end profile-wrapper justify-content-sm-center"
                     >
                       <div class="business-profile-img">
-                        <!-- @if (item.image.includes("")) {
-                    <img src="/assets/image/no_profile.webp" alt="business-logo" />
-                    } @else {
-                    <img [src]="item.logo" alt="business-logo" />
-                    } -->
                         <img
                           [src]="
                             item.logo
@@ -200,7 +201,7 @@
                       >
                     </div>
                     <div class="business-package">
-                      <p>$ Package : Free Business</p>
+                      <p class='m-0' >$ Package : Free Business</p>
                     </div>
                     <div class="business-rating">
                       <ng-template #t let-fill="fill">
@@ -239,7 +240,7 @@
                 </div>
               </div>
             }
-          </div>
+          <!-- </div> -->
         } @else {
           <div class="col-12">
             @if (!isSkeltonLoader) {

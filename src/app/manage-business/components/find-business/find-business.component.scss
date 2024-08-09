@@ -96,7 +96,7 @@
 .category-listing-wrapper {
     // height: calc(100vh - 310px);
     // height: 100%;
-    overflow: scroll;
+    // overflow: scroll;
 }
 
 .col-12 {
@@ -104,19 +104,18 @@
 }
 
 .grid-view-card {
-    height: 600px;
+    height: fit-content;
 }
 
 .business-img {
-    height: 70%;
+    max-height: 350px;
     object-fit: contain;
     width: 100%;
     position: relative;
 
     img {
-
+        height: 350px !important;
         width: 100%;
-        height: 100%;
     }
 
     .linking-icon {
@@ -154,13 +153,22 @@
 }
 
 @media (max-width: 767px) {
-    .business-profile-img{
-        top: -5.81rem !important ;
+    .business-profile-img {
+        top: -5.81rem !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .business-info {
+        height: 182px !important;
     }
 }
 
 .business-info {
-    height: 155px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 0.5em;
 
     // position: relative;
@@ -186,7 +194,8 @@
     }
 
     .business-title {
-        margin-top: 5% !important ;
+        margin-top: 5% !important;
+
         h2 {
             font-size: 1.25rem;
             color: #232f3e;
@@ -598,8 +607,8 @@
 }
 
 .find-business-control {
-    max-height: 1310px;
-    height: 80vh;
+    max-height: fit-content;
+    height: fit-content !important;
     overflow: hidden;
     display: flex;
     flex-direction: column;

@@ -249,6 +249,14 @@ export class PreviewBusinessComponent {
     })
   }
 
+  openSocialLink(url: string) {
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'https://' + url
+    }
+
+    window.open(url, '_blank')
+  }
+
   public getCleanedBusinessHours(hours: any): string {
     // Remove array braces and commas
 

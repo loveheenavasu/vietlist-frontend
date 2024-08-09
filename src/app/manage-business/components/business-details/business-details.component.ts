@@ -294,7 +294,6 @@ export class BusinessDetailsComponent {
   ngOnInit() {
     this.sessionService.isAuthenticated$.subscribe((res: any) => {
       if (res) {
-        console.log(res, 'resssssss')
         this.isAuthentecate = res
         const controlsToValidate = ['comment_author_email', 'comment_author']
 
@@ -645,6 +644,14 @@ export class BusinessDetailsComponent {
     } else {
       console.error('Map element not found')
     }
+  }
+
+  openSocialLink(url: string) {
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'https://' + url
+    }
+
+    window.open(url, '_blank')
   }
 
   openGoogleMaps() {

@@ -1,68 +1,83 @@
-@if (businessFormDetails?.choose_layout?.toLowerCase() === 'standard layout' && !isLoading ) {
+@if (
+  businessFormDetails?.choose_layout?.toLowerCase() === 'standard layout' &&
+  !isLoading
+) {
   <!-- @if (true) { -->
 
-    <section class="banner standard-banner " style="position: relative">
-      <div class="content" style="width: 100%">
-        <h1 style="text-transform: uppercase">
-          {{ businessFormDetails?.post_title | titlecase }}
-        </h1>
-        <p>
-          <i
-            class="fa-solid fa-location-dot"
-            style="color: #fff; font-size: 15px"
-          ></i>
-          &nbsp;{{ businessFormDetails?.country }}
-        </p>
-        <div class="elementor-divider">
-          <span class="elementor-divider-separator"> </span>
-        </div>
-
+  <section class="banner standard-banner" style="position: relative">
+    <div class="content" style="width: 100%">
+      <h1 style="text-transform: uppercase">
+        {{ businessFormDetails?.post_title | titlecase }}
+      </h1>
+      <p>
+        <i
+          class="fa-solid fa-location-dot"
+          style="color: #fff; font-size: 15px"
+        ></i>
+        &nbsp;{{ businessFormDetails?.country }}
+      </p>
+      <div class="elementor-divider">
+        <span class="elementor-divider-separator"> </span>
       </div>
+    </div>
+  </section>
 
-    </section>
+  <section class="background_section">
+    <div class="container">
+      <div class="row mt-2 pt-4 flex-column-reverse flex-lg-row">
+        <div class="col-12 col-md-12 col-lg-4 mt-3 mt-lg-0">
+          <div class="profile-info-div box-shadow position-relative">
+            <h3>Contact Info</h3>
+            <div class="logo-containerr">
+              <img [src]="businessFormDetails?.logo" alt="" />
+            </div>
+            <div class="social-link">
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.street"
+                (click)="openGoogleMapss(businessFormDetails?.street)"
+              >
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ businessFormDetails?.street }}
+              </div>
 
-  
-    <section class="background_section">
-      <div class="container">
-        <div class="row mt-2 pt-4 flex-column-reverse flex-lg-row "  >
-          <div class="col-12 col-md-12 col-lg-4 mt-3 mt-lg-0 ">
-            <div class="profile-info-div box-shadow  position-relative">
-              <h3>Contact Info</h3>
-              <div class="logo-containerr">
-                <img [src]="businessFormDetails?.logo" alt="" />
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.business_email"
+                (click)="redirectToMail(businessFormDetails?.business_email)"
+              >
+                <i
+                  class="fa fa-envelope"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ businessFormDetails?.business_email }}
               </div>
-              <div class="social-link">
-                <div class="location link " *ngIf="businessFormDetails?.street"  (click)='openGoogleMapss(businessFormDetails?.street)' >
-                  <i
-                    class="fa-solid fa-location-dot"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ businessFormDetails?.street }}
-                </div>
-  
-                <div class="location link" *ngIf="businessFormDetails?.business_email" (click)='redirectToMail(businessFormDetails?.business_email)' >
-                  <i
-                    class="fa fa-envelope"
-                    aria-hidden="true"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ businessFormDetails?.business_email }}
-                </div>
-                <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='callNumber(businessFormDetails?.contact_phone)' >
-                  <i
-                    class="fa fa-phone"
-                    aria-hidden="true"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                  {{ businessFormDetails?.contact_phone }}
-                </div>
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.contact_phone"
+                (click)="callNumber(businessFormDetails?.contact_phone)"
+              >
+                <i
+                  class="fa fa-phone"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                {{ businessFormDetails?.contact_phone }}
               </div>
-              <!-- <div class="iconDirection" style='width: 85%; overflow: scroll; right: 6%; bottom: 6px;' > -->
-              <div class="social-cont"  >
-                @if(businessFormDetails?.whatsapp){
-                <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
+            </div>
+            <!-- <div class="iconDirection" style='width: 85%; overflow: scroll; right: 6%; bottom: 6px;' > -->
+            <div class="social-cont">
+              @if (businessFormDetails?.whatsapp) {
+                <span
+                  class="elementor-grid-item"
+                  style="background: rgb(0, 154, 0)"
+                  (click)="openSocialLink(businessFormDetails?.whatsapp)"
+                >
                   <a
-                    href="{{ businessFormDetails?.whatsapp }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -74,21 +89,28 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.youtube){
-                <span class="elementor-grid-item" style="background: red">
+              @if (businessFormDetails?.youtube) {
+                <span class="elementor-grid-item" style="background: red"
+                (click)="openSocialLink(businessFormDetails?.youtube)"
+                >
                   <a
-                    href="{{ businessFormDetails?.youtube }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
                   >
-                  <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
+                    <i
+                      class="fa-brands fa-youtube"
+                      aria-hidden="true"
+                      style="font-size: 18px; color: #fff"
+                    ></i
+                  ></a>
                 </span>
               }
-              @if(businessFormDetails?.facebook){
-                <span class="elementor-grid-item" style="background: #3b5998">
+              @if (businessFormDetails?.facebook) {
+                <span class="elementor-grid-item" style="background: #3b5998"
+                (click)="openSocialLink(businessFormDetails?.facebook)"
+                >
                   <a
-                    href="{{ businessFormDetails?.facebook }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -100,10 +122,11 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.pinterest){
-                <span class="elementor-grid-item" style="background: red">
+              @if (businessFormDetails?.pinterest) {
+                <span class="elementor-grid-item" style="background: red"
+                (click)="openSocialLink(businessFormDetails?.pinterest)"
+                >
                   <a
-                    href="{{ businessFormDetails?.pinterest }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -115,23 +138,31 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.tiktok){
-                <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
+              @if (businessFormDetails?.tiktok) {
+                <span
+                  class="elementor-grid-item"
+                  style="background: rgb(16, 1, 1)"
+                  (click)="openSocialLink(businessFormDetails?.tiktok)"
+                >
                   <a
-                    href="{{ businessFormDetails?.tiktok }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
                   >
-                  <i class="fa-brands fa-tiktok size_icon" style="font-size: 18px; color: #fff"></i>
-            
-                </a>
+                    <i
+                      class="fa-brands fa-tiktok size_icon"
+                      style="font-size: 18px; color: #fff"
+                    ></i>
+                  </a>
                 </span>
               }
-              @if(businessFormDetails?.linkedin){
-                <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
+              @if (businessFormDetails?.linkedin) {
+                <span
+                  class="elementor-grid-item"
+                  style="background: rgb(63, 63, 255)"
+                  (click)="openSocialLink(businessFormDetails?.linkedin)"
+                >
                   <a
-                    href="{{ businessFormDetails?.linkedin }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -142,11 +173,14 @@
                     ></i
                   ></a>
                 </span>
-              }    
-               @if(businessFormDetails?.snapchat){
-                <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
+              }
+              @if (businessFormDetails?.snapchat) {
+                <span
+                  class="elementor-grid-item"
+                  style="background: rgb(213, 161, 4)"
+                  (click)="openSocialLink(businessFormDetails?.snapchat)"
+                >
                   <a
-                    href="{{ businessFormDetails?.snapchat }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -158,10 +192,13 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.reddit){
-                <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
+              @if (businessFormDetails?.reddit) {
+                <span
+                  class="elementor-grid-item"
+                  style="background: rgb(213, 49, 4)"
+                  (click)="openSocialLink(businessFormDetails?.reddit)"
+                >
                   <a
-                    href="{{ businessFormDetails?.reddit }}"
                     style="padding: 3px"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
@@ -173,10 +210,11 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.twitter){
-                <span class="elementor-grid-item" style="background: #1da1f2">
+              @if (businessFormDetails?.twitter) {
+                <span class="elementor-grid-item" style="background: #1da1f2"
+                (click)="openSocialLink(businessFormDetails?.twitter)"
+                >
                   <a
-                    href="{{ businessFormDetails?.twitter }}"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
                   >
@@ -187,8 +225,11 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.website){
-                <span class="elementor-grid-item size_icon" style="background: #818a91">
+              @if (businessFormDetails?.website) {
+                <span
+                  class="elementor-grid-item size_icon"
+                  style="background: #818a91"
+                >
                   <a
                     href="{{ businessFormDetails?.website }}"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
@@ -202,10 +243,11 @@
                   ></a>
                 </span>
               }
-              @if(businessFormDetails?.instagram){
-                <span class="elementor-grid-item">
+              @if (businessFormDetails?.instagram) {
+                <span class="elementor-grid-item"
+                (click)="openSocialLink(businessFormDetails?.instagram)"
+                >
                   <a
-                    [href]="businessFormDetails?.instagram"
                     class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
                     target="_blank"
                   >
@@ -217,374 +259,424 @@
                   ></a>
                 </span>
               }
-             
-                <span class="elementor-grid-item" style="background: #0073a4">
-                  <a
-                    class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
-                    href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
-                    target="_blank"
-                  >
-                    <i
-                      class="fas fa-directions size_icon"
-                      style="font-size: 18px; color: #fff"
-                    ></i
-                  ></a>
-                </span>
-              </div>
+
+              <span
+                class="elementor-grid-item"
+                style="background: #0073a4"
+                (click)="openGoogleMaps()"
+              >
+                <a
+                  class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+                  target="_blank"
+                >
+                  <i
+                    class="fas fa-directions size_icon"
+                    style="font-size: 18px; color: #fff"
+                  ></i
+                ></a>
+              </span>
             </div>
-            @if (openingHour && openingHour.length) {
-              @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
-                <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
-                  <div
-                    class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+          </div>
+          @if (openingHour && openingHour.length) {
+            @if (
+              (openingHour && openingHour.length !== 1) ||
+              openingHour[0] != 'null'
+            ) {
+              <div class="profile-info-div box-shadow mt-3" style="padding: 9%">
+                <div
+                  class="d-block text-center text-md-left d-md-flex p-3 bg-light timing-cont"
+                >
+                  <span style="font-size: 22px; font-weight: 600; color: black"
+                    >Business Open Hours :</span
                   >
-                    <span style="font-size: 22px; font-weight: 600; color: black"
-                      >Business Open Hours :</span
-                    >
-                    <div class="media-body">
-                      <p *ngFor="let time of openingHour" class="mt-0">
-                        @if (time != 'null' && time != "undefined") {
-                          <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
-                        }
-                      </p>
-                      <!-- <p> -->
-                        <!-- <div class="hour-container row ">
+                  <div class="media-body">
+                    <p *ngFor="let time of openingHour" class="mt-0">
+                      @if (time != 'null' && time != 'undefined') {
+                        <div
+                          class="row"
+                          [innerHTML]="businessService.hourFormat(time)"
+                        ></div>
+                      }
+                    </p>
+                    <!-- <p> -->
+                    <!-- <div class="hour-container row ">
                           <div class='col-4' > sunday </div> <div class='col-4' ><div> 1231231</div> <div> 8989797</div> <div> 8989797</div></div>
                         </div> -->
-                      <!-- </p> -->
-                    </div>
+                    <!-- </p> -->
                   </div>
                 </div>
-              }
-            }
-
-          </div>
-          <div class="col-12 col-md-12 col-lg-8 main-card "  >
-            <h3 class="event-page-headings" id='profile' >
-              <i
-                class="fa fa-home"
-                aria-hidden="true"
-                style="font-size: 24px"
-              ></i>
-              Description
-            </h3>
-            <hr />
-            <p class='text-break' [innerHTML]="businessFormDetails?.post_content" ></p>
-  
-            <div class="sub-heading">
-              <h3 class="event-page-headings">
-                <i aria-hidden="true" style="font-size: 24px"></i>
-                Category
-              </h3>
-              <p *ngFor="let category of businessFormDetails?.post_category">
-                {{ category?.name }}
-              </p>
-              <h3 class="event-page-headings">
-                <i aria-hidden="true" style="font-size: 24px"></i>
-                Default Category
-              </h3>
-              <p>{{ businessFormDetails?.default_category?.name }}</p>
-              <h3 class="event-page-headings">
-                <i aria-hidden="true" style="font-size: 24px"></i>
-                Tags
-              </h3>
-            </div>
-            <div class="tag-container">
-              <p
-                *ngFor="let tags of businessFormDetails?.post_tags"
-                class="tag-creation"
-              >
-                {{ tags?.name }}
-              </p>
-            </div>
-            @if (
-              businessFormDetails?.owner_name ||
-              businessFormDetails?.business_historybackground ||
-              businessFormDetails?.mission__vision
-            ) {
-              <div
-                class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
-                id="bio"
-              >
-                <h3 class="headingg">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  Business Bio
-                </h3>
-                <hr class="hr" />
-                <!-- <div class="row mt-3"> -->
-                <div class="contentt">
-                  <h3 class="event-page-headings">Owner / Manager Name</h3>
-                  <p>{{ businessFormDetails?.owner_name }}</p>
-                </div>
-                <div class="contentt">
-                  <h3 class="event-page-headings">
-                    Business History / Background
-                  </h3>
-                  <p>{{ businessFormDetails?.business_historybackground }}</p>
-                </div>
-                <div class="contentt">
-                  <h3 class="event-page-headings">Mission & Vission</h3>
-                  <p>{{ businessFormDetails?.mission__vision }}</p>
-                </div>
               </div>
             }
-            @if (
-              businessFormDetails?.consultation_booking_link ||
-              businessFormDetails?.consultation_mode ||
-              businessFormDetails?.consultation_description
-            ) {
-              <div
-                class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
-                id="booking"
-              >
-                <h3 class="headingg">
-                  <i class="fa-solid fa-bag-shopping"></i>
-                  Booking & Consultation
+          }
+        </div>
+        <div class="col-12 col-md-12 col-lg-8 main-card">
+          <h3 class="event-page-headings" id="profile">
+            <i
+              class="fa fa-home"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i>
+            Description
+          </h3>
+          <hr />
+          <p
+            class="text-break"
+            [innerHTML]="businessFormDetails?.post_content"
+          ></p>
+
+          <div class="sub-heading">
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Category
+            </h3>
+            <p *ngFor="let category of businessFormDetails?.post_category">
+              {{ category?.name }}
+            </p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Default Category
+            </h3>
+            <p>{{ businessFormDetails?.default_category?.name }}</p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Tags
+            </h3>
+          </div>
+          <div class="tag-container">
+            <p
+              *ngFor="let tags of businessFormDetails?.post_tags"
+              class="tag-creation"
+            >
+              {{ tags?.name }}
+            </p>
+          </div>
+          @if (
+            businessFormDetails?.owner_name ||
+            businessFormDetails?.business_historybackground ||
+            businessFormDetails?.mission__vision
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
+              id="bio"
+            >
+              <h3 class="headingg">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Business Bio
+              </h3>
+              <hr class="hr" />
+              <!-- <div class="row mt-3"> -->
+              <div class="contentt">
+                <h3 class="event-page-headings">Owner / Manager Name</h3>
+                <p>{{ businessFormDetails?.owner_name }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">
+                  Business History / Background
                 </h3>
-                <hr class="hr" />
-                <div class="contentt">
-                  <h3 class="event-page-headings">Consultation Booking Link</h3>
-                  <p>
-                    <a
-                      [href]="businessFormDetails?.consultation_booking_link"
-                      target="_blank"
-                      style="
-                        color: #38ccff;
-                        font-size: 14px;
-                        font-weight: 500;
-                        text-decoration: none;
+                <p>{{ businessFormDetails?.business_historybackground }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Mission & Vission</h3>
+                <p>{{ businessFormDetails?.mission__vision }}</p>
+              </div>
+            </div>
+          }
+          @if (
+            businessFormDetails?.consultation_booking_link ||
+            businessFormDetails?.consultation_mode ||
+            businessFormDetails?.consultation_description
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
+              id="booking"
+            >
+              <h3 class="headingg">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Booking & Consultation
+              </h3>
+              <hr class="hr" />
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Booking Link</h3>
+                <p>
+                  <a
+                    [href]="businessFormDetails?.consultation_booking_link"
+                    target="_blank"
+                    style="
+                      color: #38ccff;
+                      font-size: 14px;
+                      font-weight: 500;
+                      text-decoration: none;
+                    "
+                  >
+                    {{ businessFormDetails?.consultation_booking_link }}</a
+                  >
+                </p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Mode</h3>
+                <p>{{ businessFormDetails?.consultation_mode }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Description</h3>
+                <p>{{ businessFormDetails?.consultation_description }}</p>
+              </div>
+            </div>
+          }
+          @if (businessFormDetails?.image) {
+            <div class="row my-4" id="photo">
+              <div class="col-12 col-md-12 col-lg-12">
+                <h3 class="event-page-headings">
+                  <i
+                    class="fa fa-picture-o"
+                    aria-hidden="true"
+                    style="font-size: 24px"
+                  ></i>
+                  Photo(s)
+                </h3>
+                <hr />
+                @if (businessFormDetails?.featured_image) {
+                  <div class="image-container">
+                    <div
+                      class="featured_image mt-2"
+                      *ngFor="
+                        let key of businessFormDetails?.featured_image;
+                        let i = index
                       "
                     >
-                      {{ businessFormDetails?.consultation_booking_link }}</a
-                    >
-                  </p>
-                </div>
-                <div class="contentt">
-                  <h3 class="event-page-headings">Consultation Mode</h3>
-                  <p>{{ businessFormDetails?.consultation_mode }}</p>
-                </div>
-                <div class="contentt">
-                  <h3 class="event-page-headings">Consultation Description</h3>
-                  <p>{{ businessFormDetails?.consultation_description }}</p>
-                </div>
+                      <img
+                        [src]="
+                          key ? key : '/assets/image/carrer-professional.jpeg'
+                        "
+                        (click)="
+                          openDialog(businessFormDetails?.featured_image, i)
+                        "
+                      />
+                      <div class="linking-icon">
+                        <i
+                          class="fa-solid fa-magnifying-glass-plus"
+                          style="cursor: pointer"
+                          (click)="
+                            openDialog(businessFormDetails?.featured_image, i)
+                          "
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                } @else {
+                  @if (businessFormDetails?.image?.includes('')) {
+                    <div class="no-photos-wrapper">
+                      <p class="no-photo">No photos...</p>
+                    </div>
+                  } @else {
+                    <div class="image-container">
+                      @for (img of businessFormDetails?.image; track $index) {
+                        <div class="featured_image mt-2">
+                          <img
+                            [src]="img"
+                            alt="business-img"
+                            (click)="
+                              openDialog(businessFormDetails?.image, $index)
+                            "
+                          />
+                          <div class="linking-icon">
+                            <i
+                              class="fa-solid fa-magnifying-glass-plus"
+                              style="cursor: pointer"
+                              (click)="
+                                openDialog(businessFormDetails?.image, $index)
+                              "
+                            ></i>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                }
               </div>
-            }
-            @if (businessFormDetails?.image) {
-              <div class="row my-4" id="photo">
-                <div class="col-12 col-md-12 col-lg-12">
-                  <h3 class="event-page-headings">
+            </div>
+          }
+          <div class="col-12" id="videoss">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="d-flex">
+                <div>
+                  <h3 class="event-page-heading">
                     <i
                       class="fa fa-picture-o"
                       aria-hidden="true"
                       style="font-size: 24px"
                     ></i>
-                    Photo(s)
+                    Video
                   </h3>
-                  <hr />
-                  @if (businessFormDetails?.featured_image) {
-                    <div class="image-container">
+                </div>
+                <div class="ms-auto">
+                  <button
+                    class="btn orange-background-btn"
+                    (click)="addVideo()"
+                  >
+                    Add new video
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div class="row tabs-wrapper">
+                <div class="tabsvideo">
+                  <p
+                    (click)="onTabClick('all')"
+                    [ngClass]="{ 'active-tab': videoTab == 'all' }"
+                  >
+                    All
+                  </p>
+                  <p
+                    (click)="onTabClick('promotional_videos')"
+                    [ngClass]="{
+                      'active-tab': videoTab == 'promotional_videos'
+                    }"
+                  >
+                    Promotional
+                  </p>
+                  <p
+                    (click)="onTabClick('testimonial')"
+                    [ngClass]="{ 'active-tab': videoTab == 'testimonial' }"
+                  >
+                    Testimonials
+                  </p>
+                  <p
+                    (click)="onTabClick('tutorials')"
+                    [ngClass]="{ 'active-tab': videoTab == 'tutorials' }"
+                  >
+                    Tutorials
+                  </p>
+                </div>
+              </div>
+
+              <div class="main_images">
+                @if (videosTypeArr.length) {
+                  @for (item of videosTypeArr; track $index) {
+                    @if (item?.thumbnail_image) {
                       <div
-                        class="featured_image mt-2"
-                        *ngFor="
-                          let key of businessFormDetails?.featured_image;
-                          let i = index
+                        class="featured_image"
+                        style="
+                          display: flex;
+                          gap: 1rem;
+                          align-items: center;
+                          width: 280px !important;
                         "
                       >
                         <img
-                          [src]="
-                            key ? key : '/assets/image/carrer-professional.jpeg'
-                          "
-                          (click)="openDialog(businessFormDetails?.featured_image, i)"
+                          *ngIf="!isVideoTypeLoading"
+                          [src]="item.thumbnail_image"
+                          style="cursor: pointer"
+                          (click)="playVideo(item, $index)"
                         />
-                        <div class="linking-icon">
-                          <i
-                            class="fa-solid fa-magnifying-glass-plus"
-                            style="cursor: pointer"
-                            (click)="openDialog(businessFormDetails?.featured_image, i)"
-                          ></i>
+
+                        <img
+                          *ngIf="isVideoTypeLoading"
+                          src="/assets/image/blank-white-img.jpeg"
+                        />
+
+                        <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
+                          <div>
+                            <span (click)="editVideo(item, $index)"
+                              ><i class="fas fa-edit" style="color: orange"></i
+                            ></span>
+                          </div>
+                          <div class="mx-2">
+                            <span
+                              class="delete-icon"
+                              (click)="deleteVideo(item.video_id)"
+                              ><i class="fas fa-trash-alt"></i
+                            ></span>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  } @else {
-                    @if (businessFormDetails?.image?.includes('')) {
-                      <div class="no-photos-wrapper">
-                        <p class="no-photo">No photos...</p>
                       </div>
                     } @else {
-                      <div class="image-container">
-                        @for (img of businessFormDetails?.image; track $index) {
-                          <div class="featured_image mt-2">
-                            <img
-                              [src]="img"
-                              alt="business-img"
-                              (click)="openDialog(businessFormDetails?.image, $index)"
-                            />
-                            <div class="linking-icon">
-                              <i
-                                class="fa-solid fa-magnifying-glass-plus"
-                                style="cursor: pointer"
-                                (click)="openDialog(businessFormDetails?.image, $index)"
-                              ></i>
-                            </div>
-                          </div>
-                        }
+                      <div
+                        class="featured_image"
+                        style="display: flex; width: 280px"
+                      >
+                        <video style="object-fit: cover; width: 280px" controls>
+                          <source [src]="item?.video_url" />
+                        </video>
                       </div>
                     }
                   }
-                </div>
-              </div>
-            }
-            <div class="col-12" id="videoss">
-              <div class="col-12 col-md-12 col-lg-12">
-                <div class="d-flex">
-                  <div>
-                    <h3 class="event-page-heading">
-                      <i
-                        class="fa fa-picture-o"
-                        aria-hidden="true"
-                        style="font-size: 24px"
-                      ></i>
-                      Video
-                    </h3>
-                  </div>
-                  <div class="ms-auto">
-                    <button class="btn orange-background-btn" (click)="addVideo()">
-                      Add new video
-                    </button>
-                  </div>
-                </div>
-                <hr />
-                <div class="row tabs-wrapper">
-                  <div class="tabsvideo">
-                    <p
-                      (click)="onTabClick('all')"
-                      [ngClass]="{ 'active-tab': videoTab == 'all' }"
-                    >
-                      All
-                    </p>
-                    <p
-                      (click)="onTabClick('promotional_videos')"
-                      [ngClass]="{ 'active-tab': videoTab == 'promotional_videos' }"
-                    >
-                      Promotional
-                    </p>
-                    <p
-                      (click)="onTabClick('testimonial')"
-                      [ngClass]="{ 'active-tab': videoTab == 'testimonial' }"
-                    >
-                      Testimonials
-                    </p>
-                    <p
-                      (click)="onTabClick('tutorials')"
-                      [ngClass]="{ 'active-tab': videoTab == 'tutorials' }"
-                    >
-                      Tutorials
-                    </p>
-                  </div>
-                </div>
-    
-                <div class="main_images">
-                  @if (videosTypeArr.length) {
-                    @for (item of videosTypeArr; track $index) {
-                      @if (item?.thumbnail_image) {
-                        <div
-                          class="featured_image"
-                          style="
-                            display: flex;
-                            gap: 1rem;
-                            align-items: center;
-                            width: 280px !important;
-                          "
-                        >
-                          <img
-                            *ngIf="!isVideoTypeLoading"
-                            [src]="item.thumbnail_image"
-                            style="cursor: pointer;"
-                            (click)="playVideo(item, $index)"
-                          />
-    
-                          <img
-                            *ngIf="isVideoTypeLoading"
-                            src="/assets/image/blank-white-img.jpeg"
-                          />
-    
-                          <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
-                            <div>
-                              <span (click)="editVideo(item, $index)"
-                                ><i class="fas fa-edit" style="color: orange"></i
-                              ></span>
-                            </div>
-                            <div class="mx-2">
-                              <span
-                                class="delete-icon"
-                                (click)="deleteVideo(item.video_id)"
-                                ><i class="fas fa-trash-alt"></i
-                              ></span>
-                            </div>
-                          </div>
-                        </div>
-                      } @else {
-                        <div
-                          class="featured_image"
-                          style="display: flex; width: 280px"
-                        >
-                          <video
-                            style=" object-fit: cover; width: 280px"
-                            controls
-                          >
-                            <source [src]="item?.video_url" />
-                          </video>
-                        </div>
-                      }
-                    }
-                  } @else {
-                    <span> No Data Found </span>
-                  }
-                </div>
+                } @else {
+                  <span> No Data Found </span>
+                }
               </div>
             </div>
-            @if (eventDetails) {
-              <h3 style="color: black" class="event-heading mt-4 ">Event Detail</h3>
-              <hr>
-              <div class="event-wrapper mt-4"  >
-                <div class="listing-img" (click)="gotToEventDetails(eventDetails, true)"
-                  [style.background-image]="'url(' + (eventDetails.featured_image ? eventDetails.featured_image : '/assets/image/no-image.webp') + ')'">
-                  <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
+          </div>
+          @if (eventDetails) {
+            <h3 style="color: black" class="event-heading mt-4">
+              Event Detail
+            </h3>
+            <hr />
+            <div class="event-wrapper mt-4">
+              <div
+                class="listing-img"
+                (click)="gotToEventDetails(eventDetails, true)"
+                [style.background-image]="
+                  'url(' +
+                  (eventDetails.featured_image
+                    ? eventDetails.featured_image
+                    : '/assets/image/no-image.webp') +
+                  ')'
+                "
+              >
+                <!-- @if (key && key.featured_image && key.featured_image.length > 0) {
                   <img [src]="key.featured_image[0]" (click)="gotToEventDetails(key.post_id, true)" />
                   } @else {
                   <img src="/assets/image/No-image-found.jpeg" alt="no-image" />
                   } -->
-    
+              </div>
+              <div class="listing-description">
+                <div class="listing-heading">
+                  <h3
+                    (click)="gotToEventDetails(eventDetails, true)"
+                    [innerHtml]="eventDetails?.post_title | truncateHtml: 84"
+                  >
+                    <!-- {{ eventDetails.post_title }} -->
+                  </h3>
                 </div>
-                <div class="listing-description">
-                  <div class="listing-heading">
-                    <h3 (click)="gotToEventDetails(eventDetails, true)" [innerHtml]="eventDetails?.post_title | truncateHtml:84">
-                      <!-- {{ eventDetails.post_title }} -->
-                    </h3>
-                  </div>
-                  <div class="listing-info">
-                    <li class="post-content"  [innerHtml]="eventDetails?.post_content | truncateHtml:84"></li>
-                    @if (eventDetails?.event_dates?.start_date||eventDetails?.event_dates?.end_date) {
-
-                      <li style="padding-bottom: 5px;">
-                        <i class="fa fa-calendar-o" aria-hidden="true"></i>
-                        {{ eventDetails?.event_dates?.start_date | date: 'longDate' ||'' }} - {{eventDetails?.event_dates?.end_date | date:
-                      'longDate'||''}}
+                <div class="listing-info">
+                  <li
+                    class="post-content"
+                    [innerHtml]="eventDetails?.post_content | truncateHtml: 84"
+                  ></li>
+                  @if (
+                    eventDetails?.event_dates?.start_date ||
+                    eventDetails?.event_dates?.end_date
+                  ) {
+                    <li style="padding-bottom: 5px">
+                      <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                      {{
+                        eventDetails?.event_dates?.start_date
+                          | date: 'longDate' || ''
+                      }}
+                      -
+                      {{
+                        eventDetails?.event_dates?.end_date
+                          | date: 'longDate' || ''
+                      }}
                       <!-- {{formatDate(key?.event_dates?.start_time)}} -
                         {{formatDate( key?.event_dates?.end_time)}} -->
-                      </li>
-                    }
-                    @if (eventDetails?.event_dates?.start_time||eventDetails?.event_dates?.end_time ) {
-                      <li>
-                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                        Starts From: {{eventDetails?.event_dates?.start_time || ''}} -
-                        Ends: {{eventDetails?.event_dates?.end_time ||''}}
-                      </li>
-                    }
-                  </div>
+                    </li>
+                  }
+                  @if (
+                    eventDetails?.event_dates?.start_time ||
+                    eventDetails?.event_dates?.end_time
+                  ) {
+                    <li>
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
+                      Starts From:
+                      {{ eventDetails?.event_dates?.start_time || '' }} - Ends:
+                      {{ eventDetails?.event_dates?.end_time || '' }}
+                    </li>
+                  }
                 </div>
               </div>
-              <!-- <div class="profile-info-divs mt-4" id="event-promo">
+            </div>
+            <!-- <div class="profile-info-divs mt-4" id="event-promo">
                 <h3 style="color: black" class="event-heading">Event Detail</h3>
                 <div class="info-cont">
                   <div class="event-venuee" *ngIf="businessFormDetails?.street">
@@ -673,521 +765,96 @@
                   }
                 </div>
               </div> -->
-            }
-            <div class="row my-4" id="mapView">
-              <div class="col-12 col-md-12 col-lg-12">
-                <h3 class="event-page-headings">
-                  <i
-                    class="fa fa-globe"
-                    aria-hidden="true"
-                    style="font-size: 24px"
-                  ></i>
-                  &nbsp;Map
-                </h3>
-                <hr />
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-12 col-lg-12 mt-3">
-                <div id="map" style="height: 300px; width: 100%"></div>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-12 col-lg-12">
-                <div class="d-flex">
-                  <div class="flex-grow-1 position-relative">
-                    <AutocompleteComponent
-                      class="direction-field"
-                      (setAddress)="getAddress($event)"
-                      adressType="geocode"
-                      [value]="directionStreet"
-                    >
-                    </AutocompleteComponent>
-                    <div class="location-icon">
-                      <i
-                        class="fa-solid fa-location-arrow"
-                        (click)="getCurrentLocation()"
-                        style="cursor: pointer"
-                      ></i>
-                    </div>
-                  </div>
-                  <div class="">
-                    <button class="btn get-direction-btn" (click)="getDistance()">
-                      Get Directions
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row mt-3" *ngIf="distanceToEvent">
-              <div class="col-12 col-lg-12">
-                <label style="color: black" for="">Distance (Km)</label>
-                <p style="font-weight: 500; font-size: 18px; color: black">
-                  {{ distanceToEvent }} Km in {{ timeEstimate }}
-                </p>
-              </div>
-            </div>
-            @if (businessFormDetails?.faq) {
-              <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
-                <h3 class="event-page-headings">
-                  <i
-                    class="fa fa-quetion"
-                    aria-hidden="true"
-                    style="font-size: 24px"
-                  ></i>
-                  FAQ
-                </h3>
-                <hr />
-                <p>{{ businessFormDetails?.faq }}</p>
-              </div>
-            }
-  
-            @if (businessFormDetails?.upload_certificates) {
-              <div class="row mt-2 pt-4" id="certificate">
-                <div>
-                  <h3 class="event-page-headings">
-                    <i
-                      class="fa fa-file"
-                      aria-hidden="true"
-                      style="font-size: 24px"
-                    ></i>
-                    Certificate
-                  </h3>
-                  <hr />
-                  <div class="image-container">
-                    <div class="featured_image mt-2">
-                      <img
-                        [src]="businessFormDetails?.upload_certificates"
-                        (click)="
-                          openDialog([businessFormDetails?.upload_certificates], 0)
-                        "
-                      />
-                      <div class="linking-icon">
-                        <i
-                          class="fa-solid fa-magnifying-glass-plus"
-                          style="cursor: pointer"
-                          (click)="
-                            openDialog([businessFormDetails?.upload_certificates], 0)
-                          "
-                        ></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-
-          </div>
-         
-        </div>
-      </div>
-    </section>
-  }
-@else if(!isLoading){
-  <section class="banner" style="position: relative;flex-direction: column;">
-    <div class="content d-flex flex-column justify-content-center  " style="width: 100%;height: 90%;">
-    <h1 style="text-transform: uppercase">
-      {{ businessFormDetails?.post_title }}
-    </h1>
-    <div class="elementor-divider">
-      <span class="elementor-divider-separator"> </span>
-    </div>
-  </div>
-  <div class="iconDirection mt-3 d-flex justify-content-center justify-content-md-end position-static me-md-5 mb-2 m-0" style='width: 90%;height: 15%; overflow: scroll; z-index: 1; ' >
-    @if(businessFormDetails?.whatsapp){
-    <span class="elementor-grid-item" style="background: rgb(0, 154, 0)">
-      <a
-        href="{{ businessFormDetails?.whatsapp }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-whatsapp size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.whatsapp){
-    <span class="elementor-grid-item" style="background: red">
-      <a
-        href="{{ businessFormDetails?.youtube }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-      <i class="fa-brands fa-youtube"  aria-hidden="true"  style="font-size: 18px; color: #fff"></i></a>
-    </span>
-    }
-      @if(businessFormDetails?.facebook){
-    <span class="elementor-grid-item" style="background: #3b5998">
-      <a
-        href="{{ businessFormDetails?.facebook }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-facebook-f size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.pinterest){
-    <span class="elementor-grid-item" style="background: red">
-      <a
-        href="{{ businessFormDetails?.pinterest }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-pinterest size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.tiktok){
-    <span class="elementor-grid-item" style="background: rgb(16, 1, 1)">
-      <a
-        href="{{ businessFormDetails?.tiktok }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-      <i class="fa-brands fa-tiktok size_icon" style="font-size: 18px; color: #fff"></i>
-
-    </a>
-    </span>
-  }
-  @if(businessFormDetails?.linkedin){
-    <span class="elementor-grid-item" style="background: rgb(63, 63, 255)">
-      <a
-        href="{{ businessFormDetails?.linkedin }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-linkedin size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.snapchat){
-    <span class="elementor-grid-item" style="background: rgb(213, 161, 4)">
-      <a
-        href="{{ businessFormDetails?.snapchat }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-snapchat size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.reddit){
-    <span class="elementor-grid-item" style="background: rgb(213, 49, 4)">
-      <a
-        href="{{ businessFormDetails?.reddit }}"
-        style="padding: 3px"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-reddit-square size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.twitter){
-    <span class="elementor-grid-item" style="background: #1da1f2">
-      <a
-        href="{{ businessFormDetails?.twitter }}"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-twitter size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.website){
-    <span class="elementor-grid-item size_icon" style="background: #818a91">
-      <a
-        href="{{ businessFormDetails?.website }}"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa fa-link"
-          aria-hidden="true"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-  @if(businessFormDetails?.instagram){
-    <span class="elementor-grid-item">
-      <a
-        [href]="businessFormDetails?.instagram"
-        class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
-        target="_blank"
-      >
-        <i
-          class="fa-brands fa-instagram size_icon"
-          aria-hidden="true"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-  }
-
-    <span class="elementor-grid-item" style="background: #0073a4">
-      <a
-        class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
-        href="https://maps.google.com/?daddr=28.5383832,-81.3789269"
-        target="_blank"
-      >
-        <i
-          class="fas fa-directions size_icon"
-          style="font-size: 18px; color: #fff"
-        ></i
-      ></a>
-    </span>
-
-  </div>
-</section>
-
-<div class="koko">
-  <div class="section-container">
-    <ul class="list-items">
-      <li
-        (click)="scrollTo('profile')"
-        [class.actives]="activeTab === 'profile'"
-      >
-        <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
-        Information
-      </li>
-      <li
-        *ngIf="
-          businessFormDetails?.owner_name ||
-          businessFormDetails?.business_historybackground ||
-          businessFormDetails?.mission__vision
-        "
-        (click)="scrollTo('bio')"
-        [class.active]="activeTab === 'bio'"
-      >
-        <span> <i class="fa fa-user" aria-hidden="true"></i></span>
-        Business Bio
-      </li>
-      <li
-        *ngIf="
-          businessFormDetails?.consultation_booking_link ||
-          businessFormDetails?.consultation_mode ||
-          businessFormDetails?.consultation_description
-        "
-        (click)="scrollTo('booking')"
-        [class.active]="activeTab === 'booking'"
-      >
-        <span>
-          <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
-        ></span>
-        Booking & Consultation
-      </li>
-      <li
-        *ngIf="businessFormDetails?.image"
-        (click)="scrollTo('photo')"
-        [class.active]="activeTab === 'photo'"
-      >
-        <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span>
-        Photos
-      </li>
-      <li
-        (click)="scrollTo('videoss')"
-        [class.active]="activeTab === 'videoss'"
-      >
-        <span> <i class="fa fa-video" aria-hidden="true"></i></span>
-        Videos
-      </li>
-      <li
-        *ngIf="eventDetails"
-        (click)="scrollTo('event-promo')"
-        [class.active]="activeTab === 'event-promo'"
-      >
-        <span> <i class="fa-solid fa-microphone"></i> </span>
-        Event & Promotions
-      </li>
-      <li
-        (click)="scrollTo('mapView')"
-        [class.active]="activeTab === 'mapView'"
-      >
-        <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
-      </li>
-      <li
-        *ngIf="businessFormDetails?.faq"
-        (click)="scrollTo('faq')"
-        [class.active]="activeTab === 'faq'"
-      >
-        <span> <i class="fa fa-" aria-hidden="true"></i> </span> FAQ
-      </li>
-      <li
-        *ngIf="businessFormDetails?.upload_certificates"
-        (click)="scrollTo('certificate')"
-        [class.active]="activeTab === 'certificate'"
-      >
-        <span> <i class="fa fa-" aria-hidden="true"></i> </span> Certifications
-      </li>
-    </ul>
-  </div>
-</div>
-<section class="background_section">
-  <div class="container">
-    <div class="row mt-2 pt-4" id="profile">
-      <div class="col-12 col-md-12 col-lg-8">
-        <h3 class="event-page-headings">
-          <i class="fa fa-home" aria-hidden="true" style="font-size: 24px"></i>
-          Description
-        </h3>
-        <hr />
-        <p class='text-break' [innerHTML]="businessFormDetails?.post_content"  >{{ businessFormDetails?.post_content}}</p>
-
-        <div class="sub-heading">
-          <h3 class="event-page-headings">
-            <i aria-hidden="true" style="font-size: 24px"></i>
-            Category
-          </h3>
-          <p *ngFor="let category of businessFormDetails?.post_category">
-            {{ category?.name }}
-          </p>
-          <h3 class="event-page-headings">
-            <i aria-hidden="true" style="font-size: 24px"></i>
-            Default Category
-          </h3>
-          <p>{{ businessFormDetails?.default_category?.name }}</p>
-          <h3 class="event-page-headings">
-            <i aria-hidden="true" style="font-size: 24px"></i>
-            Tags
-          </h3>
-        </div>
-        <div class="tag-container">
-          <p
-            *ngFor="let tags of businessFormDetails?.post_tags"
-            class="tag-creation"
-          >
-            {{ tags?.name }}
-          </p>
-        </div>
-        @if (
-          businessFormDetails?.owner_name ||
-          businessFormDetails?.business_historybackground ||
-          businessFormDetails?.mission__vision
-        ) {
-          <div
-            class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
-            id="bio"
-          >
-            <h3 class="headingg">
-              <i class="fa fa-user" aria-hidden="true"></i>
-              Business Bio
-            </h3>
-            <hr class="hr" />
-
-            <div class="contentt">
-              <h3 class="event-page-headings">Owner / Manager Name</h3>
-              <p>{{ businessFormDetails?.owner_name }}</p>
-            </div>
-
-            <div class="contentt">
-              <h3 class="event-page-headings">Business History / Background</h3>
-              <p>{{ businessFormDetails?.business_historybackground }}</p>
-            </div>
-
-            <div class="contentt">
-              <h3 class="event-page-headings">Mission & Vission</h3>
-              <p>{{ businessFormDetails?.mission__vision }}</p>
-            </div>
-          </div>
-        }
-        @if (
-          businessFormDetails?.consultation_booking_link ||
-          businessFormDetails?.consultation_mode ||
-          businessFormDetails?.consultation_description
-        ) {
-          <div
-            class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
-            id="booking"
-          >
-            <h3 class="headingg">
-              <i class="fa-solid fa-bag-shopping"></i>
-              Booking & Consultation
-            </h3>
-            <hr class="hr" />
-
-            <div class="contentt">
-              <h3 class="event-page-headings">Consultation Booking Link</h3>
-              <p>
-                <a
-                  [href]="businessFormDetails?.consultation_booking_link"
-                  target="_blank"
-                  style="
-                    color: #38ccff;
-                    font-size: 14px;
-                    font-weight: 500;
-                    text-decoration: none;
-                  "
-                >
-                  {{ businessFormDetails?.consultation_booking_link }}</a
-                >
-              </p>
-            </div>
-            <div class="contentt">
-              <h3 class="event-page-headings">Consultation Mode</h3>
-              <p>{{ businessFormDetails?.consultation_mode }}</p>
-            </div>
-            <div class="contentt">
-              <h3 class="event-page-headings">Consultation Description</h3>
-              <p>{{ businessFormDetails?.consultation_description }}</p>
-            </div>
-          </div>
-        }
-        @if (businessFormDetails?.image) {
-          <div class="row my-4" id="photo">
+          }
+          <div class="row my-4" id="mapView">
             <div class="col-12 col-md-12 col-lg-12">
               <h3 class="event-page-headings">
                 <i
-                  class="fa fa-picture-o"
+                  class="fa fa-globe"
                   aria-hidden="true"
                   style="font-size: 24px"
                 ></i>
-                Photo(s)
+                &nbsp;Map
               </h3>
               <hr />
-              @if (businessFormDetails?.featured_image) {
-                <div class="image-container">
-                  <div
-                    class="featured_image mt-2"
-                    *ngFor="
-                      let key of businessFormDetails?.featured_image;
-                      let i = index
-                    "
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12 mt-3">
+              <div id="map" style="height: 300px; width: 100%"></div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12">
+              <div class="d-flex">
+                <div class="flex-grow-1 position-relative">
+                  <AutocompleteComponent
+                    class="direction-field"
+                    (setAddress)="getAddress($event)"
+                    adressType="geocode"
+                    [value]="directionStreet"
                   >
+                  </AutocompleteComponent>
+                  <div class="location-icon">
+                    <i
+                      class="fa-solid fa-location-arrow"
+                      (click)="getCurrentLocation()"
+                      style="cursor: pointer"
+                    ></i>
+                  </div>
+                </div>
+                <div class="">
+                  <button class="btn get-direction-btn" (click)="getDistance()">
+                    Get Directions
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="distanceToEvent">
+            <div class="col-12 col-lg-12">
+              <label style="color: black" for="">Distance (Km)</label>
+              <p style="font-weight: 500; font-size: 18px; color: black">
+                {{ distanceToEvent }} Km in {{ timeEstimate }}
+              </p>
+            </div>
+          </div>
+          @if (businessFormDetails?.faq) {
+            <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
+              <h3 class="event-page-headings">
+                <i
+                  class="fa fa-quetion"
+                  aria-hidden="true"
+                  style="font-size: 24px"
+                ></i>
+                FAQ
+              </h3>
+              <hr />
+              <p>{{ businessFormDetails?.faq }}</p>
+            </div>
+          }
+
+          @if (businessFormDetails?.upload_certificates) {
+            <div class="row mt-2 pt-4" id="certificate">
+              <div>
+                <h3 class="event-page-headings">
+                  <i
+                    class="fa fa-file"
+                    aria-hidden="true"
+                    style="font-size: 24px"
+                  ></i>
+                  Certificate
+                </h3>
+                <hr />
+                <div class="image-container">
+                  <div class="featured_image mt-2">
                     <img
-                      [src]="
-                        key ? key : '/assets/image/carrer-professional.jpeg'
-                      "
+                      [src]="businessFormDetails?.upload_certificates"
                       (click)="
-                        openDialog(businessFormDetails?.featured_image, i)
+                        openDialog(
+                          [businessFormDetails?.upload_certificates],
+                          0
+                        )
                       "
                     />
                     <div class="linking-icon">
@@ -1195,217 +862,630 @@
                         class="fa-solid fa-magnifying-glass-plus"
                         style="cursor: pointer"
                         (click)="
-                          openDialog(businessFormDetails?.featured_image, i)
+                          openDialog(
+                            [businessFormDetails?.upload_certificates],
+                            0
+                          )
                         "
                       ></i>
                     </div>
                   </div>
                 </div>
-              } @else {
-                @if (businessFormDetails?.image?.includes('')) {
-                  <div class="no-photos-wrapper">
-                    <p class="no-photo">No photos...</p>
-                  </div>
-                } @else {
-                  <div class="image-container">
-                    @for (img of businessFormDetails?.image; track $index) {
-                      <div class="featured_image mt-2">
-                        <img
-                          [src]="img"
-                          alt="business-img"
-                          (click)="
-                            openDialog(businessFormDetails?.image, $index)
-                          "
-                        />
-                        <div class="linking-icon">
-                          <i
-                            class="fa-solid fa-magnifying-glass-plus"
-                            style="cursor: pointer"
-                            (click)="
-                              openDialog(businessFormDetails?.image, $index)
-                            "
-                          ></i>
-                        </div>
-                      </div>
-                    }
-                  </div>
-                }
-              }
+              </div>
             </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+} @else if (!isLoading) {
+  <section class="banner" style="position: relative; flex-direction: column">
+    <div
+      class="content d-flex flex-column justify-content-center"
+      style="width: 100%; height: 90%"
+    >
+      <h1 style="text-transform: uppercase">
+        {{ businessFormDetails?.post_title }}
+      </h1>
+      <div class="elementor-divider">
+        <span class="elementor-divider-separator"> </span>
+      </div>
+    </div>
+    <div
+      class="iconDirection mt-3 d-flex justify-content-center justify-content-md-end position-static me-md-5 mb-2 m-0"
+      style="width: 90%; height: 15%; overflow: scroll; z-index: 1"
+    >
+      @if (businessFormDetails?.whatsapp) {
+        <span
+          class="elementor-grid-item"
+          style="background: rgb(0, 154, 0)"
+          (click)="openSocialLink(businessFormDetails?.whatsapp)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-whatsapp size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.youtube) {
+        <span
+          class="elementor-grid-item"
+          style="background: red"
+          (click)="openSocialLink(businessFormDetails?.youtube)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-youtube"
+              aria-hidden="true"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.facebook) {
+        <span class="elementor-grid-item" style="background: #3b5998"
+        (click)="openSocialLink(businessFormDetails?.facebook)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-facebook-f size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.pinterest) {
+        <span class="elementor-grid-item" style="background: red"
+        (click)="openSocialLink(businessFormDetails?.pinterest)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-pinterest size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.tiktok) {
+        <span class="elementor-grid-item" style="background: rgb(16, 1, 1)"
+        (click)="openSocialLink(businessFormDetails?.tiktok)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-tiktok size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i>
+          </a>
+        </span>
+      }
+      @if (businessFormDetails?.linkedin) {
+        <span class="elementor-grid-item" style="background: rgb(63, 63, 255)"
+        (click)="openSocialLink(businessFormDetails?.linkedin)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-linkedin size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.snapchat) {
+        <span class="elementor-grid-item" style="background: rgb(213, 161, 4)"
+        (click)="openSocialLink(businessFormDetails?.snapchat)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-snapchat size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.reddit) {
+        <span class="elementor-grid-item" style="background: rgb(213, 49, 4)"
+        (click)="openSocialLink(businessFormDetails?.reddit)"
+        >
+          <a
+            style="padding: 3px"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-reddit-square size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.twitter) {
+        <span class="elementor-grid-item" style="background: #1da1f2"
+        (click)="openSocialLink(businessFormDetails?.twitter)"
+        >
+          <a
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-twitter size_icon"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.website) {
+        <span class="elementor-grid-item size_icon" style="background: #818a91">
+          <a
+            href="{{ businessFormDetails?.website }}"
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa fa-link"
+              aria-hidden="true"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+      @if (businessFormDetails?.instagram) {
+        <span class="elementor-grid-item"
+        (click)="openSocialLink(businessFormDetails?.instagram)"
+        >
+          <a
+            class="elementor-icon elementor-social-icon elementor-social-icon-phone elementor-animation-grow elementor-repeater-item-f13ce3f"
+            target="_blank"
+          >
+            <i
+              class="fa-brands fa-instagram size_icon"
+              aria-hidden="true"
+              style="font-size: 18px; color: #fff"
+            ></i
+          ></a>
+        </span>
+      }
+
+      <span
+        class="elementor-grid-item"
+        style="background: #0073a4"
+        (click)="openGoogleMaps()"
+      >
+        <a
+          class="elementor-icon elementor-social-icon elementor-social-icon-directions elementor-animation-grow elementor-repeater-item-098766c"
+          target="_blank"
+        >
+          <i
+            class="fas fa-directions size_icon"
+            style="font-size: 18px; color: #fff"
+          ></i
+        ></a>
+      </span>
+    </div>
+  </section>
+
+  <div class="koko">
+    <div class="section-container">
+      <ul class="list-items">
+        <li
+          (click)="scrollTo('profile')"
+          [class.actives]="activeTab === 'profile'"
+        >
+          <span> <i class="fa fa-home" aria-hidden="true"></i> </span> Business
+          Information
+        </li>
+        <li
+          *ngIf="
+            businessFormDetails?.owner_name ||
+            businessFormDetails?.business_historybackground ||
+            businessFormDetails?.mission__vision
+          "
+          (click)="scrollTo('bio')"
+          [class.active]="activeTab === 'bio'"
+        >
+          <span> <i class="fa fa-user" aria-hidden="true"></i></span>
+          Business Bio
+        </li>
+        <li
+          *ngIf="
+            businessFormDetails?.consultation_booking_link ||
+            businessFormDetails?.consultation_mode ||
+            businessFormDetails?.consultation_description
+          "
+          (click)="scrollTo('booking')"
+          [class.active]="activeTab === 'booking'"
+        >
+          <span>
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i
+          ></span>
+          Booking & Consultation
+        </li>
+        <li
+          *ngIf="businessFormDetails?.image"
+          (click)="scrollTo('photo')"
+          [class.active]="activeTab === 'photo'"
+        >
+          <span> <i class="fa fa-picture-o" aria-hidden="true"></i></span>
+          Photos
+        </li>
+        <li
+          (click)="scrollTo('videoss')"
+          [class.active]="activeTab === 'videoss'"
+        >
+          <span> <i class="fa fa-video" aria-hidden="true"></i></span>
+          Videos
+        </li>
+        <li
+          *ngIf="eventDetails"
+          (click)="scrollTo('event-promo')"
+          [class.active]="activeTab === 'event-promo'"
+        >
+          <span> <i class="fa-solid fa-microphone"></i> </span>
+          Event & Promotions
+        </li>
+        <li
+          (click)="scrollTo('mapView')"
+          [class.active]="activeTab === 'mapView'"
+        >
+          <span> <i class="fa fa-globe" aria-hidden="true"></i> </span> Map
+        </li>
+        <li
+          *ngIf="businessFormDetails?.faq"
+          (click)="scrollTo('faq')"
+          [class.active]="activeTab === 'faq'"
+        >
+          <span> <i class="fa fa-" aria-hidden="true"></i> </span> FAQ
+        </li>
+        <li
+          *ngIf="businessFormDetails?.upload_certificates"
+          (click)="scrollTo('certificate')"
+          [class.active]="activeTab === 'certificate'"
+        >
+          <span> <i class="fa fa-" aria-hidden="true"></i> </span>
+          Certifications
+        </li>
+      </ul>
+    </div>
+  </div>
+  <section class="background_section">
+    <div class="container">
+      <div class="row mt-2 pt-4" id="profile">
+        <div class="col-12 col-md-12 col-lg-8">
+          <h3 class="event-page-headings">
+            <i
+              class="fa fa-home"
+              aria-hidden="true"
+              style="font-size: 24px"
+            ></i>
+            Description
+          </h3>
+          <hr />
+          <p class="text-break" [innerHTML]="businessFormDetails?.post_content">
+            {{ businessFormDetails?.post_content }}
+          </p>
+
+          <div class="sub-heading">
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Category
+            </h3>
+            <p *ngFor="let category of businessFormDetails?.post_category">
+              {{ category?.name }}
+            </p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Default Category
+            </h3>
+            <p>{{ businessFormDetails?.default_category?.name }}</p>
+            <h3 class="event-page-headings">
+              <i aria-hidden="true" style="font-size: 24px"></i>
+              Tags
+            </h3>
           </div>
-        }
-        <div class="col-12" id="videoss">
-          <div class="col-12 col-md-12 col-lg-12">
-            <div class="d-flex">
-              <div>
-                <h3 class="event-page-heading">
+          <div class="tag-container">
+            <p
+              *ngFor="let tags of businessFormDetails?.post_tags"
+              class="tag-creation"
+            >
+              {{ tags?.name }}
+            </p>
+          </div>
+          @if (
+            businessFormDetails?.owner_name ||
+            businessFormDetails?.business_historybackground ||
+            businessFormDetails?.mission__vision
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 profile-info-divs"
+              id="bio"
+            >
+              <h3 class="headingg">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Business Bio
+              </h3>
+              <hr class="hr" />
+
+              <div class="contentt">
+                <h3 class="event-page-headings">Owner / Manager Name</h3>
+                <p>{{ businessFormDetails?.owner_name }}</p>
+              </div>
+
+              <div class="contentt">
+                <h3 class="event-page-headings">
+                  Business History / Background
+                </h3>
+                <p>{{ businessFormDetails?.business_historybackground }}</p>
+              </div>
+
+              <div class="contentt">
+                <h3 class="event-page-headings">Mission & Vission</h3>
+                <p>{{ businessFormDetails?.mission__vision }}</p>
+              </div>
+            </div>
+          }
+          @if (
+            businessFormDetails?.consultation_booking_link ||
+            businessFormDetails?.consultation_mode ||
+            businessFormDetails?.consultation_description
+          ) {
+            <div
+              class="col-12 col-md-12 col-lg-12 mt-4 d-flex flex-column profile-info-divs position-relative pt-0"
+              id="booking"
+            >
+              <h3 class="headingg">
+                <i class="fa-solid fa-bag-shopping"></i>
+                Booking & Consultation
+              </h3>
+              <hr class="hr" />
+
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Booking Link</h3>
+                <p>
+                  <a
+                    [href]="businessFormDetails?.consultation_booking_link"
+                    target="_blank"
+                    style="
+                      color: #38ccff;
+                      font-size: 14px;
+                      font-weight: 500;
+                      text-decoration: none;
+                    "
+                  >
+                    {{ businessFormDetails?.consultation_booking_link }}</a
+                  >
+                </p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Mode</h3>
+                <p>{{ businessFormDetails?.consultation_mode }}</p>
+              </div>
+              <div class="contentt">
+                <h3 class="event-page-headings">Consultation Description</h3>
+                <p>{{ businessFormDetails?.consultation_description }}</p>
+              </div>
+            </div>
+          }
+          @if (businessFormDetails?.image) {
+            <div class="row my-4" id="photo">
+              <div class="col-12 col-md-12 col-lg-12">
+                <h3 class="event-page-headings">
                   <i
                     class="fa fa-picture-o"
                     aria-hidden="true"
                     style="font-size: 24px"
                   ></i>
-                  Video
+                  Photo(s)
                 </h3>
-              </div>
-              <div class="ms-auto">
-                <button class="btn orange-background-btn" (click)="addVideo()">
-                  Add new video
-                </button>
-              </div>
-            </div>
-            <hr />
-            <div class="row tabs-wrapper">
-              <div class="tabsvideo">
-                <p
-                  (click)="onTabClick('all')"
-                  [ngClass]="{ 'active-tab': videoTab == 'all' }"
-                >
-                  All
-                </p>
-                <p
-                  (click)="onTabClick('promotional_videos')"
-                  [ngClass]="{ 'active-tab': videoTab == 'promotional_videos' }"
-                >
-                  Promotional
-                </p>
-                <p
-                  (click)="onTabClick('testimonial')"
-                  [ngClass]="{ 'active-tab': videoTab == 'testimonial' }"
-                >
-                  Testimonials
-                </p>
-                <p
-                  (click)="onTabClick('tutorials')"
-                  [ngClass]="{ 'active-tab': videoTab == 'tutorials' }"
-                >
-                  Tutorials
-                </p>
-              </div>
-            </div>
-
-            <div class="main_images">
-              @if (videosTypeArr.length) {
-                @for (item of videosTypeArr; track $index) {
-                  @if (item?.thumbnail_image) {
+                <hr />
+                @if (businessFormDetails?.featured_image) {
+                  <div class="image-container">
                     <div
-                      class="featured_image"
-                      style="
-                        display: flex;
-                        gap: 1rem;
-                        align-items: center;
-                        width: 280px !important;
+                      class="featured_image mt-2"
+                      *ngFor="
+                        let key of businessFormDetails?.featured_image;
+                        let i = index
                       "
                     >
                       <img
-                        *ngIf="!isVideoTypeLoading"
-                        [src]="item.thumbnail_image"
-                        style="cursor: pointer;"
-                        (click)="playVideo(item, $index)"
+                        [src]="
+                          key ? key : '/assets/image/carrer-professional.jpeg'
+                        "
+                        (click)="
+                          openDialog(businessFormDetails?.featured_image, i)
+                        "
                       />
-
-                      <img
-                        *ngIf="isVideoTypeLoading"
-                        src="/assets/image/blank-white-img.jpeg"
-                      />
-
-                      <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
-                        <div>
-                          <span (click)="editVideo(item, $index)"
-                            ><i class="fas fa-edit" style="color: orange"></i
-                          ></span>
-                        </div>
-                        <div class="mx-2">
-                          <span
-                            class="delete-icon"
-                            (click)="deleteVideo(item.video_id)"
-                            ><i class="fas fa-trash-alt"></i
-                          ></span>
-                        </div>
+                      <div class="linking-icon">
+                        <i
+                          class="fa-solid fa-magnifying-glass-plus"
+                          style="cursor: pointer"
+                          (click)="
+                            openDialog(businessFormDetails?.featured_image, i)
+                          "
+                        ></i>
                       </div>
                     </div>
+                  </div>
+                } @else {
+                  @if (businessFormDetails?.image?.includes('')) {
+                    <div class="no-photos-wrapper">
+                      <p class="no-photo">No photos...</p>
+                    </div>
                   } @else {
-                    <div
-                      class="featured_image"
-                      style="display: flex; width: 280px"
-                    >
-                      <video
-                        style=" object-fit: cover; width: 280px"
-                        controls
-                      >
-                        <source [src]="item?.video_url" />
-                      </video>
+                    <div class="image-container">
+                      @for (img of businessFormDetails?.image; track $index) {
+                        <div class="featured_image mt-2">
+                          <img
+                            [src]="img"
+                            alt="business-img"
+                            (click)="
+                              openDialog(businessFormDetails?.image, $index)
+                            "
+                          />
+                          <div class="linking-icon">
+                            <i
+                              class="fa-solid fa-magnifying-glass-plus"
+                              style="cursor: pointer"
+                              (click)="
+                                openDialog(businessFormDetails?.image, $index)
+                              "
+                            ></i>
+                          </div>
+                        </div>
+                      }
                     </div>
                   }
                 }
-              } @else {
-                <span> No Data Found </span>
-              }
+              </div>
+            </div>
+          }
+          <div class="col-12" id="videoss">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="d-flex">
+                <div>
+                  <h3 class="event-page-heading">
+                    <i
+                      class="fa fa-picture-o"
+                      aria-hidden="true"
+                      style="font-size: 24px"
+                    ></i>
+                    Video
+                  </h3>
+                </div>
+                <div class="ms-auto">
+                  <button
+                    class="btn orange-background-btn"
+                    (click)="addVideo()"
+                  >
+                    Add new video
+                  </button>
+                </div>
+              </div>
+              <hr />
+              <div class="row tabs-wrapper">
+                <div class="tabsvideo">
+                  <p
+                    (click)="onTabClick('all')"
+                    [ngClass]="{ 'active-tab': videoTab == 'all' }"
+                  >
+                    All
+                  </p>
+                  <p
+                    (click)="onTabClick('promotional_videos')"
+                    [ngClass]="{
+                      'active-tab': videoTab == 'promotional_videos'
+                    }"
+                  >
+                    Promotional
+                  </p>
+                  <p
+                    (click)="onTabClick('testimonial')"
+                    [ngClass]="{ 'active-tab': videoTab == 'testimonial' }"
+                  >
+                    Testimonials
+                  </p>
+                  <p
+                    (click)="onTabClick('tutorials')"
+                    [ngClass]="{ 'active-tab': videoTab == 'tutorials' }"
+                  >
+                    Tutorials
+                  </p>
+                </div>
+              </div>
+
+              <div class="main_images">
+                @if (videosTypeArr.length) {
+                  @for (item of videosTypeArr; track $index) {
+                    @if (item?.thumbnail_image) {
+                      <div
+                        class="featured_image"
+                        style="
+                          display: flex;
+                          gap: 1rem;
+                          align-items: center;
+                          width: 280px !important;
+                        "
+                      >
+                        <img
+                          *ngIf="!isVideoTypeLoading"
+                          [src]="item.thumbnail_image"
+                          style="cursor: pointer"
+                          (click)="playVideo(item, $index)"
+                        />
+
+                        <img
+                          *ngIf="isVideoTypeLoading"
+                          src="/assets/image/blank-white-img.jpeg"
+                        />
+
+                        <div *ngIf="!item?.isEditHide" class="d-flex edit-icon">
+                          <div>
+                            <span (click)="editVideo(item, $index)"
+                              ><i class="fas fa-edit" style="color: orange"></i
+                            ></span>
+                          </div>
+                          <div class="mx-2">
+                            <span
+                              class="delete-icon"
+                              (click)="deleteVideo(item.video_id)"
+                              ><i class="fas fa-trash-alt"></i
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                    } @else {
+                      <div
+                        class="featured_image"
+                        style="display: flex; width: 280px"
+                      >
+                        <video style="object-fit: cover; width: 280px" controls>
+                          <source [src]="item?.video_url" />
+                        </video>
+                      </div>
+                    }
+                  }
+                } @else {
+                  <span> No Data Found </span>
+                }
+              </div>
             </div>
           </div>
-        </div>
-        @if (eventDetails) {
-          <div class="profile-info-divs mt-4" id="event-promo">
-            <h3 class="event-heading" style="color: black">Event Detail</h3>
-            <div class="info-cont">
-              <div class="event-venuee" *ngIf="businessFormDetails?.street">
-                <div class="icon">
-                  <i
-                    class="fa-solid fa-location-dot"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                </div>
-                <div class="info">
-                  {{ businessFormDetails?.street }}
-                </div>
-              </div>
-              <div
-                class="event-venuee"
-                *ngIf="eventDetails?.booking_start_date"
-              >
-                <div class="icon">
-                  <i
-                    class="fa-solid fa-calendar"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                </div>
-                <div class="info">
-                  {{ formatDate(eventDetails?.booking_start_date) }} &
-                  {{ formatDate(eventDetails?.booking_end_date) }}
-                </div>
-              </div>
-              <div
-                class="event-venuee"
-                *ngIf="eventDetails?.post_category?.name"
-              >
-                <div class="icon">
-                  <i
-                    class="fa-solid fa-layer-group"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                </div>
-                <div class="info">
-                  {{ eventDetails?.post_category?.name }}
-                </div>
-              </div>
-              <div
-                class="event-venuee"
-                *ngIf="eventDetails?.user_detail?.display_name"
-              >
-                <div class="icon">
-                  <i
-                    class="fa-solid fa-user"
-                    style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-                  ></i>
-                </div>
-                <div class="info">
-                  {{ eventDetails?.user_detail?.display_name }}
-                </div>
-              </div>
-              @if (eventDetails?.price) {
-                <div class="event-venuee">
+          @if (eventDetails) {
+            <div class="profile-info-divs mt-4" id="event-promo">
+              <h3 class="event-heading" style="color: black">Event Detail</h3>
+              <div class="info-cont">
+                <div class="event-venuee" *ngIf="businessFormDetails?.street">
                   <div class="icon">
                     <i
-                      class="fa-solid fa-dollar-sign"
+                      class="fa-solid fa-location-dot"
                       style="
                         font-size: 20px;
                         margin-right: 13px;
@@ -1414,157 +1494,243 @@
                     ></i>
                   </div>
                   <div class="info">
-                    {{ eventDetails?.price }}
+                    {{ businessFormDetails?.street }}
                   </div>
                 </div>
-              }
-            </div>
-          </div>
-        }
-        <div class="row my-4" id="mapView">
-          <div class="col-12 col-md-12 col-lg-12">
-            <h3 class="event-page-headings">
-              <i
-                class="fa fa-globe"
-                aria-hidden="true"
-                style="font-size: 24px"
-              ></i>
-              &nbsp;Map
-            </h3>
-            <hr />
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-12 col-lg-12 mt-3">
-            <div id="map" style="height: 300px; width: 100%"></div>
-          </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-12 col-lg-12">
-            <div class="d-flex">
-              <div class="flex-grow-1 position-relative">
-                <AutocompleteComponent
-                  class="direction-field"
-                  (setAddress)="getAddress($event)"
-                  adressType="geocode"
-                  [value]="directionStreet"
+                <div
+                  class="event-venuee"
+                  *ngIf="eventDetails?.booking_start_date"
                 >
-                </AutocompleteComponent>
-                <div class="location-icon">
-                  <i
-                    class="fa-solid fa-location-arrow"
-                    (click)="getCurrentLocation()"
-                    style="cursor: pointer"
-                  ></i>
+                  <div class="icon">
+                    <i
+                      class="fa-solid fa-calendar"
+                      style="
+                        font-size: 20px;
+                        margin-right: 13px;
+                        color: #7a7a7a;
+                      "
+                    ></i>
+                  </div>
+                  <div class="info">
+                    {{ formatDate(eventDetails?.booking_start_date) }} &
+                    {{ formatDate(eventDetails?.booking_end_date) }}
+                  </div>
                 </div>
-              </div>
-              <div class="">
-                <button class="btn get-direction-btn" (click)="getDistance()">
-                  Get Directions
-                </button>
+                <div
+                  class="event-venuee"
+                  *ngIf="eventDetails?.post_category?.name"
+                >
+                  <div class="icon">
+                    <i
+                      class="fa-solid fa-layer-group"
+                      style="
+                        font-size: 20px;
+                        margin-right: 13px;
+                        color: #7a7a7a;
+                      "
+                    ></i>
+                  </div>
+                  <div class="info">
+                    {{ eventDetails?.post_category?.name }}
+                  </div>
+                </div>
+                <div
+                  class="event-venuee"
+                  *ngIf="eventDetails?.user_detail?.display_name"
+                >
+                  <div class="icon">
+                    <i
+                      class="fa-solid fa-user"
+                      style="
+                        font-size: 20px;
+                        margin-right: 13px;
+                        color: #7a7a7a;
+                      "
+                    ></i>
+                  </div>
+                  <div class="info">
+                    {{ eventDetails?.user_detail?.display_name }}
+                  </div>
+                </div>
+                @if (eventDetails?.price) {
+                  <div class="event-venuee">
+                    <div class="icon">
+                      <i
+                        class="fa-solid fa-dollar-sign"
+                        style="
+                          font-size: 20px;
+                          margin-right: 13px;
+                          color: #7a7a7a;
+                        "
+                      ></i>
+                    </div>
+                    <div class="info">
+                      {{ eventDetails?.price }}
+                    </div>
+                  </div>
+                }
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row mt-3" *ngIf="distanceToEvent">
-          <div class="col-12 col-lg-12">
-            <label style="color: black" for="">Distance (Km)</label>
-            <p style="font-weight: 500; font-size: 18px; color: black">
-              {{ distanceToEvent }} Km in {{ timeEstimate }}
-            </p>
-          </div>
-        </div>
-        @if (businessFormDetails?.faq) {
-          <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
-            <h3 class="event-page-headings">
-              <i
-                class="fa fa-quetion"
-                aria-hidden="true"
-                style="font-size: 24px"
-              ></i>
-              FAQ
-            </h3>
-            <hr />
-            <p>{{ businessFormDetails?.faq }}</p>
-          </div>
-        }
-
-        @if (businessFormDetails?.upload_certificates) {
-          <div class="row mt-2 pt-4" id="certificate">
-            <div>
+          }
+          <div class="row my-4" id="mapView">
+            <div class="col-12 col-md-12 col-lg-12">
               <h3 class="event-page-headings">
                 <i
-                  class="fa fa-file"
+                  class="fa fa-globe"
                   aria-hidden="true"
                   style="font-size: 24px"
                 ></i>
-                Certificate
+                &nbsp;Map
               </h3>
               <hr />
-              <div class="image-container">
-                <div class="featured_image mt-2">
-                  <img
-                    [src]="businessFormDetails?.upload_certificates"
-                    (click)="
-                      openDialog([businessFormDetails?.upload_certificates], 0)
-                    "
-                  />
-                  <div class="linking-icon">
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12 mt-3">
+              <div id="map" style="height: 300px; width: 100%"></div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 col-lg-12">
+              <div class="d-flex">
+                <div class="flex-grow-1 position-relative">
+                  <AutocompleteComponent
+                    class="direction-field"
+                    (setAddress)="getAddress($event)"
+                    adressType="geocode"
+                    [value]="directionStreet"
+                  >
+                  </AutocompleteComponent>
+                  <div class="location-icon">
                     <i
-                      class="fa-solid fa-magnifying-glass-plus"
+                      class="fa-solid fa-location-arrow"
+                      (click)="getCurrentLocation()"
                       style="cursor: pointer"
+                    ></i>
+                  </div>
+                </div>
+                <div class="">
+                  <button class="btn get-direction-btn" (click)="getDistance()">
+                    Get Directions
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="distanceToEvent">
+            <div class="col-12 col-lg-12">
+              <label style="color: black" for="">Distance (Km)</label>
+              <p style="font-weight: 500; font-size: 18px; color: black">
+                {{ distanceToEvent }} Km in {{ timeEstimate }}
+              </p>
+            </div>
+          </div>
+          @if (businessFormDetails?.faq) {
+            <div class="col-12 col-md-12 col-lg-8 mt-4" id="faq">
+              <h3 class="event-page-headings">
+                <i
+                  class="fa fa-quetion"
+                  aria-hidden="true"
+                  style="font-size: 24px"
+                ></i>
+                FAQ
+              </h3>
+              <hr />
+              <p>{{ businessFormDetails?.faq }}</p>
+            </div>
+          }
+
+          @if (businessFormDetails?.upload_certificates) {
+            <div class="row mt-2 pt-4" id="certificate">
+              <div>
+                <h3 class="event-page-headings">
+                  <i
+                    class="fa fa-file"
+                    aria-hidden="true"
+                    style="font-size: 24px"
+                  ></i>
+                  Certificate
+                </h3>
+                <hr />
+                <div class="image-container">
+                  <div class="featured_image mt-2">
+                    <img
+                      [src]="businessFormDetails?.upload_certificates"
                       (click)="
                         openDialog(
                           [businessFormDetails?.upload_certificates],
                           0
                         )
                       "
-                    ></i>
+                    />
+                    <div class="linking-icon">
+                      <i
+                        class="fa-solid fa-magnifying-glass-plus"
+                        style="cursor: pointer"
+                        (click)="
+                          openDialog(
+                            [businessFormDetails?.upload_certificates],
+                            0
+                          )
+                        "
+                      ></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        }
-      </div>
-      <div class="col-12 col-md-12 col-lg-4 mt-3">
-        <div class="profile-info-div mt-3 position-relative">
-          <h3>Contact Info</h3>
-          <div class="logo-containerr">
-            <img [src]="businessFormDetails?.logo" alt="" />
-          </div>
-          <div class="social-link">
-            <div class="location link" *ngIf="businessFormDetails?.street" (click)='openGoogleMapss(businessFormDetails?.street)' >
-              <i
-                class="fa-solid fa-location-dot"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <span>
-                {{ businessFormDetails?.street }}
-              </span>
+          }
+        </div>
+        <div class="col-12 col-md-12 col-lg-4 mt-3">
+          <div class="profile-info-div mt-3 position-relative">
+            <h3>Contact Info</h3>
+            <div class="logo-containerr">
+              <img [src]="businessFormDetails?.logo" alt="" />
             </div>
-            <div class="location link" *ngIf="businessFormDetails?.business_email" (click)='redirectToMail(businessFormDetails?.business_email)' >
-              <i
-                class="fa fa-envelope"
-                aria-hidden="true"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <span>
-                {{ businessFormDetails?.business_email }}
-              </span>
-            </div>
-            <div class="location link" *ngIf="businessFormDetails?.contact_phone" (click)='callNumber(businessFormDetails?.contact_phone)' >
-              <i
-                class="fa fa-phone"
-                aria-hidden="true"
-                style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
-              ></i>
-              <span>
-                {{ businessFormDetails?.contact_phone }}
-              </span>
-            </div>
+            <div class="social-link">
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.street"
+                (click)="openGoogleMapss(businessFormDetails?.street)"
+              >
+                <i
+                  class="fa-solid fa-location-dot"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ businessFormDetails?.street }}
+                </span>
+              </div>
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.business_email"
+                (click)="redirectToMail(businessFormDetails?.business_email)"
+              >
+                <i
+                  class="fa fa-envelope"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ businessFormDetails?.business_email }}
+                </span>
+              </div>
+              <div
+                class="location link"
+                *ngIf="businessFormDetails?.contact_phone"
+                (click)="callNumber(businessFormDetails?.contact_phone)"
+              >
+                <i
+                  class="fa fa-phone"
+                  aria-hidden="true"
+                  style="font-size: 20px; margin-right: 13px; color: #7a7a7a"
+                ></i>
+                <span>
+                  {{ businessFormDetails?.contact_phone }}
+                </span>
+              </div>
 
-            <!-- <div class="location">
+              <!-- <div class="location">
                 <i
                   class="fa fa-link"
                   aria-hidden="true"
@@ -1583,41 +1749,47 @@
                   {{ businessFormDetails?.website }}
                 </a>
               </div> -->
+            </div>
           </div>
-        </div>
-        @if (openingHour && openingHour.length) {
-          @if (openingHour && openingHour.length !== 1 || openingHour[0] != 'null') {
-            <div class="profile-info-div mt-3" style="padding: 9%">
-              <div
-                class="d-block text-center text-md-left d-md-flex p-3  timing-cont"
-              >
-                <span style="font-size: 22px; font-weight: 600; color: black"
-                  >Business Open Hours :</span
+          @if (openingHour && openingHour.length) {
+            @if (
+              (openingHour && openingHour.length !== 1) ||
+              openingHour[0] != 'null'
+            ) {
+              <div class="profile-info-div mt-3" style="padding: 9%">
+                <div
+                  class="d-block text-center text-md-left d-md-flex p-3 timing-cont"
                 >
-                <div class="media-body">
-                  <p *ngFor="let time of openingHour" class="mt-0">
-                    @if (time != 'null' && time != "undefined") {
-                      <div class='row ' [innerHTML]="businessService.hourFormat(time)" ></div>
-                    }
-                  </p>
+                  <span style="font-size: 22px; font-weight: 600; color: black"
+                    >Business Open Hours :</span
+                  >
+                  <div class="media-body">
+                    <p *ngFor="let time of openingHour" class="mt-0">
+                      @if (time != 'null' && time != 'undefined') {
+                        <div
+                          class="row"
+                          [innerHTML]="businessService.hourFormat(time)"
+                        ></div>
+                      }
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
           }
-        }
+        </div>
       </div>
     </div>
-  </div>
-</section>
-@if (businessFormDetails?.final_submission == '0') {
-  <div class="row" style="background-color: #fffbf5; padding: 35px">
-    <button class="mx-2 btn orange-background-btn" (click)="editBusiness()">
-      Edit
-    </button>
-    <button class="mx-2 btn orange-background-btn" (click)="addBusiness()">
-      Submit
-    </button>
-  </div>
-}
-<!-- </div> -->
+  </section>
+  @if (businessFormDetails?.final_submission == '0') {
+    <div class="row" style="background-color: #fffbf5; padding: 35px">
+      <button class="mx-2 btn orange-background-btn" (click)="editBusiness()">
+        Edit
+      </button>
+      <button class="mx-2 btn orange-background-btn" (click)="addBusiness()">
+        Submit
+      </button>
+    </div>
+  }
+  <!-- </div> -->
 }

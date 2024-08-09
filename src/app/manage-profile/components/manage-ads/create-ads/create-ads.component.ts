@@ -21,7 +21,7 @@ import {
 import { LoaderComponent } from 'src/app/common-ui'
 import { COUNTRY_DATA } from '@vietlist/shared'
 import { Location, TitleCasePipe } from '@angular/common'
-
+import { SkeletonLoadingComponent } from 'src/app/common-ui/skeleton-loading/skeleton-loading.component'
 @Component({
   selector: 'app-create-ads',
   standalone: true,
@@ -34,6 +34,7 @@ import { Location, TitleCasePipe } from '@angular/common'
     LoaderComponent,
     FormsModule,
     TitleCasePipe,
+    SkeletonLoadingComponent,
   ],
   templateUrl: './create-ads.component.html',
   styleUrl: './create-ads.component.scss',
@@ -69,6 +70,7 @@ export class CreateAdsComponent {
   public locationLoading: boolean = false
   public isLoader: boolean = false
   public isSubscribed: boolean = false
+  loader: boolean = false
   public billingModelType = [
     { name: 'Click', value: 'CPC' },
     { name: 'Views', value: 'CPV' },
@@ -120,11 +122,12 @@ export class CreateAdsComponent {
       this.getAdById()
     }
   }
-
   handleUserSubscriptionCheck() {
+    this.loader = true
     this.profileService.userDetails().subscribe({
       next: (res) => {
-        if (res?.data.level_id) {
+        this.loader = false
+        if (res?.data?.user?.level_id) {
           this.isSubscribed = true
         } else {
           this.isSubscribed = false
@@ -132,6 +135,7 @@ export class CreateAdsComponent {
       },
       error: (err) => {
         this.isSubscribed = false
+        this.loader = false
       },
     })
   }

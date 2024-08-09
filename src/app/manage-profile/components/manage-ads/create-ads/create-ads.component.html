@@ -1,11 +1,11 @@
-@if(!isSubscribed  ){
+@if(!isSubscribed && !loader  ){
   <div class="text-center my-5">
     <h4 class="no-records-found-2">oops you don't have any subscription !</h4>
     <button class="mt-6 btn btn-link " (click)="goToSubscriptionPage()" >
       Get subscription
     </button>
   </div>
-}@else {
+}@else if(!loader) {
 
   <h3 class="dashboard-heading">Create new Ad</h3>
   <div class="container-fluid mt-3 g-0">
@@ -250,4 +250,9 @@
       </div>
     </form>
   </div>
+} @else {
+      <app-skeleton-loading height="25px" ></app-skeleton-loading>
+    <div class='mt-3' >
+      <app-skeleton-loading height="200px"></app-skeleton-loading>
+    </div>
 }
