@@ -57,7 +57,7 @@ export class BillingAddressComponent {
   public selectedTagsString = ''
   public street = ''
   public billingInfo: FormGroup
-  public contact_details: any
+  // public contact_details: any
   public isLoader: boolean = false
   @ViewChild('phoneEle') phoneEle: any
   selectedCountry: CountryISO = CountryISO.UnitedStates
@@ -82,6 +82,7 @@ export class BillingAddressComponent {
       ],
       company_id: [''],
       company: ['', Validators.required],
+      contact_details: ['', Validators.required],
     })
   }
 
@@ -120,6 +121,7 @@ export class BillingAddressComponent {
   }
 
   public addBillingAddress() {
+    console.log(this.billingInfo.get('contact_details'), 'sknsknsknskn')
     this.isLoader = true
     const body = {
       pmpro_bfirstname: this.billingInfo.value.pmpro_bfirstname,
@@ -129,8 +131,8 @@ export class BillingAddressComponent {
       pmpro_bcountry: this.country,
       pmpro_bstate: this.state,
       pmpro_bzipcode: this.zipcode,
-      pmpro_bphone: this.contact_details?.nationalNumber,
-      country_code: this.contact_details?.dialCode,
+      pmpro_bphone: this.billingInfo.value.contact_details?.nationalNumber,
+      country_code: this.billingInfo.value.contact_details?.dialCode,
       company: this.billingInfo.value.company,
       company_id: this.billingInfo.value.company_id,
       other_email_addresses: this.billingInfo.value.other_email_addresses,
@@ -177,13 +179,14 @@ export class BillingAddressComponent {
           other_email_addresses: res.data.other_email_addresses || '', // Assign the value from the response or an empty string if not available
           company_id: res.data.company_id || '', // Assign the value from the response or an empty string if not available
           company: res.data.company || '', // Assign the value from the response or an empty string if not available
+          contact_details: res.data.pmpro_bphone || '', // Assign the value from the response or an empty string if not available
         })
         ;(this.state = res.data.pmpro_bstate),
           (this.country = res.data.pmpro_bcountry),
-          (this.contact_details = res.data.pmpro_bphone),
           (this.street = res.data.pmpro_baddress1),
           (this.city = res.data.pmpro_bcity),
           (this.zipcode = res.data.pmpro_bzipcode)
+        this.setCountryByDialCode(res.data.country_code)
       },
     })
   }
