@@ -91,8 +91,6 @@ export class BillingAddressComponent {
   }
 
   public getAddress(place: any) {
-    console.log(place, 'plaaaaaaadkdnkdkdknkn')
-    console.log(place)
     this.fullAddress = place.formatted_address
     this.street = place.formatted_address
     this.state = ''
@@ -100,22 +98,29 @@ export class BillingAddressComponent {
     this.city = ''
     this.zipcode = ''
     const array = place
-    array.address_components.forEach((element: any) => {
-      element.types.forEach((type: any) => {
-        if (type == 'country') {
-          this.country = element.short_name
-        }
-        if (type == 'administrative_area_level_3') {
-          this.city = element.short_name
-        }
-        if (type == 'postal_code') {
-          this.zipcode = element.long_name
-        }
-        if (type == 'administrative_area_level_1') {
-          this.state = element.short_name
-        }
-      })
-    })
+
+    let address = array.address_components.reduce((acc: any, curr: any) => {
+      let type = curr.types[0]
+      if (type == 'administrative_area_level_1') {
+        acc['state'] = [curr.short_name, curr.long_name]
+      }
+      if (type == 'country') {
+        acc['country'] = curr.short_name
+      }
+      if (type == 'administrative_area_level_3') {
+        acc['city'] = curr.short_name
+      }
+      if (type == 'postal_code') {
+        acc['city'] = curr.long_name
+      }
+      return acc
+    }, {})
+
+    this.country = address?.country
+    this.state =
+      address?.country == 'US' ? address?.state?.[0] : address?.state?.[1]
+    this.zipcode = address?.zipcode
+    this.city = address?.city
 
     this.cd.detectChanges()
   }
