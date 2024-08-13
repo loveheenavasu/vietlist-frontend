@@ -137,9 +137,9 @@ export class ManageProfileComponent {
       case this.currentPath === '/manage-profile/subscription':
         this.pageTitle = 'Manage Subscriptions'
         break
-      case this.currentPath === '/manage-profile/billing-address':
-        this.pageTitle = 'Manage Billing Address'
-        break
+      // case this.currentPath === '/manage-profile/billing-address':
+      //   this.pageTitle = 'Manage Billing Address'
+      //   break
       case this.currentPath === '/manage-profile/manage-bookings':
         this.pageTitle = 'My Bookings'
         break
@@ -254,7 +254,7 @@ export class ManageProfileComponent {
                 tab.label !== 'Ads' &&
                 tab.label !== 'My Business' &&
                 tab.label !== 'Subscriptions' &&
-                tab.label !== 'Billing Address' &&
+                // tab.label !== 'Billing Address' &&
                 tab.label !== 'Privacy' &&
                 tab.label !== 'Notifications' &&
                 tab.label !== 'Invoices' &&
@@ -295,7 +295,7 @@ export class ManageProfileComponent {
                 tab.label !== 'Ads' &&
                 tab.label !== 'My Business' &&
                 tab.label !== 'Subscriptions' &&
-                tab.label !== 'Billing Address' &&
+                // tab.label !== 'Billing Address' &&
                 tab.label !== 'Privacy' &&
                 tab.label !== 'Notifications' &&
                 tab.label !== 'Invoices' &&

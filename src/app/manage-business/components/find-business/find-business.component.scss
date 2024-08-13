@@ -6,18 +6,14 @@
     height: 100%;
 }
 
-.container-fluid {
+// .container-fluid {
 
-    margin-top: 8rem;
+//     margin-top: 8rem;
 
-    .row {
-        width: 100%;
-    }
-}
-
-.form-container {
-    // border:solid 1px red;
-}
+//     .row {
+//         width: 100%;
+//     }
+// }
 
 .btn-orange {
     background-color: var(--primary-color-orange);
@@ -92,6 +88,7 @@
     background-color: transparent !important;
     // color: var(--white) !important;
 }
+
 
 .category-listing-wrapper {
     // height: calc(100vh - 310px);

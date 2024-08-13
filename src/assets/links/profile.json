@@ -25,11 +25,6 @@
     "url": "/manage-profile/subscription"
   },
   {
-    "label": "Billing Address",
-    "icon": "fa fa-credit-card-alt",
-    "url": "/manage-profile/billing-address"
-  },
-  {
     "label": "My Bookings",
     "icon": "fa fa-calendar-o",
     "url": "/manage-profile/manage-bookings"
