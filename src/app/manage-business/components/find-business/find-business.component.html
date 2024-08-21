@@ -192,12 +192,8 @@
                       <h2 (click)="gotToListing(item, true)">
                         {{ item.post_title }}
                       </h2>
-                      <span>
-                        {{
-                          item.post_content?.length > 200
-                            ? item.post_content.slice(0, 200) + '...'
-                            : item.post_content
-                        }}</span
+                      <span [innerHTML]="item?.post_content | truncateHtml: 200">
+                      </span
                       >
                     </div>
                     <div class="business-package">
@@ -288,12 +284,7 @@
                             >{{ item.post_title }}</a
                           >
                         </h2>
-                        <span>
-                          {{
-                            item.post_content?.length > 140
-                              ? item.post_content.slice(0, 140) + '...'
-                              : item.post_content
-                          }}
+                        <span [innerHTML]="item.post_content | truncateHtml: 140" >
                         </span>
                       </div>
                       <div class="business-list-package">
