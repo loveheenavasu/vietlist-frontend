@@ -99,7 +99,7 @@ export class BusinessDetailsComponent {
   public isReplycomFieldOpen: boolean = false
   public replyIndex: number = -1
   public replyIndexshow: number = -1
-  public isAuthentecate: boolean = true
+  public isAuthentecate: boolean = false
   public slectedvalue: boolean = false
   public storValues: any
   public userDetail: any
