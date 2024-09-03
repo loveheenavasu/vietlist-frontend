@@ -224,7 +224,7 @@ export class AddEventComponent {
               icon: 'warning',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.addEventForm.get('number_of_bookings')?.setValue('')
@@ -287,7 +287,7 @@ export class AddEventComponent {
     //       icon: 'warning',
     //       position: 'top-right',
     //       showConfirmButton: false,
-    //       timer: 3000,
+    //       timer: 10000,
     //       timerProgressBar: true,
     //     })
     //     // this.router.navigateByUrl('/register')
@@ -329,7 +329,7 @@ export class AddEventComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -479,7 +479,7 @@ export class AddEventComponent {
   //         icon: 'error',
   //         position: 'top-right',
   //         showConfirmButton: false,
-  //         timer: 3000,
+  //         timer: 10000,
   //         timerProgressBar: true,
   //       })
   //       return
@@ -495,7 +495,7 @@ export class AddEventComponent {
   //         icon: 'error',
   //         position: 'top-right',
   //         showConfirmButton: false,
-  //         timer: 3000,
+  //         timer: 10000,
   //         timerProgressBar: true,
   //       })
   //       return
@@ -661,7 +661,7 @@ export class AddEventComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.router.navigateByUrl('/manage-profile/manage-events')
@@ -686,7 +686,7 @@ export class AddEventComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.router.navigateByUrl('/manage-profile/manage-events')

@@ -97,7 +97,7 @@ export class PlanComponent {
           icon: 'error',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.router.navigateByUrl('/login')
@@ -131,7 +131,7 @@ export class PlanComponent {
               icon: 'error',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
           }

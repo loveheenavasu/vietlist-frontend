@@ -56,7 +56,7 @@ export class NotificationPageComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.getNotifications()
@@ -85,7 +85,7 @@ export class NotificationPageComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },
@@ -112,7 +112,7 @@ export class NotificationPageComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },
@@ -228,7 +228,7 @@ export class NotificationPageComponent {
         //   icon: 'success',
         //   position: 'top-right',
         //   showConfirmButton: false,
-        //   timer: 3000,
+        //   timer: 10000,
         //   timerProgressBar: true,
         // })
         this.getNotifications()

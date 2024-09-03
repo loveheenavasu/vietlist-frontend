@@ -189,8 +189,7 @@
                       </div>
                     </div>
                     <div class="business-tile">
-                      <h2 (click)="gotToListing(item, true)">
-                        {{ item.post_title }}
+                      <h2 (click)="gotToListing(item, true)"  [innerHTML]="item.post_title | truncateHtml: 31" >
                       </h2>
                       <span [innerHTML]="item?.post_content | truncateHtml: 200">
                       </span

@@ -35,7 +35,7 @@ export class ChangePasswordComponent {
   public email: string //
   public isHidePassword: boolean = false
   public changePassword: FormGroup
-  public isHideOldPassword:boolean = true
+  public isHideOldPassword: boolean = true
   /**
    *
    * @param profileDetail
@@ -52,11 +52,16 @@ export class ChangePasswordComponent {
     this.changePassword = this.fb.group(
       {
         old_password: ['', Validators.required],
-        new_password:  
-        ['', [Validators.required, Validators.minLength(6),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/
-          ),]],
+        new_password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/,
+            ),
+          ],
+        ],
         confirm_password: ['', [Validators.required]],
       },
       {
@@ -96,7 +101,7 @@ export class ChangePasswordComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       },
@@ -112,7 +117,7 @@ export class ChangePasswordComponent {
     this.isHideConfirmPassword = !this.isHideConfirmPassword
   }
 
-  hideOldPassword(){
+  hideOldPassword() {
     this.isHideOldPassword = !this.isHideOldPassword
   }
 }

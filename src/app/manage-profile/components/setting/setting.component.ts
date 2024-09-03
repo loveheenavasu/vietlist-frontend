@@ -1,6 +1,11 @@
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FullPageLoaderService } from './../../../shared/utils/services/loader.service'
-import { Component, CUSTOM_ELEMENTS_SCHEMA, DestroyRef, inject } from '@angular/core'
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DestroyRef,
+  inject,
+} from '@angular/core'
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import Swal from 'sweetalert2'
@@ -26,7 +31,7 @@ export class SettingComponent {
   public Subscription: boolean = true
   public delete_account: boolean = true
   public business_listing: boolean = true
-  public sync_listing:boolean = true
+  public sync_listing: boolean = true
   public profileView = new FormControl()
   public isLoader: boolean = false
   public userDetails: any
@@ -40,11 +45,11 @@ export class SettingComponent {
 
   ngOnInit() {
     this.getAllowedNotification()
-    this.authService.userDetailResponse.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((res) => {
-      this.userDetails = res
-    })
+    this.authService.userDetailResponse
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res) => {
+        this.userDetails = res
+      })
   }
 
   valueChange(event: any) {
@@ -66,11 +71,11 @@ export class SettingComponent {
       Subscription: this.Subscription ? 1 : 0,
       delete_account: this.delete_account ? 1 : 0,
       business_listing: this.business_listing ? 1 : 0,
-      sync_listing:this.sync_listing ? 1 : 0
+      sync_listing: this.sync_listing ? 1 : 0,
     }
-    
+
     if (this.userDetails?.user_role === Roles.realEstate) {
-      body.sync_listing = this.sync_listing ? 1 : 0;
+      body.sync_listing = this.sync_listing ? 1 : 0
     }
     this.profileService.allowNotificationSetting(body).subscribe({
       next: (res) => {
@@ -85,7 +90,7 @@ export class SettingComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       },

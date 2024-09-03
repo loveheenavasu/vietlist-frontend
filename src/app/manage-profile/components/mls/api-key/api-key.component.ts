@@ -66,7 +66,7 @@ export class ApiKeyComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },
@@ -90,7 +90,7 @@ export class ApiKeyComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.router.navigateByUrl('/manage-profile/all-synced-listing')

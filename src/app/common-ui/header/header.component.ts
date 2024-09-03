@@ -197,7 +197,7 @@ export class HeaderComponent {
           icon: 'warning',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         // this.router.navigateByUrl('/manage-profile')
@@ -251,7 +251,7 @@ export class HeaderComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
       this.router.navigateByUrl('/subscription-plans')
@@ -479,6 +479,14 @@ export class HeaderComponent {
       const anchorTag = document.getElementsByClassName(
         'VIpgJd-ZVi9od-xl07Ob-lTBxed',
       )[0]
+      const translatorLoader = document.getElementsByClassName(
+        'VIpgJd-ZVi9od-aZ2wEe-wOHMyf',
+      )[0]
+
+      if (translatorLoader) {
+        translatorLoader.remove()
+      }
+
       const popup = document.getElementById('goog-gt-tt')
       if (popup) {
         popup.remove()

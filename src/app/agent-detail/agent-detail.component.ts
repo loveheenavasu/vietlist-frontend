@@ -174,7 +174,7 @@ export class AgentDetailComponent {
         icon: 'warning',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {

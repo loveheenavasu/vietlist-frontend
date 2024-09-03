@@ -299,7 +299,7 @@ export class CreateAdsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         }).then(() => this.router.navigate(['/manage-profile/manage-ads']))
       },
@@ -336,7 +336,7 @@ export class CreateAdsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         console.log('check update ad response', res)

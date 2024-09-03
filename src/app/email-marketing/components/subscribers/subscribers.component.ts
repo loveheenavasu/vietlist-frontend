@@ -160,7 +160,7 @@ export class SubscribersComponent implements OnInit {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.updateSubscriberStatus(res?.subscriber_id)

@@ -105,13 +105,14 @@
 }
 
 .business-img {
-    max-height: 350px;
+    max-height: 330px;
+    min-height: 330px;
     object-fit: contain;
     width: 100%;
     position: relative;
 
     img {
-        height: 350px !important;
+        height: 330px !important;
         width: 100%;
     }
 

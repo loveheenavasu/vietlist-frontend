@@ -62,7 +62,6 @@ export class LoginComponent {
     private localStorage: LocalStorageService,
     private authenticationService: AuthenticationService,
   ) {
-
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -104,10 +103,10 @@ export class LoginComponent {
           this.authenticationService.setAuthenticationStatusTrue(res.data.token)
           this.localStorage.saveData('loginInfo', JSON.stringify(res.data.user))
           this.authenticationService.setSubscriptonStatus(res.data.user.status)
-          if(res){
+          if (res) {
             this.authenticationService.notificationAUth.next(true)
           }
-         
+
           if (
             res.data.user.user_role == Roles.businessOwner &&
             res.data.user.status == 'inactive'
@@ -118,7 +117,11 @@ export class LoginComponent {
             res.data.user.status == UserStatus.Active
           ) {
             this.router.navigateByUrl('/manage-profile')
-          } else if (res.data.user.user_role == Roles.subscriber || Roles.broker || Roles.realEstate) {
+          } else if (
+            res.data.user.user_role == Roles.subscriber ||
+            Roles.broker ||
+            Roles.realEstate
+          ) {
             this.router.navigateByUrl('/manage-profile')
           }
 
@@ -129,7 +132,7 @@ export class LoginComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },

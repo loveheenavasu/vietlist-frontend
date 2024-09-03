@@ -120,7 +120,6 @@ export class SubscriptionFormComponent {
       tiktok: [
         '',
         [
-
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -130,7 +129,6 @@ export class SubscriptionFormComponent {
       youtube: [
         '',
         [
-
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -139,7 +137,6 @@ export class SubscriptionFormComponent {
       whatsapp: [
         '',
         [
-  
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -148,7 +145,6 @@ export class SubscriptionFormComponent {
       reddit: [
         '',
         [
-       
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -157,7 +153,6 @@ export class SubscriptionFormComponent {
       snapchat: [
         '',
         [
-
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -166,7 +161,6 @@ export class SubscriptionFormComponent {
       linkedin: [
         '',
         [
-
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
@@ -175,13 +169,11 @@ export class SubscriptionFormComponent {
       pinterest: [
         '',
         [
- 
           Validators.pattern(
             /^((https?|HTTPS?):\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()+,;=%]\??[^#\s]*)?$/i,
           ),
         ],
       ],
-
     })
     this.authService.userDetails.subscribe((res: any) => {
       this.hidefileds = res
@@ -270,7 +262,7 @@ export class SubscriptionFormComponent {
             //   icon: 'success',
             //   position: 'top-right',
             //   showConfirmButton: false,
-            //   timer: 3000,
+            //   timer: 10000,
             //   timerProgressBar: true,
             // })
           }

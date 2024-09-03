@@ -25,3 +25,19 @@ export function clearSavedFilter() {
   ]
   valuesForLocalStorageKey.forEach((key) => localStorage.removeItem(key))
 }
+
+export function formatDateAndTime(utcTimeString: string) {
+  const utcDate = new Date(utcTimeString + 'Z')
+
+  const formattedDate = utcDate.toLocaleString('en-US', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  })
+  return formattedDate
+}

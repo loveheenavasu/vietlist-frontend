@@ -22,8 +22,8 @@ export class ManageSubscriptionComponent {
     private loaderService: FullPageLoaderService,
     private planService: PlansService,
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService,
+  ) {}
 
   ngOnInit() {
     this.fetchProfileDetail()
@@ -39,7 +39,7 @@ export class ManageSubscriptionComponent {
           this.userDetails = res?.data?.user
         }
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
 
@@ -51,10 +51,9 @@ export class ManageSubscriptionComponent {
         this.subscriptionDetails = res.data
         this.subscriptionDetails.invoice_detail.forEach((element: any) => {
           element.formattedTimeStamp = element.timestamp.split(' ')[0]
-        });
-      }, error: (err) => {
-
-      }
+        })
+      },
+      error: (err) => {},
     })
   }
 
@@ -82,16 +81,15 @@ export class ManageSubscriptionComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.authenticationService.setSubscriptonStatus('inactive')
             this.router.navigate(['/'])
-          }
+          },
         })
       }
     })
-
   }
 
   public handleLogout() {

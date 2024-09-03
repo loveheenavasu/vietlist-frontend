@@ -1,4 +1,4 @@
-import { LoaderComponent } from 'src/app/common-ui';
+import { LoaderComponent } from 'src/app/common-ui'
 import { ViewCouponComponent } from './../view-coupon/view-coupon.component'
 import { FullPageLoaderService } from './../../../../shared/utils/services/loader.service'
 import { MatSelectModule } from '@angular/material/select'
@@ -22,8 +22,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { CouponService } from '../service/coupon.service'
 import Swal from 'sweetalert2'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subject, takeUntil } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { Subject, takeUntil } from 'rxjs'
 
 @Component({
   selector: 'app-coupon-list',
@@ -39,7 +39,7 @@ import { Subject, takeUntil } from 'rxjs';
     MatSelectModule,
     DatePipe,
     NgxPaginationModule,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './coupon-list.component.html',
   styleUrl: './coupon-list.component.scss',
@@ -60,13 +60,13 @@ export class CouponListComponent {
   public totalPages: number = 0
   public isLoading: boolean = false
   private destroy$ = new Subject<void>()
-  
+
   constructor(
     private dialog: MatDialog,
     private couponService: CouponService,
     private fb: FormBuilder,
     private fullpageloaderservice: FullPageLoaderService,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.couponForm = this.fb.group({
       coupon_code: ['', Validators.required],
@@ -91,17 +91,15 @@ export class CouponListComponent {
     this.screensize = event.target.innerWidth
   }
 
-  
   addCoupon() {
-    this.couponForm.reset();
-    this.dialogData = null;
-    this.dialogData = '';  
+    this.couponForm.reset()
+    this.dialogData = null
+    this.dialogData = ''
     this.dialogRef = this.dialog.open(this.secondDialog, {
       width: '45%',
       height: 'auto',
-    });
+    })
   }
-  
 
   public createCoupon() {
     this.isLoading = true
@@ -125,7 +123,7 @@ export class CouponListComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.isLoading = false
@@ -144,7 +142,7 @@ export class CouponListComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.isLoading = false
@@ -160,16 +158,19 @@ export class CouponListComponent {
 
   public getCoupons() {
     this.fullpageloaderservice.showLoader()
-    this.couponService.getCoupon(this.postPerPage, this.currentPage).pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res) => {
-        this.couponsArr = res.data
-        this.totalCount = res.total_count
-        this.fullpageloaderservice.hideLoader()
-      },
-      error: (err) => {
-        this.fullpageloaderservice.hideLoader()
-      },
-    })
+    this.couponService
+      .getCoupon(this.postPerPage, this.currentPage)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          this.couponsArr = res.data
+          this.totalCount = res.total_count
+          this.fullpageloaderservice.hideLoader()
+        },
+        error: (err) => {
+          this.fullpageloaderservice.hideLoader()
+        },
+      })
   }
 
   public delete(id: any) {
@@ -192,7 +193,7 @@ export class CouponListComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.getCoupons()
@@ -231,10 +232,8 @@ export class CouponListComponent {
     })
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
   }
-
-
 }

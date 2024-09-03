@@ -4,7 +4,11 @@ import { Router } from '@angular/router'
 import { Component, Inject } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog'
 import { MatIconModule } from '@angular/material/icon'
 
 import { FormControlValidationDirective } from 'src/app/shared/utils/directives/control-validation.directive'
@@ -46,20 +50,24 @@ export class ForgotPasswordComponent {
     Validators.pattern('^[0-9]{4}$'), // Pattern to allow only 4 digits
   ])
   public otpToken: any
-  public password:any = new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/
-  )])
+  public password: any = new FormControl('', [
+    Validators.required,
+    Validators.minLength(6),
+    Validators.pattern(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#!%*?&])[A-Za-z\d@$!%*#?&]+$/,
+    ),
+  ])
   public hideOTP: boolean = true
   public loader: boolean = false
   public isResentOTP: boolean = false
 
   /**
-   * 
-   * @param matDialogRef 
-   * @param dialog 
-   * @param router 
-   * @param authService 
-   * @param fb 
+   *
+   * @param matDialogRef
+   * @param dialog
+   * @param router
+   * @param authService
+   * @param fb
    */
   constructor(
     public matDialogRef: MatDialogRef<ForgotPasswordComponent>,
@@ -68,7 +76,6 @@ export class ForgotPasswordComponent {
     private authService: AuthService,
     private fb: FormBuilder,
   ) {
-    
     this.forgotPasswordForm = this.fb.group({
       email: [
         '',
@@ -81,7 +88,7 @@ export class ForgotPasswordComponent {
     })
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.updateSize()
   }
 
@@ -114,7 +121,7 @@ export class ForgotPasswordComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           if (res) {
@@ -134,7 +141,7 @@ export class ForgotPasswordComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     }
@@ -179,7 +186,7 @@ export class ForgotPasswordComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.matDialogRef.close()
@@ -214,7 +221,7 @@ export class ForgotPasswordComponent {
     }
   }
 
- public validateEmailFormat() {
+  public validateEmailFormat() {
     const emailControl: any = this.forgotPasswordForm.get('email')
     if (emailControl.touched && emailControl.value) {
       const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
@@ -228,7 +235,7 @@ export class ForgotPasswordComponent {
     }
   }
 
-  public updateSize(){
-    this.matDialogRef.updateSize('600px' , '330px')
+  public updateSize() {
+    this.matDialogRef.updateSize('600px', '330px')
   }
 }

@@ -153,9 +153,9 @@
           </div>
           <div class="listing-img-info">
             <div class="listing-heading" (click)="gotToEventDetails(key, true)">
-              <h3 [innerHtml]="key?.post_title | truncateHtml:84">
+              <h4 [innerHtml]="key?.post_title | truncateHtml:84" style='font-size: 16px;' >
                 <!-- {{ key.post_title }} -->
-              </h3>
+              </h4>
             </div>
             <div class="listing-info">
               <li [innerHtml]="key?.post_content | truncateHtml:84"></li>

@@ -8,7 +8,13 @@ import {
   Validators,
 } from '@angular/forms'
 import { HttpClient } from '@angular/common/http'
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core'
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatSelectModule } from '@angular/material/select'
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha'
@@ -43,13 +49,13 @@ export class PromotionsFormComponent {
     this.businessFormDetails = value || undefined
     this.cdr.detectChanges()
     this.promotions?.patchValue({
-      physical_accessibility: value?.physical_accessibility ,
-      digital_accessibility: value?.digital_accessibility ,
-      choose_layout:value?.choose_layout,
-      promotions_field:value?.promotions_field,
-      event_id:value?.event_id ,
-      faq:value?.faq,
-      business_ownerassociate:value?.business_ownerassociate
+      physical_accessibility: value?.physical_accessibility,
+      digital_accessibility: value?.digital_accessibility,
+      choose_layout: value?.choose_layout,
+      promotions_field: value?.promotions_field,
+      event_id: value?.event_id,
+      faq: value?.faq,
+      business_ownerassociate: value?.business_ownerassociate,
       // twitter: value?.twitter,
     })
   }
@@ -69,7 +75,7 @@ export class PromotionsFormComponent {
   public postId: any
   public eliteUserOnly?: any
   public businessFormDetails: any
-  public currentRoute:any
+  public currentRoute: any
 
   constructor(
     private http: HttpClient,
@@ -79,13 +85,13 @@ export class PromotionsFormComponent {
     private localstorage: LocalStorageService,
     private eventService: EventService,
     private authService: AuthenticationService,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.promotions = this.fb.group({
       createEvent: [''],
       faq: [''],
-      physical_accessibility: ['' , [Validators.maxLength(254)]],
-      digital_accessibility: ['' , [Validators.maxLength(254)]],
+      physical_accessibility: ['', [Validators.maxLength(254)]],
+      digital_accessibility: ['', [Validators.maxLength(254)]],
       upload_certificates: [''],
       business_ownerassociate: [''],
       choose_layout: [''],
@@ -99,9 +105,7 @@ export class PromotionsFormComponent {
     const id = localstorage.getData('postId')
     this.postId = Number(id)
 
-    this.currentRoute = this.router.url;
-
-
+    this.currentRoute = this.router.url
   }
 
   ngOnInit() {
@@ -144,9 +148,7 @@ export class PromotionsFormComponent {
     })
   }
 
-  public resolved(captchaResponse: string | null) {
-    
-  }
+  public resolved(captchaResponse: string | null) {}
 
   public getAddedEvents() {
     this.eventService.getEventsByUserId().subscribe({
@@ -156,8 +158,6 @@ export class PromotionsFormComponent {
       error: (err) => {},
     })
   }
-
-
 
   public handleFinalSubmission() {
     this.isLoader = true
@@ -177,7 +177,7 @@ export class PromotionsFormComponent {
         : 0,
       event_id: this.promotions.value.event_id,
     }
-    if(this.currentRoute?.includes('edit-business')){
+    if (this.currentRoute?.includes('edit-business')) {
       this.businessService.updateBusiness(body).subscribe({
         next: (res) => {
           this.isLoader = false
@@ -189,7 +189,7 @@ export class PromotionsFormComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.localstorage.removeData('postId')
@@ -202,35 +202,35 @@ export class PromotionsFormComponent {
           }
         },
       })
-    }else{
-    this.businessService.addBusiness(body).subscribe({
-      next: (res) => {
-        this.isLoader = false
-        if (res) {
-          Swal.fire({
-            toast: true,
-            text: 'Your business has been added successfully.',
-            animation: false,
-            icon: 'success',
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-          })
-          this.localstorage.removeData('postId')
-          this.localstorage.removeData('isSubscriptionFormFilled')
-          this.localstorage.removeData('isBusinessFormFilled')
-          this.localstorage.removeData('isBusinessBioFormFilled')
-          this.localstorage.removeData('isConsultationFormFilled')
-          this.router.navigateByUrl('/manage-profile/my-business')
-          this.router.navigateByUrl('/manage-profile/my-business')
-        }
-      },
-      error:(err)=>{
-        this.isLoader = false
-      }
-    })
-  }
+    } else {
+      this.businessService.addBusiness(body).subscribe({
+        next: (res) => {
+          this.isLoader = false
+          if (res) {
+            Swal.fire({
+              toast: true,
+              text: 'Your business has been added successfully.',
+              animation: false,
+              icon: 'success',
+              position: 'top-right',
+              showConfirmButton: false,
+              timer: 10000,
+              timerProgressBar: true,
+            })
+            this.localstorage.removeData('postId')
+            this.localstorage.removeData('isSubscriptionFormFilled')
+            this.localstorage.removeData('isBusinessFormFilled')
+            this.localstorage.removeData('isBusinessBioFormFilled')
+            this.localstorage.removeData('isConsultationFormFilled')
+            this.router.navigateByUrl('/manage-profile/my-business')
+            this.router.navigateByUrl('/manage-profile/my-business')
+          }
+        },
+        error: (err) => {
+          this.isLoader = false
+        },
+      })
+    }
   }
 
   public previewBusiness() {
@@ -262,7 +262,7 @@ export class PromotionsFormComponent {
         // this.localStorageService.saveData('isBusinessFormFilled', 'true')
         const post_id = res.post_id
         this.businessService.storePostId.next(post_id)
-        this.router.navigate(['/preview-business' , this.postId])
+        this.router.navigate(['/preview-business', this.postId])
         // window.open(`/preview-business/${post_id}`, '_blank')
       },
       error: (err) => {

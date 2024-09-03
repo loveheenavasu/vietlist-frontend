@@ -105,7 +105,6 @@ export class ContactUsComponent {
     this.getstreet = value?.value
   }
 
-  
   onChange(event: any) {
     const phoneNumber = this.contactus.value.phone_number.number
     const phoneControl = this.contactus.get('phone_number')
@@ -113,7 +112,6 @@ export class ContactUsComponent {
       phoneControl.setValue(phoneNumber)
     }
   }
-
 
   public getAddress(place: any) {
     this.fullAddress = place.formatted_address
@@ -169,7 +167,7 @@ export class ContactUsComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },

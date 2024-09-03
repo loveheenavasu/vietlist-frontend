@@ -1,31 +1,46 @@
-import { MatSelectModule } from '@angular/material/select';
-import { Component } from '@angular/core';
-import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
-import { NgxDropzoneModule } from 'ngx-dropzone';
-import { DndModule } from 'ngx-drag-drop';
-import { Location, NgIf } from '@angular/common';
-import { BusinessService } from '../manage-business/service/business.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormControlValidationDirective } from '../shared/utils';
-import { ClaimService } from './claim.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select'
+import { Component } from '@angular/core'
+import {
+  SearchCountryField,
+  CountryISO,
+  PhoneNumberFormat,
+  NgxIntlTelInputModule,
+} from 'ngx-intl-tel-input-gg'
+import { NgxDropzoneModule } from 'ngx-dropzone'
+import { DndModule } from 'ngx-drag-drop'
+import { Location, NgIf } from '@angular/common'
+import { BusinessService } from '../manage-business/service/business.service'
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms'
+import { FormControlValidationDirective } from '../shared/utils'
+import { ClaimService } from './claim.service'
+import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { LoaderComponent } from 'src/app/common-ui'
-import { EventService } from '../manage-event/service/event.service';
+import { EventService } from '../manage-event/service/event.service'
 import { scrollToTop } from 'src/app/shared/utils/windowScrolls'
 @Component({
   selector: 'app-claim-listing',
   standalone: true,
-  imports: [NgxIntlTelInputModule, MatSelectModule,
+  imports: [
+    NgxIntlTelInputModule,
+    MatSelectModule,
     NgxDropzoneModule,
-    DndModule, NgIf,
+    DndModule,
+    NgIf,
     FormsModule,
     ReactiveFormsModule,
     FormControlValidationDirective,
-    LoaderComponent
+    LoaderComponent,
   ],
   templateUrl: './claim-listing.component.html',
-  styleUrl: './claim-listing.component.scss'
+  styleUrl: './claim-listing.component.scss',
 })
 export class ClaimListingComponent {
   public separateDialCode = true
@@ -48,24 +63,36 @@ export class ClaimListingComponent {
   public loader: boolean = false
   public claimedStatus: any
 
-  constructor(private businessService: BusinessService, private fb: FormBuilder,
-    private claimService: ClaimService, private _activatedRoute: ActivatedRoute,
-    private eventService: EventService, private router: Router,
-    private location: Location) {
-
+  constructor(
+    private businessService: BusinessService,
+    private fb: FormBuilder,
+    private claimService: ClaimService,
+    private _activatedRoute: ActivatedRoute,
+    private eventService: EventService,
+    private router: Router,
+    private location: Location,
+  ) {
     this.claimBusinessForm = this.fb.group({
       listing_title: ['', Validators.required],
       full_name: ['', Validators.required],
-      email: ['', [Validators.email, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      phone_number: ["", Validators.required]
+      email: [
+        '',
+        [
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
+      phone_number: ['', Validators.required],
     })
 
     this._activatedRoute.params.subscribe((res) => {
       this.postId = res['id']
     })
-    this._activatedRoute.queryParams.subscribe(params => {
-      this.listingTitle = params['listingTitle'];
-      this.claimBusinessForm.controls['listing_title'].setValue(this.listingTitle)
+    this._activatedRoute.queryParams.subscribe((params) => {
+      this.listingTitle = params['listingTitle']
+      this.claimBusinessForm.controls['listing_title'].setValue(
+        this.listingTitle,
+      )
     })
   }
 
@@ -107,7 +134,6 @@ export class ClaimListingComponent {
         // Handle errors
       },
     })
-
   }
 
   public handleClaimBusiness() {
@@ -134,10 +160,10 @@ export class ClaimListingComponent {
             icon: 'error',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
-          this.location.back();
+          this.location.back()
         } else {
           Swal.fire({
             toast: true,
@@ -146,7 +172,7 @@ export class ClaimListingComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         }
@@ -154,29 +180,25 @@ export class ClaimListingComponent {
       },
       error: (err) => {
         this.loader = false
-      }
+      },
     })
-    this.claimBusinessForm.reset();
+    this.claimBusinessForm.reset()
     this.imageUrl = ''
   }
-
 
   public fetchClamiedBusinessStatus() {
     const postId = this.postId
     this.eventService.getClaimBusinessLisiting(postId).subscribe({
       next: (res) => {
         scrollToTop()
-        console.log("check claimed lsiiting", res)
+        console.log('check claimed lsiiting', res)
         this.claimedStatus = res.data
       },
-      error: (err) => {
-
-      }
+      error: (err) => {},
     })
   }
 
   public goToLisiting() {
     this.router.navigateByUrl('/business-listing')
   }
-
 }

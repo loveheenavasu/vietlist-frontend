@@ -48,8 +48,8 @@ export class BusinessBioComponent {
   ) {
     this.businessBioForm = this.fb.group({
       owner_name: ['', Validators.required],
-      business_historybackground: ['' , [Validators.required]],
-      mission__vision: ['' , [Validators.required , Validators.maxLength(254)]],
+      business_historybackground: ['', [Validators.required]],
+      mission__vision: ['', [Validators.required, Validators.maxLength(254)]],
     })
     const id = localstorage.getData('postId')
     this.postId = Number(id)
@@ -87,7 +87,7 @@ export class BusinessBioComponent {
             //   icon: 'success',
             //   position: 'top-right',
             //   showConfirmButton: false,
-            //   timer: 3000,
+            //   timer: 10000,
             //   timerProgressBar: true,
             // })
           }
@@ -110,7 +110,7 @@ export class BusinessBioComponent {
             //   icon: 'success',
             //   position: 'top-right',
             //   showConfirmButton: false,
-            //   timer: 3000,
+            //   timer: 10000,
             //   timerProgressBar: true,
             // })
           }

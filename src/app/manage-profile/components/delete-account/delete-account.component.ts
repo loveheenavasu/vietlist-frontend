@@ -1,4 +1,9 @@
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  Validators,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms'
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthenticationService, FullPageLoaderService } from '@vietlist/shared'
@@ -8,7 +13,7 @@ import { ProfileService } from '../../service/profile.service'
 @Component({
   selector: 'app-delete-account',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './delete-account.component.html',
   styles: `
     p {
@@ -24,7 +29,7 @@ import { ProfileService } from '../../service/profile.service'
   `,
 })
 export class DeleteAccountComponent {
-  public delete_reason = new FormControl('' ,Validators.required)
+  public delete_reason = new FormControl('', Validators.required)
   constructor(
     private profileService: ProfileService,
     private router: Router,
@@ -51,7 +56,7 @@ export class DeleteAccountComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.authenticationService.clearAuthentication()

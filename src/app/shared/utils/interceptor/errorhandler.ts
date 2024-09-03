@@ -23,7 +23,7 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           icon: 'error',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         if (error.error.message === 'Authorization header malformed.') {
@@ -41,7 +41,7 @@ export const ErrorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           icon: 'error',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       }

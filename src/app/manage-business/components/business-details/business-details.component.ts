@@ -237,7 +237,7 @@ export class BusinessDetailsComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
 
@@ -758,7 +758,7 @@ export class BusinessDetailsComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
         },
@@ -806,7 +806,7 @@ export class BusinessDetailsComponent {
         icon: 'warning',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -883,7 +883,7 @@ export class BusinessDetailsComponent {
               icon: 'warning',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
           }
@@ -1001,7 +1001,7 @@ export class BusinessDetailsComponent {
         icon: 'warning',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -1073,7 +1073,7 @@ export class BusinessDetailsComponent {
         icon: 'warning',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {

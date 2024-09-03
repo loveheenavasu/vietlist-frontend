@@ -160,7 +160,7 @@ export class AddVideoComponent implements OnInit {
           icon: 'error',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.videoLimitFull = true
@@ -254,7 +254,7 @@ export class AddVideoComponent implements OnInit {
   //       icon: 'error',
   //       position: 'top-right',
   //       showConfirmButton: false,
-  //       timer: 3000,
+  //       timer: 10000,
   //       timerProgressBar: true,
   //     });
   //     return; // Exit the method if more than 5 videos are selected
@@ -272,7 +272,7 @@ export class AddVideoComponent implements OnInit {
   //       icon: 'error',
   //       position: 'top-right',
   //       showConfirmButton: false,
-  //       timer: 3000,
+  //       timer: 10000,
   //       timerProgressBar: true,
   //     });
   //     console.log(
@@ -322,7 +322,7 @@ export class AddVideoComponent implements OnInit {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
       this.isVideoUploading = {
@@ -453,7 +453,7 @@ export class AddVideoComponent implements OnInit {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
       return
@@ -477,7 +477,7 @@ export class AddVideoComponent implements OnInit {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
           })
@@ -509,7 +509,7 @@ export class AddVideoComponent implements OnInit {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.close()

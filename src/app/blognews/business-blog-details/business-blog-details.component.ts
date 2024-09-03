@@ -14,7 +14,7 @@ import { LoaderComponent } from 'src/app/common-ui'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
 import Swal from 'sweetalert2'
-
+import { formatDateAndTime } from 'src/app/shared/helper'
 @Component({
   selector: 'app-business-blog-details',
   standalone: true,
@@ -45,7 +45,7 @@ export class BusinessBlogDetailsComponent {
   public lastElement: any
   public CheckValues: any
   public userDetailscomment: any
-  public selectedCommentReply: any | null = null;
+  public selectedCommentReply: any | null = null
 
   @ViewChild('blogSwiper') swiperBlog!: ElementRef
 
@@ -56,7 +56,7 @@ export class BusinessBlogDetailsComponent {
     },
 
     on: {
-      init() { },
+      init() {},
     },
   }
   @ViewChild('busniessCategoriesSwiper') swiper!: ElementRef
@@ -73,7 +73,6 @@ export class BusinessBlogDetailsComponent {
     private authService: AuthenticationService,
     private router: Router,
   ) {
-
     this.isAuthenticated = this.authService.isAuthenticated()
 
     let localStorage: any
@@ -87,9 +86,9 @@ export class BusinessBlogDetailsComponent {
     if (localStorage) {
       this.UserId = localStorage.getItem('loginInfo')
 
-      this.userDetailscomment = localStorage.getItem('userDetailscomment');
-      const data = JSON.parse(this.userDetailscomment);
-      this.CheckValues = data?.checkedValue,
+      this.userDetailscomment = localStorage.getItem('userDetailscomment')
+      const data = JSON.parse(this.userDetailscomment)
+      ;(this.CheckValues = data?.checkedValue),
         this.name.setValue(data?.comment_name)
       this.email.setValue(data?.comment_email)
       this.website.setValue(data?.comment_website)
@@ -134,59 +133,59 @@ export class BusinessBlogDetailsComponent {
       },
     },
     on: {
-      init() { },
+      init() {},
     },
   }
   public verifiedImage: {
     image: string
     verified_logo: string
   }[] = [
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-      {
-        image:
-          'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
-        verified_logo: '/assets/image/cta-verfied-img2.svg',
-      },
-    ]
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+    {
+      image:
+        'https://vietlist.biz/staging_dev/wp-content/uploads/2023/10/Virtual-Staging-And-Its-Impact-On-Modern-Real-Estate-Sales-113617143-1-768x439.jpg',
+      verified_logo: '/assets/image/cta-verfied-img2.svg',
+    },
+  ]
 
   ngOnInit() {
     this.isAuthenticated = this.authService.isAuthenticated()
@@ -197,14 +196,14 @@ export class BusinessBlogDetailsComponent {
     }
   }
 
-  ngAfterViewInit() {
-
-    this.cdr.detectChanges()
-    this.showAdBlogPage()
-
+  showFormattedTime(utcString: string) {
+    return formatDateAndTime(utcString)
   }
 
-
+  ngAfterViewInit() {
+    this.cdr.detectChanges()
+    this.showAdBlogPage()
+  }
 
   public editProfile() {
     this.router.navigateByUrl('/manage-profile')
@@ -272,8 +271,6 @@ export class BusinessBlogDetailsComponent {
     })
   }
 
-
-
   public myBrowser() {
     if (
       (navigator.userAgent.indexOf('Opera') ||
@@ -331,8 +328,8 @@ export class BusinessBlogDetailsComponent {
       page_url: currentRoute,
     }
     this.homeService.setStats(body).subscribe({
-      next: (res: any) => { },
-      error: (err) => { },
+      next: (res: any) => {},
+      error: (err) => {},
     })
   }
 
@@ -352,10 +349,10 @@ export class BusinessBlogDetailsComponent {
   }
   public toggleReplyFormShowMore(comment: any) {
     if (this.selectedCommentReply === comment) {
-      this.showReplyFormMore = !this.showReplyFormMore;
+      this.showReplyFormMore = !this.showReplyFormMore
     } else {
-      this.selectedCommentReply = comment;
-      this.showReplyFormMore = true;
+      this.selectedCommentReply = comment
+      this.showReplyFormMore = true
     }
   }
 
@@ -365,9 +362,9 @@ export class BusinessBlogDetailsComponent {
         checkedValue: this.CheckValues,
         comment_name: this.name.value,
         comment_website: this.website.value,
-        comment_email: this.email.value
+        comment_email: this.email.value,
       }
-      const userDetailscommentString = JSON.stringify(userDetailscomment);
+      const userDetailscommentString = JSON.stringify(userDetailscomment)
       localStorage.setItem('userDetailscomment', userDetailscommentString)
     }
     this.isPostComment = true
@@ -392,9 +389,8 @@ export class BusinessBlogDetailsComponent {
       next: (res: any) => {
         this.authService.responseApi.next(true)
         if (res) {
-          this.getComments();
+          this.getComments()
         }
-
 
         this.isPostComment = false
 
@@ -405,7 +401,7 @@ export class BusinessBlogDetailsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.message.setValue('')
@@ -443,9 +439,8 @@ export class BusinessBlogDetailsComponent {
     this.homeService.setReplyBlog(data).subscribe({
       next: (res: any) => {
         if (res) {
-          this.getComments();
+          this.getComments()
         }
-
 
         this.message.setValue('')
         this.website.setValue('')
@@ -458,29 +453,27 @@ export class BusinessBlogDetailsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       },
-      error: (err: any) => { },
+      error: (err: any) => {},
     })
   }
   public valueChange(detailsUser: any) {
     this.CheckValues = detailsUser.target.checked
-
   }
   public getComments() {
     setTimeout(() => {
       this.homeService.getBlogComment(this.blogId).subscribe({
         next: (res: any) => {
           this.loaderService.hideLoader()
-          this.commentArr = res?.data;
-          const lastIndex = this.commentArr.length - 1;
-          this.lastElement = this.commentArr[lastIndex];
+          this.commentArr = res?.data
+          const lastIndex = this.commentArr.length - 1
+          this.lastElement = this.commentArr[lastIndex]
         },
-        error: (err: any) => {
-        },
-      });
+        error: (err: any) => {},
+      })
     }, 2000)
 
     // this.homeService.getBlogComment(this.blogId).subscribe({
@@ -494,16 +487,14 @@ export class BusinessBlogDetailsComponent {
     // })
   }
 
-
-
   public goSignup() {
     this.router.navigate(['/register'])
   }
 
   public scrollTo(elementId: string): void {
-    const element = document.getElementById(elementId);
+    const element = document.getElementById(elementId)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 }

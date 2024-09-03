@@ -250,7 +250,7 @@ export class ConfirmPaymentComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
       return
@@ -272,7 +272,7 @@ export class ConfirmPaymentComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -312,7 +312,7 @@ export class ConfirmPaymentComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.router.navigate(['/manage-profile/my-purchased-leads'])
@@ -348,7 +348,7 @@ export class ConfirmPaymentComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         if (res.data?.status == UserStatus.Active) {
@@ -395,7 +395,7 @@ export class ConfirmPaymentComponent {
             icon: 'success',
             position: 'top-right',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 10000,
             timerProgressBar: true,
           })
           this.isApplyCoupon = false
@@ -434,7 +434,7 @@ export class ConfirmPaymentComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.isApplyCoupon = false
@@ -488,7 +488,7 @@ export class ConfirmPaymentComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
         this.router.navigate(['/thank-you'])

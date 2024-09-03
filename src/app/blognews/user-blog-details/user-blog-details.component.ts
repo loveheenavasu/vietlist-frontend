@@ -15,6 +15,7 @@ import { firstValueFrom, Subject, takeUntil } from 'rxjs'
 import { LoaderComponent } from 'src/app/common-ui'
 import { HomepageService } from 'src/app/landing-page/views/service/homepage.service'
 import { ProfileService } from 'src/app/manage-profile/service/profile.service'
+import { formatDateAndTime } from 'src/app/shared/helper'
 import Swal from 'sweetalert2'
 
 @Component({
@@ -85,7 +86,7 @@ export class UserBlogDetailsComponent {
     },
   }
   public destroy$ = new Subject<void>()
-  
+
   constructor(
     private IpService: ProfileService,
     private authentication: AuthenticationService,
@@ -346,17 +347,20 @@ export class UserBlogDetailsComponent {
   }
   getUserBlog() {
     this.loaderService.showLoader()
-    this.homeService.userBlogs('10', '1').pipe(takeUntil(this.destroy$)).subscribe({
-      next: (res) => {
-        if (res) {
+    this.homeService
+      .userBlogs('10', '1')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.loaderService.hideLoader()
+            this.userdetails = res?.data
+          }
+        },
+        error: (err) => {
           this.loaderService.hideLoader()
-          this.userdetails = res?.data
-        }
-      },
-      error: (err) => {
-        this.loaderService.hideLoader()
-      },
-    })
+        },
+      })
   }
   public valueChange(detailsUser: any) {
     this.CheckValues = detailsUser.target.checked
@@ -474,7 +478,7 @@ export class UserBlogDetailsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       },
@@ -520,12 +524,16 @@ export class UserBlogDetailsComponent {
           icon: 'success',
           position: 'top-right',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 10000,
           timerProgressBar: true,
         })
       },
       error: (err) => {},
     })
+  }
+
+  showFormattedTime(utcString: string) {
+    return formatDateAndTime(utcString)
   }
 
   getComments() {
@@ -548,7 +556,7 @@ export class UserBlogDetailsComponent {
     }
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next()
     this.destroy$.complete()
   }

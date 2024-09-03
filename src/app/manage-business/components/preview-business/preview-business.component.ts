@@ -540,7 +540,7 @@ export class PreviewBusinessComponent {
         icon: 'warning',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -619,7 +619,7 @@ export class PreviewBusinessComponent {
         icon: 'error',
         position: 'top-right',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 10000,
         timerProgressBar: true,
       })
     } else {
@@ -778,7 +778,7 @@ export class PreviewBusinessComponent {
               icon: 'success',
               position: 'top-right',
               showConfirmButton: false,
-              timer: 3000,
+              timer: 10000,
               timerProgressBar: true,
             })
             this.getAllVideosList(this.postId)
