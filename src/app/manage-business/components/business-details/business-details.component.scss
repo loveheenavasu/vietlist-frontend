@@ -1027,3 +1027,14 @@ fieldset:disabled .btn {
 .hour-container{
     display: flex;
 }
+
+
+
+.iconDirection::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .iconDirection {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
